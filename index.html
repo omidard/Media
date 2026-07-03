@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media — GEM-ready growth & simulation media browser</title>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<style>
+  :root{ --primary:#1f8a70; --accent:#e6f4f0; --ink:#17323b; }
+  body{ font-family:'Segoe UI',system-ui,sans-serif; background:#f4f7f6; color:#17323b; }
+  .hero{ background:linear-gradient(135deg,#123f36 0%,#1f8a70 70%,#37b393 100%); color:#fff; padding:2rem 0; }
+  .hero h1{ font-size:1.9rem; font-weight:750; margin:0 0 .3rem; }
+  .hero p{ opacity:.93; margin:0; max-width:820px; }
+  .stat-card{ background:#fff; border-radius:10px; padding:1rem 1.1rem; box-shadow:0 1px 3px rgba(0,0,0,.08); text-align:center; }
+  .stat-card .num{ font-size:1.6rem; font-weight:750; color:var(--primary); } .stat-card .label{ font-size:.78rem; color:#667; text-transform:uppercase; letter-spacing:.4px; }
+  .panel{ background:#fff; border-radius:10px; padding:1rem 1.1rem; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+  .filter-row,.table-wrap{ background:#fff; border-radius:10px; padding:1rem; box-shadow:0 1px 3px rgba(0,0,0,.08); margin-bottom:1rem; }
+  table.dataTable{ font-size:.85rem; } table.dataTable thead th{ background:var(--accent); font-size:.74rem; text-transform:uppercase; letter-spacing:.3px; }
+  .badge-cat{ font-size:.72rem; padding:3px 8px; border-radius:4px; font-weight:600; }
+  a.med-link{ font-weight:600; color:var(--primary); cursor:pointer; }
+  .chart-box{ position:relative; height:230px; }
+  .ov{ position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9999; overflow-y:auto; }
+  .modal-card{ background:#fff; border-radius:12px; max-width:1050px; width:95vw; margin:2rem auto; box-shadow:0 8px 32px rgba(0,0,0,.3); }
+  .modal-head{ padding:1.1rem 1.4rem; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
+  .modal-body{ padding:1rem 1.4rem; max-height:70vh; overflow-y:auto; }
+  .cite{ font-size:.82rem; color:#556; background:#f6faf8; border-left:3px solid var(--primary); padding:.6rem .8rem; border-radius:6px; }
+  .conf-exact{ color:#1a7f4b; font-weight:600; } .conf-inferred{ color:#c77800; } .conf-convention{ color:#8a94a3; }
+  code.cobra{ display:block; white-space:pre-wrap; background:#0f2a24; color:#c9f2e4; padding:.7rem; border-radius:8px; font-size:.78rem; max-height:200px; overflow:auto; }
+  footer{ text-align:center; padding:1.4rem; color:#889; font-size:.8rem; }
+</style>
+</head>
+<body>
+<div class="hero"><div class="container">
+  <h1>Media</h1>
+  <p>A curated, citation-backed library of growth &amp; simulation media for genome-scale metabolic models — every component mapped to a standard BiGG exchange reaction. Browse, inspect provenance, and copy any medium straight into COBRApy.</p>
+</div></div>
+
+<div class="container my-3">
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="s-total">-</div><div class="label">Media</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="s-cat">-</div><div class="label">Categories</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="s-food">-</div><div class="label">Food groups</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="s-exch">-</div><div class="label">Distinct exchanges</div></div></div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-md-5"><div class="panel"><div style="font-weight:700;color:#17323b;margin-bottom:.3rem">Media by category</div><div class="chart-box"><canvas id="ch-cat"></canvas></div></div></div>
+    <div class="col-md-7"><div class="panel"><div style="font-weight:700;color:#17323b;margin-bottom:.3rem">Most common components (media containing each)</div><div class="chart-box"><canvas id="ch-exch"></canvas></div></div></div>
+  </div>
+
+  <div class="filter-row"><div class="row g-2 align-items-end">
+    <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.8rem">Category</label><select id="f-cat" class="form-select form-select-sm"><option value="">All</option></select></div>
+    <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.8rem">Source</label><select id="f-src" class="form-select form-select-sm"><option value="">All</option></select></div>
+    <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.8rem">Food group</label><select id="f-grp" class="form-select form-select-sm"><option value="">All</option></select></div>
+    <div class="col-md-2"><label class="form-label fw-semibold" style="font-size:.8rem">O₂</label><select id="f-o2" class="form-select form-select-sm"><option value="">All</option><option value="1">Aerobic</option><option value="0">Anaerobic</option></select></div>
+    <div class="col-md-1 d-flex align-items-end"><button class="btn btn-sm btn-outline-secondary w-100" onclick="clearF()">Clear</button></div>
+  </div></div>
+
+  <div class="table-wrap">
+    <div id="loading" class="text-center text-muted py-4"><div class="spinner-border text-success"></div><p class="mt-2">Loading media…</p></div>
+    <table id="tbl" class="table table-striped table-hover" style="width:100%;display:none">
+      <thead><tr><th>Medium</th><th>Category</th><th>Organism scope</th><th>O₂</th><th>Components</th><th>In BiGGr</th><th>Source</th><th>Citation</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="text-muted mt-2" style="font-size:.82rem">Click a medium to view its full component list (with cross-references &amp; mapping confidence), copy it as a COBRApy medium, or download it. Data: <a href="DESIGN.md">schema &amp; provenance rules</a>.</div>
+</div>
+
+<footer>Media &middot; <a href="https://github.com/omidard/Media" target="_blank">github.com/omidard/Media</a> &middot; data CC-BY-4.0 (cite each medium's original source) &middot; first of a GEM validation-data resource suite</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+const CAT_COLORS={minimal:'#1f8a70',defined:'#2c6fbb',rich:'#7a3fb8',dietary:'#c77800',biospecimen:'#d0563b',niche:'#6b7684',food:'#37b393'};
+let DATA=[], table;
+function catBadge(c){const col=CAT_COLORS[c]||'#889';return `<span class="badge-cat" style="background:${col}22;color:${col};border:1px solid ${col}44">${c}</span>`;}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+function clearF(){['f-cat','f-src','f-grp','f-o2'].forEach(id=>document.getElementById(id).value='');table.columns().search('').draw();}
+function popF(id,vals){const s=document.getElementById(id);[...new Set(vals)].filter(Boolean).sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});}
+
+Promise.all([fetch('data/index.json').then(r=>r.json()),fetch('data/media_stats.json').then(r=>r.json())]).then(([idx,st])=>{
+  DATA=idx.media;
+  document.getElementById('s-total').textContent=idx.count.toLocaleString();
+  document.getElementById('s-cat').textContent=Object.keys(st.by_category).length;
+  document.getElementById('s-food').textContent=Object.keys(st.by_food_group).length;
+  document.getElementById('s-exch').textContent=st.top_exchanges.length>=40?'400+':st.top_exchanges.length;
+  document.getElementById('loading').style.display='none';
+  document.getElementById('tbl').style.display='table';
+  popF('f-cat',DATA.map(d=>d.category));popF('f-src',DATA.map(d=>d.source_type));popF('f-grp',DATA.map(d=>d.food_group));
+  table=$('#tbl').DataTable({data:DATA,pageLength:25,deferRender:true,order:[[1,'asc'],[0,'asc']],
+    columns:[
+      {data:'name',render:(d,t,r)=>`<a class="med-link" onclick="openMed('${r.id}')">${esc(d)}</a>`},
+      {data:'category',render:catBadge},
+      {data:'organism_scope',render:d=>esc((d||'').slice(0,28))},
+      {data:'aerobic',render:d=>d?'aerobic':'anaerobic'},
+      {data:'n_components',render:d=>Number(d).toLocaleString()},
+      {data:'n_in_biggr',render:d=>Number(d).toLocaleString()},
+      {data:'source_type'},
+      {data:'citation',render:d=>`<span title="${esc(d)}">${esc((d||'').slice(0,60))}${(d||'').length>60?'…':''}</span>`}
+    ],
+    language:{search:'Search:',info:'_START_–_END_ of _TOTAL_ media'}});
+  const fm={'f-cat':1,'f-src':6,'f-grp':7,'f-o2':3};
+  Object.entries(fm).forEach(([id,col])=>document.getElementById(id).addEventListener('change',function(){
+    let v=this.value; if(id==='f-o2')v=v===''?'':(v==='1'?'aerobic':'anaerobic');
+    if(id==='f-grp'){table.column(col).search(v?'^'+$.fn.dataTable.util.escapeRegex(v)+'$':'',true,false).draw();}
+    else table.column(col).search(v?'^'+$.fn.dataTable.util.escapeRegex(v)+'$':'',true,false).draw();
+  }));
+  // charts
+  new Chart(document.getElementById('ch-cat'),{type:'doughnut',data:{labels:Object.keys(st.by_category),
+    datasets:[{data:Object.values(st.by_category),backgroundColor:Object.keys(st.by_category).map(c=>CAT_COLORS[c]||'#889')}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:11},boxWidth:12}}}}});
+  const te=st.top_exchanges.slice(0,14);
+  new Chart(document.getElementById('ch-exch'),{type:'bar',data:{labels:te.map(e=>e.name.slice(0,20)),
+    datasets:[{data:te.map(e=>e.n_media),backgroundColor:'#1f8a70cc'}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{title:{display:true,text:'# media containing',font:{size:10}}},y:{ticks:{font:{size:10}}}}}});
+});
+
+async function openMed(id){
+  const med=await fetch('data/media/'+id+'.json').then(r=>r.json());
+  const p=med.provenance;
+  const comps=med.components.slice().sort((a,b)=>(a.mapping_method==='mineral_base')-(b.mapping_method==='mineral_base')||a.exchange.localeCompare(b.exchange));
+  const rows=comps.map(c=>{
+    const xr=c.xref||{}; const xs=['inchikey','kegg','chebi','hmdb'].filter(k=>xr[k]).map(k=>`${k}:${xr[k]}`).join(' · ');
+    const cc=c.mapping_confidence||''; const cl=cc==='exact'?'conf-exact':cc==='inferred'?'conf-inferred':'conf-convention';
+    const content=c.foodb_content!=null?`${c.foodb_content} ${esc(c.foodb_unit||'')}`:(c.concentration_mM!=null?c.concentration_mM+' mM':'');
+    return `<tr><td>${esc(c.name)}</td><td><code>${esc(c.exchange)}</code></td><td>${c.lower_bound}</td><td>${esc(content)}</td><td style="font-size:.72rem;color:#667">${esc(xs)}</td><td class="${cl}">${cc}</td></tr>`;
+  }).join('');
+  const cobra=`medium = {\n`+comps.filter(c=>c.lower_bound<0).map(c=>`    "${c.exchange}": ${(-c.lower_bound)},`).join('\n')+`\n}\nmodel.medium = {k:v for k,v in medium.items() if k in model.reactions}`;
+  const div=document.createElement('div');div.className='ov';div.id='med-ov';
+  div.innerHTML=`<div class="modal-card">
+    <div class="modal-head"><div><h4 style="margin:0">${esc(med.name)}</h4>
+      <div style="font-size:.82rem;color:#778">${catBadge(med.category)} · ${esc(med.organism_scope)} · ${med.aerobic?'aerobic':'anaerobic'} · ${med.n_components} components (${med.n_in_biggr} in BiGGr)</div></div>
+      <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('med-ov').remove()">Close</button></div>
+    <div class="modal-body">
+      <div class="cite mb-2"><b>Source:</b> ${esc(p.citation)} ${p.url?`· <a href="${esc(p.url)}" target="_blank">link</a>`:''}<br><span style="color:#889">${esc(p.notes||'')}</span></div>
+      <div class="d-flex gap-2 mb-2">
+        <button class="btn btn-sm btn-success" onclick='navigator.clipboard.writeText(${JSON.stringify(cobra)}).then(()=>{this.textContent="Copied!";setTimeout(()=>this.textContent="Copy as COBRApy medium",1500)})'>Copy as COBRApy medium</button>
+        <a class="btn btn-sm btn-outline-secondary" href="data/media/${id}.json" download>Download JSON</a>
+        <button class="btn btn-sm btn-outline-secondary" onclick='dlCsv(${JSON.stringify(id)})'>Download CSV</button>
+      </div>
+      <code class="cobra">${esc(cobra)}</code>
+      <div style="max-height:340px;overflow:auto;margin-top:.7rem"><table class="table table-sm" style="font-size:.82rem"><thead><tr><th>Component</th><th>Exchange</th><th>Lower bound</th><th>Content</th><th>Cross-refs</th><th>Confidence</th></tr></thead><tbody>${rows}</tbody></table></div>
+    </div></div>`;
+  div.addEventListener('click',e=>{if(e.target===div)div.remove();});
+  document.body.appendChild(div);
+}
+async function dlCsv(id){
+  const med=await fetch('data/media/'+id+'.json').then(r=>r.json());
+  let csv='name,exchange,lower_bound,upper_bound,foodb_content,foodb_unit,inchikey,kegg,chebi,hmdb,in_biggr,mapping_method,mapping_confidence\n';
+  med.components.forEach(c=>{const x=c.xref||{};csv+=[c.name,c.exchange,c.lower_bound,c.upper_bound,c.foodb_content??'',c.foodb_unit??'',x.inchikey??'',x.kegg??'',x.chebi??'',x.hmdb??'',c.in_biggr,c.mapping_method,c.mapping_confidence].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')+'\n';});
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=id+'.csv';a.click();
+}
+</script>
+</body>
+</html>

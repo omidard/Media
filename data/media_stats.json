@@ -1,0 +1,243 @@
+{
+"total": 621,
+"by_category": {
+"food": 616,
+"biospecimen": 3,
+"minimal": 2
+},
+"by_source": {
+"database": 616,
+"literature": 3,
+"standard": 2
+},
+"by_food_group": {
+"Aquatic foods": 123,
+"Vegetables": 90,
+"Fruits": 73,
+"Herbs and Spices": 57,
+"Dishes": 45,
+"Cereals and cereal products": 39,
+"Baking goods": 26,
+"Nuts": 24,
+"Milk and milk products": 23,
+"Confectioneries": 22,
+"Pulses": 20,
+"Gourds": 14,
+"Beverages": 13,
+"Animal foods": 12,
+"Snack foods": 8,
+"Soy": 7,
+"Teas": 5,
+"Cocoa and cocoa products": 4,
+"Fats and oils": 4,
+"Coffee and coffee products": 3,
+"Unclassified": 1,
+"Baby foods": 1,
+"Eggs": 1
+},
+"top_exchanges": [
+{
+"exchange": "EX_pydxn_e",
+"name": "Pyridoxine",
+"n_media": 598
+},
+{
+"exchange": "EX_trp__L_e",
+"name": "L-Tryptophan",
+"n_media": 561
+},
+{
+"exchange": "EX_leu__L_e",
+"name": "L-Leucine",
+"n_media": 549
+},
+{
+"exchange": "EX_lys__L_e",
+"name": "L-Lysine",
+"n_media": 548
+},
+{
+"exchange": "EX_thr__L_e",
+"name": "L-Threonine",
+"n_media": 548
+},
+{
+"exchange": "EX_his__L_e",
+"name": "L-Histidine",
+"n_media": 546
+},
+{
+"exchange": "EX_ile__L_e",
+"name": "L-Isoleucine",
+"n_media": 546
+},
+{
+"exchange": "EX_met__L_e",
+"name": "L-Methionine",
+"n_media": 546
+},
+{
+"exchange": "EX_arg__L_e",
+"name": "L-Arginine",
+"n_media": 544
+},
+{
+"exchange": "EX_tyr__L_e",
+"name": "L-Tyrosine",
+"n_media": 542
+},
+{
+"exchange": "EX_pro__L_e",
+"name": "L-Proline",
+"n_media": 541
+},
+{
+"exchange": "EX_ala__L_e",
+"name": "L-Alanine",
+"n_media": 540
+},
+{
+"exchange": "EX_ser__D_e",
+"name": "D-Serine",
+"n_media": 540
+},
+{
+"exchange": "EX_gly_e",
+"name": "Glycine",
+"n_media": 539
+},
+{
+"exchange": "EX_avite1_e",
+"name": "Alpha-Tocopherol",
+"n_media": 496
+},
+{
+"exchange": "EX_chol_e",
+"name": "Choline C5H14NO",
+"n_media": 450
+},
+{
+"exchange": "EX_sucr_e",
+"name": "Sucrose C12H22O11",
+"n_media": 420
+},
+{
+"exchange": "EX_caro_e",
+"name": "Beta-Carotene",
+"n_media": 401
+},
+{
+"exchange": "EX_n2_e",
+"name": "Nitrogen",
+"n_media": 276
+},
+{
+"exchange": "EX_glc__D_e",
+"name": "D-Glucose",
+"n_media": 259
+},
+{
+"exchange": "EX_fru_e",
+"name": "D-Fructose",
+"n_media": 251
+},
+{
+"exchange": "EX_glyb_e",
+"name": "Glycine betaine",
+"n_media": 249
+},
+{
+"exchange": "EX_iodine_e",
+"name": "Iodine c",
+"n_media": 235
+},
+{
+"exchange": "EX_btn_e",
+"name": "Biotin",
+"n_media": 145
+},
+{
+"exchange": "EX_f_e",
+"name": "Fluoride",
+"n_media": 139
+},
+{
+"exchange": "EX_malt_e",
+"name": "Maltose C12H22O11",
+"n_media": 129
+},
+{
+"exchange": "EX_s_e",
+"name": "Sulfur",
+"n_media": 94
+},
+{
+"exchange": "EX_lcts_e",
+"name": "Lactose C12H22O11",
+"n_media": 79
+},
+{
+"exchange": "EX_cd2_e",
+"name": "Cadmium",
+"n_media": 71
+},
+{
+"exchange": "EX_gal_e",
+"name": "D-Galactose",
+"n_media": 67
+},
+{
+"exchange": "EX_ga_e",
+"name": "Gallic acid",
+"n_media": 55
+},
+{
+"exchange": "EX_arachd_e",
+"name": "Arachidonic acid",
+"n_media": 42
+},
+{
+"exchange": "EX_taur_e",
+"name": "Taurine C2H7NO3S",
+"n_media": 38
+},
+{
+"exchange": "EX_citr__L_e",
+"name": "L-Citrulline",
+"n_media": 37
+},
+{
+"exchange": "EX_phe__L_e",
+"name": "L-Phenylalanine",
+"n_media": 35
+},
+{
+"exchange": "EX_creat_e",
+"name": "Creatine cytosol",
+"n_media": 34
+},
+{
+"exchange": "EX_asn__L_e",
+"name": "L-Asparagine",
+"n_media": 31
+},
+{
+"exchange": "EX_ag_e",
+"name": "Silver",
+"n_media": 29
+},
+{
+"exchange": "EX_metsox_S__L_e",
+"name": "L-Methionine Sulfoxide",
+"n_media": 28
+},
+{
+"exchange": "EX_lut_e",
+"name": "Lutein",
+"n_media": 28
+}
+],
+"ncomp_min": 24,
+"ncomp_median": 39,
+"ncomp_max": 281
+}
