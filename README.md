@@ -10,10 +10,10 @@ every component is mapped to a BiGG exchange (`EX_<met>_e`), carries cross-refer
 (InChIKey / ChEBI / KEGG / HMDB / MetaNetX / SEED), and the whole medium carries a
 **citation**.
 
-> `Media` is the first repo in a suite of GEM **validation-data** resources — a long-standing
-> gap in the field. Planned siblings: growth / uptake / production rates, ¹³C-MFA flux data,
-> transcriptomics for reaction constraints, biomass compositions, and Biolog phenotyping,
-> for as many prokaryotes as possible.
+> **11,367 media** and counting — laboratory culture media, food-derived media, host
+> biofluids, and formulations mined from the primary literature — assembled from **DSMZ
+> MediaDive, FooDB, USDA FoodData Central, HMDB, BMDB**, and **571 GEM papers**, all in one
+> consistent, cited, BiGG-mapped format.
 
 ## Explore it online
 
@@ -70,21 +70,25 @@ model.medium = {c["exchange"]: -c["lower_bound"] for c in med["components"]
 print(model.slim_optimize())
 ```
 
-## Current contents
+## Current contents — 11,367 media
 
-**3,790 media** and growing, each cited and mapped through the same pipeline:
+Each medium is cited and mapped through the same pipeline. By source database:
 
-| Category | Count | Sources |
+| Source | Media | What it contributes |
 |---|---:|---|
-| **Laboratory** (defined & complex culture media) | **3,162** | **DSMZ MediaDive** (3,148 recipes; Koblitz *et al.*, NAR 2023) + classic media (LB, TSB, BHI, blood agar, M9 / MOPS / M63 / Davis) |
-| **Food** (one medium per food) | **616** | **FooDB** (measured food composition) |
-| **Biospecimen** (per biofluid) | **12** | **HMDB 5.0** — Blood, Urine, Feces, Saliva, CSF, Sweat, Breast Milk, Bile, Amniotic Fluid (normal metabolome) + serum/urine/faeces from PLOS Pathog 2025 |
+| **USDA FoodData Central** | 7,479 | food media from analytically-measured composition (Foundation + SR Legacy) |
+| **DSMZ MediaDive** | 3,148 | real culture-media recipes (Koblitz *et al.*, NAR 2023) — defined exact, complex as labelled approximations |
+| **FooDB** | 616 | one medium per food (measured food composition) |
+| **Literature (GEM papers)** | 93 | formulations mined from 571 primary papers, each snippet-verified & cited |
+| **HMDB 5.0** | 9 | host biofluids (blood, urine, feces, saliva, CSF, sweat, milk, bile, amniotic) |
+| **BMDB** | 5 | bovine biofluids incl. **rumen fluid** |
+| **Classic + published** | 22 | LB, TSB, BHI, blood agar, M9 / MOPS / M63 / Davis + serum/urine/faeces (PLOS Pathog 2025) |
 
-Defined media map every compound to a BiGG exchange with concentrations (salts dissociated
-to their ion exchanges); complex media map their defined portion and render undefined
-hydrolysates (peptone, extracts) as a clearly-labelled in-silico approximation with the real
-ingredients listed in `unmapped`. Still incoming: USDA FoodData Central, bovine/rumen
-biofluids (BMDB), KOMODO/MediaDB, and large-scale mining of the GEM literature.
+Grouped into three **categories** — **laboratory** (3,255), **food** (8,095), **biospecimen** (17).
+Defined media map every compound to a BiGG exchange with concentrations (salts dissociated to
+their ion exchanges); complex media map their defined portion and render undefined hydrolysates
+(peptone, extracts) as a clearly-labelled in-silico approximation, with the real ingredients
+listed in `unmapped`.
 
 ## Contributing a medium
 
@@ -100,4 +104,5 @@ source of any medium you use (given in each record's `provenance`).
 
 ## License
 
-Data: **CC-BY-4.0**. Code (`tools/`, `docs/`): **MIT**. See [LICENSE](LICENSE).
+Data: **CC-BY-4.0** (cite each medium's original source, given in its `provenance`).
+Code (`tools/`, `index.html`): **MIT**. See [LICENSE](LICENSE).

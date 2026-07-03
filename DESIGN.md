@@ -10,10 +10,6 @@ mapping and provenance rules, and the quality bar.
 > medium in a GEM today means re-reading the paper and re-mapping every compound by hand.
 > `Media` does that work once, transparently, and with a citation for every medium.
 
-`Media` is the first repo in a planned suite of GEM **validation-data** resources
-(growth/uptake/production rates, ¹³C-MFA flux data, transcriptomics for constraints,
-biomass compositions, Biolog phenotyping) for as many prokaryotes as possible.
-
 ---
 
 ## The record — `data/media/<id>.json`

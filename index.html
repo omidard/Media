@@ -45,8 +45,27 @@
   </div>
 
   <div class="row g-3 mb-3">
-    <div class="col-md-5"><div class="panel"><div style="font-weight:700;color:#17323b;margin-bottom:.3rem">Media by category</div><div class="chart-box"><canvas id="ch-cat"></canvas></div></div></div>
-    <div class="col-md-7"><div class="panel"><div style="font-weight:700;color:#17323b;margin-bottom:.3rem">Most common components (media containing each)</div><div class="chart-box"><canvas id="ch-exch"></canvas></div></div></div>
+    <div class="col-md-4"><div class="panel"><div style="font-weight:700;color:#17323b;margin-bottom:.3rem">Media by category</div><div class="chart-box"><canvas id="ch-cat"></canvas></div></div></div>
+    <div class="col-md-8"><div class="panel"><div style="font-weight:700;color:#17323b;margin-bottom:.3rem">Media by source database</div><div class="chart-box"><canvas id="ch-db"></canvas></div></div></div>
+  </div>
+
+  <div class="panel mb-3">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
+      <div style="font-weight:700;color:#17323b">Presence / absence matrix <span style="font-weight:400;font-size:.78rem;color:#889">— media (rows) × the most variable compounds (columns); rows grouped &amp; coloured by category / food group</span></div>
+      <select id="mx-view" class="form-select form-select-sm" style="width:auto;max-width:280px"></select>
+    </div>
+    <div id="mx-legend" style="font-size:.74rem;color:#667;margin:.45rem 0 .2rem"></div>
+    <div style="overflow:auto;max-height:580px;border:1px solid #eef1f5;border-radius:8px"><canvas id="mx-canvas" style="display:block"></canvas></div>
+    <div id="mx-note" style="font-size:.74rem;color:#8a94a3;margin-top:.35rem"></div>
+  </div>
+
+  <div class="panel mb-3">
+    <div style="font-weight:700;color:#17323b;margin-bottom:.15rem">Compare media</div>
+    <div style="font-size:.8rem;color:#889;margin-bottom:.5rem">Add two or more media to see which compounds they share and where they differ.</div>
+    <div class="d-flex gap-2" style="max-width:660px"><input id="cmp-search" class="form-control form-control-sm" list="cmp-list" placeholder="Search a medium by name…"><button class="btn btn-sm btn-success" onclick="cmpAdd()">Add</button><button class="btn btn-sm btn-outline-secondary" onclick="cmpClear()">Clear</button></div>
+    <datalist id="cmp-list"></datalist>
+    <div id="cmp-chips" class="mt-2"></div>
+    <div id="cmp-results" class="mt-2"></div>
   </div>
 
   <div class="filter-row"><div class="row g-2 align-items-end">
@@ -113,12 +132,76 @@ Promise.all([fetch('data/index.json').then(r=>r.json()),fetch('data/media_stats.
   new Chart(document.getElementById('ch-cat'),{type:'doughnut',data:{labels:Object.keys(st.by_category),
     datasets:[{data:Object.values(st.by_category),backgroundColor:Object.keys(st.by_category).map(c=>CAT_COLORS[c]||'#889')}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:11},boxWidth:12}}}}});
-  const te=st.top_exchanges.slice(0,14);
-  new Chart(document.getElementById('ch-exch'),{type:'bar',data:{labels:te.map(e=>e.name.slice(0,20)),
-    datasets:[{data:te.map(e=>e.n_media),backgroundColor:'#1f8a70cc'}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{x:{title:{display:true,text:'# media containing',font:{size:10}}},y:{ticks:{font:{size:10}}}}}});
+  const dbe=Object.entries(idx.by_source_db||{}).sort((a,b)=>b[1]-a[1]);
+  new Chart(document.getElementById('ch-db'),{type:'bar',data:{labels:dbe.map(e=>e[0]),
+    datasets:[{data:dbe.map(e=>e[1]),backgroundColor:dbe.map(e=>DB_COLORS[e[0]]||'#1f8a70')}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.parsed.x.toLocaleString()+' media'}}},
+      scales:{x:{title:{display:true,text:'# media',font:{size:10}}},y:{ticks:{font:{size:10}}}}}});
+  const dl=document.getElementById('cmp-list');DATA.forEach(d=>{const o=document.createElement('option');o.value=d.name;dl.appendChild(o);});
+  document.getElementById('cmp-search').addEventListener('keydown',e=>{if(e.key==='Enter')cmpAdd();});
+  loadMatrix();
 });
+
+// ---- presence/absence matrix ----
+const DB_COLORS={'USDA FoodData Central':'#37b393','DSMZ MediaDive':'#2c6fbb','FooDB':'#1f8a70','Literature (GEM papers)':'#c77800','HMDB':'#d0563b','BMDB':'#7a3fb8','Published (HMDB-derived)':'#e0895b','standard':'#6b7684'};
+const FG_PALETTE=['#8ecae6','#ffb703','#fb8500','#90be6d','#f28482','#cdb4db','#a2d2ff','#bc6c25','#6a994e','#e07a5f','#81b29a','#f2cc8f','#adb5bd'];
+let PM=null;
+function mxHas(bits,col){const v=parseInt(bits.substr((col>>3)*2,2),16);return (v>>(col&7))&1;}
+function loadMatrix(){fetch('data/presence_matrix.json').then(r=>r.json()).then(pm=>{PM=pm;
+  const sel=document.getElementById('mx-view');const cats=[...new Set(pm.media.map(m=>m.category))].sort();
+  const dbs=[...new Set(pm.media.map(m=>m.source_db))].filter(Boolean).sort();
+  let o='<option value="all">All categories (stratified sample)</option>';
+  cats.forEach(c=>o+=`<option value="cat:${c}">Category: ${c}</option>`);dbs.forEach(d=>o+=`<option value="db:${d}">Database: ${d}</option>`);
+  sel.innerHTML=o;sel.addEventListener('change',renderMatrix);renderMatrix();
+}).catch(()=>{document.getElementById('mx-note').textContent='matrix unavailable';});}
+function renderMatrix(){if(!PM)return;const view=document.getElementById('mx-view').value||'all';const CAP=140;
+  let rows=PM.media;
+  if(view.startsWith('cat:'))rows=rows.filter(m=>m.category===view.slice(4));
+  else if(view.startsWith('db:'))rows=rows.filter(m=>m.source_db===view.slice(3));
+  const keyOf=m=>m.category+'|'+(m.food_group||m.source_db||'');
+  const groups={};rows.forEach(m=>{(groups[keyOf(m)]=groups[keyOf(m)]||[]).push(m);});
+  const gkeys=Object.keys(groups).sort();const per=Math.max(1,Math.floor(CAP/Math.max(1,gkeys.length)));
+  let s=[];gkeys.forEach(k=>{const a=groups[k];const step=Math.max(1,a.length/per);for(let i=0;i<a.length&&s.length<CAP*1.4;i+=step)s.push(a[Math.floor(i)]);});
+  s.sort((a,b)=>a.category.localeCompare(b.category)||String(a.food_group||a.source_db).localeCompare(String(b.food_group||b.source_db)));
+  if(s.length>CAP)s=s.filter((_,i)=>i%Math.ceil(s.length/CAP)===0);
+  drawMatrix(s,rows.length);}
+function drawMatrix(rows,totalN){const cv=document.getElementById('mx-canvas'),ctx=cv.getContext('2d');
+  const C=PM.n_compounds,R=rows.length,cell=9,labelW=200,stripW=18,topH=98,dpr=window.devicePixelRatio||1;
+  const W=labelW+stripW+C*cell,H=topH+R*cell;cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+  ctx.font='8px Segoe UI';ctx.fillStyle='#667';ctx.textAlign='left';
+  PM.compounds.forEach((c,x)=>{ctx.save();ctx.translate(labelW+stripW+x*cell+cell,topH-4);ctx.rotate(-Math.PI/2.6);ctx.fillText(c.name.slice(0,16),0,0);ctx.restore();});
+  const fgs=[...new Set(rows.map(m=>m.food_group||m.source_db))];const fgcol={};fgs.forEach((f,i)=>fgcol[f]=FG_PALETTE[i%FG_PALETTE.length]);
+  ctx.textBaseline='middle';ctx.font='9px Segoe UI';
+  rows.forEach((m,y)=>{const yy=topH+y*cell;
+    ctx.fillStyle=CAT_COLORS[m.category]||'#889';ctx.fillRect(labelW,yy,stripW/2-1,cell-0.5);
+    ctx.fillStyle=fgcol[m.food_group||m.source_db]||'#ccc';ctx.fillRect(labelW+stripW/2,yy,stripW/2-1,cell-0.5);
+    ctx.fillStyle='#556';ctx.textAlign='right';ctx.fillText((m.name||m.id).slice(0,32),labelW-4,yy+cell/2);
+    for(let x=0;x<C;x++)if(mxHas(m.bits,x)){ctx.fillStyle=CAT_COLORS[m.category]||'#1f8a70';ctx.fillRect(labelW+stripW+x*cell,yy,cell-0.6,cell-0.6);}});
+  document.getElementById('mx-legend').innerHTML='Left strip = category ('+Object.keys(CAT_COLORS).filter(c=>rows.some(m=>m.category===c)).map(c=>`<span style="color:${CAT_COLORS[c]}">■</span>${c}`).join(' ')+') · right strip = food group / database';
+  document.getElementById('mx-note').textContent=`Showing ${R} of ${totalN.toLocaleString()} media (stratified sample) × ${C} most-variable compounds. Hover a cell for details.`;
+  let tip=document.getElementById('mx-tip');if(!tip){tip=document.createElement('div');tip.id='mx-tip';tip.style.cssText='position:absolute;pointer-events:none;opacity:0;background:#17323b;color:#fff;font-size:.74rem;padding:.3rem .5rem;border-radius:6px;z-index:10001;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.25)';document.body.appendChild(tip);}
+  cv.onmousemove=ev=>{const r=cv.getBoundingClientRect();const x=Math.floor((ev.clientX-r.left-labelW-stripW)/cell),y=Math.floor((ev.clientY-r.top-topH)/cell);if(x<0||y<0||x>=C||y>=R){tip.style.opacity=0;return;}const m=rows[y];tip.innerHTML=`<b>${esc(m.name)}</b><br>${esc(PM.compounds[x].name)} — ${mxHas(m.bits,x)?'present':'absent'}`;tip.style.opacity=1;tip.style.left=(ev.pageX+12)+'px';tip.style.top=(ev.pageY-10)+'px';};
+  cv.onmouseleave=()=>{tip.style.opacity=0;};}
+
+// ---- compare media ----
+let CMP=[];
+function cmpAdd(){const q=document.getElementById('cmp-search').value.trim();if(!q)return;const m=DATA.find(d=>d.name===q)||DATA.find(d=>d.name.toLowerCase().includes(q.toLowerCase()));if(!m){alert('No medium matches "'+q+'"');return;}if(!CMP.find(c=>c.id===m.id))CMP.push({id:m.id,name:m.name,category:m.category});if(CMP.length>8)CMP=CMP.slice(-8);document.getElementById('cmp-search').value='';cmpRender();}
+function cmpClear(){CMP=[];cmpRender();}
+function cmpDel(id){CMP=CMP.filter(c=>c.id!==id);cmpRender();}
+async function cmpRender(){const chips=document.getElementById('cmp-chips');
+  chips.innerHTML=CMP.map(c=>{const col=CAT_COLORS[c.category]||'#889';return `<span class="badge-cat" style="background:${col}22;color:${col};margin:2px;padding:4px 9px">${esc(c.name.slice(0,42))} <span style="cursor:pointer;font-weight:700" onclick="cmpDel('${c.id}')">×</span></span>`;}).join('');
+  const res=document.getElementById('cmp-results');if(CMP.length<2){res.innerHTML='';return;}
+  res.innerHTML='<span class="spinner-border spinner-border-sm text-success"></span> computing…';
+  const meds=await Promise.all(CMP.map(c=>fetch('data/media/'+c.id+'.json').then(r=>r.json())));
+  const sets=meds.map(m=>new Set(m.components.map(c=>c.exchange)));const nameOf={};meds.forEach(m=>m.components.forEach(c=>nameOf[c.exchange]=c.name));
+  const union=new Set();sets.forEach(s=>s.forEach(x=>union.add(x)));const core=[...union].filter(e=>sets.every(s=>s.has(e)));
+  const diff=[...union].filter(e=>!core.includes(e)).sort((a,b)=>(nameOf[a]||a).localeCompare(nameOf[b]||b));
+  let h=`<div style="font-size:.85rem;margin-bottom:.4rem"><b>${union.size}</b> compounds total · <b style="color:#1a7f4b">${core.length}</b> shared by all · <b>${diff.length}</b> differ</div>`;
+  h+='<div style="max-height:360px;overflow:auto"><table class="table table-sm" style="font-size:.8rem"><thead><tr><th>Compound</th><th>Exchange</th>'+CMP.map(c=>`<th title="${esc(c.name)}">${esc(c.name.slice(0,12))}</th>`).join('')+'</tr></thead><tbody>';
+  diff.slice(0,400).forEach(e=>{h+=`<tr><td>${esc(nameOf[e]||e)}</td><td><code>${esc(e)}</code></td>`+sets.map(s=>s.has(e)?'<td style="color:#1a7f4b;font-weight:700">✓</td>':'<td style="color:#d9dee6">·</td>').join('')+'</tr>';});
+  h+='</tbody></table></div>'+(diff.length>400?`<div style="font-size:.74rem;color:#889">first 400 of ${diff.length} differing</div>`:'');
+  res.innerHTML=h;}
 
 async function openMed(id){
   const med=await fetch('data/media/'+id+'.json').then(r=>r.json());
