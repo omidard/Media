@@ -1,20 +1,45 @@
 {
-"total": 3790,
+"total": 11269,
 "by_category": {
-"food": 616,
+"food": 8095,
 "laboratory": 3162,
 "biospecimen": 12
 },
 "by_source": {
-"database": 3773,
+"database": 11252,
 "standard": 14,
 "literature": 3
 },
 "by_food_group": {
+"Beef Products": 960,
+"Vegetables and Vegetable Products": 839,
+"Baked Products": 480,
+"Lamb, Veal, and Game Products": 463,
+"Poultry Products": 386,
+"Fruits and Fruit Juices": 367,
+"Baby Foods": 343,
+"Pork Products": 338,
+"Dairy and Egg Products": 317,
+"Fast Foods": 312,
+"Sweets": 268,
+"Finfish and Shellfish Products": 267,
+"Legumes and Legume Products": 248,
+"Soups, Sauces, and Gravies": 242,
+"Beverages": 233,
+"Fats and Oils": 205,
+"Cereal Grains and Pasta": 200,
+"Breakfast Cereals": 194,
+"Sausages and Luncheon Meats": 170,
+"Snacks": 170,
+"Nut and Seed Products": 145,
 "Aquatic foods": 123,
+"Restaurant Foods": 113,
+"American Indian/Alaska Native Foods": 97,
 "Vegetables": 90,
+"Meals, Entrees, and Side Dishes": 80,
 "Fruits": 73,
 "Herbs and Spices": 57,
+"Spices and Herbs": 55,
 "Dishes": 45,
 "Cereals and cereal products": 39,
 "Baking goods": 26,
@@ -23,7 +48,6 @@
 "Confectioneries": 22,
 "Pulses": 20,
 "Gourds": 14,
-"Beverages": 13,
 "Animal foods": 12,
 "Snack foods": 8,
 "Soy": 7,
@@ -39,205 +63,205 @@
 {
 "exchange": "EX_pydxn_e",
 "name": "Pyridoxine",
-"n_media": 3745
-},
-{
-"exchange": "EX_trp__L_e",
-"name": "L-Tryptophan",
-"n_media": 3712
-},
-{
-"exchange": "EX_leu__L_e",
-"name": "L-Leucine",
-"n_media": 3700
-},
-{
-"exchange": "EX_lys__L_e",
-"name": "L-Lysine",
-"n_media": 3698
-},
-{
-"exchange": "EX_thr__L_e",
-"name": "L-Threonine",
-"n_media": 3698
-},
-{
-"exchange": "EX_ile__L_e",
-"name": "L-Isoleucine",
-"n_media": 3697
-},
-{
-"exchange": "EX_his__L_e",
-"name": "L-Histidine",
-"n_media": 3696
-},
-{
-"exchange": "EX_met__L_e",
-"name": "L-Methionine",
-"n_media": 3696
-},
-{
-"exchange": "EX_arg__L_e",
-"name": "L-Arginine",
-"n_media": 3693
-},
-{
-"exchange": "EX_pro__L_e",
-"name": "L-Proline",
-"n_media": 3692
-},
-{
-"exchange": "EX_tyr__L_e",
-"name": "L-Tyrosine",
-"n_media": 3692
-},
-{
-"exchange": "EX_ala__L_e",
-"name": "L-Alanine",
-"n_media": 3690
-},
-{
-"exchange": "EX_gly_e",
-"name": "Glycine",
-"n_media": 3689
-},
-{
-"exchange": "EX_btn_e",
-"name": "Biotin",
-"n_media": 3294
-},
-{
-"exchange": "EX_phe__L_e",
-"name": "L-Phenylalanine",
-"n_media": 3185
-},
-{
-"exchange": "EX_asn__L_e",
-"name": "L-Asparagine",
-"n_media": 3180
-},
-{
-"exchange": "EX_h2o_e",
-"name": "H2O H2O",
-"n_media": 3170
-},
-{
-"exchange": "EX_co2_e",
-"name": "CO2 CO2",
-"n_media": 3167
-},
-{
-"exchange": "EX_h_e",
-"name": "H+",
-"n_media": 3165
-},
-{
-"exchange": "EX_o2_e",
-"name": "O2 O2",
-"n_media": 3163
-},
-{
-"exchange": "EX_cys__L_e",
-"name": "L-Cysteine",
-"n_media": 3159
-},
-{
-"exchange": "EX_val__L_e",
-"name": "L-Valine",
-"n_media": 3158
-},
-{
-"exchange": "EX_gln__L_e",
-"name": "L-Glutamine",
-"n_media": 3155
-},
-{
-"exchange": "EX_adn_e",
-"name": "Adenosine",
-"n_media": 3153
-},
-{
-"exchange": "EX_cytd_e",
-"name": "Cytidine",
-"n_media": 3153
-},
-{
-"exchange": "EX_gsn_e",
-"name": "Guanosine",
-"n_media": 3152
-},
-{
-"exchange": "EX_ins_e",
-"name": "Inosine",
-"n_media": 3152
-},
-{
-"exchange": "EX_ser__L_e",
-"name": "L-Serine",
-"n_media": 3152
-},
-{
-"exchange": "EX_asp__L_e",
-"name": "L-Aspartate",
-"n_media": 3151
-},
-{
-"exchange": "EX_cbl1_e",
-"name": "Cob(I)alamin",
-"n_media": 3151
-},
-{
-"exchange": "EX_glu__L_e",
-"name": "L-Glutamate",
-"n_media": 3151
-},
-{
-"exchange": "EX_pnto__R_e",
-"name": "(R)-Pantothenate",
-"n_media": 3151
-},
-{
-"exchange": "EX_thymd_e",
-"name": "Thymidine C10H14N2O5",
-"n_media": 3151
-},
-{
-"exchange": "EX_uri_e",
-"name": "Uridine",
-"n_media": 3151
-},
-{
-"exchange": "EX_ribflv_e",
-"name": "Riboflavin C17H20N4O6",
-"n_media": 3149
+"n_media": 10777
 },
 {
 "exchange": "EX_nac_e",
 "name": "Nicotinate",
-"n_media": 3148
+"n_media": 10318
 },
 {
-"exchange": "EX_4abz_e",
-"name": "4-Aminobenzoate",
-"n_media": 3147
-},
-{
-"exchange": "EX_fol_e",
-"name": "Folate",
-"n_media": 3145
+"exchange": "EX_ribflv_e",
+"name": "Riboflavin C17H20N4O6",
+"n_media": 10246
 },
 {
 "exchange": "EX_thm_e",
 "name": "Thiamin",
-"n_media": 3144
+"n_media": 10244
 },
 {
-"exchange": "EX_cl_e",
-"name": "Chloride",
-"n_media": 2595
+"exchange": "EX_na1_e",
+"name": "Sodium",
+"n_media": 9814
+},
+{
+"exchange": "EX_k_e",
+"name": "Potassium",
+"n_media": 9640
+},
+{
+"exchange": "EX_mg2_e",
+"name": "Magnesium",
+"n_media": 9590
+},
+{
+"exchange": "EX_pi_e",
+"name": "Phosphate",
+"n_media": 9435
+},
+{
+"exchange": "EX_fol_e",
+"name": "Folate",
+"n_media": 9422
+},
+{
+"exchange": "EX_pnto__R_e",
+"name": "(R)-Pantothenate",
+"n_media": 9328
+},
+{
+"exchange": "EX_ca2_e",
+"name": "Calcium",
+"n_media": 9205
+},
+{
+"exchange": "EX_fe2_e",
+"name": "Fe2+ mitochondria",
+"n_media": 8999
+},
+{
+"exchange": "EX_zn2_e",
+"name": "Zinc",
+"n_media": 8858
+},
+{
+"exchange": "EX_lys__L_e",
+"name": "L-Lysine",
+"n_media": 8732
+},
+{
+"exchange": "EX_met__L_e",
+"name": "L-Methionine",
+"n_media": 8725
+},
+{
+"exchange": "EX_leu__L_e",
+"name": "L-Leucine",
+"n_media": 8721
+},
+{
+"exchange": "EX_ile__L_e",
+"name": "L-Isoleucine",
+"n_media": 8718
+},
+{
+"exchange": "EX_thr__L_e",
+"name": "L-Threonine",
+"n_media": 8715
+},
+{
+"exchange": "EX_his__L_e",
+"name": "L-Histidine",
+"n_media": 8709
+},
+{
+"exchange": "EX_arg__L_e",
+"name": "L-Arginine",
+"n_media": 8701
+},
+{
+"exchange": "EX_tyr__L_e",
+"name": "L-Tyrosine",
+"n_media": 8677
+},
+{
+"exchange": "EX_trp__L_e",
+"name": "L-Tryptophan",
+"n_media": 8663
+},
+{
+"exchange": "EX_cu2_e",
+"name": "Copper",
+"n_media": 8655
+},
+{
+"exchange": "EX_ala__L_e",
+"name": "L-Alanine",
+"n_media": 8654
+},
+{
+"exchange": "EX_gly_e",
+"name": "Glycine",
+"n_media": 8652
+},
+{
+"exchange": "EX_pro__L_e",
+"name": "L-Proline",
+"n_media": 8648
+},
+{
+"exchange": "EX_phe__L_e",
+"name": "L-Phenylalanine",
+"n_media": 8201
+},
+{
+"exchange": "EX_val__L_e",
+"name": "L-Valine",
+"n_media": 8178
+},
+{
+"exchange": "EX_glu__L_e",
+"name": "L-Glutamate",
+"n_media": 8122
+},
+{
+"exchange": "EX_ser__L_e",
+"name": "L-Serine",
+"n_media": 8114
+},
+{
+"exchange": "EX_mn2_e",
+"name": "Manganese",
+"n_media": 8095
+},
+{
+"exchange": "EX_cys__L_e",
+"name": "L-Cysteine",
+"n_media": 8009
+},
+{
+"exchange": "EX_asp__L_e",
+"name": "L-Aspartate",
+"n_media": 7963
+},
+{
+"exchange": "EX_cbl1_e",
+"name": "Cob(I)alamin",
+"n_media": 7498
+},
+{
+"exchange": "EX_slnt_e",
+"name": "Selenite",
+"n_media": 7196
+},
+{
+"exchange": "EX_ocdcea_e",
+"name": "Octadecenoate (n-C18:1)",
+"n_media": 6753
+},
+{
+"exchange": "EX_hdca_e",
+"name": "Hexadecanoate (n-C16:0)",
+"n_media": 6750
+},
+{
+"exchange": "EX_ocdca_e",
+"name": "Octadecanoate (n-C18:0)",
+"n_media": 6622
+},
+{
+"exchange": "EX_avite1_e",
+"name": "Alpha-Tocopherol",
+"n_media": 5749
+},
+{
+"exchange": "EX_ttdca_e",
+"name": "Tetradecanoate (n-C14:0)",
+"n_media": 5746
 }
 ],
 "ncomp_min": 6,
-"ncomp_median": 48,
+"ncomp_median": 49,
 "ncomp_max": 696
 }
