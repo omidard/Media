@@ -1,0 +1,75 @@
+{
+ "count": 5,
+ "media": [
+  {
+   "id": "m9_glucose_aerobic",
+   "name": "M9 minimal + glucose (aerobic)",
+   "category": "minimal",
+   "organism_scope": "prokaryote-generic",
+   "aerobic": true,
+   "n_components": 25,
+   "n_mapped": 25,
+   "n_in_biggr": 25,
+   "namespace": "bigg",
+   "source_type": "standard",
+   "citation": "Sambrook J, Russell DW. Molecular Cloning: A Laboratory Manual, 3rd ed. CSHL Press (2001); uptake bounds per iML1515 (Mo",
+   "doi": "10.1038/nbt.3956"
+  },
+  {
+   "id": "m9_glucose_anaerobic",
+   "name": "M9 minimal + glucose (anaerobic)",
+   "category": "minimal",
+   "organism_scope": "prokaryote-generic",
+   "aerobic": false,
+   "n_components": 24,
+   "n_mapped": 24,
+   "n_in_biggr": 24,
+   "namespace": "bigg",
+   "source_type": "standard",
+   "citation": "Sambrook J, Russell DW. Molecular Cloning, 3rd ed. CSHL Press (2001); iML1515 (Monk et al., Nat Biotechnol 2017), O2 rem",
+   "doi": "10.1038/nbt.3956"
+  },
+  {
+   "id": "biospecimen_feces",
+   "name": "Simulated gut / faecal medium",
+   "category": "biospecimen",
+   "organism_scope": "gut microbiota",
+   "aerobic": false,
+   "n_components": 281,
+   "n_mapped": 281,
+   "n_in_biggr": 272,
+   "namespace": "bigg",
+   "source_type": "literature",
+   "citation": "Ardalani et al. Rare metabolic gene essentiality is a determinant of microniche adaptation in Escherichia coli. PLOS Pat",
+   "doi": "10.1371/journal.ppat.1013775"
+  },
+  {
+   "id": "biospecimen_urine",
+   "name": "Simulated urine medium",
+   "category": "biospecimen",
+   "organism_scope": "uropathogen",
+   "aerobic": true,
+   "n_components": 135,
+   "n_mapped": 135,
+   "n_in_biggr": 134,
+   "namespace": "bigg",
+   "source_type": "literature",
+   "citation": "Ardalani et al. PLOS Pathogens (2025); HMDB urine metabolome (S4 Table).",
+   "doi": "10.1371/journal.ppat.1013775"
+  },
+  {
+   "id": "biospecimen_serum",
+   "name": "Simulated blood / serum medium",
+   "category": "biospecimen",
+   "organism_scope": "bloodstream pathogen",
+   "aerobic": true,
+   "n_components": 246,
+   "n_mapped": 246,
+   "n_in_biggr": 238,
+   "namespace": "bigg",
+   "source_type": "literature",
+   "citation": "Ardalani et al. PLOS Pathogens (2025); HMDB serum metabolome (S5 Table).",
+   "doi": "10.1371/journal.ppat.1013775"
+  }
+ ]
+}
