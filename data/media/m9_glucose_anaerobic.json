@@ -1,7 +1,7 @@
 {
  "id": "m9_glucose_anaerobic",
  "name": "M9 minimal + glucose (anaerobic)",
- "category": "minimal",
+ "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": false,
  "description": "M9 minimal salts with D-glucose, O2 removed (fermentative growth).",

@@ -1,14 +1,14 @@
 {
-"total": 621,
+"total": 642,
 "by_category": {
 "food": 616,
-"biospecimen": 3,
-"minimal": 2
+"laboratory": 14,
+"biospecimen": 12
 },
 "by_source": {
-"database": 616,
-"literature": 3,
-"standard": 2
+"database": 625,
+"standard": 14,
+"literature": 3
 },
 "by_food_group": {
 "Aquatic foods": 123,
@@ -39,102 +39,107 @@
 {
 "exchange": "EX_pydxn_e",
 "name": "Pyridoxine",
-"n_media": 598
+"n_media": 606
 },
 {
 "exchange": "EX_trp__L_e",
 "name": "L-Tryptophan",
-"n_media": 561
+"n_media": 573
 },
 {
 "exchange": "EX_leu__L_e",
 "name": "L-Leucine",
-"n_media": 549
+"n_media": 561
 },
 {
 "exchange": "EX_lys__L_e",
 "name": "L-Lysine",
-"n_media": 548
+"n_media": 560
 },
 {
 "exchange": "EX_thr__L_e",
 "name": "L-Threonine",
-"n_media": 548
+"n_media": 560
 },
 {
 "exchange": "EX_his__L_e",
 "name": "L-Histidine",
-"n_media": 546
+"n_media": 558
 },
 {
 "exchange": "EX_ile__L_e",
 "name": "L-Isoleucine",
-"n_media": 546
+"n_media": 558
 },
 {
 "exchange": "EX_met__L_e",
 "name": "L-Methionine",
-"n_media": 546
+"n_media": 557
 },
 {
 "exchange": "EX_arg__L_e",
 "name": "L-Arginine",
-"n_media": 544
+"n_media": 555
 },
 {
 "exchange": "EX_tyr__L_e",
 "name": "L-Tyrosine",
-"n_media": 542
+"n_media": 554
 },
 {
 "exchange": "EX_pro__L_e",
 "name": "L-Proline",
-"n_media": 541
+"n_media": 553
 },
 {
 "exchange": "EX_ala__L_e",
 "name": "L-Alanine",
-"n_media": 540
-},
-{
-"exchange": "EX_ser__D_e",
-"name": "D-Serine",
-"n_media": 540
+"n_media": 552
 },
 {
 "exchange": "EX_gly_e",
 "name": "Glycine",
-"n_media": 539
+"n_media": 551
+},
+{
+"exchange": "EX_ser__D_e",
+"name": "D-Serine",
+"n_media": 543
 },
 {
 "exchange": "EX_avite1_e",
 "name": "Alpha-Tocopherol",
-"n_media": 496
+"n_media": 501
 },
 {
 "exchange": "EX_chol_e",
 "name": "Choline C5H14NO",
-"n_media": 450
+"n_media": 457
 },
 {
 "exchange": "EX_sucr_e",
 "name": "Sucrose C12H22O11",
-"n_media": 420
+"n_media": 425
 },
 {
 "exchange": "EX_caro_e",
 "name": "Beta-Carotene",
-"n_media": 401
+"n_media": 404
 },
 {
 "exchange": "EX_n2_e",
 "name": "Nitrogen",
-"n_media": 276
+"n_media": 277
 },
 {
 "exchange": "EX_glc__D_e",
 "name": "D-Glucose",
-"n_media": 259
+"n_media": 272
+},
+{
+"exchange": "EX_glyb_e",
+"name": "Glycine betaine",
+"n_media": 254
 },
 {
 "exchange": "EX_fru_e",
@@ -142,102 +147,97 @@
 "n_media": 251
 },
 {
-"exchange": "EX_glyb_e",
-"name": "Glycine betaine",
-"n_media": 249
-},
-{
 "exchange": "EX_iodine_e",
 "name": "Iodine c",
-"n_media": 235
+"n_media": 238
 },
 {
 "exchange": "EX_btn_e",
 "name": "Biotin",
-"n_media": 145
+"n_media": 154
 },
 {
 "exchange": "EX_f_e",
 "name": "Fluoride",
-"n_media": 139
+"n_media": 142
 },
 {
 "exchange": "EX_malt_e",
 "name": "Maltose C12H22O11",
-"n_media": 129
+"n_media": 132
 },
 {
 "exchange": "EX_s_e",
 "name": "Sulfur",
-"n_media": 94
+"n_media": 95
 },
 {
 "exchange": "EX_lcts_e",
 "name": "Lactose C12H22O11",
-"n_media": 79
+"n_media": 83
 },
 {
 "exchange": "EX_cd2_e",
 "name": "Cadmium",
-"n_media": 71
+"n_media": 75
 },
 {
 "exchange": "EX_gal_e",
 "name": "D-Galactose",
-"n_media": 67
+"n_media": 74
 },
 {
 "exchange": "EX_ga_e",
 "name": "Gallic acid",
-"n_media": 55
-},
-{
-"exchange": "EX_arachd_e",
-"name": "Arachidonic acid",
-"n_media": 42
-},
-{
-"exchange": "EX_taur_e",
-"name": "Taurine C2H7NO3S",
-"n_media": 38
-},
-{
-"exchange": "EX_citr__L_e",
-"name": "L-Citrulline",
-"n_media": 37
+"n_media": 58
 },
 {
 "exchange": "EX_phe__L_e",
 "name": "L-Phenylalanine",
-"n_media": 35
+"n_media": 47
 },
 {
-"exchange": "EX_creat_e",
-"name": "Creatine cytosol",
-"n_media": 34
+"exchange": "EX_arachd_e",
+"name": "Arachidonic acid",
+"n_media": 47
+},
+{
+"exchange": "EX_taur_e",
+"name": "Taurine C2H7NO3S",
+"n_media": 45
+},
+{
+"exchange": "EX_citr__L_e",
+"name": "L-Citrulline",
+"n_media": 43
 },
 {
 "exchange": "EX_asn__L_e",
 "name": "L-Asparagine",
-"n_media": 31
+"n_media": 42
 },
 {
-"exchange": "EX_ag_e",
-"name": "Silver",
-"n_media": 29
+"exchange": "EX_creat_e",
+"name": "Creatine cytosol",
+"n_media": 41
+},
+{
+"exchange": "EX_ptrc_e",
+"name": "Putrescine",
+"n_media": 33
 },
 {
 "exchange": "EX_metsox_S__L_e",
 "name": "L-Methionine Sulfoxide",
-"n_media": 28
+"n_media": 32
 },
 {
-"exchange": "EX_lut_e",
-"name": "Lutein",
-"n_media": 28
+"exchange": "EX_ag_e",
+"name": "Silver",
+"n_media": 31
 }
 ],
-"ncomp_min": 24,
+"ncomp_min": 21,
 "ncomp_median": 39,
-"ncomp_max": 281
+"ncomp_max": 696
 }

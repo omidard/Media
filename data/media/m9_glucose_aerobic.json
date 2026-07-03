@@ -1,7 +1,7 @@
 {
  "id": "m9_glucose_aerobic",
  "name": "M9 minimal + glucose (aerobic)",
- "category": "minimal",
+ "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": true,
  "description": "Standard M9 minimal salts with D-glucose as sole carbon source, aerobic. Mineral exchanges open; glucose and O2 uptake capped at 20 mmol gDW-1 h-1.",
