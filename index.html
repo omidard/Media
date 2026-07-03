@@ -51,7 +51,7 @@
 
   <div class="filter-row"><div class="row g-2 align-items-end">
     <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.8rem">Category</label><select id="f-cat" class="form-select form-select-sm"><option value="">All</option></select></div>
-    <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.8rem">Source</label><select id="f-src" class="form-select form-select-sm"><option value="">All</option></select></div>
+    <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.8rem">Database</label><select id="f-src" class="form-select form-select-sm"><option value="">All</option></select></div>
     <div class="col-md-3"><label class="form-label fw-semibold" style="font-size:.8rem">Food group</label><select id="f-grp" class="form-select form-select-sm"><option value="">All</option></select></div>
     <div class="col-md-2"><label class="form-label fw-semibold" style="font-size:.8rem">O₂</label><select id="f-o2" class="form-select form-select-sm"><option value="">All</option><option value="1">Aerobic</option><option value="0">Anaerobic</option></select></div>
     <div class="col-md-1 d-flex align-items-end"><button class="btn btn-sm btn-outline-secondary w-100" onclick="clearF()">Clear</button></div>
@@ -60,7 +60,7 @@
   <div class="table-wrap">
     <div id="loading" class="text-center text-muted py-4"><div class="spinner-border text-success"></div><p class="mt-2">Loading media…</p></div>
     <table id="tbl" class="table table-striped table-hover" style="width:100%;display:none">
-      <thead><tr><th>Medium</th><th>Category</th><th>Organism scope</th><th>O₂</th><th>Components</th><th>In BiGGr</th><th>Source</th><th>Citation</th></tr></thead>
+      <thead><tr><th>Medium</th><th>Category</th><th>Organism scope</th><th>O₂</th><th>Components</th><th>In BiGGr</th><th>Database</th><th>Citation</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -90,7 +90,7 @@ Promise.all([fetch('data/index.json').then(r=>r.json()),fetch('data/media_stats.
   document.getElementById('s-exch').textContent=st.top_exchanges.length>=40?'400+':st.top_exchanges.length;
   document.getElementById('loading').style.display='none';
   document.getElementById('tbl').style.display='table';
-  popF('f-cat',DATA.map(d=>d.category));popF('f-src',DATA.map(d=>d.source_type));popF('f-grp',DATA.map(d=>d.food_group));
+  popF('f-cat',DATA.map(d=>d.category));popF('f-src',DATA.map(d=>d.source_db));popF('f-grp',DATA.map(d=>d.food_group));
   table=$('#tbl').DataTable({data:DATA,pageLength:25,deferRender:true,order:[[1,'asc'],[0,'asc']],
     columns:[
       {data:'name',render:(d,t,r)=>`<a class="med-link" onclick="openMed('${r.id}')">${esc(d)}</a>`},
@@ -99,7 +99,7 @@ Promise.all([fetch('data/index.json').then(r=>r.json()),fetch('data/media_stats.
       {data:'aerobic',render:d=>d?'aerobic':'anaerobic'},
       {data:'n_components',render:d=>Number(d).toLocaleString()},
       {data:'n_in_biggr',render:d=>Number(d).toLocaleString()},
-      {data:'source_type'},
+      {data:'source_db'},
       {data:'citation',render:d=>`<span title="${esc(d)}">${esc((d||'').slice(0,60))}${(d||'').length>60?'…':''}</span>`}
     ],
     language:{search:'Search:',info:'_START_–_END_ of _TOTAL_ media'}});

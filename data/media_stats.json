@@ -1,12 +1,12 @@
 {
-"total": 11269,
+"total": 11274,
 "by_category": {
 "food": 8095,
 "laboratory": 3162,
-"biospecimen": 12
+"biospecimen": 17
 },
 "by_source": {
-"database": 11252,
+"database": 11257,
 "standard": 14,
 "literature": 3
 },
@@ -63,17 +63,17 @@
 {
 "exchange": "EX_pydxn_e",
 "name": "Pyridoxine",
-"n_media": 10777
+"n_media": 10779
 },
 {
 "exchange": "EX_nac_e",
 "name": "Nicotinate",
-"n_media": 10318
+"n_media": 10321
 },
 {
 "exchange": "EX_ribflv_e",
 "name": "Riboflavin C17H20N4O6",
-"n_media": 10246
+"n_media": 10247
 },
 {
 "exchange": "EX_thm_e",
@@ -83,152 +83,152 @@
 {
 "exchange": "EX_na1_e",
 "name": "Sodium",
-"n_media": 9814
+"n_media": 9817
 },
 {
 "exchange": "EX_k_e",
 "name": "Potassium",
-"n_media": 9640
+"n_media": 9643
 },
 {
 "exchange": "EX_mg2_e",
 "name": "Magnesium",
-"n_media": 9590
+"n_media": 9593
 },
 {
 "exchange": "EX_pi_e",
 "name": "Phosphate",
-"n_media": 9435
+"n_media": 9438
 },
 {
 "exchange": "EX_fol_e",
 "name": "Folate",
-"n_media": 9422
+"n_media": 9423
 },
 {
 "exchange": "EX_pnto__R_e",
 "name": "(R)-Pantothenate",
-"n_media": 9328
+"n_media": 9329
 },
 {
 "exchange": "EX_ca2_e",
 "name": "Calcium",
-"n_media": 9205
+"n_media": 9208
 },
 {
 "exchange": "EX_fe2_e",
 "name": "Fe2+ mitochondria",
-"n_media": 8999
+"n_media": 9002
 },
 {
 "exchange": "EX_zn2_e",
 "name": "Zinc",
-"n_media": 8858
+"n_media": 8861
 },
 {
 "exchange": "EX_lys__L_e",
 "name": "L-Lysine",
-"n_media": 8732
+"n_media": 8737
 },
 {
 "exchange": "EX_met__L_e",
 "name": "L-Methionine",
-"n_media": 8725
+"n_media": 8729
 },
 {
 "exchange": "EX_leu__L_e",
 "name": "L-Leucine",
-"n_media": 8721
+"n_media": 8725
 },
 {
 "exchange": "EX_ile__L_e",
 "name": "L-Isoleucine",
-"n_media": 8718
+"n_media": 8722
 },
 {
 "exchange": "EX_thr__L_e",
 "name": "L-Threonine",
-"n_media": 8715
+"n_media": 8719
 },
 {
 "exchange": "EX_his__L_e",
 "name": "L-Histidine",
-"n_media": 8709
+"n_media": 8713
 },
 {
 "exchange": "EX_arg__L_e",
 "name": "L-Arginine",
-"n_media": 8701
+"n_media": 8705
 },
 {
 "exchange": "EX_tyr__L_e",
 "name": "L-Tyrosine",
-"n_media": 8677
+"n_media": 8682
 },
 {
 "exchange": "EX_trp__L_e",
 "name": "L-Tryptophan",
-"n_media": 8663
-},
-{
-"exchange": "EX_cu2_e",
-"name": "Copper",
-"n_media": 8655
+"n_media": 8666
 },
 {
 "exchange": "EX_ala__L_e",
 "name": "L-Alanine",
-"n_media": 8654
+"n_media": 8659
+},
+{
+"exchange": "EX_cu2_e",
+"name": "Copper",
+"n_media": 8658
 },
 {
 "exchange": "EX_gly_e",
 "name": "Glycine",
-"n_media": 8652
+"n_media": 8657
 },
 {
 "exchange": "EX_pro__L_e",
 "name": "L-Proline",
-"n_media": 8648
+"n_media": 8652
 },
 {
 "exchange": "EX_phe__L_e",
 "name": "L-Phenylalanine",
-"n_media": 8201
+"n_media": 8205
 },
 {
 "exchange": "EX_val__L_e",
 "name": "L-Valine",
-"n_media": 8178
+"n_media": 8182
 },
 {
 "exchange": "EX_glu__L_e",
 "name": "L-Glutamate",
-"n_media": 8122
+"n_media": 8126
 },
 {
 "exchange": "EX_ser__L_e",
 "name": "L-Serine",
-"n_media": 8114
+"n_media": 8118
 },
 {
 "exchange": "EX_mn2_e",
 "name": "Manganese",
-"n_media": 8095
+"n_media": 8097
 },
 {
 "exchange": "EX_cys__L_e",
 "name": "L-Cysteine",
-"n_media": 8009
+"n_media": 8010
 },
 {
 "exchange": "EX_asp__L_e",
 "name": "L-Aspartate",
-"n_media": 7963
+"n_media": 7967
 },
 {
 "exchange": "EX_cbl1_e",
 "name": "Cob(I)alamin",
-"n_media": 7498
+"n_media": 7499
 },
 {
 "exchange": "EX_slnt_e",
@@ -238,22 +238,22 @@
 {
 "exchange": "EX_ocdcea_e",
 "name": "Octadecenoate (n-C18:1)",
-"n_media": 6753
+"n_media": 6755
 },
 {
 "exchange": "EX_hdca_e",
 "name": "Hexadecanoate (n-C16:0)",
-"n_media": 6750
+"n_media": 6753
 },
 {
 "exchange": "EX_ocdca_e",
 "name": "Octadecanoate (n-C18:0)",
-"n_media": 6622
+"n_media": 6626
 },
 {
 "exchange": "EX_avite1_e",
 "name": "Alpha-Tocopherol",
-"n_media": 5749
+"n_media": 5750
 },
 {
 "exchange": "EX_ttdca_e",
