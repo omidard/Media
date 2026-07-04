@@ -141,6 +141,7 @@ Promise.all([fetch('data/index.json').then(r=>r.json()),fetch('data/media_stats.
   const dl=document.getElementById('cmp-list');DATA.forEach(d=>{const o=document.createElement('option');o.value=d.name;dl.appendChild(o);});
   document.getElementById('cmp-search').addEventListener('keydown',e=>{if(e.key==='Enter')cmpAdd();});
   loadMatrix();
+  const _mp=new URLSearchParams(location.search).get('medium');if(_mp)setTimeout(()=>openMed(_mp),200);
 });
 
 // ---- presence/absence matrix ----
