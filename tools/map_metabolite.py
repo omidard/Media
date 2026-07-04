@@ -22,6 +22,32 @@ def norm(s):
     s = re.sub(r"^(l|d|dl)-", "", s)
     return re.sub(r"[^a-z0-9]", "", s)
 
+# common-name -> BiGG id aliases (keyed by norm()). Fixes trivial misses like
+# "acetic acid" (->ac), "O2", amino-acid full names, gases, organic acids.
+_AA = {"alanine":"ala__L","arginine":"arg__L","asparagine":"asn__L","aspartate":"asp__L","asparticacid":"asp__L",
+       "cysteine":"cys__L","glutamate":"glu__L","glutamicacid":"glu__L","glutamine":"gln__L","glycine":"gly",
+       "histidine":"his__L","isoleucine":"ile__L","leucine":"leu__L","lysine":"lys__L","methionine":"met__L",
+       "phenylalanine":"phe__L","proline":"pro__L","serine":"ser__L","threonine":"thr__L","tryptophan":"trp__L",
+       "tyrosine":"tyr__L","valine":"val__L","ornithine":"orn","citrulline":"citr__L"}
+_ALIASES = {**_AA,
+    # gases / inorganics
+    "o2":"o2","oxygen":"o2","dioxygen":"o2","co2":"co2","carbondioxide":"co2","h2":"h2","hydrogen":"h2",
+    "n2":"n2","dinitrogen":"n2","h2s":"h2s","hydrogensulfide":"h2s","ch4":"ch4","methane":"ch4","co":"co",
+    "carbonmonoxide":"co","no":"no","no2":"no2","no3":"no3","nitrate":"no3","nitrite":"no2","n2o":"n2o",
+    "nh3":"nh4","ammonia":"nh4","ammonium":"nh4","h2o":"h2o","water":"h2o","proton":"h","phosphate":"pi",
+    # organic acids (name "X acid" or "X-ic acid" -> conjugate base id)
+    "aceticacid":"ac","acetate":"ac","aceticacidglacial":"ac","succinicacid":"succ","succinate":"succ",
+    "lacticacid":"lac__L","lactate":"lac__L","dllacticacid":"lac__L","propionicacid":"ppa","propionate":"ppa",
+    "propanoicacid":"ppa","butyricacid":"but","butyrate":"but","butanoicacid":"but","isobutyricacid":"isobut",
+    "formicacid":"for","formate":"for","citricacid":"cit","citrate":"cit","pyruvicacid":"pyr","pyruvate":"pyr",
+    "fumaricacid":"fum","fumarate":"fum","malicacid":"mal__L","malate":"mal__L","oxalicacid":"oxa","oxalate":"oxa",
+    "gluconicacid":"glcn","gluconate":"glcn","glycolicacid":"glyclt","glycolate":"glyclt","glyoxylicacid":"glx",
+    "glyoxylate":"glx","alphaketoglutaricacid":"akg","2oxoglutaricacid":"akg","2oxoglutarate":"akg",
+    "ketoglutaricacid":"akg","caproicacid":"hxa","hexanoicacid":"hxa",
+    # alcohols / misc products (confident BiGG ids only)
+    "ethanol":"etoh","methanol":"meoh","glycerol":"glyc","butanol":"btoh","1butanol":"btoh","nbutanol":"btoh",
+    "indole":"indole","urea":"urea","putrescine":"ptrc","cadaverine":"15dap","spermidine":"spmd"}
+
 class Mapper:
     def __init__(self, base=HERE):
         self.dict = json.load(open(os.path.join(base, "bigg_metabolite_dict.json")))
@@ -29,6 +55,8 @@ class Mapper:
         self.name_idx = ri["name"]
         self.name_strict = ri["name_strict"]
         self.xref_idx = ri["xref"]           # {inchikey:{...}, chebi:{...}, kegg:{...}, hmdb:{...}, mnx:{...}, seed:{...}}
+        # keep only aliases whose target id actually exists (avoid mismapping to a bogus id)
+        self.aliases = {k: v for k, v in _ALIASES.items() if v in self.dict}
 
     def _prefer(self, ids):
         """dedupe; prefer BiGGr-present ids, then shortest id (usually the canonical)."""
@@ -63,10 +91,22 @@ class Mapper:
                 return self._result(bid, key, "exact")
         # 2) name (normalized, then strict)
         if name:
-            hits = self.name_idx.get(norm(name)) or self.name_strict.get(re.sub(r"[^a-z0-9]", "", name.lower()))
+            n = norm(name)
+            hits = self.name_idx.get(n) or self.name_strict.get(re.sub(r"[^a-z0-9]", "", name.lower()))
             if hits:
                 best = self._prefer(hits)[0]
                 return self._result(best, "name", "inferred")
+            # 3) alias table (acids, gases, amino acids, common products)
+            if n in self.aliases:
+                return self._result(self.aliases[n], "name_alias", "inferred")
+            # 4) data-driven acid heuristic: "…ic acid" -> try "…ate" / "…oate" via the name index
+            m2 = re.match(r"(.+?)ic(?:acid)?$", n)
+            if m2:
+                stem = m2.group(1)
+                for cand in (stem + "ate", stem + "oate"):
+                    h = self.name_idx.get(cand)
+                    if h:
+                        return self._result(self._prefer(h)[0], "name_acid_heuristic", "inferred")
         return None
 
 
