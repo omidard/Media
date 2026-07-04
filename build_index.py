@@ -5,6 +5,7 @@ def source_db(idv, prov, food_group):
     if idv.startswith('usda_'): return 'USDA FoodData Central'
     if idv.startswith('food_'): return 'FooDB'
     if idv.startswith('lit_'): return 'Literature (GEM papers)'
+    if idv.startswith('growthlit_'): return 'Literature (GrowthDB)'
     if idv.startswith('biospecimen_hmdb_'): return 'HMDB'
     if idv.startswith('biospecimen_'): return 'Published (HMDB-derived)'
     return prov.get('source_type','')
