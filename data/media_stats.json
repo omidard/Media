@@ -83,12 +83,12 @@
 {
 "exchange": "EX_na1_e",
 "name": "Sodium",
-"n_media": 10052
+"n_media": 10064
 },
 {
 "exchange": "EX_k_e",
 "name": "Potassium",
-"n_media": 9889
+"n_media": 9899
 },
 {
 "exchange": "EX_mg2_e",
@@ -98,7 +98,7 @@
 {
 "exchange": "EX_pi_e",
 "name": "Phosphate",
-"n_media": 9689
+"n_media": 9701
 },
 {
 "exchange": "EX_fol_e",
