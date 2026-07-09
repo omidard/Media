@@ -21,17 +21,17 @@ An interactive browser — search and filter every medium, inspect each componen
 
 <table>
 <tr>
-<td width="50%"><a href="https://omidard.github.io/Media/"><img src="shot_media_1.png" alt="Media browser: searchable table + dashboard over thousands of GEM-ready media" width="100%"></a></td>
-<td width="50%"><a href="https://omidard.github.io/Media/"><img src="shot_media_2.png" alt="A defined DSMZ culture medium mapped to BiGG exchanges, ready to copy as a COBRApy medium" width="100%"></a></td>
+<td width="50%"><a href="https://omidard.github.io/Media/"><img src="shot_media_1.png" alt="Media landing page: a searchable library of thousands of GEM-ready growth media" width="100%"></a></td>
+<td width="50%"><a href="https://omidard.github.io/Media/patterns.html"><img src="shot_media_2.png" alt="Patterns page: hierarchically clustered heatmap of compound presence across media groups, with row and column dendrograms" width="100%"></a></td>
 </tr>
 <tr>
-<td width="50%"><a href="https://omidard.github.io/Media/"><img src="shot_media_3.png" alt="HMDB blood metabolome as a biospecimen medium with concentrations and citations" width="100%"></a></td>
-<td width="50%"><a href="https://omidard.github.io/Media/"><img src="shot_media_4.png" alt="A food-derived medium from FooDB with measured concentrations" width="100%"></a></td>
+<td width="50%"><a href="https://omidard.github.io/Media/compare.html"><img src="shot_media_3.png" alt="Compare page: Jaccard similarity matrix and UpSet intersection plot for selected media" width="100%"></a></td>
+<td width="50%"><a href="https://omidard.github.io/Media/"><img src="shot_media_4.png" alt="A medium's full detail view: components mapped to BiGG exchanges with cross-references, citation, and one-click copy as a COBRApy medium" width="100%"></a></td>
 </tr>
 </table>
 
 <p align="center">
-  <em>Laboratory / defined media (DSMZ) &middot; biospecimen media (HMDB) &middot; food-derived media (FooDB) &middot; every component cited &amp; mapped to BiGG</em><br><br>
+  <em>Explore the library &middot; clustered composition patterns &middot; side-by-side comparison &middot; and every medium copyable straight into COBRApy</em><br><br>
   <a href="https://omidard.github.io/Media/"><img src="https://img.shields.io/badge/%E2%96%B6%20Open%20the%20Media%20browser-1F8A70?style=for-the-badge&logo=googlechrome&logoColor=white" height="42" alt="Open the Media browser"></a>
   &nbsp;&nbsp;<a href="https://omidard.github.io/Media/"><code>omidard.github.io/Media</code></a>
 </p>
