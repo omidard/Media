@@ -70,6 +70,46 @@ model.medium = {c["exchange"]: -c["lower_bound"] for c in med["components"]
 print(model.slim_optimize())
 ```
 
+## Programmatic access (data API)
+
+Everything here is a **read-only static API** over GitHub Pages — plain HTTPS `GET`s
+with permissive CORS, so you can fetch from Python, R, JS, or `curl` with no key and no
+rate limit. Full reference in **[`API.md`](./API.md)** (+ machine-readable
+[`openapi.yaml`](./openapi.yaml)).
+
+```
+GET  data/index.json              # catalog: counts + one summary per medium
+GET  data/media/{id}.json          # full record for one medium
+GET  data/api/media.parquet        # bulk: one row per medium
+GET  data/api/components.parquet    # bulk: one row per (medium, component)
+GET  data/api/media.sqlite.gz       # SQLite (media + components, indexed)
+GET  data/api/media.jsonl.gz        # all full records, one JSON per line
+GET  data/api/manifest.json         # version, totals, file inventory, schemas
+```
+
+Query the bulk Parquet in place, without downloading, via DuckDB:
+
+```python
+import duckdb
+con = duckdb.connect(); con.execute("INSTALL httpfs; LOAD httpfs;")
+B = "https://omidard.github.io/Media/data/api"
+con.sql(f"SELECT category, count(*) FROM read_parquet('{B}/media.parquet') GROUP BY 1")
+```
+
+Or use the ready-made client (filters, `to_cobra_medium`, cached fetch):
+
+```bash
+pip install "git+https://github.com/omidard/Media.git#subdirectory=client"
+```
+```python
+from pymediadb import MediaDB
+db = MediaDB()
+db.list_media(category="laboratory", defined=True)
+db.to_cobra_medium(db.get_medium("m9_glucose_aerobic"))
+```
+
+Rebuild the bulk artifacts after new media land: `python3 tools/build_api_exports.py`.
+
 ## Current contents — 11,367 media
 
 Each medium is cited and mapped through the same pipeline. By source database:

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pymediadb"
+version = "1.0.0"
+description = "Client for the Media data API: curated, citation-backed, BiGG-mapped growth/simulation media for genome-scale models"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Omid Ardalani" }]
+keywords = ["bioinformatics", "genome-scale model", "GEM", "COBRApy", "BiGG", "growth media", "FBA"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://omidard.github.io/Media/"
+Repository = "https://github.com/omidard/Media"
+"Data API" = "https://github.com/omidard/Media/blob/main/API.md"
+
+[project.optional-dependencies]
+# Bulk/analytics helpers (load_media / load_components / query)
+analytics = ["pandas", "pyarrow"]
+sql = ["duckdb"]
+all = ["pandas", "pyarrow", "duckdb"]
+
+[tool.setuptools]
+packages = ["pymediadb"]

@@ -1,0 +1,186 @@
+openapi: 3.1.0
+info:
+  title: Media Data API
+  version: "1.0.0"
+  description: >
+    Read-only static API for the Media dataset: a curated, citation-backed library of
+    growth / simulation media, every component mapped to a standard BiGG exchange
+    reaction (EX_<met>_e) so any genome-scale model can adopt a medium. Served over
+    GitHub Pages with permissive CORS; no authentication and no rate limiting.
+  license:
+    name: MIT
+    url: https://github.com/omidard/Media/blob/main/LICENSE
+servers:
+  - url: https://omidard.github.io/Media
+    description: GitHub Pages (production)
+paths:
+  /data/index.json:
+    get:
+      summary: Catalog of all media (summaries)
+      operationId: getCatalog
+      responses:
+        "200":
+          description: Catalog with totals and one summary per medium.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: { type: integer }
+                  by_category:
+                    type: object
+                    additionalProperties: { type: integer }
+                  by_source_db:
+                    type: object
+                    additionalProperties: { type: integer }
+                  media:
+                    type: array
+                    items: { $ref: "#/components/schemas/MediumSummary" }
+  /data/media/{id}.json:
+    get:
+      summary: Full record for a single medium
+      operationId: getMedium
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+          description: Medium id, e.g. m9_glucose_aerobic
+      responses:
+        "200":
+          description: Full medium record including components and provenance.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Medium" }
+        "404":
+          description: No medium with that id.
+  /data/media_stats.json:
+    get:
+      summary: Component-frequency statistics
+      operationId: getMediaStats
+      responses:
+        "200": { description: Aggregate component statistics. }
+  /data/presence_matrix.json:
+    get:
+      summary: Medium x component presence matrix
+      operationId: getPresenceMatrix
+      responses:
+        "200": { description: Presence matrix. }
+  /data/api/manifest.json:
+    get:
+      summary: API manifest (version, totals, bulk-file inventory, schemas)
+      operationId: getManifest
+      responses:
+        "200": { description: Manifest object. }
+  /data/api/media.parquet:
+    get:
+      summary: Bulk media table (Parquet, one row per medium)
+      operationId: getMediaParquet
+      responses:
+        "200":
+          description: Parquet file; queryable in place over HTTP (e.g. DuckDB httpfs).
+          content:
+            application/octet-stream:
+              schema: { type: string, format: binary }
+  /data/api/components.parquet:
+    get:
+      summary: Bulk components table (Parquet, one row per medium-component)
+      operationId: getComponentsParquet
+      responses:
+        "200":
+          description: Parquet file; join to media on medium_id.
+          content:
+            application/octet-stream:
+              schema: { type: string, format: binary }
+  /data/api/media.sqlite.gz:
+    get:
+      summary: SQLite database (gzipped) with media + components tables
+      operationId: getSqlite
+      responses:
+        "200":
+          description: gzip-compressed SQLite; gunzip before opening.
+          content:
+            application/gzip:
+              schema: { type: string, format: binary }
+  /data/api/media.jsonl.gz:
+    get:
+      summary: All full medium records, one JSON per line (gzipped)
+      operationId: getJsonl
+      responses:
+        "200":
+          description: gzip-compressed JSON Lines; same schema as /data/media/{id}.json.
+          content:
+            application/gzip:
+              schema: { type: string, format: binary }
+components:
+  schemas:
+    MediumSummary:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        category:
+          type: string
+          enum: [food, laboratory, biospecimen, minimal, defined, rich, dietary, niche]
+        organism_scope: { type: string }
+        aerobic: { type: boolean }
+        n_components: { type: integer }
+        n_mapped: { type: integer }
+        n_in_biggr: { type: integer }
+        namespace: { type: string, examples: [bigg] }
+        source_type: { type: string }
+        source_db: { type: string }
+        defined: { type: boolean }
+        citation: { type: string }
+        food_group: { type: string }
+    Medium:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        category: { type: string }
+        organism_scope: { type: string }
+        aerobic: { type: boolean }
+        description: { type: string }
+        namespace: { type: string }
+        defined: { type: boolean }
+        source_db: { type: string }
+        food_group: { type: string }
+        n_components: { type: integer }
+        n_mapped: { type: integer }
+        n_in_biggr: { type: integer }
+        provenance: { $ref: "#/components/schemas/Provenance" }
+        components:
+          type: array
+          items: { $ref: "#/components/schemas/Component" }
+        unmapped:
+          type: array
+          description: Components that could not be mapped (never silently dropped).
+          items: { type: object }
+    Provenance:
+      type: object
+      properties:
+        source_type: { type: string }
+        citation: { type: string }
+        doi: { type: string }
+        url: { type: string }
+        notes: { type: string }
+    Component:
+      type: object
+      properties:
+        name: { type: string }
+        bigg_metabolite:
+          type: [string, "null"]
+          description: BiGG metabolite id; null if unmapped.
+        exchange: { type: string, examples: [EX_glc__D_e] }
+        lower_bound:
+          type: number
+          description: Flux lower bound; negative = uptake (mmol/gDW/h).
+        upper_bound: { type: number }
+        concentration_mM: { type: [number, "null"] }
+        in_biggr: { type: boolean }
+        mapping_method: { type: string }
+        mapping_confidence: { type: string }
+        xref:
+          type: object
+          additionalProperties: { type: string }
