@@ -78,8 +78,9 @@ class Mapper:
             fb = json.load(open(os.path.join(base, "xref_fallback.json")))
             self.chebi2mnx, self.kegg2mnx = fb["chebi2mnx"], fb["kegg2mnx"]
             self.mnx2seed, self.mnx2kegg = fb["mnx2seed"], fb["mnx2kegg"]
+            self.name2mnx = fb.get("name2mnx", {})
         except Exception:
-            self.chebi2mnx = self.kegg2mnx = self.mnx2seed = self.mnx2kegg = {}
+            self.chebi2mnx = self.kegg2mnx = self.mnx2seed = self.mnx2kegg = self.name2mnx = {}
         # index BiGG names with the trailing molecular formula stripped, e.g.
         # "Lactose C12H22O11" -> "lactose". This recovers hundreds of common sugars/substrates.
         self.name_nf = {}
@@ -111,15 +112,17 @@ class Mapper:
         if key in ("chebi", "hmdb"): return re.sub(r"\D", "", v).lstrip("0") or "0"
         return v
 
-    def fallback_exchange(self, chebi=None, kegg=None):
+    def fallback_exchange(self, chebi=None, kegg=None, name=None):
         """No BiGG exchange -> formulate a valid one from ModelSEED via MetaNetX (EX_cpd#####_e),
-        else KEGG (EX_C#####_kegg_e), else MetaNetX (EX_MNXM#_e). Returns a result dict or None."""
+        else KEGG (EX_C#####_kegg_e), else MetaNetX (EX_MNXM#_e). Resolves via ChEBI, KEGG, or name."""
         mnx = None
         if chebi:
             c = str(chebi).replace("CHEBI:", "").strip()
             mnx = self.chebi2mnx.get(c) or self.chebi2mnx.get("CHEBI:" + c)
         if not mnx and kegg:
             mnx = self.kegg2mnx.get(str(kegg).strip())
+        if not mnx and name:
+            mnx = self.name2mnx.get(norm(name))
         if not mnx:
             return None
         seed = self.mnx2seed.get(mnx); kg = self.mnx2kegg.get(mnx)
