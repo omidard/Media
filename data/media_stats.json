@@ -1,13 +1,13 @@
 {
-"total": 11679,
+"total": 11990,
 "by_category": {
 "food": 8095,
-"laboratory": 3567,
+"laboratory": 3878,
 "biospecimen": 17
 },
 "by_source": {
 "database": 11257,
-"literature": 408,
+"literature": 719,
 "standard": 14
 },
 "by_food_group": {
@@ -68,52 +68,52 @@
 {
 "exchange": "EX_nac_e",
 "name": "Nicotinate",
-"n_media": 10328
+"n_media": 10330
 },
 {
 "exchange": "EX_thm_e",
 "name": "Thiamin",
-"n_media": 10303
+"n_media": 10304
 },
 {
 "exchange": "EX_ribflv_e",
 "name": "Riboflavin C17H20N4O6",
-"n_media": 10250
+"n_media": 10252
 },
 {
 "exchange": "EX_na1_e",
 "name": "Sodium",
-"n_media": 10113
+"n_media": 10114
 },
 {
 "exchange": "EX_k_e",
 "name": "Potassium",
-"n_media": 9943
+"n_media": 9946
 },
 {
 "exchange": "EX_mg2_e",
 "name": "Magnesium",
-"n_media": 9864
+"n_media": 9868
 },
 {
 "exchange": "EX_pi_e",
 "name": "Phosphate",
-"n_media": 9747
+"n_media": 9750
 },
 {
 "exchange": "EX_fol_e",
 "name": "Folate",
-"n_media": 9432
+"n_media": 9433
 },
 {
 "exchange": "EX_ca2_e",
 "name": "Calcium",
-"n_media": 9408
+"n_media": 9407
 },
 {
 "exchange": "EX_pnto__R_e",
 "name": "(R)-Pantothenate",
-"n_media": 9347
+"n_media": 9348
 },
 {
 "exchange": "EX_fe2_e",
@@ -133,7 +133,7 @@
 {
 "exchange": "EX_cu2_e",
 "name": "Copper",
-"n_media": 8740
+"n_media": 8739
 },
 {
 "exchange": "EX_met__L_e",
@@ -178,7 +178,7 @@
 {
 "exchange": "EX_ala__L_e",
 "name": "L-Alanine",
-"n_media": 8667
+"n_media": 8668
 },
 {
 "exchange": "EX_gly_e",
@@ -198,7 +198,7 @@
 {
 "exchange": "EX_mn2_e",
 "name": "Manganese",
-"n_media": 8197
+"n_media": 8198
 },
 {
 "exchange": "EX_val__L_e",
@@ -228,7 +228,7 @@
 {
 "exchange": "EX_cbl1_e",
 "name": "Cob(I)alamin",
-"n_media": 7528
+"n_media": 7530
 },
 {
 "exchange": "EX_slnt_e",
@@ -261,7 +261,7 @@
 "n_media": 5746
 }
 ],
-"ncomp_min": 4,
+"ncomp_min": 1,
 "ncomp_median": 49,
 "ncomp_max": 696
 }

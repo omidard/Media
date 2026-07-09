@@ -22,6 +22,14 @@ def norm(s):
     s = re.sub(r"^(l|d|dl)-", "", s)
     return re.sub(r"[^a-z0-9]", "", s)
 
+_FORMULA = re.compile(r"^(?:[A-Z][a-z]?\d*){2,}$")
+def strip_formula(name):
+    """Drop a trailing molecular-formula token: 'Lactose C12H22O11' -> 'Lactose'."""
+    parts = (name or "").rsplit(" ", 1)
+    if len(parts) == 2 and any(c.isdigit() for c in parts[1]) and _FORMULA.match(parts[1]):
+        return parts[0]
+    return name
+
 # common-name -> BiGG id aliases (keyed by norm()). Fixes trivial misses like
 # "acetic acid" (->ac), "O2", amino-acid full names, gases, organic acids.
 _AA = {"alanine":"ala__L","arginine":"arg__L","asparagine":"asn__L","aspartate":"asp__L","asparticacid":"asp__L",
@@ -46,7 +54,12 @@ _ALIASES = {**_AA,
     "ketoglutaricacid":"akg","caproicacid":"hxa","hexanoicacid":"hxa",
     # alcohols / misc products (confident BiGG ids only)
     "ethanol":"etoh","methanol":"meoh","glycerol":"glyc","butanol":"btoh","1butanol":"btoh","nbutanol":"btoh",
-    "indole":"indole","urea":"urea","putrescine":"ptrc","cadaverine":"15dap","spermidine":"spmd"}
+    "indole":"indole","urea":"urea","putrescine":"ptrc","cadaverine":"15dap","spermidine":"spmd",
+    # sugar-alcohol / sugar synonyms Biolog uses under non-BiGG names
+    "dulcitol":"galt","galactitol":"galt","adonitol":"rbt","ribitol":"rbt","myoinositol":"inost",
+    "iinositol":"inost","mesoinositol":"inost","dglucosamine":"gam","glucosamine":"gam",
+    "nacetylglucosamine":"acgam","nacetyldglucosamine":"acgam","nacetylgalactosamine":"acgal__D",
+    "2ketogluconate":"2dhguln","5ketogluconate":"5dglcn","sorbose":"srb__L","dmannitol":"mnl","mannitol":"mnl"}
 
 class Mapper:
     def __init__(self, base=HERE):
@@ -57,6 +70,14 @@ class Mapper:
         self.xref_idx = ri["xref"]           # {inchikey:{...}, chebi:{...}, kegg:{...}, hmdb:{...}, mnx:{...}, seed:{...}}
         # keep only aliases whose target id actually exists (avoid mismapping to a bogus id)
         self.aliases = {k: v for k, v in _ALIASES.items() if v in self.dict}
+        # index BiGG names with the trailing molecular formula stripped, e.g.
+        # "Lactose C12H22O11" -> "lactose". This recovers hundreds of common sugars/substrates.
+        self.name_nf = {}
+        for bid, rec in self.dict.items():
+            nm = strip_formula(rec.get("name", ""))
+            k = norm(nm)
+            if k:
+                self.name_nf.setdefault(k, []).append(bid)
 
     def _prefer(self, ids):
         """dedupe; prefer BiGGr-present ids, then shortest id (usually the canonical)."""
@@ -99,7 +120,10 @@ class Mapper:
             # 3) alias table (acids, gases, amino acids, common products)
             if n in self.aliases:
                 return self._result(self.aliases[n], "name_alias", "inferred")
-            # 4) data-driven acid heuristic: "…ic acid" -> try "…ate" / "…oate" via the name index
+            # 4) name with trailing molecular formula stripped ("Lactose C12H22O11" -> lactose)
+            if n in self.name_nf:
+                return self._result(self._prefer(self.name_nf[n])[0], "name_deformula", "inferred")
+            # 5) data-driven acid heuristic: "…ic acid" -> try "…ate" / "…oate" via the name index
             m2 = re.match(r"(.+?)ic(?:acid)?$", n)
             if m2:
                 stem = m2.group(1)
