@@ -62,36 +62,58 @@ def load_catalog():
 
 
 def iter_records(catalog):
-    """Yield the full per-medium record for every id in the catalog."""
+    """Yield (catalog_summary, full_record) for every id in the catalog.
+
+    The per-medium file is the source of truth for components; the catalog
+    summary (data/index.json) is the source of truth for derived medium-level
+    fields such as ``source_db`` (which is NOT stored on the per-medium file).
+    """
     for summary in catalog["media"]:
         mid = summary["id"]
         path = os.path.join(MEDIA_DIR, mid + ".json")
         if not os.path.exists(path):
             continue
         with open(path) as fh:
-            yield mid, json.load(fh)
+            yield summary, json.load(fh)
 
 
-def medium_row(mid, rec):
+def _as_nullable_bool(v):
+    """Normalize a defined/aerobic-style value to True/False/None.
+
+    In the catalog, ``defined`` is mixed: real booleans for some sources and an
+    empty string ('') where the concept doesn't apply -> map '' (and None) to null.
+    """
+    if isinstance(v, bool):
+        return v
+    if v in ("", None):
+        return None
+    if isinstance(v, str):
+        return v.strip().lower() in ("true", "yes", "1", "defined")
+    return bool(v)
+
+
+def medium_row(summary, rec):
+    """One medium-level row: catalog summary fields + provenance from the record."""
     prov = rec.get("provenance", {}) or {}
-    return {
-        "id": rec.get("id", mid),
-        "name": rec.get("name"),
-        "category": rec.get("category"),
-        "organism_scope": rec.get("organism_scope"),
-        "aerobic": rec.get("aerobic"),
-        "defined": rec.get("defined"),
-        "namespace": rec.get("namespace"),
-        "source_type": prov.get("source_type"),
-        "source_db": rec.get("source_db") or prov.get("source_db"),
-        "n_components": rec.get("n_components"),
-        "n_mapped": rec.get("n_mapped"),
-        "n_in_biggr": rec.get("n_in_biggr"),
-        "citation": prov.get("citation"),
+    row = {
+        "id": summary.get("id"),
+        "name": summary.get("name"),
+        "category": summary.get("category"),
+        "organism_scope": summary.get("organism_scope"),
+        "aerobic": _as_nullable_bool(summary.get("aerobic")),
+        "defined": _as_nullable_bool(summary.get("defined")),
+        "namespace": summary.get("namespace"),
+        "source_type": summary.get("source_type") or prov.get("source_type"),
+        "source_db": summary.get("source_db"),
+        "n_components": summary.get("n_components"),
+        "n_mapped": summary.get("n_mapped"),
+        "n_in_biggr": summary.get("n_in_biggr"),
+        "citation": summary.get("citation") or prov.get("citation"),
         "doi": prov.get("doi"),
         "url": prov.get("url"),
-        "food_group": rec.get("food_group"),
+        "food_group": summary.get("food_group"),
     }
+    return row
 
 
 def component_rows(mid, rec):
@@ -156,7 +178,7 @@ def build_sqlite(media_rows, comp_rows, path_gz):
 
 def build_jsonl_gz(catalog, path_gz):
     with gzip.open(path_gz, "wt", compresslevel=9) as fout:
-        for mid, rec in iter_records(catalog):
+        for _summary, rec in iter_records(catalog):
             fout.write(json.dumps(rec, separators=(",", ":")))
             fout.write("\n")
 
@@ -175,9 +197,9 @@ def main():
     print("catalog media:", catalog["count"])
 
     media_rows, comp_rows = [], []
-    for mid, rec in iter_records(catalog):
-        media_rows.append(medium_row(mid, rec))
-        comp_rows.extend(component_rows(mid, rec))
+    for summary, rec in iter_records(catalog):
+        media_rows.append(medium_row(summary, rec))
+        comp_rows.extend(component_rows(summary["id"], rec))
     print("loaded media rows:", len(media_rows), "component rows:", len(comp_rows))
 
     media_pq = os.path.join(OUT, "media.parquet")
@@ -218,6 +240,8 @@ def main():
         "api_version": API_VERSION,
         "base_url": BASE_URL,
         "catalog_count": catalog["count"],
+        "component_records": len(comp_rows),
+        "distinct_compounds": len({r["exchange"] for r in comp_rows if r.get("exchange")}),
         "by_category": catalog.get("by_category", {}),
         "by_source_db": catalog.get("by_source_db", {}),
         "endpoints": {

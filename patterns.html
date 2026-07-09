@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media — composition patterns &amp; clustering</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230a5c49%27/%3E%3Cpath d=%27M13 5h6v6l5 11a2 2 0 0 1-2 3H10a2 2 0 0 1-2-3l5-11z%27 fill=%27none%27 stroke=%27%237fe6c8%27 stroke-width=%272%27/%3E%3Ccircle cx=%2716%27 cy=%2721%27 r=%272%27 fill=%27%237fe6c8%27/%3E%3C/svg%3E">
+<meta name="description" content="Hierarchically clustered views of the media collection: compound co-occurrence and compound × media-group presence, with row and column dendrograms.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/media.css">
+</head>
+<body>
+
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="index.html"><span class="dot"></span> Media</a>
+  <div class="links">
+    <a href="index.html#explore">Explore</a>
+    <a href="compare.html">Compare</a>
+    <a href="patterns.html" class="active">Patterns</a>
+    <a href="API.md" class="ext hide-sm">API</a>
+    <a href="https://github.com/omidard/Media" class="ext hide-sm" target="_blank">GitHub ↗</a>
+  </div>
+</div></nav>
+
+<section class="section" style="padding-bottom:24px"><div class="wrap">
+  <div class="section-head"><div class="eyebrow">Patterns</div>
+    <h2>Composition patterns across the collection</h2>
+    <p>Real hierarchical clustering (Ward linkage) computed over all media. Rows and columns are
+      reordered so that compositionally similar things sit together; the dendrograms show the structure.</p></div>
+
+  <!-- Clustergram -->
+  <div class="card card-p" style="margin-bottom:26px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;margin-bottom:6px">
+      <div>
+        <h3 style="font-size:1.2rem">Compound × media-group presence</h3>
+        <p class="muted" style="margin:6px 0 0;max-width:640px;font-size:.92rem">Each cell is the fraction of media in a
+          group that contain a compound. The 60 most group-discriminating compounds are shown; both axes are clustered.</p>
+      </div>
+      <div>
+        <label class="lbl">Group media by</label>
+        <div class="seg-btn" id="gb-seg"></div>
+      </div>
+    </div>
+    <div class="legend-scale" style="margin:12px 0 4px"><span>0%</span><div class="bar" id="cg-legend"></div><span>100% of media in group</span>
+      <span style="margin-left:auto" class="muted">scroll to pan · hover a cell</span></div>
+    <div class="viz-wrap" id="cg-wrap"><svg id="cg-svg"></svg></div>
+  </div>
+
+  <!-- Co-occurrence -->
+  <div class="card card-p">
+    <h3 style="font-size:1.2rem">Compound co-occurrence</h3>
+    <p class="muted" style="margin:6px 0 12px;max-width:680px;font-size:.92rem">How often two compounds appear together
+      across all media (Jaccard index). Clustered blocks are groups of compounds that tend to travel together —
+      mineral bases, amino-acid sets, vitamin panels, lipid fractions.</p>
+    <div class="legend-scale" style="margin:0 0 4px"><span>0</span><div class="bar" id="co-legend"></div><span>1 · always together</span></div>
+    <div class="viz-wrap" id="co-wrap"><svg id="co-svg"></svg></div>
+  </div>
+</div></section>
+
+<footer class="ft"><div class="wrap">
+  <div><b style="color:var(--body)">Media</b> · clustering: SciPy Ward linkage, precomputed by <span class="mono">tools/build_cluster_data.py</span></div>
+  <div><a href="index.html#explore">Explore</a> · <a href="compare.html">Compare</a> · <a href="API.md">API</a></div>
+</div></footer>
+
+<script src="assets/media.js"></script>
+<script>
+document.getElementById('cg-legend').style.background='linear-gradient(90deg,'+[0,.25,.5,.75,1].map(t=>tealRamp(t)).join(',')+')';
+document.getElementById('co-legend').style.background='linear-gradient(90deg,'+[0,.25,.5,.75,1].map(t=>tealRamp(t)).join(',')+')';
+
+/* -------- generic clustered-heatmap renderer -------- */
+function renderHeatmap(svg,opts){
+  const {rows,cols,matrix,rowDendro,colDendro,cellW,cellH,rowLabelW,colLabelH,
+    rowDendroW,colDendroH,fmtCell,tipHtml,symmetric}=opts;
+  const R=rows.length,C=cols.length;
+  const hx=rowDendroW+rowLabelW, hy=colLabelH+colDendroH;
+  const W=hx+C*cellW+8, H=hy+R*cellH+4;
+  svg.setAttribute('width',W);svg.setAttribute('height',H);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  const root=svgEl('g',{});svg.appendChild(root);
+
+  // column dendrogram (top)
+  if(colDendro){const g=svgEl('g',{transform:`translate(0,${colLabelH})`});root.appendChild(g);
+    drawDendro(g,colDendro,'top',null,cellW,hx,colDendroH,'#9fb3ab');}
+  // row dendrogram (left)
+  if(rowDendro){const g=svgEl('g',{});root.appendChild(g);
+    drawDendro(g,rowDendro,'left',null,cellH,hy,rowDendroW,'#9fb3ab');}
+
+  // column labels (rotated, at very top)
+  cols.forEach((c,j)=>{const x=hx+j*cellW+cellW/2;
+    const t=svgEl('text',{x,y:colLabelH-6,transform:`rotate(-45 ${x} ${colLabelH-6})`,
+      'font-size':10,fill:'#40524c','text-anchor':'start','font-family':'Inter'});
+    t.textContent=(c.name||c).length>22?(c.name||c).slice(0,21)+'…':(c.name||c);root.appendChild(t);});
+
+  // row labels (right-aligned, left of heatmap)
+  rows.forEach((r,i)=>{const y=hy+i*cellH+cellH/2;
+    const t=svgEl('text',{x:hx-6,y,'font-size':10,fill:'#40524c','text-anchor':'end',
+      'dominant-baseline':'middle','font-family':'Inter'});
+    t.textContent=(r.name||r).length>24?(r.name||r).slice(0,23)+'…':(r.name||r);root.appendChild(t);});
+
+  // cells
+  const cellsG=svgEl('g',{});root.appendChild(cellsG);
+  for(let i=0;i<R;i++)for(let j=0;j<C;j++){
+    const v=matrix[i][j];
+    const rect=svgEl('rect',{x:hx+j*cellW,y:hy+i*cellH,width:cellW-1,height:cellH-1,rx:1.5,
+      fill:tealRamp(v),'data-i':i,'data-j':j});
+    if(symmetric&&i===j)rect.setAttribute('stroke','#0a5c49'),rect.setAttribute('stroke-width','.6');
+    cellsG.appendChild(rect);
+  }
+  cellsG.addEventListener('mousemove',ev=>{const t=ev.target;if(t.tagName!=='rect'){tipHide();return;}
+    const i=+t.getAttribute('data-i'),j=+t.getAttribute('data-j');tipShow(tipHtml(i,j),ev);});
+  cellsG.addEventListener('mouseleave',tipHide);
+}
+
+/* -------- clustergram (compound × group) -------- */
+let CG=null;
+jget('data/cluster/clustergram.json').then(d=>{CG=d;
+  const seg=document.getElementById('gb-seg');
+  d.views.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v.label;b.className=i===0?'on':'';
+    b.onclick=()=>{[...seg.children].forEach(c=>c.className='');b.className='on';drawCG(i);};seg.appendChild(b);});
+  drawCG(0);
+});
+function drawCG(vi){const v=CG.views[vi];
+  const C=v.cols.length,cellW=Math.max(30,Math.min(64,760/C));
+  renderHeatmap(document.getElementById('cg-svg'),{
+    rows:v.rows,cols:v.cols,matrix:v.matrix,rowDendro:v.row_dendro,colDendro:v.col_dendro,
+    cellW,cellH:15,rowLabelW:172,colLabelH:150,rowDendroW:64,colDendroH:52,
+    tipHtml:(i,j)=>`<b>${esc(v.rows[i].name)}</b><br>${esc(v.cols[j].name)} <span style="opacity:.7">(n=${fmt(v.cols[j].n)})</span><br>
+      <b style="color:#7fe6c8">${(v.matrix[i][j]*100).toFixed(1)}%</b> of media contain it`});
+}
+
+/* -------- co-occurrence (compound × compound) -------- */
+jget('data/cluster/cooccurrence.json').then(d=>{
+  const L=d.labels,cell=Math.max(11,Math.min(16,720/L.length));
+  renderHeatmap(document.getElementById('co-svg'),{
+    rows:L,cols:L,matrix:d.matrix,rowDendro:null,colDendro:d.dendro,symmetric:true,
+    cellW:cell,cellH:cell,rowLabelW:168,colLabelH:150,rowDendroW:8,colDendroH:56,
+    tipHtml:(i,j)=>`<b>${esc(L[i].name)}</b> ↔ <b>${esc(L[j].name)}</b><br>
+      Jaccard <b style="color:#7fe6c8">${d.matrix[i][j].toFixed(2)}</b>`});
+});
+</script>
+</body>
+</html>

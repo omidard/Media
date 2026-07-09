@@ -1,10 +1,11 @@
 name: Build data API exports
 
-# Rebuild data/api/* whenever the catalog or per-medium records change, so the
-# bulk artifacts (parquet / sqlite / jsonl / manifest) never drift from the data.
+# Rebuild the derived artifacts whenever the catalog or per-medium records change,
+# so the API bulk files (data/api/*) and the clustered Patterns data (data/cluster/*)
+# never drift from the underlying media.
 #
-# Loop-safety: this job only ever writes back to data/api/**, which is NOT in the
-# trigger paths below, so its own commit cannot re-trigger the workflow.
+# Loop-safety: this job only ever writes back to data/api/** and data/cluster/**,
+# which are NOT in the trigger paths below, so its own commit cannot re-trigger it.
 
 on:
   push:
@@ -13,6 +14,7 @@ on:
       - "data/media/**"
       - "data/index.json"
       - "tools/build_api_exports.py"
+      - "tools/build_cluster_data.py"
   workflow_dispatch: {}
 
 # If several data pushes land in a row, only rebuild once against the latest.
@@ -36,21 +38,23 @@ jobs:
           python-version: "3.12"
 
       - name: Install deps
-        run: pip install --quiet pyarrow
+        run: pip install --quiet pyarrow scipy numpy pandas
 
       - name: Rebuild exports
-        run: python3 tools/build_api_exports.py
+        run: |
+          python3 tools/build_api_exports.py
+          python3 tools/build_cluster_data.py
 
       - name: Commit refreshed artifacts (if changed)
         run: |
-          if git diff --quiet -- data/api; then
-            echo "data/api unchanged — nothing to commit."
+          if git diff --quiet -- data/api data/cluster; then
+            echo "derived artifacts unchanged — nothing to commit."
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/api
-          git commit -m "chore(api): rebuild data/api exports [skip ci]"
+          git add data/api data/cluster
+          git commit -m "chore(data): rebuild API + cluster exports [skip ci]"
           # Rebase onto any commits that landed while we were building, then push.
           # A few retries handle races with concurrent data pushes.
           for i in 1 2 3 4 5; do
