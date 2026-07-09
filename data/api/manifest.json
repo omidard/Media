@@ -79,7 +79,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "1.3 MB"
+   "size": "1.6 MB"
   },
   "media.sqlite.gz": {
    "tables": [
@@ -87,7 +87,7 @@
     "components"
    ],
    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "11.8 MB"
+   "size": "11.7 MB"
   },
   "media.jsonl.gz": {
    "rows": 12370,
