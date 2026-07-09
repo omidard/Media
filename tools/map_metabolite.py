@@ -59,7 +59,10 @@ _ALIASES = {**_AA,
     "dulcitol":"galt","galactitol":"galt","adonitol":"rbt","ribitol":"rbt","myoinositol":"inost",
     "iinositol":"inost","mesoinositol":"inost","dglucosamine":"gam","glucosamine":"gam",
     "nacetylglucosamine":"acgam","nacetyldglucosamine":"acgam","nacetylgalactosamine":"acgal__D",
-    "2ketogluconate":"2dhguln","5ketogluconate":"5dglcn","sorbose":"srb__L","dmannitol":"mnl","mannitol":"mnl"}
+    "2ketogluconate":"2dhguln","5ketogluconate":"5dglcn","sorbose":"srb__L","dmannitol":"mnl","mannitol":"mnl",
+    "phenylacetate":"pac","phenylaceticacid":"pac","npropanol":"ppoh","propanol":"ppoh","1propanol":"ppoh",
+    "betaine":"glyb","glycinebetaine":"glyb","sarcosine":"sarcs","valericacid":"M03134","pentanoate":"M03134",
+    "valerate":"M03134","caproicacid":"caproic","hexanoate":"hxa","malonicacid":"malon","malonate":"malon"}
 
 class Mapper:
     def __init__(self, base=HERE):
