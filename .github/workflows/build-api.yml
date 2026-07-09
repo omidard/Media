@@ -1,0 +1,64 @@
+name: Build data API exports
+
+# Rebuild data/api/* whenever the catalog or per-medium records change, so the
+# bulk artifacts (parquet / sqlite / jsonl / manifest) never drift from the data.
+#
+# Loop-safety: this job only ever writes back to data/api/**, which is NOT in the
+# trigger paths below, so its own commit cannot re-trigger the workflow.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/media/**"
+      - "data/index.json"
+      - "tools/build_api_exports.py"
+  workflow_dispatch: {}
+
+# If several data pushes land in a row, only rebuild once against the latest.
+concurrency:
+  group: build-api
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet pyarrow
+
+      - name: Rebuild exports
+        run: python3 tools/build_api_exports.py
+
+      - name: Commit refreshed artifacts (if changed)
+        run: |
+          if git diff --quiet -- data/api; then
+            echo "data/api unchanged — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/api
+          git commit -m "chore(api): rebuild data/api exports [skip ci]"
+          # Rebase onto any commits that landed while we were building, then push.
+          # A few retries handle races with concurrent data pushes.
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "pushed on attempt $i"; exit 0
+            fi
+            echo "push $i failed; rebasing on latest main"
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+          done
+          echo "could not push after retries"; exit 1
