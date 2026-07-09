@@ -1,0 +1,102 @@
+{
+ "api_version": "v1",
+ "base_url": "https://omidard.github.io/Media",
+ "catalog_count": 12366,
+ "by_category": {
+  "laboratory": 4254,
+  "biospecimen": 17,
+  "food": 8095
+ },
+ "by_source_db": {
+  "standard": 27,
+  "Published (HMDB-derived)": 8,
+  "HMDB": 9,
+  "literature": 391,
+  "FooDB": 616,
+  "Literature (GrowthDB)": 595,
+  "Literature (GEM papers)": 93,
+  "DSMZ MediaDive": 3148,
+  "USDA FoodData Central": 7479
+ },
+ "endpoints": {
+  "catalog": "/data/index.json",
+  "medium": "/data/media/{id}.json",
+  "component_stats": "/data/media_stats.json",
+  "presence_matrix": "/data/presence_matrix.json",
+  "bulk": {
+   "media.parquet": "/data/api/media.parquet",
+   "components.parquet": "/data/api/components.parquet",
+   "media.sqlite.gz": "/data/api/media.sqlite.gz",
+   "media.jsonl.gz": "/data/api/media.jsonl.gz"
+  },
+  "manifest": "/data/api/manifest.json"
+ },
+ "bulk_files": {
+  "media.parquet": {
+   "rows": 12366,
+   "grain": "one row per medium",
+   "columns": [
+    "id",
+    "name",
+    "category",
+    "organism_scope",
+    "aerobic",
+    "defined",
+    "namespace",
+    "source_type",
+    "source_db",
+    "n_components",
+    "n_mapped",
+    "n_in_biggr",
+    "citation",
+    "doi",
+    "url",
+    "food_group"
+   ],
+   "size": "414.6 KB"
+  },
+  "components.parquet": {
+   "rows": 535011,
+   "grain": "one row per (medium, component)",
+   "columns": [
+    "medium_id",
+    "name",
+    "bigg_metabolite",
+    "exchange",
+    "lower_bound",
+    "upper_bound",
+    "concentration_mM",
+    "in_biggr",
+    "mapping_method",
+    "mapping_confidence",
+    "xref_inchikey",
+    "xref_kegg",
+    "xref_chebi",
+    "xref_hmdb",
+    "xref_mnx",
+    "xref_seed",
+    "xref_biocyc"
+   ],
+   "size": "1.3 MB"
+  },
+  "media.sqlite.gz": {
+   "tables": [
+    "media",
+    "components"
+   ],
+   "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
+   "size": "11.7 MB"
+  },
+  "media.jsonl.gz": {
+   "rows": 12366,
+   "grain": "one full medium record per line",
+   "note": "streamable; same schema as data/media/<id>.json",
+   "size": "6.8 MB"
+  }
+ },
+ "notes": [
+  "Read-only static API served by GitHub Pages with permissive CORS.",
+  "Parquet files are queryable in place over HTTP with DuckDB.",
+  "Bounds convention: lower_bound < 0 is uptake (mmol/gDW/h)."
+ ]
+}

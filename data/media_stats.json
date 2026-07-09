@@ -1,14 +1,14 @@
 {
-"total": 12366,
+"total": 12370,
 "by_category": {
 "food": 8095,
-"laboratory": 4254,
+"laboratory": 4258,
 "biospecimen": 17
 },
 "by_source": {
 "database": 11257,
 "literature": 1082,
-"standard": 27
+"standard": 31
 },
 "by_food_group": {
 "Beef Products": 960,
@@ -78,7 +78,7 @@
 {
 "exchange": "EX_na1_e",
 "name": "Sodium",
-"n_media": 10294
+"n_media": 10298
 },
 {
 "exchange": "EX_ribflv_e",
@@ -88,22 +88,22 @@
 {
 "exchange": "EX_k_e",
 "name": "Potassium",
-"n_media": 10173
+"n_media": 10177
 },
 {
 "exchange": "EX_mg2_e",
 "name": "Magnesium",
-"n_media": 10097
+"n_media": 10101
 },
 {
 "exchange": "EX_pi_e",
 "name": "Phosphate",
-"n_media": 9987
+"n_media": 9991
 },
 {
 "exchange": "EX_ca2_e",
 "name": "Calcium",
-"n_media": 9549
+"n_media": 9553
 },
 {
 "exchange": "EX_fol_e",
@@ -118,17 +118,17 @@
 {
 "exchange": "EX_fe2_e",
 "name": "Fe2+ mitochondria",
-"n_media": 9262
+"n_media": 9266
 },
 {
 "exchange": "EX_zn2_e",
 "name": "Zinc",
-"n_media": 9007
+"n_media": 9011
 },
 {
 "exchange": "EX_cu2_e",
 "name": "Copper",
-"n_media": 8798
+"n_media": 8802
 },
 {
 "exchange": "EX_lys__L_e",
@@ -193,7 +193,7 @@
 {
 "exchange": "EX_mn2_e",
 "name": "Manganese",
-"n_media": 8275
+"n_media": 8279
 },
 {
 "exchange": "EX_phe__L_e",
@@ -228,12 +228,12 @@
 {
 "exchange": "EX_cbl1_e",
 "name": "Cob(I)alamin",
-"n_media": 7557
+"n_media": 7561
 },
 {
 "exchange": "EX_slnt_e",
 "name": "Selenite",
-"n_media": 7217
+"n_media": 7221
 },
 {
 "exchange": "EX_ocdcea_e",
