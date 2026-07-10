@@ -42,6 +42,30 @@ const SRC_META={
 function srcBadge(s){const m=SRC_META[s]||{label:s||'—',col:'#889'};
   return `<span class="badge" style="background:${m.col}18;color:${m.col};border:1px solid ${m.col}44;font-size:.68rem">${m.label}</span>`;}
 
+/* ---- oxygen-regime chip ---- */
+const O2_META={aerobic:{t:'aerobic',c:'#0e8f70'},anaerobic:{t:'anaerobic',c:'#7a3fb8'},facultative:{t:'facultative (O₂ optional)',c:'#6b7684'}};
+function o2Chip(med){const o=med.oxygen||(med.aerobic?'aerobic':'anaerobic');const m=O2_META[o]||O2_META.facultative;
+  const note=med.oxygen_note?` — ${esc(med.oxygen_note)}`:'';
+  return `<span title="O₂ regime${note}" style="color:${m.c};font-weight:600">${m.t}</span>`;}
+
+/* ---- link a cross-reference id to its exact database page ---- */
+function xrefUrl(key,val){const v=String(val);
+  switch(key){
+    case 'hmdb': {const n=v.replace(/^HMDB/i,'').replace(/^0+/,'')||'0';return 'https://hmdb.ca/metabolites/HMDB'+n.padStart(7,'0');}
+    case 'kegg': return 'https://www.kegg.jp/entry/'+v;
+    case 'kegg_drug': return 'https://www.kegg.jp/entry/'+v;
+    case 'chebi': return 'https://www.ebi.ac.uk/chebi/searchId.do?chebiId='+(v.startsWith('CHEBI:')?v:'CHEBI:'+v);
+    case 'inchikey': return 'https://www.ebi.ac.uk/unichem/compoundsources?type=inchikey&compound='+v;
+    case 'seed': return 'https://modelseed.org/biochem/compounds/'+v;
+    case 'biocyc': return 'https://biocyc.org/compound?id='+v.replace(/^META:/,'');
+    case 'metacyc': return 'https://metacyc.org/compound?id='+v;
+    case 'reactome': return 'https://reactome.org/content/detail/'+v;
+    default: return null;}}
+function xrefLinks(xr,keys){
+  return (keys||['hmdb','kegg','chebi','seed','inchikey']).filter(k=>xr&&xr[k]).map(k=>{
+    const u=xrefUrl(k,xr[k]);const t=`${k}:${esc(xr[k])}`;
+    return u?`<a href="${u}" target="_blank" rel="noopener" title="open ${k} page">${t}↗</a>`:t;}).join(' · ');}
+
 /* ---- category badge ---- */
 function catBadge(c){const col=CAT_COLORS[c]||'#889';
   return `<span class="badge" style="background:${col}1c;color:${col};border:1px solid ${col}40">${esc(c)}</span>`;}
@@ -120,16 +144,23 @@ async function openMed(id){
   const comps=med.components.slice().sort((a,b)=>
     (a.mapping_method==='mineral_base')-(b.mapping_method==='mineral_base')||a.exchange.localeCompare(b.exchange));
   const rows=comps.map(c=>{
-    const xr=c.xref||{};const xs=['inchikey','kegg','chebi','hmdb'].filter(k=>xr[k]).map(k=>`${k}:${xr[k]}`).join(' · ');
+    const xr=c.xref||{};const xs=xrefLinks(xr,['hmdb','kegg','chebi','seed','inchikey']);
     const cc=c.mapping_confidence||'';const cl=cc==='exact'?'conf-exact':cc==='inferred'?'conf-inferred':'conf-convention';
     const content=c.foodb_content!=null?`${c.foodb_content} ${esc(c.foodb_unit||'')}`:(c.concentration_mM!=null?c.concentration_mM+' mM':'');
     const src=c.exchange_source||(c.in_biggr?'biggr':'bigg');
     const approx=c.mapping_method==='complex_decomposition'?` <span title="in-silico approximation from ${esc(c.derived_from||'')}" style="font-size:.66rem;color:#c77800">≈ ${esc(c.derived_from||'complex')}</span>`:'';
     return `<tr><td>${esc(c.name)}${approx}</td><td><code>${esc(c.exchange)}</code></td><td>${srcBadge(src)}</td><td>${c.lower_bound}</td>
-      <td>${esc(content)}</td><td style="font-size:.72rem;color:#667">${esc(xs)}</td><td class="${cl}">${esc(cc)}</td></tr>`;
+      <td>${esc(content)}</td><td style="font-size:.72rem;color:#667">${xs}</td><td class="${cl}">${esc(cc)}</td></tr>`;
   }).join('');
-  const cobra=`medium = {\n`+comps.filter(c=>c.lower_bound<0).map(c=>`    "${c.exchange}": ${(-c.lower_bound)},`).join('\n')
-    +`\n}\nmodel.medium = {k:v for k,v in medium.items() if k in model.reactions}`;
+  // COBRApy: set exchange LOWER bounds to NEGATIVE values (a negative lower bound = uptake).
+  const upt=comps.filter(c=>c.lower_bound<0);
+  const cobra=`# Apply this medium: a NEGATIVE lower bound on an exchange means uptake.\n`
+    +`uptake = {\n`+upt.map(c=>`    "${c.exchange}": ${c.lower_bound},`).join('\n')
+    +`\n}\nfor ex_id, lb in uptake.items():\n`
+    +`    if ex_id in model.reactions:\n`
+    +`        rxn = model.reactions.get_by_id(ex_id)\n`
+    +`        rxn.lower_bound = lb      # uptake (negative)\n`
+    +`        rxn.upper_bound = 1000.0  # allow secretion`;
 
   // ---- coverage summary + source breakdown ----
   const cov=med.coverage||{n_covered:comps.length,n_uncovered:(med.uncovered||[]).length,
@@ -153,7 +184,8 @@ async function openMed(id){
   const unc=med.uncovered||[];
   const REASON={undefined_complex:'undefined / complex ingredient',non_nutrient:'not a metabolite (buffer / indicator / chelator)',not_in_bigg:'no BiGG/BiGGr id; needs external mapping',unmatched:'unmatched — needs manual curation'};
   const uncRows=unc.map(u=>{const xr=u.xref||{};
-    const xs=['kegg','chebi','inchikey','inchi','seed'].filter(k=>xr[k]).map(k=>`${k}:${esc(xr[k])}`).join(' · ')||'<span style="opacity:.5">no external id</span>';
+    const inchi=xr.inchi?`<span title="${esc(xr.inchi)}" style="opacity:.7">InChI</span>`:'';
+    const xs=(xrefLinks(xr,['kegg','chebi','inchikey','seed'])+(inchi?(' · '+inchi):''))||'<span style="opacity:.5">no external id</span>';
     const flux=u.proposed_lower_bound!=null?`<code>${u.proposed_lower_bound}</code> <span style="opacity:.6">(proposed)</span>`:'—';
     return `<tr><td>${esc(u.name)}</td><td style="font-size:.74rem;color:#66756f">${esc(REASON[u.reason]||u.reason||'')}</td><td style="font-size:.72rem;color:#667">${xs}</td><td>${flux}</td></tr>`;}).join('');
   const uncoveredBlock=unc.length?`
@@ -168,7 +200,7 @@ async function openMed(id){
     <div class="modal-head"><div>
         <div class="eyebrow" style="margin-bottom:6px">${esc(med.source_db||p.source_type||'medium')}</div>
         <h3 style="font-size:1.4rem">${esc(med.name)}</h3>
-        <div style="font-size:.85rem;color:#66756f;margin-top:7px">${catBadge(med.category)} · ${esc(med.organism_scope||'')} · ${med.aerobic?'aerobic':'anaerobic'} · ${fmt(med.n_components)} components (${fmt(med.n_in_biggr)} in BiGGr)</div>
+        <div style="font-size:.85rem;color:#66756f;margin-top:7px">${catBadge(med.category)} · ${esc(med.organism_scope||'')} · ${o2Chip(med)} · ${fmt(med.n_components)} components (${fmt(med.n_in_biggr)} in BiGGr)</div>
       </div>
       <button class="btn btn-ghost btn-sm" onclick="document.getElementById('med-ov').remove()">Close ✕</button></div>
     <div class="modal-body">

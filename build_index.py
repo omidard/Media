@@ -13,7 +13,7 @@ rows=[]
 for fp in sorted(glob.glob("data/media/*.json")):
     d=json.load(open(fp))
     cov=d.get("coverage") or {}
-    rows.append({k:d.get(k) for k in ("id","name","category","organism_scope","aerobic",
+    rows.append({k:d.get(k) for k in ("id","name","category","organism_scope","aerobic","oxygen",
         "n_components","n_mapped","n_in_biggr","namespace")}
         | {"source_type":d["provenance"]["source_type"],
            "source_db":source_db(d["id"],d["provenance"],d.get("food_group","")),

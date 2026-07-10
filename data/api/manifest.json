@@ -2,15 +2,15 @@
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
  "catalog_count": 12415,
- "component_records": 554457,
- "distinct_compounds": 1030,
+ "component_records": 566901,
+ "distinct_compounds": 1032,
  "coverage": {
   "by_exchange_source": {
-   "biggr": 550230,
-   "bigg": 4227
+   "biggr": 557809,
+   "bigg": 9092
   },
-  "total_uncovered": 23350,
-  "media_below_100pct": 3774
+  "total_uncovered": 109860,
+  "media_below_100pct": 11001
  },
  "by_category": {
   "laboratory": 4273,
@@ -66,10 +66,10 @@
     "url",
     "food_group"
    ],
-   "size": "432.4 KB"
+   "size": "447.3 KB"
   },
   "components.parquet": {
-   "rows": 554457,
+   "rows": 566901,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",
@@ -91,7 +91,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "1.9 MB"
+   "size": "1.7 MB"
   },
   "media.sqlite.gz": {
    "tables": [
@@ -99,13 +99,13 @@
     "components"
    ],
    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "12.4 MB"
+   "size": "13.0 MB"
   },
   "media.jsonl.gz": {
    "rows": 12415,
    "grain": "one full medium record per line",
    "note": "streamable; same schema as data/media/<id>.json",
-   "size": "10.8 MB"
+   "size": "39.4 MB"
   }
  },
  "notes": [
