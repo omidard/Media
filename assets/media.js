@@ -14,6 +14,26 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;',
 const fmt=n=>Number(n).toLocaleString();
 const jget=p=>fetch(p).then(r=>r.json());
 
+/* ===================== usage analytics (GoatCounter) =======================
+   Privacy-friendly page-view + download counting, same setup as EcopanGEM/panGEMs.
+   GC_CODE is the GoatCounter site code — register it at https://<GC_CODE>.goatcounter.com
+   and enable "Allow adding visitor counts on your website" for the live counters. */
+const GC_CODE='mediadb';                 // <-- the only value to change; must be registered
+const GC_DOWNLOAD_EVENT='download';       // unified event path counted as a "download"
+(function loadGoatCounter(){if(!GC_CODE)return;
+  const s=document.createElement('script');s.async=true;s.src='//gc.zgo.at/count.js';
+  s.setAttribute('data-goatcounter','https://'+GC_CODE+'.goatcounter.com/count');
+  document.head.appendChild(s);})();
+function gcEvent(path,title){try{if(window.goatcounter&&typeof window.goatcounter.count==='function')
+  window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}}
+function gcDownload(what){gcEvent(GC_DOWNLOAD_EVENT,what||'download');}
+async function gcShowCount(elId,counterPath){const el=document.getElementById(elId);if(!el||!GC_CODE)return;
+  const url='https://'+GC_CODE+'.goatcounter.com/counter/'+counterPath+'.json';
+  try{const r=await fetch(url,{cache:'no-store'});if(r.ok){const j=await r.json();el.textContent=(j&&j.count!=null)?j.count:'0';}else el.textContent='0';}
+  catch(e){el.textContent='—';}}
+function loadUsageCounts(){gcShowCount('stat-views','TOTAL');gcShowCount('stat-downloads',encodeURIComponent(GC_DOWNLOAD_EVENT));}
+window.addEventListener('DOMContentLoaded',loadUsageCounts);
+
 /* ---- exchange-source identity (where an EX_ id comes from) ---- */
 const SRC_META={
   biggr:{label:'BiGGr',col:'#0e8f70'}, bigg:{label:'BiGG',col:'#2c6fbb'},
@@ -146,8 +166,8 @@ async function openMed(id){
     <div class="modal-body">
       <div class="cite" style="margin-bottom:14px"><b>Source:</b> ${esc(p.citation||'')} ${p.url?`· <a href="${esc(p.url)}" target="_blank">link ↗</a>`:''}${p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank">doi ↗</a>`:''}<br><span style="color:#8a978f">${esc(p.notes||'')}</span></div>
       <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
-        <button class="btn btn-primary btn-sm" onclick='navigator.clipboard.writeText(${JSON.stringify(cobra)}).then(()=>{this.innerHTML="✓ Copied";setTimeout(()=>this.innerHTML="⧉ Copy as COBRApy medium",1500)})'>⧉ Copy as COBRApy medium</button>
-        <a class="btn btn-ghost btn-sm" href="data/media/${id}.json" download>↓ JSON</a>
+        <button class="btn btn-primary btn-sm" onclick='navigator.clipboard.writeText(${JSON.stringify(cobra)}).then(()=>{this.innerHTML="✓ Copied";setTimeout(()=>this.innerHTML="⧉ Copy as COBRApy medium",1500)});gcDownload("copy_cobrapy")'>⧉ Copy as COBRApy medium</button>
+        <a class="btn btn-ghost btn-sm" href="data/media/${id}.json" download onclick='gcDownload("medium_json")'>↓ JSON</a>
         <button class="btn btn-ghost btn-sm" onclick='dlCsv(${JSON.stringify(id)})'>↓ CSV</button>
       </div>
       <code class="cobra">${esc(cobra)}</code>
@@ -162,6 +182,7 @@ async function openMed(id){
   document.body.appendChild(div);
 }
 async function dlCsv(id){
+  gcDownload('medium_csv');
   const med=await jget('data/media/'+id+'.json');
   let csv='name,exchange,lower_bound,upper_bound,foodb_content,foodb_unit,inchikey,kegg,chebi,hmdb,in_biggr,mapping_method,mapping_confidence\n';
   med.components.forEach(c=>{const x=c.xref||{};csv+=[c.name,c.exchange,c.lower_bound,c.upper_bound,c.foodb_content??'',c.foodb_unit??'',x.inchikey??'',x.kegg??'',x.chebi??'',x.hmdb??'',c.in_biggr,c.mapping_method,c.mapping_confidence].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')+'\n';});
