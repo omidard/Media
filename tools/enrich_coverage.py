@@ -32,6 +32,7 @@ REPO = os.path.dirname(HERE)
 MEDIA = os.path.join(REPO, "data", "media")
 sys.path.insert(0, HERE)
 from map_metabolite import Mapper, norm  # noqa: E402
+from complex_ingredients import decompose  # noqa: E402
 
 MAP = Mapper()
 DICT = MAP.dict
@@ -149,6 +150,26 @@ def _name_variants(name):
     return out
 
 
+def decomposition_components(name):
+    """If name is a complex ingredient, expand it into labelled approximate constituents."""
+    d = decompose(name, valid=valid)
+    if not d:
+        return None
+    key, ids = d
+    out = []
+    for b in ids:
+        rec = DICT.get(b, {})
+        out.append({
+            "name": rec.get("name", b), "bigg_metabolite": b, "exchange": "EX_%s_e" % b,
+            "lower_bound": -1.0, "upper_bound": 1000.0, "concentration_mM": None,
+            "xref": rec.get("xrefs", {}), "in_biggr": rec.get("in_biggr", False),
+            "exchange_source": ("biggr" if rec.get("in_biggr") else "bigg"),
+            "mapping_method": "complex_decomposition", "mapping_confidence": "approximation",
+            "derived_from": name,
+        })
+    return out
+
+
 def recover(name, xref):
     """Try to give a still-unmapped component an exchange. Returns a component dict or None."""
     xk = {k: xref.get(k) for k in ("inchikey", "chebi", "kegg", "hmdb") if xref.get(k)}
@@ -158,6 +179,10 @@ def recover(name, xref):
         if hit:
             return new_component(hit, name, (hit["mapping_method"] + "_remap"))
         xk = {}  # xrefs only apply to the primary name
+    # 1b) complex ingredient (yeast extract, tryptone, ...) -> decompose into constituents
+    dc = decomposition_components(name)
+    if dc:
+        return dc
     # 2) salt dissociation -> possibly several ions; return the list marker
     n = norm(re.sub(r"\s*\([^)]*\)", "", name))
     if n in SALTS:

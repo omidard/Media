@@ -107,7 +107,14 @@ function clusterOrder(vectors){
 }
 
 /* ===================== medium detail modal (the click-through view) ========= */
+let _ALIASES=null;
+async function resolveId(id){
+  try{const r=await fetch('data/media/'+id+'.json',{method:'HEAD'});if(r.ok)return id;}catch(e){}
+  if(_ALIASES===null){try{_ALIASES=await jget('data/aliases.json');}catch(e){_ALIASES={};}}
+  return _ALIASES[id]||id;   // merged-away id -> canonical
+}
 async function openMed(id){
+  id=await resolveId(id);
   const med=await jget('data/media/'+id+'.json');
   const p=med.provenance||{};
   const comps=med.components.slice().sort((a,b)=>
@@ -117,7 +124,8 @@ async function openMed(id){
     const cc=c.mapping_confidence||'';const cl=cc==='exact'?'conf-exact':cc==='inferred'?'conf-inferred':'conf-convention';
     const content=c.foodb_content!=null?`${c.foodb_content} ${esc(c.foodb_unit||'')}`:(c.concentration_mM!=null?c.concentration_mM+' mM':'');
     const src=c.exchange_source||(c.in_biggr?'biggr':'bigg');
-    return `<tr><td>${esc(c.name)}</td><td><code>${esc(c.exchange)}</code></td><td>${srcBadge(src)}</td><td>${c.lower_bound}</td>
+    const approx=c.mapping_method==='complex_decomposition'?` <span title="in-silico approximation from ${esc(c.derived_from||'')}" style="font-size:.66rem;color:#c77800">≈ ${esc(c.derived_from||'complex')}</span>`:'';
+    return `<tr><td>${esc(c.name)}${approx}</td><td><code>${esc(c.exchange)}</code></td><td>${srcBadge(src)}</td><td>${c.lower_bound}</td>
       <td>${esc(content)}</td><td style="font-size:.72rem;color:#667">${esc(xs)}</td><td class="${cl}">${esc(cc)}</td></tr>`;
   }).join('');
   const cobra=`medium = {\n`+comps.filter(c=>c.lower_bound<0).map(c=>`    "${c.exchange}": ${(-c.lower_bound)},`).join('\n')
