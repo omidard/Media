@@ -40,21 +40,27 @@ jobs:
       - name: Install deps
         run: pip install --quiet pyarrow scipy numpy pandas
 
-      - name: Rebuild exports
+      - name: Rebuild derived data
         run: |
+          # enrich coverage first (writes data/media + data/coverage.json), then
+          # rebuild the catalog, bulk exports, and clustered data off the result.
+          python3 tools/enrich_coverage.py
+          python3 build_index.py
           python3 tools/build_api_exports.py
           python3 tools/build_cluster_data.py
 
       - name: Commit refreshed artifacts (if changed)
         run: |
-          if git diff --quiet -- data/api data/cluster; then
+          if git diff --quiet -- data; then
             echo "derived artifacts unchanged — nothing to commit."
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/api data/cluster
-          git commit -m "chore(data): rebuild API + cluster exports [skip ci]"
+          git add data
+          # [skip ci] keeps this commit (which touches the data/media trigger path)
+          # from re-triggering the workflow.
+          git commit -m "chore(data): enrich coverage + rebuild API/cluster exports [skip ci]"
           # Rebase onto any commits that landed while we were building, then push.
           # A few retries handle races with concurrent data pushes.
           for i in 1 2 3 4 5; do
