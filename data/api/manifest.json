@@ -1,11 +1,11 @@
 {
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
- "catalog_count": 12370,
- "component_records": 535107,
+ "catalog_count": 12387,
+ "component_records": 535288,
  "distinct_compounds": 965,
  "by_category": {
-  "laboratory": 4258,
+  "laboratory": 4275,
   "biospecimen": 17,
   "food": 8095
  },
@@ -15,7 +15,7 @@
   "HMDB": 9,
   "literature": 391,
   "FooDB": 616,
-  "Literature (GrowthDB)": 595,
+  "Literature (GrowthDB)": 612,
   "Literature (GEM papers)": 93,
   "DSMZ MediaDive": 3148,
   "USDA FoodData Central": 7479
@@ -35,7 +35,7 @@
  },
  "bulk_files": {
   "media.parquet": {
-   "rows": 12370,
+   "rows": 12387,
    "grain": "one row per medium",
    "columns": [
     "id",
@@ -55,10 +55,10 @@
     "url",
     "food_group"
    ],
-   "size": "412.1 KB"
+   "size": "411.9 KB"
   },
   "components.parquet": {
-   "rows": 535107,
+   "rows": 535288,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",
@@ -90,7 +90,7 @@
    "size": "11.7 MB"
   },
   "media.jsonl.gz": {
-   "rows": 12370,
+   "rows": 12387,
    "grain": "one full medium record per line",
    "note": "streamable; same schema as data/media/<id>.json",
    "size": "6.8 MB"
