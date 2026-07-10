@@ -2,8 +2,16 @@
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
  "catalog_count": 12387,
- "component_records": 535288,
- "distinct_compounds": 965,
+ "component_records": 536826,
+ "distinct_compounds": 989,
+ "coverage": {
+  "by_exchange_source": {
+   "biggr": 535819,
+   "bigg": 1007
+  },
+  "total_uncovered": 9918,
+  "media_below_100pct": 3362
+ },
  "by_category": {
   "laboratory": 4275,
   "biospecimen": 17,
@@ -50,21 +58,25 @@
     "n_components",
     "n_mapped",
     "n_in_biggr",
+    "n_covered",
+    "n_uncovered",
+    "pct_covered",
     "citation",
     "doi",
     "url",
     "food_group"
    ],
-   "size": "411.9 KB"
+   "size": "427.4 KB"
   },
   "components.parquet": {
-   "rows": 535288,
+   "rows": 536826,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",
     "name",
     "bigg_metabolite",
     "exchange",
+    "exchange_source",
     "lower_bound",
     "upper_bound",
     "concentration_mM",
@@ -79,7 +91,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "1.6 MB"
+   "size": "1.4 MB"
   },
   "media.sqlite.gz": {
    "tables": [
@@ -87,13 +99,13 @@
     "components"
    ],
    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "11.7 MB"
+   "size": "12.0 MB"
   },
   "media.jsonl.gz": {
    "rows": 12387,
    "grain": "one full medium record per line",
    "note": "streamable; same schema as data/media/<id>.json",
-   "size": "6.8 MB"
+   "size": "7.3 MB"
   }
  },
  "notes": [

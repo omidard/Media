@@ -74,6 +74,20 @@
   </div>
 </div></section>
 
+<section class="section" style="padding-top:0"><div class="wrap">
+  <div class="section-head"><div class="eyebrow">Coverage map</div><h2>How completely is each medium mapped?</h2>
+    <p>Every dot is a medium. <b>Horizontal</b> = share of its compounds that have an exchange reaction;
+      <b>vertical</b> = how many compounds are still uncovered. Density curves on each axis show the distribution.
+      Click any dot to open that medium.</p></div>
+  <div class="card card-p">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:6px">
+      <div class="legend-scale" id="cov-legend" style="gap:14px"></div>
+      <div class="muted" style="margin-left:auto;font-size:.82rem" id="cov-note"></div>
+    </div>
+    <canvas id="cov-scatter" style="width:100%;height:440px;display:block"></canvas>
+  </div>
+</div></section>
+
 <section class="section" id="explore" style="padding-top:0"><div class="wrap">
   <div class="section-head"><div class="eyebrow">Explorer</div><h2>Browse every medium</h2>
     <p>Every medium is cited and mapped through the same pipeline. Click a row to open its full detail view.</p></div>
@@ -90,7 +104,7 @@
     <div id="loading" style="text-align:center;color:var(--muted);padding:40px"><div class="mono">Loading media…</div></div>
     <div class="viz-wrap" style="border:0">
       <table id="tbl" class="stripe hover" style="width:100%;display:none">
-        <thead><tr><th>Medium</th><th>Category</th><th>Organism scope</th><th>O₂</th><th>Components</th><th>In BiGGr</th><th>Database</th><th>Citation</th></tr></thead>
+        <thead><tr><th>Medium</th><th>Category</th><th>Organism scope</th><th>O₂</th><th>Components</th><th>Coverage</th><th>In BiGGr</th><th>Database</th><th>Citation</th></tr></thead>
         <tbody></tbody></table>
     </div>
   </div>
@@ -130,12 +144,17 @@ Promise.all([jget('data/index.json'),jget('data/media_stats.json'),jget('data/ap
       {data:'organism_scope',render:d=>esc((d||'').slice(0,26))},
       {data:'aerobic',render:d=>d?'aerobic':'anaerobic'},
       {data:'n_components',render:d=>fmt(d)},
+      {data:'pct_covered',render:(d,t,r)=>{const p=d==null?100:d;const col=p>=90?'#0f8a4e':p>=60?'#c77800':'#d0563b';
+        if(t!=='display')return p;
+        return `<div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:6px;background:#eef3f1;border-radius:3px;overflow:hidden;min-width:34px"><div style="height:6px;width:${p}%;background:${col}"></div></div><span style="font-size:.74rem;color:${col};font-weight:600">${p}%</span></div>`;}},
       {data:'n_in_biggr',render:d=>fmt(d)},
       {data:'source_db'},
-      {data:'citation',render:d=>`<span title="${esc(d)}">${esc((d||'').slice(0,54))}${(d||'').length>54?'…':''}</span>`}
+      {data:'citation',render:d=>`<span title="${esc(d)}">${esc((d||'').slice(0,54))}${(d||'').length>54?'…':''}</span>`},
+      {data:'food_group',visible:false}
     ],
     language:{search:'',searchPlaceholder:'Search media…',info:'_START_–_END_ of _TOTAL_ media',lengthMenu:'_MENU_ per page'}});
-  const fm={'f-cat':1,'f-src':6,'f-grp':7,'f-o2':3};
+  // column indices: 0 name·1 category·2 scope·3 O₂·4 comps·5 coverage·6 inBiGGr·7 database·8 citation·9 food_group(hidden)
+  const fm={'f-cat':1,'f-src':7,'f-grp':9,'f-o2':3};
   Object.entries(fm).forEach(([id,col])=>document.getElementById(id).addEventListener('change',function(){
     let v=this.value;if(id==='f-o2')v=v===''?'':(v==='1'?'aerobic':'anaerobic');
     table.column(col).search(v?'^'+$.fn.dataTable.util.escapeRegex(v)+'$':'',true,false).draw();}));
@@ -151,6 +170,15 @@ Promise.all([jget('data/index.json'),jget('data/media_stats.json'),jget('data/ap
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
       tooltip:{callbacks:{label:c=>` ${fmt(c.parsed.x)} media`}}},
       scales:{x:{grid:{color:'#eef3f1'},title:{display:true,text:'media',font:{size:11}}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+
+  // ---- coverage scatter ----
+  const covData=DATA.map(d=>({id:d.id,name:d.name,category:d.category,
+    pct_covered:(d.pct_covered==null?100:d.pct_covered),n_uncovered:(d.n_uncovered||0)}));
+  const cats=[...new Set(covData.map(d=>d.category))];
+  document.getElementById('cov-legend').innerHTML=cats.map(c=>`<span style="display:inline-flex;align-items:center;gap:6px;font-size:.82rem;color:#5b6b66"><span style="width:9px;height:9px;border-radius:50%;background:${CAT_COLORS[c]||'#889'}"></span>${esc(c)}</span>`).join('');
+  const nFull=covData.filter(d=>d.pct_covered>=100).length;
+  document.getElementById('cov-note').textContent=`${fmt(nFull)} of ${fmt(covData.length)} media fully covered · ${fmt(covData.length-nFull)} have uncovered compounds`;
+  coverageScatter(document.getElementById('cov-scatter'),covData,openMed);
 
   const mp=new URLSearchParams(location.search).get('medium');if(mp)setTimeout(()=>openMed(mp),200);
 });

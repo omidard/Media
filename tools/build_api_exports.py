@@ -47,13 +47,23 @@ MEDIA_COLS = [
     "id", "name", "category", "organism_scope", "aerobic", "defined",
     "namespace", "source_type", "source_db",
     "n_components", "n_mapped", "n_in_biggr",
+    "n_covered", "n_uncovered", "pct_covered",
     "citation", "doi", "url", "food_group",
 ]
 COMP_COLS = [
-    "medium_id", "name", "bigg_metabolite", "exchange",
+    "medium_id", "name", "bigg_metabolite", "exchange", "exchange_source",
     "lower_bound", "upper_bound", "concentration_mM",
     "in_biggr", "mapping_method", "mapping_confidence",
 ] + ["xref_" + k for k in XREF_KEYS]
+
+
+def _tally(values):
+    out = {}
+    for v in values:
+        if v is None:
+            continue
+        out[v] = out.get(v, 0) + 1
+    return out
 
 
 def load_catalog():
@@ -108,6 +118,9 @@ def medium_row(summary, rec):
         "n_components": summary.get("n_components"),
         "n_mapped": summary.get("n_mapped"),
         "n_in_biggr": summary.get("n_in_biggr"),
+        "n_covered": (rec.get("coverage") or {}).get("n_covered"),
+        "n_uncovered": (rec.get("coverage") or {}).get("n_uncovered"),
+        "pct_covered": (rec.get("coverage") or {}).get("pct_covered"),
         "citation": summary.get("citation") or prov.get("citation"),
         "doi": prov.get("doi"),
         "url": prov.get("url"),
@@ -124,6 +137,7 @@ def component_rows(mid, rec):
             "name": c.get("name"),
             "bigg_metabolite": c.get("bigg_metabolite"),
             "exchange": c.get("exchange"),
+            "exchange_source": c.get("exchange_source"),
             "lower_bound": c.get("lower_bound"),
             "upper_bound": c.get("upper_bound"),
             "concentration_mM": c.get("concentration_mM"),
@@ -242,6 +256,12 @@ def main():
         "catalog_count": catalog["count"],
         "component_records": len(comp_rows),
         "distinct_compounds": len({r["exchange"] for r in comp_rows if r.get("exchange")}),
+        "coverage": {
+            "by_exchange_source": _tally(r.get("exchange_source") for r in comp_rows),
+            "total_uncovered": sum((m.get("n_uncovered") or 0) for m in media_rows),
+            "media_below_100pct": sum(
+                1 for m in media_rows if (m.get("pct_covered") or 100) < 100),
+        },
         "by_category": catalog.get("by_category", {}),
         "by_source_db": catalog.get("by_source_db", {}),
         "endpoints": {

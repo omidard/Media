@@ -62,7 +62,15 @@ _ALIASES = {**_AA,
     "2ketogluconate":"2dhguln","5ketogluconate":"5dglcn","sorbose":"srb__L","dmannitol":"mnl","mannitol":"mnl",
     "phenylacetate":"pac","phenylaceticacid":"pac","npropanol":"ppoh","propanol":"ppoh","1propanol":"ppoh",
     "betaine":"glyb","glycinebetaine":"glyb","sarcosine":"sarcs","valericacid":"M03134","pentanoate":"M03134",
-    "valerate":"M03134","caproicacid":"caproic","hexanoate":"hxa","malonicacid":"malon","malonate":"malon"}
+    "valerate":"M03134","caproicacid":"caproic","hexanoate":"hxa","malonicacid":"malon","malonate":"malon",
+    # ion charge-notation forms ("Ca2+", "SO42-", "Cl-") that source recipes use verbatim
+    "ca2":"ca2","ca":"ca2","mg2":"mg2","mg":"mg2","so42":"so4","so4":"so4","cl":"cl","kion":"k","k":"k",
+    "na":"na1","na1":"na1","fe2":"fe2","fe3":"fe3","fe":"fe3","nh4":"nh4","hco3":"hco3","bicarbonate":"hco3",
+    "zn2":"zn2","zn":"zn2","cu2":"cu2","cu":"cu2","mn2":"mn2","mn":"mn2","co2ion":"cobalt2","cobalt":"cobalt2",
+    "ni2":"ni2","ni":"ni2","po43":"pi","hpo42":"pi","h2po4":"pi","moo42":"mobd","molybdate":"mobd",
+    # water forms that appear as components
+    "water":"h2o","distilledwater":"h2o","deionizedwater":"h2o","dh2o":"h2o","ddh2o":"h2o","milliqwater":"h2o",
+    "ultrapurewater":"h2o","sterilewater":"h2o"}
 
 class Mapper:
     def __init__(self, base=HERE):

@@ -14,6 +14,14 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;',
 const fmt=n=>Number(n).toLocaleString();
 const jget=p=>fetch(p).then(r=>r.json());
 
+/* ---- exchange-source identity (where an EX_ id comes from) ---- */
+const SRC_META={
+  biggr:{label:'BiGGr',col:'#0e8f70'}, bigg:{label:'BiGG',col:'#2c6fbb'},
+  modelseed:{label:'ModelSEED',col:'#7a3fb8'}, kegg:{label:'KEGG',col:'#c77800'},
+  metanetx:{label:'MetaNetX',col:'#6b7684'}};
+function srcBadge(s){const m=SRC_META[s]||{label:s||'—',col:'#889'};
+  return `<span class="badge" style="background:${m.col}18;color:${m.col};border:1px solid ${m.col}44;font-size:.68rem">${m.label}</span>`;}
+
 /* ---- category badge ---- */
 function catBadge(c){const col=CAT_COLORS[c]||'#889';
   return `<span class="badge" style="background:${col}1c;color:${col};border:1px solid ${col}40">${esc(c)}</span>`;}
@@ -88,11 +96,45 @@ async function openMed(id){
     const xr=c.xref||{};const xs=['inchikey','kegg','chebi','hmdb'].filter(k=>xr[k]).map(k=>`${k}:${xr[k]}`).join(' · ');
     const cc=c.mapping_confidence||'';const cl=cc==='exact'?'conf-exact':cc==='inferred'?'conf-inferred':'conf-convention';
     const content=c.foodb_content!=null?`${c.foodb_content} ${esc(c.foodb_unit||'')}`:(c.concentration_mM!=null?c.concentration_mM+' mM':'');
-    return `<tr><td>${esc(c.name)}</td><td><code>${esc(c.exchange)}</code></td><td>${c.lower_bound}</td>
+    const src=c.exchange_source||(c.in_biggr?'biggr':'bigg');
+    return `<tr><td>${esc(c.name)}</td><td><code>${esc(c.exchange)}</code></td><td>${srcBadge(src)}</td><td>${c.lower_bound}</td>
       <td>${esc(content)}</td><td style="font-size:.72rem;color:#667">${esc(xs)}</td><td class="${cl}">${esc(cc)}</td></tr>`;
   }).join('');
   const cobra=`medium = {\n`+comps.filter(c=>c.lower_bound<0).map(c=>`    "${c.exchange}": ${(-c.lower_bound)},`).join('\n')
     +`\n}\nmodel.medium = {k:v for k,v in medium.items() if k in model.reactions}`;
+
+  // ---- coverage summary + source breakdown ----
+  const cov=med.coverage||{n_covered:comps.length,n_uncovered:(med.uncovered||[]).length,
+    n_compounds:comps.length+(med.uncovered||[]).length,pct_covered:100,by_source:{}};
+  const bs=cov.by_source||{};
+  const srcBar=Object.entries(bs).sort((a,b)=>b[1]-a[1]).map(([s,n])=>{
+    const m=SRC_META[s]||{col:'#889'};return `<span title="${(SRC_META[s]||{}).label||s}: ${n}" style="display:inline-block;height:10px;width:${Math.max(2,100*n/cov.n_compounds)}%;background:${m.col}"></span>`;}).join('');
+  const uncPct=cov.n_compounds?100*cov.n_uncovered/cov.n_compounds:0;
+  const coverageBlock=`
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin:2px 0 6px">
+      <div style="font-weight:700;font-size:.9rem">Coverage
+        <span style="font-weight:600;color:${cov.pct_covered>=90?'#0f8a4e':cov.pct_covered>=60?'#c77800':'#d0563b'}"> ${cov.pct_covered}%</span>
+        <span class="muted" style="font-weight:400;font-size:.82rem">— ${fmt(cov.n_covered)} of ${fmt(cov.n_compounds)} compounds have an exchange${cov.n_uncovered?`, ${fmt(cov.n_uncovered)} uncovered`:''}</span></div>
+    </div>
+    <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;background:#eef3f1;margin-bottom:4px">
+      ${srcBar}${uncPct>0?`<span title="uncovered: ${cov.n_uncovered}" style="display:inline-block;height:10px;width:${uncPct}%;background:repeating-linear-gradient(45deg,#e2e8e5,#e2e8e5 4px,#f4f8f6 4px,#f4f8f6 8px)"></span>`:''}
+    </div>
+    <div style="font-size:.72rem;color:#8a978f;margin-bottom:10px">Exchange source: ${Object.entries(bs).sort((a,b)=>b[1]-a[1]).map(([s,n])=>`${srcBadge(s)}&nbsp;${n}`).join('&nbsp; ')}${uncPct>0?' · <span style="opacity:.7">▨ uncovered</span>':''}</div>`;
+
+  // ---- uncovered compounds section ----
+  const unc=med.uncovered||[];
+  const REASON={undefined_complex:'undefined / complex ingredient',non_nutrient:'not a metabolite (buffer / indicator / chelator)',not_in_bigg:'no BiGG/BiGGr id; needs external mapping',unmatched:'unmatched — needs manual curation'};
+  const uncRows=unc.map(u=>{const xr=u.xref||{};
+    const xs=['kegg','chebi','inchikey','inchi','seed'].filter(k=>xr[k]).map(k=>`${k}:${esc(xr[k])}`).join(' · ')||'<span style="opacity:.5">no external id</span>';
+    const flux=u.proposed_lower_bound!=null?`<code>${u.proposed_lower_bound}</code> <span style="opacity:.6">(proposed)</span>`:'—';
+    return `<tr><td>${esc(u.name)}</td><td style="font-size:.74rem;color:#66756f">${esc(REASON[u.reason]||u.reason||'')}</td><td style="font-size:.72rem;color:#667">${xs}</td><td>${flux}</td></tr>`;}).join('');
+  const uncoveredBlock=unc.length?`
+    <details style="margin-top:14px" ${unc.length<=12?'open':''}>
+      <summary style="cursor:pointer;font-weight:700;font-size:.9rem;color:#40524c">Uncovered compounds (${unc.length}) <span class="muted" style="font-weight:400">— kept with their reason and any external IDs</span></summary>
+      <div class="viz-wrap" style="max-height:280px;margin-top:8px;padding:0 4px">
+        <table class="tbl-plain"><thead><tr><th>Compound</th><th>Why uncovered</th><th>External IDs</th><th>Proposed flux</th></tr></thead>
+        <tbody>${uncRows}</tbody></table></div>
+    </details>`:'';
   const div=document.createElement('div');div.className='ov';div.id='med-ov';
   div.innerHTML=`<div class="modal-card">
     <div class="modal-head"><div>
@@ -109,9 +151,11 @@ async function openMed(id){
         <button class="btn btn-ghost btn-sm" onclick='dlCsv(${JSON.stringify(id)})'>↓ CSV</button>
       </div>
       <code class="cobra">${esc(cobra)}</code>
-      <div class="viz-wrap" style="max-height:360px;margin-top:14px;padding:0 4px">
-        <table class="tbl-plain"><thead><tr><th>Component</th><th>Exchange</th><th>Lower bound</th><th>Content</th><th>Cross-refs</th><th>Confidence</th></tr></thead>
+      ${coverageBlock}
+      <div class="viz-wrap" style="max-height:360px;margin-top:6px;padding:0 4px">
+        <table class="tbl-plain"><thead><tr><th>Component</th><th>Exchange</th><th>Source</th><th>Lower bound</th><th>Content</th><th>Cross-refs</th><th>Confidence</th></tr></thead>
         <tbody>${rows}</tbody></table></div>
+      ${uncoveredBlock}
     </div></div>`;
   div.addEventListener('click',e=>{if(e.target===div)div.remove();});
   document.addEventListener('keydown',function esc_(e){if(e.key==='Escape'){div.remove();document.removeEventListener('keydown',esc_);}});
@@ -122,6 +166,83 @@ async function dlCsv(id){
   let csv='name,exchange,lower_bound,upper_bound,foodb_content,foodb_unit,inchikey,kegg,chebi,hmdb,in_biggr,mapping_method,mapping_confidence\n';
   med.components.forEach(c=>{const x=c.xref||{};csv+=[c.name,c.exchange,c.lower_bound,c.upper_bound,c.foodb_content??'',c.foodb_unit??'',x.inchikey??'',x.kegg??'',x.chebi??'',x.hmdb??'',c.in_biggr,c.mapping_method,c.mapping_confidence].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')+'\n';});
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=id+'.csv';a.click();
+}
+
+/* ===================== coverage scatter + marginal densities ===============
+   data: [{id,name,category,pct_covered,n_uncovered}]; x = coverage %, y = # uncovered.
+   Canvas-rendered (12k pts) with hit-testing so every dot is clickable. */
+function coverageScatter(canvas, data, onClick){
+  const ctx=canvas.getContext('2d');
+  const MT=58, MR=66, MB=46, ML=58;            // top-marginal, right-marginal, bottom-axis, left-axis
+  let W,H,pw,ph,pts=[],dpr,hover=-1;
+  const yMax=Math.max(4,...data.map(d=>d.n_uncovered||0));
+  const xOf=v=>ML+(v/100)*pw;                  // coverage %
+  const yOf=v=>MT+ph-(v/yMax)*ph;              // uncovered count
+  // deterministic jitter (index-based, no RNG) to de-pile the (100%,0) corner
+  const jx=i=>((i*2654435761>>>0)%1000/1000-0.5), jy=i=>(((i*40503+13)>>>0)%1000/1000-0.5);
+
+  function density(vals,n,lo,hi){const b=new Array(n).fill(0);const w=(hi-lo)/n||1;
+    vals.forEach(v=>{let k=Math.floor((v-lo)/w);if(k<0)k=0;if(k>=n)k=n-1;b[k]++;});
+    // light 3-tap smoothing
+    const s=b.map((_,k)=>(b[Math.max(0,k-1)]+2*b[k]+b[Math.min(n-1,k+1)])/4);
+    const mx=Math.max(...s,1);return s.map(v=>v/mx);}
+
+  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=canvas.offsetWidth;H=canvas.offsetHeight;
+    canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    pw=W-ML-MR;ph=H-MT-MB;}
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.font='11px Inter, sans-serif';
+    // --- grid + axes ---
+    ctx.strokeStyle='#eef3f1';ctx.fillStyle='#8a978f';ctx.lineWidth=1;ctx.textAlign='center';
+    for(let g=0;g<=100;g+=20){const x=xOf(g);ctx.beginPath();ctx.moveTo(x,MT);ctx.lineTo(x,MT+ph);ctx.stroke();
+      ctx.fillText(g+'%',x,MT+ph+18);}
+    ctx.textAlign='right';ctx.textBaseline='middle';
+    const yticks=Math.min(yMax,7);
+    for(let t=0;t<=yticks;t++){const v=Math.round(t/yticks*yMax);const y=yOf(v);
+      ctx.strokeStyle='#f2f6f4';ctx.beginPath();ctx.moveTo(ML,y);ctx.lineTo(ML+pw,y);ctx.stroke();
+      ctx.fillStyle='#8a978f';ctx.fillText(v,ML-8,y);}
+    // axis titles
+    ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.fillStyle='#40524c';ctx.font='600 12px Inter, sans-serif';
+    ctx.fillText('Coverage  (% of compounds with an exchange)',ML+pw/2,H-6);
+    ctx.save();ctx.translate(13,MT+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('Uncovered compounds',0,0);ctx.restore();
+    ctx.font='11px Inter, sans-serif';
+
+    // --- marginal densities ---
+    const dx=density(data.map(d=>d.pct_covered),64,0,100);
+    ctx.beginPath();ctx.moveTo(ML,MT-4);
+    dx.forEach((v,k)=>{const x=ML+(k+0.5)/dx.length*pw;ctx.lineTo(x,MT-4-v*(MT-14));});
+    ctx.lineTo(ML+pw,MT-4);ctx.closePath();ctx.fillStyle='rgba(20,184,146,.16)';ctx.fill();
+    ctx.strokeStyle='#14b892';ctx.lineWidth=1.3;ctx.stroke();
+    const dy=density(data.map(d=>d.n_uncovered||0),Math.max(6,Math.min(24,yMax+1)),0,yMax);
+    ctx.beginPath();ctx.moveTo(ML+pw+4,MT+ph);
+    dy.forEach((v,k)=>{const y=MT+ph-(k+0.5)/dy.length*ph;ctx.lineTo(ML+pw+4+v*(MR-16),y);});
+    ctx.lineTo(ML+pw+4,MT);ctx.closePath();ctx.fillStyle='rgba(20,184,146,.16)';ctx.fill();
+    ctx.strokeStyle='#14b892';ctx.stroke();
+
+    // --- points ---
+    pts=[];
+    for(let i=0;i<data.length;i++){const d=data[i];
+      const x=xOf(d.pct_covered)+jx(i)*3.0, y=yOf(d.n_uncovered||0)+jy(i)*(ph/yMax*0.55);
+      pts.push({x,y,i});
+      ctx.beginPath();ctx.arc(x,y,i===hover?4.5:2.4,0,7);
+      const col=CAT_COLORS[d.category]||'#0e8f70';
+      ctx.fillStyle=i===hover?col:col+'66';ctx.fill();
+      if(i===hover){ctx.strokeStyle='#0c231e';ctx.lineWidth=1;ctx.stroke();}}
+  }
+  function nearest(mx,my){let bi=-1,bd=64;for(const p of pts){const dd=(p.x-mx)**2+(p.y-my)**2;if(dd<bd){bd=dd;bi=p.i;}}return bi;}
+
+  size();draw();
+  window.addEventListener('resize',()=>{size();draw();});
+  canvas.addEventListener('mousemove',ev=>{const r=canvas.getBoundingClientRect();
+    const i=nearest(ev.clientX-r.left,ev.clientY-r.top);
+    if(i!==hover){hover=i;draw();}
+    if(i>=0){const d=data[i];tipShow(`<b>${esc(d.name)}</b><br>${catBadge?'':''}${esc(d.category)} · <b style="color:#7fe6c8">${d.pct_covered}%</b> covered · ${d.n_uncovered} uncovered<br><span style="opacity:.7">click to open</span>`,ev);
+      canvas.style.cursor='pointer';}else{tipHide();canvas.style.cursor='default';}});
+  canvas.addEventListener('mouseleave',()=>{hover=-1;tipHide();draw();});
+  canvas.addEventListener('click',ev=>{const r=canvas.getBoundingClientRect();
+    const i=nearest(ev.clientX-r.left,ev.clientY-r.top);if(i>=0&&onClick)onClick(data[i].id);});
 }
 
 /* ===================== hero constellation animation ======================== */
