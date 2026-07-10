@@ -1,19 +1,19 @@
 {
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
- "catalog_count": 12413,
- "component_records": 570706,
- "distinct_compounds": 1032,
+ "catalog_count": 12353,
+ "component_records": 578630,
+ "distinct_compounds": 1037,
  "coverage": {
   "by_exchange_source": {
-   "biggr": 561594,
-   "bigg": 9112
+   "biggr": 569288,
+   "bigg": 9342
   },
-  "total_uncovered": 109856,
-  "media_below_100pct": 10997
+  "total_uncovered": 113035,
+  "media_below_100pct": 11301
  },
  "by_category": {
-  "laboratory": 4271,
+  "laboratory": 4211,
   "biospecimen": 17,
   "food": 8125
  },
@@ -21,10 +21,10 @@
   "standard": 31,
   "Published (HMDB-derived)": 8,
   "HMDB": 9,
-  "literature": 390,
+  "literature": 340,
   "FooDB": 701,
-  "Literature (GrowthDB)": 612,
-  "Literature (GEM papers)": 90,
+  "Literature (GrowthDB)": 605,
+  "Literature (GEM papers)": 87,
   "DSMZ MediaDive": 3148,
   "USDA FoodData Central": 7424
  },
@@ -43,7 +43,7 @@
  },
  "bulk_files": {
   "media.parquet": {
-   "rows": 12413,
+   "rows": 12353,
    "grain": "one row per medium",
    "columns": [
     "id",
@@ -66,10 +66,10 @@
     "url",
     "food_group"
    ],
-   "size": "447.2 KB"
+   "size": "440.3 KB"
   },
   "components.parquet": {
-   "rows": 570706,
+   "rows": 578630,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",
@@ -99,13 +99,13 @@
     "components"
    ],
    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "13.1 MB"
+   "size": "13.5 MB"
   },
   "media.jsonl.gz": {
-   "rows": 12413,
+   "rows": 12353,
    "grain": "one full medium record per line",
    "note": "streamable; same schema as data/media/<id>.json",
-   "size": "39.7 MB"
+   "size": "40.5 MB"
   }
  },
  "notes": [
