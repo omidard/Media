@@ -84,14 +84,14 @@ def main():
         tally[(d.get("category"), reg)] += 1
         old_aer = d.get("aerobic")
         new_aer = (reg != "anaerobic")
-        # set O2 exchange bound
-        o2 = None
-        for c in d.get("components", []):
-            if c.get("exchange") == "EX_o2_e":
-                o2 = c
+        # O2 exchange: REMOVE it from anaerobic media (it should not be a nutrient);
+        # ensure it is available (-10) for aerobic/facultative media.
+        comps = d.get("components", [])
+        o2 = next((c for c in comps if c.get("exchange") == "EX_o2_e"), None)
         if reg == "anaerobic":
-            if o2 is not None and o2.get("lower_bound", 0) < 0:
-                o2["lower_bound"] = 0.0; o2fixed += 1
+            if o2 is not None:
+                d["components"] = [c for c in comps if c.get("exchange") != "EX_o2_e"]
+                o2fixed += 1
         else:
             if o2 is not None and o2.get("lower_bound") == 0.0:
                 o2["lower_bound"] = -10.0; o2fixed += 1

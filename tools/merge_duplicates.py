@@ -34,7 +34,14 @@ def main():
         key = (d.get("category"), norm_name(d.get("name")))
         if key[1]:
             groups[key].append((f, d))
+    # preserve aliases from previous merges (already-removed dupes must keep resolving)
+    apath = os.path.join(REPO, "data", "aliases.json")
     aliases = {}
+    if os.path.exists(apath):
+        try:
+            aliases = json.load(open(apath))
+        except Exception:
+            aliases = {}
     merged_away = 0
     groups_merged = 0
     for key, members in groups.items():

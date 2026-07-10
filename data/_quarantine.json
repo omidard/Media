@@ -1,0 +1,12 @@
+[
+ {
+  "id": "complexlit_PMC8163811_bicarbonate_buffered_mineral_salt_medium_lac",
+  "name": "Bicarbonate-buffered mineral salt medium, lactate donor, WITHOUT vitamin B12 / with DMB (5,6-dimethylbenzimidazole) (PMC8163811)",
+  "reason": "promises vitamins, none present; promises minerals, none present; fewer than 3 real components"
+ },
+ {
+  "id": "lit_PMC7949252_anaerobic_human_gut_microbial_community_",
+  "name": "Anaerobic human gut microbial community gap-filling/simulation medium (PMC7949252)",
+  "reason": "promises amino acids, none present; promises minerals, none present"
+ }
+]

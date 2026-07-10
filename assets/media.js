@@ -204,6 +204,7 @@ async function openMed(id){
       </div>
       <button class="btn btn-ghost btn-sm" onclick="document.getElementById('med-ov').remove()">Close ✕</button></div>
     <div class="modal-body">
+      ${p.verification?`<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#fff8ec;border:1px solid #f0dcae;color:#8a6414;font-size:.82rem">⚠ <b>Auto-extracted from literature</b> — this formulation was mined from the paper by an automated pipeline and has not been manually verified against the source. Check the citation before relying on it.${p.formulation_warning?`<br><span style="color:#b5651d">Flagged: ${esc(p.formulation_warning)}</span>`:''}</div>`:''}
       <div class="cite" style="margin-bottom:14px"><b>Source:</b> ${esc(p.citation||'')} ${p.url?`· <a href="${esc(p.url)}" target="_blank">link ↗</a>`:''}${p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank">doi ↗</a>`:''}<br><span style="color:#8a978f">${esc(p.notes||'')}</span></div>
       <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
         <button class="btn btn-primary btn-sm" onclick='navigator.clipboard.writeText(${JSON.stringify(cobra)}).then(()=>{this.innerHTML="✓ Copied";setTimeout(()=>this.innerHTML="⧉ Copy as COBRApy medium",1500)});gcDownload("copy_cobrapy")'>⧉ Copy as COBRApy medium</button>
