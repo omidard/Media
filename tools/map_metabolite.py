@@ -70,7 +70,27 @@ _ALIASES = {**_AA,
     "ni2":"ni2","ni":"ni2","po43":"pi","hpo42":"pi","h2po4":"pi","moo42":"mobd","molybdate":"mobd",
     # water forms that appear as components
     "water":"h2o","distilledwater":"h2o","deionizedwater":"h2o","dh2o":"h2o","ddh2o":"h2o","milliqwater":"h2o",
-    "ultrapurewater":"h2o","sterilewater":"h2o"}
+    "ultrapurewater":"h2o","sterilewater":"h2o",
+    # --- food-nutrient recovery: mineral ELEMENT names reported by USDA/FooDB ---
+    "phosphorus":"pi","phosphorusp":"pi","selenium":"slnt","seleniumse":"slnt","iron":"fe2","ironfe":"fe2",
+    "zinc":"zn2","zinczn":"zn2","calcium":"ca2","calciumca":"ca2","magnesium":"mg2","magnesiummg":"mg2",
+    "potassium":"k","potassiumk":"k","sodium":"na1","sodiumna":"na1","copper":"cu2","coppercu":"cu2",
+    "manganese":"mn2","manganesemn":"mn2","molybdenum":"mobd","molybdenummo":"mobd","cobalt":"cobalt2",
+    "nickel":"ni2","nickelni":"ni2","chromium":"cro4","chromiumcr":"cro4","iodine":"iodine","iodinei":"iodine",
+    # --- vitamins / carotenoids reported as nutrient names ---
+    "vitaminarae":"retinol","vitaminaiu":"retinol","vitamina":"retinol","retinolactivityequivalent":"retinol",
+    "carotenebeta":"caro","betacarotene":"caro","tocopherolalpha":"avite1","alphatocopherol":"avite1",
+    "vitaminealphatocopherol":"avite1","vitamine":"avite1","tocotrienolalpha":"avite2","alphatocotrienol":"avite2",
+    "vitamind3cholecalciferol":"vitd3","cholecalciferol":"vitd3","vitamindd2d3":"vitd3",
+    "vitamindd2d3internationalunits":"vitd3","vitamind":"vitd3","zeaxanthin":"zeax",
+    # --- named fatty-acid classes -> dominant BiGG species (approximate) ---
+    "pufa182":"lnlc","pufa182n6cc":"lnlc","pufa182cc":"lnlc","linoleicacid":"lnlc",
+    "pufa183":"lnlnca","pufa183n3ccc":"lnlnca","alphalinolenicacid":"lnlnca","pufa183n6ccc":"lnlnca",
+    "pufa184":"strdnc","pufa204":"arachd","pufa205n3epa":"tmndnc","epa":"tmndnc","pufa226n3dha":"crvnc","dha":"crvnc",
+    "mufa161":"hdcea","mufa161c":"hdcea","palmitoleicacid":"hdcea","mufa141":"ttdcea",
+    "sfa150":"ptdca","pentadecanoicacid":"ptdca","sfa170":"hpdca","heptadecanoicacid":"hpdca",
+    "sfa240":"lgnc","lignocericacid":"lgnc","sfa40":"but","butyricacid":"but","sfa60":"hxa","sfa80":"octa",
+    "sfa100":"dca","sfa120":"ddca","sfa140":"ttdca","sfa160":"hdca","sfa180":"ocdca"}
 
 class Mapper:
     def __init__(self, base=HERE):

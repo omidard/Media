@@ -130,6 +130,27 @@ function clusterOrder(vectors){
   return clusters[clusters.length-1].members;
 }
 
+/* ---- build a pre-filled GitHub issue URL for community curation ---- */
+const REPO_URL='https://github.com/omidard/Media';
+function issueUrl(med){
+  const title=`[curation] ${med.name||med.id}`;
+  const ver=(med.provenance||{}).verification||'—';
+  const body=
+`**Medium:** \`${med.id}\`
+**Name:** ${med.name||''}
+**Source:** ${(med.provenance||{}).citation||''}
+**Verification status:** ${ver}
+**Live record:** ${location.origin}${location.pathname.replace(/[^/]*$/,'')}?medium=${med.id}
+
+### What's the issue?
+<!-- e.g. wrong/missing component, wrong concentration, wrong oxygen regime, bad citation, a compound that should map to a BiGG exchange, a duplicate, etc. -->
+
+### Suggested correction (if known)
+<!-- component name(s), amounts, the paper/table it comes from -->
+`;
+  return `${REPO_URL}/issues/new?labels=curation&title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+}
+
 /* ===================== medium detail modal (the click-through view) ========= */
 let _ALIASES=null;
 async function resolveId(id){
@@ -210,6 +231,8 @@ async function openMed(id){
         <button class="btn btn-primary btn-sm" onclick='navigator.clipboard.writeText(${JSON.stringify(cobra)}).then(()=>{this.innerHTML="✓ Copied";setTimeout(()=>this.innerHTML="⧉ Copy as COBRApy medium",1500)});gcDownload("copy_cobrapy")'>⧉ Copy as COBRApy medium</button>
         <a class="btn btn-ghost btn-sm" href="data/media/${id}.json" download onclick='gcDownload("medium_json")'>↓ JSON</a>
         <button class="btn btn-ghost btn-sm" onclick='dlCsv(${JSON.stringify(id)})'>↓ CSV</button>
+        <a class="btn btn-ghost btn-sm" style="margin-left:auto;color:#c0587a;border-color:#eccdd8" target="_blank" rel="noopener"
+           href="${issueUrl(med)}" onclick='gcEvent("report_issue","${id}")'>⚑ Report an issue</a>
       </div>
       <code class="cobra">${esc(cobra)}</code>
       ${coverageBlock}
