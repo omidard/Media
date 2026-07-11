@@ -177,25 +177,40 @@ function drawUpset(labels,sets,union){const N=labels.length,svg=document.getElem
 
 /* ---- clustered differentiating-compound grid ---- */
 function drawGrid(labels,meds,sets,union,core,nameOf){const N=meds.length,svg=document.getElementById('grid-svg');
+  const CAP=44;
   let diff=[...union].filter(e=>!core.includes(e));
-  // vectors per compound across media
-  let items=diff.map(e=>({e,vec:sets.map(s=>s.has(e)?1:0)}));
-  if(items.length>160)items=items.slice(0,160); // safety cap for readability
-  const order=clusterOrder(items.map(it=>it.vec));
+  let items=diff.map(e=>{const vec=sets.map(s=>s.has(e)?1:0),k=vec.reduce((a,b)=>a+b,0);
+    return {e,vec,k,score:k*(N-k)};});          // score peaks when a compound splits the set
+  const total=items.length;
+  items.sort((a,b)=>b.score-a.score||a.k-b.k); // most-differentiating first
+  items=items.slice(0,CAP);
+  const order=clusterOrder(items.map(it=>it.vec));   // then cluster by presence pattern
   items=order.map(i=>items[i]);
-  const R=items.length,cellH=Math.max(9,Math.min(16,760/Math.max(R,1))),cw=Math.max(30,Math.min(60,420/N));
-  const labW=210,top=120,H=top+R*cellH+8,W=labW+N*cw+8;
+  const R=items.length,cellH=20,cw=Math.max(46,Math.min(96,560/N));
+  const labW=248,top=132,pad=12,H=top+R*cellH+pad,W=labW+N*cw+pad;
   svg.setAttribute('width',W);svg.setAttribute('height',H);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.style.maxWidth='100%';
   while(svg.firstChild)svg.removeChild(svg.firstChild);
-  labels.forEach((l,j)=>{const x=labW+j*cw+cw/2;const t=svgEl('text',{x,y:top-6,transform:`rotate(-45 ${x} ${top-6})`,'font-size':11,fill:'#40524c','text-anchor':'start'});t.textContent=l;svg.appendChild(t);});
-  const showLbl=cellH>=11;
+  // column headers with category swatch
+  labels.forEach((l,j)=>{const x=labW+j*cw+cw/2;
+    const col=CAT_COLORS[(meds[j].category)]||'#0e8f70';
+    svg.appendChild(svgEl('circle',{cx:x,cy:top-12,r:4,fill:col}));
+    const t=svgEl('text',{x:x+7,y:top-9,transform:`rotate(-38 ${x+7} ${top-9})`,'font-size':11.5,fill:'#40524c','text-anchor':'start','font-weight':600});
+    t.textContent=l;svg.appendChild(t);});
   const cells=svgEl('g',{});svg.appendChild(cells);
   items.forEach((it,i)=>{const y=top+i*cellH;
-    if(showLbl){const nm=nameOf[it.e]||it.e;const t=svgEl('text',{x:labW-6,y:y+cellH/2,'font-size':10,fill:'#40524c','text-anchor':'end','dominant-baseline':'middle'});t.textContent=nm.length>30?nm.slice(0,29)+'…':nm;svg.appendChild(t);}
-    for(let j=0;j<N;j++){const on=it.vec[j];
-      const r=svgEl('rect',{x:labW+j*cw,y,width:cw-1,height:cellH-1,rx:1.5,fill:on?'#0e8f70':'#eef3f1','data-i':i,'data-j':j});cells.appendChild(r);}
+    if(i%2)svg.insertBefore(svgEl('rect',{x:labW,y,width:N*cw,height:cellH,fill:'#f7faf9'}),cells);
+    const nm=nameOf[it.e]||it.e;
+    const t=svgEl('text',{x:labW-10,y:y+cellH/2,'font-size':11.5,fill:'#31463f','text-anchor':'end','dominant-baseline':'middle'});
+    t.textContent=nm.length>34?nm.slice(0,33)+'…':nm;svg.appendChild(t);
+    // count chip
+    const cnt=svgEl('text',{x:labW-4,y:y+cellH/2,'font-size':9,fill:'#8a978f','text-anchor':'start','dominant-baseline':'middle'});
+    for(let j=0;j<N;j++){const on=it.vec[j];const col=CAT_COLORS[meds[j].category]||'#0e8f70';
+      const r=svgEl('rect',{x:labW+j*cw+3,y:y+3,width:cw-6,height:cellH-6,rx:4,
+        fill:on?col:'#eef3f1',opacity:on?0.92:1,'data-i':i,'data-j':j});cells.appendChild(r);
+      if(on){const chk=svgEl('text',{x:labW+j*cw+cw/2,y:y+cellH/2+0.5,'font-size':11,fill:'#fff','text-anchor':'middle','dominant-baseline':'middle','pointer-events':'none','font-weight':700});chk.textContent='✓';svg.appendChild(chk);}}
   });
-  if(!showLbl){const n=svgEl('text',{x:labW-6,y:top+12,'font-size':11,fill:'#8a978f','text-anchor':'end'});n.textContent=fmt(R)+' compounds';svg.appendChild(n);}
+  if(total>CAP){const n=svgEl('text',{x:labW,y:H-2,'font-size':11,fill:'#8a978f'});n.textContent=`showing the ${CAP} most-differentiating of ${fmt(total)} compounds`;svg.appendChild(n);}
   cells.addEventListener('mousemove',ev=>{const t=ev.target;if(t.tagName!=='rect'){tipHide();return;}
     const i=+t.getAttribute('data-i'),j=+t.getAttribute('data-j');
     tipShow(`<b>${esc(nameOf[items[i].e]||items[i].e)}</b><br><code>${esc(items[i].e)}</code><br>${items[i].vec[j]?'✓ present in':'absent from'} <b>${esc(labels[j])}</b>`,ev);});
