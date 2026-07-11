@@ -505,5 +505,19 @@
   "reason": "workflow:not_found",
   "note": "The paper explicitly names only lactose, maltose, or lactate as the 0.1% (w/v) carbon supplements to its M9 medium. No 'M9 + 0.1% (w/v) glucose' medium is defined in the text; glucose appears only as an unquantified batch comparison. This record appears to be an auto-extraction artifact and should not be published as a paper-sourced formulation.",
   "evidence": "\"M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2) with 0.2 mM uracil, supplemented with 0.1% (w/v) lactose, maltose or lactate.\" Glucose is not among the 0.1% (w/v) carbon supplements; it is only mentioned in passing batch-culture comparisons (Fig. S3) with no defined M9 + 0.1% glucose formulation."
+ },
+ {
+  "id": "growthlit_PMC8614739_defined_chemically_defined_medium",
+  "name": "defined (chemically defined) medium (PMC8614739)",
+  "reason": "workflow:not_found",
+  "note": "PMC8614739 (error-propagation/regression study) does NOT describe the medium composition; it references DeLisa et al. 1999 (ref 28) for the E. coli defined medium and Paul et al. 2019 (ref 30) for the CHO chemically defined medium. Therefore the composition cannot be confirmed or corrected from this paper. The auto-extracted components glycerol and lactose are NOT stated in this article and appear fabricated/misattributed; ammonium (12.5% NH3) as nitrogen source and aerobic conditions (DO>30%, O2 supplementation, 37 C, pH 6.8) ARE supported. To verify the full defined-medium formulation, the primary source DeLisa et al. 1999 must be consulted. Marked not_found because this specific paper does not enumerate the medium.",
+  "evidence": "The paper states the E. coli was 'cultivated on defined media given in [28]' (referring to DeLisa et al., 1999) and the CHO cells in 'a chemically defined medium; see [30]' (Paul et al., 2019); the medium formulation itself is not enumerated in this article. The only medium-related specifics given are operational: 37 C, pH 6.8 maintained by adding 12.5% NH3 (used as primary nitrogen source), aerobic with dissolved oxygen kept above 30% and pure-oxygen supplementation."
+ },
+ {
+  "id": "growthlit_PMC8531500_defined_2_3_bd_production_medium_jung_et",
+  "name": "Defined 2,3-BD production medium (Jung et al., 2012) with 40 g/L glucose (PMC8531500)",
+  "reason": "workflow:not_found",
+  "note": "PMC8531500 (Enterobacter aerogenes IAM1183, 2,3-butanediol production) describes a single medium, and it is semi-defined (contains 5 g/L yeast extract and 10 g/L Casamino acids). There is NO fully chemically defined variant in the paper, so a 'defined 2,3-BD production medium' record is not supported by the source. This record is effectively a mislabeled duplicate of the semi-defined medium record and should be removed or relabeled; the correct full composition is captured under the semi-defined id. Micro-aerobic cultivation; E. aerogenes is a facultative anaerobe.",
+  "evidence": "The paper describes only ONE medium: \"(g/L) 6.8 Na2HPO4, 3 KH2PO4, 0.75 KCl, 0.28 Na2SO4, 5.35 (NH4)2SO4, 34.2 ZnCl2, 0.26 MgSO4\u00b77H2O, 0.42 citric acid, 10 Casamino acids, 5 yeast extract\". Because it contains yeast extract and Casamino acids, this medium is SEMI-defined, not defined."
  }
 ]
