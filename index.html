@@ -89,7 +89,7 @@
       <div class="legend-scale" id="cov-legend" style="gap:14px"></div>
       <div class="muted" style="margin-left:auto;font-size:.82rem" id="cov-note"></div>
     </div>
-    <canvas id="cov-scatter" style="width:100%;height:440px;display:block"></canvas>
+    <canvas id="cov-scatter" style="width:100%;height:500px;display:block"></canvas>
   </div>
 </div></section>
 
@@ -182,7 +182,7 @@ Promise.all([jget('data/index.json'),jget('data/media_stats.json'),jget('data/ap
   const cats=[...new Set(covData.map(d=>d.category))];
   document.getElementById('cov-legend').innerHTML=cats.map(c=>`<span style="display:inline-flex;align-items:center;gap:6px;font-size:.82rem;color:#5b6b66"><span style="width:9px;height:9px;border-radius:50%;background:${CAT_COLORS[c]||'#889'}"></span>${esc(c)}</span>`).join('');
   const nFull=covData.filter(d=>d.pct_covered>=100).length;
-  document.getElementById('cov-note').textContent=`${fmt(nFull)} of ${fmt(covData.length)} media fully covered · ${fmt(covData.length-nFull)} have uncovered compounds`;
+  document.getElementById('cov-note').innerHTML=`Shaded bands = reliability by coverage: <b style="color:#0a5c49">≥90% high-confidence</b> · <b style="color:#a06a10">60–90% moderate</b> · <b style="color:#b8552f">&lt;60% review</b>. Click a dot to open.`;
   coverageScatter(document.getElementById('cov-scatter'),covData,openMed);
 
   const mp=new URLSearchParams(location.search).get('medium');if(mp)setTimeout(()=>openMed(mp),200);

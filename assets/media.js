@@ -259,63 +259,83 @@ async function dlCsv(id){
    Canvas-rendered (12k pts) with hit-testing so every dot is clickable. */
 function coverageScatter(canvas, data, onClick){
   const ctx=canvas.getContext('2d');
-  const MT=58, MR=66, MB=46, ML=58;            // top-marginal, right-marginal, bottom-axis, left-axis
+  const MT=94, MR=74, MB=50, ML=66;            // top (stats+zone labels), right-marginal, bottom-axis, left-axis
   let W,H,pw,ph,pts=[],dpr,hover=-1;
   const yMax=Math.max(4,...data.map(d=>d.n_uncovered||0));
   const xOf=v=>ML+(v/100)*pw;                  // coverage %
   const yOf=v=>MT+ph-(v/yMax)*ph;              // uncovered count
-  // deterministic jitter (index-based, no RNG) to de-pile the (100%,0) corner
   const jx=i=>((i*2654435761>>>0)%1000/1000-0.5), jy=i=>(((i*40503+13)>>>0)%1000/1000-0.5);
+  // reliability zones by coverage %
+  const ZONES=[{lo:0,hi:60,fill:'rgba(208,86,59,.055)',lab:'Review recommended',c:'#b8552f'},
+               {lo:60,hi:90,fill:'rgba(199,120,0,.05)',lab:'Moderate',c:'#a06a10'},
+               {lo:90,hi:100.4,fill:'rgba(14,143,112,.07)',lab:'High confidence',c:'#0a5c49'}];
+  // summary stats
+  const N=data.length, sorted=data.map(d=>d.pct_covered).sort((a,b)=>a-b);
+  const median=sorted[Math.floor(N/2)]||0;
+  const pHigh=100*data.filter(d=>d.pct_covered>=90).length/N;
+  const pFull=100*data.filter(d=>d.pct_covered>=100).length/N;
+  const pLow=100*data.filter(d=>d.pct_covered<60).length/N;
 
   function density(vals,n,lo,hi){const b=new Array(n).fill(0);const w=(hi-lo)/n||1;
     vals.forEach(v=>{let k=Math.floor((v-lo)/w);if(k<0)k=0;if(k>=n)k=n-1;b[k]++;});
-    // light 3-tap smoothing
     const s=b.map((_,k)=>(b[Math.max(0,k-1)]+2*b[k]+b[Math.min(n-1,k+1)])/4);
     const mx=Math.max(...s,1);return s.map(v=>v/mx);}
-
   function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=canvas.offsetWidth;H=canvas.offsetHeight;
     canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
     pw=W-ML-MR;ph=H-MT-MB;}
+  function statChip(x,y,num,lab,col){
+    ctx.textAlign='left';ctx.fillStyle=col;ctx.font='800 20px Inter, sans-serif';ctx.fillText(num,x,y+2);
+    const nw=ctx.measureText(num).width;
+    ctx.fillStyle='#8a978f';ctx.font='600 10.5px Inter, sans-serif';
+    ctx.fillText(lab,x,y+15); return x+Math.max(nw,ctx.measureText(lab).width)+26;}
 
   function draw(){
     ctx.clearRect(0,0,W,H);
-    ctx.font='11px Inter, sans-serif';
+    // --- reliability zone bands (behind everything) ---
+    ZONES.forEach(z=>{ctx.fillStyle=z.fill;ctx.fillRect(xOf(z.lo),MT,xOf(z.hi)-xOf(z.lo),ph);});
+    // --- stats strip (top) ---
+    let sx=ML;
+    sx=statChip(sx,MT-58,fmt(N),'MEDIA','#0c231e');
+    sx=statChip(sx,MT-58,median+'%','MEDIAN COVERAGE','#0a5c49');
+    sx=statChip(sx,MT-58,pHigh.toFixed(0)+'%','HIGH-CONFIDENCE (≥90%)','#0e8f70');
+    sx=statChip(sx,MT-58,pFull.toFixed(0)+'%','FULLY COVERED','#14b892');
+    statChip(sx,MT-58,pLow.toFixed(0)+'%','NEEDS REVIEW (<60%)','#b8552f');
     // --- grid + axes ---
-    ctx.strokeStyle='#eef3f1';ctx.fillStyle='#8a978f';ctx.lineWidth=1;ctx.textAlign='center';
-    for(let g=0;g<=100;g+=20){const x=xOf(g);ctx.beginPath();ctx.moveTo(x,MT);ctx.lineTo(x,MT+ph);ctx.stroke();
-      ctx.fillText(g+'%',x,MT+ph+18);}
+    ctx.font='11px Inter, sans-serif';ctx.strokeStyle='#eef3f1';ctx.lineWidth=1;ctx.textAlign='center';
+    for(let g=0;g<=100;g+=20){const x=xOf(g);ctx.strokeStyle='#eef3f1';ctx.beginPath();ctx.moveTo(x,MT);ctx.lineTo(x,MT+ph);ctx.stroke();
+      ctx.fillStyle='#8a978f';ctx.fillText(g+'%',x,MT+ph+18);}
     ctx.textAlign='right';ctx.textBaseline='middle';
     const yticks=Math.min(yMax,7);
     for(let t=0;t<=yticks;t++){const v=Math.round(t/yticks*yMax);const y=yOf(v);
-      ctx.strokeStyle='#f2f6f4';ctx.beginPath();ctx.moveTo(ML,y);ctx.lineTo(ML+pw,y);ctx.stroke();
+      ctx.strokeStyle='#f4f8f6';ctx.beginPath();ctx.moveTo(ML,y);ctx.lineTo(ML+pw,y);ctx.stroke();
       ctx.fillStyle='#8a978f';ctx.fillText(v,ML-8,y);}
+    // --- threshold lines at 60 & 90 + zone labels ---
+    ctx.setLineDash([5,4]);ctx.lineWidth=1.2;
+    [60,90].forEach(t=>{const x=xOf(t);ctx.strokeStyle=t>=90?'rgba(10,92,73,.4)':'rgba(160,106,16,.4)';
+      ctx.beginPath();ctx.moveTo(x,MT);ctx.lineTo(x,MT+ph);ctx.stroke();});
+    ctx.setLineDash([]);
+    ctx.textBaseline='alphabetic';ctx.font='700 10px Inter, sans-serif';
+    ZONES.forEach(z=>{ctx.fillStyle=z.c;ctx.textAlign='center';
+      ctx.fillText(z.lab.toUpperCase(),(xOf(z.lo)+xOf(Math.min(z.hi,100)))/2,MT+15);});
     // axis titles
-    ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.fillStyle='#40524c';ctx.font='600 12px Inter, sans-serif';
+    ctx.textAlign='center';ctx.fillStyle='#40524c';ctx.font='600 12px Inter, sans-serif';
     ctx.fillText('Coverage  (% of compounds with an exchange)',ML+pw/2,H-6);
-    ctx.save();ctx.translate(13,MT+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('Uncovered compounds',0,0);ctx.restore();
-    ctx.font='11px Inter, sans-serif';
-
-    // --- marginal densities ---
-    const dx=density(data.map(d=>d.pct_covered),64,0,100);
-    ctx.beginPath();ctx.moveTo(ML,MT-4);
-    dx.forEach((v,k)=>{const x=ML+(k+0.5)/dx.length*pw;ctx.lineTo(x,MT-4-v*(MT-14));});
-    ctx.lineTo(ML+pw,MT-4);ctx.closePath();ctx.fillStyle='rgba(20,184,146,.16)';ctx.fill();
-    ctx.strokeStyle='#14b892';ctx.lineWidth=1.3;ctx.stroke();
-    const dy=density(data.map(d=>d.n_uncovered||0),Math.max(6,Math.min(24,yMax+1)),0,yMax);
-    ctx.beginPath();ctx.moveTo(ML+pw+4,MT+ph);
-    dy.forEach((v,k)=>{const y=MT+ph-(k+0.5)/dy.length*ph;ctx.lineTo(ML+pw+4+v*(MR-16),y);});
-    ctx.lineTo(ML+pw+4,MT);ctx.closePath();ctx.fillStyle='rgba(20,184,146,.16)';ctx.fill();
-    ctx.strokeStyle='#14b892';ctx.stroke();
-
+    ctx.save();ctx.translate(15,MT+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('Uncovered compounds',0,0);ctx.restore();
     // --- points ---
     pts=[];
     for(let i=0;i<data.length;i++){const d=data[i];
       const x=xOf(d.pct_covered)+jx(i)*3.0, y=yOf(d.n_uncovered||0)+jy(i)*(ph/yMax*0.55);
       pts.push({x,y,i});
-      ctx.beginPath();ctx.arc(x,y,i===hover?4.5:2.4,0,7);
+      ctx.beginPath();ctx.arc(x,y,i===hover?5:2.6,0,7);
       const col=CAT_COLORS[d.category]||'#0e8f70';
-      ctx.fillStyle=i===hover?col:col+'66';ctx.fill();
-      if(i===hover){ctx.strokeStyle='#0c231e';ctx.lineWidth=1;ctx.stroke();}}
+      ctx.fillStyle=i===hover?col:col+'59';ctx.fill();
+      if(i===hover){ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();ctx.strokeStyle=col;ctx.lineWidth=1;ctx.stroke();}}
+    // --- right marginal (uncovered distribution) ---
+    const dy=density(data.map(d=>d.n_uncovered||0),Math.max(6,Math.min(24,yMax+1)),0,yMax);
+    ctx.beginPath();ctx.moveTo(ML+pw+5,MT+ph);
+    dy.forEach((v,k)=>{const y=MT+ph-(k+0.5)/dy.length*ph;ctx.lineTo(ML+pw+5+v*(MR-18),y);});
+    ctx.lineTo(ML+pw+5,MT);ctx.closePath();ctx.fillStyle='rgba(20,184,146,.14)';ctx.fill();
+    ctx.strokeStyle='#37c39a';ctx.lineWidth=1.3;ctx.stroke();
   }
   function nearest(mx,my){let bi=-1,bd=64;for(const p of pts){const dd=(p.x-mx)**2+(p.y-my)**2;if(dd<bd){bd=dd;bi=p.i;}}return bi;}
 
