@@ -1,6 +1,6 @@
 # Media
 
-**A curated, citation-backed library of growth & simulation media for genome-scale
+**A semi-curated, citation-backed library of growth & simulation media for genome-scale
 metabolic models — every component mapped to a standard BiGG exchange reaction.**
 
 Reusing a published medium in a genome-scale metabolic model (GEM) usually means
