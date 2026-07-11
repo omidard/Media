@@ -90,7 +90,18 @@ _ALIASES = {**_AA,
     "mufa161":"hdcea","mufa161c":"hdcea","palmitoleicacid":"hdcea","mufa141":"ttdcea",
     "sfa150":"ptdca","pentadecanoicacid":"ptdca","sfa170":"hpdca","heptadecanoicacid":"hpdca",
     "sfa240":"lgnc","lignocericacid":"lgnc","sfa40":"but","butyricacid":"but","sfa60":"hxa","sfa80":"octa",
-    "sfa100":"dca","sfa120":"ddca","sfa140":"ttdca","sfa160":"hdca","sfa180":"ocdca"}
+    "sfa100":"dca","sfa120":"ddca","sfa140":"ttdca","sfa160":"hdca","sfa180":"ocdca",
+    # --- vitamin name/spelling variants already present in BiGG ---
+    "riboflavine":"ribflv","thiamine":"thm","thiaminehydrochloride":"thm","thiaminhydrochloride":"thm",
+    "pantothenicacid":"pnto__R","dpantothenicacid":"pnto__R","calciumpantothenate":"pnto__R",
+    "retinol":"retinol","alltransretinol":"retinol","cyanocobalamin":"cbl1","vitaminb12":"cbl1",
+    "phytomenadione":"phllqne","phylloquinone":"phllqne","vitamink":"phllqne","vitamink1":"phllqne",
+    "vitaminkphylloquinone":"phllqne","vitaminkdihydrophylloquinone":"phllqne",
+    "betacryptoxanthin":"bcryptox","cryptoxanthinbeta":"bcryptox","alphacryptoxanthin":"crpxan",
+    # --- more fatty acids (IUPAC / class names) -> clean BiGG species ---
+    "eicosapentaenoicacid":"tmndnc","docosahexaenoicacid":"crvnc","sfa220":"behen","behenicacid":"behen",
+    "pufa203n6":"dlnlcg","pufa203":"dlnlcg","dihomogammalinolenicacid":"dlnlcg",
+    "c181n9":"ocdcea","oleicacid":"ocdcea","zz912octadecadienoicacid":"lnlc","c182n6":"lnlc","c183n3":"lnlnca"}
 
 class Mapper:
     def __init__(self, base=HERE):
