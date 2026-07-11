@@ -59,7 +59,34 @@ _SALTS_RAW = {
     "sodiumselenite": ["na1", "slnt"], "na2seo3": ["na1", "slnt"],
     "sodiumthiosulfate": ["na1", "tsul"], "na2s2o3": ["na1", "tsul"],
     "sodiumfluoride": ["na1", "fluor"], "naf": ["na1", "fluor"],
+    # phosphate salts -> cation + inorganic phosphate (pi)
+    "kh2po4": ["k", "pi"], "monopotassiumphosphate": ["k", "pi"], "potassiumdihydrogenphosphate": ["k", "pi"],
+    "k2hpo4": ["k", "pi"], "dipotassiumphosphate": ["k", "pi"], "potassiumphosphatedibasic": ["k", "pi"],
+    "k3po4": ["k", "pi"], "na2hpo4": ["na1", "pi"], "disodiumphosphate": ["na1", "pi"],
+    "sodiumphosphatedibasic": ["na1", "pi"], "nah2po4": ["na1", "pi"], "monosodiumphosphate": ["na1", "pi"],
+    "sodiumphosphatemonobasic": ["na1", "pi"], "na3po4": ["na1", "pi"], "nh42hpo4": ["nh4", "pi"],
+    "diammoniumphosphate": ["nh4", "pi"], "nh4h2po4": ["nh4", "pi"],
+    # chloride salts
+    "nh4cl": ["nh4", "cl"], "ammoniumchloride": ["nh4", "cl"], "cacl2": ["ca2", "cl"], "calciumchloride": ["ca2", "cl"],
+    "mgcl2": ["mg2", "cl"], "magnesiumchloride": ["mg2", "cl"], "fecl3": ["fe3", "cl"], "ferricchloride": ["fe3", "cl"],
+    "fecl2": ["fe2", "cl"], "ferrouschloride": ["fe2", "cl"], "mncl2": ["mn2", "cl"], "manganesechloride": ["mn2", "cl"],
+    "zncl2": ["zn2", "cl"], "cucl2": ["cu2", "cl"], "cocl2": ["cobalt2", "cl"], "cobaltchloride": ["cobalt2", "cl"],
+    "nicl2": ["ni2", "cl"], "cocl26h2o": ["cobalt2", "cl"],
+    # sulfate salts
+    "nh42so4": ["nh4", "so4"], "ammoniumsulfate": ["nh4", "so4"], "feso4": ["fe2", "so4"], "ferroussulfate": ["fe2", "so4"],
+    "fe2so43": ["fe3", "so4"], "mnso4": ["mn2", "so4"], "manganesesulfate": ["mn2", "so4"], "znso4": ["zn2", "so4"],
+    "zincsulfate": ["zn2", "so4"], "cuso4": ["cu2", "so4"], "coppersulfate": ["cu2", "so4"], "caso4": ["ca2", "so4"],
+    "k2so4": ["k", "so4"], "coso4": ["cobalt2", "so4"], "niso4": ["ni2", "so4"],
+    # nitrate / molybdate / iodide / other
+    "kno3": ["k", "no3"], "potassiumnitrate": ["k", "no3"], "nh4no3": ["nh4", "no3"], "cano32": ["ca2", "no3"],
+    "mgno32": ["mg2", "no3"], "na2moo4": ["na1", "mobd"], "sodiummolybdate": ["na1", "mobd"],
+    "nh46mo7o24": ["nh4", "mobd"], "ki": ["k", "iodine"], "potassiumiodide": ["k", "iodine"], "nai": ["na1", "iodine"],
+    "na2seo4": ["na1", "slnt"], "kh2po4monopotassiumphosphate": ["k", "pi"],
 }
+# strip a trailing hydrate (·7H2O, .2H2O, x6H2O, " 7H2O") before matching
+_HYDRATE = re.compile(r"[·.x*]\s*\d*\s*h2o$|\s+\d*\s*h2o$", re.I)
+def _dehydrate(s):
+    return _HYDRATE.sub("", (s or "").strip())
 SALTS = {k: [b for b in v if valid(b)] for k, v in _SALTS_RAW.items()}
 SALTS = {k: v for k, v in SALTS.items() if v}
 
@@ -187,13 +214,14 @@ def recover(name, xref):
     dc = decomposition_components(name)
     if dc:
         return dc
-    # 2) salt dissociation -> possibly several ions; return the list marker
-    n = norm(re.sub(r"\s*\([^)]*\)", "", name))
-    if n in SALTS:
-        return [new_component({"bigg_metabolite": b, "exchange": f"EX_{b}_e",
-                               "in_biggr": DICT.get(b, {}).get("in_biggr", False),
-                               "mapping_confidence": "inferred"}, name, "salt_dissociation_remap")
-                for b in SALTS[n]]
+    # 2) salt dissociation -> ions. Try every name variant, stripping hydrate (·7H2O)
+    for cand in _name_variants(name):
+        n = norm(_dehydrate(cand))
+        if n in SALTS:
+            return [new_component({"bigg_metabolite": b, "exchange": f"EX_{b}_e",
+                                   "in_biggr": DICT.get(b, {}).get("in_biggr", False),
+                                   "mapping_confidence": "inferred"}, name, "salt_dissociation_remap")
+                    for b in SALTS[n]]
     # 3) ModelSEED / KEGG / MetaNetX fallback (only possible when an xref exists)
     fb = MAP.fallback_exchange(chebi=xref.get("chebi"), kegg=xref.get("kegg"), name=name)
     if fb:
