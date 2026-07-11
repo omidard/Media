@@ -63,7 +63,28 @@ def apply(verdicts, dry=False):
         if not mid:
             continue
         verdict = v.get("verdict")
-        # paper couldn't be read / low-confidence unknowns -> leave the medium flagged, do NOT touch it
+        # "unavailable": paper cites an external reference for the full recipe, but often
+        # DID verify the oxygen regime / carbon source. Apply only those paper-grounded
+        # bits (never rebuild the component list) and keep the record flagged for review.
+        if verdict == "unavailable":
+            path = os.path.join(MEDIA, mid + ".json")
+            if os.path.exists(path):
+                d = json.load(open(path))
+                ox = v.get("oxygen")
+                if ox in ("aerobic", "anaerobic", "facultative"):
+                    d["oxygen"] = ox
+                    d["aerobic"] = (ox != "anaerobic")
+                    if ox == "anaerobic":
+                        d["components"] = [c for c in d.get("components", []) if c.get("exchange") != "EX_o2_e"]
+                prov = d.setdefault("provenance", {})
+                prov["verification"] = "auto-extracted; O2/carbon verified from paper, full recipe cited from an external reference (manual review)"
+                if v.get("note"):
+                    prov["verification_note"] = v["note"][:400]
+                with open(path, "w") as fh:
+                    json.dump(d, fh, ensure_ascii=False)
+            stats["skipped"] += 1
+            continue
+        # any other unknown verdict -> leave untouched
         if verdict not in KNOWN:
             stats["skipped"] += 1
             continue
