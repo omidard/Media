@@ -526,5 +526,9 @@
   "reason": "workflow:not_found",
   "note": "Paper PMC7745072 (Mesoplasma florum L1) was fetched and read successfully. It only NAMES 'ATCC 1161 medium' as the culture medium and reports incubation temperature (optimum 34 C, no growth >36 C); it does NOT reproduce the medium's composition (no salts, carbon/N source, buffer, vitamins, trace elements, serum or amounts are given in the article). Therefore the medium is not_found within this source. The current auto-extracted record (heart infusion broth + horse serum + phenol red + 4% sucrose + 200 U/ml penicillin G + a yeast-extract complex decomposition) is NOT supported by any text in this paper and appears imported from external ATCC/GrowthDB documentation; its full formulation could not be verified against the paper and should not be treated as paper-confirmed. Oxygen not stated in the paper; left as facultative (Mesoplasma/Mollicutes are typically facultatively anaerobic) rather than asserting aerobic. Full ATCC 1161 formulation, if desired, must be sourced from ATCC medium documentation, not this article, during manual curation.",
   "evidence": "The optimal growth temperature of the type strain M. florum L1 was therefore evaluated in ATCC 1161 medium by measuring the doubling time at different incubation temperatures."
+ },
+ {
+  "id": "biospecimen_hmdb_cellular_cytoplasm",
+  "reason": "intracellular cytoplasm, not a growth medium"
  }
 ]

@@ -169,7 +169,7 @@ async function openMed(id){
     const cc=c.mapping_confidence||'';const cl=cc==='exact'?'conf-exact':cc==='inferred'?'conf-inferred':'conf-convention';
     const content=c.foodb_content!=null?`${c.foodb_content} ${esc(c.foodb_unit||'')}`:(c.concentration_mM!=null?c.concentration_mM+' mM':'');
     const src=c.exchange_source||(c.in_biggr?'biggr':'bigg');
-    const approx=c.mapping_method==='complex_decomposition'?` <span title="in-silico approximation from ${esc(c.derived_from||'')}" style="font-size:.66rem;color:#c77800">≈ ${esc(c.derived_from||'complex')}</span>`:'';
+    const approx=c.mapping_method==='complex_decomposition'?` <span title="in-silico approximation from ${esc(c.derived_from||'')} — ${esc(c.decomposition_ref||'standard bionutrient composition')}" style="font-size:.66rem;color:#c77800">≈ ${esc(c.derived_from||'complex')}</span>`:'';
     return `<tr><td>${esc(c.name)}${approx}</td><td><code>${esc(c.exchange)}</code></td><td>${srcBadge(src)}</td><td>${c.lower_bound}</td>
       <td>${esc(content)}</td><td style="font-size:.72rem;color:#667">${xs}</td><td class="${cl}">${esc(cc)}</td></tr>`;
   }).join('');
@@ -226,7 +226,7 @@ async function openMed(id){
       <button class="btn btn-ghost btn-sm" onclick="document.getElementById('med-ov').remove()">Close ✕</button></div>
     <div class="modal-body">
       ${p.verification?`<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#fff8ec;border:1px solid #f0dcae;color:#8a6414;font-size:.82rem">⚠ <b>Auto-extracted from literature</b> — this formulation was mined from the paper by an automated pipeline and has not been manually verified against the source. Check the citation before relying on it.${p.formulation_warning?`<br><span style="color:#b5651d">Flagged: ${esc(p.formulation_warning)}</span>`:''}</div>`:''}
-      <div class="cite" style="margin-bottom:14px"><b>Source:</b> ${esc(p.citation||'')} ${p.url?`· <a href="${esc(p.url)}" target="_blank">link ↗</a>`:''}${p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank">doi ↗</a>`:''}<br><span style="color:#8a978f">${esc(p.notes||'')}</span></div>
+      <div class="cite" style="margin-bottom:14px"><b>Source:</b> ${esc(p.citation||'')} ${p.url?`· <a href="${esc(p.url)}" target="_blank">link ↗</a>`:''}${p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank">doi ↗</a>`:''}<br><span style="color:#8a978f">${esc(p.notes||'')}</span>${p.decomposition_refs?`<div style="margin-top:8px;padding-top:8px;border-top:1px solid #e6ecea;font-size:.78rem;color:#66756f"><b style="color:#c77800">Complex-ingredient approximations:</b> ${Object.entries(p.decomposition_refs).map(([ing,ref])=>`<div style="margin-top:3px">• <b>${esc(ing)}</b> — ${esc(ref)}</div>`).join('')}</div>`:''}</div>
       <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
         <button class="btn btn-primary btn-sm" onclick='navigator.clipboard.writeText(${JSON.stringify(cobra)}).then(()=>{this.innerHTML="✓ Copied";setTimeout(()=>this.innerHTML="⧉ Copy as COBRApy medium",1500)});gcDownload("copy_cobrapy")'>⧉ Copy as COBRApy medium</button>
         <a class="btn btn-ghost btn-sm" href="data/media/${id}.json" download onclick='gcDownload("medium_json")'>↓ JSON</a>

@@ -32,7 +32,7 @@ REPO = os.path.dirname(HERE)
 MEDIA = os.path.join(REPO, "data", "media")
 sys.path.insert(0, HERE)
 from map_metabolite import Mapper, norm  # noqa: E402
-from complex_ingredients import decompose  # noqa: E402
+from complex_ingredients import decompose, REFS, ingredient_key  # noqa: E402
 
 MAP = Mapper()
 DICT = MAP.dict
@@ -156,17 +156,21 @@ def decomposition_components(name):
     if not d:
         return None
     key, ids = d
+    ref = REFS.get(ingredient_key(name))
     out = []
     for b in ids:
         rec = DICT.get(b, {})
-        out.append({
+        c = {
             "name": rec.get("name", b), "bigg_metabolite": b, "exchange": "EX_%s_e" % b,
             "lower_bound": -1.0, "upper_bound": 1000.0, "concentration_mM": None,
             "xref": rec.get("xrefs", {}), "in_biggr": rec.get("in_biggr", False),
             "exchange_source": ("biggr" if rec.get("in_biggr") else "bigg"),
             "mapping_method": "complex_decomposition", "mapping_confidence": "approximation",
             "derived_from": name,
-        })
+        }
+        if ref:
+            c["decomposition_ref"] = ref
+        out.append(c)
     return out
 
 
@@ -214,6 +218,11 @@ def enrich(med):
     comps = med.get("components", []) or []
     for c in comps:
         c["exchange_source"] = source_of(c)
+        # backfill the decomposition reference on already-decomposed components
+        if c.get("mapping_method") == "complex_decomposition" and not c.get("decomposition_ref"):
+            r = REFS.get(ingredient_key(c.get("derived_from", "")))
+            if r:
+                c["decomposition_ref"] = r
     seen_ex = {c.get("exchange") for c in comps}
 
     uncovered = []
@@ -251,6 +260,17 @@ def enrich(med):
         "pct_covered": round(100.0 * n_cov / total, 1) if total else 100.0,
         "by_source": by_source,
     }
+    # record the references for any complex-ingredient decomposition used in this medium
+    drefs = {}
+    for c in comps:
+        if c.get("mapping_method") == "complex_decomposition":
+            r = c.get("decomposition_ref")
+            if r:
+                drefs[c.get("derived_from", "")] = r
+    if drefs:
+        med.setdefault("provenance", {})["decomposition_refs"] = drefs
+    else:
+        med.get("provenance", {}).pop("decomposition_refs", None)
     return med
 
 

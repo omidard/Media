@@ -57,11 +57,33 @@ _PATTERNS = [
 ]
 
 
+# reference supporting each ingredient's approximate compound-class composition
+REFS = {
+    "yeast_extract": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals — BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
+    "tryptone": "Tryptone = pancreatic (tryptic) digest of casein; amino-acid-rich, tryptophan retained — BD Bionutrient Technical Manual; casein amino-acid profile (FAO/WHO).",
+    "casein_peptone": "Tryptic/enzymatic digest of casein; amino-acid profile of casein — BD Bionutrient Technical Manual.",
+    "trypticase": "Trypticase = pancreatic digest of casein (BBL) — BD Bionutrient Technical Manual.",
+    "peptone": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+    "proteose_peptone": "Proteose peptone = enzymatic protein digest — BD Bionutrient Technical Manual.",
+    "soytone": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+    "casamino_acids": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+    "beef_extract": "Beef extract = aqueous meat extract; amino acids, nucleotides (creatine/creatinine), water-soluble vitamins and minerals — Atlas RM, Handbook of Microbiological Media.",
+    "meat_extract": "Meat extract (Lab-Lemco) composition — Oxoid/BD technical data; Atlas RM, Handbook of Microbiological Media.",
+    "lab_lemco": "Lab-Lemco meat extract — Oxoid technical data.",
+    "malt_extract": "Malt extract = maltose-dominant sugars plus amino acids and B-vitamins — BD Bionutrient Technical Manual.",
+}
+
+
 def ingredient_key(name):
     for rx, key in _PATTERNS:
         if rx.search(name or ""):
             return key
     return None
+
+
+def reference_for(name):
+    key = ingredient_key(name)
+    return REFS.get(key) if key else None
 
 
 def decompose(name, valid=None):
