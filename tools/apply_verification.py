@@ -101,6 +101,8 @@ def apply(verdicts, dry=False):
             if not dry:
                 os.remove(path)
             continue
+        # a paper verdict supersedes the earlier heuristic formulation_warning
+        d.get("provenance", {}).pop("formulation_warning", None)
         # oxygen from verdict
         ox = v.get("oxygen")
         if ox in ("aerobic", "anaerobic", "facultative"):
