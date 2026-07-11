@@ -66,7 +66,7 @@
     "url",
     "food_group"
    ],
-   "size": "437.2 KB"
+   "size": "437.3 KB"
   },
   "components.parquet": {
    "rows": 629209,
@@ -91,7 +91,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "2.1 MB"
+   "size": "2.6 MB"
   },
   "media.sqlite.gz": {
    "tables": [
@@ -99,7 +99,7 @@
     "components"
    ],
    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "15.0 MB"
+   "size": "14.9 MB"
   },
   "media.jsonl.gz": {
    "rows": 12339,
