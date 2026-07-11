@@ -428,5 +428,82 @@
   "reason": "workflow:rejected",
   "note": "This entry is a substrate/carbon-source panel mislabelled as a growth medium, so it is rejected as a usable medium formulation. Two independent problems: (1) The 13 components are exactly the paper's Table 2 ('Testing of different carbon sources') \u2014 12 sugars plus O2. Table 2 is NOT a medium; the paper states each sugar was substituted for D-glucose ONE AT A TIME ('substituting D-glucose with alternative sugars in amounts adjusted for carbon content', 'different amounts of other sugars systematically replaced glucose'). Bundling all 12 mutually-exclusive glucose substitutes into a single co-present formulation describes no experiment the paper ever ran. (2) The real base \u2014 the Synthetic Minimal Medium (SMM, from ref 30, Hussain/Kohler chemically defined medium for S. aureus) \u2014 is entirely absent. The paper puts the full SMM composition (inorganic salts and ions, amino acids, vitamins including nicotinamide substituted for nicotinic acid, plus the added trace metals) in Table S1 (supplementary) and only summarizes: 'The concentrations of the various components served as lower bounds ... as detailed in Table S1. In addition to the already provided salts and ions, we added minimal traces of zinc (EX_zn2_e), cobalt (EX_cobalt2_e), and copper (EX_cu2_e).' Table S1 is not present in the fulltext XML, so the correct SMM salts/amino-acids/vitamins cannot be reconstructed from this paper alone. Because the object neither represents a real single-experiment medium nor contains the SMM base, it should be rejected (or rebuilt from Table S1) rather than 'corrected'. Note also a likely extraction bug: the paper's 'D-arabinose' is mapped in Table 2 to EX_arab__L_e (L-arabinose) at lower bound -4.15, and the JSON inherited L-Arabinose. Oxygen: paper set EX_o2_e lower bound to -20 mmol/gDW/h (aerobic simulation); S. epidermidis is itself a facultative anaerobe.",
   "evidence": "For the growth simulations in different carbon sources, we used the SMM with nicotinamide instead of nicotinic acid as a basis (Table 2). The concentrations reported in the medium were established as lower bounds for the simulation. The concentrations of the listed carbon sources were calculated to be equivalent in carbon content to the initial 5 g/L of glucose used in the defined SMM."
+ },
+ {
+  "id": "complexlit_PMC2896665_diluted_whey_dw_medium_initial_ph_adjusted_t",
+  "name": "Diluted whey (DW) medium, initial pH adjusted to 7.0 (PMC2896665)",
+  "reason": "workflow:rejected",
+  "note": "Not a chemically defined medium. 'Diluted whey (DW)' is a natural dairy substrate (cheese whey diluted with water). Its reported composition consists only of bulk analytical parameters (total nitrogen, total phosphorus, proteins) plus lactose, which cannot be reconstituted as a defined formulation and are not BiGG-mappable species. Rejected as a natural-substrate list per the verification rules. Reported values are documented in components for the record; paper confirms lactose 22.0 g/L, total N 0.45 g/L, total P 0.25 g/L, proteins 2.0 g/L, native pH 5.4 (fermentation initial pH adjusted to 7.0). Grown aerobically (E. faecium CECT 410).",
+  "evidence": "The DW medium (2.7% dry weight after water evaporation) used as fermentation medium contained (in g/L): lactose, 22.0; total nitrogen, 0.45; total phosphorus, 0.25; proteins, 2.0; pH, 5.4. Culture conditions were aerobic (30 C, 200 rpm, 0.5 L/h aeration; initial pH adjusted to 7.0)."
+ },
+ {
+  "id": "complexlit_PMC2896665_realkalized_fed_batch_fermentation_i_dw_medi",
+  "name": "Realkalized fed-batch fermentation I: DW medium (initial pH 7.0) fed with 400 g/L concentrated lactose (PMC2896665)",
+  "reason": "workflow:rejected",
+  "note": "Not a distinct defined medium: this is a fed-batch feeding regime layered on the natural cheese-whey (DW) base, replenished with a 400 g/L concentrated lactose solution. The base is a natural substrate defined only by bulk analytical parameters, so it is rejected on the same grounds as the DW record. Values are documented for the record. Grown aerobically.",
+  "evidence": "Realkalized fed-batch fermentation I was fed with a 400 g/L concentrated lactose and sterile distilled water (if needed), over the DW medium (lactose 22.0; total nitrogen 0.45; total phosphorus 0.25; proteins 2.0 g/L). Aerobic (30 C, 200 rpm, 0.5 L/h aeration)."
+ },
+ {
+  "id": "complexlit_PMC2896665_realkalized_fed_batch_fermentation_ii_dw_med",
+  "name": "Realkalized fed-batch fermentation II: DW medium (initial pH 7.0) fed with a mixture of 400 g/L concentrated lactose and concentrated whey (CW) medium (PMC2896665)",
+  "reason": "workflow:rejected",
+  "note": "Not a distinct defined medium: a fed-batch feeding regime on the natural cheese-whey (DW) base, fed with a mixture of 400 g/L concentrated lactose and concentrated whey (CW) medium. Both DW and CW are natural whey substrates characterized only by bulk analytical parameters (total nitrogen, total phosphorus, proteins), not reconstitutable/BiGG-mappable defined formulations; rejected as a natural-substrate feeding regime. Values documented for the record. Grown aerobically.",
+  "evidence": "Realkalized fed-batch fermentation II was fed with a mixture of a 400 g/L concentrated lactose and CW medium. The CW medium (6.3% dry weight) contained (in g/L): lactose, 48.1; total nitrogen, 1.05; total phosphorus, 0.43; proteins, 5.0; pH, 4.7. Aerobic (30 C, 200 rpm, 0.5 L/h aeration)."
+ },
+ {
+  "id": "complexlit_PMC6153640_mineral_medium_with_acetate_electron_donor_a",
+  "name": "mineral medium with acetate (electron donor) and N2O (electron acceptor); full composition in Conthe et al. 2018b/c (PMC6153640)",
+  "reason": "workflow:not_found",
+  "note": "SOURCE PAPER DOES NOT CONTAIN THE MEDIUM COMPOSITION. PMC6153640 (Conthe et al. 2018, on N2O-respiring communities) explicitly defers the full mineral-medium recipe to Conthe et al. 2018b (Environ. Microbiol. Rep.) and 2018c (ISME J). Accessible facts confirmed FROM this paper: (1) carbon source / electron donor = acetate (sodium acetate); (2) sole electron acceptor = N2O (100% N2O diluted in Argon) -> cultivation is ANAEROBIC, not aerobic; (3) N source = ammonium; (4) 20 C, pH 7, chemostat dilution rate 0.026/h. No numeric concentrations for phosphate buffer, KH2PO4/K2HPO4, MgSO4, CaCl2, trace elements, or vitamins are given anywhere in the text, tables, or supplements. Cannot confirm or correct the full formulation from this paper without fabricating; recipe must be pulled from Conthe et al. 2018b/c. IMPORTANT CORRECTIONS regardless of verdict: current record has aerobic=true and oxygen=facultative and lists an O2 exchange (EX_o2_e) -- this is WRONG; the system respires N2O under Argon and is anaerobic (no O2). The auto-extractor's O2 component should be removed and oxygen set to anaerobic.",
+  "evidence": "\"The reactor set-up, operation, sampling, and medium composition are described in detail in Conthe et al. (2018b, c).\" The paper itself gives no mineral-salt recipe; it only states \"100% pure N2O gas diluted in Argon gas was fed to the chemostat at a total flow rate of 200 ml/min\" (electron acceptor, anaerobic), acetate/sodium acetate as electron donor and carbon source, and ammonium (NH4+) monitored as N source, at 20 C, pH 7."
+ },
+ {
+  "id": "complexlit_PMC6381291_rms_rhizobia_minimal_medium_supplemented_wit",
+  "name": "RMS (rhizobia minimal medium supplemented with succinate) (PMC6381291)",
+  "reason": "workflow:not_found",
+  "note": "RMS is a real chemically-defined rhizobia minimal medium with succinate as carbon source, but PMC6381291 does NOT provide its composition \u2014 it cites the formulation to Broughton et al., 1986. No salts, N source, buffer, vitamins, or trace elements are given in this paper, so the auto-extracted 2-component record (O2 + succinate only) cannot be verified or completed from this source. Oxygen corrected to aerobic based on 190 rpm shaken culture at 27\u00b0C (current record said 'facultative'). Full formulation requires manual sourcing from Broughton et al., 1986 (J Gen Microbiol). Carbon source succinate is correct; carbon amount not stated in this paper.",
+  "evidence": "\"NGR234 and derivative strains were grown at 27\u00b0C in/on rhizobia minimal medium supplemented with succinate (RMS) (Broughton et al., 1986) or tryptone yeast (TY) medium (Beringer, 1974)\"; cultures grown at 27\u00b0C with 190 rpm shaking (aerobic)."
+ },
+ {
+  "id": "complexlit_PMC9640675_aquil_tricho_natural_oligotrophic_south_chin",
+  "name": "Aquil-tricho (natural oligotrophic South China Sea surface seawater, 0.22 um-filtered, microwave-sterilized) (PMC9640675)",
+  "reason": "workflow:rejected",
+  "note": "REJECTED as a defined medium: the base is NATURAL, undefined oligotrophic seawater (unknown ionic/organic composition), so it is not a chemically defined, BiGG-mappable formulation. Only the enrichments (phosphate, unspecified vitamins, EDTA-buffered trace metals) are defined; major salts are inherited from natural seawater and never specified. No organic carbon source (CO2-fixing) and no added N source (diazotroph). Oxygen corrected to aerobic (light-grown aerobic marine cyanobacterium), not 'facultative' as auto-extracted.",
+  "evidence": "Base: natural seawater, '0.22 um-filtered and microwave-sterilized oligotrophic South China Sea surface water', 'enriched with various concentrations of chelexed and filter-sterilized NaH2PO4' and 'filter-sterilized vitamins and trace metals buffered with 20 uM EDTA'. Organism Trichodesmium erythraeum IMS101 is diazotrophic (N2-fixing, no added N source) and photoautotrophic (CO2). Chemostat reservoir 1.2 uM NaH2PO4; steady-state SRP 12.4-16.3 nM."
+ },
+ {
+  "id": "growthlit_PMC10092583_natural_seawater_medium_santa_barbara_ch",
+  "name": "Natural seawater medium (Santa Barbara Channel, aged, 0.2um filtered, autoclaved) + trace elements (PMC10092583)",
+  "reason": "workflow:rejected",
+  "note": "Rejected because the base is natural (collected) seawater with an undefined chemical composition (major-ion concentrations Na/Cl/Mg/Ca/K/SO4/carbonate are not defined in the paper), so a full defined formulation cannot be given. The paper uses NSW interchangeably with the fully defined ASW base plus the same defined supplements; the defined analog is captured by the ASW record (growthlit_PMC10092583_artificial_or_natural_seawater_medium_na). The auto-extract also mislabeled several supplement amounts (e.g. Na, Cu, Mn, Mo values swapped) and omitted the buffer/major ions.",
+  "evidence": "'aged seawater collected from the Santa Barbara Channel (~10 m depth, 0.2-um pore size filtered and autoclaved)'. Supplements added were the same defined set as ASW (2.6 mg L-1 K2HPO4 and the trace-element mix), plus organism-specific N source."
+ },
+ {
+  "id": "growthlit_PMC10158823_cgxii",
+  "name": "Cgxii (PMC10158823)",
+  "reason": "workflow:not_found",
+  "note": "This paper does NOT define CGXII; it only references it in Table 2 as another study's medium (partial: 20 g/L yeast extract; 5 g/L urea). The auto-extracted record is fabricated/mis-derived: D-glucose 82 g/L, acetate 24 g/L, potassium 24 g/L, and biotin 0.2 mg/L do not appear in the paper, and the '20 g/L yeast extract' was mis-split into ammonium (20 g/L) + sulfate (20 g/L). CGXII is a real defined medium, but its true formulation must come from the primary CGXII references (Keilhauer/Unthan), not PMC10158823. Recommend removing or re-sourcing this record. Aerobic reflects standard C. glutamicum CGXII cultivation, but is not asserted by this paper.",
+  "evidence": "Paper title: 'System metabolic engineering of Escherichia coli W for the production of 2-ketoisovalerate using unconventional feedstock.' CGXII appears only in the literature-comparison Table 2, cited from other studies (Buchholz et al., Krause et al.): 'Corynebacterium glutamicum ... 20 g/L yeast extract; 5 g/L urea.' The paper's own experiments used M9, not CGXII: 'Minimal medium M9 (pH 7.2) ... Under production conditions, M9 was supplemented with 1 g/L of yeast extract and 10 g/L of carbon source.' No full CGXII formulation is given anywhere in this article."
+ },
+ {
+  "id": "growthlit_PMC10158823_complex_medium_yeast_extract_corn_steep_",
+  "name": "Complex medium (yeast extract + corn steep liquor) (PMC10158823)",
+  "reason": "workflow:not_found",
+  "note": "This paper does NOT define or use this medium; it only cites it in Table 2 for another organism (K. pneumoniae). The auto-extracted record invented D-glucose 81 g/L (not in the paper) and dropped the two defining complex ingredients (yeast extract, corn steep liquor). The cited salts (0.4 g/L KCl -> K+ + Cl-, 0.1 g/L MgSO4 -> Mg2+ + SO4, 5 g/L (NH4)2SO4 -> NH4 + SO4) were extracted correctly but belong to the other study. Because it contains undefined complex ingredients (yeast extract + corn steep liquor) and is not attributable to this paper, it should be removed or re-sourced. Oxygen set facultative (K. pneumoniae) but not asserted by this paper.",
+  "evidence": "This complex medium appears only in the literature-comparison Table 2, cited from a Klebsiella pneumoniae study: 'Klebsiella pneumoniae ... 5 g/L yeast Extract; 4 g/L corn steep liquor; 5 g/L (NH4)2SO4; 0.4 g/L KCl and 0.1 g/L MgSO4.' The paper's own experiments used M9 + yeast extract, not this medium: 'Under production conditions, M9 was supplemented with 1 g/L of yeast extract and 10 g/L of carbon source.' The terms 'corn steep' / 'corn steep liquor' / 'CSL' occur nowhere in this paper's own medium descriptions."
+ },
+ {
+  "id": "growthlit_PMC10850783_bioconversion_in_0_1_m_potassium_phospha",
+  "name": "Bioconversion in 0.1 M potassium phosphate buffer + lactose (growth/induction in rich or modified M9 media) (PMC10850783)",
+  "reason": "workflow:rejected",
+  "note": "This record does NOT represent a defined growth medium. It is a resting-cell BIOCONVERSION buffer (0.1 M potassium phosphate + a sugar substrate such as 10 mM lactose) in which cells do not grow (no nitrogen source, no defined salt/vitamin package). The auto-extractor incorrectly applied an 'M9 base expansion', injecting M9 salts (Na, NH4, Mg, SO4, Ca, Cl) and a full trace-element set (Fe2/Fe3, Mn, Zn, Cu, Co, Mo, Ni) that the paper never specifies for this buffer -- these are fabricated and must not be published. The paper's actual growth medium was 'modified M9' (M9 salts + 33 mM thiamine + 0.1% casamino acids + 0.2% glycerol) or TB, which is a distinct entity from this bioconversion buffer. Bioconversions are O2-dependent P450 oxidations, hence aerobic. Recommend rejecting/retiring this record; if a growth medium is desired, create a separate 'modified M9' record instead.",
+  "evidence": "Methods: bioconversions were carried out with whole/resting cells resuspended in \"0.1 M potassium phosphate (Kpi) buffer pH 7.5\" (\"0.1 M Kpi buffer pH 7.0\" for alkanes) supplemented with sugar substrate, e.g. \"10 mM lactose\". Growth/induction was done separately, aerobically (37 C, 220 rpm shaking), in TB or modified M9 = \"M9 salt + 33 mM thiamine, 0.1% (w/v) casamino acids, 0.2% (v/v) glycerol\"."
+ },
+ {
+  "id": "growthlit_PMC3782435_m9_minimal_medium_0_1_w_v_glucose",
+  "name": "M9 minimal medium + 0.1% (w/v) glucose (PMC3782435)",
+  "reason": "workflow:not_found",
+  "note": "The paper explicitly names only lactose, maltose, or lactate as the 0.1% (w/v) carbon supplements to its M9 medium. No 'M9 + 0.1% (w/v) glucose' medium is defined in the text; glucose appears only as an unquantified batch comparison. This record appears to be an auto-extraction artifact and should not be published as a paper-sourced formulation.",
+  "evidence": "\"M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2) with 0.2 mM uracil, supplemented with 0.1% (w/v) lactose, maltose or lactate.\" Glucose is not among the 0.1% (w/v) carbon supplements; it is only mentioned in passing batch-culture comparisons (Fig. S3) with no defined M9 + 0.1% glucose formulation."
  }
 ]

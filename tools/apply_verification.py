@@ -56,17 +56,22 @@ def build_components(verdict):
 
 def apply(verdicts, dry=False):
     quarantine = []
-    stats = {"confirmed": 0, "corrected": 0, "rejected": 0, "not_found": 0, "missing_file": 0}
+    stats = {"confirmed": 0, "corrected": 0, "rejected": 0, "not_found": 0, "missing_file": 0, "skipped": 0}
+    KNOWN = ("confirmed", "corrected", "rejected", "not_found")
     for v in verdicts:
         mid = v.get("id")
         if not mid:
+            continue
+        verdict = v.get("verdict")
+        # paper couldn't be read / low-confidence unknowns -> leave the medium flagged, do NOT touch it
+        if verdict not in KNOWN:
+            stats["skipped"] += 1
             continue
         path = os.path.join(MEDIA, mid + ".json")
         if not os.path.exists(path):
             stats["missing_file"] += 1
             continue
         d = json.load(open(path))
-        verdict = v.get("verdict")
         prov = d.setdefault("provenance", {})
         if verdict in ("rejected", "not_found"):
             quarantine.append({"id": mid, "name": d.get("name"), "reason": "workflow:" + verdict,
