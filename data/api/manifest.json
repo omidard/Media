@@ -69,7 +69,7 @@
     "url",
     "food_group"
    ],
-   "size": "437.0 KB"
+   "size": "437.1 KB"
   },
   "components.parquet": {
    "rows": 630637,
@@ -102,7 +102,7 @@
     "components"
    ],
    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "15.1 MB"
+   "size": "15.0 MB"
   },
   "media.jsonl.gz": {
    "rows": 12339,
