@@ -1,13 +1,13 @@
 {
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
- "catalog_count": 12339,
- "component_records": 630637,
- "distinct_compounds": 1743,
+ "catalog_count": 12340,
+ "component_records": 630699,
+ "distinct_compounds": 1763,
  "coverage": {
   "by_exchange_source": {
    "biggr": 617610,
-   "bigg": 12128,
+   "bigg": 12190,
    "modelseed": 439,
    "kegg": 16,
    "metanetx": 444
@@ -16,7 +16,7 @@
   "media_below_100pct": 9792
  },
  "by_category": {
-  "laboratory": 4197,
+  "laboratory": 4198,
   "biospecimen": 17,
   "food": 8125
  },
@@ -24,6 +24,7 @@
   "standard": 31,
   "Published (HMDB-derived)": 8,
   "HMDB": 9,
+  "Published (GEM paper)": 1,
   "literature": 333,
   "FooDB": 701,
   "Literature (GrowthDB)": 598,
@@ -46,7 +47,7 @@
  },
  "bulk_files": {
   "media.parquet": {
-   "rows": 12339,
+   "rows": 12340,
    "grain": "one row per medium",
    "columns": [
     "id",
@@ -69,10 +70,10 @@
     "url",
     "food_group"
    ],
-   "size": "437.1 KB"
+   "size": "437.6 KB"
   },
   "components.parquet": {
-   "rows": 630637,
+   "rows": 630699,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",
@@ -105,7 +106,7 @@
    "size": "15.0 MB"
   },
   "media.jsonl.gz": {
-   "rows": 12339,
+   "rows": 12340,
    "grain": "one full medium record per line",
    "note": "streamable; same schema as data/media/<id>.json",
    "size": "48.0 MB"
