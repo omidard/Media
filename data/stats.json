@@ -1,0 +1,27 @@
+{
+ "count": 12340,
+ "by_category": {
+  "laboratory": 4198,
+  "biospecimen": 17,
+  "food": 8125
+ },
+ "by_source_db": {
+  "standard": 31,
+  "Published (HMDB-derived)": 8,
+  "HMDB": 9,
+  "Published (GEM paper)": 1,
+  "literature": 333,
+  "FooDB": 701,
+  "Literature (GrowthDB)": 598,
+  "Literature (GEM papers)": 87,
+  "DSMZ MediaDive": 3148,
+  "USDA FoodData Central": 7424
+ },
+ "namespace": "BiGG",
+ "api": {
+  "catalog": "data/index.json",
+  "medium": "data/media/{id}.json",
+  "stats": "data/stats.json"
+ },
+ "note": "Small enough to fetch for a count without pulling the 6.5 MB catalog. Regenerate alongside index.json."
+}
