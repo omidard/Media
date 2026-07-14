@@ -1,13 +1,13 @@
 {
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
- "catalog_count": 12351,
- "component_records": 631334,
- "distinct_compounds": 1763,
+ "catalog_count": 12361,
+ "component_records": 631686,
+ "distinct_compounds": 1764,
  "coverage": {
   "by_exchange_source": {
-   "biggr": 618252,
-   "bigg": 12183,
+   "biggr": 618602,
+   "bigg": 12185,
    "modelseed": 439,
    "kegg": 16,
    "metanetx": 444
@@ -16,12 +16,12 @@
   "media_below_100pct": 9774
  },
  "by_category": {
-  "laboratory": 4209,
+  "laboratory": 4219,
   "biospecimen": 17,
   "food": 8125
  },
  "by_source_db": {
-  "standard": 42,
+  "standard": 52,
   "Published (HMDB-derived)": 8,
   "HMDB": 9,
   "Published (GEM paper)": 1,
@@ -47,7 +47,7 @@
  },
  "bulk_files": {
   "media.parquet": {
-   "rows": 12351,
+   "rows": 12361,
    "grain": "one row per medium",
    "columns": [
     "id",
@@ -70,10 +70,10 @@
     "url",
     "food_group"
    ],
-   "size": "439.0 KB"
+   "size": "439.9 KB"
   },
   "components.parquet": {
-   "rows": 631334,
+   "rows": 631686,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",
@@ -95,7 +95,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "2.7 MB"
+   "size": "2.2 MB"
   },
   "media.sqlite.gz": {
    "tables": [
@@ -106,7 +106,7 @@
    "size": "15.1 MB"
   },
   "media.jsonl.gz": {
-   "rows": 12351,
+   "rows": 12361,
    "grain": "one full medium record per line",
    "note": "streamable; same schema as data/media/<id>.json",
    "size": "48.3 MB"

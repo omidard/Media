@@ -142,8 +142,93 @@ MOPS = {"complex": [],
         "default_carbon": ("glc__D", -10.0), "oxygen": "facultative", "ref": REF_MOPS,
         "note": "Neidhardt MOPS-buffered defined minimal medium; glucose default carbon."}
 
+# ---- second batch: 10 more well-known media ----
+REF_7H9 = ("Middlebrook 7H9 broth — Middlebrook G, Cohn ML, Am J Public Health 1958; BD Middlebrook 7H9 "
+           "formulation (defined salts + L-glutamate, ferric ammonium citrate, pyridoxine, biotin) + glycerol "
+           "+ ADC/OADC enrichment (albumin-dextrose-catalase +/- oleic acid) + Tween-80. Mycobacterium spp.")
+REF_MH = ("Mueller-Hinton — Mueller JH, Hinton J, Proc Soc Exp Biol Med 1941;48:330-333. Beef extract + acid "
+          "hydrolysate of casein + soluble starch; the CLSI reference medium for antimicrobial susceptibility testing.")
+REF_BG11 = ("BG-11 — Rippka R et al., J Gen Microbiol 1979;111:1-61; Stanier RY et al. 1971. Photoautotrophic "
+            "cyanobacterial medium: NaNO3 (N), phosphate, Mg/Ca salts, ferric ammonium citrate, citrate, Na2CO3, trace "
+            "metals; carbon = CO2/bicarbonate, energy = light (light not modelled as an exchange).")
+REF_YPD = "YPD/YEPD — Sherman F, Methods Enzymol 2002;350:3-41. Yeast extract 10, peptone 20, dextrose 20 g/L. S. cerevisiae."
+REF_SAB = "Sabouraud dextrose — Sabouraud R 1892; BD formulation. Peptone 10 g/L, dextrose 40 g/L, pH ~5.6. Fungi/yeasts."
+REF_MAR = ("Marine Broth 2216 — ZoBell CE, J Mar Res 1941;4:42-75; BD Difco. Peptone 5, yeast extract 1, ferric citrate 0.1 g/L "
+           "+ full sea-salt ion complement (NaCl, MgCl2, Na2SO4, CaCl2, KCl, NaHCO3 ...).")
+REF_RCM = ("Reinforced Clostridial Medium — Hirsch A, Grinsted E, J Dairy Res 1954;21:101-110; Oxoid CM0149. "
+           "Peptone, beef & yeast extract, glucose, soluble starch, NaCl, Na-acetate, L-cysteine-HCl (reductant). Anaerobes.")
+REF_R2A = ("R2A — Reasoner DJ, Geldreich EE, Appl Environ Microbiol 1985;49:1-7. Low-nutrient medium (yeast extract, "
+           "proteose peptone, casamino acids, dextrose, starch, Na-pyruvate, K2HPO4, MgSO4 — each ~0.5 g/L) for oligotrophic water bacteria.")
+REF_M63 = "M63 minimal — Miller JH, Experiments in Molecular Genetics, CSHL 1972. KH2PO4, (NH4)2SO4, MgSO4, FeSO4, thiamine + carbon source."
+REF_DAVIS = "Davis minimal — Davis BD, Mingioli ES, J Bacteriol 1950;60:17-28. K2HPO4/KH2PO4, (NH4)2SO4, Na-citrate, MgSO4 + glucose."
+
+M7H9 = {"complex": [],
+        "defined": [("nh4", -1000.0, "ammonium (NH4)2SO4"), ("so4", -1000.0, "sulfate"),
+                    ("k", -1000.0, "K (KH2PO4)"), ("pi", -1000.0, "phosphate"), ("na1", -1000.0, "Na"),
+                    ("cit", -1.0, "citrate"), ("mg2", -1000.0, "Mg"), ("ca2", -1000.0, "Ca"),
+                    ("zn2", -1000.0, "Zn"), ("cu2", -1000.0, "Cu"), ("glu__L", -1.0, "L-glutamate"),
+                    ("fe3", -1000.0, "ferric ammonium citrate"), ("pydxn", -1.0, "pyridoxine"),
+                    ("btn", -1.0, "biotin"), ("glyc", -10.0, "glycerol (carbon)"),
+                    ("ocdcea", -1.0, "oleic acid (OADC) / Tween-80"), ("glc__D", -2.0, "dextrose (ADC/OADC)"),
+                    ("o2", -20.0, "aerobic (Mycobacterium is an obligate aerobe)"), ("h2o", -1000.0, ""), ("h", -1000.0, "")],
+        "oxygen": "aerobic", "ref": REF_7H9, "note": "Defined mycobacterial medium; carbon = glycerol (+ dextrose from ADC); obligate aerobe."}
+MH = {"complex": ["beef extract", "casamino acids"],
+      "defined": [("strch1", -1.0, "soluble starch")] + _MINBASE + [("o2", -20.0, "aerobic")],
+      "oxygen": "facultative", "ref": REF_MH, "note": "CLSI reference AST medium; beef extract + casein acid-hydrolysate + starch; carbon from amino acids/starch."}
+BG11 = {"complex": [],
+        "defined": [("no3", -10.0, "nitrate (NaNO3, N source)"), ("co2", -10.0, "CO2 (photoautotroph carbon)"),
+                    ("hco3", -10.0, "bicarbonate (Na2CO3, inorganic carbon)"), ("na1", -1000.0, "Na"),
+                    ("k", -1000.0, "K"), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg"),
+                    ("so4", -1000.0, "sulfate"), ("ca2", -1000.0, "Ca"), ("cl", -1000.0, "chloride"),
+                    ("cit", -1.0, "citrate / ferric ammonium citrate"), ("fe3", -1000.0, "iron"),
+                    ("nh4", -0.1, "trace ammonium (ferric ammonium citrate)")] + _TRACE + [("o2", -20.0, "photosynthetic (produces O2)"), ("h2o", -1000.0, ""), ("h", -1000.0, "")],
+        "oxygen": "aerobic", "ref": REF_BG11, "note": "Photoautotrophic cyanobacterial medium: carbon = CO2/bicarbonate, N = nitrate, energy = light (not modelled)."}
+YPD = {"complex": ["yeast extract", "peptone"],
+       "defined": [("glc__D", -15.0, "dextrose (carbon)")] + _MINBASE + [("o2", -20.0, "aerobic")],
+       "oxygen": "facultative", "ref": REF_YPD, "note": "Standard rich yeast medium; yeast extract + peptone + glucose."}
+SAB = {"complex": ["peptone"],
+       "defined": [("glc__D", -20.0, "dextrose (high, 40 g/L)")] + _MINBASE + [("o2", -20.0, "aerobic")],
+       "oxygen": "aerobic", "ref": REF_SAB, "note": "Fungal medium; high dextrose, low pH."}
+MAR = {"complex": ["peptone", "yeast extract"],
+       "defined": [("na1", -1000.0, "Na (sea salt)"), ("cl", -1000.0, "chloride"), ("mg2", -1000.0, "Mg"),
+                   ("so4", -1000.0, "sulfate"), ("ca2", -1000.0, "Ca"), ("k", -1000.0, "K"),
+                   ("hco3", -1.0, "bicarbonate"), ("fe3", -1000.0, "ferric citrate"), ("cit", -1.0, "citrate"),
+                   ("pi", -1000.0, "phosphate")] + _TRACE + [("o2", -20.0, "aerobic"), ("h2o", -1000.0, ""), ("h", -1000.0, "")],
+       "oxygen": "facultative", "ref": REF_MAR, "note": "Marine medium; peptone + yeast extract + full sea-salt ion complement."}
+RCM = {"complex": ["peptone", "beef extract", "yeast extract"],
+       "defined": [("glc__D", -10.0, "glucose (carbon)"), ("strch1", -1.0, "soluble starch"),
+                   ("ac", -3.0, "acetate (Na-acetate)"), ("cys__L", -1.0, "L-cysteine (reductant)")] + _MINBASE + [],
+       "oxygen": "anaerobic", "ref": REF_RCM, "note": "Anaerobe/clostridial medium; cysteine reductant, no O2."}
+R2A = {"complex": ["yeast extract", "proteose_peptone", "casamino_acids"],
+       "defined": [("glc__D", -5.0, "dextrose (low)"), ("strch1", -1.0, "soluble starch"),
+                   ("pyr", -1.0, "pyruvate (Na-pyruvate)"), ("k", -1000.0, "K (K2HPO4)"),
+                   ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg (MgSO4)"), ("so4", -1000.0, "sulfate")] + _MINBASE[2:] + [("o2", -20.0, "aerobic")],
+       "oxygen": "facultative", "ref": REF_R2A, "note": "Low-nutrient medium for oligotrophic/environmental bacteria."}
+M63 = {"complex": [],
+       "defined": [("k", -1000.0, "K (KH2PO4)"), ("pi", -1000.0, "phosphate"), ("nh4", -1000.0, "ammonium ((NH4)2SO4)"),
+                   ("so4", -1000.0, "sulfate"), ("fe2", -1000.0, "Fe (FeSO4)"), ("mg2", -1000.0, "Mg (MgSO4)"),
+                   ("thm", -1.0, "thiamine"), ("na1", -1000.0, "Na"), ("cl", -1000.0, "chloride"),
+                   ("h2o", -1000.0, ""), ("h", -1000.0, ""), ("o2", -20.0, "aerobic")],
+       "default_carbon": ("glc__D", -10.0), "oxygen": "facultative", "ref": REF_M63, "note": "Defined minimal medium; carbon variable (glucose default)."}
+DAVIS = {"complex": [],
+         "defined": [("k", -1000.0, "K (K2HPO4/KH2PO4)"), ("pi", -1000.0, "phosphate"), ("nh4", -1000.0, "ammonium"),
+                     ("so4", -1000.0, "sulfate"), ("na1", -1000.0, "Na (Na-citrate)"), ("cit", -1.0, "citrate"),
+                     ("mg2", -1000.0, "Mg"), ("cl", -1000.0, "chloride"), ("ca2", -1000.0, "Ca"),
+                     ("h2o", -1000.0, ""), ("h", -1000.0, ""), ("o2", -20.0, "aerobic")],
+         "default_carbon": ("glc__D", -10.0), "oxygen": "facultative", "ref": REF_DAVIS, "note": "Defined minimal medium (Davis); carbon variable (glucose default)."}
+
 # kind -> (spec, match regex, exclude regex or None, std_id, std_name)
 REGISTRY = [
+    ("Middlebrook7H9", M7H9, r"7H9|7H10|middlebrook", r"without|derived", "std_middlebrook_7h9", "Middlebrook 7H9 broth (standard)"),
+    ("MuellerHinton", MH, r"mueller.?hinton|\bMHB\b|\bMHA\b", r"modified|derived|lysed|blood", "std_mueller_hinton", "Mueller-Hinton broth (standard)"),
+    ("BG11", BG11, r"BG-?11", r"modified|derived", "std_bg11", "BG-11 medium (standard, cyanobacteria)"),
+    ("YPD", YPD, r"\bYPD\b|\bYEPD\b|yeast extract.{0,4}peptone.{0,4}dextrose", r"modified|derived|galactose|raffinose", "std_ypd", "YPD medium (standard)"),
+    ("Sabouraud", SAB, r"sabouraud|\bSDA\b|\bSDB\b", r"modified|derived", "std_sabouraud_dextrose", "Sabouraud dextrose broth (standard)"),
+    ("Marine2216", MAR, r"marine broth|\b2216\b|zobell", r"artificial|derived", "std_marine_broth_2216", "Marine Broth 2216 (standard, ZoBell)"),
+    ("RCM", RCM, r"reinforced clostridial|\bRCM\b", r"modified|derived", "std_reinforced_clostridial", "Reinforced Clostridial Medium (standard)"),
+    ("R2A", R2A, r"\bR2A\b", r"modified|derived", "std_r2a", "R2A medium (standard)"),
+    ("M63", M63, r"\bM63\b", r"derived|modified", "std_m63_minimal", "M63 minimal medium (standard)"),
+    ("Davis", DAVIS, r"davis (minimal|medium)", r"derived|modified", "std_davis_minimal", "Davis minimal medium (standard)"),
     ("MacConkey", MAC, r"macconkey|mac conkey", None, "std_macconkey_agar", "MacConkey agar (standard)"),
     ("MRS", MRS, r"\bMRS\b|de man|rogosa", None, "std_mrs_broth", "MRS broth (standard, De Man-Rogosa-Sharpe)"),
     ("TSB", TSB, r"tryptic soy|\bTSB\b|\bTSA\b|soybean.?casein", r"without|[- ]free\b|derived", "std_tsb", "Tryptic Soy Broth (standard)"),
