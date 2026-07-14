@@ -80,6 +80,10 @@ def main():
     tally = Counter(); changed = 0; o2fixed = 0
     for f in sorted(glob.glob(os.path.join(MEDIA, "*.json"))):
         d = json.load(open(f))
+        # expert-curated media set their own oxygen regime — do not override
+        if (d.get("provenance") or {}).get("verification", "").startswith("expert-curated"):
+            tally[(d.get("category"), d.get("oxygen", "facultative"))] += 1
+            continue
         reg, why = regime_for(d)
         tally[(d.get("category"), reg)] += 1
         old_aer = d.get("aerobic")

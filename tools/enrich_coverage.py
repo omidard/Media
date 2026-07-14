@@ -82,6 +82,14 @@ _SALTS_RAW = {
     "mgno32": ["mg2", "no3"], "na2moo4": ["na1", "mobd"], "sodiummolybdate": ["na1", "mobd"],
     "nh46mo7o24": ["nh4", "mobd"], "ki": ["k", "iodine"], "potassiumiodide": ["k", "iodine"], "nai": ["na1", "iodine"],
     "na2seo4": ["na1", "slnt"], "kh2po4monopotassiumphosphate": ["k", "pi"],
+    # sodium/potassium salts of organic acids -> ion + organic anion
+    "sodiumformate": ["na1", "for"], "potassiumformate": ["k", "for"],
+    "sodiumacetate": ["na1", "ac"], "potassiumacetate": ["k", "ac"],
+    "sodiumpyruvate": ["na1", "pyr"], "sodiumlactate": ["na1", "lac__L"],
+    "sodiumsuccinate": ["na1", "succ"], "sodiumcitrate": ["na1", "cit"],
+    "tripotassiumcitrate": ["k", "cit"], "sodiumgluconate": ["na1", "glcn"],
+    "sodiumpropionate": ["na1", "ppa"], "sodiumbutyrate": ["na1", "but"],
+    "sodiummalate": ["na1", "mal__L"], "sodiumfumarate": ["na1", "fum"],
 }
 # strip a trailing hydrate (·7H2O, .2H2O, x6H2O, " 7H2O") before matching
 _HYDRATE = re.compile(r"[·.x*]\s*\d*\s*h2o$|\s+\d*\s*h2o$", re.I)
