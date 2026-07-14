@@ -70,7 +70,7 @@
     "url",
     "food_group"
    ],
-   "size": "451.1 KB"
+   "size": "451.2 KB"
   },
   "components.parquet": {
    "rows": 637394,
@@ -95,7 +95,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "2.2 MB"
+   "size": "2.7 MB"
   },
   "media.sqlite.gz": {
    "tables": [
