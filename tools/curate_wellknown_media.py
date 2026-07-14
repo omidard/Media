@@ -217,9 +217,117 @@ DAVIS = {"complex": [],
                      ("h2o", -1000.0, ""), ("h", -1000.0, ""), ("o2", -20.0, "aerobic")],
          "default_carbon": ("glc__D", -10.0), "oxygen": "facultative", "ref": REF_DAVIS, "note": "Defined minimal medium (Davis); carbon variable (glucose default)."}
 
+# ---- third batch: 20 more well-known media ----
+def _sel(*names):
+    return [(n, "selective/differential agent (dye, bile, detergent, antibiotic, high salt or reductant) — not a metabolite exchange") for n in names]
+
+WILKINS = {"complex": ["tryptone", "peptone", "yeast extract"],
+  "defined": [("glc__D", -5.0, "glucose"), ("arg__L", -1.0, "arginine"), ("pyr", -1.0, "pyruvate"),
+              ("pheme", -0.01, "hemin (X factor)"), ("mqn8", -0.01, "menadione (vitamin K)")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "Wilkins-Chalgren anaerobe broth — Wilkins TD, Chalgren S. Antimicrob Agents Chemother 1976;10:926-928.", "note": "General anaerobe susceptibility medium."}
+THIO = {"complex": ["casein peptone", "yeast extract"],
+  "defined": [("glc__D", -5.0, "dextrose"), ("cys__L", -1.0, "L-cystine")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Fluid Thioglycollate Medium — Brewer JH, JAMA 1940;115:598; USP <71>. Sodium thioglycollate + L-cystine reductants create an anaerobic gradient.",
+  "note": "Reducing medium for aerotolerance testing / anaerobes; thioglycollate reductant.", "uncovered": _sel("Sodium thioglycollate", "Resazurin")}
+COOKEDMEAT = {"complex": ["beef extract", "peptone", "yeast extract"],
+  "defined": [("glc__D", -5.0, "glucose"), ("cys__L", -1.0, "L-cysteine (reductant)"), ("pheme", -0.01, "hemin"),
+              ("k", -1000.0, "K"), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "Cooked/Chopped Meat Medium — Robertson M, J Pathol Bacteriol 1916; Holdeman, Cato & Moore, VPI Anaerobe Laboratory Manual 1977.",
+  "note": "Classic anaerobe medium with meat particles; cysteine reductant.", "uncovered": _sel("Resazurin")}
+PYG = {"complex": ["peptone", "trypticase", "yeast extract"],
+  "defined": [("glc__D", -10.0, "glucose"), ("cys__L", -1.0, "L-cysteine"), ("pheme", -0.01, "hemin"),
+              ("mqn8", -0.01, "vitamin K"), ("hco3", -1.0, "bicarbonate")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "PYG (Peptone-Yeast-Glucose) — Holdeman, Cato & Moore, VPI Anaerobe Laboratory Manual, 4th ed. 1977. Bacteroides/gut anaerobes.",
+  "note": "Standard Bacteroides/gut-anaerobe medium.", "uncovered": _sel("Resazurin")}
+GAM = {"complex": ["peptone", "soytone", "beef extract", "yeast extract"],
+  "defined": [("glc__D", -10.0, "glucose"), ("strch1", -1.0, "soluble starch"), ("cys__L", -1.0, "L-cysteine"),
+              ("arg__L", -1.0, "arginine"), ("trp__L", -1.0, "tryptophan")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "Gifu Anaerobic Medium (GAM) — Nissui; Ueki A et al. Standard rich anaerobe/gut-microbiota medium.",
+  "note": "Rich anaerobe/gut medium.", "uncovered": _sel("Sodium thioglycollate")}
+SCHAEDLER = {"complex": ["casein peptone", "soytone", "yeast extract"],
+  "defined": [("glc__D", -5.0, "glucose"), ("cys__L", -1.0, "L-cystine"), ("pheme", -0.01, "hemin"), ("hco3", -1.0, "Tris/bicarbonate")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "Schaedler broth — Schaedler RW, Dubos R, Costello R. J Exp Med 1965;122:59-66. Gut anaerobes.", "note": "Gut-anaerobe medium."}
+EMB = {"complex": ["peptone"],
+  "defined": [("lcts", -10.0, "lactose (differential)"), ("k", -1000.0, "K (K2HPO4)"), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Eosin Methylene Blue (Levine) agar — Levine M, J Bacteriol 1918;3:253; Holt-Harris & Teague 1916.",
+  "note": "Differential medium for enteric Gram-negatives; eosin+methylene blue distinguish lactose fermenters.", "uncovered": _sel("Eosin Y", "Methylene blue")}
+XLD = {"complex": ["yeast extract"],
+  "defined": [("xyl__D", -5.0, "xylose"), ("lys__L", -1.0, "lysine"), ("lcts", -2.0, "lactose"), ("sucr", -2.0, "sucrose"),
+              ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("tsul", -1.0, "thiosulfate (H2S indicator)"), ("fe3", -1000.0, "ferric ammonium citrate"),
+              ("nh4", -1000.0, ""), ("cit", -1.0, "citrate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Xylose Lysine Deoxycholate (XLD) agar — Taylor WI. Am J Clin Pathol 1965;44:471. Salmonella/Shigella.",
+  "note": "Selective/differential for Salmonella & Shigella.", "uncovered": _sel("Sodium deoxycholate (bile)", "Phenol red")}
+HEKTOEN = {"complex": ["peptone", "yeast extract"],
+  "defined": [("lcts", -5.0, "lactose"), ("sucr", -5.0, "sucrose"), ("salcn", -2.0, "salicin"),
+              ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("tsul", -1.0, "thiosulfate"), ("fe3", -1000.0, "ferric ammonium citrate"), ("nh4", -1000.0, ""), ("cit", -1.0, "citrate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Hektoen Enteric agar — King S, Metzger WI. Appl Microbiol 1968;16:577. Enteric pathogens.",
+  "note": "Selective/differential for enteric pathogens.", "uncovered": _sel("Bile salts", "Bromothymol blue", "Acid fuchsin")}
+TCBS = {"complex": ["peptone", "yeast extract"],
+  "defined": [("sucr", -10.0, "sucrose (differential carbon)"), ("cit", -1.0, "citrate"), ("tsul", -1.0, "thiosulfate"),
+              ("na1", -1000.0, "high NaCl (marine/Vibrio)"), ("cl", -1000.0, ""), ("fe3", -1000.0, "ferric citrate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "TCBS (Thiosulfate-Citrate-Bile-Sucrose) agar — Kobayashi T et al. Jpn J Bacteriol 1963;18:387. Vibrio spp.",
+  "note": "Selective/differential for Vibrio (sucrose fermentation).", "uncovered": _sel("Oxgall / sodium cholate (bile)", "Bromothymol blue", "Thymol blue")}
+CETRIMIDE = {"complex": ["peptone"],
+  "defined": [("glyc", -10.0, "glycerol (carbon)"), ("mg2", -1000.0, "Mg (MgCl2)"), ("cl", -1000.0, ""), ("k", -1000.0, "K (K2SO4)"), ("so4", -1000.0, "sulfate")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Cetrimide agar — Lowbury EJL, Collins AG. J Clin Pathol 1955;8:47; Brown & Lowbury 1965. Pseudomonas aeruginosa.",
+  "note": "Selective for P. aeruginosa; cetrimide is a quaternary-ammonium selective agent.", "uncovered": _sel("Cetrimide (cetyltrimethylammonium bromide)")}
+KINGSB = {"complex": ["proteose_peptone"],
+  "defined": [("glyc", -10.0, "glycerol (carbon)"), ("k", -1000.0, "K (K2HPO4)"), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg (MgSO4)"), ("so4", -1000.0, "sulfate")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "King's B medium — King EO, Ward MK, Raney DE. J Lab Clin Med 1954;44:301. Pseudomonas fluorescein/pigment.", "note": "Pseudomonas fluorescence medium."}
+MSA = {"complex": ["peptone", "beef extract"],
+  "defined": [("mnl", -10.0, "mannitol (differential carbon)"), ("na1", -1000.0, "high NaCl 7.5% (selective)"), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Mannitol Salt Agar (Chapman) — Chapman GH. J Bacteriol 1945;50:201. Staphylococci.",
+  "note": "Selective (7.5% NaCl) + differential (mannitol) for staphylococci.", "uncovered": _sel("Phenol red")}
+BAIRDPARKER = {"complex": ["tryptone", "beef extract", "yeast extract"],
+  "defined": [("pyr", -5.0, "sodium pyruvate"), ("gly", -1.0, "glycine (selective)"), ("cl", -1000.0, "LiCl (selective)")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Baird-Parker agar — Baird-Parker AC. J Appl Bacteriol 1962;25:12. Staphylococcus aureus.",
+  "note": "Selective/differential for S. aureus (egg-yolk tellurite reduction).", "uncovered": _sel("Potassium tellurite", "Lithium chloride", "Egg yolk emulsion")}
+CHOCOLATE = {"complex": ["peptone", "beef extract"],
+  "defined": [("glc__D", -5.0, "glucose"), ("pheme", -0.05, "hemin (X factor, from lysed blood)"), ("nad", -0.05, "NAD (V factor, from lysed blood)"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Chocolate agar — standard clinical medium (heated blood agar releasing X and V factors) for Haemophilus and Neisseria.", "note": "Fastidious-organism medium supplying hemin (X) and NAD (V)."}
+COLUMBIA = {"complex": ["casein peptone", "peptone", "beef extract", "yeast extract"],
+  "defined": [("glc__D", -5.0, "glucose"), ("strch1", -1.0, "corn starch"), ("pheme", -0.02, "hemin (from blood)"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Columbia blood agar base — Ellner PD et al. Am J Clin Pathol 1966;45:502; BD Columbia agar.", "note": "General-purpose enriched medium (with sheep blood)."}
+M7H10 = {"complex": [],
+  "defined": M7H9["defined"], "oxygen": "aerobic",
+  "ref": "Middlebrook 7H10 agar — Cohn ML, Waggoner RF, McClatchy JK. Am Rev Respir Dis 1968;98:295; BD 7H10.",
+  "note": "Mycobacterial agar (7H9 salts base + OADC + glycerol + malachite green selective).", "uncovered": _sel("Malachite green")}
+PCA = {"complex": ["tryptone", "yeast extract"],
+  "defined": [("glc__D", -2.0, "glucose (low)")] + _MINBASE + [("o2", -20.0, "aerobic")],
+  "oxygen": "facultative", "ref": "Plate Count Agar (Standard Methods Agar) — APHA Standard Methods for the Examination of Water and Wastewater; Buchbinder et al. 1953.", "note": "Viable-count medium."}
+ISP2 = {"complex": ["yeast extract", "malt_extract"],
+  "defined": [("glc__D", -5.0, "glucose"), ("malt", -5.0, "maltose (malt extract)")] + _MINBASE + [("o2", -20.0, "aerobic")],
+  "oxygen": "aerobic", "ref": "ISP Medium 2 / Yeast-Malt (GYM) agar — Shirling EB, Gottlieb D. Int J Syst Bacteriol 1966;16:313. Streptomyces/actinomycetes.", "note": "Standard actinomycete medium."}
+BUSHNELL = {"complex": [],
+  "defined": [("mg2", -1000.0, "Mg (MgSO4)"), ("so4", -1000.0, "sulfate"), ("ca2", -1000.0, "Ca (CaCl2)"), ("cl", -1000.0, ""),
+              ("k", -1000.0, "K (phosphates)"), ("pi", -1000.0, "phosphate"), ("nh4", -1000.0, "ammonium (NH4NO3)"), ("no3", -1000.0, "nitrate (NH4NO3)"),
+              ("fe3", -1000.0, "Fe (FeCl3)"), ("na1", -1000.0, ""), ("h2o", -1000.0, ""), ("h", -1000.0, ""), ("o2", -20.0, "aerobic")],
+  "oxygen": "aerobic", "ref": "Bushnell-Haas medium — Bushnell LD, Haas HF. J Bacteriol 1941;41:653. Mineral medium for hydrocarbon degraders (carbon supplied by the substrate under test).",
+  "note": "Mineral-salts medium; carbon = the added hydrocarbon/pollutant (no built-in carbon source)."}
+
 # kind -> (spec, match regex, exclude regex or None, std_id, std_name)
 REGISTRY = [
-    ("Middlebrook7H9", M7H9, r"7H9|7H10|middlebrook", r"without|derived", "std_middlebrook_7h9", "Middlebrook 7H9 broth (standard)"),
+    ("Wilkins", WILKINS, r"wilkins.?chalgren|\bWCA\b", r"modified", "std_wilkins_chalgren", "Wilkins-Chalgren anaerobe broth (standard)"),
+    ("Thioglycollate", THIO, r"thioglycollate|thioglycolate|\bFTM\b", r"modified", "std_thioglycollate", "Fluid Thioglycollate Medium (standard)"),
+    ("CookedMeat", COOKEDMEAT, r"cooked meat|chopped meat|robertson", r"modified", "std_cooked_meat", "Cooked/Chopped Meat Medium (standard)"),
+    ("PYG", PYG, r"\bPYG\b|peptone.?yeast.?glucose", r"modified", "std_pyg", "PYG medium (standard)"),
+    ("GAM", GAM, r"\bGAM\b|gifu anaerobic", r"modified", "std_gam", "Gifu Anaerobic Medium (standard)"),
+    ("Schaedler", SCHAEDLER, r"schaedler", r"modified", "std_schaedler", "Schaedler broth (standard)"),
+    ("EMB", EMB, r"\bEMB\b|eosin methylene|levine.{0,6}agar", r"modified", "std_emb", "Eosin Methylene Blue agar (standard)"),
+    ("XLD", XLD, r"\bXLD\b|xylose lysine", r"modified", "std_xld", "XLD agar (standard)"),
+    ("Hektoen", HEKTOEN, r"hektoen", r"modified", "std_hektoen", "Hektoen Enteric agar (standard)"),
+    ("TCBS", TCBS, r"\bTCBS\b|thiosulfate.?citrate", r"modified", "std_tcbs", "TCBS agar (standard)"),
+    ("Cetrimide", CETRIMIDE, r"cetrimide", r"modified", "std_cetrimide", "Cetrimide agar (standard)"),
+    ("KingsB", KINGSB, r"king'?s b\b|kings b\b", r"modified", "std_kings_b", "King's B medium (standard)"),
+    ("MSA", MSA, r"mannitol salt|\bMSA\b|chapman", r"modified", "std_mannitol_salt", "Mannitol Salt Agar (standard)"),
+    ("BairdParker", BAIRDPARKER, r"baird.?parker", r"modified", "std_baird_parker", "Baird-Parker agar (standard)"),
+    ("Chocolate", CHOCOLATE, r"chocolate agar", r"modified", "std_chocolate_agar", "Chocolate agar (standard)"),
+    ("Columbia", COLUMBIA, r"columbia", r"modified|derived", "std_columbia_blood", "Columbia blood agar (standard)"),
+    ("Middlebrook7H10", M7H10, r"7H10|7H11", r"modified", "std_middlebrook_7h10", "Middlebrook 7H10 agar (standard)"),
+    ("PCA", PCA, r"plate count agar|standard methods agar|\bPCA\b", r"modified", "std_plate_count_agar", "Plate Count Agar (standard)"),
+    ("ISP2", ISP2, r"\bISP\b|yeast.?malt|\bGYM\b agar|\bYM\b agar", r"modified", "std_isp2_ym", "ISP Medium 2 / Yeast-Malt agar (standard)"),
+    ("BushnellHaas", BUSHNELL, r"bushnell.?haas|\bBH\b medium|mineral salts.{0,10}hydrocarbon", r"modified", "std_bushnell_haas", "Bushnell-Haas mineral medium (standard)"),
+    ("Middlebrook7H9", M7H9, r"7H9|middlebrook", r"without|derived", "std_middlebrook_7h9", "Middlebrook 7H9 broth (standard)"),
     ("MuellerHinton", MH, r"mueller.?hinton|\bMHB\b|\bMHA\b", r"modified|derived|lysed|blood", "std_mueller_hinton", "Mueller-Hinton broth (standard)"),
     ("BG11", BG11, r"BG-?11", r"modified|derived", "std_bg11", "BG-11 medium (standard, cyanobacteria)"),
     ("YPD", YPD, r"\bYPD\b|\bYEPD\b|yeast extract.{0,4}peptone.{0,4}dextrose", r"modified|derived|galactose|raffinose", "std_ypd", "YPD medium (standard)"),
