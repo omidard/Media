@@ -28,9 +28,11 @@ MAP = Mapper(); DICT = MAP.dict
 def valid(b): return b in DICT
 
 # carbon sources / additives to PRESERVE if a medium already carries them (paper-specific)
-CARBON = {"glc__D","lcts","malt","sucr","fru","gal","lac__L","lac__D","glyc","for","pyr",
+CARBON = {"glc__D","lcts","malt","sucr","fru","gal","lac__L","lac__D","glyc","pyr",
           "cellb","tre","man","mnl","xyl__D","arab__L","rmn","fuc__L","rib__D","melib","raffin",
-          "gam","acgam","etoh","glcn","cit","succ","meoh"}
+          "gam","acgam","etoh","glcn","cit","succ","meoh",
+          # organic acids used as sole carbon/energy source on minimal media
+          "ac","ppa","but","fum","mal__L","akg","glyclt","hxa","glx","2ddglcn","for"}
 SUPPLEMENT = CARBON | {"cys__L","thm","btn","hemeD","pheme","4abz","ade","gua","ura","o2"}
 
 REF_MRS = ("De Man JC, Rogosa M, Sharpe ME. A medium for the cultivation of lactobacilli. "
@@ -82,6 +84,78 @@ MAC = {
                   ("Neutral red", "pH indicator dye; not a nutrient"),
                   ("Agar", "gelling agent; not a nutrient")],
 }
+
+# ---- the rest of the top-10 laboratory media ----
+REF_M9 = ("M9 minimal medium — Sambrook J, Russell DW, Molecular Cloning: A Laboratory Manual, 3rd ed. "
+          "CSHL Press 2001. Salts: Na2HPO4, KH2PO4, NaCl, NH4Cl; + 2 mM MgSO4, 0.1 mM CaCl2, ~0.2-0.4% carbon source (glucose).")
+REF_TSB = ("Tryptic Soy Broth (Soybean-Casein Digest Medium) — BD Bionutrient Technical Manual; USP <62>. "
+           "Casein peptone 17, soy peptone 3, NaCl 5, K2HPO4 2.5, dextrose 2.5 g/L.")
+REF_BHI = ("Brain Heart Infusion — Rosenow EC, J Dent Res 1919; BD BHI formulation: brain/heart infusion solids, "
+           "proteose peptone 10, NaCl 5, Na2HPO4 2.5, dextrose 2 g/L.")
+REF_NB = ("Nutrient Broth — Atlas RM, Handbook of Microbiological Media (CRC Press). Peptone 5 g + meat/beef extract 3 g "
+          "+ NaCl 5 g/L; no added sugar (carbon from the digest).")
+REF_TB = ("Terrific Broth — Tartof KD, Hobbs CA, Bethesda Res Lab Focus 1987;9:12; Sambrook & Russell 2001. "
+          "Tryptone 12, yeast extract 24 g/L, 0.4% glycerol, potassium phosphate buffer (KH2PO4 0.017 M, K2HPO4 0.072 M).")
+REF_YT = ("2xYT — Sambrook & Russell, Molecular Cloning 2001; Miller 1972. Tryptone 16, yeast extract 10, NaCl 5 g/L; no added sugar.")
+REF_SOB = ("SOB/SOC — Hanahan D, J Mol Biol 1983;166(4):557-580. SOB: tryptone 20, yeast extract 5, NaCl 0.5 g/L, "
+           "2.5 mM KCl, 10 mM MgCl2, 10 mM MgSO4; SOC = SOB + 20 mM glucose.")
+REF_MOPS = ("MOPS minimal medium — Neidhardt FC, Bloch PL, Smith DF, J Bacteriol 1974;119(3):736-747. "
+            "40 mM MOPS + 4 mM tricine, K2HPO4, NH4Cl, K2SO4, MgCl2, CaCl2, FeSO4, NaCl, micronutrients, glucose.")
+
+_MINBASE = [("pi", -1000.0, "phosphate"), ("so4", -1000.0, "sulfate"), ("nh4", -1000.0, "ammonium"),
+            ("k", -1000.0, "K"), ("mg2", -1000.0, "Mg"), ("ca2", -1000.0, "Ca"),
+            ("na1", -1000.0, "Na"), ("cl", -1000.0, "chloride"), ("h2o", -1000.0, ""), ("h", -1000.0, "")]
+_TRACE = [("fe2", -1000.0, "Fe"), ("mn2", -1000.0, "Mn"), ("zn2", -1000.0, "Zn"),
+          ("cu2", -1000.0, "Cu"), ("cobalt2", -1000.0, "Co"), ("mobd", -1000.0, "Mo"), ("ni2", -1000.0, "Ni")]
+
+M9 = {"complex": [], "defined": _MINBASE + _TRACE + [("o2", -20.0, "aerobic")],
+      "default_carbon": ("glc__D", -10.0), "oxygen": "facultative", "ref": REF_M9,
+      "note": "M9 is a defined MINIMAL medium: salts + a single carbon source. Glucose is the default carbon; any carbon named on the medium is used instead."}
+TSB = {"complex": ["casein peptone", "soytone"],
+       "defined": [("glc__D", -10.0, "dextrose (carbon)"), ("na1", -1000.0, "Na (NaCl)"),
+                   ("cl", -1000.0, "chloride"), ("k", -1000.0, "K (K2HPO4)"), ("pi", -1000.0, "phosphate"),
+                   ("so4", -1000.0, "sulfate"), ("mg2", -1000.0, "Mg"), ("ca2", -1000.0, "Ca"),
+                   ("o2", -20.0, "aerobic"), ("h2o", -1000.0, ""), ("h", -1000.0, "")],
+       "oxygen": "facultative", "ref": REF_TSB, "note": "General-purpose medium; casein + soy peptone + dextrose."}
+BHI = {"complex": ["proteose_peptone", "beef extract"],
+       "defined": [("glc__D", -10.0, "dextrose (carbon)")] + _MINBASE + [("o2", -20.0, "aerobic")],
+       "oxygen": "facultative", "ref": REF_BHI, "note": "Rich medium for fastidious organisms; brain/heart infusion + peptone + dextrose."}
+NB = {"complex": ["peptone", "beef extract"],
+      "defined": _MINBASE + [("o2", -20.0, "aerobic")],
+      "oxygen": "facultative", "ref": REF_NB, "note": "Classic general medium; peptone + meat extract + NaCl, no added sugar."}
+TB = {"complex": ["tryptone", "yeast extract"],
+      "defined": [("glyc", -10.0, "glycerol (carbon)"), ("k", -1000.0, "K (phosphate buffer)"),
+                  ("pi", -1000.0, "phosphate (buffer, high)")] + _MINBASE[1:] + [("o2", -30.0, "aerobic, vigorous")],
+      "oxygen": "aerobic", "ref": REF_TB, "note": "High-density E. coli medium; very rich (24 g/L yeast extract) with glycerol and strong phosphate buffer."}
+YT2 = {"complex": ["tryptone", "yeast extract"],
+       "defined": _MINBASE + [("o2", -20.0, "aerobic")],
+       "oxygen": "facultative", "ref": REF_YT, "note": "Rich medium (phage/cloning); tryptone + yeast extract + NaCl, no added sugar."}
+SOB = {"complex": ["tryptone", "yeast extract"],
+       "defined": [("na1", -1000.0, "Na (NaCl)"), ("cl", -1000.0, "chloride"), ("k", -1000.0, "K (KCl)"),
+                   ("mg2", -1000.0, "Mg (MgCl2/MgSO4)"), ("so4", -1000.0, "sulfate"), ("pi", -1000.0, "phosphate"),
+                   ("nh4", -1000.0, "ammonium"), ("ca2", -1000.0, "Ca"), ("o2", -20.0, "aerobic"),
+                   ("h2o", -1000.0, ""), ("h", -1000.0, "")],
+       "default_carbon": ("glc__D", -10.0), "oxygen": "facultative", "ref": REF_SOB,
+       "note": "Transformation-recovery medium; SOC = SOB + 20 mM glucose."}
+MOPS = {"complex": [],
+        "defined": [("mops", -1000.0, "MOPS buffer")] + _MINBASE + _TRACE + [("o2", -20.0, "aerobic")],
+        "default_carbon": ("glc__D", -10.0), "oxygen": "facultative", "ref": REF_MOPS,
+        "note": "Neidhardt MOPS-buffered defined minimal medium; glucose default carbon."}
+
+# kind -> (spec, match regex, exclude regex or None, std_id, std_name)
+REGISTRY = [
+    ("MacConkey", MAC, r"macconkey|mac conkey", None, "std_macconkey_agar", "MacConkey agar (standard)"),
+    ("MRS", MRS, r"\bMRS\b|de man|rogosa", None, "std_mrs_broth", "MRS broth (standard, De Man-Rogosa-Sharpe)"),
+    ("TSB", TSB, r"tryptic soy|\bTSB\b|\bTSA\b|soybean.?casein", r"without|[- ]free\b|derived", "std_tsb", "Tryptic Soy Broth (standard)"),
+    ("BHI", BHI, r"brain.?heart|\bBHIS?\b", r"without|[- ]free\b|limited|derived", "std_bhi", "Brain Heart Infusion (standard)"),
+    ("Terrific", TB, r"terrific", None, "std_terrific_broth", "Terrific Broth (standard)"),
+    ("SOB", SOB, r"\bSOB\b|\bSOC\b", r"halophil|modified", "std_sob_soc", "SOB / SOC (standard)"),
+    ("2xYT", YT2, r"2\s*[x×]\s*yt", r"artificial|sea.?water|\bASW\b", "std_2xyt", "2xYT (standard)"),
+    ("MOPS", MOPS, r"\bMOPS\b (minimal|defined)|minimal.{0,12}\bMOPS\b|\bMOPS\b minimal", r"ez\s*rich|rich defined", "std_mops_minimal", "MOPS minimal medium (standard, Neidhardt)"),
+    ("Nutrient", NB, r"nutrient broth|nutrient agar", r"modified|dap-|granucult|derived", "std_nutrient_broth", "Nutrient Broth (standard)"),
+    ("M9", M9, r"\bM9\b", r"derived|\bBee9\b|artificial|sea.?water|modified", "std_m9_minimal", "M9 minimal medium (standard)"),
+    ("LB", LB, r"\bLB\b|\bLBv2\b|luria|lysogen|lennox|bertani", r"artificial|sea.?water|\bASW\b", "std_lb_broth", "LB broth (standard, Lennox)"),
+]
 
 
 def comp(bid, lb, role, method="wellknown_curation", conf="curated"):
@@ -149,6 +223,12 @@ def curate(d, spec, kind):
     # add supplements named in the title (e.g. "+ 40 g/L sodium formate")
     for ex, c in name_supplements(d.get("name", "")).items():
         comps.setdefault(ex, c)
+    # default carbon source only if the medium has none (minimal media)
+    if spec.get("default_carbon"):
+        if not any((c.get("bigg_metabolite") in CARBON) for c in comps.values()):
+            b, lbnd = spec["default_carbon"]
+            if valid(b):
+                comps["EX_%s_e" % b] = comp(b, lbnd, "default carbon source (glucose)")
     if spec["oxygen"] == "anaerobic":
         comps.pop("EX_o2_e", None)
     d["components"] = sorted(comps.values(), key=lambda c: c["exchange"])
@@ -171,36 +251,63 @@ def curate(d, spec, kind):
     return d
 
 
+def match(nm):
+    """Return the first REGISTRY entry whose pattern matches and exclude does not."""
+    for kind, spec, pat, excl, sid, sname in REGISTRY:
+        if re.search(pat, nm, re.I) and not (excl and re.search(excl, nm, re.I)):
+            return kind, spec, pat, excl, sid, sname
+    return None
+
+
 def main():
     dry = "--dry" in sys.argv
-    n = {"MRS": 0, "LB": 0, "MacConkey": 0}
+    from collections import Counter
+    n = Counter(); skipped = Counter()
+    # 1) curate matching plain-standard media (skip already-expert-curated + excluded)
     for f in sorted(glob.glob(os.path.join(MEDIA, "*.json"))):
         d = json.load(open(f)); nm = d.get("name") or ""
-        spec = kind = None
-        if re.search(r"\bMRS\b|de man|rogosa", nm, re.I):
-            spec, kind = MRS, "MRS"
-        elif re.search(r"macconkey|mac conkey", nm, re.I):
-            spec, kind = MAC, "MacConkey"
-        elif re.search(r"\bLB\b|\bLBv2\b|luria|lysogen|lennox|bertani", nm, re.I):
-            spec, kind = LB, "LB"
-        if not spec:
+        ver = (d.get("provenance") or {}).get("verification", "")
+        # never overwrite an expert-curated or paper-verified medium.
+        if ver.startswith("expert-curated") or ver.startswith("paper-verified"):
             continue
+        # skip database-sourced recipes (DSMZ MediaDive / USDA / FooDB / HMDB) — those
+        # are real published recipes, not ours to replace with a generic canonical.
+        if d["id"].startswith(("mediadive_", "usda_", "food_", "biospecimen_")):
+            continue
+        m = match(nm)
+        if not m:
+            # count near-misses that were excluded, for reporting
+            for kind, spec, pat, excl, sid, sname in REGISTRY:
+                if re.search(pat, nm, re.I) and excl and re.search(excl, nm, re.I):
+                    skipped[kind] += 1; break
+            continue
+        kind, spec = m[0], m[1]
         curate(d, spec, kind); n[kind] += 1
         if not dry:
             with open(f, "w") as fh:
                 json.dump(d, fh, ensure_ascii=False)
-    # create a canonical MacConkey record if none exist
-    if n["MacConkey"] == 0:
-        rec = {"id": "std_macconkey_agar", "name": "MacConkey agar (standard)", "category": "laboratory",
-               "organism_scope": "enteric / Gram-negative selective", "aerobic": True,
-               "description": "MacConkey agar — selective and differential medium for Gram-negative enteric bacteria; lactose fermenters are distinguished by neutral-red colour change.",
-               "namespace": "bigg",
-               "provenance": {"source_type": "standard", "citation": REF_MAC, "doi": "", "url": ""}}
-        curate(rec, MAC, "MacConkey")
+    # 2) ensure a clean canonical std_ record exists for every registry medium
+    created = []
+    for kind, spec, pat, excl, sid, sname in REGISTRY:
+        path = os.path.join(MEDIA, sid + ".json")
+        if os.path.exists(path):
+            # refresh the existing std record to the current spec
+            rec = json.load(open(path))
+        else:
+            rec = {"id": sid, "name": sname, "category": "laboratory",
+                   "organism_scope": "general laboratory", "aerobic": True, "namespace": "bigg",
+                   "description": "%s — canonical reference formulation." % sname,
+                   "provenance": {"source_type": "standard", "citation": spec["ref"], "doi": "", "url": ""}}
+            created.append(sid)
+        rec["name"] = sname
+        rec.setdefault("description", "%s — canonical reference formulation." % sname)
+        rec["provenance"]["citation"] = spec["ref"]
+        curate(rec, spec, kind)
         if not dry:
-            json.dump(rec, open(os.path.join(MEDIA, rec["id"] + ".json"), "w"), ensure_ascii=False)
-        n["MacConkey"] += 1
-    print("curated:", n)
+            json.dump(rec, open(path, "w"), ensure_ascii=False)
+    print("curated media by kind:", dict(n))
+    print("excluded (left as paper-verified):", dict(skipped))
+    print("std canonical records created:", created)
 
 
 if __name__ == "__main__":
