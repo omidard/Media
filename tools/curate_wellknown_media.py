@@ -305,6 +305,242 @@ BUSHNELL = {"complex": [],
   "oxygen": "aerobic", "ref": "Bushnell-Haas medium — Bushnell LD, Haas HF. J Bacteriol 1941;41:653. Mineral medium for hydrocarbon degraders (carbon supplied by the substrate under test).",
   "note": "Mineral-salts medium; carbon = the added hydrocarbon/pollutant (no built-in carbon source)."}
 
+# ---- seventh batch: 50 more well-known media ----
+# vitamin mix used by defined yeast/fungal media (YNB / SC / EMM)
+_VIT = [("btn", -1.0, "biotin"), ("thm", -1.0, "thiamine"), ("ribflv", -1.0, "riboflavin"), ("nac", -1.0, "niacin"),
+        ("pnto__R", -1.0, "pantothenate"), ("pydxn", -1.0, "pyridoxine"), ("4abz", -1.0, "PABA"), ("fol", -1.0, "folate"), ("inost", -1.0, "myo-inositol")]
+# coliform / water / fermentation-test media
+LST = {"complex": ["tryptone"],
+  "defined": [("lcts", -10.0, "lactose"), ("na1", -1000.0, "NaCl"), ("cl", -1000.0, ""), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Lauryl Tryptose Broth (LST) — Mallmann WL, Darby CW. Am J Public Health 1941;31:127. Presumptive coliform (gas).",
+  "note": "Presumptive coliform broth (lactose fermentation + gas).", "uncovered": _sel("Sodium lauryl sulfate")}
+BGLB = {"complex": ["peptone"],
+  "defined": [("lcts", -10.0, "lactose")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Brilliant Green Lactose Bile broth (BGLB) 2% — standard (APHA). Confirmed coliform / total coliform.",
+  "note": "Confirmatory coliform broth (lactose fermentation + gas).", "uncovered": _sel("Ox bile", "Brilliant green")}
+ECBROTH = {"complex": ["tryptone"],
+  "defined": [("lcts", -10.0, "lactose"), ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "EC broth — Hajna AA, Perry CA. Am J Public Health 1943;33:550. Faecal coliforms / E. coli (44.5°C).",
+  "note": "Faecal coliform / E. coli broth (elevated-temperature gas).", "uncovered": _sel("Bile salts")}
+ECMUG = {"complex": ["tryptone"],
+  "defined": [("lcts", -10.0, "lactose"), ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "EC-MUG broth — Feng PCS, Hartman PA. Appl Environ Microbiol 1982;43:1320. E. coli (glucuronidase fluorescence).",
+  "note": "E. coli broth with MUG (fluorescence under UV).", "uncovered": _sel("Bile salts", "MUG (4-methylumbelliferyl-beta-D-glucuronide)")}
+LACTOSEBROTH = {"complex": ["beef extract", "peptone"],
+  "defined": [("lcts", -10.0, "lactose")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Lactose Broth — standard (APHA/FDA BAM). Non-selective pre-enrichment / coliform.",
+  "note": "Non-selective lactose broth for pre-enrichment."}
+TRYPTONEWATER = {"complex": ["tryptone"],
+  "defined": [("na1", -1000.0, "NaCl"), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Tryptone Water — standard. Indole test (rich in tryptophan).",
+  "note": "Indole-test broth (tryptophan source); carbon from tryptone.", "uncovered": _sel("Kovac's reagent (added post-incubation)")}
+MTEC = {"complex": ["peptone", "yeast extract"],
+  "defined": [("lcts", -10.0, "lactose"), ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Modified mTEC agar — US EPA Method 1603. E. coli (membrane filter, beta-glucuronidase).",
+  "note": "Membrane-filter medium for E. coli (glucuronidase red-magenta).", "uncovered": _sel("Bile salts", "BCIG (X-glucuronide)")}
+PURPLEBROTH = {"complex": ["peptone", "beef extract"],
+  "defined": [("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "default_carbon": ("glc__D", -10.0), "oxygen": "facultative",
+  "ref": "Purple Broth Base — standard. Carbohydrate fermentation (bromocresol purple).",
+  "note": "Fermentation base; add a specific carbohydrate (glucose default).", "uncovered": _sel("Bromocresol purple")}
+PRCARB = {"complex": ["peptone"],
+  "defined": [("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "default_carbon": ("glc__D", -10.0), "oxygen": "facultative",
+  "ref": "Phenol Red Carbohydrate Broth base — standard. Sugar fermentation (phenol red).",
+  "note": "Fermentation base; add a specific carbohydrate (glucose default).", "uncovered": _sel("Phenol red")}
+OFMED = {"complex": ["peptone"],
+  "defined": [("na1", -1000.0, ""), ("cl", -1000.0, ""), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "default_carbon": ("glc__D", -10.0), "oxygen": "facultative",
+  "ref": "Hugh-Leifson OF medium — Hugh R, Leifson E. J Bacteriol 1953;66:24. Oxidation vs fermentation of carbohydrate.",
+  "note": "Low-peptone high-carbohydrate medium (glucose default); bromothymol blue.", "uncovered": _sel("Bromothymol blue")}
+MIO = {"complex": ["peptone", "yeast extract"],
+  "defined": [("glc__D", -1.0, "glucose"), ("orn", -5.0, "L-ornithine (decarboxylase)"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Motility-Indole-Ornithine (MIO) medium — Ederer GM, Clark MA 1970. Enteric identification.",
+  "note": "Differential: motility, indole, ornithine decarboxylase.", "uncovered": _sel("Bromocresol purple")}
+MOTILITY = {"complex": ["casein peptone", "beef extract"],
+  "defined": [("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Motility Test Medium (semisolid) — standard. Bacterial motility.",
+  "note": "Semisolid medium for motility (diffuse growth from stab)."}
+# halophile / marine
+HALOBACTERIUM = {"complex": ["casein peptone", "yeast extract"],
+  "defined": [("na1", -1000.0, "NaCl (~4 M, ~25%)"), ("cl", -1000.0, ""), ("mg2", -1000.0, "MgSO4 (high)"), ("so4", -1000.0, "sulfate"), ("k", -1000.0, "KCl"), ("ca2", -1000.0, "Ca"), ("fe2", -1000.0, "Fe")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Halobacterium medium — DSMZ 97 / Oesterhelt & Stoeckenius 1974. Extreme haloarchaea (Halobacterium salinarum).",
+  "note": "Extreme-halophile medium (~4 M NaCl, high Mg)."}
+SWC = {"complex": ["peptone", "yeast extract"],
+  "defined": [("glyc", -3.0, "glycerol"), ("na1", -1000.0, "sea salt"), ("cl", -1000.0, ""), ("mg2", -1000.0, "Mg"), ("so4", -1000.0, "sulfate"), ("ca2", -1000.0, "Ca"), ("k", -1000.0, "K")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Seawater Complete (SWC) — standard (Vibrio/marine bacteria; e.g. Boettcher & Ruby 1990).",
+  "note": "Rich marine heterotroph medium (seawater base)."}
+HALOAGAR = {"complex": ["casein peptone", "yeast extract"],
+  "defined": [("na1", -1000.0, "NaCl (~10%)"), ("cl", -1000.0, ""), ("mg2", -1000.0, "Mg"), ("so4", -1000.0, "sulfate"), ("k", -1000.0, "K")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Halophilic Agar (moderate) — standard. Moderately halophilic bacteria (~10% NaCl).",
+  "note": "Moderate-halophile medium (~10% NaCl)."}
+# Pseudomonas / environmental
+GOULDS1 = {"complex": ["casein peptone"],
+  "defined": [("glyc", -10.0, "glycerol (carbon)"), ("sucr", -5.0, "sucrose"), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "MgSO4"), ("so4", -1000.0, "sulfate")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Gould's S1 agar — Gould WD et al. Appl Environ Microbiol 1985;49:28. Fluorescent pseudomonads.",
+  "note": "Selective for fluorescent Pseudomonas spp.", "uncovered": _sel("Sodium lauroyl sarcosine", "Nalidixic acid")}
+CFC = {"complex": ["gelatin peptone", "casein peptone"],
+  "defined": [("glyc", -10.0, "glycerol"), ("mg2", -1000.0, "MgCl2"), ("cl", -1000.0, ""), ("k", -1000.0, "K2SO4"), ("so4", -1000.0, "sulfate")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Pseudomonas CFC agar — Mead GC, Adams BW. Br Poult Sci 1977;18:661. Pseudomonas (Cetrimide-Fucidin-Cephaloridine).",
+  "note": "Selective for Pseudomonas spp.", "uncovered": _sel("Cetrimide", "Fucidin (fusidic acid)", "Cephaloridine")}
+WINOGRADSKY = {"complex": [],
+  "defined": [("nh4", -10.0, "ammonium (N)"), ("k", -1000.0, "K2HPO4"), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "MgSO4"), ("so4", -1000.0, "sulfate"),
+              ("na1", -1000.0, "NaCl"), ("cl", -1000.0, ""), ("fe2", -1000.0, "FeSO4"), ("mn2", -1.0, "MnSO4"), ("h2o", -1000.0, ""), ("h", -1000.0, "")],
+  "default_carbon": ("glc__D", -10.0), "oxygen": "facultative",
+  "ref": "Winogradsky's salt solution — Winogradsky S. 1949. Soil-microbiology mineral base.",
+  "note": "Mineral salts base for soil enrichments; carbon variable (glucose default)."}
+# actinomycetes
+ISP6 = {"complex": ["peptone", "yeast extract"],
+  "defined": [("fe3", -1.0, "ferric ammonium citrate"), ("tsul", -1.0, "sodium thiosulfate"), ("na1", -1000.0, "")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "ISP Medium 6 (Peptone-Yeast Extract Iron agar) — Shirling & Gottlieb 1966. Melanin/H2S in Streptomyces.",
+  "note": "Detects melanoid pigment / H2S production in actinomycetes."}
+ISP7 = {"complex": [],
+  "defined": [("glyc", -10.0, "glycerol (carbon)"), ("tyr__L", -5.0, "L-tyrosine (melanin substrate)"), ("asn__L", -1.0, "L-asparagine (N)"),
+              ("na1", -1000.0, ""), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg"), ("so4", -1000.0, "sulfate")] + _TRACE + [("h2o", -1000.0, ""), ("h", -1000.0, "")],
+  "oxygen": "aerobic", "ref": "ISP Medium 7 (Tyrosine agar) — Shirling & Gottlieb 1966. Melanin production in Streptomyces.",
+  "note": "Defined medium; tyrosine → melanin (taxonomy)."}
+GAUZE1 = {"complex": [],
+  "defined": [("strch1", -10.0, "soluble starch (carbon)"), ("no3", -10.0, "potassium nitrate (N)"), ("k", -1000.0, "K2HPO4"), ("pi", -1000.0, "phosphate"),
+              ("mg2", -1000.0, "MgSO4"), ("so4", -1000.0, "sulfate"), ("na1", -1000.0, "NaCl"), ("cl", -1000.0, ""), ("fe2", -1000.0, "FeSO4"), ("h2o", -1000.0, ""), ("h", -1000.0, "")],
+  "oxygen": "aerobic", "ref": "Gauze's synthetic agar No.1 — Gause GF et al. 1957. Streptomyces isolation.",
+  "note": "Defined starch-nitrate medium for actinomycetes."}
+GYE = {"complex": ["yeast extract"],
+  "defined": [("glyc", -10.0, "glycerol (carbon)"), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Glycerol Yeast Extract agar — standard. Actinomycetes / Nocardia.",
+  "note": "Glycerol + yeast extract medium for actinomycetes."}
+AIA = {"complex": ["casein peptone", "beef extract"],
+  "defined": [("asn__L", -1.0, "L-asparagine"), ("glyc", -5.0, "glycerol (carbon)"), ("na1", -1000.0, ""), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg"), ("so4", -1000.0, "sulfate"), ("fe2", -1000.0, "Fe")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Actinomycete Isolation Agar — standard (Difco). Soil actinomycetes.",
+  "note": "Selective medium for soil actinomycetes.", "uncovered": _sel("Sodium propionate (mould inhibitor)")}
+# fungi
+MYCOSEL = {"complex": ["soytone"],
+  "defined": [("glc__D", -10.0, "glucose")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Mycosel / Mycobiotic agar — standard (BD). Dermatophytes/dimorphic fungi.",
+  "note": "Selective fungal medium.", "uncovered": _sel("Cycloheximide", "Chloramphenicol")}
+DG18 = {"complex": ["casein peptone"],
+  "defined": [("glc__D", -10.0, "glucose"), ("glyc", -50.0, "glycerol (18%, low water activity)"), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "MgSO4"), ("so4", -1000.0, "sulfate")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "DG18 (Dichloran 18% Glycerol) agar — Hocking AD, Pitt JI. Appl Environ Microbiol 1980;39:488. Xerophilic fungi.",
+  "note": "Reduced-water-activity medium for xerophilic moulds.", "uncovered": _sel("Dichloran", "Chloramphenicol")}
+DRBC = {"complex": ["soytone", "peptone"],
+  "defined": [("glc__D", -10.0, "glucose"), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "MgSO4"), ("so4", -1000.0, "sulfate")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "DRBC (Dichloran Rose Bengal Chloramphenicol) agar — King AD et al. Appl Environ Microbiol 1979;37:959. Fungi (food).",
+  "note": "Selective fungal enumeration medium (restricted spread).", "uncovered": _sel("Dichloran", "Rose bengal", "Chloramphenicol")}
+YNB = {"complex": [],
+  "defined": [("nh4", -10.0, "ammonium sulfate (N)"), ("so4", -1000.0, "sulfate"), ("k", -1000.0, "KH2PO4"), ("pi", -1000.0, "phosphate"),
+              ("mg2", -1000.0, "MgSO4"), ("na1", -1000.0, "NaCl"), ("cl", -1000.0, ""), ("ca2", -1000.0, "Ca"), ("h2o", -1000.0, ""), ("h", -1000.0, "")] + _VIT + _TRACE,
+  "default_carbon": ("glc__D", -20.0), "oxygen": "facultative",
+  "ref": "Yeast Nitrogen Base (YNB) — Wickerham LJ. J Bacteriol 1946;52:293. Defined yeast medium.",
+  "note": "Chemically defined yeast base (vitamins + salts + trace metals); carbon variable (glucose default).", "uncovered": _sel("Boric acid (trace)", "Potassium iodide (trace)")}
+MYA = {"complex": ["malt extract", "yeast extract"],
+  "defined": [("malt", -10.0, "maltose (malt)"), ("glc__D", -5.0, "glucose")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Malt Yeast agar (MYA) — standard. Yeasts / osmotolerant fungi.", "note": "Yeast/mould medium (malt + yeast extract)."}
+WATERAGAR = {"complex": [],
+  "defined": [("h2o", -1000.0, ""), ("h", -1000.0, ""), ("o2", -20.0, "aerobic")],
+  "oxygen": "aerobic", "ref": "Water Agar (plain agar) — standard. Sporulation / slide cultures / seed germination.",
+  "note": "Essentially nutrient-free (agar trace only); induces sporulation, restricts growth.", "uncovered": _sel("Purified agar (trace nutrients only)")}
+YPGAL = {"complex": ["yeast extract", "peptone"],
+  "defined": [("gal", -20.0, "galactose (carbon — induces GAL genes)")] + _MINBASE,
+  "oxygen": "facultative", "ref": "YP-Galactose (YPGal) — standard (S. cerevisiae). Galactose-inducible expression.",
+  "note": "Rich yeast medium with galactose (GAL induction)."}
+SC = {"complex": [],
+  "defined": [("nh4", -10.0, "ammonium sulfate (N)"), ("so4", -1000.0, "sulfate"), ("k", -1000.0, "KH2PO4"), ("pi", -1000.0, "phosphate"),
+              ("mg2", -1000.0, "MgSO4"), ("na1", -1000.0, ""), ("cl", -1000.0, ""),
+              ("his__L", -1.0, "histidine"), ("leu__L", -2.0, "leucine"), ("lys__L", -1.0, "lysine"), ("trp__L", -1.0, "tryptophan"),
+              ("met__L", -1.0, "methionine"), ("arg__L", -1.0, "arginine"), ("ura", -1.0, "uracil"), ("ade", -1.0, "adenine")] + _VIT + _TRACE + [("h2o", -1000.0, ""), ("h", -1000.0, "")],
+  "default_carbon": ("glc__D", -20.0), "oxygen": "facultative",
+  "ref": "Synthetic Complete (SC) medium — Sherman F. Methods Enzymol 2002;350:3. Defined yeast medium with amino-acid supplements.",
+  "note": "YNB + complete amino-acid/base supplement (drop-out base); carbon variable (glucose default)."}
+EMM = {"complex": [],
+  "defined": [("nh4", -10.0, "ammonium chloride (N)"), ("cl", -1000.0, ""), ("k", -1000.0, "potassium hydrogen phthalate/K"), ("pi", -1000.0, "Na2HPO4"),
+              ("na1", -1000.0, "Na"), ("mg2", -1000.0, "MgCl2"), ("ca2", -1000.0, "CaCl2"), ("so4", -1000.0, "sulfate")] + _VIT + _TRACE + [("h2o", -1000.0, ""), ("h", -1000.0, "")],
+  "default_carbon": ("glc__D", -20.0), "oxygen": "facultative",
+  "ref": "Edinburgh Minimal Medium (EMM) — Mitchison JM 1970; Moreno et al. Methods Enzymol 1991;194:795. Schizosaccharomyces pombe.",
+  "note": "Defined minimal medium for fission yeast; carbon variable (glucose default)."}
+# Bacillus / spore-formers
+DSM = {"complex": ["peptone", "beef extract"],
+  "defined": [("k", -1000.0, "KCl"), ("cl", -1000.0, ""), ("mg2", -1000.0, "MgSO4"), ("so4", -1000.0, "sulfate"),
+              ("mn2", -1.0, "MnCl2 (sporulation trigger)"), ("ca2", -1000.0, "Ca(NO3)2"), ("fe2", -1000.0, "FeSO4"), ("na1", -1000.0, "")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Difco Sporulation Medium (DSM / Schaeffer's) — Schaeffer P et al. Proc Natl Acad Sci USA 1965;54:704. Bacillus subtilis sporulation.",
+  "note": "Nutrient broth + Mn/Ca/Fe salts to trigger B. subtilis sporulation."}
+MYP = {"complex": ["beef extract", "peptone"],
+  "defined": [("mnl", -10.0, "mannitol (differential)"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Mannitol Egg Yolk Polymyxin (MYP) agar — Mossel DAA et al. J Appl Bacteriol 1967;30:339. Bacillus cereus.",
+  "note": "Selective/differential for B. cereus (mannitol- + lecithinase+).", "uncovered": _sel("Polymyxin B", "Egg yolk emulsion", "Phenol red")}
+PEMBA = {"complex": ["peptone"],
+  "defined": [("mnl", -10.0, "mannitol"), ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg")] + _MINBASE,
+  "oxygen": "facultative", "ref": "PEMBA (Polymyxin Egg-yolk Mannitol Bromothymol Agar) — Holbrook R, Anderson JM. Can J Microbiol 1980;26:753. Bacillus cereus.",
+  "note": "Selective/differential for B. cereus.", "uncovered": _sel("Polymyxin B", "Egg yolk emulsion", "Bromothymol blue")}
+MYGP = {"complex": ["malt extract", "yeast extract", "peptone"],
+  "defined": [("glc__D", -20.0, "glucose")] + _MINBASE,
+  "oxygen": "facultative", "ref": "MYGP (Malt Yeast Glucose Peptone) — standard. Yeasts / brewing microbiology.",
+  "note": "Rich medium for yeasts and fungi."}
+# Clostridium / anaerobe
+TSC = {"complex": ["tryptone", "soytone", "yeast extract"],
+  "defined": [("fe3", -1.0, "ferric ammonium citrate"), ("so3", -1.0, "sodium metabisulfite (H2S -> black)")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "Tryptose Sulfite Cycloserine (TSC) agar — Harmon SM et al. 1971; ISO 7937. Clostridium perfringens.",
+  "note": "Selective/differential anaerobe medium (sulfite reduction -> black colonies).", "uncovered": _sel("D-cycloserine", "Egg yolk emulsion (optional, lecithinase)")}
+SPS = {"complex": ["casein peptone", "yeast extract"],
+  "defined": [("fe3", -1.0, "ferric citrate"), ("so3", -1.0, "sodium sulfite"), ("cit", -1.0, "citrate")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "Sulfite Polymyxin Sulfadiazine (SPS) agar — Angelotti R et al. Appl Microbiol 1962;10:193. Clostridium perfringens.",
+  "note": "Selective/differential for C. perfringens (sulfite reduction).", "uncovered": _sel("Polymyxin B", "Sodium sulfadiazine")}
+DRCM = {"complex": ["peptone", "beef extract", "yeast extract"],
+  "defined": [("glc__D", -5.0, "glucose"), ("strch1", -1.0, "soluble starch"), ("cys__L", -1.0, "cysteine (reductant)"), ("ac", -2.0, "sodium acetate"),
+              ("so3", -1.0, "sodium sulfite"), ("fe3", -1.0, "ferric citrate"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "Differential Reinforced Clostridial Medium (DRCM) — Gibbs BM, Freame B. J Appl Bacteriol 1965;28:95. Clostridia.",
+  "note": "Enrichment/differential for clostridia (sulfite blackening).", "uncovered": _sel("Resazurin (redox indicator)")}
+IRONMILK = {"complex": [],
+  "defined": [("lcts", -10.0, "lactose (milk)"), ("fe2", -1.0, "iron (ferrous / iron filings)"), ("ca2", -1000.0, "Ca (milk)"), ("k", -1000.0, "K"), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "Iron Milk medium — standard (FDA BAM). Clostridium perfringens (stormy fermentation).",
+  "note": "Milk-based medium for C. perfringens (stormy clot + gas).", "uncovered": _sel("Whole/skim milk (casein + lactose + fat matrix)", "Iron filings")}
+# Campylobacter / Helicobacter
+BUTZLER = {"complex": ["casein peptone", "soytone"],
+  "defined": [("pheme", -0.05, "haem (sheep blood)"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Campy-CVA (Butzler) medium — Butzler JP et al. 1983. Campylobacter (microaerophilic).",
+  "note": "Selective blood medium for Campylobacter (Cefoperazone-Vancomycin-Amphotericin); microaerophilic.", "uncovered": _sel("Cefoperazone", "Vancomycin", "Amphotericin B", "Defibrinated sheep blood")}
+KARMALI = {"complex": ["casein peptone"],
+  "defined": [("pyr", -1.0, "sodium pyruvate"), ("fe2", -1.0, "ferrous sulfate"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Karmali agar — Karmali MA et al. J Clin Microbiol 1986;23:456. Campylobacter (charcoal, blood-free).",
+  "note": "Blood-free charcoal selective medium for Campylobacter; microaerophilic.", "uncovered": _sel("Activated charcoal", "Haematin", "Cefoperazone", "Vancomycin", "Cycloheximide")}
+DENT = {"complex": ["casein peptone", "soytone"],
+  "defined": [("pheme", -0.05, "haem (horse blood)"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Dent's medium — Dent JC, McNulty CAM. Eur J Clin Microbiol 1988;7:555. Helicobacter pylori (microaerophilic).",
+  "note": "Selective blood medium for H. pylori; microaerophilic.", "uncovered": _sel("Vancomycin", "Trimethoprim", "Cefsulodin", "Amphotericin B", "Defibrinated horse blood")}
+# Leptospira / protozoa
+EMJH = {"complex": [],
+  "defined": [("nh4", -1.0, "ammonium chloride (N)"), ("cl", -1000.0, ""), ("glyc", -1.0, "glycerol"), ("ocdcea", -5.0, "oleic acid / Tween-80 (SOLE carbon — long-chain fatty acid)"),
+              ("thm", -1.0, "thiamine"), ("cbl1", -1.0, "vitamin B12"), ("pi", -1000.0, "phosphate"), ("na1", -1000.0, ""), ("mg2", -1000.0, "Mg"), ("ca2", -1000.0, "Ca"), ("fe2", -1000.0, "Fe"), ("h2o", -1000.0, ""), ("h", -1000.0, "")],
+  "oxygen": "aerobic", "ref": "EMJH medium — Ellinghausen HC, McCullough WG 1965; Johnson & Harris 1967. Leptospira.",
+  "note": "Leptospira medium; long-chain fatty acids (Tween/oleate) as sole carbon/energy.", "uncovered": _sel("Bovine serum albumin (fatty-acid carrier)", "Rabbit serum (optional)")}
+TYM = {"complex": ["casein peptone", "yeast extract"],
+  "defined": [("malt", -5.0, "maltose"), ("cys__L", -1.0, "cysteine (reductant)"), ("ascb__L", -1.0, "ascorbic acid"), ("k", -1000.0, "phosphate"), ("pi", -1000.0, "phosphate"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "Diamond's TYM medium — Diamond LS. J Parasitol 1957;43:488. Trichomonas / Entamoeba.",
+  "note": "Anaerobic medium for trichomonads/amoebae.", "uncovered": _sel("Bovine/horse serum")}
+NNN = {"complex": ["beef extract", "peptone"],
+  "defined": [("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Novy-MacNeal-Nicolle (NNN) medium — Novy FG, MacNeal WJ. J Infect Dis 1904;1:1. Leishmania / Trypanosoma.",
+  "note": "Biphasic blood-agar medium for culturing haemoflagellates.", "uncovered": _sel("Defibrinated rabbit blood")}
+# nitrifiers (chemolithoautotrophs)
+NITROSOMONAS = {"complex": [],
+  "defined": [("nh4", -10.0, "ammonium (energy source — NH3 -> NO2)"), ("hco3", -10.0, "bicarbonate/CO2 (SOLE carbon — autotroph)"), ("pi", -1000.0, "phosphate"),
+              ("k", -1000.0, "K"), ("mg2", -1000.0, "Mg"), ("ca2", -1000.0, "Ca"), ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("fe2", -1000.0, "Fe")] + _TRACE + [("h2o", -1000.0, ""), ("h", -1000.0, "")],
+  "oxygen": "aerobic", "ref": "Nitrosomonas (ammonia-oxidiser) medium — ATCC/DSMZ. Chemolithoautotrophic AOB.",
+  "note": "Chemolithoautotroph: energy from NH3 oxidation, carbon fixed from CO2."}
+NITROBACTER = {"complex": [],
+  "defined": [("no2", -10.0, "nitrite (energy source — NO2 -> NO3)"), ("hco3", -10.0, "bicarbonate/CO2 (SOLE carbon — autotroph)"), ("pi", -1000.0, "phosphate"),
+              ("k", -1000.0, "K"), ("mg2", -1000.0, "Mg"), ("ca2", -1000.0, "Ca"), ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("fe2", -1000.0, "Fe")] + _TRACE + [("h2o", -1000.0, ""), ("h", -1000.0, "")],
+  "oxygen": "aerobic", "ref": "Nitrobacter (nitrite-oxidiser) medium — ATCC/DSMZ. Chemolithoautotrophic NOB.",
+  "note": "Chemolithoautotroph: energy from nitrite oxidation, carbon fixed from CO2."}
+# Salmonella / Yersinia
+XLT4 = {"complex": ["yeast extract"],
+  "defined": [("xyl__D", -5.0, "xylose"), ("lcts", -10.0, "lactose"), ("sucr", -10.0, "sucrose"), ("lys__L", -5.0, "L-lysine (decarboxylase)"),
+              ("tsul", -1.0, "sodium thiosulfate"), ("fe3", -1.0, "ferric ammonium citrate"), ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "XLT4 agar — Miller RG et al. J Food Prot 1991;54:826. Salmonella.",
+  "note": "Selective/differential for Salmonella (Tergitol-4 selective, H2S black).", "uncovered": _sel("Tergitol 4 (Niaproof)", "Phenol red")}
+ITC = {"complex": ["casein peptone", "yeast extract"],
+  "defined": [("mnl", -10.0, "mannitol"), ("mg2", -1000.0, "MgCl2"), ("cl", -1000.0, ""), ("na1", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Irgasan-Ticarcillin-Chlorate (ITC) broth — Wauters G et al. 1988. Yersinia enterocolitica enrichment.",
+  "note": "Selective enrichment for Yersinia enterocolitica.", "uncovered": _sel("Irgasan (triclosan)", "Ticarcillin", "Potassium chlorate", "Malachite green")}
+
 # ---- sixth batch: 50 more well-known media ----
 # nitrogen-free mineral scaffold for diazotrophs (N2-fixers): NO ammonium/nitrate
 _NFREE = [("pi", -1000.0, "phosphate"), ("so4", -1000.0, "sulfate"), ("k", -1000.0, "K"), ("mg2", -1000.0, "Mg"),
@@ -866,6 +1102,56 @@ STARCHCASEIN = {"complex": ["casein peptone"],
 
 # kind -> (spec, match regex, exclude regex or None, std_id, std_name)
 REGISTRY = [
+    ("LST", LST, r"lauryl (tryptose|sul) |lauryl tryptose|\bLST broth\b|\bLTB\b", r"modified", "std_lst", "Lauryl Tryptose Broth (standard)"),
+    ("BGLB", BGLB, r"brilliant green lactose bile|\bBGLB\b|\bBGBL\b", r"modified", "std_bglb", "Brilliant Green Lactose Bile broth (standard)"),
+    ("ECbroth", ECBROTH, r"\bEC broth\b", r"\bMUG\b|modified", "std_ec_broth", "EC broth (standard)"),
+    ("ECMUG", ECMUG, r"\bEC.?MUG\b", r"modified", "std_ec_mug", "EC-MUG broth (standard)"),
+    ("LactoseBroth", LACTOSEBROTH, r"lactose broth", r"modified", "std_lactose_broth", "Lactose Broth (standard)"),
+    ("TryptoneWater", TRYPTONEWATER, r"tryptone water|peptone water", r"alkaline|buffered|modified", "std_tryptone_water", "Tryptone Water (standard)"),
+    ("mTEC", MTEC, r"\bm.?TEC\b", r"modified", "std_mtec", "Modified mTEC agar (standard)"),
+    ("PurpleBroth", PURPLEBROTH, r"purple broth", r"modified", "std_purple_broth", "Purple Broth Base (standard)"),
+    ("PhenolRedCarb", PRCARB, r"phenol red (carbohydrate|glucose|dextrose|broth)", r"modified", "std_phenol_red_broth", "Phenol Red Carbohydrate Broth (standard)"),
+    ("OF", OFMED, r"hugh.?leifson|\bO/?F\b (medium|basal)|oxidation.?fermentation", r"modified", "std_of_medium", "Hugh-Leifson OF medium (standard)"),
+    ("MIO", MIO, r"\bMIO\b|motility indole ornithine", r"modified", "std_mio", "Motility-Indole-Ornithine medium (standard)"),
+    ("MotilityTest", MOTILITY, r"motility test medium|motility medium", r"indole|ornithine|modified", "std_motility_test", "Motility Test Medium (standard)"),
+    ("Halobacterium", HALOBACTERIUM, r"halobacterium|haloarchaea|halophilic archaea", r"modified", "std_halobacterium", "Halobacterium medium (standard)"),
+    ("SWC", SWC, r"seawater complete|\bSWC\b", r"modified", "std_swc", "Seawater Complete medium (standard)"),
+    ("HaloAgar", HALOAGAR, r"halophilic agar|moderate halophile", r"modified", "std_halophilic_agar", "Halophilic Agar (standard)"),
+    ("GouldS1", GOULDS1, r"gould'?s? s1|\bS1 agar\b", r"modified", "std_gould_s1", "Gould's S1 agar (standard)"),
+    ("CFC", CFC, r"\bCFC\b agar|cetrimide.?fucidin", r"modified", "std_cfc", "Pseudomonas CFC agar (standard)"),
+    ("Winogradsky", WINOGRADSKY, r"winogradsky", r"column|modified", "std_winogradsky", "Winogradsky salt solution (standard)"),
+    ("ISP6", ISP6, r"\bISP\W?6\b|ISP medium 6|peptone.?yeast.?iron", r"modified", "std_isp6", "ISP Medium 6 (standard)"),
+    ("ISP7", ISP7, r"\bISP\W?7\b|ISP medium 7|tyrosine agar", r"modified", "std_isp7", "ISP Medium 7 (standard)"),
+    ("Gauze1", GAUZE1, r"gau[sz]e'?s?", r"modified", "std_gauze1", "Gauze's synthetic agar No.1 (standard)"),
+    ("GYE", GYE, r"glycerol yeast extract|\bGYE\b|\bGYEA\b", r"modified", "std_gye", "Glycerol Yeast Extract agar (standard)"),
+    ("AIA", AIA, r"actinomycete isolation agar|\bAIA\b", r"modified", "std_aia", "Actinomycete Isolation Agar (standard)"),
+    ("Mycosel", MYCOSEL, r"mycosel|mycobiotic", r"modified", "std_mycosel", "Mycosel / Mycobiotic agar (standard)"),
+    ("DG18", DG18, r"\bDG18\b|dichloran.{0,4}glycerol", r"modified", "std_dg18", "DG18 agar (standard)"),
+    ("DRBC", DRBC, r"\bDRBC\b|dichloran rose bengal", r"modified", "std_drbc", "DRBC agar (standard)"),
+    ("YNB", YNB, r"yeast nitrogen base|\bYNB\b", r"modified", "std_ynb", "Yeast Nitrogen Base (standard)"),
+    ("MYA", MYA, r"malt yeast agar|\bMYA\b", r"glucose|peptone|modified", "std_mya", "Malt Yeast agar (standard)"),
+    ("WaterAgar", WATERAGAR, r"water agar|plain agar", r"modified", "std_water_agar", "Water Agar (standard)"),
+    ("YPGal", YPGAL, r"\bYP.?gal|yp.?galactose|yepd?.?gal", r"modified", "std_ypgal", "YP-Galactose (standard)"),
+    ("SC", SC, r"synthetic complete|\bSC medium\b|\bSD medium\b|synthetic defined|drop.?out", r"modified", "std_sc_medium", "Synthetic Complete medium (standard)"),
+    ("EMM", EMM, r"edinburgh minimal|\bEMM\b|\bEMMG\b", r"modified", "std_emm", "Edinburgh Minimal Medium (standard)"),
+    ("DSM", DSM, r"difco sporulation|schaeffer'?s?|\bDSM\b sporulation|sporulation medium", r"modified", "std_dsm_sporulation", "Difco Sporulation Medium (standard)"),
+    ("MYP", MYP, r"mannitol egg yolk polymyxin|\bMYP\b", r"modified", "std_myp", "MYP agar (standard, B. cereus)"),
+    ("PEMBA", PEMBA, r"\bPEMBA\b", r"modified", "std_pemba", "PEMBA agar (standard, B. cereus)"),
+    ("MYGP", MYGP, r"\bMYGP\b|malt yeast glucose peptone", r"modified", "std_mygp", "MYGP medium (standard)"),
+    ("TSC", TSC, r"tryptose sulf?ite cycloserine|\bTSC\b", r"modified", "std_tsc", "TSC agar (standard, C. perfringens)"),
+    ("SPS", SPS, r"\bSPS\b agar|sulfite polymyxin sulfadiazine", r"modified", "std_sps", "SPS agar (standard)"),
+    ("DRCM", DRCM, r"\bDRCM\b|differential reinforced clostridial", r"modified", "std_drcm", "DRCM (standard)"),
+    ("IronMilk", IRONMILK, r"iron milk", r"modified", "std_iron_milk", "Iron Milk medium (standard)"),
+    ("Butzler", BUTZLER, r"butzler|campy.?cva", r"modified", "std_butzler", "Campy-CVA (Butzler) medium (standard)"),
+    ("Karmali", KARMALI, r"karmali", r"modified", "std_karmali", "Karmali agar (standard)"),
+    ("Dent", DENT, r"dent'?s? medium|dent'?s? agar", r"modified", "std_dent", "Dent's medium (standard, H. pylori)"),
+    ("EMJH", EMJH, r"\bEMJH\b|ellinghausen", r"modified", "std_emjh", "EMJH medium (standard, Leptospira)"),
+    ("TYM", TYM, r"\bTYM\b|diamond'?s? (medium|tym)", r"modified", "std_tym", "Diamond's TYM medium (standard)"),
+    ("NNN", NNN, r"\bNNN\b|novy.?macneal", r"modified", "std_nnn", "Novy-MacNeal-Nicolle medium (standard)"),
+    ("Nitrosomonas", NITROSOMONAS, r"nitrosomonas|ammonia.?oxidi[sz]er medium|\bAOB\b medium", r"modified", "std_nitrosomonas", "Nitrosomonas medium (standard)"),
+    ("Nitrobacter", NITROBACTER, r"nitrobacter|nitrite.?oxidi[sz]er medium|\bNOB\b medium", r"modified", "std_nitrobacter", "Nitrobacter medium (standard)"),
+    ("XLT4", XLT4, r"\bXLT4\b|xylose lysine tergitol", r"modified", "std_xlt4", "XLT4 agar (standard)"),
+    ("ITC", ITC, r"\bITC\b broth|irgasan.?ticarcillin", r"modified", "std_itc", "ITC broth (standard, Yersinia)"),
     ("PALCAM", PALCAM, r"\bPALCAM\b", r"modified", "std_palcam", "PALCAM agar (standard, Listeria)"),
     ("OxfordListeria", OXFORDL, r"oxford agar|oxford listeria", r"modified", "std_oxford_listeria", "Oxford agar (standard, Listeria)"),
     ("Fraser", FRASER, r"fraser broth", r"half.?fraser|modified", "std_fraser", "Fraser broth (standard)"),
