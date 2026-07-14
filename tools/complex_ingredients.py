@@ -75,8 +75,9 @@ REFS = {
 
 
 def ingredient_key(name):
+    name = (name or "").replace("_", " ")
     for rx, key in _PATTERNS:
-        if rx.search(name or ""):
+        if rx.search(name):
             return key
     return None
 

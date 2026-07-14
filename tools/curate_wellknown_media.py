@@ -305,8 +305,124 @@ BUSHNELL = {"complex": [],
   "oxygen": "aerobic", "ref": "Bushnell-Haas medium — Bushnell LD, Haas HF. J Bacteriol 1941;41:653. Mineral medium for hydrocarbon degraders (carbon supplied by the substrate under test).",
   "note": "Mineral-salts medium; carbon = the added hydrocarbon/pollutant (no built-in carbon source)."}
 
+# ---- fourth batch: 20 more well-known media ----
+LJ = {"complex": ["peptone"],
+  "defined": [("asn__L", -1.0, "L-asparagine (N)"), ("glyc", -10.0, "glycerol (carbon)"), ("k", -1000.0, "K (KH2PO4)"),
+              ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg (MgSO4)"), ("so4", -1000.0, "sulfate"), ("cit", -1.0, "magnesium citrate")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Löwenstein-Jensen medium — Jensen KA, Löwenstein E, 1932; BD LJ. Egg-based selective medium for Mycobacterium tuberculosis.",
+  "note": "Egg-based mycobacterial medium; malachite green selective.", "uncovered": _sel("Malachite green", "Coagulated egg (undefined lipid/protein matrix)")}
+M7H11 = {"complex": ["casein peptone"],
+  "defined": M7H9["defined"], "oxygen": "aerobic",
+  "ref": "Middlebrook 7H11 agar — Cohn ML, Waggoner RF, McClatchy JK. Am Rev Respir Dis 1968;98:295; BD 7H11. (7H10 base + 0.1% casein hydrolysate.)",
+  "note": "Mycobacterial agar (7H10 + casein hydrolysate).", "uncovered": _sel("Malachite green")}
+THAYER = {"complex": ["peptone"],
+  "defined": [("strch1", -1.0, "corn starch"), ("pheme", -0.05, "hemoglobin (X factor)"), ("glc__D", -5.0, "glucose (IsoVitaleX)"),
+              ("gln__L", -1.0, "glutamine"), ("cys__L", -1.0, "cysteine"), ("thm", -1.0, "thiamine"), ("nac", -1.0, "nicotinamide"),
+              ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("k", -1000.0, ""), ("pi", -1000.0, "")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Modified Thayer-Martin medium — Thayer JD, Martin JE. Public Health Rep 1966;81:559. Selective for Neisseria gonorrhoeae/meningitidis.",
+  "note": "GC base + hemoglobin + IsoVitaleX; VCNT antibiotics selective.", "uncovered": _sel("Vancomycin", "Colistin", "Nystatin", "Trimethoprim")}
+BCYE = {"complex": ["yeast extract"],
+  "defined": [("cys__L", -1.0, "L-cysteine (essential for Legionella)"), ("fe3", -1.0, "ferric pyrophosphate"), ("akg", -1.0, "alpha-ketoglutarate")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Buffered Charcoal Yeast Extract (BCYE) — Feeley JC et al. J Clin Microbiol 1979;10:437. Legionella.",
+  "note": "Legionella medium; L-cysteine and iron are essential growth factors; ACES-buffered.", "uncovered": _sel("ACES buffer", "Activated charcoal")}
+BORDET = {"complex": ["peptone"],
+  "defined": [("glyc", -10.0, "glycerol (carbon)"), ("pheme", -0.02, "hemin (blood)"), ("glc__D", -2.0, "glucose (potato)")] + _MINBASE,
+  "oxygen": "aerobic", "ref": "Bordet-Gengou medium — Bordet J, Gengou O. Ann Inst Pasteur 1906;20:731. Bordetella pertussis.",
+  "note": "Potato-glycerol-blood medium for Bordetella."}
+SS = {"complex": ["peptone", "beef extract"],
+  "defined": [("lcts", -10.0, "lactose (differential)"), ("cit", -1.0, "citrate"), ("tsul", -1.0, "thiosulfate"), ("fe3", -1000.0, "ferric citrate"),
+              ("na1", -1000.0, ""), ("cl", -1000.0, "")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Salmonella-Shigella (SS) agar — standard (Difco/BD). Selective/differential for Salmonella and Shigella.",
+  "note": "Selective/differential enteric medium.", "uncovered": _sel("Bile salts", "Brilliant green", "Neutral red")}
+BISMUTH = {"complex": ["peptone", "beef extract"],
+  "defined": [("glc__D", -5.0, "glucose"), ("na1", -1000.0, ""), ("pi", -1000.0, "phosphate"), ("fe2", -1000.0, "ferrous sulfate"), ("so4", -1000.0, "sulfate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Bismuth Sulfite agar (Wilson-Blair) — Wilson WJ, Blair EMM. J Hyg 1927;26:374. Salmonella Typhi.",
+  "note": "Highly selective for Salmonella Typhi.", "uncovered": _sel("Bismuth sulfite indicator", "Brilliant green")}
+CLED = {"complex": ["peptone", "casein peptone", "beef extract"],
+  "defined": [("lcts", -10.0, "lactose"), ("cys__L", -1.0, "L-cystine")] + [(b, lb, r) for (b, lb, r) in _MINBASE if b not in ("na1", "cl")] + [("na1", -1.0, "low electrolyte (no NaCl — inhibits Proteus swarming)")],
+  "oxygen": "facultative", "ref": "CLED (Cystine Lactose Electrolyte Deficient) agar — Mackey JP, Sandys GH. Br Med J 1965;1:1173. Urine culture.",
+  "note": "Electrolyte-deficient (prevents Proteus swarming); non-selective for urinary organisms.", "uncovered": _sel("Bromothymol blue")}
+ENDO = {"complex": ["peptone"],
+  "defined": [("lcts", -10.0, "lactose"), ("k", -1000.0, "K (K2HPO4)"), ("pi", -1000.0, "phosphate"), ("na1", -1000.0, ""), ("so3", -0.1, "sodium sulfite")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Endo agar — Endo S, 1904; APHA Standard Methods. Coliform detection.",
+  "note": "Differential medium for coliforms (fuchsin-sulfite).", "uncovered": _sel("Basic fuchsin")}
+SELENITE = {"complex": ["peptone"],
+  "defined": [("lcts", -5.0, "lactose"), ("na1", -1000.0, ""), ("pi", -1000.0, "phosphate"), ("slnt", -0.5, "sodium selenite (selective inhibitor)")] + _MINBASE,
+  "oxygen": "facultative", "ref": "Selenite F broth — Leifson E. Am J Hyg 1936;24:423. Salmonella enrichment.",
+  "note": "Enrichment broth; selenite selectively inhibits coliforms."}
+APW = {"complex": ["peptone"],
+  "defined": [("na1", -1000.0, "high NaCl (1%)"), ("cl", -1000.0, "")] + _MINBASE + [("o2", -20.0, "aerobic")],
+  "oxygen": "facultative", "ref": "Alkaline Peptone Water (APW) — standard (pH 8.4-8.6). Vibrio/Aeromonas enrichment.",
+  "note": "Alkaline enrichment broth for vibrios; carbon from peptone amino acids."}
+M17 = {"complex": ["tryptone", "soytone", "beef extract", "yeast extract"],
+  "defined": [("lcts", -10.0, "lactose (carbon)"), ("ascb__L", -1.0, "ascorbic acid"), ("mg2", -1000.0, "Mg (MgSO4)"), ("so4", -1000.0, "sulfate"),
+              ("glyc3p", -1.0, "beta-glycerophosphate (buffer)"), ("na1", -1000.0, ""), ("pi", -1000.0, "phosphate")] + _MINBASE,
+  "oxygen": "facultative", "ref": "M17 medium — Terzaghi BE, Sandine WE. Appl Microbiol 1975;29:807. Lactococcus/Streptococcus thermophilus.",
+  "note": "Lactococcal/streptococcal medium; beta-glycerophosphate buffered."}
+APT = {"complex": ["tryptone", "yeast extract"],
+  "defined": [("glc__D", -10.0, "glucose"), ("na1", -1000.0, ""), ("cl", -1000.0, ""), ("cit", -1.0, "citrate"), ("k", -1000.0, "K (K2HPO4)"),
+              ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg"), ("so4", -1000.0, "sulfate"), ("mn2", -1.0, "Mn (MnCl2)"),
+              ("fe2", -1000.0, "Fe"), ("ocdcea", -1.0, "Tween-80/oleate"), ("thm", -1.0, "thiamine")] + _MINBASE,
+  "oxygen": "facultative", "ref": "APT agar — Evans JB, Niven CF. J Bacteriol 1951;62:599. Heterofermentative lactobacilli.",
+  "note": "Rich medium for lactobacilli; Mn and Tween-80 as in MRS."}
+PDA = {"complex": [],
+  "defined": [("glc__D", -15.0, "dextrose (carbon)"), ("strch1", -1.0, "potato starch")] + _MINBASE + [("o2", -20.0, "aerobic")],
+  "oxygen": "aerobic", "ref": "Potato Dextrose Agar (PDA) — BD/standard. Potato infusion + 2% dextrose. Fungi/moulds/yeasts.",
+  "note": "Fungal medium; potato infusion + dextrose."}
+MEA = {"complex": ["malt_extract"],
+  "defined": [("malt", -10.0, "maltose (malt extract)"), ("glc__D", -10.0, "dextrose")] + _MINBASE + [("o2", -20.0, "aerobic")],
+  "oxygen": "aerobic", "ref": "Malt Extract Agar (MEA) — standard (BD/Oxoid). Fungi and yeasts.", "note": "Fungal medium; malt extract sugars."}
+CZAPEK = {"complex": [],
+  "defined": [("sucr", -15.0, "sucrose (carbon)"), ("no3", -10.0, "nitrate (NaNO3, N source)"), ("k", -1000.0, "K (K2HPO4)"),
+              ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg (MgSO4)"), ("so4", -1000.0, "sulfate"), ("cl", -1000.0, "KCl"),
+              ("fe2", -1000.0, "Fe (FeSO4)"), ("na1", -1000.0, ""), ("h2o", -1000.0, ""), ("h", -1000.0, ""), ("o2", -20.0, "aerobic")],
+  "oxygen": "aerobic", "ref": "Czapek-Dox medium — Czapek F 1902; Dox AW 1910. Defined medium for fungi/Aspergillus/Penicillium (sucrose carbon, nitrate N).",
+  "note": "Defined fungal medium; sucrose + nitrate."}
+VOGELBONNER = {"complex": [],
+  "defined": [("mg2", -1000.0, "Mg (MgSO4)"), ("so4", -1000.0, "sulfate"), ("cit", -1.0, "citric acid"), ("k", -1000.0, "K (K2HPO4)"),
+              ("pi", -1000.0, "phosphate"), ("na1", -1000.0, "Na (NaNH4 phosphate)"), ("nh4", -1000.0, "ammonium"),
+              ("h2o", -1000.0, ""), ("h", -1000.0, ""), ("o2", -20.0, "aerobic")],
+  "default_carbon": ("glc__D", -10.0), "oxygen": "facultative",
+  "ref": "Vogel-Bonner minimal medium E — Vogel HJ, Bonner DM. J Biol Chem 1956;218:97. E. coli/Salmonella defined minimal.",
+  "note": "Defined minimal medium (citrate as trace-metal chelator); carbon variable (glucose default)."}
+POSTGATE = {"complex": ["yeast extract"],
+  "defined": [("lac__L", -10.0, "lactate (carbon / electron donor)"), ("k", -1000.0, "K (KH2PO4)"), ("pi", -1000.0, "phosphate"),
+              ("nh4", -1000.0, "ammonium"), ("cl", -1000.0, ""), ("na1", -1000.0, ""), ("so4", -1000.0, "SULFATE (terminal electron acceptor)"),
+              ("ca2", -1000.0, "Ca"), ("mg2", -1000.0, "Mg"), ("fe2", -1000.0, "Fe"), ("cit", -1.0, "citrate")],
+  "oxygen": "anaerobic", "ref": "Postgate medium C — Postgate JR, The Sulphate-Reducing Bacteria, 2nd ed. Cambridge UP 1984. Desulfovibrio.",
+  "note": "Anaerobic medium for sulfate-reducing bacteria; lactate donor, sulfate acceptor.", "uncovered": _sel("Sodium thioglycollate", "Ascorbate (reductant)")}
+CCFA = {"complex": ["proteose_peptone"],
+  "defined": [("fru", -10.0, "fructose (carbon)"), ("na1", -1000.0, ""), ("pi", -1000.0, "phosphate"), ("k", -1000.0, "K"), ("cl", -1000.0, ""), ("mg2", -1000.0, "Mg"), ("so4", -1000.0, "sulfate")] + _MINBASE,
+  "oxygen": "anaerobic", "ref": "CCFA (Cycloserine-Cefoxitin Fructose Agar) — George WL et al. J Clin Microbiol 1979;9:214. Clostridioides difficile.",
+  "note": "Selective anaerobic medium for C. difficile.", "uncovered": _sel("Cycloserine", "Cefoxitin", "Neutral red", "Taurocholate (germinant)")}
+STARCHCASEIN = {"complex": ["casein peptone"],
+  "defined": [("strch1", -10.0, "soluble starch (carbon)"), ("no3", -10.0, "nitrate (KNO3, N)"), ("k", -1000.0, "K"), ("na1", -1000.0, ""),
+              ("cl", -1000.0, ""), ("pi", -1000.0, "phosphate"), ("mg2", -1000.0, "Mg"), ("so4", -1000.0, "sulfate"), ("ca2", -1000.0, "Ca"), ("fe2", -1000.0, "Fe")] + _MINBASE + [("o2", -20.0, "aerobic")],
+  "oxygen": "aerobic", "ref": "Starch-Casein agar — Küster E, Williams ST. Nature 1964;202:928. Soil actinomycetes/Streptomyces.",
+  "note": "Selective medium for soil actinomycetes; starch carbon, nitrate N."}
+
 # kind -> (spec, match regex, exclude regex or None, std_id, std_name)
 REGISTRY = [
+    ("LowensteinJensen", LJ, r"l[oö]wenstein.?jensen|\bLJ\b (medium|slant|agar)", r"modified", "std_lowenstein_jensen", "Löwenstein-Jensen medium (standard)"),
+    ("Middlebrook7H11", M7H11, r"7H11", r"modified", "std_middlebrook_7h11", "Middlebrook 7H11 agar (standard)"),
+    ("ThayerMartin", THAYER, r"thayer.?martin", r"derived", "std_thayer_martin", "Modified Thayer-Martin medium (standard)"),
+    ("BCYE", BCYE, r"\bBCYE\b|buffered charcoal|charcoal yeast", r"modified", "std_bcye", "Buffered Charcoal Yeast Extract (standard)"),
+    ("BordetGengou", BORDET, r"bordet.?gengou", r"modified", "std_bordet_gengou", "Bordet-Gengou medium (standard)"),
+    ("SSagar", SS, r"salmonella.?shigella|\bSS agar\b|\bSSA\b", r"modified", "std_ss_agar", "Salmonella-Shigella agar (standard)"),
+    ("BismuthSulfite", BISMUTH, r"bismuth sulf?ite|wilson.?blair", r"modified", "std_bismuth_sulfite", "Bismuth Sulfite agar (standard)"),
+    ("CLED", CLED, r"\bCLED\b|cystine lactose electrolyte", r"modified", "std_cled", "CLED agar (standard)"),
+    ("Endo", ENDO, r"endo agar|endo'?s? medium", r"modified", "std_endo", "Endo agar (standard)"),
+    ("Selenite", SELENITE, r"selenite", r"modified", "std_selenite_broth", "Selenite F broth (standard)"),
+    ("APW", APW, r"alkaline peptone water|\bAPW\b", r"modified", "std_alkaline_peptone_water", "Alkaline Peptone Water (standard)"),
+    ("M17", M17, r"\bM17\b", r"modified", "std_m17", "M17 medium (standard)"),
+    ("APT", APT, r"\bAPT\b (agar|broth|medium)", r"modified", "std_apt", "APT medium (standard)"),
+    ("PDA", PDA, r"potato dextrose|\bPDA\b", r"modified", "std_potato_dextrose", "Potato Dextrose Agar (standard)"),
+    ("MEA", MEA, r"malt extract agar|\bMEA\b", r"modified", "std_malt_extract_agar", "Malt Extract Agar (standard)"),
+    ("Czapek", CZAPEK, r"czapek", r"modified", "std_czapek_dox", "Czapek-Dox medium (standard)"),
+    ("VogelBonner", VOGELBONNER, r"vogel.?bonner", r"modified", "std_vogel_bonner", "Vogel-Bonner minimal medium (standard)"),
+    ("Postgate", POSTGATE, r"postgate", r"modified", "std_postgate_c", "Postgate medium C (standard)"),
+    ("CCFA", CCFA, r"\bCCFA\b|cycloserine.?cefoxitin", r"modified", "std_ccfa", "CCFA (standard, C. difficile)"),
+    ("StarchCasein", STARCHCASEIN, r"starch.?casein", r"modified", "std_starch_casein", "Starch-Casein agar (standard)"),
     ("Wilkins", WILKINS, r"wilkins.?chalgren|\bWCA\b", r"modified", "std_wilkins_chalgren", "Wilkins-Chalgren anaerobe broth (standard)"),
     ("Thioglycollate", THIO, r"thioglycollate|thioglycolate|\bFTM\b", r"modified", "std_thioglycollate", "Fluid Thioglycollate Medium (standard)"),
     ("CookedMeat", COOKEDMEAT, r"cooked meat|chopped meat|robertson", r"modified", "std_cooked_meat", "Cooked/Chopped Meat Medium (standard)"),
@@ -424,6 +540,9 @@ def curate(d, spec, kind):
                 comps["EX_%s_e" % b] = comp(b, lbnd, "default carbon source (glucose)")
     if spec["oxygen"] == "anaerobic":
         comps.pop("EX_o2_e", None)
+    elif "EX_o2_e" not in comps and valid("o2"):
+        # aerobic/facultative media must offer O2 uptake for respiration
+        comps["EX_o2_e"] = comp("o2", -20.0, "O2 (%s)" % spec["oxygen"])
     d["components"] = sorted(comps.values(), key=lambda c: c["exchange"])
     d["oxygen"] = spec["oxygen"]; d["aerobic"] = (spec["oxygen"] != "anaerobic")
     d["oxygen_note"] = spec.get("note", "")
