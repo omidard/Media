@@ -59,7 +59,7 @@ _PATTERNS = [
 
 # reference supporting each ingredient's approximate compound-class composition
 REFS = {
-    "yeast_extract": "Yeast extract = autolysate of Saccharomyces cerevisiae: free amino acids (glutamate/alanine/aspartate-rich, essential AAs ~40% of total), B-vitamins (B1 thiamine, B2 riboflavin, B3 niacin, B5 pantothenate, B6 pyridoxine, B7 biotin, B9 folate, B12), RNA-derived 5'-nucleotides/nucleosides (~10-15%), and minerals (K, P, Mg, Zn, Mn). Quantitative composition: Tao Z et al., J Microbiol Biotechnol 2022;32:1236-1247, doi:10.4014/jmb.2207.07057 (PMC9998214); Podpora B et al., Czech J Food Sci 2016;34:554-563, doi:10.17221/419/2015-CJFS; Atlas RM, Handbook of Microbiological Media, doi:10.1201/EBK1439804063.",
+    "yeast_extract": "Yeast extract = autolysate of Saccharomyces cerevisiae. Component amounts here are QUANTITATIVE (mg per g yeast extract), from Tao Z et al., J Microbiol Biotechnol 2022;32:1236-1247, Table 2 (doi:10.4014/jmb.2207.07057, PMC9998214): free amino acids ~35% w/w with the measured pattern (Ala/Glu/Asp/Leu/Arg/Lys dominant; Cys/Met/Trp minor), B-vitamins (niacin >> pyridoxine/pantothenate > thiamine > riboflavin/folate/B12; biotin trace), ~10% RNA-derived nucleosides, and minerals (K/P-rich). Corroborated by Podpora B et al., Czech J Food Sci 2016;34:554-563, doi:10.17221/419/2015-CJFS; Atlas RM, Handbook of Microbiological Media, doi:10.1201/EBK1439804063. Per-component lower bounds are scaled to molar abundance (mg/g ÷ molecular weight).",
     "tryptone": "Tryptone = pancreatic (tryptic) digest of casein; amino-acid-rich, tryptophan retained — BD Bionutrient Technical Manual; casein amino-acid profile (FAO/WHO).",
     "casein_peptone": "Tryptic/enzymatic digest of casein; amino-acid profile of casein — BD Bionutrient Technical Manual.",
     "trypticase": "Trypticase = pancreatic digest of casein (BBL) — BD Bionutrient Technical Manual.",
@@ -102,6 +102,36 @@ def reference_link(name):
     """Return a public URL for the composition reference of a complex ingredient, else None."""
     key = ingredient_key(name)
     return REF_LINKS.get(key) if key else None
+
+
+# ---- QUANTITATIVE yeast-extract composition (mg per gram of yeast extract) ----
+# Grounded in Tao et al., J Microbiol Biotechnol 2022 (doi:10.4014/jmb.2207.07057),
+# Table 2. Free amino acids: the reported per-product ranges are wide, so each amino
+# acid's midpoint sets its RELATIVE proportion and the set is scaled to a realistic
+# total free-amino-acid fraction (~35% w/w) — this preserves the measured pattern
+# (Ala/Glu/Asp/Leu/Arg/Lys dominant; Cys/Met/Trp minor) without over-reading the
+# high end of each range. Vitamins/minerals: Table 2 midpoints (biotin corrected to
+# the µg-scale — the table's "mg/100g" is biologically implausible for biotin).
+# Nucleosides: from the ~10% RNA content (individual 5'-nucleotides not tabulated),
+# split across the ribonucleosides. Trp/Asn/Gln are not in Table 2 — small literature
+# estimates, flagged. These are representative values, not a single product's assay.
+YEAST_MG_PER_G = {
+    # free amino acids (mg/g), Tao 2022 Table 2 pattern scaled to ~350 mg/g total
+    "ala__L": 63.8, "arg__L": 29.6, "asp__L": 27.3, "cys__L": 1.5, "glu__L": 37.9,
+    "gly": 12.3, "his__L": 16.4, "ile__L": 15.5, "leu__L": 25.3, "lys__L": 22.4,
+    "met__L": 6.3, "phe__L": 16.7, "pro__L": 13.4, "ser__L": 15.7, "thr__L": 13.5,
+    "tyr__L": 12.0, "val__L": 20.4, "trp__L": 3.0, "asn__L": 5.0, "gln__L": 5.0,
+    # B-vitamins (mg/g), Tao 2022 Table 2 midpoints
+    "thm": 0.10, "ribflv": 0.012, "nac": 3.33, "pnto__R": 0.124, "pydxn": 0.291,
+    "btn": 0.0012, "fol": 0.032, "cbl1": 0.002, "4abz": 0.02,
+    # minerals (mg/g of the element), Tao 2022 Table 2 midpoints
+    "k": 50.0, "pi": 16.8, "na1": 6.8, "mg2": 3.6, "ca2": 0.14, "zn2": 0.14,
+    "mn2": 0.083, "cu2": 0.003, "fe2": 0.10, "so4": 2.0, "cobalt2": 0.002,
+    # ribonucleosides (mg/g) from ~10% RNA
+    "adn": 16.0, "gsn": 16.0, "cytd": 14.0, "uri": 14.0, "ins": 8.0, "thymd": 2.0,
+}
+# elemental exchanges keep the mineral (non-limiting) bound; the rest are molar-weighted
+YEAST_MINERAL_IDS = {"k", "pi", "na1", "mg2", "ca2", "zn2", "mn2", "cu2", "fe2", "so4", "cobalt2"}
 
 
 def decompose(name, valid=None):

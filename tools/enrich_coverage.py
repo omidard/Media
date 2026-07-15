@@ -32,7 +32,61 @@ REPO = os.path.dirname(HERE)
 MEDIA = os.path.join(REPO, "data", "media")
 sys.path.insert(0, HERE)
 from map_metabolite import Mapper, norm  # noqa: E402
-from complex_ingredients import decompose, REFS, ingredient_key, reference_link  # noqa: E402
+from complex_ingredients import (decompose, REFS, ingredient_key, reference_link,  # noqa: E402
+                                 YEAST_MG_PER_G, YEAST_MINERAL_IDS)
+
+# ---- molecular weights (from BiGG formula) for molar-weighting quantitative decompositions ----
+_AW = {"H": 1.008, "C": 12.011, "N": 14.007, "O": 15.999, "S": 32.06, "P": 30.974,
+       "K": 39.098, "Na": 22.990, "Mg": 24.305, "Ca": 40.078, "Fe": 55.845, "Zn": 65.38,
+       "Mn": 54.938, "Cu": 63.546, "Co": 58.933, "Ni": 58.693, "Mo": 95.95, "Cl": 35.45,
+       "Se": 78.97, "B": 10.811}
+_ELEM_OF = {"k": "K", "na1": "Na", "mg2": "Mg", "ca2": "Ca", "fe2": "Fe", "zn2": "Zn",
+            "mn2": "Mn", "cu2": "Cu", "cobalt2": "Co", "pi": "P", "so4": "S"}
+
+def _formula_mw(formula):
+    if not formula:
+        return None
+    tot = 0.0
+    for el, n in re.findall(r"([A-Z][a-z]?)(\d*)", formula):
+        if el not in _AW:
+            return None
+        tot += _AW[el] * (int(n) if n else 1)
+    return tot or None
+
+def _mw(bid):
+    if bid in _ELEM_OF:                      # minerals: use the element weight
+        return _AW[_ELEM_OF[bid]]
+    return _formula_mw((DICT.get(bid, {}).get("xrefs") or {}).get("formula"))
+
+def _yeast_amounts():
+    """{bigg_id: {mg_per_g, mmol_per_g, lower_bound}} — organics molar-weighted, minerals -1000."""
+    out = {}
+    for b, mg in YEAST_MG_PER_G.items():
+        if not valid(b):
+            continue
+        mw = _mw(b)
+        mmol = (mg / mw) if mw else None       # raw (unrounded) mmol per g
+        out[b] = {"mg_per_g": mg, "_mmol": mmol,
+                  "mmol_per_g": (round(mmol, 5) if mmol else None), "mw": mw}
+    # molar-weighted bound for organics: most-abundant organic -> -10, floor -0.1
+    org = [v["_mmol"] for b, v in out.items() if b not in YEAST_MINERAL_IDS and v["_mmol"]]
+    mx = max(org) if org else 1.0
+    for b, v in out.items():
+        if b in YEAST_MINERAL_IDS:
+            v["lower_bound"] = -1000.0
+        elif v["_mmol"]:
+            v["lower_bound"] = round(min(max(-10.0 * v["_mmol"] / mx, -10.0), -0.1), 3)
+        else:
+            v["lower_bound"] = -1.0
+        v.pop("_mmol", None)
+    return out
+
+_YEAST_AMOUNTS = None
+def yeast_amounts():
+    global _YEAST_AMOUNTS
+    if _YEAST_AMOUNTS is None:
+        _YEAST_AMOUNTS = _yeast_amounts()
+    return _YEAST_AMOUNTS
 
 MAP = Mapper()
 DICT = MAP.dict
@@ -192,17 +246,24 @@ def decomposition_components(name):
         return None
     key, ids = d
     ref = REFS.get(ingredient_key(name))
+    amounts = yeast_amounts() if key == "yeast_extract" else {}
     out = []
     for b in ids:
         rec = DICT.get(b, {})
+        amt = amounts.get(b)
         c = {
             "name": rec.get("name", b), "bigg_metabolite": b, "exchange": "EX_%s_e" % b,
-            "lower_bound": -1.0, "upper_bound": 1000.0, "concentration_mM": None,
+            "lower_bound": (amt["lower_bound"] if amt else -1.0), "upper_bound": 1000.0,
+            "concentration_mM": None,
             "xref": rec.get("xrefs", {}), "in_biggr": rec.get("in_biggr", False),
             "exchange_source": ("biggr" if rec.get("in_biggr") else "bigg"),
             "mapping_method": "complex_decomposition", "mapping_confidence": "approximation",
             "derived_from": name,
         }
+        if amt:                              # quantitative composition (mg per g yeast extract)
+            c["mg_per_g_source"] = amt["mg_per_g"]
+            if amt.get("mmol_per_g"):
+                c["mmol_per_g_source"] = amt["mmol_per_g"]
         if ref:
             c["decomposition_ref"] = ref
         out.append(c)
@@ -252,6 +313,7 @@ def uncovered_entry(name, xref):
 
 def enrich(med):
     comps = med.get("components", []) or []
+    ya = yeast_amounts()
     for c in comps:
         c["exchange_source"] = source_of(c)
         # backfill the decomposition reference on already-decomposed components
@@ -259,6 +321,16 @@ def enrich(med):
             r = REFS.get(ingredient_key(c.get("derived_from", "")))
             if r:
                 c["decomposition_ref"] = r
+        # backfill QUANTITATIVE yeast-extract amounts + molar-weighted bounds onto
+        # components already decomposed at build time (std/DSMZ/food media)
+        if (c.get("mapping_method") == "complex_decomposition"
+                and ingredient_key(c.get("derived_from", "")) == "yeast_extract"):
+            amt = ya.get(c.get("bigg_metabolite"))
+            if amt:
+                c["lower_bound"] = amt["lower_bound"]
+                c["mg_per_g_source"] = amt["mg_per_g"]
+                if amt.get("mmol_per_g"):
+                    c["mmol_per_g_source"] = amt["mmol_per_g"]
     seen_ex = {c.get("exchange") for c in comps}
 
     uncovered = []

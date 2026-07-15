@@ -110,7 +110,7 @@
    "rows": 13073,
    "grain": "one full medium record per line",
    "note": "streamable; same schema as data/media/<id>.json",
-   "size": "49.4 MB"
+   "size": "49.7 MB"
   }
  },
  "notes": [

@@ -192,7 +192,7 @@ async function openMed(id){
   const rows=comps.map(c=>{
     const xr=c.xref||{};const xs=xrefLinks(xr,['hmdb','kegg','chebi','seed','inchikey']);
     const cc=c.mapping_confidence||'';const cl=cc==='exact'?'conf-exact':cc==='inferred'?'conf-inferred':'conf-convention';
-    const content=c.foodb_content!=null?`${c.foodb_content} ${esc(c.foodb_unit||'')}`:(c.concentration_mM!=null?c.concentration_mM+' mM':'');
+    const content=c.foodb_content!=null?`${c.foodb_content} ${esc(c.foodb_unit||'')}`:(c.concentration_mM!=null?c.concentration_mM+' mM':(c.mg_per_g_source!=null?`<span title="quantitative composition — Tao 2022 Table 2">${c.mg_per_g_source} mg/g YE</span>`:''));
     const src=c.exchange_source||(c.in_biggr?'biggr':'bigg');
     const approx=c.mapping_method==='complex_decomposition'?` <span title="in-silico approximation from ${esc(c.derived_from||'')} — ${esc(c.decomposition_ref||'standard bionutrient composition')}" style="font-size:.66rem;color:#c77800">≈ ${esc(c.derived_from||'complex')}</span>`:'';
     return `<tr><td>${esc(c.name)}${approx}</td><td><code>${esc(c.exchange)}</code></td><td>${srcBadge(src)}</td><td>${c.lower_bound}</td>
