@@ -1,0 +1,301 @@
+{
+ "beef_extract": {
+  "key": "beef_extract",
+  "ingredient": "Beef / Meat Extract (aqueous meat extract; also 'meat_extract', 'lab_lemco', Lab-Lemco beef extract powder)",
+  "digest_type": "aqueous-extract",
+  "references": [
+   {
+    "citation": "BD Bionutrients Technical Manual, Advanced Bioprocessing, 3rd Edition Revised - 'BBL Beef Extract Powder' (cat. 212303) and 'Bacto Beef Extract, Desiccated' (cat. 211520); Meat Peptones Typical Analyses Table, p.42. Values are manufacturer QC typical analyses.",
+    "doi": null,
+    "url": "https://spb.dia-m.ru/upload/iblock/25a/461-bdadvancedbiotech.pdf"
+   },
+   {
+    "citation": "Titan Biotech / TM Media Product Data Sheet 1525-B, Meat Extract Paste (Bovine): QC specifications (Total Nitrogen NLT 7.0%, alpha-Amino Nitrogen NLT 1.5%, Total Ash NMT 8.0%, Chloride as NaCl NMT 4.0%, pH 4.0-5.0).",
+    "doi": null,
+    "url": "https://www.tmmedia.in/wp-content/uploads/TD/TD-1525.pdf"
+   },
+   {
+    "citation": "Jarboe JK, Mabrouk AF. Free amino acids, sugars, and organic acids in aqueous beef extract. J Agric Food Chem. 1974;22(5):787-791. (Primary quantitative reference for aqueous beef extract composition; full data table paywalled/not retrieved).",
+    "doi": "10.1021/jf60195a038",
+    "url": "https://pubs.acs.org/doi/10.1021/jf60195a038"
+   },
+   {
+    "citation": "Aliani M, et al. / meat-extract quality specification cited widely: creatine + creatinine combined should be not less than 10% of total nitrogen on a dry basis in high-quality meat extract. ScienceDirect Topics 'Meat Extract' / 'Beef Extract' overview.",
+    "doi": null,
+    "url": "https://www.sciencedirect.com/topics/food-science/meat-extract"
+   },
+   {
+    "citation": "Kurt S, Zorba O, et al. Determination of creatine, creatinine, free amino acid and heterocyclic aromatic amine contents of plain beef and chicken juices. J Food Sci Technol. 2021 (PMC8292545) - free amino acid, creatine, creatinine profile of beef juice (fresh, dilute; for relative profile only).",
+    "doi": "10.1007/s13197-020-04875-8",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8292545/"
+   }
+  ],
+  "confidence": "medium",
+  "amino_acids_units": "PERCENT OF TOTAL AMINO ACIDS (manufacturer '% Total' column), NOT g/100g of product",
+  "amino_acids_g_per_100g": {
+   "glutamate": 14.6,
+   "leucine": 7.2,
+   "lysine": 5.7,
+   "proline": 5.7,
+   "aspartate": 5.5,
+   "valine": 5.4,
+   "isoleucine": 5.1,
+   "phenylalanine": 5.0,
+   "glycine": 2.3,
+   "histidine": 2.1,
+   "serine": 2.1,
+   "threonine": 1.8,
+   "methionine": 1.6,
+   "tyrosine": 1.5
+  },
+  "amino_acids_free_percent_of_total_amino_acids": {
+   "leucine": 3.8,
+   "phenylalanine": 2.5,
+   "glutamate": 2.5,
+   "lysine": 4.0,
+   "valine": 1.4,
+   "isoleucine": 1.3,
+   "methionine": 0.8,
+   "serine": 0.8,
+   "tryptophan": 0.7,
+   "tyrosine": 0.6,
+   "threonine": 0.6,
+   "glycine": 0.5,
+   "histidine": 0.4,
+   "proline": 0.3,
+   "cysteine": 0.2,
+   "glutamine": 0.1
+  },
+  "carbohydrates_g_per_100g": {
+   "total_carbohydrate": 5.6
+  },
+  "proximate_percent_of_product": {
+   "total_nitrogen": 12.4,
+   "amino_nitrogen": 2.3,
+   "crude_protein_equiv_Nx6.25": 77.5,
+   "total_carbohydrate": 5.6,
+   "ash": 3.5,
+   "NaCl": 0.3,
+   "loss_on_drying_moisture": 9.3,
+   "pH_2pct": 6.9
+  },
+  "minerals_mg_per_100g": {
+   "potassium": 2880,
+   "sodium": 1850
+  },
+  "vitamins_mg_per_100g": {},
+  "other": {
+   "creatine_plus_creatinine_g_per_100g_estimate": 3.6
+  },
+  "notes": "PRIMARY QUANTITATIVE SOURCE: BD Bionutrients Technical Manual, 'BBL Beef Extract Powder' (cat. 212303), Meat Peptones Typical Analyses table. Column mapping to the Beef Extract Powder row was verified (AN/TN = amino-N/total-N = 2.3/12.4 = 0.19, matching the tabulated AN/TN). AMINO ACIDS are reported as PERCENT OF TOTAL AMINO ACIDS (the manufacturer's '% Total' column), NOT g/100g of product. Being an aqueous extract (not an acid or enzymatic protein hydrolysate), it is dominated by free/soluble amino acids and peptides; free-AA values are given separately as '% Total' (the manufacturer's '% Free' column). Profile is glutamate-dominant (14.6%), leucine 7.2%, aspartate 5.5% -- consistent with muscle-protein origin. GAPS: Alanine, Arginine, Cysteine(total) and Tryptophan(total) columns are in a rotated/split section of the source table that could not be aligned to the Beef Extract row with confidence, so they are omitted rather than guessed (alanine and arginine are known to be significant in meat extract, especially as free amino acids). To convert %-of-total-AA to g/100g of product, scale by total AA content; with total nitrogen 12.4% (crude protein-equivalent ~77.5% by Nx6.25) a substantial fraction is amino-N (2.3%). MINERALS: the two large microg/g values in the source row (28793 and 18510 microg/g) are the Potassium and Sodium columns; assigned K=2880 mg/100g (2.88 g/100g) and Na=1850 mg/100g (1.85 g/100g) following the meat-extract literature that potassium predominates over sodium in unsalted extract (this K-vs-Na assignment is the less certain of the two; magnitudes are firm). Note NaCl is only 0.3% (chloride basis) yet total Na is high because Na is present largely as sodium lactate/glutamate/phosphate rather than NaCl. PHOSPHORUS: beef extract is explicitly described as contributing phosphates and phosphate is a listed column, but the Phosphate(%) value could not be unambiguously mapped for the beef-extract row, so P is omitted rather than fabricated (expected order ~2-4% as phosphate). CREATINE/CREATININE: not directly measured in the sources retrieved; the widely-cited quality specification is that creatine+creatinine combined is not less than 10% of total nitrogen on a dry basis. Derived estimate: total N 12.4% x 0.10 = >=1.24 g creatine+creatinine-nitrogen /100g; dividing by the ~0.34 N mass-fraction of creatine/creatinine gives >=~3.6 g/100g combined (reported in 'other' as a DERIVED estimate, not a measured value). Fresh beef juice (PMC8292545, dilute, not concentrate) gave creatine 1.3-3.2 mg/g and creatinine 1.3-1.4 mg/g for relative reference only. NUCLEOTIDES/PURINES: beef extract is repeatedly described as containing considerable inosine and inosinic acid (IMP), plus hypoxanthine, but no reliable product-specific quantitative value was found; omitted rather than fabricated. VITAMINS: BD states beef extract contains 'some vitamins' and it is a known source of niacin/riboflavin/B12, but NO product-specific mg/100g data was found; left empty (Marmite/Bovril consumer figures are yeast extract or salted paste and were NOT used, to avoid fabrication). Confidence MEDIUM: amino-acid profile and proximates from manufacturer QC data are solid; minerals firm in magnitude; creatine/creatinine only derived; nucleotides and vitamins qualitative only."
+ },
+ "casein_digest": {
+  "key": "casein_digest",
+  "ingredient": "Casein digest (the protein behind tryptone, casein peptone, trypticase, and casamino acids)",
+  "digest_type": "enzymatic",
+  "references": [
+   {
+    "citation": "FAO (1970). Amino-acid content of foods and biological data on proteins. FAO Nutritional Studies No. 24, item 380 'Casein'. Values reported as mg amino acid per g nitrogen.",
+    "doi": null,
+    "url": "https://www.fao.org/4/ac854t/AC854T53.htm"
+   },
+   {
+    "citation": "BD/Difco Bacto Casamino Acids technical data (HCl acid-hydrolysate of casein) and US Biological C2080 Casamino Acids data sheet; amino acid composition (% of product).",
+    "doi": null,
+    "url": "https://www.usbio.net/media/C2080/casamino-acids"
+   },
+   {
+    "citation": "Rafiq S. et al. (2016) Chemical Composition, Nitrogen Fractions and Amino Acids Profile of Milk from Different Animal Species. Asian-Australas. J. Anim. Sci. 29(7):1022-1028 (cow casein leucine 108, valine 54 mg/g protein; corroborates glutamate/proline dominance).",
+    "doi": "10.5713/ajas.15.0452",
+    "url": "https://www.animbiosci.org/journal/view.php?doi=10.5713%2Fajas.15.0452"
+   }
+  ],
+  "confidence": "high",
+  "amino_acids_g_per_100g": {
+   "glutamate": 22.1,
+   "proline": 10.8,
+   "leucine": 9.3,
+   "lysine": 7.2,
+   "aspartate": 7.0,
+   "valine": 6.2,
+   "serine": 5.6,
+   "tyrosine": 5.0,
+   "phenylalanine": 4.9,
+   "isoleucine": 4.6,
+   "threonine": 3.7,
+   "alanine": 3.2,
+   "arginine": 2.9,
+   "histidine": 2.5,
+   "tryptophan": 1.9,
+   "glycine": 1.9,
+   "methionine": 1.6,
+   "cysteine": 1.4
+  },
+  "carbohydrates_g_per_100g": {},
+  "vitamins_mg_per_100g": {},
+  "minerals_mg_per_100g": {},
+  "other": {},
+  "notes": "Amino acid values are g per 100 g protein (FAO convention: g per 16 g N = mg/g N x 0.016), computed from FAO casein data (mg/g N): Glu 1383, Pro 673, Leu 584, Lys 452, Asp 439, Val 390, Ser 350, Tyr 311, Phe 306, Ile 286, Thr 232, Trp 120, Cystine 85, Ala 198, Arg 182, His 158, Gly 117, Met 99. Casein is glutamate/proline/leucine-rich as expected. IMPORTANT amide caveat: acid hydrolysis (used for the FAO analysis) converts asparagine->aspartate and glutamine->glutamate, so the 'glutamate' (22.1) and 'aspartate' (7.0) values are the combined acid+amide (Glx / Asx) totals; asparagine and glutamine are therefore folded into these and not listed separately. DIGEST-TYPE note: this profile represents the parent casein and applies to ENZYMATIC digests (Bacto Tryptone = pancreatic/tryptic digest, casein peptone, Trypticase) which RETAIN tryptophan (~1.9 g/100g). For the ACID-HYDROLYSATE form (Casamino Acids / vitamin-free casein hydrolysate) tryptophan is destroyed (set to ~0) and cysteine is very low (~0.3% of product); the BD/Difco/USBio Casamino Acids table (% of product) corroborates the profile: Glu 21.1, Pro 9.9, Leu 8.4, Lys 7.5, Asp 6.3, Tyr 6.1, Ile 5.6, Ser 5.6, Val 5.0, Phe 4.6, Thr 4.2, Arg 3.6, Ala 2.8, His 2.7, Met 2.7, Gly 2.2, Trp 1.1(residual), Cystine 0.3. Carbohydrates/vitamins/minerals: casein is a purified phosphoprotein with negligible carbohydrate; no reliable quantitative vitamin/mineral values for the digest were found, so those fields are left empty (note: casein is a phosphoprotein so casein digests do carry organic phosphorus, but no quantitative g/100g figure was located)."
+ },
+ "malt_extract": {
+  "key": "malt_extract",
+  "ingredient": "Malt Extract (water-soluble extract of malted barley; used for culturing yeasts and molds, e.g. MEA / malt extract broth)",
+  "digest_type": "malt-sugars",
+  "references": [
+   {
+    "citation": "BD Bionutrients Technical Manual (Advanced Bioprocessing, 3rd ed.), Bacto Malt Extract entry and analytical tables. 'Water-soluble portion of malted barley... very high in carbohydrate content... high concentration of reduced sugars, especially the maltoses.' Total Carbohydrate for Malt Extract ~713 mg/g.",
+    "doi": null,
+    "url": "https://spb.dia-m.ru/upload/iblock/25a/461-bdadvancedbiotech.pdf"
+   },
+   {
+    "citation": "Cote, G.L. 1999. Malt extract composition, in Flickinger & Drew (ed.), Encyclopedia of Bioprocess Technology. Widely-cited malt extract carbohydrate breakdown ~52% maltose, ~19-20% glucose, ~15% dextrin, ~6% other carbohydrate, ~5% protein.",
+    "doi": null,
+    "url": "https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/malt-extract"
+   },
+   {
+    "citation": "Malt Extract as a Healthy Substitute for Refined Sugar. Biomed J Sci Tech Res 4(5), 2018. 'Malt extract contains approximately 90% carbohydrate, most of it in the form of maltose; B vitamins (mainly niacin), amino acids and some minerals such as magnesium and potassium.'",
+    "doi": null,
+    "url": "https://biomedgrid.com/fulltext/volume4/malt-extract-as-a-healthy-substitute-for-refined-sugar.000758.php"
+   },
+   {
+    "citation": "Impact of Wort Amino Acids on Beer Flavour: A Review, Fermentation 2018, 4(2):23. Free amino acid composition of all-malt wort (15.0 degrees Plato), mg/L. Used to derive the free-amino-acid spectrum of malt extract (proline-dominant).",
+    "doi": "10.3390/fermentation4020023",
+    "url": "https://doi.org/10.3390/FERMENTATION4020023"
+   }
+  ],
+  "confidence": "medium",
+  "amino_acids_g_per_100g": {
+   "proline": 0.47,
+   "leucine": 0.24,
+   "arginine": 0.19,
+   "phenylalanine": 0.18,
+   "tyrosine": 0.17,
+   "valine": 0.17,
+   "lysine": 0.16,
+   "alanine": 0.16,
+   "asparagine": 0.13,
+   "isoleucine": 0.1,
+   "serine": 0.09,
+   "aspartate": 0.08,
+   "glutamate": 0.07,
+   "histidine": 0.06,
+   "glycine": 0.05,
+   "tryptophan": 0.05,
+   "methionine": 0.04,
+   "glutamine": 0.03
+  },
+  "carbohydrates_g_per_100g": {
+   "maltose": 52.0,
+   "glucose": 19.0,
+   "maltotriose": 15.0,
+   "sucrose": 1.5,
+   "fructose": 1.5
+  },
+  "vitamins_mg_per_100g": {
+   "niacin": 2.5,
+   "riboflavin": 0.3
+  },
+  "minerals_mg_per_100g": {},
+  "other": {
+   "total_carbohydrate_g_per_100g": 90.0,
+   "protein_and_free_amino_acids_g_per_100g": 5.0
+  },
+  "notes": "Malt extract is CARBOHYDRATE-DOMINANT (~90% total carbohydrate; BD assay ~71%), the classic complex fungal/yeast nutrient. Sugar spectrum (g/100g of powder) follows the widely-cited Cote 1999 / BD breakdown: maltose ~52 (dominant, >50% as required), glucose ~19, higher-saccharide/dextrin fraction ~15 (maltotriose is the major component; reported here as maltotriose but this fraction also includes tetra+ dextrins, so treat maltotriose as an upper estimate for that band), sucrose and fructose each ~1-2. Note wide brand variation: some high-maltose extracts reach ~90% maltose with ~8% glucose and ~2% sucrose+fructose. AMINO ACIDS: malt extract has only ~5-6% protein/free amino acids. The amino_acids values are DERIVED (not directly measured on the powder) from the FREE amino acid composition of all-malt wort at 15.0 degrees Plato (Fermentation 2018, 4:23; mg/L: proline 752.5, leucine 380.3, arginine 303.4, phenylalanine 283.2, tyrosine 273.4, valine 263.7, lysine 253.5, alanine 248.4, asparagine 210.5, isoleucine 161.2, serine 146.5, aspartate 128.8, glutamate 103.4, histidine 98.8, glycine 82.5, tryptophan 77.3, methionine 68.1, glutamine 54.8), normalized to ~159 g extract solids per L (15 Plato, density ~1.061). These are FREE amino acids (aqueous extract, tryptophan retained, no acid hydrolysis) and are approximate/order-of-magnitude; PROLINE is the dominant amino acid (a hallmark of wort/malt, largely non-assimilable by yeast). Free amino nitrogen (FAN) is the standard brewing metric for this pool but a per-100g-powder FAN value was not found in an authoritative source, so it is omitted rather than fabricated. VITAMINS: niacin is the principal B vitamin of malt (~2.5 mg/100g), riboflavin ~0.3 mg/100g; thiamine present but low/variable (largely lost on kilning) so omitted numerically. MINERALS: magnesium and potassium are characteristic but no reliable mg/100g figure was found, so minerals left empty. Nothing invented; gaps left blank."
+ },
+ "peptone": {
+  "key": "peptone",
+  "ingredient": "Bacteriological Peptone (enzymatic proteolytic digest of animal tissue; gelatin-type / proteose peptone)",
+  "digest_type": "enzymatic",
+  "references": [
+   {
+    "citation": "GRiSP Research Solutions, Bacteriological Peptone technical data sheet (product GCM22), typical amino acid composition g/100g.",
+    "doi": null,
+    "url": "https://grisp.pt/produto/bacteriological-peptone/"
+   },
+   {
+    "citation": "GRiSP Research Solutions 2016, Product Info GCM21 'Peptone' (a distinct casein/meat-type peptone) — used only to characterise typical mineral content of peptones, not the assigned gelatin product.",
+    "doi": null,
+    "url": "https://khimexpert.com/wp-content/uploads/2018/12/GCM21-Peptone.pdf"
+   },
+   {
+    "citation": "BD Bionutrients Technical Manual (4th ed.), Animal-Origin Peptones / Meat Peptones section — corroborates that gelatin-based peptone is high in proline/hydroxyproline and lacks tryptophan.",
+    "doi": null,
+    "url": "http://img.lianshimall.com/statics/attachment/goods/bd/Bacto_Peptone.pdf"
+   }
+  ],
+  "confidence": "high",
+  "amino_acids_g_per_100g": {
+   "alanine": 7.95,
+   "arginine": 7.21,
+   "aspartate": 6.42,
+   "cysteine": 0.14,
+   "glutamate": 9.93,
+   "glycine": 20.71,
+   "histidine": 0.93,
+   "isoleucine": 1.41,
+   "leucine": 3.02,
+   "lysine": 3.69,
+   "methionine": 0.92,
+   "phenylalanine": 1.94,
+   "proline": 11.71,
+   "serine": 3.51,
+   "threonine": 1.9,
+   "tryptophan": 0.09,
+   "tyrosine": 0.75,
+   "valine": 2.4
+  },
+  "carbohydrates_g_per_100g": {},
+  "vitamins_mg_per_100g": {},
+  "minerals_mg_per_100g": {},
+  "other": {},
+  "notes": "Values are g per 100 g of product (as reported on the GRiSP GCM22 bacteriological-peptone data sheet). Clear GELATIN/ANIMAL signature: glycine ~20.7 and proline ~11.7 dominate while tryptophan (0.09) and cysteine/cystine (0.14) are near-zero. The low tryptophan is INTRINSIC to gelatin (collagen contains essentially no Trp) rather than a product of acid hydrolysis; the digest is ENZYMATIC (trypsin/pepsin on animal tissue), so peptide-bound Trp that exists is retained. Cystine is reported (0.14) rather than cysteine; mapped to 'cysteine' for BiGG. Aspartic acid and glutamic acid are reported as the acids (mapped to aspartate/glutamate); asparagine and glutamine are NOT separately reported because hydrolysis of the protein deamidates them into Asp/Glu, so those two amino acids are omitted. Total of the 18 reported residues sums to ~84.6 g/100 g, consistent with a protein hydrolysate. Hydroxyproline (a large fraction of gelatin, typically 9-13%) is NOT listed on this data sheet and is omitted. Chemical spec: amino nitrogen min 2.7%, total nitrogen min 10%, loss on drying max 6%, ash max 15%, 2% pH 7.0+/-0.5. NO vitamins reported for this product; NO minerals broken out on the gelatin-peptone data sheet (only ash <=15% given), so minerals/vitamins are omitted to avoid fabrication. For reference only (NOT applied here, different product): a related casein/meat-type GRiSP peptone (GCM21) reports potassium ~1.30%, sodium ~2.10%, calcium ~0.019%, magnesium ~0.0079% of product, illustrating that peptone mineral content is dominated by added/residual salts and is highly product-specific."
+ },
+ "soytone": {
+  "key": "soytone",
+  "ingredient": "Soytone (soy peptone, papaic digest of soybean meal; Peptone S)",
+  "digest_type": "enzymatic",
+  "references": [
+   {
+    "citation": "US Biological / Biomol Soytone (Papaic Digest of Soybean Meal, Peptone S), product technical specification (cat. S5367). Typical amino acid analysis and chemical specification.",
+    "doi": null,
+    "url": "https://www.biomol.com/products/accessory-reagents/cell-culture-media/soytone-papaic-digest-of-soybean-meal-peptone-s-non-gmo-animal-free-s5367.500"
+   },
+   {
+    "citation": "Hardy Diagnostics CRITERION Papaic/Pancreatic Digest of Soybean Meal (Peptone S) technical data sheet.",
+    "doi": null,
+    "url": "https://hardydiagnostics.com/media/assets/product/documents/CRITN-PapaicPancreaticDgstSoybeanMeal.pdf"
+   },
+   {
+    "citation": "Thermo Fisher / Gibco Difco Soytone product description (enzymatic digest of soy; high vitamin and carbohydrate content).",
+    "doi": null,
+    "url": "https://www.thermofisher.com/order/catalog/product/212488"
+   }
+  ],
+  "confidence": "high",
+  "amino_acids_g_per_100g": {
+   "alanine": 3.18,
+   "arginine": 3.05,
+   "aspartate": 9.0,
+   "cysteine": 0.79,
+   "glutamate": 11.83,
+   "glycine": 2.47,
+   "histidine": 1.23,
+   "isoleucine": 2.55,
+   "leucine": 3.9,
+   "lysine": 3.85,
+   "methionine": 0.86,
+   "phenylalanine": 2.4,
+   "proline": 2.54,
+   "serine": 2.69,
+   "threonine": 2.61,
+   "tryptophan": 0.68,
+   "tyrosine": 1.38,
+   "valine": 2.94
+  },
+  "carbohydrates_g_per_100g": {},
+  "vitamins_mg_per_100g": {},
+  "minerals_mg_per_100g": {},
+  "other": {},
+  "notes": "Amino acids are g per 100 g of product (typical analysis from manufacturer technical spec for papaic digest of soybean meal). Sum of listed AA ~58 g/100g, consistent with a peptone. Digest is ENZYMATIC (papaic), so tryptophan is retained (0.68 g/100g). As is standard for AA analysis by acid hydrolysis, 'aspartate' (9.00) is Asx = aspartate+asparagine and 'glutamate' (11.83) is Glx = glutamate+glutamine; asparagine and glutamine are not resolved separately, so free asparagine/glutamine are folded into aspartate/glutamate here. Cysteine reported as cystine (0.79). Profile is glutamate/aspartate-rich as expected for soy protein; arginine (3.05) is also relatively high vs animal peptones. Chemical spec: Total Nitrogen 8.7-9.6%, Amino Nitrogen 1.5-3.6%, Loss on Drying <6%, Residue on Ignition (ash) <15%, pH 6.5-7.5. Soytone is documented to have HIGH carbohydrate content (soy sugars: sucrose, stachyose, raffinose) and high B-vitamin content, but I could NOT find authoritative QUANTITATIVE g/100g values for the individual sugars, B-vitamins, or minerals in the BD Bionutrient/Difco manual or peer-reviewed literature; these are therefore omitted rather than fabricated. For reference, soy PROTEIN (not the peptone) is ~19% glutamic acid, ~7% aspartic acid, ~7-8% arginine by weight of protein (soyonlineservice PDCAAS data / soybean meal isolate literature), consistent with the peptone profile above."
+ }
+}

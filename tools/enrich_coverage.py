@@ -33,7 +33,7 @@ MEDIA = os.path.join(REPO, "data", "media")
 sys.path.insert(0, HERE)
 from map_metabolite import Mapper, norm  # noqa: E402
 from complex_ingredients import (decompose, REFS, ingredient_key, reference_link,  # noqa: E402
-                                 YEAST_MG_PER_G, YEAST_MINERAL_IDS)
+                                 COMPOSITION_MG_PER_G, MINERAL_IDS)
 
 # ---- molecular weights (from BiGG formula) for molar-weighting quantitative decompositions ----
 _AW = {"H": 1.008, "C": 12.011, "N": 14.007, "O": 15.999, "S": 32.06, "P": 30.974,
@@ -58,10 +58,10 @@ def _mw(bid):
         return _AW[_ELEM_OF[bid]]
     return _formula_mw((DICT.get(bid, {}).get("xrefs") or {}).get("formula"))
 
-def _yeast_amounts():
+def _ingredient_amounts(mg_table):
     """{bigg_id: {mg_per_g, mmol_per_g, lower_bound}} — organics molar-weighted, minerals -1000."""
     out = {}
-    for b, mg in YEAST_MG_PER_G.items():
+    for b, mg in mg_table.items():
         if not valid(b):
             continue
         mw = _mw(b)
@@ -69,10 +69,10 @@ def _yeast_amounts():
         out[b] = {"mg_per_g": mg, "_mmol": mmol,
                   "mmol_per_g": (round(mmol, 5) if mmol else None), "mw": mw}
     # molar-weighted bound for organics: most-abundant organic -> -10, floor -0.1
-    org = [v["_mmol"] for b, v in out.items() if b not in YEAST_MINERAL_IDS and v["_mmol"]]
+    org = [v["_mmol"] for b, v in out.items() if b not in MINERAL_IDS and v["_mmol"]]
     mx = max(org) if org else 1.0
     for b, v in out.items():
-        if b in YEAST_MINERAL_IDS:
+        if b in MINERAL_IDS:
             v["lower_bound"] = -1000.0
         elif v["_mmol"]:
             v["lower_bound"] = round(min(max(-10.0 * v["_mmol"] / mx, -10.0), -0.1), 3)
@@ -81,12 +81,12 @@ def _yeast_amounts():
         v.pop("_mmol", None)
     return out
 
-_YEAST_AMOUNTS = None
-def yeast_amounts():
-    global _YEAST_AMOUNTS
-    if _YEAST_AMOUNTS is None:
-        _YEAST_AMOUNTS = _yeast_amounts()
-    return _YEAST_AMOUNTS
+_AMOUNTS_CACHE = {}
+def ingredient_amounts(key):
+    """Cached per-ingredient quantitative amounts, {} if the ingredient has no mg/g table."""
+    if key not in _AMOUNTS_CACHE:
+        _AMOUNTS_CACHE[key] = _ingredient_amounts(COMPOSITION_MG_PER_G.get(key, {}))
+    return _AMOUNTS_CACHE[key]
 
 MAP = Mapper()
 DICT = MAP.dict
@@ -246,7 +246,7 @@ def decomposition_components(name):
         return None
     key, ids = d
     ref = REFS.get(ingredient_key(name))
-    amounts = yeast_amounts() if key == "yeast_extract" else {}
+    amounts = ingredient_amounts(key)
     out = []
     for b in ids:
         rec = DICT.get(b, {})
@@ -313,19 +313,18 @@ def uncovered_entry(name, xref):
 
 def enrich(med):
     comps = med.get("components", []) or []
-    ya = yeast_amounts()
     for c in comps:
         c["exchange_source"] = source_of(c)
-        # backfill the decomposition reference on already-decomposed components
-        if c.get("mapping_method") == "complex_decomposition" and not c.get("decomposition_ref"):
-            r = REFS.get(ingredient_key(c.get("derived_from", "")))
-            if r:
-                c["decomposition_ref"] = r
-        # backfill QUANTITATIVE yeast-extract amounts + molar-weighted bounds onto
-        # components already decomposed at build time (std/DSMZ/food media)
-        if (c.get("mapping_method") == "complex_decomposition"
-                and ingredient_key(c.get("derived_from", "")) == "yeast_extract"):
-            amt = ya.get(c.get("bigg_metabolite"))
+        if c.get("mapping_method") == "complex_decomposition":
+            ik = ingredient_key(c.get("derived_from", ""))
+            # backfill the decomposition reference
+            if not c.get("decomposition_ref"):
+                r = REFS.get(ik)
+                if r:
+                    c["decomposition_ref"] = r
+            # backfill QUANTITATIVE composition amounts + molar-weighted bounds onto
+            # components already decomposed at build time (std/DSMZ/food media)
+            amt = ingredient_amounts(ik).get(c.get("bigg_metabolite")) if ik else None
             if amt:
                 c["lower_bound"] = amt["lower_bound"]
                 c["mg_per_g_source"] = amt["mg_per_g"]

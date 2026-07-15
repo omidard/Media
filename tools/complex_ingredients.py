@@ -35,10 +35,10 @@ COMPOSITION = {
     "proteose_peptone": AA20 + ["nac", "ribflv"],
     "soytone":         AA20 + ["thm", "ribflv", "nac"] + ["glc__D"],
     "casamino_acids":  AA_NO_TRP,                    # acid hydrolysis destroys Trp
-    "beef_extract":    AA20 + BVIT + NUC + MIN,
-    "meat_extract":    AA20 + BVIT + NUC + MIN,
-    "lab_lemco":       AA20 + BVIT + NUC + MIN,
-    "malt_extract":    SUG_MALT + AA20[:6] + ["thm", "ribflv", "nac", "pydxn"],  # sugar-dominant
+    "beef_extract":    AA20 + BVIT + NUC + MIN + ["creat"],   # + creatine (muscle marker)
+    "meat_extract":    AA20 + BVIT + NUC + MIN + ["creat"],
+    "lab_lemco":       AA20 + BVIT + NUC + MIN + ["creat"],
+    "malt_extract":    SUG_MALT + ["sucr", "fru"] + AA20 + ["nac", "ribflv"],  # sugar-dominant
 }
 
 # name -> ingredient key (order matters: more specific first)
@@ -60,17 +60,17 @@ _PATTERNS = [
 # reference supporting each ingredient's approximate compound-class composition
 REFS = {
     "yeast_extract": "Yeast extract = autolysate of Saccharomyces cerevisiae. Component amounts here are QUANTITATIVE (mg per g yeast extract), from Tao Z et al., J Microbiol Biotechnol 2022;32:1236-1247, Table 2 (doi:10.4014/jmb.2207.07057, PMC9998214): free amino acids ~35% w/w with the measured pattern (Ala/Glu/Asp/Leu/Arg/Lys dominant; Cys/Met/Trp minor), B-vitamins (niacin >> pyridoxine/pantothenate > thiamine > riboflavin/folate/B12; biotin trace), ~10% RNA-derived nucleosides, and minerals (K/P-rich). Corroborated by Podpora B et al., Czech J Food Sci 2016;34:554-563, doi:10.17221/419/2015-CJFS; Atlas RM, Handbook of Microbiological Media, doi:10.1201/EBK1439804063. Per-component lower bounds are scaled to molar abundance (mg/g ÷ molecular weight).",
-    "tryptone": "Tryptone = pancreatic (tryptic) digest of casein; amino-acid-rich, tryptophan retained — BD Bionutrient Technical Manual; casein amino-acid profile (FAO/WHO).",
-    "casein_peptone": "Tryptic/enzymatic digest of casein; amino-acid profile of casein — BD Bionutrient Technical Manual.",
-    "trypticase": "Trypticase = pancreatic digest of casein (BBL) — BD Bionutrient Technical Manual.",
-    "peptone": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
-    "proteose_peptone": "Proteose peptone = enzymatic protein digest — BD Bionutrient Technical Manual.",
-    "soytone": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
-    "casamino_acids": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
-    "beef_extract": "Beef extract = aqueous meat extract; amino acids, nucleotides (creatine/creatinine), water-soluble vitamins and minerals — Atlas RM, Handbook of Microbiological Media.",
-    "meat_extract": "Meat extract (Lab-Lemco) composition — Oxoid/BD technical data; Atlas RM, Handbook of Microbiological Media.",
-    "lab_lemco": "Lab-Lemco meat extract — Oxoid technical data.",
-    "malt_extract": "Malt extract = maltose-dominant sugars plus amino acids and B-vitamins — BD Bionutrient Technical Manual.",
+    "tryptone": "Tryptone = pancreatic (tryptic) digest of casein; tryptophan retained. QUANTITATIVE amino-acid composition (mg/g) from casein: Glu/Pro/Leu-dominant — FAO Amino-acid Content of Foods (1970); Rafiq S et al., Asian-Australas J Anim Sci 2016;29:1022, doi:10.5713/ajas.15.0452; BD Bionutrient Technical Manual.",
+    "casein_peptone": "Casein peptone = enzymatic digest of casein. QUANTITATIVE amino-acid composition (mg/g): Glu/Pro/Leu-dominant — FAO (1970); Rafiq S et al., Asian-Australas J Anim Sci 2016;29:1022, doi:10.5713/ajas.15.0452; BD Bionutrient Technical Manual.",
+    "trypticase": "Trypticase = pancreatic digest of casein (BBL). QUANTITATIVE casein amino-acid composition (mg/g): Glu/Pro/Leu-dominant — Rafiq S et al., Asian-Australas J Anim Sci 2016;29:1022, doi:10.5713/ajas.15.0452; BD Bionutrient Technical Manual.",
+    "peptone": "Peptone = enzymatic digest of animal protein/gelatin. QUANTITATIVE amino-acid composition (mg/g) — gelatin/collagen signature: glycine/proline-dominant, tryptophan/cysteine near-zero (intrinsic to collagen). BD Bionutrient Technical Manual; GRiSP bacteriological peptone data sheet.",
+    "proteose_peptone": "Proteose peptone = enzymatic protein digest. QUANTITATIVE amino-acid composition (mg/g), gelatin/animal signature (glycine/proline-dominant) — BD Bionutrient Technical Manual.",
+    "soytone": "Soytone = papaic digest of soybean meal. QUANTITATIVE amino-acid composition (mg/g): glutamate/aspartate-rich soy-protein profile — BD/US Biological Soytone data sheet; soy protein amino-acid literature.",
+    "casamino_acids": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed, cysteine very low. QUANTITATIVE casein amino-acid composition (mg/g, Trp=0): Glu/Pro/Leu-dominant — Rafiq S et al. 2016, doi:10.5713/ajas.15.0452; BD/Difco Casamino Acids table.",
+    "beef_extract": "Beef extract = aqueous meat extract. QUANTITATIVE composition (mg/g): muscle-protein amino acids (Glu/Leu-rich), creatine, K/Na — BBL Beef Extract analysis (BD Bionutrient Technical Manual); Jarboe JK, Mabrouk AF, J Agric Food Chem 1974;22:787, doi:10.1021/jf60195a038.",
+    "meat_extract": "Meat extract (Lab-Lemco) = aqueous meat extract. QUANTITATIVE composition (mg/g): muscle-protein amino acids, creatine, K/Na — BD Bionutrient Technical Manual; Jarboe & Mabrouk, J Agric Food Chem 1974, doi:10.1021/jf60195a038.",
+    "lab_lemco": "Lab-Lemco meat extract. QUANTITATIVE composition (mg/g): muscle amino acids, creatine, K/Na — Jarboe & Mabrouk 1974, doi:10.1021/jf60195a038; Oxoid/BD technical data.",
+    "malt_extract": "Malt extract = carbohydrate-dominant (~90% sugars). QUANTITATIVE composition (mg/g): maltose (~52%) > glucose > maltotriose (Cote GL 1999; BD Bionutrient Technical Manual); minor proline-dominant free amino acids from wort — Fermentation 2018;4:23, doi:10.3390/fermentation4020023.",
 }
 
 
@@ -91,10 +91,13 @@ def reference_for(name):
 _ATLAS = "https://doi.org/10.1201/EBK1439804063"   # Atlas RM, Handbook of Microbiological Media, CRC 4th ed.
 _DIFCO = "https://archive.org/details/difcomanualdehyd0000unse"  # Difco/BD Manual (BD Bionutrient lineage)
 _YEAST = "https://doi.org/10.4014/jmb.2207.07057"  # Tao et al. 2022, J Microbiol Biotechnol (open access, PMC9998214)
+_CASEIN = "https://doi.org/10.5713/ajas.15.0452"    # Rafiq et al. 2016 (casein amino-acid composition)
+_MEAT = "https://doi.org/10.1021/jf60195a038"       # Jarboe & Mabrouk 1974 (beef-extract free amino acids)
+_MALT = "https://doi.org/10.3390/fermentation4020023"  # wort free amino acids 2018 (open access)
 REF_LINKS = {
-    "yeast_extract": _YEAST, "tryptone": _DIFCO, "casein_peptone": _DIFCO, "trypticase": _DIFCO,
-    "peptone": _ATLAS, "proteose_peptone": _DIFCO, "soytone": _DIFCO, "casamino_acids": _DIFCO,
-    "beef_extract": _ATLAS, "meat_extract": _ATLAS, "lab_lemco": _ATLAS, "malt_extract": _DIFCO,
+    "yeast_extract": _YEAST, "tryptone": _CASEIN, "casein_peptone": _CASEIN, "trypticase": _CASEIN,
+    "peptone": _DIFCO, "proteose_peptone": _DIFCO, "soytone": _DIFCO, "casamino_acids": _CASEIN,
+    "beef_extract": _MEAT, "meat_extract": _MEAT, "lab_lemco": _MEAT, "malt_extract": _MALT,
 }
 
 
@@ -131,7 +134,38 @@ YEAST_MG_PER_G = {
     "adn": 16.0, "gsn": 16.0, "cytd": 14.0, "uri": 14.0, "ins": 8.0, "thymd": 2.0,
 }
 # elemental exchanges keep the mineral (non-limiting) bound; the rest are molar-weighted
-YEAST_MINERAL_IDS = {"k", "pi", "na1", "mg2", "ca2", "zn2", "mn2", "cu2", "fe2", "so4", "cobalt2"}
+MINERAL_IDS = {"k", "pi", "na1", "mg2", "ca2", "zn2", "mn2", "cu2", "fe2", "so4", "cobalt2"}
+YEAST_MINERAL_IDS = MINERAL_IDS   # back-compat alias
+
+# ---- QUANTITATIVE composition (mg per gram) for the other complex ingredients ----
+# From dedicated composition research (amino acids g/100g or % of total AA; sugars g/100g;
+# vitamins/minerals mg/100g), all converted to mg/g. Per-component lower bounds are scaled
+# to molar abundance downstream, so relative proportions are what matter.
+#   casein digests (tryptone/casein peptone/trypticase): FAO amino-acid data + Rafiq et al.
+#     2016 (doi:10.5713/ajas.15.0452) + BD/Difco Casamino Acids table. Glu/Pro/Leu-rich.
+#   casamino acids: casein profile, Trp destroyed by acid hydrolysis, cysteine very low.
+#   peptone/proteose peptone: gelatin/animal enzymatic digest (GRiSP data sheet; BD manual) —
+#     glycine/proline-dominant, near-zero Trp/Cys (intrinsic to collagen).
+#   soytone: papaic digest of soybean meal (BD/USBio spec) — Glu/Asp-rich.
+#   beef/meat extract / Lab-Lemco: BBL Beef Extract analysis (BD manual) + Jarboe & Mabrouk,
+#     J Agric Food Chem 1974 (doi:10.1021/jf60195a038) — muscle-protein AAs (% of total AA),
+#     creatine, K, Na. Nucleotides/vitamins qualitative -> left presence-based.
+#   malt extract: sugar-dominant (maltose/glucose/maltotriose; Cote 1999, BD manual);
+#     free amino acids from all-malt wort (Fermentation 2018, doi:10.3390/fermentation4020023),
+#     proline-dominant; niacin/riboflavin.
+COMPOSITION_MG_PER_G = {"yeast_extract": YEAST_MG_PER_G,
+    "tryptone": {"glu__L": 221.0, "pro__L": 108.0, "leu__L": 93.0, "lys__L": 72.0, "asp__L": 70.0, "val__L": 62.0, "ser__L": 56.0, "tyr__L": 50.0, "phe__L": 49.0, "ile__L": 46.0, "thr__L": 37.0, "ala__L": 32.0, "arg__L": 29.0, "his__L": 25.0, "trp__L": 19.0, "gly": 19.0, "met__L": 16.0, "cys__L": 14.0},
+    "casein_peptone": {"glu__L": 221.0, "pro__L": 108.0, "leu__L": 93.0, "lys__L": 72.0, "asp__L": 70.0, "val__L": 62.0, "ser__L": 56.0, "tyr__L": 50.0, "phe__L": 49.0, "ile__L": 46.0, "thr__L": 37.0, "ala__L": 32.0, "arg__L": 29.0, "his__L": 25.0, "trp__L": 19.0, "gly": 19.0, "met__L": 16.0, "cys__L": 14.0},
+    "trypticase": {"glu__L": 221.0, "pro__L": 108.0, "leu__L": 93.0, "lys__L": 72.0, "asp__L": 70.0, "val__L": 62.0, "ser__L": 56.0, "tyr__L": 50.0, "phe__L": 49.0, "ile__L": 46.0, "thr__L": 37.0, "ala__L": 32.0, "arg__L": 29.0, "his__L": 25.0, "trp__L": 19.0, "gly": 19.0, "met__L": 16.0, "cys__L": 14.0},
+    "casamino_acids": {"glu__L": 221.0, "pro__L": 108.0, "leu__L": 93.0, "lys__L": 72.0, "asp__L": 70.0, "val__L": 62.0, "ser__L": 56.0, "tyr__L": 50.0, "phe__L": 49.0, "ile__L": 46.0, "thr__L": 37.0, "ala__L": 32.0, "arg__L": 29.0, "his__L": 25.0, "gly": 19.0, "met__L": 16.0, "cys__L": 3.0},
+    "peptone": {"gly": 207.1, "pro__L": 117.1, "glu__L": 99.3, "ala__L": 79.5, "arg__L": 72.1, "asp__L": 64.2, "lys__L": 36.9, "ser__L": 35.1, "leu__L": 30.2, "val__L": 24.0, "phe__L": 19.4, "thr__L": 19.0, "ile__L": 14.1, "his__L": 9.3, "met__L": 9.2, "tyr__L": 7.5, "cys__L": 1.4, "trp__L": 0.9},
+    "proteose_peptone": {"gly": 207.1, "pro__L": 117.1, "glu__L": 99.3, "ala__L": 79.5, "arg__L": 72.1, "asp__L": 64.2, "lys__L": 36.9, "ser__L": 35.1, "leu__L": 30.2, "val__L": 24.0, "phe__L": 19.4, "thr__L": 19.0, "ile__L": 14.1, "his__L": 9.3, "met__L": 9.2, "tyr__L": 7.5, "cys__L": 1.4, "trp__L": 0.9},
+    "soytone": {"glu__L": 118.3, "asp__L": 90.0, "leu__L": 39.0, "lys__L": 38.5, "ala__L": 31.8, "arg__L": 30.5, "val__L": 29.4, "ser__L": 26.9, "thr__L": 26.1, "ile__L": 25.5, "pro__L": 25.4, "gly": 24.7, "phe__L": 24.0, "tyr__L": 13.8, "his__L": 12.3, "met__L": 8.6, "cys__L": 7.9, "trp__L": 6.8},
+    "beef_extract": {"glu__L": 146.0, "leu__L": 72.0, "lys__L": 57.0, "pro__L": 57.0, "asp__L": 55.0, "val__L": 54.0, "ile__L": 51.0, "phe__L": 50.0, "creat": 36.0, "k": 28.8, "gly": 23.0, "his__L": 21.0, "ser__L": 21.0, "na1": 18.5, "thr__L": 18.0, "met__L": 16.0, "tyr__L": 15.0},
+    "meat_extract": {"glu__L": 146.0, "leu__L": 72.0, "lys__L": 57.0, "pro__L": 57.0, "asp__L": 55.0, "val__L": 54.0, "ile__L": 51.0, "phe__L": 50.0, "creat": 36.0, "k": 28.8, "gly": 23.0, "his__L": 21.0, "ser__L": 21.0, "na1": 18.5, "thr__L": 18.0, "met__L": 16.0, "tyr__L": 15.0},
+    "lab_lemco": {"glu__L": 146.0, "leu__L": 72.0, "lys__L": 57.0, "pro__L": 57.0, "asp__L": 55.0, "val__L": 54.0, "ile__L": 51.0, "phe__L": 50.0, "creat": 36.0, "k": 28.8, "gly": 23.0, "his__L": 21.0, "ser__L": 21.0, "na1": 18.5, "thr__L": 18.0, "met__L": 16.0, "tyr__L": 15.0},
+    "malt_extract": {"malt": 520.0, "glc__D": 190.0, "malttr": 150.0, "sucr": 15.0, "fru": 15.0, "pro__L": 4.7, "leu__L": 2.4, "arg__L": 1.9, "phe__L": 1.8, "tyr__L": 1.7, "val__L": 1.7, "lys__L": 1.6, "ala__L": 1.6, "asn__L": 1.3, "ile__L": 1.0, "ser__L": 0.9, "asp__L": 0.8, "glu__L": 0.7, "his__L": 0.6, "gly": 0.5, "trp__L": 0.5, "met__L": 0.4, "gln__L": 0.3, "nac": 0.025, "ribflv": 0.003},
+}
 
 
 def decompose(name, valid=None):
