@@ -81,7 +81,8 @@ def main():
     for f in sorted(glob.glob(os.path.join(MEDIA, "*.json"))):
         d = json.load(open(f))
         # expert-curated media set their own oxygen regime — do not override
-        if (d.get("provenance") or {}).get("verification", "").startswith("expert-curated"):
+        if (d.get("provenance") or {}).get("verification", "").startswith(
+                ("expert-curated", "paper-verified", "recipe recovered", "reference-database")):
             tally[(d.get("category"), d.get("oxygen", "facultative"))] += 1
             continue
         reg, why = regime_for(d)

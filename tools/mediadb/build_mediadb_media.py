@@ -95,6 +95,18 @@ def mk(bid, name, mM, method, conf):
             "mapping_method": method, "mapping_confidence": conf,
             "exchange_source": "biggr" if DICT.get(bid, {}).get("in_biggr") else "bigg"}
 
+# cofactor / vitamin name aliases the shared recover() ladder misses
+_ALIAS = {
+ "hemin": "pheme", "haemin": "pheme", "hematin": "pheme", "haematin": "pheme",
+ "protoheme": "pheme", "heme": "pheme", "haem": "pheme", "hemin chloride": "pheme",
+ "thiamine pyrophosphate": "thmpp", "thiamine diphosphate": "thmpp", "cocarboxylase": "thmpp",
+ "pyridoxal phosphate": "pydx5p", "pyridoxal 5'-phosphate": "pydx5p", "pyridoxal-5-phosphate": "pydx5p",
+ "menaquinone": "mqn8", "menaquinone-4": "mqn8", "vitamin k2": "mqn8",
+ "reduced glutathione": "gthrd", "glutathione": "gthrd", "l-glutathione reduced": "gthrd",
+ "putrescine": "ptrc", "spermidine": "spmd", "thymine": "thym",
+ "riboflavin 5'-phosphate": "fmn", "flavin mononucleotide": "fmn",
+}
+
 def _xref(c):
     return {k: v for k, v in {"kegg": c.get("kegg"), "chebi": c.get("chebi"),
             "seed": c.get("seed"), "pubchem": c.get("pubchem")}.items() if v}
@@ -113,6 +125,8 @@ def map_compound(c):
         ions = [b for b in _SALTS[low] if valid(b)]
         if ions:
             return [mk(b, nm, mM, "mediadb_salt_dissociation", "inferred") for b in ions], None
+    if low in _ALIAS and valid(_ALIAS[low]):
+        return [mk(_ALIAS[low], nm, mM, "mediadb_alias", "curated")], None
     xref = {k: c.get(k) for k in ("kegg", "chebi") if c.get(k)}
     r = EC.recover(cl, xref)
     recs = r if isinstance(r, list) else ([r] if r else [])

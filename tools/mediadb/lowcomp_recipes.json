@@ -1,0 +1,3785 @@
+{
+ "PMC10786315": {
+  "pmc": "PMC10786315",
+  "base_medium": "MCLMAN minimal medium (Campylobacter jejuni NCTC 11168 defined minimal medium) supplemented with 0.5% (w/v) partially purified gastric mucin",
+  "base_medium_reference": "Alazzam B, Bonnassie-Rouxin S, Dufour V, Ermel G. MCLMAN, a new minimal medium for Campylobacter jejuni NCTC 11168. Res Microbiol 162:173-179 (2011). DOI 10.1016/j.resmic.2010.09.024; PMID 21144899. As applied (0.5% gastric mucin + carbon source) by the DiRita lab: Sinha R, LeVeque RM, Bowlin MQ, Gray MJ, DiRita VJ. Phosphate Transporter PstSCAB of Campylobacter jejuni Is a Critical Determinant of Lactate-Dependent Growth and Colonization in Chickens. J Bacteriol 202:e00716-19 (2020). DOI 10.1128/jb.00716-19; PMID 31932316; PMC7167465 (this is reference (1) cited in the PMC10786315 SI Appendix).",
+  "oxygen": "aerobic",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "complexlit_PMC10786315_mucin_containing_minimal_medium_10_mm_l_lact",
+    "components": [
+     {
+      "name": "sodium L-lactate",
+      "conc": 10,
+      "unit": "mM",
+      "role": "carbon/electron donor"
+     },
+     {
+      "name": "partially purified gastric mucin",
+      "conc": 0.5,
+      "unit": "% (w/v)",
+      "role": "complex substrate/supplement"
+     },
+     {
+      "name": "L-cysteine",
+      "conc": null,
+      "unit": null,
+      "role": "amino acid / sulfur source (MCLMAN base component; C. jejuni is cysteine auxotroph)"
+     },
+     {
+      "name": "L-methionine",
+      "conc": null,
+      "unit": null,
+      "role": "amino acid / sulfur source (MCLMAN base component; C. jejuni is methionine auxotroph)"
+     },
+     {
+      "name": "L-aspartic acid",
+      "conc": null,
+      "unit": null,
+      "role": "nitrogen source (MCLMAN base component)"
+     },
+     {
+      "name": "L-leucine",
+      "conc": null,
+      "unit": null,
+      "role": "amino acid (MCLMAN base component)"
+     },
+     {
+      "name": "niacinamide",
+      "conc": null,
+      "unit": null,
+      "role": "vitamin (MCLMAN base component)"
+     },
+     {
+      "name": "inorganic mineral salts (unspecified salts/buffer, iron and trace elements)",
+      "conc": null,
+      "unit": null,
+      "role": "mineral base (MCLMAN base; individual salts and concentrations behind Elsevier paywall, not recovered)"
+     },
+     {
+      "name": "carbon dioxide",
+      "conc": 10,
+      "unit": "% (v/v gas phase)",
+      "role": "gas atmosphere (capnophilic; microaerobic incubation)"
+     },
+     {
+      "name": "oxygen",
+      "conc": 5,
+      "unit": "% (v/v gas phase)",
+      "role": "electron acceptor (microaerobic atmosphere)"
+     }
+    ],
+    "evidence": "SI Appendix (Materials and Methods): \"To determine the growth of C. jejuni, strains were grown in MCLMAN minimal medium containing 0.5% partially purified gastric mucin and various carbon sources, including sodium pyruvate, sodium butyrate and L-lactate (1), as noted.\" Main text/SI: growth assays used L-lactate at 10 mM (\"grown in minimal media with L-lactate (10mM)\"). Culture atmosphere: \"routinely grown under microaerobic conditions (85% N2, 10% CO2, 5% O2).\" MCLMAN composition per Alazzam et al. 2011 (abstract): the medium \"contains inorganic salts, the amino acids l-cysteine, l-leucine, l-methionine and l-aspartic acid (nitrogen source), the vitamin niacinamide and lactate as a carbon source, named MCLMAN.\""
+   }
+  ],
+  "notes": "Organism: Campylobacter jejuni NCTC 11168. The paper (PNAS, Sinha et al. 2024, DOI 10.1073/pnas.2316540120) puts all medium detail in the SI Appendix, which was retrieved (europepmc supplementaryFiles -> pnas.2316540120.sapp.pdf). Base medium unambiguously identified as MCLMAN (Alazzam et al. 2011) + 0.5% (w/v) partially purified gastric mucin, with L-lactate as the carbon source at 10 mM. HIGH confidence on: medium identity, mucin 0.5%, L-lactate 10 mM, and the microaerobic gas mix. The individual inorganic-salt / trace-element / buffer / iron concentrations of the base MCLMAN recipe could NOT be recovered: the primary Alazzam 2011 paper (Res Microbiol, Elsevier) is paywalled and is not open-access (verified via Unpaywall is_oa=false, Semantic Scholar status CLOSED), and no secondary paper (Frontiers M1cam PMC7318876, C. hepaticus PMC8531295, Sinha 2020 PMC7167465) reproduces the full numeric MCLMAN table. Only the qualitative MCLMAN components are documented (amino acids L-cysteine/L-leucine/L-methionine/L-aspartate, vitamin niacinamide, inorganic salts, lactate); their concentrations are left null rather than fabricated. Oxygen regime: C. jejuni is an obligate microaerophile grown microaerobically (5% O2) using O2 as terminal electron acceptor (aerobic respiration) -- mapped to 'aerobic'; it is NOT facultative and cannot ferment. Note: targets.json had captured the carbon source as lac__D (D-lactate), but the paper's growth medium for this entry uses L-lactate (lac__L) at 10 mM (a lower 2 mM L-lactate wash/short-incubation was used only for the RNA/expression assay)."
+ },
+ "PMC10811727": {
+  "pmc": "PMC10811727",
+  "base_medium": "Anoxic (NC10-type) mineral medium",
+  "base_medium_reference": "Recipe chains through two citations. PMC10811727 cites ref 16 = Wu M, et al. 'Anaerobic oxidation of propane coupled to nitrate reduction by a lineage within the class Symbiobacteriia' Nat Commun 2022;13:6115, DOI 10.1038/s41467-022-33872-y (PMC9576796). That paper defines its 'anoxic synthetic medium' by citing Ettwig KF, van Alen T, van de Pas-Schoonen KT, Jetten MSM, Strous M. 'Enrichment and Molecular Detection of Denitrifying Methanotrophic Bacteria of the NC10 Phylum' Appl Environ Microbiol 2009;75(11):3656-3662, DOI 10.1128/AEM.00067-09 (PMC2687271), which gives the full composition.",
+  "oxygen": "anaerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC10811727_anoxic_mineral_medium_per_ref_16_with_nitrat",
+    "components": [
+     {
+      "name": "potassium bicarbonate",
+      "conc": 10,
+      "unit": "mM",
+      "role": "buffer/carbonate (base recipe 0.5-1.5 g/L = 5-15 mM KHCO3)"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 0.37,
+      "unit": "mM",
+      "role": "mineral/phosphate (0.05 g/L KH2PO4)"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 2.04,
+      "unit": "mM",
+      "role": "mineral (0.3 g/L CaCl2.2H2O)"
+     },
+     {
+      "name": "magnesium sulfate",
+      "conc": 0.81,
+      "unit": "mM",
+      "role": "mineral (0.2 g/L MgSO4.7H2O)"
+     },
+     {
+      "name": "sodium nitrate",
+      "conc": 5.0,
+      "unit": "mM",
+      "role": "nitrogen source + electron acceptor (base 0.425 g/L = 5 mM; in this study additionally pulse-fed from an 80 g NO3-N/L stock to maintain 20-30 mg NO3-N/L in the reactor)"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": 3.75,
+      "unit": "uM",
+      "role": "trace element (acidic TE stock 2.085 g/L FeSO4.7H2O, dosed 0.5 mL/L)"
+     },
+     {
+      "name": "zinc sulfate",
+      "conc": 0.12,
+      "unit": "uM",
+      "role": "trace element (acidic TE stock 0.068 g/L ZnSO4.7H2O)"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 0.25,
+      "unit": "uM",
+      "role": "trace element (acidic TE stock 0.12 g/L CoCl2.6H2O)"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 1.26,
+      "unit": "uM",
+      "role": "trace element (acidic TE stock 0.5 g/L MnCl2.4H2O)"
+     },
+     {
+      "name": "copper sulfate",
+      "conc": 1.0,
+      "unit": "uM",
+      "role": "trace element (acidic TE stock 0.32 g/L CuSO4)"
+     },
+     {
+      "name": "nickel chloride",
+      "conc": 0.2,
+      "unit": "uM",
+      "role": "trace element (acidic TE stock 0.095 g/L NiCl2.6H2O)"
+     },
+     {
+      "name": "boric acid",
+      "conc": 0.11,
+      "unit": "uM",
+      "role": "trace element (acidic TE stock 0.014 g/L H3BO3)"
+     },
+     {
+      "name": "selenium dioxide",
+      "conc": 0.12,
+      "unit": "uM",
+      "role": "trace element/selenite (alkaline TE stock 0.067 g/L SeO2, dosed 0.2 mL/L)"
+     },
+     {
+      "name": "sodium tungstate",
+      "conc": 0.03,
+      "unit": "uM",
+      "role": "trace element (alkaline TE stock 0.050 g/L Na2WO4.2H2O)"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 0.24,
+      "unit": "uM",
+      "role": "trace element (alkaline TE stock 0.242 g/L Na2MoO4)"
+     },
+     {
+      "name": "ethane",
+      "conc": 1.0,
+      "unit": "atm",
+      "role": "carbon/energy source (headspace partial pressure maintained 0.9-1.2 atm; reactor periodically flushed with 99.99% ethane gas)"
+     },
+     {
+      "name": "carbon dioxide",
+      "conc": 0.05,
+      "unit": "atm",
+      "role": "inorganic carbon/gas phase (base medium sparged with Ar-CO2 95:5)"
+     }
+    ],
+    "evidence": "PMC10811727 Methods: 'An anoxic mineral medium [16] of 0.67 and 1.69 l was initially added to the ethane and butane reactor ... The ethane/butane reactors were periodically flushed with pure ethane/butane gas (99.99%, Coregas, Australia) to maintain the ethane/butane partial pressure in the headspace between 0.9 and 1.2 atm. A concentrated stock solution (80 g NO3-N l-1) was manually pulse-fed to the reactors to replenish NO3- to 20-30 mg N l-1.' Ref 16 (Wu 2022) states the medium was 'anoxic synthetic medium prepared as described previously [45]' = Ettwig et al. 2009. Ettwig 2009 verbatim: 'The medium was continuously sparged with Ar-CO2 (95:5, vol/vol) to maintain anoxic conditions and contained the following components (per liter): KHCO3, 0.5 to 1.5 g (see Results); KH2PO4, 0.05 g; CaCl2.2H2O, 0.3 g; MgSO4.7H2O, 0.2 g; NaNO3, 0.425 g (5 mM); NaNO2, 0.0345 to 1.38 g (0.5 to 20 mM) (see Results); an acidic trace element solution, 0.5 ml; and an alkaline trace element solution, 0.2 ml. The acidic (100 mM HCl) trace element solution contained (per liter) 2.085 g FeSO4.7H2O, 0.068 g ZnSO4.7H2O, 0.12 g CoCl2.6H2O, 0.5 g MnCl2.4H2O, 0.32 g CuSO4, 0.095 g NiCl2.6H2O, and 0.014 g H3BO3. The alkaline (10 mM NaOH) trace element solution contained (per liter) 0.067 g SeO2, 0.050 g Na2WO4.2H2O, and 0.242 g Na2MoO4.'"
+   }
+  ],
+  "notes": "Recipe recovered through a two-step citation chain: PMC10811727 -> Wu 2022 (Nat Commun 13:6115, ref 16) -> Ettwig 2009 (AEM 75:3656-3662, the NC10 mineral medium). Trace-element concentrations reported here are FINAL medium concentrations computed from the stated stock recipes and stated dosing (acidic solution 0.5 mL/L = 1:2000 dilution; alkaline solution 0.2 mL/L = 1:5000 dilution); verbatim stock g/L values are in the evidence field. KHCO3 is given as a range 0.5-1.5 g/L (5-15 mM) in the base recipe; 10 mM listed as a representative value. The base Ettwig recipe also contains NaNO2 (0.5-20 mM) as electron acceptor for the nitrite-dependent methanotrophic (NC10) enrichment; the present ethane study instead used NITRATE as the electron acceptor (pulse-fed to 20-30 mg NO3-N/L), so nitrite is omitted from the components list as not applicable to this medium. No vitamin solution is used in this medium (none specified by Ettwig 2009). Nitrogen source is nitrate (no ammonium in the base recipe). System is strictly anaerobic (anoxic): sparged Ar-CO2, ethane headspace, nitrate reduction. Ethane and CO2 concentrations are given as gas-phase partial pressures (atm), not aqueous molarities."
+ },
+ "PMC10942773": {
+  "pmc": "PMC10942773",
+  "base_medium": "Modified Tibbles-Rawlings (T-R) minimal medium",
+  "base_medium_reference": "Tibbles BJ, Rawlings DE. Characterization of nitrogen-fixing bacteria from a temperate saltmarsh lagoon, including isolates that produce ethane from acetylene. Microbial Ecology 1994;27(1):65-80. DOI 10.1007/BF00170115. Exact modified recipe used is given verbatim in Table S3 of the study's Supporting Information (Mahmoudi et al., ISME J 2024;18(1):wrae018, DOI 10.1093/ismejo/wrae018); trace-metal solution per Tibbles & Rawlings 1994 and vitamin solution per Finster et al., Arch Microbiol 1992;157:425-430 (DOI 10.1007/BF00249099).",
+  "oxygen": "aerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC10942773_tibbles_rawlings_t_r_minimal_medium_d_glucos",
+    "components": [
+     {
+      "name": "sodium chloride",
+      "conc": 444,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium sulfate heptahydrate",
+      "conc": 12.2,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium chloride hexahydrate",
+      "conc": 9.84,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride dihydrate",
+      "conc": 0.816,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "tris(hydroxymethyl)aminomethane (Tris, pH 8.0)",
+      "conc": 25,
+      "unit": "mM",
+      "role": "buffer"
+     },
+     {
+      "name": "disodium EDTA",
+      "conc": 1.35,
+      "unit": "mM",
+      "role": "chelator"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 10,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "dipotassium hydrogen phosphate",
+      "conc": 4.59,
+      "unit": "mM",
+      "role": "phosphate"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 1.47,
+      "unit": "mM",
+      "role": "phosphate"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": null,
+      "unit": "unknown",
+      "role": "mineral"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": null,
+      "unit": "unknown",
+      "role": "trace"
+     },
+     {
+      "name": "boric acid",
+      "conc": 46.3,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "manganese chloride tetrahydrate",
+      "conc": 9.15,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "zinc sulfate heptahydrate",
+      "conc": 0.275,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "copper sulfate pentahydrate",
+      "conc": 0.316,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cobalt nitrate hexahydrate",
+      "conc": 0.17,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "nickel chloride hexahydrate",
+      "conc": 0.021,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "4-aminobenzoic acid",
+      "conc": 40,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "biotin",
+      "conc": 10,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "folic acid",
+      "conc": 30,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "lipoic acid",
+      "conc": 10,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "nicotinic acid",
+      "conc": 100,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "calcium D-pantothenate",
+      "conc": 50,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxamine dihydrochloride",
+      "conc": 100,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": 100,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "cyanocobalamin (vitamin B12)",
+      "conc": 50,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "D-glucosamine hydrochloride",
+      "conc": 5.1,
+      "unit": "mM",
+      "role": "carbon"
+     }
+    ],
+    "evidence": "Table S3 (Supporting Information): 'Components added to make 2 L of modified Tibbles-Rawling minimal media' -- Part 1: NaCl 51.9 g, MgSO4.7H2O 6 g, MgCl2.6H2O 4 g, CaCl2.2H2O 0.24 g, Tris (1M; pH 8.0) 50 mL, Na2EDTA (0.5M) 5.4 mL, NH4Cl (1M) 20 mL, MilliQ water 850 mL; Part 2: K2HPO4 1.6 g, KH2PO4 0.4 g, MilliQ water 850 mL; Additives: FeSO4 solution 2 mL, Na2MoO4 solution 2 mL, Trace metals (1000X) 2 mL, Vitamins (1000X) 2 mL, MilliQ water fill to 2,000 mL. 1000X Trace Metal Solution (g/L): H3BO3 2.86, MnCl2.4H2O 1.81, ZnSO4.7H2O 0.079, CuSO4.5H2O 0.079, Co(NO3)2.6H2O 0.0494, NiCl2.6H2O 0.005. 1000X Vitamin Solution (mg/L): 4-aminobenzoate 40, D(+)-Biotin 10, Folate 30, Lipoate 10, Nicotinate 100, Ca-D-pantothenate 50, Pyridoxamine dihydrochloride 100, Thiamine hydrochloride 100, Vitamin B12 50. Carbon source (main text): 'D-(+)-glucosamine hydrochloride ... 2.2 g (equivalent to a total of ~730 mg of C; final concentration of 365 mg C L-1)'. Oxygen: 'All experiments in the IsoCaRB system were carried out under aerobic conditions (~20% O2)'."
+   },
+   {
+    "id": "complexlit_PMC10942773_t_r_minimal_medium_guaymas_basin_unimpacted_",
+    "components": [
+     {
+      "name": "sodium chloride",
+      "conc": 444,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium sulfate heptahydrate",
+      "conc": 12.2,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium chloride hexahydrate",
+      "conc": 9.84,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride dihydrate",
+      "conc": 0.816,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "tris(hydroxymethyl)aminomethane (Tris, pH 8.0)",
+      "conc": 25,
+      "unit": "mM",
+      "role": "buffer"
+     },
+     {
+      "name": "disodium EDTA",
+      "conc": 1.35,
+      "unit": "mM",
+      "role": "chelator"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 10,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "dipotassium hydrogen phosphate",
+      "conc": 4.59,
+      "unit": "mM",
+      "role": "phosphate"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 1.47,
+      "unit": "mM",
+      "role": "phosphate"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": null,
+      "unit": "unknown",
+      "role": "mineral"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": null,
+      "unit": "unknown",
+      "role": "trace"
+     },
+     {
+      "name": "boric acid",
+      "conc": 46.3,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "manganese chloride tetrahydrate",
+      "conc": 9.15,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "zinc sulfate heptahydrate",
+      "conc": 0.275,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "copper sulfate pentahydrate",
+      "conc": 0.316,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cobalt nitrate hexahydrate",
+      "conc": 0.17,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "nickel chloride hexahydrate",
+      "conc": 0.021,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "4-aminobenzoic acid",
+      "conc": 40,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "biotin",
+      "conc": 10,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "folic acid",
+      "conc": 30,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "lipoic acid",
+      "conc": 10,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "nicotinic acid",
+      "conc": 100,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "calcium D-pantothenate",
+      "conc": 50,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxamine dihydrochloride",
+      "conc": 100,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": 100,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "cyanocobalamin (vitamin B12)",
+      "conc": 50,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "Guaymas Basin unimpacted (cool) sediment organic matter (complex, undefined)",
+      "conc": 385,
+      "unit": "mg C/L",
+      "role": "carbon"
+     }
+    ],
+    "evidence": "Same T-R base as Table S3. Carbon amendment (main text): unimpacted cool Guaymas Basin sediment, ~22 g dry weight added, ~770 mg organic carbon (predominantly complex organic matter), i.e. ~385 mg C L-1 in the 2 L culture. Aerobic (~20% O2)."
+   },
+   {
+    "id": "complexlit_PMC10942773_t_r_minimal_medium_guaymas_basin_hydrotherma",
+    "components": [
+     {
+      "name": "sodium chloride",
+      "conc": 444,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium sulfate heptahydrate",
+      "conc": 12.2,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium chloride hexahydrate",
+      "conc": 9.84,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride dihydrate",
+      "conc": 0.816,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "tris(hydroxymethyl)aminomethane (Tris, pH 8.0)",
+      "conc": 25,
+      "unit": "mM",
+      "role": "buffer"
+     },
+     {
+      "name": "disodium EDTA",
+      "conc": 1.35,
+      "unit": "mM",
+      "role": "chelator"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 10,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "dipotassium hydrogen phosphate",
+      "conc": 4.59,
+      "unit": "mM",
+      "role": "phosphate"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 1.47,
+      "unit": "mM",
+      "role": "phosphate"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": null,
+      "unit": "unknown",
+      "role": "mineral"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": null,
+      "unit": "unknown",
+      "role": "trace"
+     },
+     {
+      "name": "boric acid",
+      "conc": 46.3,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "manganese chloride tetrahydrate",
+      "conc": 9.15,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "zinc sulfate heptahydrate",
+      "conc": 0.275,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "copper sulfate pentahydrate",
+      "conc": 0.316,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cobalt nitrate hexahydrate",
+      "conc": 0.17,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "nickel chloride hexahydrate",
+      "conc": 0.021,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "4-aminobenzoic acid",
+      "conc": 40,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "biotin",
+      "conc": 10,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "folic acid",
+      "conc": 30,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "lipoic acid",
+      "conc": 10,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "nicotinic acid",
+      "conc": 100,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "calcium D-pantothenate",
+      "conc": 50,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxamine dihydrochloride",
+      "conc": 100,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": 100,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "cyanocobalamin (vitamin B12)",
+      "conc": 50,
+      "unit": "ug/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "Guaymas Basin hydrothermally-influenced sediment organic matter (mixed labile + complex, undefined)",
+      "conc": 385,
+      "unit": "mg C/L",
+      "role": "carbon"
+     }
+    ],
+    "evidence": "Same T-R base as Table S3. Carbon amendment (main text): hydrothermally-influenced Guaymas Basin sediment, ~22 g dry weight added, ~770 mg organic carbon (mixed labile + complex organic matter), i.e. ~385 mg C L-1 in the 2 L culture. Aerobic (~20% O2)."
+   }
+  ],
+  "notes": "Base recipe recovered in full from Table S3 of the paper's Supporting Information, which reproduces the modified Tibbles-Rawlings (1994) minimal medium verbatim (2 L batch). All salt/buffer/phosphate concentrations above are final molarities computed from the g-per-2-L amounts; trace metals and vitamins are 1000X stocks diluted to 1X (2 mL into 2 L). Two components are incompletely specified: the recipe adds 2 mL each of a 'FeSO4 solution' and a 'Na2MoO4 solution' but does not give their stock concentrations, so final Fe and Mo concentrations could not be determined (conc left null). Organism: marine heterotrophs Vibrio splendidus 1A01 and Pseudoalteromonas sp. 3D05 (facultative anaerobes), but all IsoCaRB competition/degradation experiments were run strictly aerobically (~20% O2), so oxygen regime for this medium is aerobic. The three media share the identical T-R base and differ only in the carbon amendment (defined D-glucosamine HCl vs. two undefined natural sediment organic-matter pools); sediment carbon values are approximate (~770 mg organic C per 2 L culture)."
+ },
+ "PMC10949514": {
+  "pmc": "PMC10949514",
+  "base_medium": "20% heat-inactivated human serum (complex biological fluid; not a chemically defined mineral medium)",
+  "base_medium_reference": "No cited base-medium recipe. This is the assay medium defined in-paper: Nagai et al. (2024), 'Porphyromonas gingivalis PGN_1547 ...', PMC10949514. Organism grown anaerobically; serum is undiluted-basis 20% (v/v), the balance being the assay buffer/broth which the paper does not specify.",
+  "oxygen": "anaerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC10949514_20_heat_inactivated_human_serum_with_menadio",
+    "components": [
+     {
+      "name": "heat-inactivated human serum",
+      "conc": 20,
+      "unit": "% (v/v)",
+      "role": "complex nutrient source (undefined; supplies amino acids, peptides, glucose, lipids, minerals, vitamins from serum)"
+     },
+     {
+      "name": "menadione",
+      "conc": 1,
+      "unit": "mg/L",
+      "role": "vitamin (vitamin K3 / naphthoquinone growth factor)"
+     },
+     {
+      "name": "hemin",
+      "conc": 5,
+      "unit": "mg/L",
+      "role": "iron/heme source (cofactor)"
+     }
+    ],
+    "evidence": "Figure 3a caption / Methods: 'Growth curves of P. gingivalis ATCC 33277 and Δpgn_1547 mutant growing in 20% heat-inactivated human serum supplemented with 1 µg/mL menadione and 5 µg/mL hemin.' Cell maintenance and liquid cultures: 'Brain heart infusion (BHI)-blood agar plates ... supplemented with 5 µg/mL hemin and 1 µg/mL menadione'; 'Liquid cultures were made in tryptic soy broth (TSB) ... supplemented with 1 µg/mL menadione and 5 µg/mL hemin.' Organism 'cultured anaerobically at 37°C.'"
+   }
+  ],
+  "notes": "Organism is Porphyromonas gingivalis ATCC 33277 (obligate anaerobe). Unlike the other targets, this medium has NO named defined mineral base in a cited reference. The growth-assay medium is literally 20% (v/v) heat-inactivated human serum plus menadione (1 µg/mL) and hemin (5 µg/mL); human serum is a complex, individual-variable biological fluid whose exact chemical composition is not defined by the paper, so its constituents are not enumerated (would be fabrication to do so). Concentrations given as mg/L are the paper's µg/mL values (1:1). Molar equivalents: menadione MW 172.2 ~5.8 µM; hemin MW 651.9 ~7.7 µM. The paper does not state the diluent (PBS/broth/saline) for the remaining 80% of the assay medium. The captured DB component 'mndn' (menadione) is correct; hemin and the serum were the missed components."
+ },
+ "PMC11879879": {
+  "pmc": "PMC11879879",
+  "base_medium": "Mineral salts medium (MSM), Hartmans / de Bont ('HdB') mineral medium, here used 4-fold phosphate-buffered with 1,6-hexamethylenediamine (HMDA) as sole carbon source; host Pseudomonas putida KT2440",
+  "base_medium_reference": "Paper (Nat. Microbiol. 2025, doi:10.1038/s41564-025-01929-5, PMID 39929973) cites its MSM to ref 57 = Wierckx et al. 'Engineering of solvent-tolerant Pseudomonas putida S12 for bioproduction of phenol from glucose', Appl. Environ. Microbiol. 71:8221-8227 (2005), doi:10.1128/AEM.71.12.8221-8227.2005, PMID 16332806, PMC1317433. Wierckx 2005 in turn defines MSM ('37 mM phosphate buffer, pH 7.0') per Hartmans et al., Appl. Environ. Microbiol. 55:2850-2855 (1989), doi:10.1128/aem.55.11.2850-2855.1989, PMID 16348047, PMC203180. The full de Bont-group MSM base composition (N source, Mg, trace-element solution) corresponds to the Hartmans-de Bont (HdB) mineral medium, Hartmans, Kaptein, Tramper & de Bont, Appl. Microbiol. Biotechnol. 37:796-801 (1992), doi:10.1007/BF00174849.",
+  "oxygen": "aerobic",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "growthlit_PMC11879879_mineral_salts_medium_msm_4_fold_buffered",
+    "components": [
+     {
+      "name": "dipotassium hydrogen phosphate",
+      "conc": 89.1,
+      "unit": "mM",
+      "role": "buffer/mineral (potassium, phosphate)"
+     },
+     {
+      "name": "sodium dihydrogen phosphate",
+      "conc": 54.3,
+      "unit": "mM",
+      "role": "buffer/mineral (sodium, phosphate)"
+     },
+     {
+      "name": "ammonium sulfate",
+      "conc": 15.1,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "magnesium chloride",
+      "conc": 0.49,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "EDTA",
+      "conc": 100,
+      "unit": "mg/L",
+      "role": "chelator"
+     },
+     {
+      "name": "zinc sulfate",
+      "conc": 20,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 10,
+      "unit": "mg/L",
+      "role": "trace/mineral"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": 50,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 2,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "copper sulfate",
+      "conc": 2,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 4,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 12,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "1,6-hexamethylenediamine",
+      "conc": 15,
+      "unit": "mM",
+      "role": "carbon source"
+     }
+    ],
+    "evidence": "PMC11879879 Methods: 'P. putida KT2440 strains were cultivated in 4-fold buffered (15.52 g l-1 K2HPO4 and 6.52 g l-1 NaH2PO4) MSM medium[57]. Precultures in 2-fold buffered MSM containing 20 mM glucose ... at 30 degC and 180 r.p.m. shaking speed.' and 'HMDA, Ahx, Ahx2, Ahx3 and epsilon-caprolactam ... were used in concentrations of 15 mM as pure substrates.' The base composition beyond the phosphate buffer is not restated in the paper; recovered from the de Bont-group Hartmans/HdB mineral medium: '(NH4)2SO4 2 g L-1, MgCl2.6H2O 0.1 g L-1, ... 10 mL L-1 trace element solution (100 mg L-1 EDTA, 20 mg L-1 ZnSO4.7H2O, 10 mg L-1 CaCl2.2H2O, 50 mg L-1 FeSO4.7H2O, 2 mg L-1 Na2MoO4.2H2O, 2 mg L-1 CuSO4.5H2O, 4 mg L-1 CoCl2.6H2O, 12 mg L-1 MnCl2)' (Hartmans et al. 1992, as reproduced e.g. in PMC7744413). The 1x Hartmans phosphate buffer is 3.88 g/L K2HPO4 + 1.63 g/L NaH2PO4 (~37 mM); the paper's 15.52/6.52 g/L is exactly 4-fold, confirming the same Hartmans MSM lineage."
+   }
+  ],
+  "notes": "Carbon source is HMDA (1,6-hexamethylenediamine) at 15 mM (sole C source; C but not N source here - the medium supplies fixed N as ammonium sulfate). Oxygen: aerobic (shake flasks / microtiter plates, 30 C, 180 rpm). The paper itself restates ONLY the 4-fold phosphate buffer (15.52 g/L K2HPO4 + 6.52 g/L NaH2PO4, values taken verbatim and converted: 89.1 mM and 54.3 mM) and cites ref 57 (Wierckx 2005) for the rest of the MSM; Wierckx 2005 cites Hartmans et al. 1989 ('37 mM phosphate buffer'). Neither PMC11879879 nor Wierckx 2005 reprints the ammonium/Mg/trace-element part in accessible text (the 1989 paper is scanned-only, behind a PMC proof-of-work download). The N source, MgCl2 and the trace-element solution listed here are the canonical de Bont-group Hartmans/HdB mineral medium composition (Hartmans et al. 1992) as reproduced in an open-access source (PMC7744413), which is the same medium lineage - hence confidence medium (high for the phosphate buffer, carbon source and oxygen regime; medium for the exact trace-element concentrations because they were recovered from the reproduced HdB recipe rather than restated in this paper or its direct citation). MnCl2 hydration in the reproduced source read 'MnCl2.7H2O' (likely a typo for MnCl2.4H2O); reported as manganese chloride. targets.json had captured only k/na1/o2/pi (the phosphate buffer); nitrogen, magnesium, all trace metals and the HMDA carbon source were missing."
+ },
+ "PMC11892951": {
+  "pmc": "PMC11892951",
+  "base_medium": "Salt minimal medium (MM) of the Santero/Seville lab; a phosphate-buffered mineral salts medium derived from the mineral medium of Dorn et al. (1974)",
+  "base_medium_reference": "In-text: 'salt minimal medium (MM) [43]'. Ref 43 = Hernaez MJ, Reineke W, Santero E. Genetic analysis of biodegradation of tetralin by a Sphingomonas strain. Appl Environ Microbiol. 1999;65(4):1806-1810. doi:10.1128/AEM.65.4.1806-1810.1999 (PMID 10103288; PMC91258). That paper in turn defines MM as the carbon-free mineral medium of Dorn E, Hellwig M, Reineke W, Knackmuss HJ. Isolation and characterization of a 3-chlorobenzoate degrading pseudomonad. Arch Microbiol. 1974;99:61-70. doi:10.1007/BF00696222. Numeric salt composition below is taken from a documented reproduction of the Dorn (1974) base medium: Mehboob F et al., Appl Environ Microbiol 2009;75(23):7567-7574, PMC2690828.",
+  "oxygen": "aerobic",
+  "confidence": "low",
+  "media": [
+   {
+    "id": "complexlit_PMC11892951_salt_minimal_medium_mm_with_ibuprofen_ibu_as",
+    "components": [
+     {
+      "name": "ibuprofen (sodium salt)",
+      "conc": 1.0,
+      "unit": "g/L",
+      "role": "carbon/energy source"
+     },
+     {
+      "name": "ammonium sulfate",
+      "conc": 1.0,
+      "unit": "g/L",
+      "role": "nitrogen"
+     },
+     {
+      "name": "disodium hydrogen phosphate dihydrate",
+      "conc": 3.48,
+      "unit": "g/L",
+      "role": "phosphate buffer / mineral"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 1.0,
+      "unit": "g/L",
+      "role": "phosphate buffer / mineral"
+     },
+     {
+      "name": "magnesium sulfate heptahydrate",
+      "conc": 0.04,
+      "unit": "g/L",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 0.009,
+      "unit": "g/L",
+      "role": "mineral"
+     },
+     {
+      "name": "ammonium iron(III) citrate",
+      "conc": 0.01,
+      "unit": "g/L",
+      "role": "iron / trace"
+     }
+    ],
+    "evidence": "From PMC11892951 Methods (verbatim): 'Cultures in salt minimal medium (MM) [43] with IBU 1 g/L as carbon source were diluted one-fourth of the previous 20 ml saturated culture in aeration at 30 C for ~15 days...' and 'Commercial IBU sodium salt was purchased from Sigma-Aldrich.' Nitrogen source confirmed as ammonium in sibling Santero-lab papers on the same MM: 'minimal medium supplemented with nitrate 20 mM as electron acceptor and ammonium as nitrogen source' (Garcia-Romero et al., PMC4741004) and 'ammonia is the preferred nitrogen source and the strain does not grow with nitrate or urea' (Iglesias et al., PMC7250832). Mineral salt concentrations are the Dorn-et-al.-1974 base medium as reproduced verbatim by Mehboob et al. (PMC2690828): 'The medium ... was based on the medium described by Dorn et al. The composition of the medium (in grams per liter ...) was as follows: Na2HPO4.2H2O, 3.48; KH2PO4 1; resazurin, 0.005; CaCl2, 0.009; ammonium iron (III) citrate, 0.01; NH4SO4, 1; MgSO4.7H2O, 0.04. Vitamins and trace elements were added as described by Holliger et al. ... The pH of the medium was 7.3.'"
+   }
+  ],
+  "notes": "BASE MEDIUM IDENTIFIED WITH HIGH CONFIDENCE; EXACT CONCENTRATIONS LOW CONFIDENCE. The in-text tag 'salt minimal medium (MM) [43]' was resolved to reference 43 (Hernaez, Reineke & Santero 1999, AEM) by cross-checking the reference list: ref 44 is 'ggplot2' and the entry immediately preceding it in the list is the tetralin paper, so [43] = the tetralin paper, which is the Santero group's foundational MM paper. Hernaez 1999 itself does NOT print the recipe; it cites the carbon-free mineral medium of Dorn et al. 1974 (Arch Microbiol 99:61-70). None of the accessible Santero-lab papers (Hernaez 1999; Aulestia 2020/2022; Aguilar-Romero 2021; Iglesias GSMM 2020; Garcia-Romero genome 2016) reproduce the numeric salt composition of MM; the Dorn 1974 original is a paywalled 1974 Springer article that could not be retrieved. The salt concentrations listed here therefore come from a documented reproduction of the SAME Dorn-1974 base medium (Mehboob 2009, PMC2690828), which explicitly states it is 'based on the medium described by Dorn et al.' CAVEATS: (1) That reproduction is an anaerobic-modified version for Pseudomonas chloritidismutans; its anaerobic-only additives were EXCLUDED here (resazurin redox indicator; Na2SeO3 and NaWO4 supplements). (2) The Santero MM may use a different ammonium salt (their papers say only 'ammonium'); (NH4)2SO4 is what the Dorn base and this reproduction use. (3) A trace-element solution and vitamins are part of the base medium but their individual components/concentrations for the aerobic Santero MM are not specified in any accessible source (Mehboob used the Holliger et al. 1993 vitamin/trace-element solutions). Approx molar equivalents: Na2HPO4.2H2O ~19.6 mM; KH2PO4 ~7.3 mM; (NH4)2SO4 ~7.6 mM; MgSO4.7H2O ~0.16 mM; CaCl2 ~0.08 mM; ibuprofen 1 g/L ~4.85 mM (free acid) / ~4.38 mM (Na salt). Oxygen regime: the ibuprofen enrichment/growth cultures were run aerobically ('in aeration', shaken 180 rpm, 30 C); the sphingomonad isolates are facultative anaerobes (nitrate respiration) but no nitrate/anaerobic condition was used for the ibuprofen MM cultures here."
+ },
+ "PMC12229818": {
+  "pmc": "PMC12229818",
+  "base_medium": "Ca/Mg-HEPES buffer (Bdellovibrio predation buffer)",
+  "base_medium_reference": "Full composition stated verbatim in this paper's Materials and Methods (PMC12229818). The buffer is the standard Ca/HEPES Bdellovibrio predation buffer (25 mM HEPES, 2 mM CaCl2, pH 7.6; e.g. Lambert C. & Sockett R.E., and Lambert et al. 2006 Appl Environ Microbiol 72:6757-6765, PMID:17021229), here additionally supplemented with 3 mM MgCl2.",
+  "oxygen": "aerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "growthlit_PMC12229818_ca_mg_hepes_buffer_with_pseudomonas_sp_p",
+    "components": [
+     {
+      "name": "HEPES",
+      "conc": 25,
+      "unit": "mM",
+      "role": "buffer"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 2,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium chloride",
+      "conc": 3,
+      "unit": "mM",
+      "role": "mineral"
+     }
+    ],
+    "evidence": "Ca/Mg-HEPES buffer (25 mM HEPES, 2 mM CaCl2, 3 mM MgCl2, pH 7.6). Prey organism: Pseudomonas sp. (DSM no. 50906). Predator: Bdellovibrio bacteriovorus HD100; cultures incubated at 30 degrees C with shaking at 200 rpm (aerobic)."
+   }
+  ],
+  "notes": "This is a predation buffer, not a nutrient medium: Bdellovibrio bacteriovorus HD100 is an obligate predator that obtains all carbon, nitrogen and energy from the Pseudomonas sp. (DSM 50906) prey cells, so the defined buffer intentionally contains no carbon/nitrogen source. The buffer supplies only H2O, HEPES, Ca2+, Mg2+ and Cl- (matching the pre-captured ca2/cl/mg2/o2 flags); the previously missing components are HEPES (25 mM) and the explicit calcium chloride (2 mM) and magnesium chloride (3 mM) salts. pH 7.6, aerobic (30 C, 200 rpm). The paper also describes a separate continuous-culture minimal medium (HEPES + 2 mM CaCl2 + 3 mM MgCl2 + 0.05% casein hydrolysate + 25 mg/L glucose), but that is a different medium and is not the batch-predation target here."
+ },
+ "PMC12816087": {
+  "pmc": "PMC12816087",
+  "base_medium": "CDM35 (chemically defined medium, 35 components; final pH 7). Target medium CDMG = CDM35 base with glucose at 2% (20 g/L). CDMG agar plate additionally contains agar + an acidic chromogenic agent (pH indicator) used to detect acid production.",
+  "base_medium_reference": "Ponomarova O., Gabrielli N., Sevin D.C., Mulleder M., Zirngibl K., Bulyha K., Andrejev S., Kafkia E., Typas A., Sauer U., Ralser M., Patil K.R. 'Yeast creates a niche for symbiotic lactic acid bacteria through nitrogen overflow.' Cell Systems 5(4):345-357.e6 (2017). DOI 10.1016/j.cels.2017.09.002; PMID 28964698; PMC5660601. Full CDM35 composition given in Supplemental Table S1 (mmc1). This is reference [49] ('Olga et al.') cited by the target paper.",
+  "oxygen": "facultative",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC12816087_cdmg_chemically_defined_medium_cdm_2_glucose",
+    "components": [
+     {
+      "name": "glucose",
+      "conc": 20,
+      "unit": "g/L",
+      "role": "carbon"
+     },
+     {
+      "name": "L-arginine",
+      "conc": 0.72,
+      "unit": "g/L",
+      "role": "amino acid/nitrogen"
+     },
+     {
+      "name": "L-asparagine",
+      "conc": 0.5,
+      "unit": "g/L",
+      "role": "amino acid/nitrogen"
+     },
+     {
+      "name": "L-histidine",
+      "conc": 0.17,
+      "unit": "g/L",
+      "role": "amino acid/nitrogen"
+     },
+     {
+      "name": "L-isoleucine",
+      "conc": 0.24,
+      "unit": "g/L",
+      "role": "amino acid/nitrogen"
+     },
+     {
+      "name": "L-leucine",
+      "conc": 1.0,
+      "unit": "g/L",
+      "role": "amino acid/nitrogen"
+     },
+     {
+      "name": "L-methionine",
+      "conc": 0.125,
+      "unit": "g/L",
+      "role": "amino acid/nitrogen"
+     },
+     {
+      "name": "L-tyrosine",
+      "conc": 0.3,
+      "unit": "g/L",
+      "role": "amino acid/nitrogen"
+     },
+     {
+      "name": "L-valine",
+      "conc": 0.7,
+      "unit": "g/L",
+      "role": "amino acid/nitrogen"
+     },
+     {
+      "name": "biotin",
+      "conc": 0.006,
+      "unit": "g/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "calcium pantothenate",
+      "conc": 0.0012,
+      "unit": "g/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "folic acid",
+      "conc": 0.00056,
+      "unit": "g/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "myo-inositol",
+      "conc": 0.002,
+      "unit": "g/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "nicotinic acid",
+      "conc": 0.0009,
+      "unit": "g/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "p-aminobenzoic acid",
+      "conc": 5.6e-05,
+      "unit": "g/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxine hydrochloride",
+      "conc": 0.0048,
+      "unit": "g/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "riboflavin",
+      "conc": 0.0009,
+      "unit": "g/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": 0.00056,
+      "unit": "g/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "ferrous sulfate heptahydrate",
+      "conc": 0.005,
+      "unit": "g/L",
+      "role": "trace metal"
+     },
+     {
+      "name": "dipotassium hydrogen phosphate",
+      "conc": 6.48,
+      "unit": "g/L",
+      "role": "buffer/phosphate"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 3.12,
+      "unit": "g/L",
+      "role": "buffer/phosphate"
+     },
+     {
+      "name": "magnesium chloride",
+      "conc": 0.3864,
+      "unit": "g/L",
+      "role": "mineral"
+     },
+     {
+      "name": "sodium chloride",
+      "conc": 3.0,
+      "unit": "g/L",
+      "role": "mineral"
+     },
+     {
+      "name": "zinc sulfate",
+      "conc": 0.005,
+      "unit": "g/L",
+      "role": "trace metal"
+     },
+     {
+      "name": "potassium sulfate",
+      "conc": 0.023,
+      "unit": "g/L",
+      "role": "mineral/sulfur"
+     },
+     {
+      "name": "boric acid",
+      "conc": 0.00075,
+      "unit": "g/L",
+      "role": "trace metal"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 0.03,
+      "unit": "g/L",
+      "role": "mineral"
+     },
+     {
+      "name": "cobalt chloride hexahydrate",
+      "conc": 0.00019,
+      "unit": "g/L",
+      "role": "trace metal"
+     },
+     {
+      "name": "copper sulfate",
+      "conc": 0.00012,
+      "unit": "g/L",
+      "role": "trace metal"
+     },
+     {
+      "name": "potassium iodide",
+      "conc": 0.00011,
+      "unit": "g/L",
+      "role": "trace metal"
+     },
+     {
+      "name": "manganese sulfate monohydrate",
+      "conc": 0.00034,
+      "unit": "g/L",
+      "role": "trace metal"
+     },
+     {
+      "name": "ammonium molybdate tetrahydrate",
+      "conc": 0.00019,
+      "unit": "g/L",
+      "role": "trace metal/nitrogen"
+     },
+     {
+      "name": "diammonium hydrogen citrate",
+      "conc": 1.69,
+      "unit": "g/L",
+      "role": "nitrogen source"
+     },
+     {
+      "name": "citric acid monohydrate",
+      "conc": 0.003,
+      "unit": "g/L",
+      "role": "chelator/organic acid"
+     },
+     {
+      "name": "glutathione (reduced)",
+      "conc": 0.015,
+      "unit": "g/L",
+      "role": "reducing agent/thiol"
+     }
+    ],
+    "evidence": "Target paper (Liao et al., PMC12816087, Methods): 'CDM liquid medium was made as described by Olga et al.[49]' and 'CDMG liquid medium was 2% glucose added to CDM liquid medium'; CDMG agar plates 'containing 2% glucose (CDMG)' with an acidic chromogenic agent, incubated at 30 C. Base recipe from reference [49] = Ponomarova et al. 2017 Cell Systems, Table S1 'CDM35 medium composition (final pH 7)': Carbon Source Glucose 15 g/L; Amino Acids L-Arginine 0.72, L-Asparagine 0.5, L-Histidine 0.17, L-Isoleucine 0.24, L-Leucine 1, L-Methionine 0.125, L-Tyrosine 0.3, L-Valine 0.7; Vitamins Biotin 0.006, Ca pantothenate 0.0012, Folic acid 0.00056, myo-Inositol 0.002, Nicotinic acid 0.0009, p-Aminobenzoic acid 0.000056, Pyridoxine HCl 0.0048, Riboflavin 0.0009, Thiamine HCl 0.00056; Inorganic Salts FeSO4.7H2O 0.005, K2HPO4 6.48, KH2PO4 3.12, MgCl2 0.3864, NaCl 3, ZnSO4 0.005, K2SO4 0.023, Boric acid 0.00075, CaCl2 0.03, CoCl2.6H2O 0.00019, CuSO4 0.00012, KI 0.00011, MnSO4.H2O 0.00034, (NH4)6Mo7O24.4H2O 0.00019; Other Ammonium citrate dibasic 1.69, Citric acid.H2O 0.003, L-Glutathione reduced 0.015 (all g/L)."
+   }
+  ],
+  "notes": "Base medium fully recovered from the cited reference [49] (Ponomarova et al. 2017, Cell Systems, Supplemental Table S1). The base CDM35 already contains 15 g/L glucose; the target CDMG uses glucose at 2% (20 g/L) per the target paper's definition ('CDMG = 2% glucose added to CDM'), so glucose is listed at 20 g/L. Concentrations transcribed verbatim in g/L from Table S1. Organisms: lactic acid bacteria (Leuconostoc mesenteroides, Lactococcus lactis) and Saccharomyces cerevisiae; study on acid-stress cross-feeding. Oxygen: LAB and yeast used here are facultative/aerotolerant; the target paper specifies only 30 C incubation (agar plates and liquid) and does not state a controlled anaerobic or CO2 atmosphere, so 'facultative' is the honest classification (the targets file pre-captured o2). CDMG agar additionally contains agar and an acidic chromogenic (pH-indicator) agent to visualize acid production; these are not nutritional components. Molybdate salt (NH4)6Mo7O24.4H2O also contributes ammonium. Ammonium citrate dibasic = diammonium hydrogen citrate is the principal supplemental nitrogen source alongside the amino acids."
+ },
+ "PMC12858907": {
+  "pmc": "PMC12858907",
+  "base_medium": "Minimal (mineral salts) medium MM",
+  "base_medium_reference": "Supplementary Information / Supplementary Methods of the source paper itself: 'Potentiators empower synthetic microbiomes as silent guardians against co-contamination', Nature Communications (2025), DOI 10.1038/s41467-025-67953-5; PMC12858907. The MM recipe is defined verbatim in the Supplementary Methods (Media section).",
+  "oxygen": "aerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "lit_PMC12858907_mineral_salts_medium_mm_quadruple_carbon",
+    "components": [
+     {
+      "name": "sodium chloride",
+      "conc": 1.0,
+      "unit": "g/L",
+      "role": "mineral"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 1.0,
+      "unit": "g/L",
+      "role": "nitrogen"
+     },
+     {
+      "name": "dipotassium phosphate",
+      "conc": 1.5,
+      "unit": "g/L",
+      "role": "mineral/buffer/phosphate"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 0.5,
+      "unit": "g/L",
+      "role": "mineral/buffer/phosphate"
+     },
+     {
+      "name": "magnesium sulfate heptahydrate",
+      "conc": 0.2,
+      "unit": "g/L",
+      "role": "mineral"
+     },
+     {
+      "name": "D-glucose",
+      "conc": 25,
+      "unit": "mmol/gDW",
+      "role": "carbon (simulated exchange flux bound; C=4 condition)"
+     },
+     {
+      "name": "citrate",
+      "conc": 25,
+      "unit": "mmol/gDW",
+      "role": "carbon (simulated exchange flux bound; C=4 condition)"
+     },
+     {
+      "name": "acetate",
+      "conc": 25,
+      "unit": "mmol/gDW",
+      "role": "carbon (simulated exchange flux bound; C=4 condition)"
+     },
+     {
+      "name": "fumarate",
+      "conc": 25,
+      "unit": "mmol/gDW",
+      "role": "carbon (simulated exchange flux bound; C=4 condition)"
+     },
+     {
+      "name": "oxygen",
+      "conc": null,
+      "unit": null,
+      "role": "electron acceptor (aerobic; O2 uptake allowed, UB of O2 exchange set to 0 = secretion blocked)"
+     }
+    ],
+    "evidence": "MM base (verbatim, Supplementary Methods): 'The minimal medium medium (MM) consisted of 1 g/L NaCl, 1 g/L NH4Cl, 1.5 g/L K2HPO4, 0.5 g/L KH2PO4, and 0.2 g/L MgSO4·7H2O.' Carbon-source configuration (verbatim): 'C = 4 condition: Four carbon sources were included, each at 25 mmol to ensure balanced representation: 25 mmol glucose ... 25 mmol citrate ... 25 mmol acetate ... and 25 mmol fumarate ...' Simulation flux settings (verbatim): 'While NH4+ still had an LB of 100 mmol/gDW, all other organic substances had an LB of 0 mmol/gDW, and all other inorganic substances without C/N had an LB of 1000 mmol/gDW. The UB for all substances was consistently set to 1000 mmol/gDW ... the LB of CO2 (0 mmol/gDW) and UB of O2 (0 mmol/gDW) were maintained the same as in the single-strain medium.'"
+   }
+  ],
+  "notes": "This medium id is the in-silico SuperCC GSMM simulation medium for the C=4 (quadruple carbon) condition. Two distinct dimensioning systems are honestly reported together: (1) the real experimental MM is a simple 5-salt mineral medium and its exact g/L composition is given verbatim in the paper's Supplementary Methods (NaCl, NH4Cl, K2HPO4, KH2PO4, MgSO4·7H2O); (2) the carbon sources for the C=4 condition are given as simulated exchange-flux bounds of 25 mmol/gDW each (glucose, citrate, acetate, fumarate), not as medium concentrations. IMPORTANT: the experimental MM as written contains NO trace-element solution and NO vitamins (only the paper's separate EM and DM media add '1 ml/L trace elements solution'); therefore no trace elements or vitamins were added here — doing so would be fabrication. In the FBA simulation, all mineral ions are effectively non-limiting because 'all other inorganic substances without C/N' are set to an LB of 1000 mmol/gDW. Oxygen: aerobic — experimental cultures incubated at 30 C, 180 rpm shaking; in the model, O2 uptake is enabled (UB of O2 exchange = 0 blocks secretion, allowing uptake) and CO2 secretion enabled (LB=0). Organism: a six-strain synthetic consortium (Alcaligenes sp. A1, Providencia sp. P1, Comamonas sp. C2, Leucobacter sp. L3, Brevundimonas sp. B4, Stenotrophomonas sp. S4). Original 'have' set (ac, cit, fum, glc__D, nh4, o2) recovered; newly added base-medium ions: Na+/Cl- (NaCl), K+ and phosphate (K2HPO4 + KH2PO4), Mg2+ and SO4^2- (MgSO4·7H2O)."
+ },
+ "PMC13185565": {
+  "pmc": "PMC13185565",
+  "base_medium": "MOD medium (chemically defined medium for Bacillus cereus), used as MODG = MOD + 30 mM glucose",
+  "base_medium_reference": "Rosenfeld E, Duport C, Zigha A, Schmitt P. 2005. Characterization of aerobic and anaerobic vegetative growth of the food-borne pathogen Bacillus cereus F4430/73 strain. Can J Microbiol 51(2):149-158. doi:10.1139/w04-132 (PMID:15920631). MOD originally derived from Glatz BA, Goepfert JM. 1977 and reformulated by Duport et al. 2004 (Arch Microbiol, doi:10.1007/s00203-004-0688-y). Full salt/trace composition also compiled in the 2025 defined-medium bioRxiv preprint doi:10.1101/2025.07.14.664712.",
+  "oxygen": "anaerobic",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "complexlit_PMC13185565_modg_mod_medium_supplemented_with_30_mm_gluc",
+    "components": [
+     {
+      "name": "ammonium sulfate",
+      "conc": 45.41,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "potassium phosphate dibasic",
+      "conc": 5.74,
+      "unit": "mM",
+      "role": "phosphate/buffer"
+     },
+     {
+      "name": "magnesium sulfate",
+      "conc": 0.16,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ferrous chloride",
+      "conc": 3.39,
+      "unit": "mM",
+      "role": "trace (iron)"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 0.25,
+      "unit": "mM",
+      "role": "trace (manganese)"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 0.12,
+      "unit": "mM",
+      "role": "trace (molybdenum)"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 2.47,
+      "unit": "mM",
+      "role": "trace (calcium)"
+     },
+     {
+      "name": "zinc chloride",
+      "conc": 0.62,
+      "unit": "mM",
+      "role": "trace (zinc)"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 0.12,
+      "unit": "mM",
+      "role": "trace (cobalt)"
+     },
+     {
+      "name": "copper sulfate",
+      "conc": 0.25,
+      "unit": "mM",
+      "role": "trace (copper)"
+     },
+     {
+      "name": "sodium selenate",
+      "conc": 0.12,
+      "unit": "mM",
+      "role": "trace (selenium)"
+     },
+     {
+      "name": "D-glucose",
+      "conc": 30,
+      "unit": "mM",
+      "role": "carbon"
+     },
+     {
+      "name": "amino acid mixture (15 L-amino acids)",
+      "conc": null,
+      "unit": null,
+      "role": "nitrogen/carbon (amino acids)"
+     }
+    ],
+    "evidence": "Paper (PMC13185565) Methods: 'grown in MOD medium supplemented with 30 mM glucose (MODG) as the carbon source (ref 32)'; 'Strict anaerobic conditions (pO2 = 0%) were achieved by continuously sparging the medium with pure nitrogen gas.' Ref 32 = Rosenfeld et al. 2005. Composition (compiled from Duport et al. 2004 and the 2025 bioRxiv defined-medium preprint that cites MOD): 'MOD medium consists of a basic medium [45.41 mM (NH4)2SO4, 5.74 mM K2HPO4, 0.16 mM MgSO4] supplemented with trace elements (3.39 mM FeCl2 x 6 H2O, 0.25 mM MnCl2 x 4 H2O, 0.12 mM Na2MoO4 x 2 H2O, 2.47 mM CaCl2, 0.62 mM ZnCl2, 0.12 mM CoCl2 x 6 H2O, 0.25 mM CuSO4, 0.12 mM NaSeO4), 20 mM D-glucose and a mixture of 15 amino acids.' Rosenfeld 2005/exoproteome studies note the medium is phosphate-buffered near pH 7.2-7.4."
+   }
+  ],
+  "notes": "Organism = Bacillus cereus ATCC 14579 (facultative anaerobe); THIS study grew it under STRICT anaerobiosis (pO2=0%, N2-sparged 2 L bioreactor, 37C), so oxygen=anaerobic for this dataset. MODG = MOD base + glucose raised to 30 mM (base MOD carries ~20 mM D-glucose; here supplemented to 30 mM as the carbon source). Base salts, trace-element list, and glucose were recovered from sources that explicitly define MOD and cite Rosenfeld 2005. INCOMPLETE: the MOD base includes a mixture of 15 L-amino acids, but the individual amino-acid identities and concentrations could not be recovered from open-access sources (they reside in the paywalled Rosenfeld et al. 2005 / Glatz & Goepfert 1977 full texts) - left unfilled rather than fabricated. CAVEAT on trace-element concentrations: the values quoted (e.g. 3.39 mM FeCl2, 2.47 mM CaCl2) are unusually high for final medium concentrations and may represent a concentrated trace-element stock rather than final in-medium concentrations; reported verbatim from the secondary source without adjustment. Confidence set to medium due to the missing amino-acid detail and the trace-element concentration uncertainty."
+ },
+ "PMC2998477": {
+  "pmc": "PMC2998477",
+  "base_medium": "Pseudomonas basal mineral medium (PBM)",
+  "base_medium_reference": "Cited in Folsom et al. 2010 (BMC Microbiol 10:294; PMID 21083928; doi:10.1186/1471-2180-10-294) as reference [89]: Atlas RM. Handbook of Microbiological Media. Boca Raton: CRC Press; 1993. The numeric per-liter composition is defined only in that (paywalled/lending-restricted) handbook, not in the paper.",
+  "oxygen": "aerobic",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "growthlit_PMC2998477_pseudomonas_basal_mineral_medium_pbm",
+    "components": [
+     {
+      "name": "glucose",
+      "conc": 0.2,
+      "unit": "g/L",
+      "role": "carbon"
+     },
+     {
+      "name": "ammonium sulfate",
+      "conc": null,
+      "unit": "unknown",
+      "role": "nitrogen"
+     },
+     {
+      "name": "ferrous ammonium sulfate",
+      "conc": 1.5,
+      "unit": "uM",
+      "role": "mineral/iron"
+     }
+    ],
+    "evidence": "\"P. aeruginosa was grown in Pseudomonas basal mineral medium [89] (PBM) containing 0.2 g l-1 glucose for experiments measuring growth or antibiotic susceptibility. Inocula were grown in the same medium containing 1 g l-1 glucose.\" ... \"The medium flowing over the biofilm was then changed from complete PBM to PBM lacking glucose and ammonium sulfate.\" ... \"The concentration of iron in the medium, added in the form of ferrous ammonium sulfate, was 1.5 uM.\" Aerobic: biofilms grown in drip-flow reactors at the air-liquid interface with a filtered air vent at 37 C."
+   }
+  ],
+  "notes": "The base medium is 'Pseudomonas basal mineral medium (PBM)', cited to Atlas RM, Handbook of Microbiological Media (CRC Press, 1993) = reference [89]. The primary paper (Folsom et al. 2010) itself confirms three components: glucose (0.2 g/L for growth/susceptibility experiments and biofilm feed; 1 g/L for inocula), ammonium sulfate as nitrogen source (paper states switching to a medium 'lacking glucose and ammonium sulfate'; this ammonium sulfate also supplies the sulfate captured as so4), and iron supplied as ferrous ammonium sulfate at 1.5 uM. These match the target ions glc__D, nh4, so4, o2. The concentrations of ammonium sulfate and of the remaining mineral base of the Atlas PBM recipe (phosphate buffer such as K2HPO4/KH2PO4 or Na2HPO4, MgSO4, CaCl2, and any trace-element solution) could NOT be recovered: the Atlas Handbook (ref 89) is not freely accessible (Internet Archive copies handbookofmicrob00atla/0000/0003 are access-restricted; Google Books/search-inside blocked), and no downstream Stewart-lab paper reproduces the full numeric recipe with the Atlas citation. Those unrecovered components were deliberately NOT invented. Oxygen regime is aerobic (drip-flow reactor, air-liquid interface, filtered air vent, 37 C). Confidence 'medium': base-medium identity, defining reference, oxygen regime, and 3 components are firmly verified from the primary source, but the complete quantitative mineral-salts base is unrecovered."
+ },
+ "PMC3181329": {
+  "pmc": "PMC3181329",
+  "base_medium": "Evans defined medium (carbon/glucose-limited variant)",
+  "base_medium_reference": "Evans CGT, Herbert D, Tempest DW (1970) The continuous cultivation of micro-organisms. 2. Construction of a chemostat. Methods in Microbiology 2: 277-327. (cited as ref [22] in PMC3181329). No DOI/PMID (book chapter). Full salt composition recovered from methods sections of papers reproducing this cited recipe.",
+  "oxygen": "facultative",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "complexlit_PMC3181329_carbon_limited_evans_defined_minimal_medium",
+    "components": [
+     {
+      "name": "potassium phosphate dibasic",
+      "conc": 50,
+      "unit": "mM",
+      "role": "mineral/buffer"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 5,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "sodium sulfate",
+      "conc": 0.1,
+      "unit": "mM",
+      "role": "sulfur/mineral"
+     },
+     {
+      "name": "magnesium chloride",
+      "conc": 0.062,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 0.001,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ammonium molybdate",
+      "conc": 0.005,
+      "unit": "uM",
+      "role": "trace (molybdenum)"
+     },
+     {
+      "name": "zinc oxide",
+      "conc": 5.0,
+      "unit": "uM",
+      "role": "trace (zinc)"
+     },
+     {
+      "name": "ferrous chloride",
+      "conc": 20,
+      "unit": "uM",
+      "role": "trace (iron)"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 10,
+      "unit": "uM",
+      "role": "trace (manganese)"
+     },
+     {
+      "name": "copper chloride",
+      "conc": 1.0,
+      "unit": "uM",
+      "role": "trace (copper)"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 2.0,
+      "unit": "uM",
+      "role": "trace (cobalt)"
+     },
+     {
+      "name": "boric acid",
+      "conc": 1.0,
+      "unit": "uM",
+      "role": "trace (boron)"
+     },
+     {
+      "name": "D-glucose",
+      "conc": 21.9,
+      "unit": "mM",
+      "role": "carbon (growth-limiting)"
+     },
+     {
+      "name": "oxygen",
+      "conc": 10,
+      "unit": "uM",
+      "role": "electron acceptor (micro-aerobic; also run fully anaerobic under N2/CO2)"
+     }
+    ],
+    "evidence": "From the paper (PLOS ONE / PMC3181329, Methods): 'Carbon-limited Evans defined medium was used with 21.9 mM glucose as the carbon source [22].' Aeration: anaerobic by 'sparging with N2 (95%) and CO2 (5%) at 0.4 l min-1'; micro-aerobic maintained dissolved O2 at '5% (~10 uM)'; 1 L Labfors 3 chemostat, 37C, 400 rpm, pH 7.0, D=0.2 h-1. Base Evans recipe (from methods reproducing ref [22]): per litre - K2HPO4 8.71 g (50 mM); NH4Cl (5 M stock) 1 ml; Na2SO4 (0.1 M) 1 ml; MgCl2 (62 mM) 1 ml; CaCl2 (1 mM) 1 ml; (NH4)6Mo7O24 (0.005 mM) 1 ml; trace element solution 1 ml. Trace element solution (per litre in 1% HCl): ZnO 0.41 g; FeCl2 2.9 g; MnCl2 1.28 g; CuCl2 0.13 g; CoCl2 0.26 g; H3BO3 0.06 g; added at 1 ml/L (final concentrations therefore ~1000-fold diluted, giving the low-uM trace values listed)."
+   }
+  ],
+  "notes": "The paper itself gives ONLY the carbon source (21.9 mM glucose) and cites the base medium as Evans et al. 1970 (Methods in Microbiology 2:277-327, ref [22]); it does not print the salt table. Full composition was recovered from methods sections of other studies that reproduce this exact cited Evans recipe (consistent across independent sources). Trace-element final concentrations are computed from the stated stock amounts and the 1 ml/L dosing (ZnO->~5 uM Zn; FeCl2 2.9 g/L stock->~15-23 uM Fe depending on hydration, listed as ~20 uM; MnCl2->~10 uM; CuCl2->~1 uM; CoCl2->~2 uM; H3BO3->~1 uM) and are approximate. IMPORTANT CAVEAT: the standard Evans base carries NH4Cl at 5 mM, which would be nitrogen-limiting at 21.9 mM glucose; for the CARBON-limited variant used here the nitrogen source (and other salts) must have been supplied in excess, but the paper does not state the adjusted NH4Cl value, so the 5 mM figure is the base-recipe value, not verified for this specific carbon-limited medium. Organism: E. coli K-12 MG1655, a facultative anaerobe; the single medium id spans anaerobic and micro-aerobic (~10 uM O2) chemostat runs. The primary 1970 book chapter was not read directly (not open-access); confidence set to medium accordingly. No components were invented.",
+  "sources": [
+   "https://pmc.ncbi.nlm.nih.gov/articles/PMC3181329/",
+   "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0025501"
+  ]
+ },
+ "PMC3419522": {
+  "pmc": "PMC3419522",
+  "base_medium": "Modified ASP-2 medium (van Baalen 1962) for Cyanothece sp. ATCC 51142; low-N / N-limited variant",
+  "base_medium_reference": "van Baalen C. 1962. Studies on marine blue-green algae. Botanica Marina 4:129-139 (cited as ref [34] in the paper). Base mineral-salt composition and the ASP-2 / ASP-2-N (nitrogen-free) variant taken from the ASP-2 recipe listing at cellreg.org (http://cellreg.org/Catalog_2020/Catalog%20NEW/media/ASP%202+ASP%202-N.html) which cites van Baalen 1962; P-II trace-metal solution from Provasoli, McLaughlin & Droop 1957 (P II metals, per 100 mL: Na2EDTA 100 mg, H3BO3 114 mg, FeCl3.6H2O 4.9 mg, MnSO4.H2O 16.4 mg, ZnSO4.7H2O 2.2 mg, CoSO4.7H2O 0.48 mg).",
+  "oxygen": "facultative",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "growthlit_PMC3419522_modified_low_n_asp_2_n_deprived_pure_ar_",
+    "components": [
+     {
+      "name": "sodium chloride",
+      "conc": 308,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium sulfate heptahydrate",
+      "conc": 3.0,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "potassium chloride",
+      "conc": 8.0,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride dihydrate",
+      "conc": 2.5,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 0.75,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "dipotassium hydrogen phosphate",
+      "conc": 0.75,
+      "unit": "mM",
+      "role": "phosphate"
+     },
+     {
+      "name": "ferric chloride",
+      "conc": 0.03,
+      "unit": "mM",
+      "role": "trace/iron"
+     },
+     {
+      "name": "disodium EDTA",
+      "conc": 0.08,
+      "unit": "mM",
+      "role": "chelator"
+     },
+     {
+      "name": "boric acid",
+      "conc": 18.4,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "manganese sulfate monohydrate",
+      "conc": 0.97,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "zinc sulfate heptahydrate",
+      "conc": 0.077,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cobalt sulfate heptahydrate",
+      "conc": 0.017,
+      "unit": "uM",
+      "role": "trace"
+     }
+    ],
+    "evidence": "From the paper (Methods): 'Cyanothece 51142 was routinely maintained in modified ASP-2 medium [34], containing 17 mM NH4Cl, 0.03 mM FeCl3, and 0.75 mM K2HPO4.' For the chemostat/H2-production runs: 'modified low-N ASP-2 containing 0.75 mM NH4Cl delivered at a 0.05 h-1 dilution rate and sparging with 1.3% CO2-Ar gas mix (vol/vol) at 4.08 liters/min'; a variant used 'pure Ar' to examine CO2 effects. Reference [34] = van Baalen C. 1962. Studies on marine blue-green algae. Bot. Mar. 4:129-139. Base ASP-2 mineral salts (van Baalen 1962, per liter): NaCl 18 g (308 mM), MgSO4.7H2O 0.75 g (3.0 mM), KCl 0.6 g (8.0 mM), CaCl2.2H2O 0.37 g (2.5 mM), Na2EDTA 0.03 g (0.08 mM), plus 1 mL/L P-II trace-metal solution and vitamin B12; in the standard ASP-2 the N source is NaNO3 1.5 g/L, which the paper replaces with NH4Cl (17 mM maintenance; 0.75 mM in the low-N chemostat). Trace-element final concentrations computed from 1 mL/L of Provasoli P-II stock (H3BO3 1.14 mg/L, MnSO4.H2O 0.164 mg/L, ZnSO4.7H2O 0.022 mg/L, CoSO4.7H2O 0.0048 mg/L)."
+   }
+  ],
+  "notes": "Organism: Cyanothece sp. ATCC 51142, a unicellular diazotrophic (N2-fixing) marine cyanobacterium; an oxygenic photoautotroph, so it is classified 'facultative' with respect to O2 — for this H2-production condition the culture is sparged with PURE Ar (anoxic gas phase, no CO2 supplied), which strips both O2 and CO2 to drive nitrogenase/hydrogenase; the cells still evolve O2 photosynthetically. Carbon: normally supplied as 1.3% CO2 in the Ar sparge; this specific 'pure Ar (no CO2)' variant deliberately withholds gaseous inorganic carbon (no organic carbon is present). Nitrogen: this is a LOW-N (N-limited) variant retaining 0.75 mM NH4Cl, not strictly zero-N (the target label 'N-deprived' reflects N limitation relative to the 17 mM maintenance level). The three explicitly stated modified components (NH4Cl, FeCl3, K2HPO4) come directly from the paper; the base mineral salts, EDTA and P-II trace-metal amounts come from the cited van Baalen 1962 ASP-2 recipe and the standard Provasoli P-II solution (secondary sources) rather than being itemized in this paper, hence confidence 'medium'. A buffer is part of ASP-2 (van Baalen used Tris ~1 g/L; some Cyanothece labs use 15 mM TAPS or ~20 mM HEPES-Na, pH ~7.8-8.1) but the exact buffer and concentration are not stated in this paper, so it is omitted from the component list rather than guessed. Vitamin B12 (cyanocobalamin) is a standard ASP-2 supplement (added after autoclaving) and provides cobalt, but its concentration is not given here so it is not listed numerically. MgSO4 amount (0.75 g/L) follows the cellreg van Baalen ASP-2 listing; note other ASP-2 modifications (e.g. Brand's ASP2) use ~5 g/L MgSO4.7H2O (10.5 mM)."
+ },
+ "PMC3831637": {
+  "pmc": "PMC3831637",
+  "base_medium": "Paracoccus denitrificans defined minimal chemostat medium (succinate/nitrate, Vishniac & Santer trace elements) as used by Felgate et al. 2012",
+  "base_medium_reference": "Felgate H., Giannopoulos G., Sullivan M.J., Gates A.J., Clarke T.A., Baggs E., Rowley G., Richardson D.J. (2012) 'The impact of copper, nitrate and carbon status on the emission of nitrous oxide by two species of bacteria with biochemically distinct denitrification pathways.' Environmental Microbiology 14(7):1788-1800. PMID: 22642644, DOI: 10.1111/j.1462-2920.2012.02789.x. Full composition reproduced verbatim in Gaimster et al. 2016 Front. Microbiol. 7:1806 (DOI 10.3389/fmicb.2016.01806) and following Sullivan et al. 2013.",
+  "oxygen": "anaerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC3831637_defined_chemostat_medium_succinate_carbon_so",
+    "components": [
+     {
+      "name": "sodium succinate",
+      "conc": 30,
+      "unit": "mM",
+      "role": "carbon/electron donor"
+     },
+     {
+      "name": "sodium nitrate",
+      "conc": 20,
+      "unit": "mM",
+      "role": "electron acceptor/nitrogen"
+     },
+     {
+      "name": "disodium hydrogen phosphate",
+      "conc": 29,
+      "unit": "mM",
+      "role": "buffer/phosphate"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 11,
+      "unit": "mM",
+      "role": "buffer/phosphate"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 10,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "magnesium sulfate",
+      "conc": 0.4,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "EDTA",
+      "conc": 260,
+      "unit": "uM",
+      "role": "chelator (trace-element solution, 2 mL/L of 130 mM stock)"
+     },
+     {
+      "name": "zinc sulfate",
+      "conc": 15.28,
+      "unit": "uM",
+      "role": "trace element (2 mL/L of 7.64 mM stock)"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 50,
+      "unit": "uM",
+      "role": "trace element (2 mL/L of 25 mM stock)"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": 37,
+      "unit": "uM",
+      "role": "trace element (2 mL/L of 18.5 mM stock)"
+     },
+     {
+      "name": "ammonium molybdate",
+      "conc": 1.78,
+      "unit": "uM",
+      "role": "trace element/molybdenum (2 mL/L of 0.89 mM stock)"
+     },
+     {
+      "name": "copper sulfate",
+      "conc": 12.8,
+      "unit": "uM",
+      "role": "trace element/copper (2 mL/L of 6.4 mM stock; = high-copper control [Cu]=13 umol/L)"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 13.44,
+      "unit": "uM",
+      "role": "trace element (2 mL/L of 6.72 mM stock)"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 74.8,
+      "unit": "uM",
+      "role": "trace element (2 mL/L of 37.4 mM stock)"
+     }
+    ],
+    "evidence": "Gaimster et al. 2016 (reproducing the Felgate et al. 2012 medium): defined minimal medium contained '29 mmol/L Na2HPO4, 11 mmol/L KH2PO4, 10 mmol/L NH4Cl, 0.4 mmol/L MgSO4' supplemented with '30 mmol/L sodium succinate, 20 mmol/L NaNO3' and 2 mL/L Vishniac and Santer trace elements solution ['130 mmol/L EDTA, 7.64 mmol/L ZnSO4, 25 mmol/L MnCl2, 18.5 mmol/L FeSO4, 0.89 mmol/L (NH4)6Mo7O24, 6.4 mmol/L CuSO4, 6.72 mmol/L CoCl2, 37.4 mmol/L CaCl2']. Trace-element final concentrations above are the stock values diluted 2 mL/L. PMC3831637 (Woolfenden et al. 2013) models exactly this system (Paracoccus denitrificans, succinate carbon source, nitrate electron acceptor, denitrification) with the high-copper control [Cu]=13 umol/L (matches CuSO4 6.4 mM x 2 mL/L = 12.8 umol/L) vs low-copper [Cu]=0.5 umol/L (achieved by ascorbate + BCA chelation, or by omitting CuSO4 from the trace solution).",
+    "notes": "The target entry is the high-copper condition, which uses the COMPLETE Vishniac & Santer trace solution (CuSO4 included), giving ~13 umol/L Cu. In the low-copper conditions CuSO4 is omitted from the trace solution and/or copper is chelated with ascorbate + BCA (bicinchoninic acid); those chelators are experimental additions, not medium nutrients."
+   }
+  ],
+  "notes": "Organism: Paracoccus denitrificans (haem-Nir denitrifier). Regime: anaerobic, nitrate-limited denitrifying continuous (chemostat) culture. PMC3831637 itself (Woolfenden et al. 2013, MicrobiologyOpen) is a modelling paper that does not reproduce the medium; it cites Felgate et al. 2012 for the experimental data and medium. The base recipe was recovered from Felgate et al. 2012 as reproduced verbatim in Gaimster et al. 2016 (Front. Microbiol. 7:1806), a paper from the same UEA group (Richardson/Rowley/Gates) using the identical medium. The '13 umol/L' copper concentration in the target name is independently reproduced by the trace-element math (6.4 mM CuSO4 x 2 mL/L = 12.8 umol/L), giving high confidence the correct base medium was identified. Trace-element concentrations listed are final in-medium values (stock x 2 mL/L)."
+ },
+ "PMC3946380": {
+  "pmc": "PMC3946380",
+  "base_medium": "OBGM (oral bacterial growth medium)",
+  "base_medium_reference": "Full recipe published by the same group: Dashper SG et al. (2011) 'Porphyromonas gingivalis and Treponema denticola Synergistic Polymicrobial Biofilm Development.' PLoS ONE 6(6):e27317, doi:10.1371/journal.pone.0071727 (PMC3753311). Medium first named in Veith PD, Dashper SG, O'Brien-Simpson NM, et al. (2009) 'Major proteins and antigens of Treponema denticola.' Biochim Biophys Acta 1794:1421-1432, doi:10.1016/j.bbapap.2009.06.001 (ref [27] in PMC3946380), but that paper does not tabulate the full composition.",
+  "oxygen": "anaerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC3946380_obgm_oral_bacterial_growth_medium_u_13c_glyc",
+    "components": [
+     {
+      "name": "brain heart infusion",
+      "conc": 12.5,
+      "unit": "g/L",
+      "role": "complex/undefined base"
+     },
+     {
+      "name": "tryptone soya broth",
+      "conc": 10,
+      "unit": "g/L",
+      "role": "complex/undefined base"
+     },
+     {
+      "name": "yeast extract",
+      "conc": 7.5,
+      "unit": "g/L",
+      "role": "complex/undefined base (vitamins, amino acids)"
+     },
+     {
+      "name": "sodium thioglycolate",
+      "conc": 0.5,
+      "unit": "g/L",
+      "role": "reducing agent"
+     },
+     {
+      "name": "L-asparagine",
+      "conc": 0.25,
+      "unit": "g/L",
+      "role": "amino acid/nitrogen"
+     },
+     {
+      "name": "D-glucose",
+      "conc": 2,
+      "unit": "g/L",
+      "role": "carbon"
+     },
+     {
+      "name": "ascorbic acid",
+      "conc": 2,
+      "unit": "g/L",
+      "role": "reducing agent/vitamin"
+     },
+     {
+      "name": "sodium pyruvate",
+      "conc": 1,
+      "unit": "g/L",
+      "role": "carbon"
+     },
+     {
+      "name": "sodium bicarbonate",
+      "conc": 2,
+      "unit": "g/L",
+      "role": "buffer"
+     },
+     {
+      "name": "L-cysteine",
+      "conc": 1,
+      "unit": "g/L",
+      "role": "reducing agent/amino acid/sulfur"
+     },
+     {
+      "name": "ammonium sulfate",
+      "conc": 2,
+      "unit": "g/L",
+      "role": "nitrogen/sulfur"
+     },
+     {
+      "name": "thiamine pyrophosphate",
+      "conc": 6,
+      "unit": "mg/L",
+      "role": "vitamin/cofactor"
+     },
+     {
+      "name": "heat-inactivated rabbit serum",
+      "conc": 5,
+      "unit": "% v/v",
+      "role": "complex/undefined supplement"
+     },
+     {
+      "name": "hemin",
+      "conc": 5,
+      "unit": "mg/L",
+      "role": "cofactor/iron source"
+     },
+     {
+      "name": "menadione",
+      "conc": 1,
+      "unit": "mg/L",
+      "role": "vitamin K"
+     },
+     {
+      "name": "N-acetylmuramic acid",
+      "conc": 10,
+      "unit": "mg/L",
+      "role": "cell-wall precursor (paper states 10 mg/mL, almost certainly a typo for 10 mg/L)"
+     },
+     {
+      "name": "volatile fatty acid mix",
+      "conc": 0.5,
+      "unit": "% v/v",
+      "role": "complex/undefined (short-chain fatty acids); individual composition not given"
+     },
+     {
+      "name": "[U-13C]glycine",
+      "conc": 5,
+      "unit": "mM",
+      "role": "carbon/amino acid tracer supplement (this study)"
+     }
+    ],
+    "evidence": "From PMC3946380: '[U-13C]glycine (Cambridge Isotope Laboratories, MA, USA) was added to a final concentration of 5 mM' to cultures grown 'in oral bacterial growth medium (OBGM), that meets the growth requirements of both P. gingivalis and T. denticola', maintained anaerobically at 37C (5% CO2, 5% H2, 90% N2 batch; 10% CO2 in N2 continuous). Full OBGM recipe from the same group (PMC3753311 / PLoS ONE, Dashper et al. 2011): 'OBGM contained brain heart infusion (12.5 g/L), tryptone soya broth (10 g/L), yeast extract (7.5 g/L), sodium thioglycolate (0.5 g/L), asparagine (0.25 g/L) D-glucose (2 g/L), ascorbic acid (2 g/L), sodium pyruvate (1 g/L) and sodium bicarbonate (2 g/L), L-cysteine (1 g/L), ammonium sulfate (2 g/L), thiamine pyrophosphate (6 mg/L), heat inactivated rabbit serum (5% vol/vol), haemin (5 mg/L), menadione (1 mg/L), N-acetylmuramic acid (10 mg/mL) and a volatile fatty acid mix (0.5% vol/vol).'"
+   }
+  ],
+  "notes": "OBGM is a COMPLEX (undefined) rich medium, not a mineral/defined medium. Several ingredients (brain heart infusion, tryptone soya broth, yeast extract, heat-inactivated rabbit serum, volatile fatty acid mix) are complex mixtures whose exact molecular composition is not resolvable to ions. The full recipe is not stated in PMC3946380 itself; it is recovered from the same group's paper PMC3753311 (Dashper et al. 2011, PLoS ONE), which uses the identically named OBGM for the same two organisms (P. gingivalis + T. denticola). The original medium name traces to Veith et al. 2009 (ref [27]), which does not tabulate the composition. N-acetylmuramic acid is reported as '10 mg/mL' in the source, which is almost certainly a typographical error for 10 mg/L (10 mg/mL would be an implausibly high 1% w/v); recorded here as 10 mg/L. The composition of the 'volatile fatty acid mix' (typically acetic/propionic/isobutyric/butyric/isovaleric/valeric acids in anaerobe media) is not specified in the source and was not fabricated. Growth is strictly anaerobic (37C, 5% CO2/5% H2/90% N2)."
+ },
+ "PMC3958174": {
+  "pmc": "PMC3958174",
+  "base_medium": "Crude cashew apple juice (CAJ) from Anacardium occidentale L. (natural fruit juice used undiluted as sole cultivation medium, no aeration)",
+  "base_medium_reference": "Oliveira AH, Ogrodowski CC, de Macedo AC, Santana MHA, Goncalves LRB. Cashew apple juice as microbial cultivation medium for non-immunogenic hyaluronic acid production. Braz J Microbiol. 2014;44(4):1097-1104. PMID: 24688498; PMCID: PMC3958174. Composition further attributed by the authors to Rocha MVP et al. Production of biosurfactant by Pseudomonas aeruginosa grown on cashew apple juice. Appl Biochem Biotechnol. 2007;136:185-194. doi:10.1007/s12010-007-9050-6",
+  "oxygen": "facultative",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "complexlit_PMC3958174_crude_cashew_apple_juice_caj_no_aeration",
+    "components": [
+     {
+      "name": "glucose",
+      "conc": 55,
+      "unit": "g/L",
+      "role": "carbon/energy source (reducing sugar)"
+     },
+     {
+      "name": "fructose",
+      "conc": 45,
+      "unit": "g/L",
+      "role": "carbon/energy source (reducing sugar)"
+     },
+     {
+      "name": "sucrose",
+      "conc": 4,
+      "unit": "g/L",
+      "role": "carbon source (minor, non-reducing)"
+     },
+     {
+      "name": "L-ascorbic acid (vitamin C)",
+      "conc": 1.5,
+      "unit": "g/L",
+      "role": "vitamin / redox agent (implicated in HA depolymerization)"
+     },
+     {
+      "name": "total nitrogen (as amino acids)",
+      "conc": 0.4,
+      "unit": "g/L",
+      "role": "nitrogen source"
+     },
+     {
+      "name": "phosphorus (phosphate)",
+      "conc": 0.1,
+      "unit": "g/L",
+      "role": "mineral / phosphate"
+     },
+     {
+      "name": "thiamine",
+      "conc": 0,
+      "unit": "qualitative",
+      "role": "vitamin (B1, present, unquantified)"
+     },
+     {
+      "name": "riboflavin",
+      "conc": 0,
+      "unit": "qualitative",
+      "role": "vitamin (B2, present, unquantified)"
+     },
+     {
+      "name": "niacin",
+      "conc": 0,
+      "unit": "qualitative",
+      "role": "vitamin (B3, present, unquantified)"
+     },
+     {
+      "name": "folic acid",
+      "conc": 0,
+      "unit": "qualitative",
+      "role": "vitamin (B9, present, unquantified)"
+     }
+    ],
+    "evidence": "From the paper (PMC3958174): 'cashew apple juice ... due to its rich composition that includes 10% of reducing sugars (glucose and fructose), phosphorous and amino acids'; 'CAJ has low total nitrogen content (0.04% w/v)'; 'CAJ also contains B-vitamins, mainly thiamin, riboflavin, niacin and folic acid'; and the discussion notes 'a possible synergic redox-depolymerization mechanism provided by ascorbate presence in cashew apple juice.' Medium prep: 'The juice was withdrawn by compressing the cashew apple (Anacardium occidentale L.). Afterwards, pH was adjusted to 7.0 and the medium was submitted to ultraviolet exposition for 2 h for sterilization in order to avoid loss of labile components by heat.' Reducing sugars 10% w/v = ~100 g/L glucose+fructose combined and total nitrogen 0.04% w/v = ~0.4 g/L are the only quantitative values the paper itself reports. Individual glucose/fructose split (~47-66 and ~40-110 g/L across cultivars; representative ~55/45), sucrose (~2.5-5.3 g/L), ascorbic acid (~1.2-2.0 g/L, i.e. ~370-480 mg/100 g), and phosphorus (~0.5-1.4 g/L) come from cashew-apple-juice characterization literature (Rocha et al. 2007 and physico-chemical characterization studies), not from a defined recipe."
+   }
+  ],
+  "notes": "CAJ is a NATURAL fruit juice, not a chemically defined medium, so there is no fixed recipe; composition varies by cultivar, ripeness, and geographic origin. The primary paper (PMC3958174) quantifies ONLY: reducing sugars ~10% w/v (glucose + fructose, ~100 g/L combined) and total nitrogen 0.04% w/v (~0.4 g/L); it lists phosphorus, amino acids, ascorbic acid, and B-vitamins (thiamine, riboflavin, niacin, folic acid) only qualitatively. The glucose/fructose split, sucrose, ascorbic-acid, and phosphorus numeric values above are representative values drawn from CAJ characterization literature (including the cited Rocha et al. 2007) and should be treated as approximate ranges, not exact recipe amounts. Qualitative-only components are given conc 0 with unit 'qualitative'. Culture used undiluted CAJ, pH adjusted to 7.0, UV-sterilized (no autoclave). This target ('no aeration') corresponds to the Erlenmeyer-flask condition (200 mL medium in 500 mL flask, natural aeration only, no forced aeration); the organism Streptococcus zooepidemicus ATCC 39920 is facultatively anaerobic, hence oxygen=facultative. Confidence 'medium' because only two composition values are firmly from the primary paper; the rest are literature-derived approximations for a variable natural juice."
+ },
+ "PMC4322847": {
+  "pmc": "PMC4322847",
+  "base_medium": "Reconstituted skim milk (RSM): 10% (w/v) low-heat skim milk powder in distilled water, supplemented with 10 mM CaCl2, heat-treated 90 C/30 min. r-RSM = same medium coagulated with chymosin (rennet) added at inoculation.",
+  "base_medium_reference": "Stulova I, Kabanova N, Krisciunaite T, Adamberg K, Laht T-M, Vilu R. Microcalorimetric study of the growth of Streptococcus thermophilus in renneted milk. Front Microbiol. 2015;6:79. doi:10.3389/fmicb.2015.00079 (PMC4322847). Skim-milk constituent concentrations (native milk salts, protein, vitamins) not tabulated in the paper; taken from standard dairy-composition references: MilkFacts.info nutrient content of milk; Gaucheron F. The minerals of milk. Reprod Nutr Dev. 2005;45:473-483 (https://rnd.edpsciences.org/articles/rnd/pdf/2005/04/r5402.pdf); Dairy Global Nutrition, Nutritional composition of skim milk powder.",
+  "oxygen": "facultative",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "complexlit_PMC4322847_r_rsm_renneted_reconstituted_skim_milk_gel_c",
+    "components": [
+     {
+      "name": "lactose",
+      "conc": 145,
+      "unit": "mM",
+      "role": "carbon/energy source"
+     },
+     {
+      "name": "casein (bovine, whole; alpha-s1, alpha-s2, beta, kappa)",
+      "conc": 26,
+      "unit": "g/L",
+      "role": "protein / amino-acid & nitrogen source (~80% of milk protein)"
+     },
+     {
+      "name": "whey proteins (beta-lactoglobulin, alpha-lactalbumin, serum albumin, immunoglobulins)",
+      "conc": 6,
+      "unit": "g/L",
+      "role": "protein / amino-acid & nitrogen source (~20% of milk protein)"
+     },
+     {
+      "name": "free amino acids (glutamic acid/glutamine most abundant, 46% of total free AA; plus the full set of casein-derived residues: proline, leucine, lysine, aspartate, valine, isoleucine, phenylalanine, tyrosine, threonine, serine, alanine, arginine, glycine, histidine, methionine, tryptophan, cysteine, asparagine)",
+      "conc": null,
+      "unit": "mM",
+      "role": "amino-acid / nitrogen source (liberated by proteolysis)"
+     },
+     {
+      "name": "calcium (native colloidal + soluble) plus 10 mM CaCl2 added",
+      "conc": 40,
+      "unit": "mM",
+      "role": "mineral (~30 mM native + 10 mM supplemented)"
+     },
+     {
+      "name": "inorganic phosphate (as total P, colloidal calcium phosphate + soluble)",
+      "conc": 32,
+      "unit": "mM",
+      "role": "mineral / phosphorus source"
+     },
+     {
+      "name": "potassium",
+      "conc": 40,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "sodium",
+      "conc": 18,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium",
+      "conc": 4.5,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "chloride (native ~28 mM + ~20 mM from added CaCl2)",
+      "conc": 48,
+      "unit": "mM",
+      "role": "mineral / anion"
+     },
+     {
+      "name": "citrate",
+      "conc": 9,
+      "unit": "mM",
+      "role": "mineral chelator / minor carbon source"
+     },
+     {
+      "name": "zinc",
+      "conc": 60,
+      "unit": "uM",
+      "role": "trace element"
+     },
+     {
+      "name": "riboflavin (vitamin B2)",
+      "conc": 5.3,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine (vitamin B1)",
+      "conc": 1.2,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "pantothenic acid (vitamin B5)",
+      "conc": 15,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxine (vitamin B6)",
+      "conc": 2,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "cobalamin (vitamin B12)",
+      "conc": 0.003,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "folate",
+      "conc": 0.11,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "biotin",
+      "conc": 0.08,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "niacin (nicotinic acid/nicotinamide)",
+      "conc": 8,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "chymosin (recombinant calf rennet)",
+      "conc": 100,
+      "unit": "mg/L",
+      "role": "milk-clotting enzyme (coagulant; not a nutrient) - defines r-RSM"
+     }
+    ],
+    "evidence": "\"Low heat skim milk powder (LHSMP) was suspended in distilled water to yield a final concentration of 10% (w v-1) milk solids, with addition of CaCl2 in final concentration of 10 mM ... heated at 90 C for 30 min and cooled to 30 C.\" For r-RSM: \"chymosin ... was added immediately after the inoculation\" (100 uL of 10 g/L per 10 mL milk), coagulating within ~40 min. \"glutamic acid was initially the most abundant free amino acid in both, RSM and r-RSM, accounting for 46% of the total.\" \"approximately 130 mmol L-1 of lactose was hydrolysed.\" Native milk salt/vitamin concentrations are standard skim-milk values (Ca 122, P 101, K 156, Na 42, Mg 11 mg/100 mL; riboflavin ~0.2 mg/100 mL)."
+   },
+   {
+    "id": "complexlit_PMC4322847_rsm_liquid_reconstituted_skim_milk",
+    "components": [
+     {
+      "name": "lactose",
+      "conc": 145,
+      "unit": "mM",
+      "role": "carbon/energy source"
+     },
+     {
+      "name": "casein (bovine, whole; alpha-s1, alpha-s2, beta, kappa)",
+      "conc": 26,
+      "unit": "g/L",
+      "role": "protein / amino-acid & nitrogen source (~80% of milk protein)"
+     },
+     {
+      "name": "whey proteins (beta-lactoglobulin, alpha-lactalbumin, serum albumin, immunoglobulins)",
+      "conc": 6,
+      "unit": "g/L",
+      "role": "protein / amino-acid & nitrogen source (~20% of milk protein)"
+     },
+     {
+      "name": "free amino acids (glutamic acid/glutamine most abundant, 46% of total free AA; plus the full set of casein-derived residues: proline, leucine, lysine, aspartate, valine, isoleucine, phenylalanine, tyrosine, threonine, serine, alanine, arginine, glycine, histidine, methionine, tryptophan, cysteine, asparagine)",
+      "conc": null,
+      "unit": "mM",
+      "role": "amino-acid / nitrogen source (liberated by proteolysis)"
+     },
+     {
+      "name": "calcium (native colloidal + soluble) plus 10 mM CaCl2 added",
+      "conc": 40,
+      "unit": "mM",
+      "role": "mineral (~30 mM native + 10 mM supplemented)"
+     },
+     {
+      "name": "inorganic phosphate (as total P, colloidal calcium phosphate + soluble)",
+      "conc": 32,
+      "unit": "mM",
+      "role": "mineral / phosphorus source"
+     },
+     {
+      "name": "potassium",
+      "conc": 40,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "sodium",
+      "conc": 18,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "magnesium",
+      "conc": 4.5,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "chloride (native ~28 mM + ~20 mM from added CaCl2)",
+      "conc": 48,
+      "unit": "mM",
+      "role": "mineral / anion"
+     },
+     {
+      "name": "citrate",
+      "conc": 9,
+      "unit": "mM",
+      "role": "mineral chelator / minor carbon source"
+     },
+     {
+      "name": "zinc",
+      "conc": 60,
+      "unit": "uM",
+      "role": "trace element"
+     },
+     {
+      "name": "riboflavin (vitamin B2)",
+      "conc": 5.3,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine (vitamin B1)",
+      "conc": 1.2,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "pantothenic acid (vitamin B5)",
+      "conc": 15,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxine (vitamin B6)",
+      "conc": 2,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "cobalamin (vitamin B12)",
+      "conc": 0.003,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "folate",
+      "conc": 0.11,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "biotin",
+      "conc": 0.08,
+      "unit": "uM",
+      "role": "vitamin"
+     },
+     {
+      "name": "niacin (nicotinic acid/nicotinamide)",
+      "conc": 8,
+      "unit": "uM",
+      "role": "vitamin"
+     }
+    ],
+    "evidence": "\"Low heat skim milk powder (LHSMP) was suspended in distilled water to yield a final concentration of 10% (w v-1) milk solids, with addition of CaCl2 in final concentration of 10 mM ... mixed for 1 h at room temperature, heated at 90 C for 30 min and cooled to 30 C.\" RSM is the identical medium without chymosin (liquid, uncoagulated). Native milk constituent concentrations from standard skim-milk composition references."
+   }
+  ],
+  "notes": "Organism: Streptococcus thermophilus ST12, incubated at 40 C in sealed microcalorimetric ampoules (essentially static/micro-aerobic); S. thermophilus is a facultative anaerobic (aerotolerant) lactic acid bacterium, hence oxygen=facultative. The two media are compositionally identical EXCEPT r-RSM has recombinant chymosin (rennet) added at inoculation, which coagulates the casein into a gel; RSM stays liquid. The paper itself quantifies ONLY lactose (~130-145 mM; ~130 mmol/L hydrolysed during fermentation) and reports glutamate/glutamine as 46% of the initial free amino acid pool. It does NOT tabulate milk minerals, phosphate, or vitamins. All salt/vitamin/protein concentrations here are STANDARD skim-milk composition values (MilkFacts.info; Gaucheron 2005 'The minerals of milk'; Dairy Global Nutrition SMP composition) scaled to ~10% milk solids, NOT measured in this paper - hence confidence=medium. Free-amino-acid concentrations are left null because absolute values are not given. Calcium and chloride totals include the 10 mM CaCl2 the authors added (contributing ~10 mM Ca and ~20 mM Cl). Only the calcium chloride supplement and lactose figure are paper-verbatim; the rest are literature-standard for bovine skim milk."
+ },
+ "PMC60676": {
+  "pmc": "PMC60676",
+  "base_medium": "MS (mineral standard) minimal medium",
+  "base_medium_reference": "Richaud C, Mengin-Lecreulx D, Pochet S, Johnson EJ, Cohen GN, Marliere P. Directed evolution of biosynthetic pathways. Recruitment of cysteine thioethers for constructing the cell wall of Escherichia coli. J Biol Chem. 1993;268(36):26827-26835. PMID 8262915; DOI 10.1016/S0021-9258(19)74186-6. (Cited as reference [24] in PMC60676 as the definition of MS medium.)",
+  "oxygen": "aerobic",
+  "confidence": "low",
+  "media": [
+   {
+    "id": "complexlit_PMC60676_ms_mineral_standard_minimal_medium",
+    "components": [
+     {
+      "name": "D-glucose",
+      "conc": 10,
+      "unit": "mM",
+      "role": "carbon"
+     },
+     {
+      "name": "thymine",
+      "conc": 1,
+      "unit": "uM",
+      "role": "supplement (pyrimidine; required by the thyA/thymine-requiring E. coli strain beta7328)"
+     }
+    ],
+    "evidence": "From PMC60676 (de Crecy-Lagard et al., BMC Biotechnol 2001, 1:10): 'Bacteria were routinely grown in mineral standard (MS) medium containing 2 g glucose/liter with or without thymine (1 to 10 microM) or in LB medium at appropriate temperatures.' and 'Strain beta7328 was used to inoculate a culture in MS minimal medium containing 10 mM glucose and 1 microM thymine at 37 degrees C.' Aeration: the continuous-culture apparatus is described as maintaining 'sterile airflow' continuously in both chambers (aerobic). The composition of the base MS mineral medium itself is not given in PMC60676; it is cited to Richaud et al. 1993 (reference [24])."
+   }
+  ],
+  "notes": "Base medium IDENTITY is certain (high confidence): the paper explicitly names 'mineral standard (MS) medium' and cites its full definition to Richaud et al. 1993 (JBC 268:26827, PMID 8262915). The two supplements added to the base for THIS study are verifiable directly from PMC60676: 10 mM D-glucose (carbon/energy source) and 1 microM thymine (the strain, E. coli beta7328, is a thymine-requiring derivative undergoing thymineless-death selection). Oxygen regime = aerobic (continuous sterile airflow; E. coli grown as an obligate/facultative aerobe in this apparatus). HOWEVER, the individual mineral salts of the base MS medium (phosphate buffer, ammonium nitrogen source, magnesium/sulfate, iron/trace elements) are defined ONLY in Richaud et al. 1993, which is paywalled (JBC/Elsevier, Cloudflare-blocked) with no open-access full text, PMC record, Europe PMC full text, or accessible PDF/repository copy. I could not retrieve those concentrations from any authoritative source without fabricating them, so per the task rules I did NOT guess them and set overall confidence to 'low'. Do not conflate this 'MS = mineral standard' medium (Marliere lab, Richaud 1993) with the unrelated 'MS = mineral salts' media of Samain 1999 or with plant Murashige-Skoog (MS) medium; those are different formulations and were excluded. Verified: base found = Y (identity + reference), but full salt recipe = NOT recoverable from accessible literature."
+ },
+ "PMC6180601": {
+  "pmc": "PMC6180601",
+  "base_medium": "EB-1 defined medium (element-optimised, yeast-extract-free; a redesign of modified DSM 640 medium for Caldicellulosiruptor saccharolyticus)",
+  "base_medium_reference": "Byrne E, Kovacs K, van Niel EWJ, Willquist K, Svensson S-E, Kreuger E. Reduced use of phosphorus and water in sequential dark fermentation and anaerobic digestion of wheat straw... Biotechnol Biofuels. 2018;11:281. doi:10.1186/s13068-018-1280-z (PMC6180601). Trace-element (modified SL-10) and vitamin solutions are cited to ref [36] Pawar & van Niel, Bioresour Technol 2014;169:677-685, doi:10.1016/j.biortech.2014.07.059, and ref [51].",
+  "oxygen": "anaerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "growthlit_PMC6180601_eb_1_defined_medium_new_element_optimise",
+    "components": [
+     {
+      "name": "ammonium chloride",
+      "conc": 900,
+      "unit": "mg/L",
+      "role": "nitrogen"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 150,
+      "unit": "mg/L",
+      "role": "phosphate/mineral"
+     },
+     {
+      "name": "dipotassium hydrogen phosphate",
+      "conc": 300,
+      "unit": "mg/L",
+      "role": "phosphate/buffer"
+     },
+     {
+      "name": "magnesium chloride hexahydrate",
+      "conc": 80,
+      "unit": "mg/L",
+      "role": "mineral"
+     },
+     {
+      "name": "cysteine hydrochloride",
+      "conc": 200,
+      "unit": "mg/L",
+      "role": "reducing agent / sulfur source"
+     },
+     {
+      "name": "glucose",
+      "conc": 10,
+      "unit": "g/L",
+      "role": "carbon/energy source"
+     },
+     {
+      "name": "xylose",
+      "conc": 8.2,
+      "unit": "g/L",
+      "role": "carbon/energy source (from wheat straw hydrolysate)"
+     },
+     {
+      "name": "arabinose",
+      "conc": 0.59,
+      "unit": "g/L",
+      "role": "carbon/energy source (from wheat straw hydrolysate)"
+     },
+     {
+      "name": "acetate",
+      "conc": null,
+      "unit": "g/L",
+      "role": "carbon source (from wheat straw hydrolysate; variable)"
+     },
+     {
+      "name": "ferrous chloride tetrahydrate",
+      "conc": 3.0,
+      "unit": "mg/L",
+      "role": "trace element"
+     },
+     {
+      "name": "zinc chloride",
+      "conc": 0.7,
+      "unit": "mg/L",
+      "role": "trace element"
+     },
+     {
+      "name": "manganese chloride tetrahydrate",
+      "conc": 0.1,
+      "unit": "mg/L",
+      "role": "trace element"
+     },
+     {
+      "name": "boric acid",
+      "conc": 0.006,
+      "unit": "mg/L",
+      "role": "trace element"
+     },
+     {
+      "name": "cobalt chloride dihydrate",
+      "conc": 0.09,
+      "unit": "mg/L",
+      "role": "trace element"
+     },
+     {
+      "name": "copper chloride",
+      "conc": 0.02,
+      "unit": "mg/L",
+      "role": "trace element"
+     },
+     {
+      "name": "nickel chloride hexahydrate",
+      "conc": 0.012,
+      "unit": "mg/L",
+      "role": "trace element"
+     },
+     {
+      "name": "sodium tungstate",
+      "conc": 0.015,
+      "unit": "mg/L",
+      "role": "trace element"
+     },
+     {
+      "name": "sodium selenite pentahydrate",
+      "conc": 0.02,
+      "unit": "mg/L",
+      "role": "trace element"
+     },
+     {
+      "name": "nitrilotriacetate",
+      "conc": 25.6,
+      "unit": "mg/L",
+      "role": "chelator"
+     },
+     {
+      "name": "biotin",
+      "conc": 0.01,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "folic acid",
+      "conc": 0.01,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxine hydrochloride",
+      "conc": 0.5,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": 0.025,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "riboflavin",
+      "conc": 0.025,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "nicotinic acid",
+      "conc": 0.025,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "calcium pantothenate",
+      "conc": 0.025,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "cyanocobalamin (vitamin B12)",
+      "conc": 0.5,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "p-aminobenzoic acid",
+      "conc": 0.025,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "lipoic acid",
+      "conc": 0.025,
+      "unit": "mg/L",
+      "role": "vitamin"
+     }
+    ],
+    "evidence": "Verbatim from Methods (PMC6180601): 'A new medium (EB-1), based on the quantities of various elements in the cell mass of Caldicellulosiruptor, was designed to optimise the concentration of elements. Yeast extract was completely omitted from the EB-1 medium.' Base salts (verbatim): 'supplemented with 80 mg/L MgCl2.6H2O, 900 mg/L NH4Cl, 150 mg/L KH2PO4, 300 mg/L K2HPO4, 200 mg/L cysteine.HCl, 2 mL/L 500x EB-1 trace element solution and 1 mL/L 1000x vitamin solution.' Trace elements (verbatim, 500x stock): 'The 500x EB-1 trace element solution consisted of 1500 mg/L FeCl2.4H2O, 350 mg/L ZnCl2, 50 mg/L MnCl2.4H2O, 3 mg/L H3BO3, 45 mg/L CoCl2.2H2O, 10 mg/L CuCl2.6H2O, 6 mg/L NiCl2.6H2O, 7.5 mg/L Na2WO4, 10 mg/L Na2SeO3.5H2O and 12.8 g/L nitrilotriacetate.' Trace-element working concentrations above are the 500x stock divided by 500 (added at 2 mL/L). Carbon: 'Glucose was used as the carbon and energy source at concentrations of 10 g/L and 30 g/L, for the wild-type and osmotolerant strains, respectively'; xylose/arabinose/acetate values are from the wheat straw hydrolysate carbon pool. The 1000x vitamin solution was 'prepared as described previously [36,51]' and is the standard van Niel-group Caldicellulosiruptor vitamin solution (composition listed at 1x working concentration)."
+   }
+  ],
+  "notes": "Organism: Caldicellulosiruptor saccharolyticus (DSM 8903 wild-type; also osmotolerant strains CS50 / C. owensensis CO80). Cultivation is strictly ANAEROBIC (dark fermentation for H2 production, N2-sparged, cysteine.HCl as reductant). Base mineral salts + EB-1 trace-element solution are recovered VERBATIM from the paper (high confidence). The mineral fraction is intentionally low-P/element-optimised (an 80% phosphorus reduction vs the predecessor 'modified DSM 640' medium). CAVEATS: (1) The 1000x vitamin solution is NOT printed verbatim in this paper - it is cited to refs [36] (Pawar & van Niel 2014) and [51]; the vitamin list/concentrations given here are the standard van Niel-group Caldicellulosiruptor vitamin solution and are MEDIUM confidence - not verified against the primary reference text. (2) Glucose is the defined carbon source (10 g/L wild-type / 30 g/L osmotolerant). Xylose (~8.2 g/L), arabinose (~0.59 g/L) and acetate enter via wheat straw hydrolysate and are batch-variable, not fixed defined-medium components; acetate concentration was not resolved (conc = null). (3) The paper also refers to a '1000x modified SL-10 solution'; in the EB-1 formulation this is replaced/represented by the 500x EB-1 trace element solution quoted above. No NaCl / CaCl2 / Na2SO4 are listed for EB-1."
+ },
+ "PMC6255981": {
+  "pmc": "PMC6255981",
+  "base_medium": "Shewanella oneidensis MR-1 defined medium (a.k.a. 'MR-1 medium'), lactate as electron donor, PIPES-buffered; modified here to 20 mM sodium lactate",
+  "base_medium_reference": "Cited in paper as 'modified MR-1 medium (Cao et al., 2011)'. Two candidate Cao et al. 2011 papers on Shewanella sp. HRCR-1 biofilms from the Beyenal/Fredrickson group: (1) Cao B, et al. 2011, Environ Microbiol 13:1018-1031, DOI 10.1111/j.1462-2920.2010.02407.x, PMID 21251176; (2) Cao B, et al. 2011, Environ Sci Technol 45:5483-5490, DOI 10.1021/es200095j. Both grew HRCR-1/MR-1 in the standard S. oneidensis defined medium whose full composition is documented in the same lineage (e.g. Bretschger et al. 2007, Appl Environ Microbiol, DOI 10.1128/AEM.01087-07). Neither Cao 2011 full text nor the PMC6255981 methods reprint the recipe; composition below is the canonical S. oneidensis MR-1 defined medium repeatedly reported for this organism/group.",
+  "oxygen": "aerobic",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "complexlit_PMC6255981_modified_mr_1_medium_cao_et_al_2011_20_mm_so",
+    "components": [
+     {
+      "name": "sodium lactate",
+      "conc": 20,
+      "unit": "mM",
+      "role": "carbon/electron donor"
+     },
+     {
+      "name": "PIPES (piperazine-N,N'-bis(2-ethanesulfonic acid))",
+      "conc": 50,
+      "unit": "mM",
+      "role": "buffer"
+     },
+     {
+      "name": "sodium hydroxide",
+      "conc": 7.5,
+      "unit": "mM",
+      "role": "buffer/pH adjustment"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 28,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "potassium chloride",
+      "conc": 1.3,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "sodium dihydrogen phosphate (NaH2PO4·H2O)",
+      "conc": 4.3,
+      "unit": "mM",
+      "role": "phosphate"
+     },
+     {
+      "name": "sodium chloride",
+      "conc": 100,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "nitrilotriacetic acid",
+      "conc": 78.49,
+      "unit": "uM",
+      "role": "chelator (trace-element solution)"
+     },
+     {
+      "name": "magnesium sulfate",
+      "conc": 121.71,
+      "unit": "uM",
+      "role": "mineral (trace-element solution)"
+     },
+     {
+      "name": "manganese sulfate",
+      "conc": 29.58,
+      "unit": "uM",
+      "role": "trace metal"
+     },
+     {
+      "name": "sodium chloride (trace-element solution)",
+      "conc": 171.12,
+      "unit": "uM",
+      "role": "mineral (trace-element solution)"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": 3.6,
+      "unit": "uM",
+      "role": "trace metal (iron)"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 6.8,
+      "unit": "uM",
+      "role": "mineral (trace-element solution)"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 4.2,
+      "unit": "uM",
+      "role": "trace metal"
+     },
+     {
+      "name": "zinc chloride",
+      "conc": 9.54,
+      "unit": "uM",
+      "role": "trace metal"
+     },
+     {
+      "name": "copper sulfate",
+      "conc": 0.4,
+      "unit": "uM",
+      "role": "trace metal"
+     },
+     {
+      "name": "aluminum potassium sulfate",
+      "conc": 0.21,
+      "unit": "uM",
+      "role": "trace metal"
+     },
+     {
+      "name": "boric acid",
+      "conc": 1.62,
+      "unit": "uM",
+      "role": "trace metal"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 1.03,
+      "unit": "uM",
+      "role": "trace metal"
+     },
+     {
+      "name": "nickel chloride",
+      "conc": 1.01,
+      "unit": "uM",
+      "role": "trace metal"
+     },
+     {
+      "name": "sodium tungstate",
+      "conc": 0.76,
+      "unit": "uM",
+      "role": "trace metal"
+     },
+     {
+      "name": "vitamin solution",
+      "conc": 10,
+      "unit": "mL/L",
+      "role": "vitamins (individual vitamin concentrations not enumerated in accessible sources; standard Wolfe-type vitamin mix)"
+     },
+     {
+      "name": "amino acid solution",
+      "conc": 10,
+      "unit": "mL/L",
+      "role": "amino acids (standard S. oneidensis defined-medium supplement; individual amino acids not enumerated in accessible sources)"
+     }
+    ],
+    "evidence": "PMC6255981 (Frontiers Microbiol 2018) Methods: 'S. oneidensis MR-1 and its high c-di-GMP transconjugant for enhanced biofilm formation, as additional tests, were grown in a modified MR-1 medium (Cao et al., 2011) using 20 mM sodium lactate.' Canonical composition of the referenced S. oneidensis defined medium (repeatedly reported for this organism/group): 'a defined medium containing 18 mM lactate as the sole carbon source, 50 mM PIPES, 7.5 mM NaOH, 28 mM NH4Cl, 1.3 mM KCl, 4.3 mM NaH2PO4·H2O, 100 mM NaCl, and 10 ml/liter each of vitamin solution, amino acid solution, and trace mineral stock solution. The trace mineral solution (pH 7.0) contained 78.49 uM C6H9NO3 [nitrilotriacetic acid], 121.71 uM MgSO4·7H2O, 29.58 uM MnSO4·H2O, 171.12 uM NaCl, 3.60 uM FeSO4·7H2O, 6.80 uM CaCl2·2H2O, 4.20 uM CoCl2·6H2O, 9.54 uM ZnCl2, 0.40 uM CuSO4·5H2O, 0.21 uM AlK(SO4)2·12H2O, 1.62 uM H3BO3, 1.03 uM Na2MoO4·2H2O, 1.01 uM NiCl2·6H2O, and 0.76 uM Na2WO4·2H2O.' In this paper the lactate was set to 20 mM (from 18 mM in the base recipe); [3-13C]sodium lactate was used for metabolic flux analysis (MFA)."
+   }
+  ],
+  "notes": "Organism: Shewanella oneidensis MR-1 (and a high c-di-GMP transconjugant), a facultative anaerobe; here grown as biofilms on lactate with O2 available (o2 was among the components already captured), so the growth regime is labeled aerobic (lactate oxidized with O2 as terminal electron acceptor; biofilm interiors may become locally anoxic). No alternate electron acceptor (e.g. fumarate, Fe(III)) is specified for this test. The ONLY difference from the base recipe is sodium lactate raised to 20 mM (13C-labeled for MFA). CAVEATS / honest incompleteness: (1) The Cao et al. 2011 primary papers and the PMC6255981 methods are paywalled/do not reprint the full recipe; the composition above is the canonical S. oneidensis MR-1 defined medium reported repeatedly for this exact organism and the Beyenal/Fredrickson group (Bretschger 2007 lineage), corroborated across multiple independent sources, NOT read verbatim from Cao 2011 itself — hence confidence 'medium'. (2) PIPES concentration in particular varies by study (some S. oneidensis defined-medium variants use 30 mM PIPES / 3 mM NaOH); 50 mM/7.5 mM is the most commonly reported full-recipe pairing. (3) The vitamin and amino-acid supplement solutions are part of the base medium but their individual component concentrations were not available in accessible sources, so they are listed as bulk solutions rather than fabricated."
+ },
+ "PMC6373973": {
+  "pmc": "PMC6373973",
+  "base_medium": "Defined synthetic anaerobic-digestion (biogas) glucose-cellulose medium, with glucose+cellulose replaced by 14.6% (v/v) ethanol as the sole main carbon/energy source (\"ethanol medium\")",
+  "base_medium_reference": "Basic medium composition defined in Bensmann A, Hanke-Rauschenbach R, Heyer R, Kohrs F, Benndorf D, Kausmann R, et al. Diagnostic concept for dynamically operated biogas production plants. Renewable Energy. 2016;96:479-489. DOI:10.1016/j.renene.2016.04.098. Medium as used (glucose+cellulose replaced by ethanol) described in Koch et al. RedCom, PLoS Comput Biol 2019;15(2):e1006759 S6 Text (this paper), which references Kohrs F, Heyer R, Bissinger T, Kottler R, Schallert K, Puttker S, et al. Proteotyping of laboratory-scale biogas plants reveals multiple steady-states in community composition. Anaerobe. 2017;46:56-68. DOI:10.1016/j.anaerobe.2017.02.005; PMID:28189830. Full quantitative recipe (Tables 7-9) recovered from the open-access PhD dissertation of F. Kohrs (Otto-von-Guericke-Universitaet Magdeburg), MPG pure item_3344958, https://pure.mpg.de/rest/items/item_3344958_5/component/file_3363606/content",
+  "oxygen": "anaerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC6373973_anaerobic_digestion_medium_with_14_6_v_v_eth",
+    "components": [
+     {
+      "name": "ethanol",
+      "conc": 2500,
+      "unit": "mM",
+      "role": "carbon/electron donor"
+     },
+     {
+      "name": "urea",
+      "conc": 2.56,
+      "unit": "g/L",
+      "role": "nitrogen"
+     },
+     {
+      "name": "dipotassium hydrogen phosphate",
+      "conc": 12.63,
+      "unit": "mM",
+      "role": "phosphate/buffer"
+     },
+     {
+      "name": "magnesium sulfate heptahydrate",
+      "conc": 2.49,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride dihydrate",
+      "conc": 0.36,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ferrous sulfate heptahydrate",
+      "conc": 0.18,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "sodium chloride",
+      "conc": 0.12,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "cysteine hydrochloride monohydrate",
+      "conc": 0.5,
+      "unit": "g/L",
+      "role": "reducing agent"
+     },
+     {
+      "name": "cobalt chloride hexahydrate",
+      "conc": 10.0,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "copper chloride hexahydrate",
+      "conc": 0.5,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "boric acid",
+      "conc": 15.0,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "manganese chloride tetrahydrate",
+      "conc": 1.5,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "sodium molybdate dihydrate",
+      "conc": 1.5,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "sodium selenite",
+      "conc": 1.0,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "nickel chloride hexahydrate",
+      "conc": 1.0,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "zinc sulfate heptahydrate",
+      "conc": 360.0,
+      "unit": "mg/L",
+      "role": "trace"
+     },
+     {
+      "name": "lipoic acid",
+      "conc": 0.05,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxine hydrochloride",
+      "conc": 0.1,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": 0.05,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "riboflavin",
+      "conc": 0.05,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "cyanocobalamin",
+      "conc": 0.001,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "nicotinic acid",
+      "conc": 0.05,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "calcium pantothenate",
+      "conc": 0.05,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "biotin",
+      "conc": 0.02,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "folic acid",
+      "conc": 0.02,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "4-aminobenzoic acid",
+      "conc": 0.05,
+      "unit": "mg/L",
+      "role": "vitamin"
+     }
+    ],
+    "evidence": "RedCom S6 Text (this paper): 'For the cultivation on ethanol performed in this study, we used biomass from an enrichment that was run 520 days on glucose-cellulose medium [Kohrs et al.]. As main carbon sources, glucose and cellulose were replaced by 14.6% (v/v) ethanol; all other medium components were left the same.' Kohrs et al. 2017 Anaerobe: 'The basic composition of the medium is described by Bensmann et al. [20] with the following exception: meat extract, yeast extract, and peptone were replaced by 11.5 g L-1 glucose and 34.4 g L-1 cellulose as carbon source to exclude any undefined compounds. In addition 2.56, 5.13 or 15.38 g L-1 urea were used as a nitrogen source... Finally, the vitamin solution was supplemented by 0.05 mg L-1 nicotinic acid, 0.05 mg L-1 pantothenic acid, 0.02 mg L-1 biotin, 0.02 mg L-1 folic acid and 0.05 mg L-1 4-aminobenzoic acid.' Kohrs dissertation (OvGU Magdeburg), section 3.2.3 Ethanolmedium: 'Die Herstellung des Mediums erfolgte wie in Abschnitt 3.1.3 gemaess Tabelle 7, allerdings ohne Zellulose und die Stockloesung fuer Glukose. Stattdessen wurden je 100 mL Medium 14,6 mL Ethanol (2,5 mol Ethanol L Medium-1) eingesetzt... Das C:N:P-Verhaeltnis des Ethanolmediums betrug 400:7:1.' Table 7 (Kultivierungsmedium, stock g / stock L / mL per 100 mL medium): urea 25.64 g/0.5 L, 5 mL; CaCl2*2H2O 0.265/0.1 L, 2 mL; K2HPO4 11/0.1 L, 2 mL; MgSO4*7H2O 3.07/0.1 L, 2 mL; FeSO4*7H2O 0.256/0.1 L, 2 mL; NaCl 0.035/0.1 L, 2 mL; cysteine-HCl monohydrate 2.5/0.5 L, 10 mL; trace element solution 5 mL; vitamin solution 1 mL. Table 8 (trace element solution, per 0.5 L stock, dosed 5 mL/100 mL): CoCl2*6H2O 0.1 g, CuCl2*6H2O 0.005 g, H3BO3 0.15 g, MnCl2*4H2O 0.015 g, Na2MoO4*2H2O 0.015 g, Na2SeO3 0.01 g, NiCl2*6H2O 0.01 g, ZnSO4*7H2O 3.6 g. Table 9 (vitamin solution, per 0.1 L stock in mg, dosed 1 mL/100 mL): lipoic acid 0.5, pyridoxine-HCl 1, thiamine-HCl 0.5, riboflavin 0.5, cobalamin 0.01, nicotinic acid 0.5, D-calcium pantothenate 0.5, biotin 0.2, folic acid 0.2, p-aminobenzoic acid 0.5."
+   }
+  ],
+  "notes": "Anaerobic digestion / methanogenic biogas culture at 40 C (biogas + CH4 production => anaerobic regime). Only the carbon source (ethanol) was captured in the database; the full base medium is a defined synthetic biogas medium. The medium was recovered through a 3-step citation chain: this paper (RedCom, PMC6373973) S6 Text -> Kohrs et al. 2017 Anaerobe (medium used) -> Bensmann et al. 2016 Renewable Energy (basic composition). Because Bensmann 2016 and Kohrs 2017 are both paywalled, the full quantitative Tables 7-9 were taken from the open-access PhD dissertation of F. Kohrs (same author, same reactors, MPG pure item_3344958). Cross-validation: the vitamin-solution final concentrations computed from the dissertation table (nicotinic 0.05, pantothenate 0.05, biotin 0.02, folic 0.02, 4-aminobenzoic 0.05 mg/L) exactly match the supplement values quoted in Kohrs et al. 2017, confirming the recipe. Concentrations shown are final in-medium values for the ethanol medium: glucose (11.5 g/L) and microcrystalline cellulose (34.4 g/L) present in the original glucose-cellulose medium are DELETED here and replaced by 14.6% (v/v) ethanol = 2.5 mol/L (~2500 mM). Urea is the sole nitrogen source; 2.56 g/L (~42.7 mM) corresponds to the base regime giving C:N:P 400:7:1 stated for the ethanol medium (the parallel glucose-cellulose reactors also ran higher-N regimes of 5.13 and 15.38 g/L urea, not used for the ethanol carbon-source study). Cysteine-HCl serves as reducing agent (also a minor S/N/C source). CuCl2 and NiCl2 are given as hexahydrates in the source table. NOTE: ZnSO4*7H2O at 360 mg/L final is ~20-360x higher than the other trace metals and is unusually high for a trace-element solution; it is reported verbatim from the dissertation Table 8 and may be an anomaly/typo in the source, but was not fabricated or altered. Oxygen regime: anaerobic (methanogenic, no electron acceptor added; ethanol is fermented/oxidized syntrophically to CH4+CO2+acetate)."
+ },
+ "PMC6921056": {
+  "pmc": "PMC6921056",
+  "base_medium": "SMM (Synthetic Mineral Medium)",
+  "base_medium_reference": "Cited in the paper as ref [18]: Kurumbang N.P., Dvorak P., Bendl J., Brezovsky J., Prokop Z., Damborsky J. Computer-assisted engineering of the synthetic pathway for biodegradation of a toxic persistent pollutant. ACS Synth. Biol. 2014;3:172-181. DOI 10.1021/sb400147n; PMID 24313542. The full SMM composition (identical medium, same E. coli BL21(DE3) TCP-degradation system, same co-authors) is given verbatim in the PhD dissertation of P. Dvořák, Masaryk University (https://is.muni.cz/th/151419/prif_d/Dvorak_dizertace.pdf), which cites Assis H.M.S., Sallis P.J., Bull A.T., Hardman D.J. Biochemical characterization of a haloalcohol dehalogenase from Arthrobacter erithii H10a. Enzyme Microb. Technol. 1998;22:568-574 as the origin of the mineral base + trace-element/vitamin solutions.",
+  "oxygen": "aerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC6921056_smm_standard_mineral_medium_ref_18_10_mm_gly",
+    "components": [
+     {
+      "name": "disodium hydrogen phosphate",
+      "conc": 15.1,
+      "unit": "mM",
+      "role": "mineral/buffer"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 10.3,
+      "unit": "mM",
+      "role": "mineral/buffer"
+     },
+     {
+      "name": "ammonium sulfate",
+      "conc": 3.78,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "magnesium sulfate",
+      "conc": 0.81,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": null,
+      "unit": null,
+      "role": "vitamin"
+     },
+     {
+      "name": "trace elements solution",
+      "conc": 2.0,
+      "unit": "mL/L",
+      "role": "trace element mix"
+     },
+     {
+      "name": "glycerol",
+      "conc": 10,
+      "unit": "mM",
+      "role": "carbon"
+     }
+    ],
+    "evidence": "From P. Dvořák PhD dissertation (same lab/strain/system as ref [18]): \"A synthetic mineral medium (SMM) containing 5.4 g of Na2HPO4.12H2O, 1.4 g of KH2PO4, 0.5 g of (NH4)2SO4, 0.2 g of MgSO4.7H2O, 2 ml of trace elements solution and 1 ml of vitamin B1 (10 g.ml-1) per 1 l was used for selection experiments [274].\" Target paper PMC6921056 Methods: \"...resuspended in Synthetic Mineral Medium (SMM) [18]. SMM medium (15 mL) with 10 mM glycerol in 25-mL Reacti Flask closed with screw cap was preincubated at 37 C, growth test was initiated by addition of cells to 0.1 OD600.\""
+   }
+  ],
+  "notes": "Base recovered from the primary literature chain. The target paper (Demko et al., Microorganisms 2019, 7:553) names the base only as SMM + 10 mM glycerol and cites ref [18] = Kurumbang et al. 2014 (ACS Synth. Biol., 10.1021/sb400147n), which is paywalled. The exact SMM composition was recovered verbatim from the openly available PhD dissertation of co-author P. Dvořák (Masaryk Univ.), which describes the identical medium for the same E. coli BL21(DE3) TCP-degradation system and ultimately traces SMM to Assis et al. 1998. Salt masses converted to mM using MW: Na2HPO4.12H2O 358.14 (5.4 g/L = 15.1 mM), KH2PO4 136.09 (1.4 g/L = 10.3 mM), (NH4)2SO4 132.14 (0.5 g/L = 3.78 mM, i.e. ~7.6 mM NH4+ and 3.78 mM SO4 2-), MgSO4.7H2O 246.47 (0.2 g/L = 0.81 mM). Two components could not be quantified per-element without fabrication: (1) the trace-elements solution is dosed at 2 mL/L but its individual metal salts (Zn/Mn/Co/Cu/Fe/Mo/B etc.) are defined only in the paywalled Assis 1998 source, not in any accessible text; (2) vitamin B1 (thiamine) is dosed at 1 mL/L of a stock printed as '10 g.ml-1' (an obvious unit typo, most plausibly 10 mg/mL -> ~10 mg/L final), so its concentration is left null. Oxygen regime is aerobic: E. coli BL21(DE3) grown/tested at 37 C with shaking (200 rpm); the closed Reacti flask limits headspace volatile loss of substrate, not aeration."
+ },
+ "PMC8024496": {
+  "pmc": "PMC8024496",
+  "base_medium": "V4 mineral medium (modified, with La/Ce rare earth elements)",
+  "base_medium_reference": "Base V4 medium: Dunfield PF et al. (2007) Methane oxidation by an extremely acidophilic bacterium of the phylum Verrucomicrobia. Nature 450:879-882, doi:10.1038/nature06411, PMID:18004300 (cited as ref 21 in PMC8024496). Rare-earth (La/Ce) addition: Pol A et al. (2014) Rare earth metals are essential for methanotrophic life in volcanic mudpots. Environ Microbiol 16:255-264, doi:10.1111/1462-2920.12249. Full quantitative 'modified V4 medium' recipe for the same strain (Methylacidiphilum sp. RTK17.1) given verbatim in the co-cultivation methods paper PMC12467841 (its ref [48]): https://pmc.ncbi.nlm.nih.gov/articles/PMC12467841/",
+  "oxygen": "aerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC8024496_v4_mineral_medium_12_4_mm_formic_acid",
+    "components": [
+     {
+      "name": "ammonium chloride",
+      "conc": 7.48,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 0.37,
+      "unit": "mM",
+      "role": "phosphate/mineral"
+     },
+     {
+      "name": "magnesium sulfate",
+      "conc": 0.081,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 0.068,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": 16.6,
+      "unit": "uM",
+      "role": "iron (Fe-EDTA, 3 mL/L)"
+     },
+     {
+      "name": "EDTA disodium",
+      "conc": 16.6,
+      "unit": "uM",
+      "role": "chelator (Fe-EDTA, 3 mL/L)"
+     },
+     {
+      "name": "zinc sulfate",
+      "conc": 4.6,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "copper sulfate",
+      "conc": 2.4,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 2.9,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 0.74,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "boric acid",
+      "conc": 4.85,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 1.0,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "ferrous ammonium sulfate",
+      "conc": 0.51,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "sodium selenite",
+      "conc": 1.16,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "manganese sulfate",
+      "conc": 0.53,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "sodium tungstate",
+      "conc": 0.3,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "aluminum chloride",
+      "conc": 0.17,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "nickel chloride",
+      "conc": 0.11,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "lanthanum sulfate",
+      "conc": 0.2,
+      "unit": "uM",
+      "role": "rare-earth (methanol/formate dehydrogenase cofactor)"
+     },
+     {
+      "name": "cerium sulfate",
+      "conc": 0.2,
+      "unit": "uM",
+      "role": "rare-earth (methanol/formate dehydrogenase cofactor)"
+     },
+     {
+      "name": "sulfuric acid",
+      "conc": null,
+      "unit": "n/a",
+      "role": "acidulant, pH adjusted to 2.5"
+     },
+     {
+      "name": "formic acid",
+      "conc": 12.4,
+      "unit": "mM",
+      "role": "carbon/energy source"
+     }
+    ],
+    "evidence": "PMC8024496 Methods: 'All batch cultivations were performed at 50 C in a V4 mineral medium as described previously (Dunfield et al., 2007) but with the addition (0.2 uM) of rare earth elements lanthanum and cerium (Pol et al., 2014) unless otherwise specified' ... '4 ml of pH-adjusted V4 media (range: pH 0.5-6.0; H2SO4)'; formic acid supplied at 12.4 mM. Quantitative modified-V4 recipe (same strain RTK17.1), verbatim from PMC12467841: 'per liter: 0.4 g NH4Cl, 0.05 g KH2PO4, 0.02 g MgSO4.7H2O, 0.01 g CaCl2.2H2O, 3 mL FeEDTA solution, 3 mL trace elements solution, 1 mL trace metals solution, 0.2 uM Ce2(SO4)3, and 0.2 uM La2(SO4)3 solution and was adjusted to pH 2.5 with H2SO4'; FeEDTA = '1.54 g FeSO4.7H2O and 2.06 g Na2EDTA per L'; trace elements soln = '0.44 g ZnSO4.7H2O, 0.20 g CuSO4.5H2O, 0.19 g MnCl2.4H2O, 0.06 g Na2MoO4.2H2O, 0.10 g H3BO3, 0.08 g CoCl2.6H2O per L'; trace metals soln (per L, pH 6.5 with NTA) = '1.5 g nitrilotriacetic acid, 0.2 g Fe(NH4)2(SO4)2.6H2O, 0.2 g Na2SeO3, 0.1 g CoCl2.6H2O, 0.1 g MnSO4.2H2O, 0.1 g Na2MoO4.2H2O, 0.1 g Na2WO4.2H2O, 0.1 g ZnSO4.7H2O, 0.04 g AlCl3.6H2O, 0.025 g NiCl2.6H2O, 0.01 g H3BO3, 0.01 g CuSO4.5H2O'."
+   },
+   {
+    "id": "complexlit_PMC8024496_v4_mineral_medium_12_4_mm_methanol",
+    "components": [
+     {
+      "name": "ammonium chloride",
+      "conc": 7.48,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 0.37,
+      "unit": "mM",
+      "role": "phosphate/mineral"
+     },
+     {
+      "name": "magnesium sulfate",
+      "conc": 0.081,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 0.068,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": 16.6,
+      "unit": "uM",
+      "role": "iron (Fe-EDTA, 3 mL/L)"
+     },
+     {
+      "name": "EDTA disodium",
+      "conc": 16.6,
+      "unit": "uM",
+      "role": "chelator (Fe-EDTA, 3 mL/L)"
+     },
+     {
+      "name": "zinc sulfate",
+      "conc": 4.6,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "copper sulfate",
+      "conc": 2.4,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 2.9,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 0.74,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "boric acid",
+      "conc": 4.85,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 1.0,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "ferrous ammonium sulfate",
+      "conc": 0.51,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "sodium selenite",
+      "conc": 1.16,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "manganese sulfate",
+      "conc": 0.53,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "sodium tungstate",
+      "conc": 0.3,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "aluminum chloride",
+      "conc": 0.17,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "nickel chloride",
+      "conc": 0.11,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "lanthanum sulfate",
+      "conc": 0.2,
+      "unit": "uM",
+      "role": "rare-earth (methanol dehydrogenase cofactor)"
+     },
+     {
+      "name": "cerium sulfate",
+      "conc": 0.2,
+      "unit": "uM",
+      "role": "rare-earth (methanol dehydrogenase cofactor)"
+     },
+     {
+      "name": "sulfuric acid",
+      "conc": null,
+      "unit": "n/a",
+      "role": "acidulant, pH adjusted to 2.5"
+     },
+     {
+      "name": "methanol",
+      "conc": 12.4,
+      "unit": "mM",
+      "role": "carbon/energy source"
+     }
+    ],
+    "evidence": "Same V4 base as above (PMC8024496 Methods; quantitative recipe from PMC12467841). Methanol supplied at 12.4 mM as the sole carbon/energy source. La/Ce (0.2 uM each) required because the C1 dehydrogenases of Methylacidiphilum are lanthanide-dependent (Pol et al. 2014)."
+   },
+   {
+    "id": "complexlit_PMC8024496_v4_mineral_medium_0_2_um_la_ce_rare_earth_el",
+    "components": [
+     {
+      "name": "ammonium chloride",
+      "conc": 7.48,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "potassium dihydrogen phosphate",
+      "conc": 0.37,
+      "unit": "mM",
+      "role": "phosphate/mineral"
+     },
+     {
+      "name": "magnesium sulfate",
+      "conc": 0.081,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 0.068,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ferrous sulfate",
+      "conc": 16.6,
+      "unit": "uM",
+      "role": "iron (Fe-EDTA, 3 mL/L)"
+     },
+     {
+      "name": "EDTA disodium",
+      "conc": 16.6,
+      "unit": "uM",
+      "role": "chelator (Fe-EDTA, 3 mL/L)"
+     },
+     {
+      "name": "zinc sulfate",
+      "conc": 4.6,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "copper sulfate",
+      "conc": 2.4,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 2.9,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 0.74,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "boric acid",
+      "conc": 4.85,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 1.0,
+      "unit": "uM",
+      "role": "trace (trace-elements soln, 3 mL/L)"
+     },
+     {
+      "name": "ferrous ammonium sulfate",
+      "conc": 0.51,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "sodium selenite",
+      "conc": 1.16,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "manganese sulfate",
+      "conc": 0.53,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "sodium tungstate",
+      "conc": 0.3,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "aluminum chloride",
+      "conc": 0.17,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "nickel chloride",
+      "conc": 0.11,
+      "unit": "uM",
+      "role": "trace metals (1 mL/L)"
+     },
+     {
+      "name": "lanthanum sulfate",
+      "conc": 0.2,
+      "unit": "uM",
+      "role": "rare-earth (La), methanol dehydrogenase cofactor"
+     },
+     {
+      "name": "cerium sulfate",
+      "conc": 0.2,
+      "unit": "uM",
+      "role": "rare-earth (Ce), methanol dehydrogenase cofactor"
+     },
+     {
+      "name": "sulfuric acid",
+      "conc": null,
+      "unit": "n/a",
+      "role": "acidulant, pH adjusted to 2.5"
+     },
+     {
+      "name": "methane",
+      "conc": 10,
+      "unit": "% v/v headspace",
+      "role": "carbon/energy source (gas)"
+     },
+     {
+      "name": "carbon dioxide",
+      "conc": 5,
+      "unit": "% v/v headspace",
+      "role": "carbon source (gas)"
+     }
+    ],
+    "evidence": "PMC8024496 Methods: batch cultivation on V4 medium with 0.2 uM La and Ce; methane supplied at ~10% v/v in the headspace with ~5% v/v CO2 as the C1 substrate for the standard methanotrophic growth condition. This is the same V4 base and rare-earth supplementation as the formate and methanol media; only the carbon source (CH4 gas) differs."
+   }
+  ],
+  "notes": "Organism = Methylacidiphilum sp. RTK17.1, a thermoacidophilic verrucomicrobial methanotroph (50 C, external pH ~2.5). Strictly aerobic C1 utiliser; the paper's chemostat used low pO2 (2% O2) but the organism is aerobic, so oxygen=aerobic. All three media share ONE base (V4 mineral medium + 0.2 uM La + 0.2 uM Ce); they differ only in the C1 substrate (12.4 mM formate, 12.4 mM methanol, or CH4/CO2 gas). PMC8024496 itself does NOT print the salt amounts; it cites Dunfield 2007 (Nature, ref 21) for the base V4 medium and Pol 2014 for the La/Ce addition. The quantitative amounts here are the verbatim 'modified V4 medium' recipe used for the SAME strain (RTK17.1) by the same research lineage, reported in the open-access co-cultivation paper PMC12467841 (its ref [48]); this is the most authoritative available quantitative source. Trace-element concentrations are FINAL medium concentrations computed from the stock recipes and their per-liter dosing (Fe-EDTA 3 mL/L; trace-elements soln 3 mL/L; trace-metals soln 1 mL/L). Note some elements (Zn, Cu, Mn, Co, Mo, B) are dosed from BOTH the trace-elements and trace-metals solutions; entries are kept per-source solution for traceability. Nitrilotriacetic acid (chelator, 1.5 g/L in the trace-metals stock -> ~7.8 uM final) omitted as a non-nutrient carrier. Minor caveat: Dunfield's ORIGINAL 2007 V4 formulation may differ slightly from this lab's later 'modified V4', but strain, pH, temperature and lanthanide requirement all match, so confidence is high."
+ },
+ "PMC8794893": {
+  "pmc": "PMC8794893",
+  "base_medium": "MO (Missouri) medium",
+  "base_medium_reference": "Zane GM, Yen HB, Wall JD. 2010. Effect of the deletion of qmoABC and the promoter-distal gene encoding a hypothetical protein on sulfate reduction in Desulfovibrio vulgaris Hildenborough. Appl Environ Microbiol 76:5500-5509. PMID:20581180; DOI:10.1128/AEM.00691-10. Full verbatim recipe (modified from Zane et al. 2010) also given in Rajeev et al. 2020, Front Microbiol 11:610455, DOI:10.3389/fmicb.2020.610455 and in Fels et al. 2023, Front Microbiol 14:1095191 (PMC10102598). Vitamin solution per Brandis & Thauer 1981, J Gen Microbiol 126:249-252.",
+  "oxygen": "anaerobic",
+  "confidence": "high",
+  "media": [
+   {
+    "id": "complexlit_PMC8794893_mo_medium_30_mm_sodium_lactate_20_mm_sodium_",
+    "components": [
+     {
+      "name": "magnesium chloride",
+      "conc": 8,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 20,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 0.6,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "potassium phosphate",
+      "conc": 2,
+      "unit": "mM",
+      "role": "mineral/buffer"
+     },
+     {
+      "name": "tris(hydroxymethyl)aminomethane hydrochloride",
+      "conc": 30,
+      "unit": "mM",
+      "role": "buffer"
+     },
+     {
+      "name": "ferrous chloride",
+      "conc": 60,
+      "unit": "uM",
+      "role": "mineral"
+     },
+     {
+      "name": "EDTA",
+      "conc": 120,
+      "unit": "uM",
+      "role": "chelator"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 15,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 7.6,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "zinc chloride",
+      "conc": 8.8,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 1.26,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "boric acid",
+      "conc": 1.92,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "nickel chloride",
+      "conc": 2.52,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cupric chloride",
+      "conc": 0.07,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium selenite",
+      "conc": 0.138,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium tungstate",
+      "conc": 0.144,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium thioglycolate",
+      "conc": 1.2,
+      "unit": "mM",
+      "role": "reductant"
+     },
+     {
+      "name": "biotin",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "folic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxine hydrochloride",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "riboflavin",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "nicotinic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "calcium pantothenate",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "cyanocobalamin",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "p-aminobenzoic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thioctic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "sodium lactate",
+      "conc": 30,
+      "unit": "mM",
+      "role": "carbon/electron donor"
+     },
+     {
+      "name": "sodium sulfite",
+      "conc": 20,
+      "unit": "mM",
+      "role": "electron acceptor"
+     }
+    ],
+    "evidence": "Paper: 'D. vulgaris H WT and the two modified strains were grown anaerobically at 37 C in MO medium. Under respiratory conditions, 15 or 30 mM sodium lactate was added as the electron donor, and sodium sulfate (30 mM), sodium sulfite (10 or 20 mM) or sodium thiosulfate (10 or 20 mM) was added as the terminal electron acceptor.' Base MO medium (modified from Zane et al. 2010), verbatim from Rajeev et al. 2020: '8 mM magnesium chloride, 20 mM ammonium chloride, 0.6 mM calcium chloride, 2 mM phosphate buffer (pH 7.2), 30 mM Tris-HCl (pH 7.4)' plus '6 ml/L trace elements, 1 ml/L vitamin solution, and 0.48 ml/L iron solution'; trace element stock '2.5 mM manganese chloride, 1.26 mM cobalt chloride, 1.47 mM zinc chloride, 210 uM sodium molybdate, 320 uM boric acid, 420 uM nickel chloride, 11.7 uM cupric chloride, 23 uM sodium selenite, and 24 uM sodium tungstate' (final = stock x 6/1000); iron solution '125 mM ferrous chloride in a 250 mM solution of EDTA' (final 60 uM Fe, 120 uM EDTA); vitamin solution at 10x concentrations of Brandis and Thauer (1981); reductant '1.2 mM sodium thioglycolate'."
+   },
+   {
+    "id": "complexlit_PMC8794893_mo_medium_15_mm_sodium_lactate_10_mm_sodium_",
+    "components": [
+     {
+      "name": "magnesium chloride",
+      "conc": 8,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 20,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 0.6,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "potassium phosphate",
+      "conc": 2,
+      "unit": "mM",
+      "role": "mineral/buffer"
+     },
+     {
+      "name": "tris(hydroxymethyl)aminomethane hydrochloride",
+      "conc": 30,
+      "unit": "mM",
+      "role": "buffer"
+     },
+     {
+      "name": "ferrous chloride",
+      "conc": 60,
+      "unit": "uM",
+      "role": "mineral"
+     },
+     {
+      "name": "EDTA",
+      "conc": 120,
+      "unit": "uM",
+      "role": "chelator"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 15,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 7.6,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "zinc chloride",
+      "conc": 8.8,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 1.26,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "boric acid",
+      "conc": 1.92,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "nickel chloride",
+      "conc": 2.52,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cupric chloride",
+      "conc": 0.07,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium selenite",
+      "conc": 0.138,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium tungstate",
+      "conc": 0.144,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium thioglycolate",
+      "conc": 1.2,
+      "unit": "mM",
+      "role": "reductant"
+     },
+     {
+      "name": "biotin",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "folic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxine hydrochloride",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "riboflavin",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "nicotinic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "calcium pantothenate",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "cyanocobalamin",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "p-aminobenzoic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thioctic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "sodium lactate",
+      "conc": 15,
+      "unit": "mM",
+      "role": "carbon/electron donor"
+     },
+     {
+      "name": "sodium sulfite",
+      "conc": 10,
+      "unit": "mM",
+      "role": "electron acceptor"
+     }
+    ],
+    "evidence": "Same base MO medium as above. Paper: 'Under respiratory conditions, 15 or 30 mM sodium lactate was added as the electron donor, and ... sodium sulfite (10 or 20 mM) ... was added as the terminal electron acceptor.' This medium is the 15 mM lactate / 10 mM sulfite respiratory pairing."
+   },
+   {
+    "id": "complexlit_PMC8794893_mo_missouri_medium_60_mm_sodium_pyruvate_fer",
+    "components": [
+     {
+      "name": "magnesium chloride",
+      "conc": 8,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "ammonium chloride",
+      "conc": 20,
+      "unit": "mM",
+      "role": "nitrogen"
+     },
+     {
+      "name": "calcium chloride",
+      "conc": 0.6,
+      "unit": "mM",
+      "role": "mineral"
+     },
+     {
+      "name": "potassium phosphate",
+      "conc": 2,
+      "unit": "mM",
+      "role": "mineral/buffer"
+     },
+     {
+      "name": "tris(hydroxymethyl)aminomethane hydrochloride",
+      "conc": 30,
+      "unit": "mM",
+      "role": "buffer"
+     },
+     {
+      "name": "ferrous chloride",
+      "conc": 60,
+      "unit": "uM",
+      "role": "mineral"
+     },
+     {
+      "name": "EDTA",
+      "conc": 120,
+      "unit": "uM",
+      "role": "chelator"
+     },
+     {
+      "name": "manganese chloride",
+      "conc": 15,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cobalt chloride",
+      "conc": 7.6,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "zinc chloride",
+      "conc": 8.8,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium molybdate",
+      "conc": 1.26,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "boric acid",
+      "conc": 1.92,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "nickel chloride",
+      "conc": 2.52,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "cupric chloride",
+      "conc": 0.07,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium selenite",
+      "conc": 0.138,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium tungstate",
+      "conc": 0.144,
+      "unit": "uM",
+      "role": "trace"
+     },
+     {
+      "name": "sodium thioglycolate",
+      "conc": 1.2,
+      "unit": "mM",
+      "role": "reductant"
+     },
+     {
+      "name": "biotin",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "folic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "pyridoxine hydrochloride",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thiamine hydrochloride",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "riboflavin",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "nicotinic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "calcium pantothenate",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "cyanocobalamin",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "p-aminobenzoic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "thioctic acid",
+      "conc": null,
+      "unit": "mg/L",
+      "role": "vitamin"
+     },
+     {
+      "name": "sodium pyruvate",
+      "conc": 60,
+      "unit": "mM",
+      "role": "carbon/electron donor"
+     }
+    ],
+    "evidence": "Same base MO medium as above. Paper: 'For fermentative conditions, 60 mM sodium pyruvate was used, and lactate and sulfate were omitted from the culture media.' No electron acceptor (fermentative). 'No yeast extract was used in the growth experiments.'"
+   }
+  ],
+  "notes": "Organism Desulfovibrio vulgaris Hildenborough, grown anaerobically at 37 C (strictly anaerobic sulfate-reducing bacterium). Base is MO (Missouri) medium of Zane, Yen & Wall 2010 (AEM 76:5500-5509), the yeast-extract-free defined medium; the paper explicitly states no yeast extract was used in the growth experiments (precultures used MOY = MO + 0.5 g/L yeast extract, but that is inoculum only). Full salt/trace-element/iron composition recovered verbatim from Rajeev et al. 2020 (Front Microbiol 11:610455) and corroborated by Fels et al. 2023 (PMC10102598), all describing MO modified from Zane et al. 2010. Trace-element final concentrations were computed from the cited 6 mL/L addition of the trace stock; iron 60 uM and EDTA 120 uM from the 0.48 mL/L iron solution (125 mM FeCl2 in 250 mM EDTA). Reductant reported as 1.2 mM sodium thioglycolate in the Zane-derived recipe (some MO variants use ~1 mM Na2S instead). Vitamin solution is added at 10x the concentrations of Brandis & Thauer 1981; the individual vitamin identities listed are those of the standard Desulfovibrio/Wolfe-type B-vitamin solution (biotin, folic acid, pyridoxine, thiamine, riboflavin, nicotinic acid, pantothenate, cyanocobalamin, p-aminobenzoate, thioctic acid), but the exact per-liter concentrations from Brandis & Thauer 1981 were not independently verified from the primary source, so their conc fields are left null. Confidence high for salts, buffer, iron, trace elements, and the three carbon/acceptor supplement sets; medium for exact vitamin concentrations."
+ },
+ "PMC8871477": {
+  "pmc": "PMC8871477",
+  "base_medium": "WMB (Weissella Medium Broth) = de Man-Rogosa-Sharpe (MRS) broth with the meat/beef extract OMITTED, so that it is heme-free; used here as 'modified WMB (mWMB)' with defined 20 g/L glucose +/- 5 g/L sodium citrate",
+  "base_medium_reference": "Zotta T., Ricciardi A., Guidone A., Sacco M., Muscariello L., Mazzeo M.F., Cacace G., Parente E. (2012) Inactivation of ccpA and aeration affect growth, metabolite production and stress tolerance in Lactobacillus plantarum WCFS1. Int. J. Food Microbiol. 155:51-59. DOI:10.1016/j.ijfoodmicro.2012.01.017 (PMID region; paper reference [25] of PMC8871477). WMB is explicitly defined in the derived literature as MRS without meat extract (e.g., Zotta et al. 2014 PLOS One 9:e99189, PMC4053349: 'WMB medium [17] was used to ensure the absence of heme (i.e. meat extract in MRS)'). Underlying MRS formula: de Man J.C., Rogosa M., Sharpe M.E. (1960) J. Appl. Bacteriol. 23:130-135.",
+  "oxygen": "facultative",
+  "confidence": "medium",
+  "media": [
+   {
+    "id": "growthlit_PMC8871477_modified_wmb_mwmb_citrate",
+    "components": [
+     {
+      "name": "peptone",
+      "conc": 10,
+      "unit": "g/L",
+      "role": "nitrogen/complex (MRS base)"
+     },
+     {
+      "name": "yeast extract",
+      "conc": 5,
+      "unit": "g/L",
+      "role": "nitrogen/vitamins/complex (MRS base)"
+     },
+     {
+      "name": "D-glucose",
+      "conc": 20,
+      "unit": "g/L",
+      "role": "carbon/energy source (stated in paper for mWMB)"
+     },
+     {
+      "name": "sodium citrate",
+      "conc": 5,
+      "unit": "g/L",
+      "role": "carbon/co-metabolite (citrate; the +citrate supplement stated in paper)"
+     },
+     {
+      "name": "dipotassium hydrogen phosphate",
+      "conc": 2,
+      "unit": "g/L",
+      "role": "mineral/buffer (MRS base)"
+     },
+     {
+      "name": "sodium acetate trihydrate",
+      "conc": 5,
+      "unit": "g/L",
+      "role": "mineral/buffer (MRS base)"
+     },
+     {
+      "name": "triammonium citrate",
+      "conc": 2,
+      "unit": "g/L",
+      "role": "nitrogen/mineral (MRS base)"
+     },
+     {
+      "name": "magnesium sulfate heptahydrate",
+      "conc": 0.1,
+      "unit": "g/L",
+      "role": "mineral (MRS base)"
+     },
+     {
+      "name": "manganese sulfate",
+      "conc": 0.05,
+      "unit": "g/L",
+      "role": "trace element (MRS base)"
+     },
+     {
+      "name": "polysorbate 80 (Tween 80)",
+      "conc": 1,
+      "unit": "g/L",
+      "role": "surfactant/fatty-acid source (MRS base)"
+     },
+     {
+      "name": "hemin",
+      "conc": 1.25,
+      "unit": "ug/mL",
+      "role": "respiratory supplement (respiratory RS condition only)"
+     },
+     {
+      "name": "menaquinone",
+      "conc": 1,
+      "unit": "ug/mL",
+      "role": "respiratory supplement / electron carrier (respiratory RS condition only)"
+     }
+    ],
+    "evidence": "From PMC8871477 (Foods 2022, 11:535, DOI 10.3390/foods11040535): 'Leuconostoc mesenteroides subsp. cremoris E30 ... was routinely propagated in WMB pH 6.8 for 16 h at 30 C.' 'Growth of Leuc. mesenteroides E30 was evaluated for 24 h at 30 C in modified WMB (mWMB) with 20 g/L of glucose, with or without 5 g/L of sodium citrate, in batch cultivations carried out under anaerobic (AN; nitrogen flow at 0.02 L/min) and respiratory (RS; 15% dissolved oxygen concentration, supplemented with 1.25 ug/mL of hemin and 1 ug/mL of menaquinone) conditions at pH 5.5 or 6.5.' WMB base defined by ref [25] Zotta et al. 2012; per Zotta et al. 2014 (PLOS One, PMC4053349): 'WMB medium [17] was used to ensure the absence of heme (i.e. meat extract in MRS).' The non-carbon MRS-base component concentrations listed here are the standard MRS values (peptone, yeast extract, K2HPO4, sodium acetate, triammonium citrate, MgSO4.7H2O, MnSO4, Tween 80) for the components WMB retains; meat/beef extract is deliberately omitted."
+   }
+  ],
+  "notes": "Organism: Leuconostoc mesenteroides subsp. cremoris E30 (heterofermentative LAB, facultatively anaerobic/aerotolerant; hence oxygen=facultative). The single target medium (mWMB + citrate) was run under BOTH an anaerobic (N2-sparged, 0.02 L/min) and a respiratory (15% dO2 + hemin + menaquinone) regime; 'o2' in the target's captured set corresponds to the respiratory variant. Base-medium IDENTITY is high-confidence: WMB is repeatedly and explicitly defined as MRS with meat extract omitted (to keep it heme-free so respiration can be controlled with added hemin/menaquinone), and the added carbon (glucose 20 g/L) and citrate (sodium citrate 5 g/L) are stated verbatim in PMC8871477. What could NOT be independently verified from open sources is the exact numeric concentration table inside Zotta et al. 2012 for the retained MRS components; those values here are the standard MRS (de Man-Rogosa-Sharpe 1960 / Difco-Oxoid) concentrations for the components WMB keeps. There is known minor variability among MRS formulations (e.g., yeast extract 4-5 g/L, MgSO4.7H2O 0.1-0.2 g/L, MnSO4 0.04-0.05 g/L) because the Zotta 2012 full text (Int J Food Microbiol 155:51-59) and its supplement are paywalled (ScienceDirect/ResearchGate 403; no open reproduction of the WMB table was found). Hence overall confidence = medium. Meat/beef extract is intentionally NOT included. No components were fabricated: glucose+citrate are from the paper; the MRS salt skeleton follows the documented 'MRS minus meat extract' definition of WMB."
+ }
+}
