@@ -87,6 +87,22 @@ def reference_for(name):
     return REFS.get(key) if key else None
 
 
+# authoritative, publicly-accessible links for each composition reference
+_ATLAS = "https://doi.org/10.1201/EBK1439804063"   # Atlas RM, Handbook of Microbiological Media, CRC 4th ed.
+_DIFCO = "https://archive.org/details/difcomanualdehyd0000unse"  # Difco/BD Manual (BD Bionutrient lineage)
+REF_LINKS = {
+    "yeast_extract": _ATLAS, "tryptone": _DIFCO, "casein_peptone": _DIFCO, "trypticase": _DIFCO,
+    "peptone": _ATLAS, "proteose_peptone": _DIFCO, "soytone": _DIFCO, "casamino_acids": _DIFCO,
+    "beef_extract": _ATLAS, "meat_extract": _ATLAS, "lab_lemco": _ATLAS, "malt_extract": _DIFCO,
+}
+
+
+def reference_link(name):
+    """Return a public URL for the composition reference of a complex ingredient, else None."""
+    key = ingredient_key(name)
+    return REF_LINKS.get(key) if key else None
+
+
 def decompose(name, valid=None):
     """Return (ingredient_key, [bigg_ids]) for a complex-ingredient name, else None.
     `valid` optional callable(bigg_id)->bool to filter to ids that exist."""

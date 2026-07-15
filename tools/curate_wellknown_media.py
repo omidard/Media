@@ -1738,7 +1738,7 @@ def main():
             continue
         # skip database-sourced recipes (DSMZ MediaDive / USDA / FooDB / HMDB) — those
         # are real published recipes, not ours to replace with a generic canonical.
-        if d["id"].startswith(("mediadive_", "usda_", "food_", "biospecimen_")):
+        if d["id"].startswith(("mediadive_", "usda_", "food_", "biospecimen_", "mdb_")):
             continue
         m = match(nm)
         if not m:

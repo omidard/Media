@@ -11,6 +11,14 @@ const FG_PALETTE=['#0e8f70','#2c6fbb','#c77800','#7a3fb8','#d0563b','#37c39a','#
   '#9b5bd0','#e07a5f','#3aa17e','#6b7684','#d4a017','#4f9d9d','#c0587a','#7ea63f'];
 
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+/* escape text, then turn any DOI / PMID / bare URL inside it into a clickable link */
+function linkifyRef(s){
+  let h=esc(s==null?'':s);
+  h=h.replace(/\b(https?:\/\/[^\s<)\]]+)/g,'<a href="$1" target="_blank" rel="noopener">$1 ↗</a>');
+  h=h.replace(/\bdoi:\s*(10\.[^\s<)\];,]+)/gi,'<a href="https://doi.org/$1" target="_blank" rel="noopener">doi:$1 ↗</a>');
+  h=h.replace(/(?<!org\/)\b(10\.\d{4,9}\/[^\s<)\];,]+)/g,'<a href="https://doi.org/$1" target="_blank" rel="noopener">$1 ↗</a>');
+  h=h.replace(/\b(?:PMID|pubmed)[:\s]\s*(\d{5,9})\b/gi,'<a href="https://pubmed.ncbi.nlm.nih.gov/$1/" target="_blank" rel="noopener">PMID:$1 ↗</a>');
+  return h;}
 const fmt=n=>Number(n).toLocaleString();
 const jget=p=>fetch(p).then(r=>r.json());
 
@@ -237,13 +245,15 @@ async function openMed(id){
       ${med.category==='food'?`<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef6ff;border:1px solid #cfe0f5;color:#2c5f9e;font-size:.82rem">🍎 <b>Food-derived medium (approximate)</b> — a growth substrate built from the <b>measured composition of this food</b> (population-average nutrient data), not a defined laboratory medium. Component presence is real; use bounds and the mineral base as a starting point, not exact experimental conditions.</div>`:''}
       ${(()=>{const v=p.verification||'';
         if(v.startsWith('expert-curated'))
-          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #bfe0d4;color:#0a5c49;font-size:.82rem">★ <b>Expert-curated</b> — canonical formulation with reviewed component bounds.${p.wellknown_reference?`<br><span style="color:#4c6b60">Reference: ${esc(p.wellknown_reference)}</span>`:''}</div>`;
+          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #bfe0d4;color:#0a5c49;font-size:.82rem">★ <b>Expert-curated</b> — canonical formulation with reviewed component bounds.${p.wellknown_reference?`<br><span style="color:#4c6b60">Reference: ${linkifyRef(p.wellknown_reference)}</span>`:''}</div>`;
         if(v.startsWith('paper-verified'))
           return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #cfe7dd;color:#0a5c49;font-size:.82rem">✓ <b>Paper-verified</b> — this formulation was ${v.includes('corrected')?'corrected against':'confirmed against'} the source paper.${p.verification_evidence?`<br><span style="color:#4c6b60;font-style:italic">"${esc(p.verification_evidence)}"</span>`:''}</div>`;
+        if(v.startsWith('reference-database'))
+          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef2f9;border:1px solid #cfd8ea;color:#3a4d75;font-size:.82rem">● <b>Reference database</b> — a defined formulation curated by <a href="https://mediadb.systemsbiology.net/" target="_blank" rel="noopener">MediaDB (ISB)</a> with explicit concentrations, linked to its original publication below.</div>`;
         if(v.startsWith('auto-extracted'))
           return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#fff8ec;border:1px solid #f0dcae;color:#8a6414;font-size:.82rem">⚠ <b>Auto-extracted from literature</b> — mined from the paper by an automated pipeline; ${v.includes('external reference')?'the base recipe is cited from an external reference and needs manual review':'not manually verified against the source'}. Check the citation before relying on it.</div>`;
         return '';})()}
-      <div class="cite" style="margin-bottom:14px"><b>Source:</b> ${esc(p.citation||'')} ${p.url?`· <a href="${esc(p.url)}" target="_blank">link ↗</a>`:''}${p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank">doi ↗</a>`:''}<br><span style="color:#8a978f">${esc(p.notes||'')}</span>${p.decomposition_refs?`<div style="margin-top:8px;padding-top:8px;border-top:1px solid #e6ecea;font-size:.78rem;color:#66756f"><b style="color:#c77800">Complex-ingredient approximations:</b> ${Object.entries(p.decomposition_refs).map(([ing,ref])=>`<div style="margin-top:3px">• <b>${esc(ing)}</b> — ${esc(ref)}</div>`).join('')}</div>`:''}</div>
+      <div class="cite" style="margin-bottom:14px"><b>Source:</b> ${linkifyRef(p.citation||'')} ${p.url?`· <a href="${esc(p.url)}" target="_blank" rel="noopener">link ↗</a>`:''}${p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi ↗</a>`:''}${p.pmid?` · <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(p.pmid)}/" target="_blank" rel="noopener">PubMed ↗</a>`:''}<br><span style="color:#8a978f">${linkifyRef(p.notes||'')}</span>${(p.references&&p.references.length)?`<div style="margin-top:8px;font-size:.8rem">${p.references.map(r=>`<div style="margin-top:2px">📄 ${r.url?`<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.citation)} ↗</a>`:linkifyRef(r.citation)}</div>`).join('')}</div>`:''}${p.decomposition_refs?`<div style="margin-top:8px;padding-top:8px;border-top:1px solid #e6ecea;font-size:.78rem;color:#66756f"><b style="color:#c77800">Complex-ingredient composition references:</b> ${Object.entries(p.decomposition_refs).map(([ing,ref])=>{const c=(ref&&ref.citation)?ref.citation:ref;const u=(ref&&ref.url)?ref.url:null;return `<div style="margin-top:3px">• <b>${esc(ing)}</b> — ${u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(c)} ↗</a>`:linkifyRef(c)}</div>`;}).join('')}</div>`:''}</div>
       <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
         <button class="btn btn-primary btn-sm" onclick='navigator.clipboard.writeText(${JSON.stringify(cobra)}).then(()=>{this.innerHTML="✓ Copied";setTimeout(()=>this.innerHTML="⧉ Copy as COBRApy medium",1500)});gcDownload("copy_cobrapy")'>⧉ Copy as COBRApy medium</button>
         <a class="btn btn-ghost btn-sm" href="data/media/${id}.json" download onclick='gcDownload("medium_json")'>↓ JSON</a>

@@ -32,7 +32,7 @@ REPO = os.path.dirname(HERE)
 MEDIA = os.path.join(REPO, "data", "media")
 sys.path.insert(0, HERE)
 from map_metabolite import Mapper, norm  # noqa: E402
-from complex_ingredients import decompose, REFS, ingredient_key  # noqa: E402
+from complex_ingredients import decompose, REFS, ingredient_key, reference_link  # noqa: E402
 
 MAP = Mapper()
 DICT = MAP.dict
@@ -302,7 +302,8 @@ def enrich(med):
         if c.get("mapping_method") == "complex_decomposition":
             r = c.get("decomposition_ref")
             if r:
-                drefs[c.get("derived_from", "")] = r
+                ing = c.get("derived_from", "")
+                drefs[ing] = {"citation": r, "url": reference_link(ing)}
     if drefs:
         med.setdefault("provenance", {})["decomposition_refs"] = drefs
     else:
