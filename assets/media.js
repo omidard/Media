@@ -70,6 +70,15 @@ function xrefLinks(xr,keys){
 function catBadge(c){const col=CAT_COLORS[c]||'#889';
   return `<span class="badge" style="background:${col}1c;color:${col};border:1px solid ${col}40">${esc(c)}</span>`;}
 
+/* ---- curation-tier badge (0 curated · 1 expert · 2 verified · 3 database · 4 auto) ---- */
+const CURATION_META={curated:{icon:'★',label:'Curated reference',col:'#0a7d54'},
+  expert:{icon:'★',label:'Expert-curated',col:'#279268'},
+  verified:{icon:'✓',label:'Paper-verified',col:'#3a9a86'},
+  database:{icon:'●',label:'Database source',col:'#6a7ba0'},
+  auto:{icon:'⚠',label:'Auto-extracted',col:'#c08a1e'}};
+function curationBadge(cur){const m=CURATION_META[cur]||CURATION_META.database;
+  return `<span class="badge" title="${m.label}" style="background:${m.col}18;color:${m.col};border:1px solid ${m.col}44;white-space:nowrap;font-size:.7rem">${m.icon} ${m.label}</span>`;}
+
 /* ---- sequential teal color scale (0..1) ---- */
 function tealRamp(t){t=Math.max(0,Math.min(1,t));
   const stops=[[247,250,249],[200,235,224],[120,205,178],[38,160,124],[10,92,73]];

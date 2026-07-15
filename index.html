@@ -95,9 +95,10 @@
 
 <section class="section" id="explore" style="padding-top:0"><div class="wrap">
   <div class="section-head"><div class="eyebrow">Explorer</div><h2>Browse every medium</h2>
-    <p>Every medium is cited and mapped through the same pipeline. Click a row to open its full detail view.</p></div>
+    <p>Sorted by curation tier — our <b>★ curated reference collection</b> leads the frontier, then expert-curated ★, paper-verified ✓, database-sourced ●, and auto-extracted ⚠. Every medium is cited and mapped through the same pipeline. Click a row to open its full detail view.</p></div>
 
-  <div class="card card-p" style="margin-bottom:16px"><div style="display:grid;grid-template-columns:repeat(4,1fr) auto;gap:14px;align-items:end" class="filters">
+  <div class="card card-p" style="margin-bottom:16px"><div style="display:grid;grid-template-columns:repeat(5,1fr) auto;gap:14px;align-items:end" class="filters">
+    <div><label class="lbl">Curation</label><select id="f-cur" class="input"><option value="">All</option><option value="curated">★ Curated reference</option><option value="expert">★ Expert-curated</option><option value="verified">✓ Paper-verified</option><option value="database">● Database source</option><option value="auto">⚠ Auto-extracted</option></select></div>
     <div><label class="lbl">Category</label><select id="f-cat" class="input"><option value="">All</option></select></div>
     <div><label class="lbl">Database</label><select id="f-src" class="input"><option value="">All</option></select></div>
     <div><label class="lbl">Food group</label><select id="f-grp" class="input"><option value="">All</option></select></div>
@@ -109,7 +110,7 @@
     <div id="loading" style="text-align:center;color:var(--muted);padding:40px"><div class="mono">Loading media…</div></div>
     <div class="viz-wrap" style="border:0">
       <table id="tbl" class="stripe hover" style="width:100%;display:none">
-        <thead><tr><th>Medium</th><th>Category</th><th>Organism scope</th><th>O₂</th><th>Components</th><th>Coverage</th><th>In BiGGr</th><th>Database</th><th>Citation</th></tr></thead>
+        <thead><tr><th>Medium</th><th>Curation</th><th>Category</th><th>Organism scope</th><th>O₂</th><th>Components</th><th>Coverage</th><th>In BiGGr</th><th>Database</th><th>Citation</th></tr></thead>
         <tbody></tbody></table>
     </div>
   </div>
@@ -127,7 +128,7 @@
 <script src="assets/media.js"></script>
 <script>
 let DATA=[],table;
-function clearF(){['f-cat','f-src','f-grp','f-o2'].forEach(id=>document.getElementById(id).value='');table.columns().search('').draw();}
+function clearF(){['f-cur','f-cat','f-src','f-grp','f-o2'].forEach(id=>document.getElementById(id).value='');table.columns().search('').draw();}
 function popF(id,vals){const s=document.getElementById(id);[...new Set(vals)].filter(Boolean).sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});}
 
 heroNetwork(document.getElementById('hero-net'));
@@ -145,6 +146,8 @@ Promise.all([jget('data/index.json'),jget('data/media_stats.json'),jget('data/ap
   table=$('#tbl').DataTable({data:DATA,pageLength:25,deferRender:true,order:[[1,'asc'],[0,'asc']],
     columns:[
       {data:'name',render:(d,t,r)=>`<a class="med-link" onclick="openMed('${r.id}')">${esc(d)}</a>`},
+      {data:'tier',render:(d,t,r)=>t==='display'?curationBadge(r.curation):(d==null?9:d),
+        type:'num',className:'col-curation'},
       {data:'category',render:catBadge},
       {data:'organism_scope',render:d=>esc((d||'').slice(0,26))},
       {data:'aerobic',render:d=>d?'aerobic':'anaerobic'},
@@ -155,11 +158,12 @@ Promise.all([jget('data/index.json'),jget('data/media_stats.json'),jget('data/ap
       {data:'n_in_biggr',render:d=>fmt(d)},
       {data:'source_db'},
       {data:'citation',render:d=>`<span title="${esc(d)}">${esc((d||'').slice(0,54))}${(d||'').length>54?'…':''}</span>`},
-      {data:'food_group',visible:false}
+      {data:'food_group',visible:false},
+      {data:'curation',visible:false}
     ],
     language:{search:'',searchPlaceholder:'Search media…',info:'_START_–_END_ of _TOTAL_ media',lengthMenu:'_MENU_ per page'}});
-  // column indices: 0 name·1 category·2 scope·3 O₂·4 comps·5 coverage·6 inBiGGr·7 database·8 citation·9 food_group(hidden)
-  const fm={'f-cat':1,'f-src':7,'f-grp':9,'f-o2':3};
+  // column indices: 0 name·1 curation(tier)·2 category·3 scope·4 O₂·5 comps·6 coverage·7 inBiGGr·8 database·9 citation·10 food_group(hidden)·11 curation-str(hidden)
+  const fm={'f-cur':11,'f-cat':2,'f-src':8,'f-grp':10,'f-o2':4};
   Object.entries(fm).forEach(([id,col])=>document.getElementById(id).addEventListener('change',function(){
     let v=this.value;if(id==='f-o2')v=v===''?'':(v==='1'?'aerobic':'anaerobic');
     table.column(col).search(v?'^'+$.fn.dataTable.util.escapeRegex(v)+'$':'',true,false).draw();}));
