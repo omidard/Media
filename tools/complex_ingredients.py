@@ -59,7 +59,7 @@ _PATTERNS = [
 
 # reference supporting each ingredient's approximate compound-class composition
 REFS = {
-    "yeast_extract": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals — BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
+    "yeast_extract": "Yeast extract = autolysate of Saccharomyces cerevisiae: free amino acids (glutamate/alanine/aspartate-rich, essential AAs ~40% of total), B-vitamins (B1 thiamine, B2 riboflavin, B3 niacin, B5 pantothenate, B6 pyridoxine, B7 biotin, B9 folate, B12), RNA-derived 5'-nucleotides/nucleosides (~10-15%), and minerals (K, P, Mg, Zn, Mn). Quantitative composition: Tao Z et al., J Microbiol Biotechnol 2022;32:1236-1247, doi:10.4014/jmb.2207.07057 (PMC9998214); Podpora B et al., Czech J Food Sci 2016;34:554-563, doi:10.17221/419/2015-CJFS; Atlas RM, Handbook of Microbiological Media, doi:10.1201/EBK1439804063.",
     "tryptone": "Tryptone = pancreatic (tryptic) digest of casein; amino-acid-rich, tryptophan retained — BD Bionutrient Technical Manual; casein amino-acid profile (FAO/WHO).",
     "casein_peptone": "Tryptic/enzymatic digest of casein; amino-acid profile of casein — BD Bionutrient Technical Manual.",
     "trypticase": "Trypticase = pancreatic digest of casein (BBL) — BD Bionutrient Technical Manual.",
@@ -90,8 +90,9 @@ def reference_for(name):
 # authoritative, publicly-accessible links for each composition reference
 _ATLAS = "https://doi.org/10.1201/EBK1439804063"   # Atlas RM, Handbook of Microbiological Media, CRC 4th ed.
 _DIFCO = "https://archive.org/details/difcomanualdehyd0000unse"  # Difco/BD Manual (BD Bionutrient lineage)
+_YEAST = "https://doi.org/10.4014/jmb.2207.07057"  # Tao et al. 2022, J Microbiol Biotechnol (open access, PMC9998214)
 REF_LINKS = {
-    "yeast_extract": _ATLAS, "tryptone": _DIFCO, "casein_peptone": _DIFCO, "trypticase": _DIFCO,
+    "yeast_extract": _YEAST, "tryptone": _DIFCO, "casein_peptone": _DIFCO, "trypticase": _DIFCO,
     "peptone": _ATLAS, "proteose_peptone": _DIFCO, "soytone": _DIFCO, "casamino_acids": _DIFCO,
     "beef_extract": _ATLAS, "meat_extract": _ATLAS, "lab_lemco": _ATLAS, "malt_extract": _DIFCO,
 }
