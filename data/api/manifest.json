@@ -104,7 +104,7 @@
     "components"
    ],
    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "15.6 MB"
+   "size": "15.7 MB"
   },
   "media.jsonl.gz": {
    "rows": 13073,
