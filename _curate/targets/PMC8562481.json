@@ -1,0 +1,85 @@
+{
+ "pmc": "PMC8562481",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC8562481.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8562481/",
+ "media": [
+  {
+   "id": "growthlit_PMC8562481_quarter_strength_m63_minimal_medium_10_m",
+   "name": "Quarter-strength M63 minimal medium + 10 mM glucose (PMC8562481)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (confirmed)",
+   "verification_evidence": "For minimal medium growth curves and fitness assays, strains were grown in quarter-strength M63 [per liter: 3.4 g KH2PO4, 0.5 g (NH4)2SO4, 10 \u00b5l of 1.25 mg/ml FeSO4\u00b77H2O, 51.7 \u00b5l of 1 M MgSO4; adjusted to pH 7] with 10 mM glucose.",
+   "citation": "Medium composition from PMC8562481 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8562481/",
+   "doi": ""
+  }
+ ]
+}

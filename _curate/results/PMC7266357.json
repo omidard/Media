@@ -1,0 +1,94 @@
+{
+  "pmc": "PMC7266357",
+  "media": [
+    {
+      "id": "complexlit_PMC7266357_davis_minimal_media_sigma_glucose",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "D-Glucose (dextrose)",
+          "concentration": "1 g/L (1,000 ug/ml)",
+          "concentration_mM": 5.55,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "Overnight cultures of resistant and sensitive cells for each experiment were grown from single colonies and then incubated in sterile Davis Minimal Media with 1,000 g/ml glucose liquid media overnight at 30 C while rotating at 240 rpm. (the '1,000 g/ml' is a typographical error for 1,000 ug/ml = 1 g/L; agar plates used 2,000 ug/ml). The Sigma Davis Minimal Broth base also supplies dextrose at 1.0 g/L."
+        },
+        {
+          "name": "Dipotassium phosphate (K2HPO4)",
+          "concentration": "7 g/L",
+          "concentration_mM": 40.2,
+          "role": "phosphate/buffer/potassium",
+          "source": "cited:Sigma Davis Minimal Broth (93753) / BD 275610 / HiMedia M389 datasheet",
+          "evidence": "Davis Minimal Broth Formula per liter: Dextrose 1.0 g; Dipotassium phosphate 7.0 g; Monopotassium phosphate 2.0 g; Sodium citrate 0.5 g; Magnesium sulfate 0.1 g; Ammonium sulfate 1.0 g; Final pH 7.0 +/- 0.2 at 25 C. (paper specifies 'Davis Minimal Media [Sigma]')"
+        },
+        {
+          "name": "Monopotassium phosphate (KH2PO4)",
+          "concentration": "2 g/L",
+          "concentration_mM": 14.7,
+          "role": "phosphate/buffer/potassium",
+          "source": "cited:Sigma Davis Minimal Broth (93753) / BD 275610 / HiMedia M389 datasheet",
+          "evidence": "Davis Minimal Broth Formula per liter: ... Monopotassium phosphate 2.0 g ..."
+        },
+        {
+          "name": "Ammonium sulfate ((NH4)2SO4)",
+          "concentration": "1 g/L",
+          "concentration_mM": 7.57,
+          "role": "nitrogen source + sulfate source",
+          "source": "cited:Sigma Davis Minimal Broth (93753) / BD 275610 / HiMedia M389 datasheet",
+          "evidence": "Davis Minimal Broth Formula per liter: ... Ammonium sulfate 1.0 g ...; 'Ammonium Sulfate is a source of sulfur and nitrogen'."
+        },
+        {
+          "name": "Sodium citrate",
+          "concentration": "0.5 g/L",
+          "concentration_mM": 1.7,
+          "role": "chelator/minor carbon + sodium source",
+          "source": "cited:Sigma Davis Minimal Broth (93753) / BD 275610 / HiMedia M389 datasheet",
+          "evidence": "Davis Minimal Broth Formula per liter: ... Sodium citrate 0.5 g ... (concentration_mM assumes dihydrate MW 294.1; hydration state not stated on datasheet)."
+        },
+        {
+          "name": "Magnesium sulfate (MgSO4.7H2O)",
+          "concentration": "0.1 g/L",
+          "concentration_mM": 0.41,
+          "role": "magnesium + sulfate source",
+          "source": "cited:Sigma Davis Minimal Broth (93753) / BD 275610 / HiMedia M389 datasheet",
+          "evidence": "Davis Minimal Broth Formula per liter: ... Magnesium sulfate 0.1 g ...; 'Magnesium is a cofactor for many metabolic reactions' (concentration_mM computed for heptahydrate, MW 246.5, per original Davis & Mingioli 1950 formulation)."
+        },
+        {
+          "name": "O2 (dissolved oxygen)",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "electron acceptor (aerobic)",
+          "source": "main_text",
+          "evidence": "Cultures were grown 'while rotating at 240 rpm' and in stirred continuous-culture bioreactors ('constant-volume bacterial cultures (17 mL) are grown in glass vials ... Up to nine cultures can be grown simultaneously using a series of multiposition magnetic stirrers'), i.e. aerated/aerobic conditions."
+        },
+        {
+          "name": "Water (H2O)",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "solvent",
+          "source": "cited:Sigma Davis Minimal Broth datasheet",
+          "evidence": "Suspend 11.6 g in 1000 ml of purified water."
+        }
+      ],
+      "base_medium": "Davis Minimal Broth (Davis formulation; Davis & Mingioli 1950), Sigma-Aldrich product 93753 / Difco-BD 275610 / HiMedia M389",
+      "sources_chased": [
+        {
+          "what": "Full-text methods (PMC7266357, PLoS Biol) to identify the medium and its glucose supplement",
+          "obtained": true,
+          "how": "Read local corpus JATS XML /data/paper_corpus/fulltext_xml/PMC7266357.xml",
+          "added": ["confirmed medium identity 'Davis Minimal Media [Sigma]'", "glucose 1,000 ug/ml liquid / 2,000 ug/ml agar", "aerobic/30C growth conditions"]
+        },
+        {
+          "what": "Commercial Davis Minimal Broth formula (paper cites only 'Sigma' with no literature reference)",
+          "obtained": true,
+          "how": "WebSearch of Sigma-Aldrich 93753 / Davis Minimal Agar 79332 datasheets, BD 275610, and HiMedia M389 datasheet (Sigma/HiMedia PDFs timed out; formula recovered verbatim from datasheet text via search)",
+          "added": ["K2HPO4 7 g/L", "KH2PO4 2 g/L", "(NH4)2SO4 1 g/L", "sodium citrate 0.5 g/L", "MgSO4.7H2O 0.1 g/L", "dextrose 1 g/L", "final pH 7.0"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Davis Minimal Broth is a fully defined minimal medium of six salts plus dextrose; it contains NO added trace-element mix and NO vitamins (E. coli is prototrophic and grows on it), so no hidden stock solution needs expanding and nothing was genuinely missing. The target's current_components already correctly decompose the salts into ions (K, Pi, NH4, SO4, citrate, Mg, Na) plus glucose/O2/H2O/H+; this record adds the compound-level recipe with concentrations. Paper is not anaerobic despite 'facultative' organism label: cultures are shaken (240 rpm) and stirred bioreactors, i.e. aerobic. Glucose '1,000 g/ml' in the paper is a typo for 1,000 ug/ml (1 g/L)."
+    }
+  ]
+}

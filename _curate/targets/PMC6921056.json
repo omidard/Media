@@ -1,0 +1,76 @@
+{
+ "pmc": "PMC6921056",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6921056/",
+ "media": [
+  {
+   "id": "complexlit_PMC6921056_smm_standard_mineral_medium_ref_18_10_mm_gly",
+   "name": "SMM (Standard Mineral Medium, ref [18]) + 10 mM glycerol (PMC6921056)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "aerobic",
+   "current_components": [
+    {
+     "name": "glycerol",
+     "exchange": "EX_glyc_e",
+     "lb": -10.0,
+     "conc_mM": 10.0
+    },
+    {
+     "name": "potassium dihydrogen phosphate",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": 10.3
+    },
+    {
+     "name": "magnesium sulfate",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.81
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": 3.78
+    },
+    {
+     "name": "O2 (aerobic)",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "potassium dihydrogen phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": 10.3
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": 3.78
+    },
+    {
+     "name": "thiamine",
+     "exchange": "EX_thm_e",
+     "lb": -10.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "disodium hydrogen phosphate",
+    "trace elements solution"
+   ],
+   "base_medium": "SMM (Synthetic Mineral Medium)",
+   "base_medium_reference": "Cited in the paper as ref [18]: Kurumbang N.P., Dvorak P., Bendl J., Brezovsky J., Prokop Z., Damborsky J. Computer-assisted engineering of the synthetic pathway for biodegradation of a toxic persistent pollutant. ACS Synth. Biol. 2014;3:172-181. DOI 10.1021/sb400147n; PMID 24313542. The full SMM composition (identical medium, same E. coli BL21(DE3) TCP-degradation system, same co-authors) is given verbatim in the PhD dissertation of P. Dvo\u0159\u00e1k, Masaryk University (https://is.muni.cz/th/151419/prif_d/Dvorak_dizertace.pdf), which cites Assis H.M.S., Sallis P.J., Bull A.T., Hardman D.J. Biochemical characterization of a haloalcohol dehalogenase from Arthrobacter erithii H10a. Enzyme Microb. Technol. 1998;22:568-574 as the origin of the mineral base + trace-element/vitamin solutions.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": null,
+   "citation": "Medium composition from PMC6921056 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6921056/",
+   "doi": ""
+  }
+ ]
+}

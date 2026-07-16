@@ -1,0 +1,73 @@
+{
+ "pmc": "PMC7065512",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC7065512.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7065512/",
+ "media": [
+  {
+   "id": "lit_PMC7065512_minimal_medium_glucose_13c_labeling_expe",
+   "name": "Minimal medium (glucose, 13C-labeling experiments) (PMC7065512)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (confirmed)",
+   "verification_evidence": "The composition of minimal medium (14) is as follows (in grams/liter): FeSO4-7H2O, 1.25 \u00d7 10\u22124; (NH4)2SO4, 0.5; MgSO4-7H2O, 0.05; KH2PO4, 3.4. The pH was adjusted to 7.0 with 1 M KOH. ... redistributed in minimal medium supplemented with labeled glucose (0.5%, wt/vol).",
+   "citation": "Jyoti et al. The Entner-Doudoroff and Nonoxidative Pentose Phosphate Pathways Bypass Glycolysis and the Oxidative Pentose Phosphate Pathway in Ralstonia solanacearum. mSystems (2020). DOI: 10.1128/mSystems.00091-20. [PMC7065512]",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7065512/",
+   "doi": "10.1128/mSystems.00091-20"
+  }
+ ]
+}

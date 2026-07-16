@@ -1,0 +1,145 @@
+{
+ "pmc": "PMC10823229",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC10823229.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10823229/",
+ "media": [
+  {
+   "id": "growthlit_PMC10823229_modified_high_salt_hs_medium",
+   "name": "Modified high-salt (HS) medium (PMC10823229)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaHCO3",
+     "exchange": "EX_hco3_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "KCl",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Methanol",
+     "exchange": "EX_meoh_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "L-Cysteine\u00b7HCl\u00b7H2O",
+    "Na2S\u00b79H2O",
+    "Trace element (mineral) solution",
+    "Vitamin solution",
+    "Resazurin"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "cultivated ... Methanosarcina acetivorans C2A ... in modified high-salt (HS) medium (pH 7.2; components shown in SI Appendix, Table S1) at 37 \u00b0C ... modified HS medium containing 14 mM 13C6-glucose and 50 mM methanol.",
+   "citation": "Medium composition from PMC10823229 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10823229/",
+   "doi": ""
+  }
+ ]
+}

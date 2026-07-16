@@ -1,0 +1,79 @@
+{
+ "pmc": "PMC7273699",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC7273699.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7273699/",
+ "media": [
+  {
+   "id": "growthlit_PMC7273699_n_c_minimal_medium_5_mm_glycerol_batch",
+   "name": "N-C- minimal medium + 5 mM glycerol (batch) (PMC7273699)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Glycerol",
+     "exchange": "EX_glyc_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium",
+     "exchange": "EX_na1_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (confirmed)",
+   "verification_evidence": "The culture medium used in this study is based on N\u2212C\u2212 minimal medium (Csonka et al, 1994), containing K2SO4 (1 g), K2HPO4\u00b73H2O (17.7 g), KH2PO4 (4.7 g), MgSO4\u00b77H2O (0.1 g), and NaCl (2.5 g) per liter. The medium was supplemented with 20 mM NH4Cl, as nitrogen source, and 5 mM glycerol, as the sole carbon source.",
+   "citation": "Medium composition from PMC7273699 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7273699/",
+   "doi": ""
+  }
+ ]
+}

@@ -1,0 +1,118 @@
+{
+  "pmc": "PMC11892951",
+  "media": [
+    {
+      "id": "complexlit_PMC11892951_salt_minimal_medium_mm_with_ibuprofen_ibu_as",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "disodium hydrogen phosphate dihydrate",
+          "formula": "Na2HPO4.2H2O",
+          "concentration": "3.48 g/L",
+          "concentration_mM": 19.55,
+          "role": "phosphate / buffer / sodium",
+          "source": "cited:Mehboob 2009 (PMC2690828), documented reproduction of the Dorn et al. 1974 mineral medium (= base of MM cited as ref 43 Hernaez 1999)",
+          "evidence": "The composition of the medium (in grams per liter ...) was as follows: Na2HPO4.2H2O, 3.48; KH2PO4 1; ... 'The medium ... was based on the medium described by Dorn et al. (1974).'"
+        },
+        {
+          "name": "potassium dihydrogen phosphate",
+          "formula": "KH2PO4",
+          "concentration": "1 g/L",
+          "concentration_mM": 7.35,
+          "role": "phosphate / buffer / potassium",
+          "source": "cited:Mehboob 2009 (PMC2690828), reproduction of Dorn et al. 1974",
+          "evidence": "The composition of the medium ... was as follows: Na2HPO4.2H2O, 3.48; KH2PO4 1; resazurin, 0.005; CaCl2, 0.009; ammonium iron (III) citrate, 0.01; NH4SO4, 1; MgSO4.7H2O, 0.04."
+        },
+        {
+          "name": "ammonium sulfate",
+          "formula": "(NH4)2SO4",
+          "concentration": "1 g/L",
+          "concentration_mM": 7.57,
+          "role": "nitrogen source / sulfate",
+          "source": "cited:Mehboob 2009 (PMC2690828), reproduction of Dorn et al. 1974",
+          "evidence": "... NH4SO4, 1; MgSO4.7H2O, 0.04. (medium based on Dorn et al. 1974; 'NH4SO4' = ammonium sulfate)"
+        },
+        {
+          "name": "magnesium sulfate heptahydrate",
+          "formula": "MgSO4.7H2O",
+          "concentration": "0.04 g/L",
+          "concentration_mM": 0.162,
+          "role": "magnesium / sulfate",
+          "source": "cited:Mehboob 2009 (PMC2690828), reproduction of Dorn et al. 1974",
+          "evidence": "... ammonium iron (III) citrate, 0.01; NH4SO4, 1; MgSO4.7H2O, 0.04."
+        },
+        {
+          "name": "calcium chloride",
+          "formula": "CaCl2",
+          "concentration": "0.009 g/L",
+          "concentration_mM": 0.081,
+          "role": "calcium / chloride",
+          "source": "cited:Mehboob 2009 (PMC2690828), reproduction of Dorn et al. 1974",
+          "evidence": "... resazurin, 0.005; CaCl2, 0.009; ammonium iron (III) citrate, 0.01; ..."
+        },
+        {
+          "name": "ammonium iron(III) citrate",
+          "formula": null,
+          "concentration": "0.01 g/L",
+          "concentration_mM": null,
+          "role": "iron source (sole trace-metal supplement of the Dorn base)",
+          "source": "cited:Mehboob 2009 (PMC2690828), reproduction of Dorn et al. 1974",
+          "evidence": "... CaCl2, 0.009; ammonium iron (III) citrate, 0.01; NH4SO4, 1; ... (variable, non-stoichiometric Fe content, so mM not computed)"
+        },
+        {
+          "name": "ibuprofen (sodium salt)",
+          "formula": "C13H17O2Na",
+          "concentration": "1 g/L",
+          "concentration_mM": 4.38,
+          "role": "sole carbon and energy source",
+          "source": "main_text",
+          "evidence": "Cultures in salt minimal medium (MM) [43] with IBU 1 g/L as carbon source ... Commercial IBU sodium salt was purchased from Sigma-Aldrich. (1 g/L of the Na salt, MW 228.26 -> 4.38 mM)"
+        },
+        {
+          "name": "O2 (aerobic)",
+          "formula": "O2",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "electron acceptor / gas phase",
+          "source": "main_text",
+          "evidence": "... diluted one-fourth of the previous 20 ml saturated culture in aeration at 30 C for ~15 days ... incubated at 30 C at 180 rpm (shaken/aerated -> aerobic)."
+        }
+      ],
+      "base_medium": "Salt minimal medium (MM) of the Santero/Canosa lab (Seville/Pablo de Olavide) = the carbon-free mineral (mineral salts) medium of Dorn, Hellwig, Reineke & Knackmuss, Arch Microbiol 1974;99:61-70, as used by ref 43 (Hernaez, Reineke, Santero, AEM 1999, PMC91258). Phosphate-buffered mineral salts with ammonium as N source and ammonium ferric citrate as iron source; IBU (Na salt) 1 g/L supplied as the sole carbon source.",
+      "sources_chased": [
+        {
+          "what": "the paper itself (PMC11892951, corpus XML) - names the medium and carbon source",
+          "obtained": true,
+          "how": "Read corpus_path",
+          "added": ["ibuprofen sodium salt 1 g/L", "O2 (aerobic, shaken 180 rpm, 30 C)"]
+        },
+        {
+          "what": "base-medium ref 43 = Hernaez, Reineke, Santero, AEM 1999 (PMC91258)",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC91258/",
+          "added": ["confirmed MM = carbon-free mineral medium of Dorn et al. 1974", "MML rich medium = same mineral medium + 2 g/L tryptone + 1 g/L yeast extract"]
+        },
+        {
+          "what": "numeric Dorn et al. 1974 salt composition via a documented reproduction, Mehboob et al. AEM 2009 (PMC2690828)",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC2690828/ (verbatim salt list)",
+          "added": ["Na2HPO4.2H2O 3.48 g/L", "KH2PO4 1 g/L", "(NH4)2SO4 1 g/L", "MgSO4.7H2O 0.04 g/L", "CaCl2 0.009 g/L", "ammonium iron(III) citrate 0.01 g/L"]
+        },
+        {
+          "what": "trace-element / vitamin cocktail for the aerobic MM",
+          "obtained": false,
+          "how": "Chased Hernaez 1999 (PMC91258), the TFA GEM paper (PMC7250832), and the Santero GSR paper (PMC9303464); none add a separate SL/Wolfe/Holliger trace or vitamin solution to the AEROBIC MM. The only mineral supplement stated in the Dorn base is ammonium ferric citrate (iron). The anaerobic reproduction (Mehboob 2009) adds Holliger 1993 vitamins+trace elements plus resazurin, but those are specific to the anaerobic build and are NOT applied here.",
+          "added": []
+        }
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "disodium hydrogen phosphate dihydrate (Na2HPO4.2H2O, 3.48 g/L) - was listed as uncovered; confirmed as the main phosphate/buffer and Na source",
+        "ibuprofen sodium salt (1 g/L) - was listed as uncovered; confirmed as the sole carbon source",
+        "explicit concentrations for all salts (none were present in current_components)"
+      ],
+      "notes": "Base-medium identity is certain: MM = carbon-free mineral medium of Dorn et al. 1974 via ref 43 (Hernaez 1999). The salt concentrations are taken from a documented reproduction of that Dorn base (Mehboob 2009) rather than being restated in PMC11892951 or Hernaez 1999, hence medium confidence. Resazurin (0.005 g/L) in the Mehboob build is an anaerobiosis redox indicator, not a nutrient, and is omitted for this aerobic culture. No separate trace-metal or vitamin solution is documented for the aerobic MM - iron is supplied solely by ammonium iron(III) citrate; additional trace metals/vitamins are genuinely absent from the stated recipe (not merely unrecovered). Sole carbon source is IBU (Sigma sodium salt) 1 g/L; a non-inducing variant with acetate (ACE) 2 g/L was also used but is a different carbon source, not this medium."
+    }
+  ]
+}

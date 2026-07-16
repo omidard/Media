@@ -1,0 +1,117 @@
+{
+  "pmc": "PMC5888115",
+  "media": [
+    {
+      "id": "growthlit_PMC5888115_m9_minimal_medium_0_2_w_v_acetate",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "sodium acetate (acetate)", "concentration": "0.2% (w/v)", "concentration_mM": 24.4, "role": "carbon source", "source": "main_text", "evidence": "M9 minimal media with different carbon sources, glucose, fructose, galactose, succinate, glycerol or acetate. The concentration of carbon sources was 0.2% (w/v)."},
+        {"name": "disodium hydrogen phosphate (Na2HPO4)", "concentration": "6.78 g/L (anhydrous; ~12.8 g/L as heptahydrate)", "concentration_mM": 47.7, "role": "phosphate/buffer/sodium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "potassium dihydrogen phosphate (KH2PO4)", "concentration": "3 g/L", "concentration_mM": 22.0, "role": "phosphate/buffer/potassium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "sodium/chloride", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "1 g/L", "concentration_mM": 18.7, "role": "nitrogen", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "calcium chloride (CaCl2) - M9 base", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "EDTA (chelator)", "concentration": "1 g per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "chelator (trace-metal solution)", "source": "main_text", "evidence": "M9 minimal media was also supplemented with 1 ml trace element solution (100x) containing 1 g EDTA, 29 mg ZnSO4.7H2O, 198 mg MnCl2.4H2O, 254 mg CoCl2.6H2O, 13.4 mg CuCl2 and 147 mg CaCl2."},
+        {"name": "zinc sulfate heptahydrate (ZnSO4.7H2O)", "concentration": "29 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Zn)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing 1 g EDTA, 29 mg ZnSO4.7H2O, 198 mg MnCl2.4H2O, 254 mg CoCl2.6H2O, 13.4 mg CuCl2 and 147 mg CaCl2."},
+        {"name": "manganese chloride tetrahydrate (MnCl2.4H2O)", "concentration": "198 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Mn)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 198 mg MnCl2.4H2O ..."},
+        {"name": "cobalt chloride hexahydrate (CoCl2.6H2O)", "concentration": "254 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Co)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 254 mg CoCl2.6H2O ..."},
+        {"name": "copper(II) chloride (CuCl2)", "concentration": "13.4 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Cu)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 13.4 mg CuCl2 ..."},
+        {"name": "calcium chloride (CaCl2) - trace solution", "concentration": "147 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Ca)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... and 147 mg CaCl2."}
+      ],
+      "base_medium": "M9 minimal medium (standard) + custom EDTA-chelated trace element solution",
+      "sources_chased": [
+        {"what": "M9 base salt composition (paper names 'M9 minimal media' with no citation)", "obtained": true, "how": "canonical M9 formulation (CSH/Sambrook); paper gives no modified-M9 reference", "added": ["Na2HPO4", "KH2PO4", "NaCl", "NH4Cl", "MgSO4", "CaCl2"]},
+        {"what": "trace element solution constituents", "obtained": true, "how": "stated verbatim in Materials and Methods", "added": ["EDTA", "ZnSO4.7H2O", "MnCl2.4H2O", "CoCl2.6H2O", "CuCl2", "CaCl2"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["EDTA", "Na2HPO4/KH2PO4 buffer (only generic Pi present)", "NH4Cl (only generic NH4 present)"],
+      "notes": "Grown aerobically at 37C with agitation (batch, growth-curve/RNA-seq), so oxygen is aerobic not facultative. The stated trace solution contains NO iron (and no Mo/Ni/B/Se/W); standard M9 also adds no iron, so the Fe2+/Fe3+ entries in the prior current_components are not supported by the recipe and were dropped. Acetate salt form and exact 100x-stock dilution are not fully specified; conc_mM for acetate assumes sodium acetate at 2 g/L."
+    },
+    {
+      "id": "growthlit_PMC5888115_m9_minimal_medium_0_2_w_v_fructose",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-fructose", "concentration": "0.2% (w/v)", "concentration_mM": 11.1, "role": "carbon source", "source": "main_text", "evidence": "M9 minimal media with different carbon sources, glucose, fructose, galactose, succinate, glycerol or acetate. The concentration of carbon sources was 0.2% (w/v)."},
+        {"name": "disodium hydrogen phosphate (Na2HPO4)", "concentration": "6.78 g/L (anhydrous; ~12.8 g/L as heptahydrate)", "concentration_mM": 47.7, "role": "phosphate/buffer/sodium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "potassium dihydrogen phosphate (KH2PO4)", "concentration": "3 g/L", "concentration_mM": 22.0, "role": "phosphate/buffer/potassium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "sodium/chloride", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "1 g/L", "concentration_mM": 18.7, "role": "nitrogen", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "calcium chloride (CaCl2) - M9 base", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "EDTA (chelator)", "concentration": "1 g per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "chelator (trace-metal solution)", "source": "main_text", "evidence": "M9 minimal media was also supplemented with 1 ml trace element solution (100x) containing 1 g EDTA, 29 mg ZnSO4.7H2O, 198 mg MnCl2.4H2O, 254 mg CoCl2.6H2O, 13.4 mg CuCl2 and 147 mg CaCl2."},
+        {"name": "zinc sulfate heptahydrate (ZnSO4.7H2O)", "concentration": "29 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Zn)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing 1 g EDTA, 29 mg ZnSO4.7H2O, 198 mg MnCl2.4H2O, 254 mg CoCl2.6H2O, 13.4 mg CuCl2 and 147 mg CaCl2."},
+        {"name": "manganese chloride tetrahydrate (MnCl2.4H2O)", "concentration": "198 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Mn)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 198 mg MnCl2.4H2O ..."},
+        {"name": "cobalt chloride hexahydrate (CoCl2.6H2O)", "concentration": "254 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Co)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 254 mg CoCl2.6H2O ..."},
+        {"name": "copper(II) chloride (CuCl2)", "concentration": "13.4 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Cu)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 13.4 mg CuCl2 ..."},
+        {"name": "calcium chloride (CaCl2) - trace solution", "concentration": "147 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Ca)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... and 147 mg CaCl2."}
+      ],
+      "base_medium": "M9 minimal medium (standard) + custom EDTA-chelated trace element solution",
+      "sources_chased": [
+        {"what": "M9 base salt composition (paper names 'M9 minimal media' with no citation)", "obtained": true, "how": "canonical M9 formulation (CSH/Sambrook); paper gives no modified-M9 reference", "added": ["Na2HPO4", "KH2PO4", "NaCl", "NH4Cl", "MgSO4", "CaCl2"]},
+        {"what": "trace element solution constituents", "obtained": true, "how": "stated verbatim in Materials and Methods", "added": ["EDTA", "ZnSO4.7H2O", "MnCl2.4H2O", "CoCl2.6H2O", "CuCl2", "CaCl2"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["EDTA", "Na2HPO4/KH2PO4 buffer (only generic Pi present)", "NH4Cl (only generic NH4 present)"],
+      "notes": "Grown aerobically at 37C with agitation, so oxygen is aerobic not facultative. Trace solution contains NO iron; standard M9 adds none, so prior Fe2+/Fe3+ entries are unsupported and dropped. Fructose 0.2% w/v = 2 g/L = 11.1 mM."
+    },
+    {
+      "id": "growthlit_PMC5888115_m9_minimal_medium_0_2_w_v_glucose",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "0.2% (w/v)", "concentration_mM": 11.1, "role": "carbon source", "source": "main_text", "evidence": "M9 minimal media with different carbon sources, glucose, fructose, galactose, succinate, glycerol or acetate. The concentration of carbon sources was 0.2% (w/v)."},
+        {"name": "disodium hydrogen phosphate (Na2HPO4)", "concentration": "6.78 g/L (anhydrous; ~12.8 g/L as heptahydrate)", "concentration_mM": 47.7, "role": "phosphate/buffer/sodium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "potassium dihydrogen phosphate (KH2PO4)", "concentration": "3 g/L", "concentration_mM": 22.0, "role": "phosphate/buffer/potassium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "sodium/chloride", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "1 g/L", "concentration_mM": 18.7, "role": "nitrogen", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "calcium chloride (CaCl2) - M9 base", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "EDTA (chelator)", "concentration": "1 g per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "chelator (trace-metal solution)", "source": "main_text", "evidence": "M9 minimal media was also supplemented with 1 ml trace element solution (100x) containing 1 g EDTA, 29 mg ZnSO4.7H2O, 198 mg MnCl2.4H2O, 254 mg CoCl2.6H2O, 13.4 mg CuCl2 and 147 mg CaCl2."},
+        {"name": "zinc sulfate heptahydrate (ZnSO4.7H2O)", "concentration": "29 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Zn)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing 1 g EDTA, 29 mg ZnSO4.7H2O, 198 mg MnCl2.4H2O, 254 mg CoCl2.6H2O, 13.4 mg CuCl2 and 147 mg CaCl2."},
+        {"name": "manganese chloride tetrahydrate (MnCl2.4H2O)", "concentration": "198 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Mn)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 198 mg MnCl2.4H2O ..."},
+        {"name": "cobalt chloride hexahydrate (CoCl2.6H2O)", "concentration": "254 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Co)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 254 mg CoCl2.6H2O ..."},
+        {"name": "copper(II) chloride (CuCl2)", "concentration": "13.4 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Cu)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 13.4 mg CuCl2 ..."},
+        {"name": "calcium chloride (CaCl2) - trace solution", "concentration": "147 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Ca)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... and 147 mg CaCl2."}
+      ],
+      "base_medium": "M9 minimal medium (standard) + custom EDTA-chelated trace element solution",
+      "sources_chased": [
+        {"what": "M9 base salt composition (paper names 'M9 minimal media' with no citation)", "obtained": true, "how": "canonical M9 formulation (CSH/Sambrook); paper gives no modified-M9 reference", "added": ["Na2HPO4", "KH2PO4", "NaCl", "NH4Cl", "MgSO4", "CaCl2"]},
+        {"what": "trace element solution constituents", "obtained": true, "how": "stated verbatim in Materials and Methods", "added": ["EDTA", "ZnSO4.7H2O", "MnCl2.4H2O", "CoCl2.6H2O", "CuCl2", "CaCl2"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["EDTA", "Na2HPO4/KH2PO4 buffer (only generic Pi present)", "NH4Cl (only generic NH4 present)"],
+      "notes": "Grown aerobically at 37C with agitation, so oxygen is aerobic not facultative. Trace solution contains NO iron; standard M9 adds none, so prior Fe2+/Fe3+ entries are unsupported and dropped. Glucose 0.2% w/v = 2 g/L = 11.1 mM."
+    },
+    {
+      "id": "lit_PMC5888115_m9_minimal_media_with_custom_trace_eleme",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "sodium acetate (acetate)", "concentration": "0.2% (w/v)", "concentration_mM": 24.4, "role": "carbon source", "source": "main_text", "evidence": "M9 minimal media with different carbon sources, glucose, fructose, galactose, succinate, glycerol or acetate. The concentration of carbon sources was 0.2% (w/v)."},
+        {"name": "disodium hydrogen phosphate (Na2HPO4)", "concentration": "6.78 g/L (anhydrous; ~12.8 g/L as heptahydrate)", "concentration_mM": 47.7, "role": "phosphate/buffer/sodium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "potassium dihydrogen phosphate (KH2PO4)", "concentration": "3 g/L", "concentration_mM": 22.0, "role": "phosphate/buffer/potassium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "sodium/chloride", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "1 g/L", "concentration_mM": 18.7, "role": "nitrogen", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "calcium chloride (CaCl2) - M9 base", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium", "source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)", "evidence": "inoculated into M9 minimal media with different carbon sources"},
+        {"name": "EDTA (chelator)", "concentration": "1 g per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "chelator (trace-metal solution)", "source": "main_text", "evidence": "M9 minimal media was also supplemented with 1 ml trace element solution (100x) containing 1 g EDTA, 29 mg ZnSO4.7H2O, 198 mg MnCl2.4H2O, 254 mg CoCl2.6H2O, 13.4 mg CuCl2 and 147 mg CaCl2."},
+        {"name": "zinc sulfate heptahydrate (ZnSO4.7H2O)", "concentration": "29 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Zn)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing 1 g EDTA, 29 mg ZnSO4.7H2O, 198 mg MnCl2.4H2O, 254 mg CoCl2.6H2O, 13.4 mg CuCl2 and 147 mg CaCl2."},
+        {"name": "manganese chloride tetrahydrate (MnCl2.4H2O)", "concentration": "198 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Mn)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 198 mg MnCl2.4H2O ..."},
+        {"name": "cobalt chloride hexahydrate (CoCl2.6H2O)", "concentration": "254 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Co)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 254 mg CoCl2.6H2O ..."},
+        {"name": "copper(II) chloride (CuCl2)", "concentration": "13.4 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Cu)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... 13.4 mg CuCl2 ..."},
+        {"name": "calcium chloride (CaCl2) - trace solution", "concentration": "147 mg per 100x stock; 1 ml stock per L", "concentration_mM": null, "role": "trace metal (Ca)", "source": "main_text", "evidence": "1 ml trace element solution (100x) containing ... and 147 mg CaCl2."}
+      ],
+      "base_medium": "M9 minimal medium (standard) + custom EDTA-chelated trace element solution",
+      "sources_chased": [
+        {"what": "M9 base salt composition (paper names 'M9 minimal media' with no citation)", "obtained": true, "how": "canonical M9 formulation (CSH/Sambrook); paper gives no modified-M9 reference", "added": ["Na2HPO4", "KH2PO4", "NaCl", "NH4Cl", "MgSO4", "CaCl2"]},
+        {"what": "trace element solution constituents", "obtained": true, "how": "stated verbatim in Materials and Methods", "added": ["EDTA", "ZnSO4.7H2O", "MnCl2.4H2O", "CoCl2.6H2O", "CuCl2", "CaCl2"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["EDTA", "Na2HPO4/KH2PO4 buffer (only generic Pi present)", "NH4Cl (only generic NH4 present)"],
+      "notes": "Generic record for the M9 + custom trace element solution (carbon source shown as acetate to match the target's current components). Aerobic (37C, agitation). Trace solution has NO iron and standard M9 adds none, so prior Fe2+/Fe3+ entries are unsupported and dropped."
+    }
+  ]
+}

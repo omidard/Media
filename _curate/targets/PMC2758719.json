@@ -1,0 +1,137 @@
+{
+ "pmc": "PMC2758719",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC2758719.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2758719/",
+ "media": [
+  {
+   "id": "complexlit_PMC2758719_mops_minimal_medium_with_xylose_as_sole_carb",
+   "name": "MOPS minimal medium with xylose as sole carbon source (PMC2758719)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "CoCl2 (Co2+)",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "CuSO4 (Cu2+)",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "FeSO4 (Fe2+)",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "MnCl2 (Mn2+)",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "(NH4)6(Mo7)24 (molybdate)",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2",
+     "exchange": "EX_o2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Xylose",
+     "exchange": "EX_xyl__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "ZnSO4 (Zn2+)",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "MOPS (3-(N-morpholino)propanesulfonate)",
+    "Tricine",
+    "H3BO3 (borate)"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "MOPS minimal medium (Wanner, 1994) was used for most of the experiments for phenotype analysis unless otherwise noted. [...] cells were grown in 50 ml of MOPS medium supplemented with 0.2% xylose [...] the doubling time of the purified talAB-knockout strain on minimal medium containing xylose as the sole carbon source was confirmed to be 110 min.",
+   "citation": "Medium composition from PMC2758719 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2758719/",
+   "doi": ""
+  }
+ ]
+}

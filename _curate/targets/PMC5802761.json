@@ -1,0 +1,141 @@
+{
+ "pmc": "PMC5802761",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5802761/",
+ "media": [
+  {
+   "id": "growthlit_PMC5802761_modified_p_medium_alkaline_carbonate_buf",
+   "name": "Modified P medium (alkaline, carbonate-buffered) (PMC5802761)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium (Ca2+)",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Methane (CH4)",
+     "exchange": "EX_ch4_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Chloride (Cl-)",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper (Cu2+)",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium (K+)",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium (Mg2+)",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium (Na+)",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Nitrate (NO3-)",
+     "exchange": "EX_no3_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Oxygen (O2)",
+     "exchange": "EX_o2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate (Pi)",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate (SO4 2-)",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Carbonate buffer (CO3 2-)"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "KNO3, 1; MgSO4 x 7H2O, 0.2; CaCl2 x 2H2O, 0.02; NaCl, 30; trace solution, 1 ml/L of trace solution; and supplemented with 20 ml/L of phosphate solution (5.44 g KH2PO4; 5.68 g Na2HPO4) and 20 ml/L of 1 M carbonate buffer. [...] The M. alcaliphilum 20ZR does not grow without copper, and the optimal growth is observed between 5-10 uM of Cu (II). [...] cells were cultured with 5% CH4: 5% O2 gas mixtur",
+   "citation": "Medium composition from PMC5802761 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5802761/",
+   "doi": ""
+  }
+ ]
+}

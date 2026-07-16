@@ -1,0 +1,65 @@
+{
+  "pmc": "PMC8686765",
+  "media": [
+    {
+      "id": "growthlit_PMC8686765_mm_without_nh4_2so4_nitrogen_free_chemic",
+      "status": "confirmed",
+      "oxygen": "facultative",
+      "components": [
+        {"name": "D-glucose", "concentration": "4 g/L", "concentration_mM": 22.2, "role": "carbon source",
+         "source": "main_text", "evidence": "chemically defined medium (MM: 4 g/l glucose, 34 mM NaH2PO4, 64 mM K2HPO4, 20 mM (NH4)2SO4, 1 μM Fe(SO4)4, 300 μM MgSO4, 1 μM ZnCl2, 10 μM CaCl2, adapted from (Tanaka et al, 1967))"},
+        {"name": "sodium dihydrogen phosphate (NaH2PO4)", "concentration": "34 mM", "concentration_mM": 34.0, "role": "phosphate/buffer/sodium",
+         "source": "main_text", "evidence": "MM: 4 g/l glucose, 34 mM NaH2PO4, 64 mM K2HPO4, 20 mM (NH4)2SO4, 1 μM Fe(SO4)4, 300 μM MgSO4, 1 μM ZnCl2, 10 μM CaCl2"},
+        {"name": "dipotassium hydrogen phosphate (K2HPO4)", "concentration": "64 mM", "concentration_mM": 64.0, "role": "phosphate/buffer/potassium",
+         "source": "main_text", "evidence": "MM: 4 g/l glucose, 34 mM NaH2PO4, 64 mM K2HPO4, 20 mM (NH4)2SO4, 1 μM Fe(SO4)4, 300 μM MgSO4, 1 μM ZnCl2, 10 μM CaCl2"},
+        {"name": "iron(II) sulfate (FeSO4; written 'Fe(SO4)4' in paper, presumed typo for FeSO4)", "concentration": "1 μM", "concentration_mM": 0.001, "role": "iron trace element (also minor sulfate)",
+         "source": "main_text", "evidence": "1 μM Fe(SO4)4, 300 μM MgSO4, 1 μM ZnCl2, 10 μM CaCl2, adapted from (Tanaka et al, 1967)"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "300 μM", "concentration_mM": 0.3, "role": "magnesium + sulfate source",
+         "source": "main_text", "evidence": "300 μM MgSO4, 1 μM ZnCl2, 10 μM CaCl2"},
+        {"name": "zinc chloride (ZnCl2)", "concentration": "1 μM", "concentration_mM": 0.001, "role": "zinc trace element (also chloride)",
+         "source": "main_text", "evidence": "1 μM ZnCl2, 10 μM CaCl2, adapted from (Tanaka et al, 1967)"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "10 μM", "concentration_mM": 0.01, "role": "calcium trace element (also chloride)",
+         "source": "main_text", "evidence": "10 μM CaCl2, adapted from (Tanaka et al, 1967)"}
+      ],
+      "base_medium": "MM (Tanaka et al 1967 defined glucose minimal medium, i.e. 'medium 63'), with (NH4)2SO4 omitted to arrest growth (nitrogen-free)",
+      "sources_chased": [
+        {"what": "base recipe cited as Tanaka, Lerner & Lin 1967 (J Bacteriol 93:642-648, PMC276489, 'medium 63')", "obtained": false,
+         "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC276489/ — article is image/scan only, methods text not OCR-available; consulted well-known medium-63 composition (KH2PO4, (NH4)2SO4, MgSO4, FeSO4 only — no additional trace-metal or vitamin mix)", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "This is the growth-arrest variant of MM: identical to the full MM but with (NH4)2SO4 removed, making it nitrogen-free ('MM without added (NH4)2SO4 and an initial OD420 of 2.0 were used for cultivation'). Element coverage in the target was already complete (no ammonium, retains sulfate from MgSO4); this curation fills in the actual salt identities and concentrations, which were null. E. coli MG1655 is a prototroph, so no vitamins are required or present. The base (Tanaka/medium 63) carries no hidden trace-metal or vitamin stock, so the paper's explicit list is the complete recipe. 0.01 mM IPTG (inducer, not a nutrient) and O2 (aerobic vials) or anaerobic screw-cap vials filled to the top (no chemical reductant added) apply per condition; used facultatively for both aerobic and anaerobic growth-arrested cells."
+    },
+    {
+      "id": "growthlit_PMC8686765_mm_chemically_defined_glucose_minimal_me",
+      "status": "confirmed",
+      "oxygen": "facultative",
+      "components": [
+        {"name": "D-glucose", "concentration": "4 g/L", "concentration_mM": 22.2, "role": "carbon source",
+         "source": "main_text", "evidence": "chemically defined medium (MM: 4 g/l glucose, 34 mM NaH2PO4, 64 mM K2HPO4, 20 mM (NH4)2SO4, 1 μM Fe(SO4)4, 300 μM MgSO4, 1 μM ZnCl2, 10 μM CaCl2, adapted from (Tanaka et al, 1967))"},
+        {"name": "sodium dihydrogen phosphate (NaH2PO4)", "concentration": "34 mM", "concentration_mM": 34.0, "role": "phosphate/buffer/sodium",
+         "source": "main_text", "evidence": "MM: 4 g/l glucose, 34 mM NaH2PO4, 64 mM K2HPO4, 20 mM (NH4)2SO4"},
+        {"name": "dipotassium hydrogen phosphate (K2HPO4)", "concentration": "64 mM", "concentration_mM": 64.0, "role": "phosphate/buffer/potassium",
+         "source": "main_text", "evidence": "34 mM NaH2PO4, 64 mM K2HPO4, 20 mM (NH4)2SO4, 1 μM Fe(SO4)4"},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "20 mM", "concentration_mM": 20.0, "role": "nitrogen source + sulfate source",
+         "source": "main_text", "evidence": "64 mM K2HPO4, 20 mM (NH4)2SO4, 1 μM Fe(SO4)4, 300 μM MgSO4"},
+        {"name": "iron(II) sulfate (FeSO4; written 'Fe(SO4)4' in paper, presumed typo for FeSO4)", "concentration": "1 μM", "concentration_mM": 0.001, "role": "iron trace element",
+         "source": "main_text", "evidence": "20 mM (NH4)2SO4, 1 μM Fe(SO4)4, 300 μM MgSO4, 1 μM ZnCl2"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "300 μM", "concentration_mM": 0.3, "role": "magnesium + sulfate source",
+         "source": "main_text", "evidence": "1 μM Fe(SO4)4, 300 μM MgSO4, 1 μM ZnCl2, 10 μM CaCl2"},
+        {"name": "zinc chloride (ZnCl2)", "concentration": "1 μM", "concentration_mM": 0.001, "role": "zinc trace element (also chloride)",
+         "source": "main_text", "evidence": "300 μM MgSO4, 1 μM ZnCl2, 10 μM CaCl2, adapted from (Tanaka et al, 1967)"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "10 μM", "concentration_mM": 0.01, "role": "calcium trace element (also chloride)",
+         "source": "main_text", "evidence": "1 μM ZnCl2, 10 μM CaCl2, adapted from (Tanaka et al, 1967)"}
+      ],
+      "base_medium": "MM = chemically defined glucose minimal medium adapted from Tanaka, Lerner & Lin 1967 ('medium 63')",
+      "sources_chased": [
+        {"what": "base recipe cited as Tanaka, Lerner & Lin 1967 (J Bacteriol 93:642-648, PMC276489, 'medium 63')", "obtained": false,
+         "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC276489/ — article is image/scan only, methods text not OCR-available; consulted well-known medium-63 composition (KH2PO4, (NH4)2SO4, MgSO4, FeSO4 only — no additional trace-metal or vitamin mix)", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "The paper enumerates the full MM recipe with concentrations in Materials and Methods, so it is self-contained; element coverage in the target (Ca, Cl, Fe, glucose, K, Mg, Na, NH4, phosphate, SO4, Zn, O2) was already complete. This curation adds the concrete salt identities and molar concentrations (previously null). Phosphate buffer (34 mM NaH2PO4 + 64 mM K2HPO4, ~98 mM total) also serves as the buffer; no separate buffer, and no vitamins (MG1655 is prototrophic on glucose minimal medium). Base medium 63 (Tanaka 1967) contributes no hidden trace-metal/vitamin stock. 0.01 mM IPTG (inducer, not a nutrient) added except to WT. Same medium used facultatively for both aerobic (shake flask) and anaerobic (screw-cap vials filled to top, no chemical reductant) cultivation."
+    }
+  ]
+}

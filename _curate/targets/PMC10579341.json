@@ -1,0 +1,91 @@
+{
+ "pmc": "PMC10579341",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC10579341.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10579341/",
+ "media": [
+  {
+   "id": "growthlit_PMC10579341_m63_glu_m63_minimal_medium_with_glucose",
+   "name": "M63 + glu (M63 minimal medium with glucose) (PMC10579341)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Thiamin",
+     "exchange": "EX_thm_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (confirmed)",
+   "verification_evidence": "M63 minimal media consisting of 20% 5 x M63 salt [70], 1 ug/ml B1, 2 x 10-3 M MgSO4, and supplemented with 20 ug/ml glucose (M63+glu). Both media were supplemented with 100 ug/ml ampicillin, unless otherwise stated.",
+   "citation": "Medium composition from PMC10579341 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10579341/",
+   "doi": ""
+  }
+ ]
+}

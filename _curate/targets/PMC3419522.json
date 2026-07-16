@@ -1,0 +1,101 @@
+{
+ "pmc": "PMC3419522",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3419522/",
+ "media": [
+  {
+   "id": "growthlit_PMC3419522_modified_low_n_asp_2_n_deprived_pure_ar_",
+   "name": "Modified low-N ASP-2, N-deprived, pure Ar sparge (no CO2) (PMC3419522)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "calcium chloride dihydrate",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": 2.5
+    },
+    {
+     "name": "sodium chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": 308.0
+    },
+    {
+     "name": "cobalt sulfate heptahydrate",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": 1.7e-05
+    },
+    {
+     "name": "ferric chloride",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": 0.03
+    },
+    {
+     "name": "potassium chloride",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": 8.0
+    },
+    {
+     "name": "magnesium sulfate heptahydrate",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": 3.0
+    },
+    {
+     "name": "manganese sulfate monohydrate",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.0009699999999999999
+    },
+    {
+     "name": "sodium chloride",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": 308.0
+    },
+    {
+     "name": "ammonium chloride",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": 0.75
+    },
+    {
+     "name": "O2 (facultative)",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "magnesium sulfate heptahydrate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": 3.0
+    },
+    {
+     "name": "zinc sulfate heptahydrate",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": 7.7e-05
+    }
+   ],
+   "current_uncovered": [
+    "dipotassium hydrogen phosphate",
+    "disodium EDTA",
+    "boric acid"
+   ],
+   "base_medium": "Modified ASP-2 medium (van Baalen 1962) for Cyanothece sp. ATCC 51142; low-N / N-limited variant",
+   "base_medium_reference": "van Baalen C. 1962. Studies on marine blue-green algae. Botanica Marina 4:129-139 (cited as ref [34] in the paper). Base mineral-salt composition and the ASP-2 / ASP-2-N (nitrogen-free) variant taken from the ASP-2 recipe listing at cellreg.org (http://cellreg.org/Catalog_2020/Catalog%20NEW/media/ASP%202+ASP%202-N.html) which cites van Baalen 1962; P-II trace-metal solution from Provasoli, McLaughlin & Droop 1957 (P II metals, per 100 mL: Na2EDTA 100 mg, H3BO3 114 mg, FeCl3.6H2O 4.9 mg, MnSO4.H2O 16.4 mg, ZnSO4.7H2O 2.2 mg, CoSO4.7H2O 0.48 mg).",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": "\"modified low-N ASP-2 containing 0.75 mM NH4Cl\"; N-deprivation: \"interruption of medium influx to the bioreactor\" / \"H2 became detectable within 1 h upon the perturbation\"; gas: alternative condition with \"pure Ar\" atmosphere (no CO2).",
+   "citation": "Medium composition from PMC3419522 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3419522/",
+   "doi": ""
+  }
+ ]
+}

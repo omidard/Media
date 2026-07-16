@@ -1,0 +1,189 @@
+{
+  "pmc": "PMC10811727",
+  "media": [
+    {
+      "id": "complexlit_PMC10811727_anoxic_mineral_medium_per_ref_16_with_nitrat",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "components": [
+        {
+          "name": "potassium bicarbonate",
+          "formula": "KHCO3",
+          "concentration": "0.5-1.5 g/L",
+          "concentration_mM": null,
+          "role": "buffer / bicarbonate-CO2",
+          "source": "cited:Ettwig 2009 (PMC2687271, base recipe of ref 16)",
+          "evidence": "The mineral medium contained (per liter): 0.5-1.5 g KHCO3 (added as required to maintain denitrifying activity), 0.05 g KH2PO4, 0.3 g CaCl2.2H2O, 0.2 g MgSO4.7H2O, 0.425 g NaNO3 (5 mM)."
+        },
+        {
+          "name": "monopotassium phosphate",
+          "formula": "KH2PO4",
+          "concentration": "0.05 g/L",
+          "concentration_mM": 0.37,
+          "role": "phosphate / potassium",
+          "source": "cited:Ettwig 2009 (PMC2687271)",
+          "evidence": "The mineral medium contained (per liter) ... 0.05 g KH2PO4 ..."
+        },
+        {
+          "name": "calcium chloride dihydrate",
+          "formula": "CaCl2.2H2O",
+          "concentration": "0.3 g/L",
+          "concentration_mM": 2.04,
+          "role": "calcium / chloride",
+          "source": "cited:Ettwig 2009 (PMC2687271)",
+          "evidence": "The mineral medium contained (per liter) ... 0.3 g CaCl2.2H2O ..."
+        },
+        {
+          "name": "magnesium sulfate heptahydrate",
+          "formula": "MgSO4.7H2O",
+          "concentration": "0.2 g/L",
+          "concentration_mM": 0.81,
+          "role": "magnesium / sulfate",
+          "source": "cited:Ettwig 2009 (PMC2687271)",
+          "evidence": "The mineral medium contained (per liter) ... 0.2 g MgSO4.7H2O ..."
+        },
+        {
+          "name": "sodium nitrate",
+          "formula": "NaNO3",
+          "concentration": "0.425 g/L (5 mM)",
+          "concentration_mM": 5.0,
+          "role": "nitrogen source / electron acceptor / sodium",
+          "source": "cited:Ettwig 2009 (PMC2687271); pulse-fed in PMC10811727 main_text",
+          "evidence": "0.425 g NaNO3 (5 mM). PMC10811727: 'A concentrated stock solution (80 g NO3-N l-1) was manually pulse-fed to the reactors to replenish NO3-.'"
+        },
+        {
+          "name": "ferrous sulfate heptahydrate",
+          "formula": "FeSO4.7H2O",
+          "concentration": "2.085 g/L in acidic trace stock, 0.5 mL/L added",
+          "concentration_mM": 0.00375,
+          "role": "trace metal (iron)",
+          "source": "cited:Ettwig 2009 (PMC2687271) acidic trace-element solution",
+          "evidence": "The acidic (100 mM HCl) trace element solution contained (per liter) 2.085 g FeSO4.7H2O, 0.068 g ZnSO4.7H2O, 0.12 g CoCl2.6H2O, 0.5 g MnCl2.4H2O, 0.32 g CuSO4, 0.095 g NiCl2.6H2O, and 0.014 g H3BO3 (0.5 ml added per liter medium)."
+        },
+        {
+          "name": "zinc sulfate heptahydrate",
+          "formula": "ZnSO4.7H2O",
+          "concentration": "0.068 g/L in acidic trace stock, 0.5 mL/L added",
+          "concentration_mM": 0.00012,
+          "role": "trace metal (zinc)",
+          "source": "cited:Ettwig 2009 (PMC2687271) acidic trace-element solution",
+          "evidence": "... 0.068 g ZnSO4.7H2O ... (0.5 ml added per liter medium)."
+        },
+        {
+          "name": "cobalt chloride hexahydrate",
+          "formula": "CoCl2.6H2O",
+          "concentration": "0.12 g/L in acidic trace stock, 0.5 mL/L added",
+          "concentration_mM": 0.00025,
+          "role": "trace metal (cobalt)",
+          "source": "cited:Ettwig 2009 (PMC2687271) acidic trace-element solution",
+          "evidence": "... 0.12 g CoCl2.6H2O ... (0.5 ml added per liter medium)."
+        },
+        {
+          "name": "manganese chloride tetrahydrate",
+          "formula": "MnCl2.4H2O",
+          "concentration": "0.5 g/L in acidic trace stock, 0.5 mL/L added",
+          "concentration_mM": 0.00126,
+          "role": "trace metal (manganese)",
+          "source": "cited:Ettwig 2009 (PMC2687271) acidic trace-element solution",
+          "evidence": "... 0.5 g MnCl2.4H2O ... (0.5 ml added per liter medium)."
+        },
+        {
+          "name": "copper sulfate",
+          "formula": "CuSO4",
+          "concentration": "0.32 g/L in acidic trace stock, 0.5 mL/L added",
+          "concentration_mM": 0.001,
+          "role": "trace metal (copper)",
+          "source": "cited:Ettwig 2009 (PMC2687271) acidic trace-element solution",
+          "evidence": "... 0.32 g CuSO4 ... (0.5 ml added per liter medium)."
+        },
+        {
+          "name": "nickel chloride hexahydrate",
+          "formula": "NiCl2.6H2O",
+          "concentration": "0.095 g/L in acidic trace stock, 0.5 mL/L added",
+          "concentration_mM": 0.0002,
+          "role": "trace metal (nickel)",
+          "source": "cited:Ettwig 2009 (PMC2687271) acidic trace-element solution",
+          "evidence": "... 0.095 g NiCl2.6H2O ... (0.5 ml added per liter medium)."
+        },
+        {
+          "name": "boric acid",
+          "formula": "H3BO3",
+          "concentration": "0.014 g/L in acidic trace stock, 0.5 mL/L added",
+          "concentration_mM": 0.000113,
+          "role": "trace element (boron)",
+          "source": "cited:Ettwig 2009 (PMC2687271) acidic trace-element solution",
+          "evidence": "... and 0.014 g H3BO3 (0.5 ml added per liter medium)."
+        },
+        {
+          "name": "sodium molybdate",
+          "formula": "Na2MoO4",
+          "concentration": "0.242 g/L in alkaline trace stock, 0.2 mL/L added",
+          "concentration_mM": 0.00024,
+          "role": "trace metal (molybdenum)",
+          "source": "cited:Ettwig 2009 (PMC2687271) alkaline trace-element solution",
+          "evidence": "The alkaline (10 mM NaOH) trace element solution contained (per liter) 0.067 g SeO2, 0.050 g Na2WO4.2H2O, and 0.242 g Na2MoO4 (0.2 ml added per liter medium)."
+        },
+        {
+          "name": "selenium dioxide",
+          "formula": "SeO2",
+          "concentration": "0.067 g/L in alkaline trace stock, 0.2 mL/L added",
+          "concentration_mM": 0.000121,
+          "role": "trace element (selenium)",
+          "source": "cited:Ettwig 2009 (PMC2687271) alkaline trace-element solution",
+          "evidence": "... 0.067 g SeO2 ... (0.2 ml added per liter medium)."
+        },
+        {
+          "name": "sodium tungstate dihydrate",
+          "formula": "Na2WO4.2H2O",
+          "concentration": "0.050 g/L in alkaline trace stock, 0.2 mL/L added",
+          "concentration_mM": 0.0000303,
+          "role": "trace metal (tungsten)",
+          "source": "cited:Ettwig 2009 (PMC2687271) alkaline trace-element solution",
+          "evidence": "... 0.050 g Na2WO4.2H2O ... (0.2 ml added per liter medium)."
+        },
+        {
+          "name": "ethane",
+          "formula": "C2H6",
+          "concentration": "0.9-1.2 atm headspace partial pressure",
+          "concentration_mM": null,
+          "role": "sole carbon and energy source",
+          "source": "main_text",
+          "evidence": "The ethane/butane reactors were periodically flushed with pure ethane/butane gas (99.99%, Coregas, Australia) to maintain the ethane/butane partial pressure in the headspace between 0.9 and 1.2 atm."
+        },
+        {
+          "name": "carbon dioxide",
+          "formula": "CO2",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "inorganic carbon / bicarbonate-CO2 buffer equilibrium",
+          "source": "cited:Ettwig 2009 (PMC2687271); main_text (product/buffer)",
+          "evidence": "KHCO3 buffer establishes a bicarbonate-CO2 system; CO2 is also the oxidation end product ('CO2 was the dominant end product from C2H6 and C4H10 oxidation')."
+        }
+      ],
+      "base_medium": "Anoxic NC10-type mineral medium (Ettwig et al. 2009, AEM), cited via ref 16 (Wu et al. 2022, Nat Commun, PMC9576796)",
+      "sources_chased": [
+        {
+          "what": "ref 16 = Wu et al. 2022 (PMC9576796), the 'anoxic mineral medium [16]' cited by PMC10811727",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC9576796/",
+          "added": ["No recipe of its own - it defers to Ettwig 2009 ('anoxic synthetic medium prepared as described previously')"]
+        },
+        {
+          "what": "base recipe = Ettwig et al. 2009 (PMC2687271), full NC10 anaerobic mineral medium + acidic and alkaline trace-element solutions",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC2687271/",
+          "added": ["KHCO3 buffer", "H3BO3 (boron)", "SeO2 (selenium)", "Na2WO4.2H2O (tungsten)", "confirmed all bulk salts and 6 acidic-solution trace metals + Mo"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "potassium bicarbonate (KHCO3, buffer)",
+        "boric acid (H3BO3, boron)",
+        "selenium dioxide (SeO2, selenium)",
+        "sodium tungstate dihydrate (Na2WO4.2H2O, tungsten)",
+        "ethane (C2H6, carbon source)"
+      ],
+      "notes": "The paper gives only the modification (nitrate + ethane) and cites the medium as ref 16; ref 16 in turn cites Ettwig 2009, which supplies the complete NC10 mineral medium. All conc_mM values already in the target match Ettwig 2009 exactly, but tungsten (Na2WO4) was entirely absent from the target and boron, selenium, bicarbonate and ethane were unmapped. No vitamins or added chemical reductant (cysteine/sulfide) are part of this medium; anoxia is maintained by inert gas/substrate sparging and the nitrate serves as electron acceptor."
+    }
+  ]
+}

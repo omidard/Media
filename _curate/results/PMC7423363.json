@@ -1,0 +1,70 @@
+{
+  "pmc": "PMC7423363",
+  "media": [
+    {
+      "id": "complexlit_PMC7423363_carbon_source_minimal_medium_batch_glucose",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "components": [
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "3.85 g/L", "concentration_mM": 28.3, "role": "phosphate/buffer", "source": "main_text", "evidence": "Minimal medium [KH2PO4 (3.85 g/liter), K2HPO4 (12.48 g/liter)..."},
+        {"name": "dipotassium phosphate (K2HPO4)", "concentration": "12.48 g/L", "concentration_mM": 71.65, "role": "phosphate/buffer", "source": "main_text", "evidence": "...K2HPO4 (12.48 g/liter), (NH4)2SO4 (1.125 g/liter)..."},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "1.125 g/L", "concentration_mM": 8.51, "role": "nitrogen (and sulfate) source", "source": "main_text", "evidence": "...(NH4)2SO4 (1.125 g/liter), 1x methyl methanesulfonate..."},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.88 g/L (1x, from 20x stock 17.6 g/L)", "concentration_mM": 15.06, "role": "bulk salt (Na/Cl)", "source": "main_text", "evidence": "1x methyl methanesulfonate (20x methyl methanesulfonate: NaCl, 17.6 g/liter; ...)"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.02 g/L (1x, from 20x stock 0.4 g/L)", "concentration_mM": 0.18, "role": "bulk salt (Ca)", "source": "main_text", "evidence": "20x methyl methanesulfonate: ...CaCl2, 0.4 g/liter..."},
+        {"name": "magnesium chloride hexahydrate (MgCl2*6H2O)", "concentration": "0.02 g/L (1x, from 20x stock 0.4 g/L)", "concentration_mM": 0.098, "role": "bulk salt (Mg)", "source": "main_text", "evidence": "20x methyl methanesulfonate: ...MgCl2 x 6H2O, 0.4 g/liter..."},
+        {"name": "manganese(II) chloride tetrahydrate (MnCl2*4H2O)", "concentration": "0.01 g/L (1x, from 20x stock 0.2 g/L)", "concentration_mM": 0.05, "role": "trace metal (Mn)", "source": "main_text", "evidence": "20x methyl methanesulfonate: ...MnCl2 x 4H2O, 0.2 g/liter..."},
+        {"name": "cobalt(II) chloride hexahydrate (CoCl2*6H2O)", "concentration": "0.01 g/L (1x, from 20x stock 0.2 g/L)", "concentration_mM": 0.042, "role": "trace metal (Co)", "source": "main_text", "evidence": "20x methyl methanesulfonate: ...CoCl2 x 6H2O, 0.2 g/liter"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4*7H2O)", "concentration": "4.17 uM", "concentration_mM": 0.00417, "role": "trace metal (Fe)", "source": "main_text", "evidence": "4.17 uM FeSO4 x 7H20, 0.25 mM cysteine..."},
+        {"name": "L-cysteine", "concentration": "0.25 mM", "concentration_mM": 0.25, "role": "reductant (anaerobic)", "source": "main_text", "evidence": "...0.25 mM cysteine, 1 uM menadione, 2 uM resazurin..."},
+        {"name": "menadione (vitamin K3)", "concentration": "1 uM", "concentration_mM": 0.001, "role": "vitamin/electron carrier", "source": "main_text", "evidence": "...1 uM menadione, 2 uM resazurin..."},
+        {"name": "resazurin", "concentration": "2 uM", "concentration_mM": 0.002, "role": "redox (anaerobiosis) indicator", "source": "main_text", "evidence": "...2 uM resazurin, dextran (1 g/liter...)"},
+        {"name": "dextran", "concentration": "1 g/L (0.5% w/v in overnight/outgrowth; Sigma D5376, avg MW 1.5-2 x 10^6)", "concentration_mM": null, "role": "complex carbohydrate carbon source (Bt substrate)", "source": "main_text", "evidence": "dextran (1 g/liter; Sigma, D5376; average molecular weight, 1.5 x 10^6 to 2 x 10^6)"},
+        {"name": "D-glucose", "concentration": "0.5% (w/v) batch (~5 g/L, ~27.75 mM); 0.125-0.5% w/v range tested", "concentration_mM": 27.75, "role": "carbon source (primary in batch-glucose condition)", "source": "main_text", "evidence": "Overnight cultures grown anaerobically in minimal medium supplemented with either 0.5% (w/v) dextran or 0.5% (w/v) glucose ... minimal medium containing various concentrations [0.125 to 0.5% (w/v)] of the carbon source"},
+        {"name": "N2 gas (nitrogen, anaerobic gas phase)", "concentration": "100% N2 purge", "concentration_mM": null, "role": "anaerobic gas phase", "source": "main_text", "evidence": "...was purged with 100% N2, stored under anaerobic conditions before use, and maintained under N2"},
+
+        {"name": "nitrilotriacetic acid", "concentration": "0.015 g/L (Wolfe's mineral soln 10 mL/L of 1.5 g/L stock)", "concentration_mM": 0.078, "role": "chelator (trace-metal stock)", "source": "stock:Wolfe's mineral solution (ref 52 Wolin 1963; expanded via DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: Nitrilotriacetic acid 1.5 g/L, dissolve and adjust pH to 6.5 with KOH, then add minerals"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4*7H2O)", "concentration": "0.03 g/L (10 mL/L of 3.0 g/L stock)", "concentration_mM": 0.122, "role": "trace/bulk metal (Mg) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: MgSO4 3.0 g/L"},
+        {"name": "manganese(II) sulfate monohydrate (MnSO4*H2O)", "concentration": "0.005 g/L (10 mL/L of 0.5 g/L stock)", "concentration_mM": 0.0296, "role": "trace metal (Mn) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: MnSO4 0.5 g/L"},
+        {"name": "sodium chloride (NaCl) [mineral stock]", "concentration": "0.01 g/L (10 mL/L of 1.0 g/L stock)", "concentration_mM": 0.17, "role": "trace salt from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: NaCl 1.0 g/L"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4*7H2O) [mineral stock]", "concentration": "0.001 g/L (10 mL/L of 0.1 g/L stock)", "concentration_mM": 0.0036, "role": "trace metal (Fe) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: FeSO4 0.1 g/L"},
+        {"name": "calcium chloride (CaCl2) [mineral stock]", "concentration": "0.001 g/L (10 mL/L of 0.1 g/L stock)", "concentration_mM": 0.009, "role": "trace metal (Ca) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: CaCl2 0.1 g/L"},
+        {"name": "cobalt(II) chloride (CoCl2) [mineral stock]", "concentration": "0.001 g/L (10 mL/L of 0.1 g/L stock)", "concentration_mM": 0.0077, "role": "trace metal (Co) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: CoCl2 0.1 g/L"},
+        {"name": "zinc sulfate heptahydrate (ZnSO4*7H2O)", "concentration": "0.001 g/L (10 mL/L of 0.1 g/L stock)", "concentration_mM": 0.0035, "role": "trace metal (Zn) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: ZnSO4 0.1 g/L"},
+        {"name": "copper(II) sulfate pentahydrate (CuSO4*5H2O)", "concentration": "0.0001 g/L (10 mL/L of 0.01 g/L stock)", "concentration_mM": 0.0004, "role": "trace metal (Cu) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: CuSO4 0.01 g/L"},
+        {"name": "aluminum potassium sulfate dodecahydrate (AlK(SO4)2*12H2O)", "concentration": "0.0001 g/L (10 mL/L of 0.01 g/L stock)", "concentration_mM": 0.0002, "role": "trace metal (Al) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: AlK(SO4)2 0.01 g/L"},
+        {"name": "boric acid (H3BO3)", "concentration": "0.0001 g/L (10 mL/L of 0.01 g/L stock)", "concentration_mM": 0.0016, "role": "trace element (B) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: H3BO3 0.01 g/L"},
+        {"name": "sodium molybdate dihydrate (Na2MoO4*2H2O)", "concentration": "0.0001 g/L (10 mL/L of 0.01 g/L stock)", "concentration_mM": 0.0004, "role": "trace metal (Mo) from mineral stock", "source": "stock:Wolfe's mineral solution (DSMZ MediaDive #2680)", "evidence": "Wolfe's Mineral Solution: Na2MoO4 0.01 g/L"},
+
+        {"name": "biotin", "concentration": "0.02 mg/L (Wolfe's vitamin soln 10 mL/L of 2.0 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "stock:Wolfe's vitamin solution (ref 52; expanded via ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: Biotin 2.0 mg/liter"},
+        {"name": "folic acid", "concentration": "0.02 mg/L (10 mL/L of 2.0 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "stock:Wolfe's vitamin solution (ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: Folic acid 2.0 mg/liter"},
+        {"name": "pyridoxine hydrochloride", "concentration": "0.1 mg/L (10 mL/L of 10.0 mg/L stock)", "concentration_mM": null, "role": "vitamin (B6)", "source": "stock:Wolfe's vitamin solution (ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: Pyridoxine hydrochloride 10.0 mg/liter"},
+        {"name": "thiamine hydrochloride", "concentration": "0.05 mg/L (10 mL/L of 5.0 mg/L stock)", "concentration_mM": null, "role": "vitamin (B1)", "source": "stock:Wolfe's vitamin solution (ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: Thiamine 5.0 mg/liter"},
+        {"name": "riboflavin", "concentration": "0.05 mg/L (10 mL/L of 5.0 mg/L stock)", "concentration_mM": null, "role": "vitamin (B2)", "source": "stock:Wolfe's vitamin solution (ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: Riboflavin 5.0 mg/liter"},
+        {"name": "nicotinic acid (niacin)", "concentration": "0.05 mg/L (10 mL/L of 5.0 mg/L stock)", "concentration_mM": null, "role": "vitamin (B3)", "source": "stock:Wolfe's vitamin solution (ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: Nicotinic acid 5.0 mg/liter"},
+        {"name": "calcium D-(+)-pantothenate", "concentration": "0.05 mg/L (10 mL/L of 5.0 mg/L stock)", "concentration_mM": null, "role": "vitamin (B5)", "source": "stock:Wolfe's vitamin solution (ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: Calcium Pantothenate 5.0 mg/liter"},
+        {"name": "vitamin B12 (cyanocobalamin)", "concentration": "0.001 mg/L (10 mL/L of 0.1 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "stock:Wolfe's vitamin solution (ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: Vitamin B12 0.1 mg/liter"},
+        {"name": "p-aminobenzoic acid (PABA)", "concentration": "0.05 mg/L (10 mL/L of 5.0 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "stock:Wolfe's vitamin solution (ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: p-Aminobenzoic acid 5.0 mg/liter"},
+        {"name": "thioctic acid (lipoic acid)", "concentration": "0.05 mg/L (10 mL/L of 5.0 mg/L stock)", "concentration_mM": null, "role": "vitamin/cofactor", "source": "stock:Wolfe's vitamin solution (ATCC MD-VS)", "evidence": "Wolfe's Vitamin Solution: Thioctic acid 5.0 mg/liter"}
+      ],
+      "base_medium": "Phosphate-buffered minimal salts medium (KH2PO4/K2HPO4 + (NH4)2SO4 + 20x salt stock) supplemented with Wolfe's mineral solution and Wolfe's vitamin solution, anaerobic (100% N2, cysteine/resazurin); dextran +/- glucose carbon source.",
+      "sources_chased": [
+        {"what": "Wolfe's mineral solution (cited as ref 52 = Wolin, Wolin & Wolfe 1963, J. Biol. Chem. 238:2882)", "obtained": true, "how": "WebFetch mediadive.dsmz.de/solutions/2680 + WebSearch ATCC formulation", "added": ["nitrilotriacetic acid","MgSO4*7H2O","MnSO4*H2O","NaCl","FeSO4*7H2O","CaCl2","CoCl2","ZnSO4*7H2O","CuSO4*5H2O","AlK(SO4)2*12H2O","H3BO3","Na2MoO4*2H2O"]},
+        {"what": "Wolfe's vitamin solution (cited as ref 52; standard ATCC/DSMZ composition)", "obtained": true, "how": "WebSearch ATCC MD-VS Vitamin Supplement formulation", "added": ["biotin","folic acid","pyridoxine HCl","thiamine HCl","riboflavin","nicotinic acid","calcium pantothenate","vitamin B12","p-aminobenzoic acid","thioctic (lipoic) acid"]},
+        {"what": "Main-text minimal medium recipe (Continuous culture of Kp and Bt section)", "obtained": true, "how": "Read corpus JATS XML", "added": ["KH2PO4","K2HPO4","(NH4)2SO4","20x salt stock (NaCl/CaCl2/MgCl2/MnCl2/CoCl2)","FeSO4*7H2O","cysteine","menadione","resazurin","dextran","N2 gas phase"]}
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "nitrilotriacetic acid (chelator)",
+        "molybdenum (Na2MoO4)",
+        "boron (H3BO3)",
+        "aluminum (AlK(SO4)2)",
+        "biotin", "folic acid", "pyridoxine HCl", "thiamine HCl", "riboflavin", "nicotinic acid", "calcium pantothenate", "vitamin B12", "p-aminobenzoic acid", "thioctic (lipoic) acid",
+        "resazurin (redox indicator)",
+        "dextran (complex carbon source)",
+        "N2 anaerobic gas phase",
+        "explicit buffer identity/concentration (KH2PO4 3.85 g/L, K2HPO4 12.48 g/L)"
+      ],
+      "notes": "Complete minimal-medium recipe recovered from the Materials and Methods (Continuous culture section); the batch-glucose medium uses the identical minimal-medium base with 0.125-0.5% (w/v) glucose (0.5% standard). The paper's '20x methyl methanesulfonate' label is an evident naming error (MMS is an alkylating agent, not a salt stock) but the listed constituent salts (NaCl/CaCl2/MgCl2/MnCl2/CoCl2) are reported verbatim. Wolfe's mineral and vitamin solutions (both cited to Wolin, Wolin & Wolfe 1963) were expanded to their standard DSMZ/ATCC constituents; the DSMZ 'Wolfe's Mineral Solution' composition used here does not include Ni or Se (some ATCC trace-mineral variants do). Anaerobic: cysteine reductant + resazurin indicator + 100% N2 purge/blanket."
+    }
+  ]
+}

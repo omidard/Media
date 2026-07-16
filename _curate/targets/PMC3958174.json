@@ -1,0 +1,82 @@
+{
+ "pmc": "PMC3958174",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3958174/",
+ "media": [
+  {
+   "id": "complexlit_PMC3958174_crude_cashew_apple_juice_caj_no_aeration",
+   "name": "Crude cashew apple juice (CAJ), no aeration (PMC3958174)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "L-ascorbic acid (vitamin C)",
+     "exchange": "EX_ascb__L_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "folic acid",
+     "exchange": "EX_fol_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "fructose",
+     "exchange": "EX_fru_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 (facultative)",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "phosphorus (phosphate)",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "riboflavin",
+     "exchange": "EX_ribflv_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "sucrose",
+     "exchange": "EX_sucr_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "thiamine",
+     "exchange": "EX_thm_e",
+     "lb": -10.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "total nitrogen (as amino acids)",
+    "niacin"
+   ],
+   "base_medium": "Crude cashew apple juice (CAJ) from Anacardium occidentale L. (natural fruit juice used undiluted as sole cultivation medium, no aeration)",
+   "base_medium_reference": "Oliveira AH, Ogrodowski CC, de Macedo AC, Santana MHA, Goncalves LRB. Cashew apple juice as microbial cultivation medium for non-immunogenic hyaluronic acid production. Braz J Microbiol. 2014;44(4):1097-1104. PMID: 24688498; PMCID: PMC3958174. Composition further attributed by the authors to Rocha MVP et al. Production of biosurfactant by Pseudomonas aeruginosa grown on cashew apple juice. Appl Biochem Biotechnol. 2007;136:185-194. doi:10.1007/s12010-007-9050-6",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": "Paper (PMC3958174): crude/pure CAJ used without supplementation. CAJ contains '10% of reducing sugars (glucose and fructose), phosphorous and amino acids' plus 'B-vitamins, particularly thiamine, riboflavin, niacin and folic acid', total nitrogen '0.04% w/v'. The 'no aeration' record corresponds to the anaerobic Erlenmeyer-flask condition (37C, 150 rpm); the paper also ran an aerobic (2 vvm) CAJ f",
+   "citation": "Medium composition from PMC3958174 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3958174/",
+   "doi": ""
+  }
+ ]
+}

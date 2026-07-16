@@ -1,0 +1,133 @@
+{
+ "pmc": "PMC7035108",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC7035108.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7035108/",
+ "media": [
+  {
+   "id": "growthlit_PMC7035108_m2g_m2_minimal_medium_0_2_glucose",
+   "name": "M2G (M2 minimal medium + 0.2% glucose) (PMC7035108)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "MgSO4 (magnesium sulfate)",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "MgSO4 (magnesium sulfate)",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "Bacteria were grown in batch cultures, and unless otherwise stated cultivated in Erlenmeyer shake flasks... grown in minimal media (M2) supplemented with 0.2 % glucose (M2G) according to Ely et al, which was modified by replacing MgCl2 with MgSO4.",
+   "citation": "Medium composition from PMC7035108 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7035108/",
+   "doi": ""
+  }
+ ]
+}

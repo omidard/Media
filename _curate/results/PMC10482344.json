@@ -1,0 +1,31 @@
+{
+  "pmc": "PMC10482344",
+  "media": [
+    {
+      "id": "growthlit_PMC10482344_m9_minimal_shake_flask_p_coumarate_ferul",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "20 mM", "concentration_mM": 20.0, "role": "carbon source", "source": "main_text", "evidence": "AW271 and CJ263 were cultivated in shake flasks with M9 minimal media supplemented with equimolar p-coumarate, ferulate, and glucose (20 mM each), and glucose was fed every 24 hours to a concentration of 20 mM."},
+        {"name": "p-coumarate (p-coumaric acid)", "concentration": "20 mM", "concentration_mM": 20.0, "role": "carbon source (aromatic substrate)", "source": "main_text", "evidence": "cultivated in shake flasks with M9 minimal media supplemented with equimolar p-coumarate, ferulate, and glucose (20 mM each)"},
+        {"name": "ferulate (ferulic acid)", "concentration": "20 mM", "concentration_mM": 20.0, "role": "carbon source (aromatic substrate)", "source": "main_text", "evidence": "cultivated in shake flasks with M9 minimal media supplemented with equimolar p-coumarate, ferulate, and glucose (20 mM each)"},
+        {"name": "disodium phosphate (Na2HPO4)", "concentration": "13.5 g/L", "concentration_mM": 95.1, "role": "phosphate / buffer / sodium", "source": "main_text", "evidence": "M9 media used consisted of glucose ... Na2HPO4 (13.5 g/liter), KH2PO4 (6 g/liter), NaCl (1 g/liter), (NH4)2SO4 (2.25 g/liter), 2 mM MgSO4, 0.1 mM CaCl2, and 0.018 mM FeSO4."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "6 g/L", "concentration_mM": 44.1, "role": "phosphate / buffer / potassium", "source": "main_text", "evidence": "M9 media used consisted of glucose ... Na2HPO4 (13.5 g/liter), KH2PO4 (6 g/liter), NaCl (1 g/liter), (NH4)2SO4 (2.25 g/liter), 2 mM MgSO4, 0.1 mM CaCl2, and 0.018 mM FeSO4."},
+        {"name": "sodium chloride (NaCl)", "concentration": "1 g/L", "concentration_mM": 17.1, "role": "sodium / chloride salt", "source": "main_text", "evidence": "M9 media used consisted of glucose ... NaCl (1 g/liter) ..."},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "2.25 g/L", "concentration_mM": 17.0, "role": "nitrogen source / sulfate", "source": "main_text", "evidence": "M9 media used consisted of glucose ... (NH4)2SO4 (2.25 g/liter) ..."},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium / sulfate", "source": "main_text", "evidence": "M9 media used consisted of glucose ... 2 mM MgSO4, 0.1 mM CaCl2, and 0.018 mM FeSO4."},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium / chloride", "source": "main_text", "evidence": "M9 media used consisted of glucose ... 2 mM MgSO4, 0.1 mM CaCl2, and 0.018 mM FeSO4."},
+        {"name": "iron(II) sulfate (FeSO4)", "concentration": "0.018 mM", "concentration_mM": 0.018, "role": "iron trace metal / sulfate", "source": "main_text", "evidence": "M9 media used consisted of glucose ... 2 mM MgSO4, 0.1 mM CaCl2, and 0.018 mM FeSO4."},
+        {"name": "O2 (aerobic gas phase, shaken flask)", "concentration": null, "concentration_mM": null, "role": "oxygen / electron acceptor", "source": "main_text", "evidence": "AW271 and CJ263 were cultivated in shake flasks ... (aerobic aromatic-catabolism host P. putida KT2440, cultivated shaken)"}
+      ],
+      "base_medium": "M9 minimal (full salt composition stated in-text; no separate trace-element or vitamin stock cited)",
+      "sources_chased": [
+        {"what": "M9 salt/trace composition (Batch phase media preparation section)", "obtained": true, "how": "corpus_path JATS XML full text", "added": ["exact g/L for Na2HPO4, KH2PO4, NaCl, (NH4)2SO4", "MgSO4 2 mM", "CaCl2 0.1 mM", "FeSO4 0.018 mM"]},
+        {"what": "any cited base-medium reference for M9 / trace-element mix / vitamins", "obtained": true, "how": "full-text grep for trace/EDTA/vitamin/thiamine/biotin/H3BO3/MnCl2/ZnSO4/CuSO4/CoCl2/Na2MoO4/NiCl2/SL-10", "added": ["none — the paper cites no base medium and adds no trace-metal mix or vitamins beyond FeSO4"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "This M9 for P. putida KT2440 is fully defined in the main text (Batch phase media preparation), with only FeSO4 as a trace metal and NO trace-element mix or vitamins; the shake-flask medium adds 20 mM each of glucose, p-coumarate, and ferulate. Corrections vs current_components: the spurious trace metals Co2+, Cu2+, Fe3+, Mn2+, and Zn2+ (GEM exchange auto-population artifacts, lb -1000) are NOT in the real recipe and were removed; the only iron species is Fe2+ from FeSO4; concentrations for all salts and substrates were recovered and filled in."
+    }
+  ]
+}

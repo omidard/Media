@@ -1,0 +1,129 @@
+{
+ "pmc": "PMC10119117",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC10119117.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10119117/",
+ "media": [
+  {
+   "id": "growthlit_PMC10119117_wheat_grass_medium",
+   "name": "Wheat grass medium (PMC10119117)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "KCl",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "MgSO4",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "MgSO4",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Wheat grass infusion (aqueous extract, 0.2 um filtered)"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "10 mL L\u22121 of the concentrated infusion were supplemented with a balanced salt solution (1.78 mM NaCl, 0.42 mM MgCl2, 0.16 mM MgSO4, 0.31 mM KCl and 0.09 mM CaCl2, as final concentrations), NH4Cl (100 mg L\u22121) and phosphate buffer (pH 7, Na2HPO4 x 2 H2O at 500 mg L\u22121 and NaH2PO4 x H2O at 120 mg L\u22121). Contrary to the original recipe, no stigmasterol was added.",
+   "citation": "Medium composition from PMC10119117 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10119117/",
+   "doi": ""
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+  "pmc": "PMC60676",
+  "media": [
+    {
+      "id": "complexlit_PMC60676_ms_mineral_standard_minimal_medium",
+      "status": "incomplete_source",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "D-Glucose",
+          "concentration": "2 g/L",
+          "concentration_mM": 11.1,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "Bacteria were routinely grown in mineral standard (MS) medium [24] containing 2 g glucose/liter with or without thymine (1 to 10 uM) or in LB medium [25]."
+        },
+        {
+          "name": "D-Glucose (evolution/growth-rate experiments)",
+          "concentration": "10 mM",
+          "concentration_mM": 10.0,
+          "role": "carbon source (alternate stated concentration)",
+          "source": "main_text",
+          "evidence": "An E. coli strain beta7328 was used to inoculate a culture in MS minimal medium containing 10 mM glucose and 1 uM thymine at 37 degrees C."
+        },
+        {
+          "name": "Thymine",
+          "concentration": "1 to 10 uM",
+          "concentration_mM": null,
+          "role": "pyrimidine growth factor (required by the thyA-deficient / thymine-requiring strain; withdrawn to impose thymine starvation)",
+          "source": "main_text",
+          "evidence": "Bacteria were routinely grown in mineral standard (MS) medium [24] containing 2 g glucose/liter with or without thymine (1 to 10 uM)... ; Growth rates were determined by measuring the optical density (A600nm) ... in balanced growth in MS glucose medium supplemented with 10 uM thymine at 37 degrees C."
+        },
+        {
+          "name": "O2 (dioxygen, gas phase)",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "electron acceptor / aerobic gas phase",
+          "source": "main_text",
+          "evidence": "Growth rates were determined by measuring the optical density (A600nm) of at least five successive samples taken from cultures in balanced growth in MS glucose medium supplemented with 10 uM thymine at 37 degrees C. (Aerobic batch cultivation is implied throughout: OD600-monitored balanced growth, LB comparison, and agar-plate work; no anaerobic/reductant/gas provisions are described.)"
+        }
+      ],
+      "base_medium": "MS (mineral standard) minimal medium of the Marliere laboratory, defined in Richaud et al. 1993 J Biol Chem 268:26827-26835 (cited as reference [24] in PMC60676).",
+      "sources_chased": [
+        {
+          "what": "PMC60676 full text (the paper itself)",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC60676 and EBI europepmc fullTextXML",
+          "added": ["glucose 2 g/L (routine) / 10 mM (experiments)", "thymine 1-10 uM supplement", "aerobic cultivation", "confirmation that the MS mineral base is not spelled out here and is deferred to ref [24] Richaud 1993"]
+        },
+        {
+          "what": "base recipe cited as ref [24] = Richaud C, Mengin-Lecreulx D, Pochet S, Johnson EJ, Cohen GN, Marliere P. J Biol Chem 1993;268:26827-26835 (DOI 10.1016/S0021-9258(19)74186-6; PMID 8262915) -- the actual definition of MS medium (all salts, phosphate buffer, ammonium N-source, Mg, trace metals, thiamine)",
+          "obtained": false,
+          "how": "Attempted DOI resolver, JBC /fulltext and /pdf, ScienceDirect article + /pdfft, legacy intl.jbc.org, and Wayback Machine. Unpaywall reports is_oa=true (JBC hybrid-OA) but the only location is the DOI, and every host returns HTTP 403 / Cloudflare-Elsevier bot-challenge HTML (not the PDF). Article is not in PMC/EuropePMC (no PMCID, inEPMC=N) and is not in the PMC OA subset, so no XML/PDF is retrievable. No full-text Wayback snapshot exists.",
+          "added": []
+        },
+        {
+          "what": "Same-lab reproductions that might restate the MS recipe: Science 2001 (Doring/Marliere valine, 10.1126/science.1057718), Appl Microbiol Biotechnol 2007 continuous-culture (10.1007/s00253-007-1168-5), Angew Chem 2011 'Chemical evolution of a bacterium's genome' (10.1002/anie.201100535), J Bacteriol 1994 lanthionine paper (PMC205645 / 10.1128/jb.176.14.4321-4327.1994), Genetics 1998 cysteine-reassignment (PMC1460352)",
+          "obtained": false,
+          "how": "Science 2001 and AMB 2007 paywalled (Unpaywall is_oa=false, Springer/Science 403). Angew 2011 OA copy resolves to a KU Leuven Lirias JS/PDF.js SPA handle page with no direct bitstream. PMC205645 and PMC1460352 render only abstract+references (old scanned articles; PMC205645 flagged 'not Open Access' by the PMC OA API, so no Methods text/PDF). None yielded a verbatim MS-medium composition.",
+          "added": []
+        }
+      ],
+      "confidence": "low",
+      "missing_before": [],
+      "notes": "The paper (E. coli, facultative but cultivated aerobically) does not spell out the MS 'mineral standard' base; it only states the carbon source (glucose 2 g/L routine, 10 mM in the evolution and growth-rate experiments), the thymine supplement (1-10 uM, required by the thymine-auxotroph strain and withdrawn to impose thymineless death), and 37 C. The complete mineral base -- phosphate buffer, ammonium (N source), Mg, trace metals (Fe etc.), and thiamine -- is a defined recipe that lives entirely in cited reference [24] (Richaud et al. 1993, J Biol Chem), which could not be obtained: it is OA-hybrid per Unpaywall yet every JBC/ScienceDirect/Elsevier endpoint returns a 403/Cloudflare bot-challenge, it has no PMC/EuropePMC full text, and no Wayback full-text snapshot exists. Per the no-fabrication rule, those base components are NOT listed because no verbatim source was recoverable in this environment. The 3 components currently in the record (glucose, O2, thymine) are all confirmed correct; what is missing is the mineral/vitamin base, whose exact molar composition is unresolved pending direct (e.g. institutional-subscription) access to Richaud 1993."
+    }
+  ]
+}

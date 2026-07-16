@@ -1,0 +1,51 @@
+{
+  "pmc": "PMC5447228",
+  "media": [
+    {
+      "id": "growthlit_PMC5447228_modified_dsmz_63_mineral_medium_fructose",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "components": [
+        {"name": "sodium bicarbonate (NaHCO3)", "concentration": "2.6 g/L", "concentration_mM": 30.95, "role": "buffer / CO2-bicarbonate", "source": "main_text", "evidence": "Modified from DSMZ recipe #63 ... NaHCO3, 2.6 g (per liter)"},
+        {"name": "sodium sulfate (Na2SO4)", "concentration": "3.0 g/L", "concentration_mM": 21.12, "role": "sulfate source / electron acceptor precursor", "source": "main_text", "evidence": "Na2SO4, 3.0 g (per liter)"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "0.30 g/L", "concentration_mM": 2.20, "role": "phosphate", "source": "main_text", "evidence": "KH2PO4, 0.30 g (per liter)"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "0.50 g/L", "concentration_mM": 9.35, "role": "nitrogen source", "source": "main_text", "evidence": "NH4Cl, 0.50 g (per liter)"},
+        {"name": "potassium chloride (KCl)", "concentration": "0.20 g/L", "concentration_mM": 2.68, "role": "bulk salt (K+, Cl-)", "source": "main_text", "evidence": "KCl, 0.20 g (per liter)"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.10 g/L", "concentration_mM": 0.90, "role": "bulk salt (Ca2+)", "source": "main_text", "evidence": "CaCl2, 0.10 g (per liter)"},
+        {"name": "magnesium chloride (MgCl2)", "concentration": "2.0 g/L", "concentration_mM": 21.0, "role": "bulk salt (Mg2+)", "source": "main_text", "evidence": "MgCl2, 2.0 g (per liter). Note: hydration state not stated; if MgCl2.6H2O then ~9.8 mM."},
+        {"name": "D-fructose", "concentration": "10 mM", "concentration_mM": 10.0, "role": "carbon source / electron donor", "source": "main_text", "evidence": "organic substrates: lactate (20 mM), pyruvate (40 mM), or fructose (10 mM)"},
+        {"name": "sodium ascorbate", "concentration": "1.5 g/L", "concentration_mM": 7.57, "role": "reductant (anaerobic)", "source": "main_text", "evidence": "Sodium ascorbate (reductant): 1.5 g (per liter)"},
+        {"name": "resazurin", "concentration": "1 mg/L", "concentration_mM": 0.004, "role": "redox indicator", "source": "main_text", "evidence": "Resazurin: 1 mg (per liter)"},
+        {"name": "iron(II) chloride (FeCl2.4H2O)", "concentration": "1.5 mg/L (1 mL/L of SL-10 @ 1.5 g/L)", "concentration_mM": 0.0075, "role": "trace metal (Fe)", "source": "stock:SL-10 (DSMZ medium 320)", "evidence": "Trace element solution SL-10 ... FeCl2 x 4 H2O 1.50 g (per liter of SL-10); added at 1.00 ml/L"},
+        {"name": "zinc chloride (ZnCl2)", "concentration": "0.07 mg/L (SL-10 @ 70 mg/L, 1 mL/L)", "concentration_mM": 0.00051, "role": "trace metal (Zn)", "source": "stock:SL-10 (DSMZ medium 320)", "evidence": "SL-10 ... ZnCl2 70.00 mg (per liter of SL-10)"},
+        {"name": "manganese(II) chloride (MnCl2.4H2O)", "concentration": "0.10 mg/L (SL-10 @ 100 mg/L, 1 mL/L)", "concentration_mM": 0.00051, "role": "trace metal (Mn)", "source": "stock:SL-10 (DSMZ medium 320)", "evidence": "SL-10 ... MnCl2 x 4 H2O 100.00 mg (per liter of SL-10)"},
+        {"name": "boric acid (H3BO3)", "concentration": "0.006 mg/L (SL-10 @ 6 mg/L, 1 mL/L)", "concentration_mM": 0.0001, "role": "trace metal (B)", "source": "stock:SL-10 (DSMZ medium 320)", "evidence": "SL-10 ... H3BO3 6.00 mg (per liter of SL-10)"},
+        {"name": "cobalt(II) chloride (CoCl2.6H2O)", "concentration": "0.19 mg/L (SL-10 @ 190 mg/L, 1 mL/L)", "concentration_mM": 0.0008, "role": "trace metal (Co)", "source": "stock:SL-10 (DSMZ medium 320)", "evidence": "SL-10 ... CoCl2 x 6 H2O 190.00 mg (per liter of SL-10)"},
+        {"name": "copper(II) chloride (CuCl2.2H2O)", "concentration": "0.002 mg/L (SL-10 @ 2 mg/L, 1 mL/L)", "concentration_mM": 0.0000117, "role": "trace metal (Cu)", "source": "stock:SL-10 (DSMZ medium 320)", "evidence": "SL-10 ... CuCl2 x 2 H2O 2.00 mg (per liter of SL-10)"},
+        {"name": "nickel(II) chloride (NiCl2.6H2O)", "concentration": "0.024 mg/L (SL-10 @ 24 mg/L, 1 mL/L)", "concentration_mM": 0.0001, "role": "trace metal (Ni)", "source": "stock:SL-10 (DSMZ medium 320)", "evidence": "SL-10 ... NiCl2 x 6 H2O 24.00 mg (per liter of SL-10)"},
+        {"name": "sodium molybdate (Na2MoO4.2H2O)", "concentration": "0.036 mg/L (SL-10 @ 36 mg/L, 1 mL/L)", "concentration_mM": 0.00015, "role": "trace metal (Mo)", "source": "stock:SL-10 (DSMZ medium 320)", "evidence": "SL-10 ... Na2MoO4 x 2 H2O 36.00 mg (per liter of SL-10)"},
+        {"name": "hydrochloric acid (HCl)", "concentration": "10 uL/L (SL-10 @ 10 mL/L 25% HCl, 1 mL/L)", "concentration_mM": null, "role": "acidulant in SL-10 stock", "source": "stock:SL-10 (DSMZ medium 320)", "evidence": "SL-10 ... HCl (25%) 10.00 ml (per liter of SL-10)"},
+        {"name": "biotin", "concentration": "0.02 mg/L (vitamin #141 @ 2 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin", "source": "stock:DSMZ vitamin solution #141 (Wolin's vitamin solution)", "evidence": "Wolin's vitamin solution ... Biotin 2.00 mg (per liter); added at 10.00 ml/L"},
+        {"name": "folic acid", "concentration": "0.02 mg/L (vitamin #141 @ 2 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin", "source": "stock:DSMZ vitamin solution #141", "evidence": "Wolin's vitamin solution ... Folic acid 2.00 mg (per liter)"},
+        {"name": "pyridoxine hydrochloride", "concentration": "0.10 mg/L (vitamin #141 @ 10 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin (B6)", "source": "stock:DSMZ vitamin solution #141", "evidence": "Wolin's vitamin solution ... Pyridoxine hydrochloride 10.00 mg (per liter)"},
+        {"name": "thiamine hydrochloride", "concentration": "0.05 mg/L (vitamin #141 @ 5 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin (B1)", "source": "stock:DSMZ vitamin solution #141", "evidence": "Wolin's vitamin solution ... Thiamine HCl 5.00 mg (per liter)"},
+        {"name": "riboflavin", "concentration": "0.05 mg/L (vitamin #141 @ 5 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin (B2)", "source": "stock:DSMZ vitamin solution #141", "evidence": "Wolin's vitamin solution ... Riboflavin 5.00 mg (per liter)"},
+        {"name": "nicotinic acid", "concentration": "0.05 mg/L (vitamin #141 @ 5 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin (B3)", "source": "stock:DSMZ vitamin solution #141", "evidence": "Wolin's vitamin solution ... Nicotinic acid 5.00 mg (per liter)"},
+        {"name": "calcium D-(+)-pantothenate", "concentration": "0.05 mg/L (vitamin #141 @ 5 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin (B5)", "source": "stock:DSMZ vitamin solution #141", "evidence": "Wolin's vitamin solution ... Calcium D-(+)-pantothenate 5.00 mg (per liter)"},
+        {"name": "vitamin B12 (cyanocobalamin)", "concentration": "0.001 mg/L (vitamin #141 @ 0.1 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin (B12)", "source": "stock:DSMZ vitamin solution #141", "evidence": "Wolin's vitamin solution ... Vitamin B12 0.10 mg (per liter)"},
+        {"name": "p-aminobenzoic acid", "concentration": "0.05 mg/L (vitamin #141 @ 5 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin (PABA)", "source": "stock:DSMZ vitamin solution #141", "evidence": "Wolin's vitamin solution ... p-Aminobenzoic acid 5.00 mg (per liter)"},
+        {"name": "(DL)-alpha-lipoic acid", "concentration": "0.05 mg/L (vitamin #141 @ 5 mg/L, 10 mL/L)", "concentration_mM": null, "role": "vitamin (lipoic acid)", "source": "stock:DSMZ vitamin solution #141", "evidence": "Wolin's vitamin solution ... (DL)-alpha-Lipoic acid 5.00 mg (per liter)"},
+        {"name": "N2/CO2 gas phase (80% N2 / 20% CO2)", "concentration": "headspace", "concentration_mM": null, "role": "anaerobic gas phase / CO2 for bicarbonate buffer", "source": "main_text", "evidence": "Gas phase: 80% N2 and 20% CO2 (bicarbonate-buffered anaerobic medium)"}
+      ],
+      "base_medium": "DSMZ mineral medium #63 (Desulfovibrio fructosovorans medium), modified; SL-10 trace elements + DSMZ/Wolin vitamin solution #141",
+      "sources_chased": [
+        {"what": "Paper main text methods (D. fructosovorans medium, modified from DSMZ #63)", "obtained": true, "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC5447228/", "added": ["NaHCO3","Na2SO4","KH2PO4","NH4Cl","KCl","CaCl2","MgCl2","fructose 10 mM","sodium ascorbate","resazurin","N2/CO2"]},
+        {"what": "SL-10 trace element solution composition (DSMZ)", "obtained": true, "how": "WebFetch DSMZ_Medium320.pdf", "added": ["FeCl2","ZnCl2","MnCl2","H3BO3","CoCl2","CuCl2","NiCl2","Na2MoO4","HCl"]},
+        {"what": "DSMZ vitamin solution #141 (Wolin's vitamin solution) composition", "obtained": true, "how": "WebFetch DSMZ_Medium141.pdf", "added": ["biotin","folic acid","pyridoxine","thiamine","riboflavin","nicotinic acid","pantothenate","B12","PABA","lipoic acid"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["sodium ascorbate (reductant)", "molybdenum (Na2MoO4)", "nickel (NiCl2)", "boron (H3BO3)", "biotin", "folic acid", "pyridoxine", "thiamine", "riboflavin", "nicotinic acid", "calcium pantothenate", "vitamin B12", "p-aminobenzoic acid", "alpha-lipoic acid"],
+      "notes": "Complete recipe recovered for the modified DSMZ #63 D. fructosovorans medium plus 10 mM fructose. SL-10 (1 mL/L) and DSMZ/Wolin vitamin solution #141 (10 mL/L) fully expanded from DSMZ media 320 and 141. Anaerobic, bicarbonate-buffered under 80% N2/20% CO2, reduced with 1.5 g/L sodium ascorbate. MgCl2 hydration state not specified in the paper (mM given assumes anhydrous; hexahydrate would be ~9.8 mM). No selenium in this medium (Se only in the separate DMSS-1 medium)."
+    }
+  ]
+}

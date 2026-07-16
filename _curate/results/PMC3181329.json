@@ -1,0 +1,58 @@
+{
+ "pmc": "PMC3181329",
+ "media": [
+  {
+   "id": "complexlit_PMC3181329_carbon_limited_evans_defined_minimal_medium",
+   "status": "corrected",
+   "oxygen": "facultative",
+   "components": [
+    {"name": "D-glucose", "concentration": "21.9 mM", "concentration_mM": 21.9, "role": "carbon source",
+     "source": "main_text", "evidence": "Carbon-limited Evans defined medium was used with 21.9 mM glucose as the carbon source"},
+    {"name": "monosodium phosphate (NaH2PO4)", "concentration": "10 mM", "concentration_mM": 10.0, "role": "phosphate/buffer",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (10 mM NaH2PO4, 10 mM KCl, 1.25 mM MgCl2, 100 mM NH4Cl, 2 mM Na2SO4, 2 mM nitrilotriacetic acid, 0.02 mM CaCl2, 25 uM ZnO, 10 uM FeCl3, 50 uM MnCl2, 5 uM CuCl2, 11 uM CoCl2, 0.05 uM H3BO3, 0.08 uM Na2MoO4)"},
+    {"name": "potassium chloride (KCl)", "concentration": "10 mM", "concentration_mM": 10.0, "role": "potassium",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (10 mM NaH2PO4, 10 mM KCl, 1.25 mM MgCl2, 100 mM NH4Cl, 2 mM Na2SO4, ...)"},
+    {"name": "magnesium chloride (MgCl2)", "concentration": "1.25 mM", "concentration_mM": 1.25, "role": "magnesium",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (10 mM NaH2PO4, 10 mM KCl, 1.25 mM MgCl2, 100 mM NH4Cl, ...)"},
+    {"name": "ammonium chloride (NH4Cl)", "concentration": "100 mM", "concentration_mM": 100.0, "role": "nitrogen",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 1.25 mM MgCl2, 100 mM NH4Cl, 2 mM Na2SO4, 2 mM nitrilotriacetic acid, ...)"},
+    {"name": "sodium sulfate (Na2SO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "sulfate",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 100 mM NH4Cl, 2 mM Na2SO4, 2 mM nitrilotriacetic acid, 0.02 mM CaCl2, ...)"},
+    {"name": "nitrilotriacetic acid (NTA)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "metal chelator",
+     "source": "cited:same-lab Evans formulation (PMC4949985) / Royal Soc. Open Sci. (PMC5108944)", "evidence": "A carbon-limited defined medium was used ... It was based on that of Evans et al. except that 2 mM nitrilotriacetic acid was used as the metal chelator instead of citrate"},
+    {"name": "calcium chloride (CaCl2)", "concentration": "0.02 mM", "concentration_mM": 0.02, "role": "calcium",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 2 mM nitrilotriacetic acid, 0.02 mM CaCl2, 25 uM ZnO, ...)"},
+    {"name": "zinc oxide (ZnO)", "concentration": "25 uM", "concentration_mM": 0.025, "role": "trace metal (Zn)",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 0.02 mM CaCl2, 25 uM ZnO, 10 uM FeCl3, 50 uM MnCl2, ...)"},
+    {"name": "ferric chloride (FeCl3)", "concentration": "10 uM", "concentration_mM": 0.01, "role": "trace metal (Fe)",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 25 uM ZnO, 10 uM FeCl3, 50 uM MnCl2, 5 uM CuCl2, ...)"},
+    {"name": "manganese chloride (MnCl2)", "concentration": "50 uM", "concentration_mM": 0.05, "role": "trace metal (Mn)",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 10 uM FeCl3, 50 uM MnCl2, 5 uM CuCl2, 11 uM CoCl2, ...)"},
+    {"name": "copper chloride (CuCl2)", "concentration": "5 uM", "concentration_mM": 0.005, "role": "trace metal (Cu)",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 50 uM MnCl2, 5 uM CuCl2, 11 uM CoCl2, 0.05 uM H3BO3, ...)"},
+    {"name": "cobalt chloride (CoCl2)", "concentration": "11 uM", "concentration_mM": 0.011, "role": "trace metal (Co)",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 5 uM CuCl2, 11 uM CoCl2, 0.05 uM H3BO3, 0.08 uM Na2MoO4)"},
+    {"name": "boric acid (H3BO3)", "concentration": "0.05 uM", "concentration_mM": 0.00005, "role": "trace metal (B)",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 11 uM CoCl2, 0.05 uM H3BO3, 0.08 uM Na2MoO4)"},
+    {"name": "sodium molybdate (Na2MoO4)", "concentration": "0.08 uM", "concentration_mM": 0.00008, "role": "trace metal (Mo)",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "Evans medium (... 0.05 uM H3BO3, 0.08 uM Na2MoO4)"},
+    {"name": "sodium selenite (Na2SeO3)", "concentration": "30 ug/L", "concentration_mM": 0.00017, "role": "trace metal (Se)",
+     "source": "cited:same-lab Evans formulation (PMC4949985)", "evidence": "(10 mM NaH2PO4 ... 0.08 uM Na2MoO4) supplemented with 30 ug l-1 sodium selenite, and 20 mM glucose as a carbon source"},
+    {"name": "carbon dioxide / dinitrogen gas phase (anaerobic sparge)", "concentration": "N2 95% / CO2 5% at 0.4 l/min", "concentration_mM": null, "role": "gas phase / anaerobic sparge (CO2 also inorganic C/bicarbonate)",
+     "source": "main_text", "evidence": "Anaerobic cultures were maintained by sparging with N2 (95%) and CO2 (5%) at 0.4 l min-1"},
+    {"name": "oxygen (O2)", "concentration": "dissolved O2 held at 5% (~10 uM) in micro-aerobic phase", "concentration_mM": 0.01, "role": "electron acceptor (micro-aerobic phase only)",
+     "source": "main_text", "evidence": "The switch to micro-aerobic conditions was achieved by automatically altering the gas mix ratio of N2 and CO2 to air to maintain the dissolved O2 tension in the culture at 5% (~10 uM)"}
+   ],
+   "base_medium": "Evans defined medium, carbon(glucose)-limited variant; metal chelator = 2 mM nitrilotriacetic acid instead of citrate (Evans, Herbert & Tempest 1970, Methods Microbiol 2:277-327, ref [22])",
+   "sources_chased": [
+    {"what": "PMC3181329 full text (Trotter et al. 2011, PLoS ONE), main-text medium/growth statements", "obtained": true, "how": "WebFetch pmc_url + EuropePMC fullTextXML", "added": ["21.9 mM glucose", "N2/CO2 anaerobic sparge", "micro-aerobic O2 5%/~10 uM", "pH 7.0"]},
+    {"what": "Base recipe cited as ref [22] Evans, Herbert & Tempest 1970 (book chapter, no DOI/PMID)", "obtained": false, "how": "primary book chapter not online; recovered via same-lab papers reproducing the exact formulation", "added": []},
+    {"what": "Same-lab full Evans formulation (Green group) - Adaptation of anaerobic E. coli to TMAO, PMC4949985", "obtained": true, "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC4949985", "added": ["10 mM NaH2PO4", "10 mM KCl", "1.25 mM MgCl2", "100 mM NH4Cl", "2 mM Na2SO4", "2 mM NTA", "0.02 mM CaCl2", "25 uM ZnO", "10 uM FeCl3", "50 uM MnCl2", "5 uM CuCl2", "11 uM CoCl2", "0.05 uM H3BO3", "0.08 uM Na2MoO4", "30 ug/L Na2SeO3"]},
+    {"what": "Same-lab companion Royal Soc Open Sci (Homeostasis of metabolites), PMC5108944", "obtained": true, "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC5108944", "added": ["confirmed NTA (2 mM) replaces citrate as chelator; carbon-limited glucose Evans medium"]}
+   ],
+   "confidence": "high",
+   "missing_before": ["potassium chloride (KCl)", "nitrilotriacetic acid chelator", "zinc oxide (ZnO)", "boric acid (H3BO3)", "sodium selenite (Na2SeO3)", "CO2/bicarbonate from gas sparge"],
+   "notes": "PMC3181329 gives only 21.9 mM glucose + gas/pH in its own text and cites the Evans 1970 book chapter for the rest. The full salt/trace/vitamin set was recovered verbatim from two open-access papers by the SAME lab (Green group, Sheffield) using the identical carbon-limited Evans defined medium (PMC4949985 gives the complete component-by-component formulation; PMC5108944 confirms 2 mM NTA replaces citrate). Corrections vs current_components: phosphate is 10 mM NaH2PO4 (not 50 mM K2HPO4); K source is 10 mM KCl; iron is FeCl3 (ferric) at 10 uM; molybdenum is Na2MoO4 at 0.08 uM (not ammonium molybdate); MgCl2 1.25 mM, CaCl2 0.02 mM, NH4Cl 100 mM (N in excess, carbon-limited). Added ZnO, H3BO3, NTA, and Na2SeO3. No amino acids/vitamins in this defined medium; anaerobiosis achieved by N2/CO2 gas sparge with no chemical reductant. glucose set to 21.9 mM per PMC3181329 (sister papers use 20 mM)."
+  }
+ ]
+}

@@ -1,0 +1,109 @@
+{
+  "pmc": "PMC6921056",
+  "media": [
+    {
+      "id": "complexlit_PMC6921056_smm_standard_mineral_medium_ref_18_10_mm_gly",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "glycerol",
+          "concentration": "10 mM",
+          "concentration_mM": 10.0,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "SMM medium (15 mL) with 10 mM glycerol in 25-mL Reacti Flask closed with screw cap was preincubated at 37 C, growth test was initiated by addition of cells to 0.1 OD600."
+        },
+        {
+          "name": "disodium hydrogen phosphate dodecahydrate (Na2HPO4.12H2O)",
+          "concentration": "5.4 g/L",
+          "concentration_mM": 15.08,
+          "role": "phosphate/buffer/sodium source",
+          "source": "cited:Kurumbang 2014 (ref 18); recipe recovered verbatim from Dvorak PhD dissertation (is.muni.cz/th/gyoy9), which reproduces the Kurumbang 2014 Materials & Methods and attributes SMM to Assis 1998 [ref 274]",
+          "evidence": "A synthetic mineral medium (SMM) containing 5.4 g of Na2HPO4.12H2O, 1.4 g of KH2PO4, 0.5 g of (NH4)2SO4, 0.2 g of MgSO4.7H2O, 2 ml of trace elements solution and 1 ml of vitamin B1 (10 g.l-1) per 1 l was used for selection experiments [274]."
+        },
+        {
+          "name": "potassium dihydrogen phosphate (KH2PO4)",
+          "concentration": "1.4 g/L",
+          "concentration_mM": 10.29,
+          "role": "phosphate/potassium source",
+          "source": "cited:Kurumbang 2014 (ref 18); recovered from Dvorak PhD dissertation (is.muni.cz/th/gyoy9)",
+          "evidence": "A synthetic mineral medium (SMM) containing 5.4 g of Na2HPO4.12H2O, 1.4 g of KH2PO4, 0.5 g of (NH4)2SO4, 0.2 g of MgSO4.7H2O, 2 ml of trace elements solution and 1 ml of vitamin B1 (10 g.l-1) per 1 l was used for selection experiments [274]."
+        },
+        {
+          "name": "ammonium sulfate ((NH4)2SO4)",
+          "concentration": "0.5 g/L",
+          "concentration_mM": 3.78,
+          "role": "nitrogen source / sulfate",
+          "source": "cited:Kurumbang 2014 (ref 18); recovered from Dvorak PhD dissertation (is.muni.cz/th/gyoy9)",
+          "evidence": "A synthetic mineral medium (SMM) containing 5.4 g of Na2HPO4.12H2O, 1.4 g of KH2PO4, 0.5 g of (NH4)2SO4, 0.2 g of MgSO4.7H2O, 2 ml of trace elements solution and 1 ml of vitamin B1 (10 g.l-1) per 1 l was used for selection experiments [274]."
+        },
+        {
+          "name": "magnesium sulfate heptahydrate (MgSO4.7H2O)",
+          "concentration": "0.2 g/L",
+          "concentration_mM": 0.81,
+          "role": "magnesium source / sulfate",
+          "source": "cited:Kurumbang 2014 (ref 18); recovered from Dvorak PhD dissertation (is.muni.cz/th/gyoy9)",
+          "evidence": "A synthetic mineral medium (SMM) containing 5.4 g of Na2HPO4.12H2O, 1.4 g of KH2PO4, 0.5 g of (NH4)2SO4, 0.2 g of MgSO4.7H2O, 2 ml of trace elements solution and 1 ml of vitamin B1 (10 g.l-1) per 1 l was used for selection experiments [274]."
+        },
+        {
+          "name": "thiamine (vitamin B1)",
+          "concentration": "10 mg/L (1 mL of a 10 g/L stock per L)",
+          "concentration_mM": 0.03,
+          "role": "vitamin",
+          "source": "cited:Kurumbang 2014 (ref 18); recovered from Dvorak PhD dissertation (is.muni.cz/th/gyoy9)",
+          "evidence": "...2 ml of trace elements solution and 1 ml of vitamin B1 (10 g.l-1) per 1 l was used for selection experiments [274]."
+        },
+        {
+          "name": "trace elements solution (2 mL/L; constituents not stated, unexpanded)",
+          "concentration": "2 mL/L",
+          "concentration_mM": null,
+          "role": "trace metals",
+          "source": "cited:Kurumbang 2014 (ref 18); recovered from Dvorak PhD dissertation (is.muni.cz/th/gyoy9); composition originates in stock:Assis et al. 1998 (Enzyme Microb. Technol. 22:568-574) which is Elsevier-paywalled (Kent Academic Repository holds metadata only), so the individual trace-metal salts could not be recovered and are NOT invented",
+          "evidence": "A synthetic mineral medium (SMM) containing ... 2 ml of trace elements solution and 1 ml of vitamin B1 (10 g.l-1) per 1 l was used for selection experiments [274]. ... (274) Assis, H. M. S.; Sallis, P. J.; Bull, A. T.; Hardman, D. J. Biochemical Characterization of a Haloalcohol Dehalogenase from Arthrobacter erithii H10a. Enzyme Microb. Technol. 1998, 22, 568-574."
+        },
+        {
+          "name": "O2 (aerobic gas phase)",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "electron acceptor / gas phase",
+          "source": "main_text",
+          "evidence": "Growth test was performed in shaken flasks (Reacti Flask closed with screw cap) at 37 C using aerobically cultured E. coli BL21(DE3); the organism and cultivation are aerobic."
+        }
+      ],
+      "base_medium": "SMM (Synthetic Mineral Medium), a defined phosphate-buffered E. coli mineral medium (Na2HPO4/KH2PO4 + (NH4)2SO4 + MgSO4 + trace elements + thiamine), from Kurumbang et al. 2014 (ref 18), originally attributed to Assis et al. 1998 (ref 274).",
+      "sources_chased": [
+        {
+          "what": "Target paper PMC6921056 main text (defines only 'SMM [18] + 10 mM glycerol', no composition)",
+          "obtained": true,
+          "how": "Read local corpus XML /data/growthdb_corpus/fulltext_xml/PMC6921056.xml",
+          "added": ["glycerol 10 mM", "aerobic gas phase", "confirmed SMM identity + ref [18]"]
+        },
+        {
+          "what": "Sibling open-access paper Dvorak et al. 2015 Microb. Cell Fact. (PMC4687329, same group/strain/pathway) to test for SMM recipe",
+          "obtained": true,
+          "how": "WebFetch europepmc fullTextXML + DTU-orbit PDF",
+          "added": ["negative result: that paper uses LB + phosphate buffer, NOT SMM; recipe not there"]
+        },
+        {
+          "what": "Base recipe cited as ref [18] (Kurumbang et al. 2014, ACS Synth. Biol., DOI 10.1021/sb400147n) - paywalled, not in PMC",
+          "obtained": true,
+          "how": "Recovered verbatim via the compilation PhD dissertation of P. Dvorak (defended 2014, MU Brno) which reproduces the Kurumbang 2014 Materials & Methods; located through theses.cz/id/inya2d and downloaded is.muni.cz/th/gyoy9/Dvorak_dizertace.pdf (cookie-handshake)",
+          "added": ["Na2HPO4.12H2O 5.4 g/L", "KH2PO4 1.4 g/L", "(NH4)2SO4 0.5 g/L", "MgSO4.7H2O 0.2 g/L", "trace elements solution 2 mL/L", "thiamine/vitamin B1 10 mg/L"]
+        },
+        {
+          "what": "Trace-elements & vitamin stock composition, cited as ref [274] Assis et al. 1998 (Enzyme Microb. Technol. 22:568-574)",
+          "obtained": false,
+          "how": "Elsevier paywalled; Kent Academic Repository (kar.kent.ac.uk/17553) holds metadata only, no open full text",
+          "added": ["trace elements solution LEFT UNEXPANDED (constituent metal salts not invented)"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "disodium hydrogen phosphate dodecahydrate (Na2HPO4.12H2O)",
+        "trace elements solution (2 mL/L)"
+      ],
+      "notes": "Full SMM bulk-salt recipe recovered from the Kurumbang 2014 (ref 18) Materials & Methods, obtained verbatim from P. Dvorak's compilation PhD dissertation. The four bulk salts, thiamine and glycerol are fully quantified; the 2 mL/L trace-elements solution is left unexpanded because its constituent salts live only in the paywalled Assis 1998 (ref 274) and were not recoverable. Current record was missing Na2HPO4 (the sodium/main phosphate-buffer component) and the trace-elements solution; both are now confirmed real."
+    }
+  ]
+}

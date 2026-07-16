@@ -1,0 +1,70 @@
+{
+ "pmc": "PMC12229818",
+ "media": [
+  {
+   "id": "growthlit_PMC12229818_ca_mg_hepes_buffer_with_pseudomonas_sp_p",
+   "status": "confirmed",
+   "oxygen": "aerobic",
+   "components": [
+    {
+     "name": "HEPES",
+     "concentration": "25 mM",
+     "concentration_mM": 25.0,
+     "role": "buffer",
+     "source": "main_text",
+     "evidence": "Ca/Mg-HEPES buffer (25 mM HEPES, 2 mM CaCl2, 3 mM MgCl2, pH 7.6)"
+    },
+    {
+     "name": "calcium chloride",
+     "concentration": "2 mM",
+     "concentration_mM": 2.0,
+     "role": "divalent cation salt (Ca2+, Cl-)",
+     "source": "main_text",
+     "evidence": "Ca/Mg-HEPES buffer (25 mM HEPES, 2 mM CaCl2, 3 mM MgCl2, pH 7.6)"
+    },
+    {
+     "name": "magnesium chloride",
+     "concentration": "3 mM",
+     "concentration_mM": 3.0,
+     "role": "divalent cation salt (Mg2+, Cl-)",
+     "source": "main_text",
+     "evidence": "Ca/Mg-HEPES buffer (25 mM HEPES, 2 mM CaCl2, 3 mM MgCl2, pH 7.6)"
+    },
+    {
+     "name": "Pseudomonas sp. prey cells",
+     "concentration": "10^6-10^9 cells/mL",
+     "concentration_mM": null,
+     "role": "carbon/nitrogen/energy source (predatory substrate; undefined complex biomass)",
+     "source": "main_text",
+     "evidence": "Overnight Pseudomonas sp. cultures were standardized ... prey concentration range 10^6-10^9 cells/mL; predator (B. bacteriovorus) preys on the Pseudomonas cells for all its nutrients."
+    },
+    {
+     "name": "O2",
+     "concentration": null,
+     "concentration_mM": null,
+     "role": "terminal electron acceptor (aerobic)",
+     "source": "main_text",
+     "evidence": "cultures incubated at 30 degC for 72 h; Bdellovibrio predation performed aerobically."
+    }
+   ],
+   "base_medium": "Ca/Mg-HEPES predation buffer (Bdellovibrio-Pseudomonas batch predation)",
+   "sources_chased": [
+    {
+     "what": "primary paper Materials and Methods (batch predation, section 2.2)",
+     "obtained": true,
+     "how": "WebFetch https://pmc.ncbi.nlm.nih.gov/articles/PMC12229818/",
+     "added": ["HEPES 25 mM (was in current_uncovered)", "Pseudomonas prey biomass as substrate"]
+    },
+    {
+     "what": "Lambert & Sockett (2008) standard Bdellovibrio culturing (cited for methods, not for a distinct buffer recipe)",
+     "obtained": false,
+     "how": "paper states buffer composition verbatim in main text; no separate recipe reference needed",
+     "added": []
+    }
+   ],
+   "confidence": "high",
+   "missing_before": ["HEPES", "Pseudomonas sp. prey biomass"],
+   "notes": "Batch predation medium is a fully-stated defined buffer (25 mM HEPES, 2 mM CaCl2, 3 mM MgCl2, pH 7.6) with NO added glucose, casein, trace elements, vitamins, or reductant; the predator obtains all nutrients from lysed Pseudomonas prey, which is the only complex/undefined ingredient. The chemostat variant (0.05% casein hydrolysate + 25 mg/L glucose) is a different medium and is not part of this batch record."
+  }
+ ]
+}

@@ -1,0 +1,124 @@
+{
+ "pmc": "PMC3831637",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3831637/",
+ "media": [
+  {
+   "id": "complexlit_PMC3831637_defined_chemostat_medium_succinate_carbon_so",
+   "name": "Defined chemostat medium, succinate carbon source + nitrate electron acceptor (high-copper, [Cu]=13 umol/L) (PMC3831637)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.07479999999999999
+    },
+    {
+     "name": "ammonium chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": 10.0
+    },
+    {
+     "name": "cobalt chloride",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.013439999999999999
+    },
+    {
+     "name": "copper sulfate",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.0128
+    },
+    {
+     "name": "ferrous sulfate",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.037
+    },
+    {
+     "name": "potassium dihydrogen phosphate",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": 11.0
+    },
+    {
+     "name": "magnesium sulfate",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.4
+    },
+    {
+     "name": "manganese chloride",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.05
+    },
+    {
+     "name": "ammonium molybdate",
+     "exchange": "EX_mobd_e",
+     "lb": -1000.0,
+     "conc_mM": 0.0017800000000000001
+    },
+    {
+     "name": "sodium succinate",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": 30.0
+    },
+    {
+     "name": "ammonium chloride",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": 10.0
+    },
+    {
+     "name": "sodium nitrate",
+     "exchange": "EX_no3_e",
+     "lb": -1000.0,
+     "conc_mM": 20.0
+    },
+    {
+     "name": "potassium dihydrogen phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": 11.0
+    },
+    {
+     "name": "magnesium sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": 0.4
+    },
+    {
+     "name": "sodium succinate",
+     "exchange": "EX_succ_e",
+     "lb": -10.0,
+     "conc_mM": 30.0
+    },
+    {
+     "name": "zinc sulfate",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.01528
+    }
+   ],
+   "current_uncovered": [
+    "disodium hydrogen phosphate",
+    "EDTA"
+   ],
+   "base_medium": "Paracoccus denitrificans defined minimal chemostat medium (succinate/nitrate, Vishniac & Santer trace elements) as used by Felgate et al. 2012",
+   "base_medium_reference": "Felgate H., Giannopoulos G., Sullivan M.J., Gates A.J., Clarke T.A., Baggs E., Rowley G., Richardson D.J. (2012) 'The impact of copper, nitrate and carbon status on the emission of nitrous oxide by two species of bacteria with biochemically distinct denitrification pathways.' Environmental Microbiology 14(7):1788-1800. PMID: 22642644, DOI: 10.1111/j.1462-2920.2012.02789.x. Full composition reproduced verbatim in Gaimster et al. 2016 Front. Microbiol. 7:1806 (DOI 10.3389/fmicb.2016.01806) and following Sullivan et al. 2013.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": null,
+   "citation": "Medium composition from PMC3831637 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3831637/",
+   "doi": ""
+  }
+ ]
+}

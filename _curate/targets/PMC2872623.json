@@ -1,0 +1,141 @@
+{
+ "pmc": "PMC2872623",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC2872623.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2872623/",
+ "media": [
+  {
+   "id": "complexlit_PMC2872623_davis_minimal_medium_100_ug_l_glucose_dm100",
+   "name": "Davis minimal medium + 100 ug/L glucose (DM100) (PMC2872623)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "(NH4)2SO4 (ammonium sulfate)",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2",
+     "exchange": "EX_o2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Thiamine hydrochloride (vitamin B1)",
+     "exchange": "EX_thm_e",
+     "lb": -1.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Sodium citrate dihydrate (trisodium citrate)"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "founded from equal mixtures of its Ara- and Ara+ marked variants for 80 days as 3-ml liquid cultures in Davis minimal media (Lenski et al. 1991) supplemented with 100 micro-g/l glucose (DM100) ... Cultures were incubated at 37 degrees C in 18 x 150-mm test tubes with orbital shaking ... at 160 rpm.",
+   "citation": "Medium composition from PMC2872623 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2872623/",
+   "doi": ""
+  }
+ ]
+}

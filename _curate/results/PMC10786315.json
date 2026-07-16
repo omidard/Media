@@ -1,0 +1,131 @@
+{
+  "pmc": "PMC10786315",
+  "media": [
+    {
+      "id": "complexlit_PMC10786315_mucin_containing_minimal_medium_10_mm_l_lact",
+      "status": "incomplete_source",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "sodium L-lactate",
+          "concentration": "10 mM",
+          "concentration_mM": 10.0,
+          "role": "carbon source",
+          "source": "main_text + supplementary",
+          "evidence": "SI Appendix: 'strains were grown in MCLMAN minimal medium containing 0.5% partially purified gastric mucin and various carbon sources, including sodium pyruvate, sodium butyrate and L-lactate (1)'; main text: 'We tested C. jejuni growth in mucin-containing minimal media supplemented with either 10 mM butyrate or 10 mM L-lactate'"
+        },
+        {
+          "name": "partially purified gastric mucin",
+          "concentration": "0.5% (w/v)",
+          "concentration_mM": null,
+          "role": "complex/undefined supplement",
+          "source": "supplementary",
+          "evidence": "SI Appendix: 'strains were grown in MCLMAN minimal medium containing 0.5% partially purified gastric mucin ... To determine the growth of C. jejuni strains in different concentrations of inorganic phosphate, strains were grown in 0.5% mucin containing MCLMAN minimal medium'"
+        },
+        {
+          "name": "L-aspartic acid",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "nitrogen source / amino acid (MCLMAN base)",
+          "source": "cited:Alazzam 2011 (MCLMAN)",
+          "evidence": "MCLMAN (etymology M-C-L-M-A-N) 'contains inorganic salts, the amino acids l-cysteine, l-leucine, l-methionine and l-aspartic acid (nitrogen source), the vitamin niacinamide and lactate as a carbon source' (Alazzam et al., Res Microbiol 162:173-179, 2011); SI Appendix names the base as 'MCLMAN minimal medium'"
+        },
+        {
+          "name": "L-cysteine",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "amino acid / sulfur source / reductant (MCLMAN base)",
+          "source": "cited:Alazzam 2011 (MCLMAN)",
+          "evidence": "MCLMAN 'contains ... the amino acids l-cysteine, l-leucine, l-methionine and l-aspartic acid' (Alazzam 2011); the 'C' of MCLMAN"
+        },
+        {
+          "name": "L-leucine",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "amino acid (MCLMAN base)",
+          "source": "cited:Alazzam 2011 (MCLMAN)",
+          "evidence": "MCLMAN 'contains ... the amino acids l-cysteine, l-leucine, l-methionine and l-aspartic acid' (Alazzam 2011); the 'L' of MCLMAN"
+        },
+        {
+          "name": "L-methionine",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "amino acid (auxotrophy) (MCLMAN base)",
+          "source": "cited:Alazzam 2011 (MCLMAN)",
+          "evidence": "MCLMAN 'contains ... the amino acids l-cysteine, l-leucine, l-methionine and l-aspartic acid' (Alazzam 2011); the 'M' of MCLMAN. C. jejuni is methionine-auxotrophic (Tejera et al. 2020 M1cam study list methionine as an auxotrophic substrate at 4 mM in their MCLMAN-derived medium)"
+        },
+        {
+          "name": "niacinamide",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "vitamin (MCLMAN base)",
+          "source": "cited:Alazzam 2011 (MCLMAN)",
+          "evidence": "MCLMAN 'contains ... the vitamin niacinamide' (Alazzam 2011); the 'N' of MCLMAN. Tejera et al. 2020 (M1cam) list niacinamide at 33.1 uM in their MCLMAN-derived medium, but this value is not confirmed as the exact MCLMAN concentration"
+        },
+        {
+          "name": "inorganic phosphate (phosphate buffer)",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "phosphate / buffer (MCLMAN base)",
+          "source": "supplementary + cited:Alazzam 2011",
+          "evidence": "SI Appendix: 'To determine the growth of C. jejuni strains in different concentrations of inorganic phosphate, strains were grown in 0.5% mucin containing MCLMAN minimal medium' — confirms inorganic phosphate is a MCLMAN component (concentration varied experimentally; standard value in Alazzam 2011 not retrievable)"
+        },
+        {
+          "name": "carbon dioxide",
+          "concentration": "10% (gas phase)",
+          "concentration_mM": null,
+          "role": "gas phase (microaerobic)",
+          "source": "supplementary",
+          "evidence": "SI Appendix: 'All C. jejuni strains were routinely grown under microaerobic conditions (85% N2, 10% CO2, 5% O2)'"
+        },
+        {
+          "name": "oxygen",
+          "concentration": "5% (gas phase)",
+          "concentration_mM": null,
+          "role": "gas phase / terminal electron acceptor (microaerobic)",
+          "source": "supplementary",
+          "evidence": "SI Appendix: 'All C. jejuni strains were routinely grown under microaerobic conditions (85% N2, 10% CO2, 5% O2)'"
+        },
+        {
+          "name": "MCLMAN inorganic salt / iron / trace-element base (unexpanded)",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "bulk salts + iron + trace elements (MCLMAN base, unresolved)",
+          "source": "cited:Alazzam 2011 (MCLMAN)",
+          "evidence": "MCLMAN 'contains inorganic salts ...' (Alazzam 2011). The identities/concentrations of the individual salts, the iron source and any trace-element mix live only in the Alazzam 2011 Res Microbiol paper (10.1016/j.resmic.2010.09.024), which is closed-access and was not retrievable; NOT expanded here to avoid fabrication."
+        }
+      ],
+      "base_medium": "MCLMAN minimal medium (Alazzam et al. 2011, Campylobacter jejuni NCTC 11168 defined minimal medium) supplemented with 0.5% (w/v) partially purified gastric mucin; carbon source 10 mM sodium L-lactate; microaerobic gas phase 85% N2 / 10% CO2 / 5% O2.",
+      "sources_chased": [
+        {
+          "what": "This paper's SI Appendix (Methods: Bacterial strains and media; Growth analysis in MH broth and minimal media)",
+          "obtained": true,
+          "how": "curl NCBI OA supplementaryFiles zip (europepmc REST), extracted pnas.2316540120.sapp.pdf, pdftotext",
+          "added": ["0.5% (w/v) gastric mucin", "MCLMAN base confirmed", "microaerobic 85% N2/10% CO2/5% O2", "inorganic phosphate confirmed present", "sodium pyruvate/butyrate/L-lactate carbon sources"]
+        },
+        {
+          "what": "MCLMAN base recipe (Alazzam B et al., Res Microbiol 162:173-179, 2011; DOI 10.1016/j.resmic.2010.09.024; PMID 21144899)",
+          "obtained": false,
+          "how": "Attempted ScienceDirect, Elsevier, ResearchGate, academia.edu, EuropePMC, Semantic Scholar (openAccessPdf CLOSED), Unpaywall (oa_status closed), and 3 derivative papers (PMC7318876 M1cam GEM, PMC8531295 C. hepaticus, PMC7167465 Sinha 2020) — all paywalled or non-reproducing",
+          "added": ["confirmed MCLMAN component classes: 4 amino acids (Cys/Leu/Met/Asp), niacinamide, inorganic salts, lactate — but individual salt/iron/trace identities and ALL concentrations remain unresolved"]
+        },
+        {
+          "what": "Sinha et al. 2020 (PstSCAB, PMC7167465) = ref (1) of the SI carbon-source method",
+          "obtained": true,
+          "how": "WebFetch PMC7167465",
+          "added": ["confirmed MCLMAN + carbon-source growth protocol and microaerobic gas mix; no mucin recipe here (mucin is novel to PMC10786315)"]
+        }
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "sodium L-lactate (10 mM carbon source)",
+        "partially purified gastric mucin (0.5% w/v)",
+        "niacinamide (MCLMAN vitamin)",
+        "inorganic phosphate / phosphate buffer (MCLMAN)",
+        "CO2 10% and O2 5% gas-phase percentages (microaerobic)",
+        "MCLMAN inorganic salts + iron source + trace elements (still unresolved - closed-access Alazzam 2011)"
+      ],
+      "notes": "Grown microaerophilically (85% N2 / 10% CO2 / 5% O2), not fully aerobic; 'oxygen' kept per the model's O2/CO2 exchanges. The defined base is MCLMAN (Alazzam 2011): confirmed to contain 4 amino acids (L-Cys, L-Leu, L-Met, L-Asp), niacinamide, inorganic phosphate, unspecified inorganic salts + lactate. The complete salt/iron/trace table and every concentration exist only in the closed-access Alazzam 2011 Res Microbiol paper, which could not be obtained despite exhausting all open routes; those are listed by class and left unexpanded rather than fabricated. Everything the accessible literature confirms (mucin 0.5%, 10 mM L-lactate, gas phase, amino acids, niacinamide, phosphate) has been recovered."
+    }
+  ]
+}

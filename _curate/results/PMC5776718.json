@@ -1,0 +1,46 @@
+{
+  "pmc": "PMC5776718",
+  "media": [
+    {
+      "id": "growthlit_PMC5776718_media_a_photobioreactor_excess_nano3_kh2",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "Sodium chloride (NaCl)", "concentration": "18 g/L", "concentration_mM": 308.0, "role": "bulk-salt (Na/Cl; marine base, ~0.3 M NaCl)", "source": "cited:Stevens & Porter 1980 / Ludwig & Bryant 2011", "evidence": "Medium A ... exact composition: 18 g L-1 NaCl, 0.6 g L-1 KCl, 1.0 g L-1 NaNO3, 5.0 g L-1 MgSO4*7H2O ... (0.3 M NaCl)"},
+        {"name": "Potassium chloride (KCl)", "concentration": "0.6 g/L", "concentration_mM": 8.05, "role": "bulk-salt (K/Cl; ~8 mM KCl)", "source": "cited:Stevens & Porter 1980 / Ludwig & Bryant 2011", "evidence": "0.6 g L-1 KCl ... Compared to 300 mM NaCl and 8 mM KCl in standard A+ medium"},
+        {"name": "Sodium nitrate (NaNO3)", "concentration": "110 mM (photobioreactor supplement; base Medium A contains 1.0 g/L = 11.8 mM)", "concentration_mM": 110.0, "role": "nitrogen source (nitrate) + Na", "source": "main_text", "evidence": "930 mL of Media A supplemented with 110 mM NaNO3, 1.1 mM FeCl3, 5.2 mM KH2PO4, 100 ug mL-1 kanamycin, 1 mM IPTG, and 100 ng mL-1 anhydrous tetracycline"},
+        {"name": "Magnesium sulfate heptahydrate (MgSO4*7H2O)", "concentration": "5.0 g/L", "concentration_mM": 20.3, "role": "bulk-salt (Mg/SO4; ~20 mM)", "source": "cited:Stevens & Porter 1980 / Ludwig & Bryant 2011", "evidence": "5.0 g L-1 MgSO4*7H2O ... 20 mM magnesium-sulfate"},
+        {"name": "Monopotassium phosphate (KH2PO4)", "concentration": "5.2 mM (photobioreactor supplement; base Medium A contains 50 mg/L = 0.37 mM)", "concentration_mM": 5.2, "role": "phosphate + K", "source": "main_text", "evidence": "930 mL of Media A supplemented with 110 mM NaNO3, 1.1 mM FeCl3, 5.2 mM KH2PO4"},
+        {"name": "Calcium chloride (CaCl2, as CaCl2*2H2O)", "concentration": "266 mg/L", "concentration_mM": 1.81, "role": "bulk-salt (Ca)", "source": "cited:Stevens & Porter 1980 / Ludwig & Bryant 2011", "evidence": "266 mg L-1 CaCl2"},
+        {"name": "Disodium EDTA dihydrate (Na2EDTA*2H2O)", "concentration": "30 mg/L", "concentration_mM": 0.0806, "role": "chelator", "source": "cited:Stevens & Porter 1980 / Ludwig & Bryant 2011", "evidence": "30 mg L-1 Na2EDTA*2H2O"},
+        {"name": "Ferric chloride hexahydrate (FeCl3*6H2O)", "concentration": "1.1 mM (photobioreactor supplement; base Medium A contains 3.89 mg/L = 0.014 mM)", "concentration_mM": 1.1, "role": "iron (Fe3+) + trace Cl", "source": "main_text", "evidence": "supplemented with 110 mM NaNO3, 1.1 mM FeCl3, 5.2 mM KH2PO4"},
+        {"name": "Tris / Tris-HCl buffer (pH 8.2)", "concentration": "1 g/L", "concentration_mM": 8.25, "role": "buffer", "source": "cited:Stevens & Porter 1980 / Ludwig & Bryant 2011", "evidence": "1 g L-1 Tris/HCl (pH 8.2) ... Tris-buffered (pH 8.2) medium"},
+        {"name": "Carbon dioxide (CO2)", "concentration": "5% (v/v) in gas sparge at 0.3 L/min", "concentration_mM": null, "role": "carbon source (inorganic; photoautotrophic)", "source": "main_text", "evidence": "CO2: 5% in gas phase at 0.3 L min-1 flow rate; photoautotrophic under ~350 umol PAR m-2 s-1"},
+        {"name": "Boric acid (H3BO3)", "concentration": "34.26 mg/L (via 1 mL/L P1 metals)", "concentration_mM": 0.554, "role": "trace-element (B)", "source": "stock:P1 trace metal solution (1000x)", "evidence": "The P1 trace metal solution (1000x) contains: 34.26 g L-1 H3BO3 ... 1 mL L-1 P1 trace metal solution"},
+        {"name": "Manganese(II) chloride tetrahydrate (MnCl2*4H2O)", "concentration": "4.32 mg/L (via 1 mL/L P1 metals)", "concentration_mM": 0.0218, "role": "trace-element (Mn)", "source": "stock:P1 trace metal solution (1000x)", "evidence": "P1 trace metal solution (1000x) contains: ... 4.32 g L-1 MnCl2*4H2O"},
+        {"name": "Zinc chloride (ZnCl2)", "concentration": "0.315 mg/L (via 1 mL/L P1 metals)", "concentration_mM": 0.00231, "role": "trace-element (Zn)", "source": "stock:P1 trace metal solution (1000x)", "evidence": "P1 trace metal solution (1000x) contains: ... 0.315 g L-1 ZnCl2"},
+        {"name": "Molybdenum trioxide (MoO3, 85%)", "concentration": "0.03 mg/L (via 1 mL/L P1 metals)", "concentration_mM": 0.000208, "role": "trace-element (Mo)", "source": "stock:P1 trace metal solution (1000x)", "evidence": "P1 trace metal solution (1000x) contains: ... 0.03 g L-1 MoO3 (85%)"},
+        {"name": "Copper(II) sulfate pentahydrate (CuSO4*5H2O)", "concentration": "0.003 mg/L (via 1 mL/L P1 metals)", "concentration_mM": 0.000012, "role": "trace-element (Cu)", "source": "stock:P1 trace metal solution (1000x)", "evidence": "P1 trace metal solution (1000x) contains: ... 0.003 g L-1 CuSO4*5H2O"},
+        {"name": "Cobalt(II) chloride hexahydrate (CoCl2*6H2O)", "concentration": "0.01215 mg/L (via 1 mL/L P1 metals)", "concentration_mM": 0.000051, "role": "trace-element (Co)", "source": "stock:P1 trace metal solution (1000x)", "evidence": "P1 trace metal solution (1000x) contains: ... 0.01215 g L-1 CoCl2*6H2O"},
+        {"name": "Vitamin B12 (cyanocobalamin)", "concentration": "4 ug/L", "concentration_mM": 0.0000030, "role": "vitamin (cobalamin)", "source": "cited:Stevens & Porter 1980 / Ludwig & Bryant 2011", "evidence": "1 mL L-1 P1 trace metal solution, and 4 ug L-1 vitamin B12 ... the GBF media was supplemented with trace metals and vitamin B12 at the concentrations found in Media A+"}
+      ],
+      "base_medium": "Medium A+ (Synechococcus sp. PCC 7002 marine medium; Tris-buffered pH 8.2, ~0.3 M NaCl, P1 trace metals + vitamin B12). Base = Medium A of Stevens & Porter 1980; the \"+\" denotes NaNO3 addition. In this paper the photobioreactor received large NaNO3, FeCl3 and KH2PO4 additions on top of the base.",
+      "sources_chased": [
+        {"what": "Paper Methods (photobioreactor supplements, gas/light)", "obtained": true, "how": "WebFetch PMC5776718", "added": ["NaNO3 110 mM", "FeCl3 1.1 mM", "KH2PO4 5.2 mM", "5% CO2 sparge 0.3 L/min", "350 umol PAR", "37C"]},
+        {"what": "Base Medium A/A+ recipe cited as ref 24 (Stevens SE Jr, Patterson, Myers 1973 J Phycol) and the canonical Stevens & Porter 1980 / Ludwig & Bryant 2011 formulation", "obtained": true, "how": "WebSearch + WebFetch (Ludwig & Bryant PMC3468840 confirms A+ = Medium A + 1 mg/mL NaNO3; full recipe from Stevens & Porter 1980)", "added": ["NaCl 18 g/L", "KCl 0.6 g/L", "MgSO4*7H2O 5 g/L", "CaCl2 266 mg/L", "KH2PO4 base 50 mg/L", "Na2EDTA 30 mg/L", "FeCl3 base 3.89 mg/L", "Tris 1 g/L pH 8.2", "vitamin B12 4 ug/L"]},
+        {"what": "P1 trace metal solution (1000x) constituent salts", "obtained": true, "how": "WebSearch (published P1 metal composition for Medium A)", "added": ["H3BO3 34.26 mg/L", "MnCl2*4H2O 4.32 mg/L", "ZnCl2 0.315 mg/L", "MoO3 0.03 mg/L", "CuSO4*5H2O 0.003 mg/L", "CoCl2*6H2O 0.01215 mg/L"]}
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "Sodium chloride (NaCl, ~0.3 M marine base)",
+        "Tris buffer (pH 8.2)",
+        "Na2EDTA chelator",
+        "Boric acid / borate (B trace element)",
+        "Molybdenum (MoO3, Mo trace element)",
+        "Cobalt (CoCl2, Co trace element)",
+        "Vitamin B12 (cyanocobalamin)"
+      ],
+      "notes": "Organism is Synechococcus sp. PCC 7002 (strain TK.032); photoautotrophic, aerobic (air + 5% CO2 sparge, photosynthetic O2), so oxygen corrected from 'facultative' to 'aerobic'. Standard Medium A+ has NO ammonium: the sole N sources are nitrate (Medium A base NaNO3 plus the paper's 110 mM NaNO3 supplement), so the current EX_nh4_e/'Ammonium' entry is spurious and should be dropped. The current mapping of 'CO2 (5% CO2 gas sparge)' to EX_cobalt2_e is a mis-map: CO2 is the carbon source (map to EX_co2_e) and cobalt is a separate genuine trace element from CoCl2 in the P1 mix. Base salt/trace concentrations are from the cited Medium A (Stevens & Porter 1980; Ludwig & Bryant 2011); paper-specific supplements (NaNO3, FeCl3, KH2PO4) override the low base levels for those three."
+    }
+  ]
+}

@@ -1,0 +1,602 @@
+[
+ {
+  "id": "complexlit_PMC10786315_mucin_containing_minimal_medium_10_mm_l_lact",
+  "score": 8,
+  "ncomp": 6,
+  "pmc": "PMC10786315"
+ },
+ {
+  "id": "complexlit_PMC11892951_salt_minimal_medium_mm_with_ibuprofen_ibu_as",
+  "score": 8,
+  "ncomp": 10,
+  "pmc": "PMC11892951"
+ },
+ {
+  "id": "complexlit_PMC3958174_crude_cashew_apple_juice_caj_no_aeration",
+  "score": 7,
+  "ncomp": 9,
+  "pmc": "PMC3958174"
+ },
+ {
+  "id": "lit_PMC12858907_mineral_salts_medium_mm_quadruple_carbon",
+  "score": 7,
+  "ncomp": 12,
+  "pmc": "PMC12858907"
+ },
+ {
+  "id": "complexlit_PMC60676_ms_mineral_standard_minimal_medium",
+  "score": 6,
+  "ncomp": 3,
+  "pmc": "PMC60676"
+ },
+ {
+  "id": "complexlit_PMC10811727_anoxic_mineral_medium_per_ref_16_with_nitrat",
+  "score": 6,
+  "ncomp": 16,
+  "pmc": "PMC10811727"
+ },
+ {
+  "id": "growthlit_PMC2998477_pseudomonas_basal_mineral_medium_pbm",
+  "score": 5,
+  "ncomp": 5,
+  "pmc": "PMC2998477"
+ },
+ {
+  "id": "complexlit_PMC6921056_smm_standard_mineral_medium_ref_18_10_mm_gly",
+  "score": 5,
+  "ncomp": 8,
+  "pmc": "PMC6921056"
+ },
+ {
+  "id": "growthlit_PMC3419522_modified_low_n_asp_2_n_deprived_pure_ar_",
+  "score": 5,
+  "ncomp": 12,
+  "pmc": "PMC3419522"
+ },
+ {
+  "id": "growthlit_PMC11879879_mineral_salts_medium_msm_4_fold_buffered",
+  "score": 5,
+  "ncomp": 14,
+  "pmc": "PMC11879879"
+ },
+ {
+  "id": "complexlit_PMC4322847_r_rsm_renneted_reconstituted_skim_milk_gel_c",
+  "score": 5,
+  "ncomp": 15,
+  "pmc": "PMC4322847"
+ },
+ {
+  "id": "complexlit_PMC4322847_rsm_liquid_reconstituted_skim_milk",
+  "score": 5,
+  "ncomp": 15,
+  "pmc": "PMC4322847"
+ },
+ {
+  "id": "complexlit_PMC13185565_modg_mod_medium_supplemented_with_30_mm_gluc",
+  "score": 5,
+  "ncomp": 16,
+  "pmc": "PMC13185565"
+ },
+ {
+  "id": "complexlit_PMC3831637_defined_chemostat_medium_succinate_carbon_so",
+  "score": 5,
+  "ncomp": 16,
+  "pmc": "PMC3831637"
+ },
+ {
+  "id": "complexlit_PMC10949514_20_heat_inactivated_human_serum_with_menadio",
+  "score": 4,
+  "ncomp": 2,
+  "pmc": "PMC10949514"
+ },
+ {
+  "id": "growthlit_PMC12229818_ca_mg_hepes_buffer_with_pseudomonas_sp_p",
+  "score": 4,
+  "ncomp": 4,
+  "pmc": "PMC12229818"
+ },
+ {
+  "id": "lit_PMC7065512_minimal_medium_glucose_13c_labeling_expe",
+  "score": 4,
+  "ncomp": 8,
+  "pmc": "PMC7065512"
+ },
+ {
+  "id": "growthlit_PMC7273699_n_c_minimal_medium_5_mm_glycerol_batch",
+  "score": 4,
+  "ncomp": 9,
+  "pmc": "PMC7273699"
+ },
+ {
+  "id": "growthlit_PMC10579341_m63_glu_m63_minimal_medium_with_glucose",
+  "score": 4,
+  "ncomp": 11,
+  "pmc": "PMC10579341"
+ },
+ {
+  "id": "growthlit_PMC11894529_m63_minimal_medium_0_5_w_v_glucose",
+  "score": 4,
+  "ncomp": 11,
+  "pmc": "PMC11894529"
+ },
+ {
+  "id": "growthlit_PMC11894529_m63_minimal_medium_0_5_w_v_glycerol",
+  "score": 4,
+  "ncomp": 11,
+  "pmc": "PMC11894529"
+ },
+ {
+  "id": "growthlit_PMC11894529_m63_minimal_medium_0_5_w_v_l_fucose",
+  "score": 4,
+  "ncomp": 11,
+  "pmc": "PMC11894529"
+ },
+ {
+  "id": "growthlit_PMC12516963_modified_anoxic_burk_s_medium_n_free_5_m",
+  "score": 4,
+  "ncomp": 12,
+  "pmc": "PMC12516963"
+ },
+ {
+  "id": "complexlit_PMC3181329_carbon_limited_evans_defined_minimal_medium",
+  "score": 3,
+  "ncomp": 15,
+  "pmc": "PMC3181329"
+ },
+ {
+  "id": "complexlit_PMC6255981_modified_mr_1_medium_cao_et_al_2011_20_mm_so",
+  "score": 3,
+  "ncomp": 17,
+  "pmc": "PMC6255981"
+ },
+ {
+  "id": "growthlit_PMC13134045_modified_n_free_hoagland_solution_20_mm_",
+  "score": 2,
+  "ncomp": 8,
+  "pmc": "PMC13134045"
+ },
+ {
+  "id": "lit_PMC11928476_mma_mineral_delft_medium_with_acetate",
+  "score": 2,
+  "ncomp": 8,
+  "pmc": "PMC11928476"
+ },
+ {
+  "id": "growthlit_PMC11596675_defined_mineral_glucose_minimal_medium_m",
+  "score": 2,
+  "ncomp": 10,
+  "pmc": "PMC11596675"
+ },
+ {
+  "id": "growthlit_PMC8562481_quarter_strength_m63_minimal_medium_10_m",
+  "score": 2,
+  "ncomp": 10,
+  "pmc": "PMC8562481"
+ },
+ {
+  "id": "complexlit_PMC7266357_davis_minimal_media_sigma_glucose",
+  "score": 2,
+  "ncomp": 11,
+  "pmc": "PMC7266357"
+ },
+ {
+  "id": "growthlit_PMC8686765_mm_without_nh4_2so4_nitrogen_free_chemic",
+  "score": 2,
+  "ncomp": 11,
+  "pmc": "PMC8686765"
+ },
+ {
+  "id": "lit_PMC8594446_liquid_minimal_medium_no_nh4_n2_fixing_c",
+  "score": 2,
+  "ncomp": 11,
+  "pmc": "PMC8594446"
+ },
+ {
+  "id": "growthlit_PMC6367249_gamma_pga_fermentation_production_medium",
+  "score": 2,
+  "ncomp": 12,
+  "pmc": "PMC6367249"
+ },
+ {
+  "id": "growthlit_PMC8686765_mm_chemically_defined_glucose_minimal_me",
+  "score": 2,
+  "ncomp": 12,
+  "pmc": "PMC8686765"
+ },
+ {
+  "id": "lit_PMC8594446_liquid_minimal_medium_replete_ammonia_nh",
+  "score": 2,
+  "ncomp": 12,
+  "pmc": "PMC8594446"
+ },
+ {
+  "id": "lit_PMC10308882_de_bont_minimal_dbm_medium",
+  "score": 2,
+  "ncomp": 16,
+  "pmc": "PMC10308882"
+ },
+ {
+  "id": "complexlit_PMC7443923_laguna_chitin_lc_mineral_medium_with_amorpho",
+  "score": 2,
+  "ncomp": 17,
+  "pmc": "PMC7443923"
+ },
+ {
+  "id": "growthlit_PMC10119117_wheat_grass_medium",
+  "score": 2,
+  "ncomp": 17,
+  "pmc": "PMC10119117"
+ },
+ {
+  "id": "complexlit_PMC10322722_synthetic_sulfate_reducer_medium_srm_with_pe",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC10322722"
+ },
+ {
+  "id": "complexlit_PMC10589654_mineral_salts_minimal_medium_with_nahco3_as_",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC10589654"
+ },
+ {
+  "id": "complexlit_PMC11551391_minimal_fed_batch_medium_with_corn_steep_liq",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC11551391"
+ },
+ {
+  "id": "complexlit_PMC11551391_minimal_medium_corn_steep_liquor_glucose",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC11551391"
+ },
+ {
+  "id": "complexlit_PMC12202767_marine_basal_medium_3_mm_ammonium_phytoplank",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC12202767"
+ },
+ {
+  "id": "complexlit_PMC2758719_mops_minimal_medium_with_xylose_as_sole_carb",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC2758719"
+ },
+ {
+  "id": "complexlit_PMC5043093_m9_minimal_medium_fumarate_2_g_l_post_glucos",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC5043093"
+ },
+ {
+  "id": "complexlit_PMC6794299_hartmans_de_bont_hdb_minimal_medium",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC6794299"
+ },
+ {
+  "id": "complexlit_PMC8022198_cdmpc_chemically_defined_medium_with_25_mm_g",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC8022198"
+ },
+ {
+  "id": "growthlit_PMC10132767_modified_artificial_seawater_asw_medium_",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC10132767"
+ },
+ {
+  "id": "growthlit_PMC10409787_m9_minimal_medium_25_cryptococcus_five_d",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC10409787"
+ },
+ {
+  "id": "growthlit_PMC10409787_m9_minimal_medium_5_mg_l_pantothenate_vi",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC10409787"
+ },
+ {
+  "id": "growthlit_PMC12371093_m9_minimal_medium_4_g_l_acetate_slow_gro",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC12371093"
+ },
+ {
+  "id": "growthlit_PMC12552152_m9_minimal_salts_medium_10_g_l_arabinose",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC12552152"
+ },
+ {
+  "id": "growthlit_PMC12552152_m9_minimal_salts_medium_20_g_l_xylose_so",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC12552152"
+ },
+ {
+  "id": "growthlit_PMC12930750_modified_m9_minimal_medium_with_d_xylose",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC12930750"
+ },
+ {
+  "id": "growthlit_PMC12997748_mdc80_anoxic_m9_derived_coculture_minima",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC12997748"
+ },
+ {
+  "id": "growthlit_PMC12997748_mdc_anoxic_m9_derived_coculture_minimal_",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC12997748"
+ },
+ {
+  "id": "growthlit_PMC5447228_modified_dsmz_63_mineral_medium_fructose",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC5447228"
+ },
+ {
+  "id": "growthlit_PMC5744179_0_6_m_na_soda_buffer_mineral_medium_with",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC5744179"
+ },
+ {
+  "id": "growthlit_PMC5776718_media_a_photobioreactor_excess_nano3_kh2",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC5776718"
+ },
+ {
+  "id": "growthlit_PMC5888115_m9_minimal_medium_0_2_w_v_acetate",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC5888115"
+ },
+ {
+  "id": "growthlit_PMC5888115_m9_minimal_medium_0_2_w_v_fructose",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC5888115"
+ },
+ {
+  "id": "growthlit_PMC5888115_m9_minimal_medium_0_2_w_v_glucose",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC5888115"
+ },
+ {
+  "id": "growthlit_PMC6692947_m63_minimal_medium_0_75_m_nacl_20_mm_fru",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC6692947"
+ },
+ {
+  "id": "growthlit_PMC6692947_m63_minimal_medium_0_75_m_nacl_20_mm_glu",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC6692947"
+ },
+ {
+  "id": "growthlit_PMC7035108_m2g_m2_minimal_medium_0_2_glucose",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC7035108"
+ },
+ {
+  "id": "growthlit_PMC7442741_n_c_minimal_medium",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC7442741"
+ },
+ {
+  "id": "growthlit_PMC7669889_m9_minimal_medium_trace_elements_20_mm_g",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC7669889"
+ },
+ {
+  "id": "growthlit_PMC7669889_m9_minimal_medium_trace_elements_20_mm_r",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC7669889"
+ },
+ {
+  "id": "growthlit_PMC9974463_minimal_medium_lundgren_et_al_indicated_",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC9974463"
+ },
+ {
+  "id": "lit_PMC5888115_m9_minimal_media_with_custom_trace_eleme",
+  "score": 2,
+  "ncomp": 18,
+  "pmc": "PMC5888115"
+ },
+ {
+  "id": "complexlit_PMC10523532_dsm_141c_medium_bicarbonate_buffered_minus_t",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC10523532"
+ },
+ {
+  "id": "complexlit_PMC10943122_glucose_m9_minimal_medium",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC10943122"
+ },
+ {
+  "id": "complexlit_PMC2872623_davis_minimal_medium_100_ug_l_glucose_dm100",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC2872623"
+ },
+ {
+  "id": "complexlit_PMC4744692_marine_ammonium_mineral_salts_mams_medium_mo",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC4744692"
+ },
+ {
+  "id": "complexlit_PMC4893254_m9_minimal_medium_1_w_v_glucose",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC4893254"
+ },
+ {
+  "id": "complexlit_PMC4930481_m9_minimal_medium_pyruvate_batch",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC4930481"
+ },
+ {
+  "id": "complexlit_PMC5043093_m9_minimal_medium_without_carbon_source_star",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC5043093"
+ },
+ {
+  "id": "complexlit_PMC5464527_oxygen_o_limited_minimal_medium_0_08_glucose",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC5464527"
+ },
+ {
+  "id": "complexlit_PMC5495174_asw_artificial_seawater_medium",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC5495174"
+ },
+ {
+  "id": "complexlit_PMC7253198_lmf_lactate_mineral_medium_supplemented_with",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC7253198"
+ },
+ {
+  "id": "complexlit_PMC7423363_carbon_source_minimal_medium_batch_glucose",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC7423363"
+ },
+ {
+  "id": "complexlit_PMC7768705_defined_minimal_medium_fe_limited_glucose_as",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC7768705"
+ },
+ {
+  "id": "growthlit_PMC10482344_m9_minimal_shake_flask_p_coumarate_ferul",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC10482344"
+ },
+ {
+  "id": "growthlit_PMC10523532_high_salt_hs_medium_bicarbonate_buffered",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC10523532"
+ },
+ {
+  "id": "growthlit_PMC10823229_modified_high_salt_hs_medium",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC10823229"
+ },
+ {
+  "id": "growthlit_PMC11306353_m9_minimal_medium_10_mm_glucose_8_mm_pyr",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC11306353"
+ },
+ {
+  "id": "growthlit_PMC11972089_dbaf_db_bicarbonate_mineral_medium_aceta",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC11972089"
+ },
+ {
+  "id": "growthlit_PMC12286921_defined_dnra_chemostat_medium_1_mm_aceta",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC12286921"
+ },
+ {
+  "id": "growthlit_PMC3782435_m9_minimal_medium_0_1_w_v_lactate",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC3782435"
+ },
+ {
+  "id": "growthlit_PMC3782435_m9_minimal_medium_0_1_w_v_lactose",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC3782435"
+ },
+ {
+  "id": "growthlit_PMC3782435_m9_minimal_medium_0_1_w_v_maltose",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC3782435"
+ },
+ {
+  "id": "growthlit_PMC5744179_0_6_m_na_soda_buffer_ph_9_8_mineral_medi",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC5744179"
+ },
+ {
+  "id": "growthlit_PMC5802761_modified_p_medium_alkaline_carbonate_buf",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC5802761"
+ },
+ {
+  "id": "growthlit_PMC6112682_m9_glucose_minimal_medium",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC6112682"
+ },
+ {
+  "id": "growthlit_PMC6112682_m9m_maltose_limited_m9_minimal_medium",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC6112682"
+ },
+ {
+  "id": "growthlit_PMC6882275_mineral_salts_medium_msm_hartmans_et_al_",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC6882275"
+ },
+ {
+  "id": "growthlit_PMC7225747_m9_minimal_medium_5_g_l_glucose_1_mm_l_a",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC7225747"
+ },
+ {
+  "id": "growthlit_PMC7393147_bg_11_hepes_nacl",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC7393147"
+ },
+ {
+  "id": "growthlit_PMC8692401_anaerobic_minimal_medium_with_acetate_as",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC8692401"
+ },
+ {
+  "id": "growthlit_PMC9381517_mr_1_medium_acetate_n2o",
+  "score": 2,
+  "ncomp": 19,
+  "pmc": "PMC9381517"
+ }
+]

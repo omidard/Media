@@ -1,0 +1,113 @@
+{
+ "pmc": "PMC11879879",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC11879879.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11879879/",
+ "media": [
+  {
+   "id": "growthlit_PMC11879879_mineral_salts_medium_msm_4_fold_buffered",
+   "name": "Mineral salts medium (MSM), 4-fold buffered, with 1,6-hexamethylenediamine (HMDA) as sole carbon source (PMC11879879)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "aerobic",
+   "current_components": [
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "magnesium chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": 0.49
+    },
+    {
+     "name": "cobalt chloride",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "copper sulfate",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "ferrous sulfate",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "magnesium chloride",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.49
+    },
+    {
+     "name": "manganese chloride",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "sodium molybdate",
+     "exchange": "EX_mobd_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "sodium dihydrogen phosphate",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": 54.3
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": 15.1
+    },
+    {
+     "name": "O2 (aerobic)",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "sodium dihydrogen phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": 54.3
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": 15.1
+    },
+    {
+     "name": "zinc sulfate",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "dipotassium hydrogen phosphate",
+    "EDTA",
+    "1,6-hexamethylenediamine"
+   ],
+   "base_medium": "Mineral salts medium (MSM), Hartmans / de Bont ('HdB') mineral medium, here used 4-fold phosphate-buffered with 1,6-hexamethylenediamine (HMDA) as sole carbon source; host Pseudomonas putida KT2440",
+   "base_medium_reference": "Paper (Nat. Microbiol. 2025, doi:10.1038/s41564-025-01929-5, PMID 39929973) cites its MSM to ref 57 = Wierckx et al. 'Engineering of solvent-tolerant Pseudomonas putida S12 for bioproduction of phenol from glucose', Appl. Environ. Microbiol. 71:8221-8227 (2005), doi:10.1128/AEM.71.12.8221-8227.2005, PMID 16332806, PMC1317433. Wierckx 2005 in turn defines MSM ('37 mM phosphate buffer, pH 7.0') per Hartmans et al., Appl. Environ. Microbiol. 55:2850-2855 (1989), doi:10.1128/aem.55.11.2850-2855.1989, PMID 16348047, PMC203180. The full de Bont-group MSM base composition (N source, Mg, trace-element solution) corresponds to the Hartmans-de Bont (HdB) mineral medium, Hartmans, Kaptein, Tramper & de Bont, Appl. Microbiol. Biotechnol. 37:796-801 (1992), doi:10.1007/BF00174849.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": "P. putida KT2440 strains were cultivated in 4-fold buffered (15.52 g l-1 K2HPO4 and 6.52 g l-1 NaH2PO4) MSM medium ... MSM containing 15 mM of HMDA, Ahx or e-caprolactam as sole carbon source.",
+   "citation": "Medium composition from PMC11879879 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11879879/",
+   "doi": ""
+  }
+ ]
+}

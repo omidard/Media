@@ -1,0 +1,57 @@
+{
+  "pmc": "PMC7768705",
+  "media": [
+    {
+      "id": "complexlit_PMC7768705_defined_minimal_medium_fe_limited_glucose_as",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "37 mM", "concentration_mM": 37.0, "role": "nitrogen source (also chloride)",
+         "source": "supplementary", "evidence": "The growth medium, which was pH-adjusted (pH 7.0) and filter-sterilized (0.22 um nylon ...), contained the following major salts: 37 mM NH4Cl, 0.80 mM MgSO4, 0.034 mM CaCl2.2H2O, 20 mM K2HPO4 and 5.0 mM NaH2PO4."},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "0.80 mM", "concentration_mM": 0.80, "role": "magnesium / sulfate source",
+         "source": "supplementary", "evidence": "contained the following major salts: 37 mM NH4Cl, 0.80 mM MgSO4, 0.034 mM CaCl2.2H2O, 20 mM K2HPO4 and 5.0 mM NaH2PO4."},
+        {"name": "calcium chloride dihydrate (CaCl2.2H2O)", "concentration": "0.034 mM", "concentration_mM": 0.034, "role": "calcium source (also chloride)",
+         "source": "supplementary", "evidence": "contained the following major salts: 37 mM NH4Cl, 0.80 mM MgSO4, 0.034 mM CaCl2.2H2O, 20 mM K2HPO4 and 5.0 mM NaH2PO4."},
+        {"name": "dipotassium phosphate (K2HPO4)", "concentration": "20 mM", "concentration_mM": 20.0, "role": "phosphate / buffer (also potassium)",
+         "source": "supplementary", "evidence": "contained the following major salts: 37 mM NH4Cl, 0.80 mM MgSO4, 0.034 mM CaCl2.2H2O, 20 mM K2HPO4 and 5.0 mM NaH2PO4."},
+        {"name": "monosodium phosphate (NaH2PO4)", "concentration": "5.0 mM", "concentration_mM": 5.0, "role": "phosphate / buffer (also sodium)",
+         "source": "supplementary", "evidence": "contained the following major salts: 37 mM NH4Cl, 0.80 mM MgSO4, 0.034 mM CaCl2.2H2O, 20 mM K2HPO4 and 5.0 mM NaH2PO4."},
+        {"name": "boric acid (H3BO3)", "concentration": "0.97 uM", "concentration_mM": 0.00097, "role": "trace element (boron)",
+         "source": "supplementary", "evidence": "The trace metal concentrations were as follows: 0.97 uM H3BO3, 13 uM CuSO4.5H2O, 70 uM ZnSO4.5H2O, 5.7 uM MnSO4.H2O, 0.21 uM NiCl2.6H2O, and 1.2 uM Na2MoO4.2H2O."},
+        {"name": "copper(II) sulfate pentahydrate (CuSO4.5H2O)", "concentration": "13 uM", "concentration_mM": 0.013, "role": "trace element (copper)",
+         "source": "supplementary", "evidence": "The trace metal concentrations were as follows: 0.97 uM H3BO3, 13 uM CuSO4.5H2O, 70 uM ZnSO4.5H2O, 5.7 uM MnSO4.H2O, 0.21 uM NiCl2.6H2O, and 1.2 uM Na2MoO4.2H2O."},
+        {"name": "zinc sulfate (ZnSO4.5H2O)", "concentration": "70 uM", "concentration_mM": 0.070, "role": "trace element (zinc)",
+         "source": "supplementary", "evidence": "The trace metal concentrations were as follows: 0.97 uM H3BO3, 13 uM CuSO4.5H2O, 70 uM ZnSO4.5H2O, 5.7 uM MnSO4.H2O, 0.21 uM NiCl2.6H2O, and 1.2 uM Na2MoO4.2H2O."},
+        {"name": "manganese(II) sulfate monohydrate (MnSO4.H2O)", "concentration": "5.7 uM", "concentration_mM": 0.0057, "role": "trace element (manganese)",
+         "source": "supplementary", "evidence": "The trace metal concentrations were as follows: 0.97 uM H3BO3, 13 uM CuSO4.5H2O, 70 uM ZnSO4.5H2O, 5.7 uM MnSO4.H2O, 0.21 uM NiCl2.6H2O, and 1.2 uM Na2MoO4.2H2O."},
+        {"name": "nickel(II) chloride hexahydrate (NiCl2.6H2O)", "concentration": "0.21 uM", "concentration_mM": 0.00021, "role": "trace element (nickel)",
+         "source": "supplementary", "evidence": "The trace metal concentrations were as follows: 0.97 uM H3BO3, 13 uM CuSO4.5H2O, 70 uM ZnSO4.5H2O, 5.7 uM MnSO4.H2O, 0.21 uM NiCl2.6H2O, and 1.2 uM Na2MoO4.2H2O."},
+        {"name": "sodium molybdate dihydrate (Na2MoO4.2H2O)", "concentration": "1.2 uM", "concentration_mM": 0.0012, "role": "trace element (molybdenum)",
+         "source": "supplementary", "evidence": "The trace metal concentrations were as follows: 0.97 uM H3BO3, 13 uM CuSO4.5H2O, 70 uM ZnSO4.5H2O, 5.7 uM MnSO4.H2O, 0.21 uM NiCl2.6H2O, and 1.2 uM Na2MoO4.2H2O."},
+        {"name": "ferrous (Fe2+) salt", "concentration": "~650 nM exogenous (38 nM unchelated in Fe-limited condition)", "concentration_mM": 0.00065, "role": "iron source",
+         "source": "supplementary", "evidence": "The starting exogenous Fe concentration (~650 nM), provided as Fe2+ salts, was kept the same in all conditions. ... or Fe-limited with 38 nM total dissolved unchelated Fe."},
+        {"name": "disodium EDTA (ethylenediaminetetraacetate)", "concentration": "90 uM (severe Fe-limited condition)", "concentration_mM": 0.090, "role": "Fe chelator",
+         "source": "supplementary", "evidence": "Disodium ethylene-diamine-tetra-acetic-acid (EDTA) was added as a Fe chelator and the EDTA concentration to be used was determined using the software Visual MINTEQ ... Severe Fe-limited conditions (90 uM EDTA added)."},
+        {"name": "D-glucose", "concentration": "16.67 mM (100 mM C-equivalent); 50 mM in 300 mM C runs", "concentration_mM": 16.67, "role": "carbon source (sole)",
+         "source": "supplementary", "evidence": "Total carbon-equivalent substrate concentrations (100 mM C or 300 mM C total) ... For the single-substrate scenarios, we used glucose (16.67 mM or 50 mM) ... for the severe Fe-limitation, we performed experiments with glucose alone."}
+      ],
+      "base_medium": "Custom defined minimal (phosphate-buffered) medium with defined trace-metal mix; pH 7.0, filter-sterilized. No cited external base-medium reference; full composition given in this paper's SI Appendix.",
+      "sources_chased": [
+        {"what": "SI Appendix PDF (Detailed Methods 'Culturing and nutrient conditions' + Table S1 Fe speciation)", "obtained": true,
+         "how": "EuropePMC REST supplementaryFiles zip for PMC7768705 (PNAS/PMC direct download blocked by 403 / proof-of-work gate)",
+         "added": ["37 mM NH4Cl", "0.80 mM MgSO4", "0.034 mM CaCl2.2H2O", "20 mM K2HPO4", "5.0 mM NaH2PO4", "0.97 uM H3BO3", "13 uM CuSO4.5H2O", "70 uM ZnSO4.5H2O", "5.7 uM MnSO4.H2O", "0.21 uM NiCl2.6H2O", "1.2 uM Na2MoO4.2H2O", "Fe2+ salt ~650 nM", "EDTA (90 uM severe Fe-limited)", "glucose 16.67/50 mM"]}
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "ammonium chloride (NH4Cl, 37 mM) - N source",
+        "phosphate buffer (20 mM K2HPO4 + 5.0 mM NaH2PO4)",
+        "boron (H3BO3) trace element",
+        "nickel (NiCl2.6H2O) trace element",
+        "molybdenum (Na2MoO4.2H2O) trace element",
+        "disodium EDTA (Fe chelator)",
+        "explicit glucose concentration (16.67/50 mM)"
+      ],
+      "notes": "Complete recipe recovered from SI Appendix (Detailed Methods + Table S1). This is a fully defined phosphate-buffered minimal medium: NH4Cl (N), K2HPO4/NaH2PO4 (P/buffer), MgSO4, CaCl2, and a defined 6-salt trace-metal mix (B, Cu, Zn, Mn, Ni, Mo), with ferrous salt as Fe source and EDTA as chelator to set unchelated Fe (Fe-replete 30 uM / intermediate 650 nM / severe Fe-limited 38 nM; 90 uM EDTA added for the severe condition modeled here). No vitamins and no reductant are used (prototrophic Pseudomonas grown aerobically in baffled flasks with sponge caps, 220 rpm, 30C). Correction: the current record's cobalt (EX_cobalt2_e) is NOT in the true recipe - the medium contains nickel and molybdenum, not cobalt; iron is added only as ferrous salt (the Fe3+/generic Fe exchanges are model artifacts). Citrate appears only in the separate glucose:citrate scenario, not in this glucose-as-sole-carbon medium."
+    }
+  ]
+}

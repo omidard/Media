@@ -1,0 +1,59 @@
+{
+  "pmc": "PMC8594446",
+  "media": [
+    {
+      "id": "lit_PMC8594446_liquid_minimal_medium_no_nh4_n2_fixing_c",
+      "status": "confirmed",
+      "oxygen": "anaerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "20 g/L", "concentration_mM": 111.0, "role": "carbon source", "source": "main_text", "evidence": "10x glucose solution (200 g/liter) ... 20 g/liter glucose"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "1 g/L", "concentration_mM": 7.35, "role": "phosphate/buffer", "source": "main_text", "evidence": "1 g/liter KH2PO4"},
+        {"name": "dipotassium phosphate (K2HPO4)", "concentration": "1 g/L", "concentration_mM": 5.74, "role": "phosphate/buffer", "source": "main_text", "evidence": "1 g/liter K2HPO4"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "salt (Na, Cl)", "source": "main_text", "evidence": "0.5 g/liter NaCl"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4.7H2O)", "concentration": "0.2 g/L", "concentration_mM": 0.81, "role": "salt (Mg, sulfate)", "source": "main_text", "evidence": "0.2 g/liter MgSO4.7 H2O"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "0.2 g/L", "concentration_mM": 1.66, "role": "salt (Mg, sulfate) - replaces (NH4)2SO4 in N2-fixing medium", "source": "main_text", "evidence": "In the case of no-NH4+ minimal medium, the 1 g/liter (NH4)2SO4 was replaced with 0.2 g/liter MgSO4 to achieve similar molarity."},
+        {"name": "sodium molybdate dihydrate (Na2MoO4.2H2O)", "concentration": "25 mg/L", "concentration_mM": 0.103, "role": "trace metal (Mo) / cofactor for nitrogenase", "source": "main_text", "evidence": "25 mg/liter Na2MoO4.2 H2O"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4.7H2O)", "concentration": "2.5 mg/L", "concentration_mM": 0.009, "role": "trace metal (Fe)", "source": "main_text", "evidence": "2.5 mg/liter FeSO4.7 H2O ... One thousand-fold solutions of FeSO4 (2.5 g/liter)"},
+        {"name": "calcium chloride dihydrate (CaCl2.2H2O)", "concentration": "0.01 g/L", "concentration_mM": 0.068, "role": "salt (Ca, Cl)", "source": "main_text", "evidence": "0.01 g/liter CaCl2.2 H2O"},
+        {"name": "calcium pantothenate", "concentration": "1 mg/L", "concentration_mM": 0.0021, "role": "vitamin (pantothenate/B5)", "source": "main_text", "evidence": "1 mg/liter calcium pantothenate"},
+        {"name": "dinitrogen gas (N2)", "concentration": ">90% N2 in anaerobic chamber", "concentration_mM": null, "role": "nitrogen source (sole N source, fixed via nitrogenase)", "source": "main_text", "evidence": "For N2-fixing conditions, no NH4+ was added to the medium and the only available nitrogen source was N2 gas (>90% N2 in the anaerobic chamber)."},
+        {"name": "carbon dioxide (CO2)", "concentration": "5% (gas phase)", "concentration_mM": null, "role": "gas phase / anaerobic atmosphere", "source": "main_text", "evidence": "The atmosphere in the anaerobic chamber was composed of 2 to 4% H2, 5% CO2, and the remaining percentage N2."},
+        {"name": "hydrogen gas (H2)", "concentration": "2 to 4% (gas phase)", "concentration_mM": null, "role": "gas phase / reducing atmosphere", "source": "main_text", "evidence": "The atmosphere in the anaerobic chamber was composed of 2 to 4% H2, 5% CO2, and the remaining percentage N2. Oxygen levels were kept below 100 ppm."}
+      ],
+      "base_medium": "Chemically defined Zymomonas mobilis minimal medium (fully specified in main text; no cited base medium)",
+      "sources_chased": [
+        {"what": "Medium preparation + Culture conditions sections of the paper itself", "obtained": true, "how": "Read corpus_path JATS XML (Materials and Methods, sections s3-1, s3-2, s3-3)", "added": ["full salt recipe", "MgSO4 (anhydrous) N2-fixing substitution", "N2 gas as sole N source", "anaerobic-chamber gas phase (5% CO2, 2-4% H2, balance N2, O2<100 ppm)"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["MgSO4 (anhydrous, the (NH4)2SO4 substitute providing extra Mg/sulfate)", "N2 gas (sole nitrogen source)", "CO2 gas phase", "H2 gas phase"],
+      "notes": "This is a fully chemically-defined minimal medium spelled out completely in the paper's Materials and Methods; there is no cited base medium, no named trace/vitamin stock to expand, and the only vitamin is calcium pantothenate. The N2-fixing variant is identical to the ammonia-replete medium except the 1 g/L (NH4)2SO4 is replaced by 0.2 g/L anhydrous MgSO4 and nitrogen comes solely from N2 gas. Ion-level exchange components in the target were already complete (Ca, Cl, Fe, glucose, K, Mg, Mo, Na, Pi, pantothenate, sulfate; correctly no ammonium)."
+    },
+    {
+      "id": "lit_PMC8594446_liquid_minimal_medium_replete_ammonia_nh",
+      "status": "confirmed",
+      "oxygen": "anaerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "20 g/L", "concentration_mM": 111.0, "role": "carbon source", "source": "main_text", "evidence": "20 g/liter glucose"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "1 g/L", "concentration_mM": 7.35, "role": "phosphate/buffer", "source": "main_text", "evidence": "1 g/liter KH2PO4"},
+        {"name": "dipotassium phosphate (K2HPO4)", "concentration": "1 g/L", "concentration_mM": 5.74, "role": "phosphate/buffer", "source": "main_text", "evidence": "1 g/liter K2HPO4"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "salt (Na, Cl)", "source": "main_text", "evidence": "0.5 g/liter NaCl"},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "1 g/L", "concentration_mM": 7.57, "role": "nitrogen source (NH4+) and sulfate", "source": "main_text", "evidence": "1 g/liter (NH4)2SO4"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4.7H2O)", "concentration": "0.2 g/L", "concentration_mM": 0.81, "role": "salt (Mg, sulfate)", "source": "main_text", "evidence": "0.2 g/liter MgSO4.7 H2O"},
+        {"name": "sodium molybdate dihydrate (Na2MoO4.2H2O)", "concentration": "25 mg/L", "concentration_mM": 0.103, "role": "trace metal (Mo)", "source": "main_text", "evidence": "25 mg/liter Na2MoO4.2 H2O"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4.7H2O)", "concentration": "2.5 mg/L", "concentration_mM": 0.009, "role": "trace metal (Fe)", "source": "main_text", "evidence": "2.5 mg/liter FeSO4.7 H2O"},
+        {"name": "calcium chloride dihydrate (CaCl2.2H2O)", "concentration": "0.01 g/L", "concentration_mM": 0.068, "role": "salt (Ca, Cl)", "source": "main_text", "evidence": "0.01 g/liter CaCl2.2 H2O"},
+        {"name": "calcium pantothenate", "concentration": "1 mg/L", "concentration_mM": 0.0021, "role": "vitamin (pantothenate/B5)", "source": "main_text", "evidence": "1 mg/liter calcium pantothenate"},
+        {"name": "ammonium (added supplement)", "concentration": "15 mM NH4+", "concentration_mM": 15.0, "role": "nitrogen source (replete condition)", "source": "main_text", "evidence": "used to inoculate subsequent cultures which contained either 15 mM NH4+ or no NH4+"},
+        {"name": "carbon dioxide (CO2)", "concentration": "5% (gas phase)", "concentration_mM": null, "role": "gas phase / anaerobic atmosphere", "source": "main_text", "evidence": "The atmosphere in the anaerobic chamber was composed of 2 to 4% H2, 5% CO2, and the remaining percentage N2."},
+        {"name": "hydrogen gas (H2)", "concentration": "2 to 4% (gas phase)", "concentration_mM": null, "role": "gas phase / reducing atmosphere", "source": "main_text", "evidence": "2 to 4% H2, 5% CO2, and the remaining percentage N2. Oxygen levels were kept below 100 ppm."}
+      ],
+      "base_medium": "Chemically defined Zymomonas mobilis minimal medium (fully specified in main text; no cited base medium)",
+      "sources_chased": [
+        {"what": "Medium preparation + Culture conditions sections of the paper itself", "obtained": true, "how": "Read corpus_path JATS XML (Materials and Methods, sections s3-1, s3-2)", "added": ["confirmed full salt/vitamin recipe", "15 mM NH4+ replete supplement", "anaerobic-chamber gas phase"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["CO2 gas phase", "H2 gas phase"],
+      "notes": "Ammonia-replete variant of the same fully-defined Z. mobilis ZM4 minimal medium. Recipe verbatim in the target's verification_evidence and confirmed against Materials and Methods. Contains ammonium sulfate as base N plus subcultures brought to 15 mM NH4+ (replete). Only vitamin is calcium pantothenate; only trace metals are Fe and Mo; no cited base medium or named stock mix to expand. All ion-level exchange components in the target were already present."
+    }
+  ]
+}

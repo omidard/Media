@@ -1,0 +1,141 @@
+{
+ "pmc": "PMC12930750",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12930750/",
+ "media": [
+  {
+   "id": "growthlit_PMC12930750_modified_m9_minimal_medium_with_d_xylose",
+   "name": "Modified M9 minimal medium with D-xylose (no L-lysine, growth reference) (PMC12930750)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium chloride (NaCl)",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron Fe3+",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Water (H2O)",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Proton (H+)",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium sulfate (MgSO4)",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium chloride (NaCl)",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Oxygen (O2)",
+     "exchange": "EX_o2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium sulfate (MgSO4)",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Xylose",
+     "exchange": "EX_xyl__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Iron Fe2+",
+    "Manganese Mn2+",
+    "Zinc Zn2+",
+    "Copper Cu2+",
+    "Cobalt Co2+",
+    "Molybdate MoO4",
+    "Nickel Ni2+"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "Paper: 'modified M9 medium with d-xylose as carbon source' at '20 g L-1 d-xylose'; l-lysine 'was added in various concentrations for biotransformation experiments' (so the growth reference contains no L-lysine); all cultivations aerobic 'at 30 C and 200 rpm' / bioreactors with 'an air volume flow rate of 3 L h-1'. Full salt/trace composition is in Supplementary Table S1 (not reproducible from acce",
+   "citation": "Medium composition from PMC12930750 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12930750/",
+   "doi": ""
+  }
+ ]
+}

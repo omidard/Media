@@ -1,0 +1,58 @@
+{
+  "pmc": "PMC2998477",
+  "media": [
+    {
+      "id": "growthlit_PMC2998477_pseudomonas_basal_mineral_medium_pbm",
+      "status": "incomplete_source",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "glucose",
+          "concentration": "0.2 g/L",
+          "concentration_mM": 1.11,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "cells... were grown in Pseudomonas basal mineral medium [89] (PBM) containing 0.2 g l-1 glucose for experiments measuring growth or antibiotic susceptibility. Inocula were grown in the same medium containing 1 g l-1 glucose."
+        },
+        {
+          "name": "O2",
+          "concentration": "shake flask, 200 rpm",
+          "concentration_mM": null,
+          "role": "electron acceptor / gas phase",
+          "source": "main_text",
+          "evidence": "Cultures were prepared in shake flasks at 37 C with 200 rpm agitation."
+        }
+      ],
+      "base_medium": "Pseudomonas basal mineral medium (PBM), Atlas Handbook of Microbiological Media (ref [89])",
+      "sources_chased": [
+        {
+          "what": "The paper itself (Folsom et al. 2010, BMC Microbiol 10:294; PMC2998477)",
+          "obtained": true,
+          "how": "WebFetch pmc_url + europepmc fullTextXML",
+          "added": ["glucose 0.2 g/L (growth/susceptibility), 1 g/L (inoculum)", "aerobic shake-flask condition"]
+        },
+        {
+          "what": "Base-medium reference [89] = Atlas RM, Handbook of Microbiological Media (CRC Press) — the recipe source for PBM",
+          "obtained": false,
+          "how": "Confirmed as the citation in a sister paper (Elkins et al. 1999, AEM 65:4594, PMC91612: 'Planktonic cells were cultured in Pseudomonas Basal Mineral (PBM) medium [2]' with [2] = Atlas, Handbook of Microbiological Media). The numeric per-liter recipe is a book entry not available via WebFetch; multiple web searches returned only unrelated media or hallucinated compositions.",
+          "added": []
+        },
+        {
+          "what": "Drip-flow reactor reference [36] = Xu, Stewart, Xia, Huang, McFeters 1998 (AEM 64:4035; PMC106596)",
+          "obtained": true,
+          "how": "WebFetch PMC106596 — cited by Folsom only for the drip-flow reactor METHOD, not for PBM. This paper actually used MOPS minimal medium (Neidhardt et al. 1974), a DIFFERENT medium, so it does NOT define the PBM salts/N/trace composition.",
+          "added": []
+        },
+        {
+          "what": "Sister Stewart-lab papers that use PBM (Walters et al. 2003 AAC 47:317 / PMC148957; Cochran et al. 2000 J Appl Microbiol 88; Borriello et al. 2004 AAC 48:2659)",
+          "obtained": false,
+          "how": "Attempted WebFetch (journals.asm.org 403; europepmc fullTextXML 404; PMC reCAPTCHA). None reproduce the numeric PBM recipe inline — all defer to Atlas.",
+          "added": []
+        }
+      ],
+      "confidence": "low",
+      "missing_before": [],
+      "notes": "PBM's complete composition (bulk salts, phosphate buffer, nitrogen source, Mg/Ca, iron and trace metals) genuinely lives only in Atlas's Handbook of Microbiological Media (cited as ref [89]), a printed book that could not be obtained through any freely accessible route; the paper's main text specifies only the glucose concentration (0.2 g/L for growth/susceptibility; 1 g/L inoculum) and that cultures were aerobic shake-flasks at 37 C. The pre-existing record's 'ferrous ammonium sulfate' (0.0015 mM) and 'ammonium sulfate' entries are chemically plausible PBM constituents but could NOT be verified against any obtainable primary source, so they are not reported here as confirmed compounds. Recovering the full recipe requires the Atlas handbook page for 'Pseudomonas Basal Mineral Medium'."
+    }
+  ]
+}

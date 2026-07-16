@@ -1,0 +1,82 @@
+{
+  "pmc": "PMC9381517",
+  "media": [
+    {
+      "id": "growthlit_PMC9381517_mr_1_medium_acetate_n2o",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "components": [
+        {"name": "Sodium acetate", "concentration": "5.0 mM", "concentration_mM": 5.0, "role": "carbon source / electron donor",
+         "source": "main_text", "evidence": "Sodium acetate was added to a concentration of 5.0 mM as the sole source of electrons and carbon."},
+        {"name": "NaCl (sodium chloride)", "concentration": "0.50 g/L", "concentration_mM": 8.56, "role": "bulk salt (Na, Cl)",
+         "source": "main_text", "evidence": "The modified MR-1 medium ... contained per liter of double-distilled water, 0.50 g NaCl, 0.29 g KH2PO4, 0.50 g K2HPO4, 0.27 g NH4Cl ..."},
+        {"name": "KH2PO4 (monopotassium phosphate)", "concentration": "0.29 g/L", "concentration_mM": 2.13, "role": "phosphate / buffer (K)",
+         "source": "main_text", "evidence": "contained per liter of double-distilled water, 0.50 g NaCl, 0.29 g KH2PO4, 0.50 g K2HPO4, 0.27 g NH4Cl ..."},
+        {"name": "K2HPO4 (dipotassium phosphate)", "concentration": "0.50 g/L", "concentration_mM": 2.87, "role": "phosphate / buffer (K)",
+         "source": "main_text", "evidence": "contained per liter of double-distilled water, 0.50 g NaCl, 0.29 g KH2PO4, 0.50 g K2HPO4, 0.27 g NH4Cl ..."},
+        {"name": "NH4Cl (ammonium chloride)", "concentration": "0.27 g/L", "concentration_mM": 5.05, "role": "nitrogen source (NH4+)",
+         "source": "main_text", "evidence": "contained per liter of double-distilled water, 0.50 g NaCl, 0.29 g KH2PO4, 0.50 g K2HPO4, 0.27 g NH4Cl ..."},
+        {"name": "N2O (nitrous oxide, dissolved gas)", "concentration": "~200 ppmv headspace (trace)", "concentration_mM": null, "role": "terminal electron acceptor (gas feed)",
+         "source": "main_text", "evidence": "the gas supply was switched to N2 gas containin[g N2O] ... After the headspace N2O concentration reached 200 ppmv, the ... reactor was inoculated"},
+
+        {"name": "CoCl2 x 2 H2O (cobalt chloride)", "concentration": "0.5 mg/L (1000X stock: 50 mg/100 mL, 1 mL/L)", "concentration_mM": 0.00301, "role": "trace element (Co)",
+         "source": "supplementary", "evidence": "Table S1 Recipe for the 1000X trace metal solution. CoCl2 x 2 H2O | 50 mg (per 100 mL ddH2O; 1 mL added per L medium)"},
+        {"name": "FeCl2 x H2O (ferrous chloride)", "concentration": "0.35 mg/L (1000X stock: 35 mg/100 mL, 1 mL/L)", "concentration_mM": 0.00242, "role": "trace element (Fe)",
+         "source": "supplementary", "evidence": "Table S1 ... FeCl2 x H2O | 35 mg"},
+        {"name": "MnSO4 x H2O (manganese sulfate)", "concentration": "1.25 mg/L (1000X stock: 125 mg/100 mL, 1 mL/L)", "concentration_mM": 0.0074, "role": "trace element (Mn)",
+         "source": "supplementary", "evidence": "Table S1 ... MnSO4 x H2O | 125 mg"},
+        {"name": "CuSO4 x 5 H2O (copper sulfate)", "concentration": "0.05 mg/L (1000X stock: 5 mg/100 mL, 1 mL/L)", "concentration_mM": 0.0002, "role": "trace element (Cu)",
+         "source": "supplementary", "evidence": "Table S1 ... CuSO4 x 5 H2O | 5 mg"},
+        {"name": "Na2MoO4 x 2 H2O (sodium molybdate)", "concentration": "0.05 mg/L (1000X stock: 5 mg/100 mL, 1 mL/L)", "concentration_mM": 0.000207, "role": "trace element (Mo)",
+         "source": "supplementary", "evidence": "Table S1 ... Na2MoO4 x 2 H2O | 5 mg"},
+        {"name": "CaCl2 x 2 H2O (calcium chloride)", "concentration": "0.5 mg/L (1000X stock: 50 mg/100 mL, 1 mL/L)", "concentration_mM": 0.0034, "role": "trace element (Ca)",
+         "source": "supplementary", "evidence": "Table S1 ... CaCl2 x 2 H2O | 50 mg"},
+        {"name": "ZnCl2 x 2 H2O (zinc chloride)", "concentration": "0.25 mg/L (1000X stock: 25 mg/100 mL, 1 mL/L)", "concentration_mM": 0.00145, "role": "trace element (Zn)",
+         "source": "supplementary", "evidence": "Table S1 ... ZnCl2 x 2 H2O | 25 mg"},
+        {"name": "AlK(SO4)4 x 12 H2O (aluminium potassium sulfate; verbatim from table, standard alum is AlK(SO4)2 x 12 H2O)", "concentration": "0.10 mg/L (1000X stock: 10 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "trace element (Al, K)",
+         "source": "supplementary", "evidence": "Table S1 ... AlK(SO4)4 x 12 H2O | 10 mg"},
+        {"name": "H3BO3 (boric acid)", "concentration": "0.05 mg/L (1000X stock: 5 mg/100 mL, 1 mL/L)", "concentration_mM": 0.000809, "role": "trace element (B)",
+         "source": "supplementary", "evidence": "Table S1 ... H3BO3 | 5 mg"},
+        {"name": "Na2WO4 x 2 H2O (sodium tungstate)", "concentration": "0.025 mg/L (1000X stock: 2.5 mg/100 mL, 1 mL/L)", "concentration_mM": 0.0000758, "role": "trace element (W)",
+         "source": "supplementary", "evidence": "Table S1 ... Na2WO4 x 2 H2O | 2.5 mg"},
+        {"name": "NiCl2 x 2 H2O (nickel chloride)", "concentration": "0.10 mg/L (1000X stock: 10 mg/100 mL, 1 mL/L)", "concentration_mM": 0.000604, "role": "trace element (Ni)",
+         "source": "supplementary", "evidence": "Table S1 ... NiCl2 x 2 H2O | 10 mg"},
+        {"name": "H2SeO3 (selenious acid)", "concentration": "0.25 mg/L (1000X stock: 25 mg/100 mL, 1 mL/L)", "concentration_mM": 0.00194, "role": "trace element (Se)",
+         "source": "supplementary", "evidence": "Table S1 ... H2SeO3 | 25 mg"},
+
+        {"name": "4-aminobenzoic acid (PABA)", "concentration": "0.5 mg/L (1000X stock: 50 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "vitamin",
+         "source": "supplementary", "evidence": "Table S2 Recipe for the 1000X vitamin stock solution. 4-aminobenzoic acid | 50 mg (per 100 mL ddH2O; 1 mL added per L medium)"},
+        {"name": "D(+)-biotin", "concentration": "0.2 mg/L (1000X stock: 20 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "vitamin",
+         "source": "supplementary", "evidence": "Table S2 ... D+-biotin | 20 mg"},
+        {"name": "Nicotinic acid (niacin)", "concentration": "0.5 mg/L (1000X stock: 50 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "vitamin",
+         "source": "supplementary", "evidence": "Table S2 ... Nicotinic acid | 50 mg"},
+        {"name": "Ca-pantothenate (calcium pantothenate)", "concentration": "0.5 mg/L (1000X stock: 50 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "vitamin",
+         "source": "supplementary", "evidence": "Table S2 ... Ca-pantothenate | 50 mg"},
+        {"name": "Pyridoxine-HCl (vitamin B6)", "concentration": "1.0 mg/L (1000X stock: 100 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "vitamin",
+         "source": "supplementary", "evidence": "Table S2 ... Pyridoxine-HCl | 100 mg"},
+        {"name": "Folic acid", "concentration": "0.2 mg/L (1000X stock: 20 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "vitamin",
+         "source": "supplementary", "evidence": "Table S2 ... Folic acid | 20 mg"},
+        {"name": "Alpha lipoic acid (thioctic acid)", "concentration": "0.5 mg/L (1000X stock: 50 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "vitamin",
+         "source": "supplementary", "evidence": "Table S2 ... Alpha lipoic acid | 50 mg"},
+        {"name": "Thiamine-HCl (vitamin B1)", "concentration": "0.5 mg/L (1000X stock: 50 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "vitamin",
+         "source": "supplementary", "evidence": "Table S2 ... Thiamine-HCl | 50 mg"},
+        {"name": "Cyanocobalamine (vitamin B12)", "concentration": "0.5 mg/L (1000X stock: 50 mg/100 mL, 1 mL/L)", "concentration_mM": null, "role": "vitamin",
+         "source": "supplementary", "evidence": "Table S2 ... Cyanocobalamine | 50 mg"}
+      ],
+      "base_medium": "Modified MR-1 (Shewanella) phosphate-buffered mineral medium of Yoon, Sanford & Loffler 2013 AEM (ref 31); pH ~7.0, phosphate-buffered, N2-flushed with trace N2O as electron acceptor",
+      "sources_chased": [
+        {"what": "Table S1 (1000X trace metal solution) + Table S2 (1000X vitamin stock) in the paper's own Supplementary Information (41396_2022_1260_MOESM1_ESM.docx)", "obtained": true,
+         "how": "EuropePMC supplementaryFiles zip -> extracted DOCX word/document.xml", "added": ["CoCl2","FeCl2","MnSO4","CuSO4","Na2MoO4","CaCl2","ZnCl2","AlK(SO4)x","H3BO3","Na2WO4","NiCl2","H2SeO3","PABA","biotin","nicotinic acid","Ca-pantothenate","pyridoxine-HCl","folic acid","alpha-lipoic acid","thiamine-HCl","cyanocobalamine (B12)"]},
+        {"what": "base-medium reference 31 (Yoon, Sanford & Loffler 2013 AEM, PMC3623185) to confirm the MR-1 mineral base and its N/P/salt scheme", "obtained": true,
+         "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC3623185", "added": ["confirmed phosphate-buffered basal salts (NaCl, NH4Cl, KH2PO4, K2HPO4) + trace metal + vitamin stock design"]}
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "All 9 vitamins (4-aminobenzoic acid, D-biotin, nicotinic acid, Ca-pantothenate, pyridoxine-HCl, folic acid, alpha-lipoic acid, thiamine-HCl, cyanocobalamine/B12)",
+        "Trace elements Ni (NiCl2), Se (H2SeO3), B (H3BO3), Mo (Na2MoO4), W (Na2WO4), Al (AlK(SO4)x)",
+        "Explicit identities/concentrations of the Fe, Mn, Zn, Cu, Co, Ca trace-metal salts (previously only generic ions)"
+      ],
+      "notes": "Complete recipe recovered from the paper's own Supplementary Tables S1 (trace metals) and S2 (vitamins); both are 1000X stocks added at 1 mL per L, so listed final concentrations are stock amount/100 mL divided by 100. NOTE: the recipe contains NO magnesium salt (neither the base nor Table S1 includes Mg), so the 'Magnesium (Mg2+, from trace metal solution)' entry in the prior current_components is spurious and should be dropped. Culture was microaerobic (dissolved O2 could not be reduced below ~10 uM) but effectively N2-flushed with trace N2O (~200 ppmv) as the terminal electron acceptor; no chemical reductant (cysteine/sulfide) and no bicarbonate buffer are used - buffering is by phosphate at pH ~7."
+    }
+  ]
+}

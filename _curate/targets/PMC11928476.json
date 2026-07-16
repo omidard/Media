@@ -1,0 +1,73 @@
+{
+ "pmc": "PMC11928476",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC11928476.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11928476/",
+ "media": [
+  {
+   "id": "lit_PMC11928476_mma_mineral_delft_medium_with_acetate",
+   "name": "MMA (mineral/Delft medium with acetate) (PMC11928476)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Acetate",
+     "exchange": "EX_ac_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium",
+     "exchange": "EX_na1_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "One liter of medium contained 7.5 g (NH4)2SO4, 14.4 g KH2PO4, 0.5 g MgSO4\u00b77H2O, 27.3 g sodium acetate, 2 mL trace metals solution, 1 mL vitamin solution, and 1.5 mL antifoam.",
+   "citation": "Shi et al. Reprogramming yeast metabolism for customized starch-rich micro-grain through low-carbon microbial manufacturing. Nature Communications (2025). DOI: 10.1038/s41467-025-58067-z. [PMC11928476]",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11928476/",
+   "doi": "10.1038/s41467-025-58067-z"
+  }
+ ]
+}

@@ -1,0 +1,34 @@
+{
+  "pmc": "PMC7225747",
+  "media": [
+    {
+      "id": "growthlit_PMC7225747_m9_minimal_medium_5_g_l_glucose_1_mm_l_a",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "5 g/L", "concentration_mM": 27.75, "role": "carbon source", "source": "main_text", "evidence": "M9 minimal medium was used that contained 5 g/L glucose"},
+        {"name": "L-arginine", "concentration": "1 mM", "concentration_mM": 1.0, "role": "amino acid supplement (auxotrophy)", "source": "main_text", "evidence": "1 mM arginine"},
+        {"name": "disodium phosphate (Na2HPO4)", "concentration": "42.2 mM", "concentration_mM": 42.2, "role": "phosphate/buffer", "source": "main_text", "evidence": "42.2 mM Na2HPO4"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "22 mM", "concentration_mM": 22.0, "role": "phosphate/buffer", "source": "main_text", "evidence": "22 mM KH2PO4"},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "11.3 mM", "concentration_mM": 11.3, "role": "nitrogen source", "source": "main_text", "evidence": "11.3 mM (NH4)2SO4"},
+        {"name": "sodium chloride (NaCl)", "concentration": "8.56 mM", "concentration_mM": 8.56, "role": "bulk salt (Na, Cl)", "source": "main_text", "evidence": "8.56 mM NaCl"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4 x 7 H2O)", "concentration": "1 mM", "concentration_mM": 1.0, "role": "bulk salt (Mg, SO4)", "source": "main_text", "evidence": "1 mM MgSO4 x 7 H2O"},
+        {"name": "calcium chloride dihydrate (CaCl2 x 2 H2O)", "concentration": "100 µM", "concentration_mM": 0.1, "role": "bulk salt (Ca)", "source": "main_text", "evidence": "100 μM CaCl2 x 2 H2O"},
+        {"name": "ferric chloride (FeCl3)", "concentration": "60 µM", "concentration_mM": 0.06, "role": "trace element (Fe)", "source": "main_text", "evidence": "60 μM FeCl3"},
+        {"name": "cobalt chloride hexahydrate (CoCl2 x 6 H2O)", "concentration": "7.6 µM", "concentration_mM": 0.0076, "role": "trace element (Co)", "source": "main_text", "evidence": "7.6 μM CoCl2 x 6 H2O"},
+        {"name": "manganese sulfate dihydrate (MnSO4 x 2 H2O)", "concentration": "7.1 µM", "concentration_mM": 0.0071, "role": "trace element (Mn)", "source": "main_text", "evidence": "7.1 μM MnSO4 x 2 H2O"},
+        {"name": "copper chloride dihydrate (CuCl2 x 2 H2O)", "concentration": "7 µM", "concentration_mM": 0.007, "role": "trace element (Cu)", "source": "main_text", "evidence": "7 μM CuCl2 x 2 H2O"},
+        {"name": "zinc sulfate heptahydrate (ZnSO4 x 7 H2O)", "concentration": "6.3 µM", "concentration_mM": 0.0063, "role": "trace element (Zn)", "source": "main_text", "evidence": "6.3 μM ZnSO4 x 7 H2O"},
+        {"name": "water", "concentration": null, "concentration_mM": null, "role": "solvent", "source": "main_text", "evidence": "M9 minimal medium was used"}
+      ],
+      "base_medium": "M9 minimal medium (fully defined in main text; no external base-medium reference cited)",
+      "sources_chased": [
+        {"what": "M9 base-medium citation in Materials and Methods", "obtained": true, "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC7225747/", "added": []},
+        {"what": "check for hidden trace/vitamin stock (thiamine, biotin, molybdate, borate, Ni, Se, EDTA, MOPS)", "obtained": true, "how": "WebFetch full text", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "The paper spells out the entire recipe in one sentence with every salt and trace metal explicitly listed; it cites no base-medium reference and uses no named trace/vitamin stock, so nothing is hidden. No thiamine, biotin, molybdate, borate, Ni, Se, EDTA, or MOPS are present. Antibiotics/inducers (kanamycin, carbenicillin, chloramphenicol, spectinomycin, aTc) are added only 'when required' and are not medium components. Grown aerobically (shaking, 220 rpm) at 30/37/42 C. Current_components ion set already matched all these compounds; concentrations added and medium confirmed complete."
+    }
+  ]
+}

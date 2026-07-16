@@ -1,0 +1,46 @@
+{
+  "pmc": "PMC4744692",
+  "media": [
+    {
+      "id": "complexlit_PMC4744692_marine_ammonium_mineral_salts_mams_medium_mo",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "sodium chloride (NaCl)", "concentration": "20 g/L", "concentration_mM": 342.3, "role": "salt / osmolyte (Na+, Cl-)", "source": "main_text", "evidence": "MAMS medium ... contained the following (per litre): NaCl, 20 g"},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "1 g/L", "concentration_mM": 7.57, "role": "nitrogen source + sulfate (removed in N-source-limitation experiments)", "source": "main_text", "evidence": "(NH4)2SO4, 1 g ... For nitrogen experiments (NH4)2SO4 was removed from the standard MAMS recipe"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4.7H2O)", "concentration": "1 g/L", "concentration_mM": 4.06, "role": "Mg2+ + sulfate", "source": "main_text", "evidence": "MgSO4.7H2O, 1 g"},
+        {"name": "calcium chloride dihydrate (CaCl2.2H2O)", "concentration": "0.2 g/L", "concentration_mM": 1.36, "role": "Ca2+", "source": "main_text", "evidence": "CaCl2.2H2O, 0.2 g"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4.7H2O)", "concentration": "2 mg/L", "concentration_mM": 0.0072, "role": "iron (Fe2+)", "source": "main_text", "evidence": "FeSO4.7H2O, 2 mg"},
+        {"name": "sodium molybdate dihydrate (Na2MoO4.2H2O)", "concentration": "20 mg/L", "concentration_mM": 0.0827, "role": "molybdenum (bulk addition, in addition to trace amount in SL-10)", "source": "main_text", "evidence": "Na2MoO4.2H2O, 20 mg"},
+        {"name": "potassium dihydrogen phosphate (KH2PO4)", "concentration": "0.36 g/L", "concentration_mM": 2.65, "role": "phosphate buffer + K+", "source": "main_text", "evidence": "KH2PO4, 0.36 g"},
+        {"name": "dipotassium hydrogen phosphate (K2HPO4)", "concentration": "2.34 g/L", "concentration_mM": 13.43, "role": "phosphate buffer + K+", "source": "main_text", "evidence": "K2HPO4, 2.34 g"},
+        {"name": "SL-10 trace metals solution", "concentration": "1 ml/L", "concentration_mM": null, "role": "trace metal mix (expanded below)", "source": "main_text", "evidence": "plus 1 ml of SL-10 trace metals solution (Schafer, 2007)"},
+        {"name": "iron(II) chloride tetrahydrate (FeCl2.4H2O)", "concentration": "1.5 mg/L (via 1 ml/L SL-10; 1.5 g/L in stock)", "concentration_mM": 0.0075, "role": "trace iron (from SL-10)", "source": "stock:SL-10 (DSMZ MediaDive; Widdel 1983)", "evidence": "SL-10: FeCl2 x 4 H2O 1.50 g per 1000 ml"},
+        {"name": "zinc chloride (ZnCl2)", "concentration": "0.07 mg/L (via 1 ml/L SL-10; 70 mg/L in stock)", "concentration_mM": 0.00051, "role": "trace zinc (from SL-10)", "source": "stock:SL-10 (DSMZ MediaDive; Widdel 1983)", "evidence": "SL-10: ZnCl2 70.00 mg per 1000 ml"},
+        {"name": "manganese(II) chloride tetrahydrate (MnCl2.4H2O)", "concentration": "0.1 mg/L (via 1 ml/L SL-10; 100 mg/L in stock)", "concentration_mM": 0.00051, "role": "trace manganese (from SL-10)", "source": "stock:SL-10 (DSMZ MediaDive; Widdel 1983)", "evidence": "SL-10: MnCl2 x 4 H2O 100.00 mg per 1000 ml"},
+        {"name": "boric acid (H3BO3)", "concentration": "0.006 mg/L (via 1 ml/L SL-10; 6 mg/L in stock)", "concentration_mM": 0.000097, "role": "trace boron (from SL-10)", "source": "stock:SL-10 (DSMZ MediaDive; Widdel 1983)", "evidence": "SL-10: H3BO3 6.00 mg per 1000 ml"},
+        {"name": "cobalt(II) chloride hexahydrate (CoCl2.6H2O)", "concentration": "0.19 mg/L (via 1 ml/L SL-10; 190 mg/L in stock)", "concentration_mM": 0.0008, "role": "trace cobalt (from SL-10)", "source": "stock:SL-10 (DSMZ MediaDive; Widdel 1983)", "evidence": "SL-10: CoCl2 x 6 H2O 190.00 mg per 1000 ml"},
+        {"name": "copper(II) chloride dihydrate (CuCl2.2H2O)", "concentration": "0.002 mg/L (via 1 ml/L SL-10; 2 mg/L in stock)", "concentration_mM": 0.0000117, "role": "trace copper (from SL-10)", "source": "stock:SL-10 (DSMZ MediaDive; Widdel 1983)", "evidence": "SL-10: CuCl2 x 2 H2O 2.00 mg per 1000 ml"},
+        {"name": "nickel(II) chloride hexahydrate (NiCl2.6H2O)", "concentration": "0.024 mg/L (via 1 ml/L SL-10; 24 mg/L in stock)", "concentration_mM": 0.000101, "role": "trace nickel (from SL-10)", "source": "stock:SL-10 (DSMZ MediaDive; Widdel 1983)", "evidence": "SL-10: NiCl2 x 6 H2O 24.00 mg per 1000 ml"},
+        {"name": "sodium molybdate dihydrate (Na2MoO4.2H2O) — trace (SL-10)", "concentration": "0.036 mg/L (via 1 ml/L SL-10; 36 mg/L in stock)", "concentration_mM": 0.000149, "role": "trace molybdenum (from SL-10; additional to bulk 20 mg/L)", "source": "stock:SL-10 (DSMZ MediaDive; Widdel 1983)", "evidence": "SL-10: Na2MoO4 x 2 H2O 36.00 mg per 1000 ml"},
+        {"name": "hydrochloric acid (HCl)", "concentration": "0.01 ml/L (via 1 ml/L SL-10; 10 ml/L in stock)", "concentration_mM": null, "role": "acidifier / chloride carrier in SL-10 stock", "source": "stock:SL-10 (DSMZ MediaDive; Widdel 1983)", "evidence": "SL-10: HCl (25%; 7.7 M) 10.00 ml per 1000 ml"},
+        {"name": "vitamin solution (composition per Chen, 2012)", "concentration": "as in Chen 2012 (not quantified in this paper)", "concentration_mM": null, "role": "vitamins (UNEXPANDED — see notes)", "source": "cited:Chen 2012 (Environ Microbiol 14:2308-2322)", "evidence": "Vitamins were prepared as described previously (Chen, 2012)."},
+        {"name": "choline", "concentration": "4-5 mM", "concentration_mM": 4.5, "role": "carbon source (and/or nitrogen source when (NH4)2SO4 omitted)", "source": "main_text", "evidence": "either GBT or choline was added to the medium (at concentrations of 4 or 5 mM)"},
+        {"name": "glycine betaine (GBT)", "concentration": "4-5 mM", "concentration_mM": 4.5, "role": "alternative carbon/nitrogen source", "source": "main_text", "evidence": "either GBT or choline was added to the medium (at concentrations of 4 or 5 mM)"},
+        {"name": "choline-O-sulfate (COS)", "concentration": "tested as sole carbon source (conc. not specified)", "concentration_mM": null, "role": "alternative carbon source", "source": "main_text", "evidence": "choline, glycine betaine and choline-O-sulfate ... as sole carbon source"},
+        {"name": "glucose", "concentration": "10 mM", "concentration_mM": 10.0, "role": "co-substrate carbon source (nitrogen-utilisation experiments)", "source": "main_text", "evidence": "either GBT or choline was added to the medium (at concentrations of 4 or 5 mM) with 10 mM glucose"},
+        {"name": "water (H2O)", "concentration": "solvent", "concentration_mM": null, "role": "solvent", "source": "main_text", "evidence": "MAMS medium ... contained the following (per litre)"},
+        {"name": "oxygen (O2)", "concentration": "air (aerobic)", "concentration_mM": null, "role": "electron acceptor (aerobic cultivation)", "source": "main_text", "evidence": "Ruegeria pomeroyi DSS-3, an aerobic marine Roseobacter, grown in MAMS medium on choline/GBT"}
+      ],
+      "base_medium": "Marine ammonium mineral salts (MAMS) medium, as modified by Schafer (2007); MAMS originally from Thompson, Owens & Murrell (1995) Appl Environ Microbiol 61:2388-2393. Trace metals supplied as SL-10 (Widdel 1983 / DSMZ).",
+      "sources_chased": [
+        {"what": "paper full text (Lidbury et al. 2015 Environ Microbiol, PMC4744692) — MAMS base recipe + carbon/N modifications", "obtained": true, "how": "WebFetch pmc + europepmc fullTextXML", "added": ["all 8 bulk salts verbatim", "carbon sources choline/GBT/COS/glucose", "N source (NH4)2SO4"]},
+        {"what": "SL-10 trace metals solution (cited as Schafer 2007; standard DSMZ/Widdel SL-10)", "obtained": true, "how": "WebFetch mediadive.dsmz.de/medium/320 + WebSearch (bacmedia.dsmz.de/solutions)", "added": ["FeCl2.4H2O", "ZnCl2", "MnCl2.4H2O", "H3BO3 (boron)", "CoCl2.6H2O", "CuCl2.2H2O", "NiCl2.6H2O (nickel)", "Na2MoO4.2H2O (trace)", "HCl"]},
+        {"what": "Chen 2012 vitamin solution composition (Environ Microbiol 14:2308-2322, DOI 10.1111/j.1462-2920.2012.02765.x, PMID 22540311)", "obtained": false, "how": "Wiley full text HTTP 403; not in PMC/open access. Upstream MAMS/vitamins trace to Thompson 1995 (PMC1388473) whose Methods text was not retrievable (abstract-only in PMC, ASM PDF 403)", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": ["nickel (NiCl2.6H2O, from SL-10)", "boron/borate (H3BO3, from SL-10)", "FeCl2 / ZnCl2 / MnCl2 / CoCl2 / CuCl2 explicit SL-10 salts (metals were present as generic ions but the SL-10 stock was unexpanded)", "vitamin solution still unexpanded (source inaccessible)", "glycine betaine, choline-O-sulfate and glucose as alternative carbon sources"],
+      "notes": "MAMS base salts and SL-10 trace metals are now fully recovered and verbatim-sourced; SL-10 adds nickel and boron that were absent before. Oxygen corrected from 'facultative' to 'aerobic' (R. pomeroyi DSS-3 grown aerobically on choline/GBT). The only unresolved item is the Chen (2012) vitamin solution: its constituent vitamins could not be recovered because Chen 2012 (Wiley) and the upstream Thompson 1995 (ASM) Methods are paywalled/403; it is therefore listed by name and left UNEXPANDED rather than fabricated. Trace-metal molarities computed for a 1:1000 dilution of SL-10 (1 ml stock per L)."
+    }
+  ]
+}

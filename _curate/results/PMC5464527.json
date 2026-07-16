@@ -1,0 +1,120 @@
+{
+  "pmc": "PMC5464527",
+  "media": [
+    {
+      "id": "complexlit_PMC5464527_oxygen_o_limited_minimal_medium_0_08_glucose",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "components": [
+        {
+          "name": "dipotassium hydrogen phosphate (K2HPO4)",
+          "concentration": "10.5 g/L",
+          "concentration_mM": 60.3,
+          "role": "phosphate / buffer",
+          "source": "cited:Miller 1972 minimal medium A (via stock:MMA)",
+          "evidence": "Tweeddale, Notley-McRobb & Ferenci 1998 (same lab, same glucose-limited chemostat system): 'Minimal medium A (MMA) (28) was the basal salts medium for both chemostat and batch cultures.' MMA (Miller, Experiments in Molecular Genetics, 1972) per litre 1x: K2HPO4 10.5 g, KH2PO4 4.5 g, (NH4)2SO4 1 g, sodium citrate.2H2O 0.5 g."
+        },
+        {
+          "name": "potassium dihydrogen phosphate (KH2PO4)",
+          "concentration": "4.5 g/L",
+          "concentration_mM": 33.1,
+          "role": "phosphate / buffer",
+          "source": "cited:Miller 1972 minimal medium A (via stock:MMA)",
+          "evidence": "MMA (Miller 1972) per litre 1x: KH2PO4 4.5 g. Confirmed as the Ferenci-lab basal salts medium in Tweeddale et al. 1998: 'Minimal medium A (MMA) (28) was the basal salts medium for both chemostat and batch cultures.'"
+        },
+        {
+          "name": "ammonium sulfate ((NH4)2SO4)",
+          "concentration": "1.0 g/L",
+          "concentration_mM": 7.57,
+          "role": "nitrogen source (+ sulfate)",
+          "source": "cited:Miller 1972 minimal medium A (via stock:MMA)",
+          "evidence": "MMA (Miller 1972) per litre 1x: (NH4)2SO4 1 g. Full 1 g/L applies under O-limitation; PMC5464527 states only the N-limited variant reduces it: 'The N-limited medium ... contained the same basal medium as the P-limited culture but with (NH4)2SO4 reduced to 0.03 g/l', implying the standard medium carries the full ammonium concentration."
+        },
+        {
+          "name": "trisodium citrate dihydrate (sodium citrate)",
+          "concentration": "0.5 g/L",
+          "concentration_mM": 1.7,
+          "role": "iron chelator / sodium source",
+          "source": "main_text + cited:Miller 1972 MMA",
+          "evidence": "PMC5464527 Methods: 'An Fe-depleted environment was obtained by removing sodium citrate and Fe2SO4 from the medium as described in [76]' -- i.e. sodium citrate is present in all non-Fe-limited media (including O-limited). MMA (Miller 1972) contains sodium citrate.2H2O 0.5 g/L."
+        },
+        {
+          "name": "magnesium sulfate heptahydrate (MgSO4.7H2O)",
+          "concentration": "1 mM (1 ml of 1 M per L)",
+          "concentration_mM": 1.0,
+          "role": "magnesium / sulfate",
+          "source": "cited:Miller 1972 minimal medium A (via stock:MMA)",
+          "evidence": "MMA (Miller 1972) 1x additions per litre: '1 ml 1 M MgSO4.7H2O ... added per liter when diluted to 1x'."
+        },
+        {
+          "name": "thiamine (vitamin B1)",
+          "concentration": "~5 mg/L (0.1 ml of 0.5% per L)",
+          "concentration_mM": 0.015,
+          "role": "vitamin",
+          "source": "main_text + cited:Miller 1972 MMA",
+          "evidence": "PMC5464527 GrowthDB record lists thiamine (vitamin B1) as a defined additive. MMA (Miller 1972) 1x additions per litre: '0.1 ml 0.5% vitamin B1 (thiamine) added per liter when diluted to 1x'."
+        },
+        {
+          "name": "ferrous sulfate (FeSO4; written 'Fe2SO4' in paper)",
+          "concentration": "present; value not stated",
+          "concentration_mM": null,
+          "role": "iron source",
+          "source": "main_text (cited:Schliep 2012 base medium)",
+          "evidence": "PMC5464527 Methods: 'An Fe-depleted environment was obtained by removing sodium citrate and Fe2SO4 from the medium as described in [76]' -- FeSO4 is therefore a component of all non-Fe-limited media, including the O-limited medium. Exact concentration not given in the paper or the accessible base reference (Schliep, Ryall & Ferenci 2012, Mol. Biosyst.)."
+        },
+        {
+          "name": "D-glucose",
+          "concentration": "0.08% (w/v) = 0.8 g/L",
+          "concentration_mM": 4.44,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "'For O-limited chemostats, the airflow through the sparger was blocked to create an oxygen-depleted environment and supplemented with 0.08% glucose as described previously [77].' Higher glucose (vs 0.02% for C-limited) is deliberately supplied so glucose is in excess and oxygen is the sole limitation."
+        }
+      ],
+      "base_medium": "Minimal medium A (MMA) of Miller 1972 (Experiments in Molecular Genetics) -- the Ferenci-lab basal salts medium; here the MMA-based chemostat medium of Schliep, Ryall & Ferenci 2012, supplemented with 0.08% glucose and run with the sparger airflow blocked (oxygen-limited).",
+      "sources_chased": [
+        {
+          "what": "PMC5464527 Methods (base medium = ref 76 Schliep 2012 + 0.08% glucose; O-limited protocol = ref 77 Manche 1999)",
+          "obtained": true,
+          "how": "Read corpus JATS XML",
+          "added": ["0.08% glucose", "airflow-blocked O-limited protocol", "FeSO4 + sodium citrate present in non-Fe-limited media", "full (NH4)2SO4 in non-N-limited media"]
+        },
+        {
+          "what": "ref 76 Schliep, Ryall & Ferenci 2012, Mol. Biosyst. (base chemostat minimal medium)",
+          "obtained": false,
+          "how": "WebFetch doi.org/10.1039/c2mb05495g redirected to paywalled OUP; Methods not readable",
+          "added": []
+        },
+        {
+          "what": "ref 77 Manche, Notley-McRobb & Ferenci 1999, Genetics 153:5 (PMC1460742) -- aerobic vs O-limited glucose-limited chemostats",
+          "obtained": false,
+          "how": "WebFetch PMC page returned abstract + refs only (Methods behind PDF)",
+          "added": []
+        },
+        {
+          "what": "Tweeddale, Notley-McRobb & Ferenci 1998, J. Bacteriol. 180:5109 (PMC107546) -- same lab, same glucose-limited chemostat system: identifies basal medium",
+          "obtained": true,
+          "how": "WebFetch PMC page",
+          "added": ["basal salts medium = Minimal medium A (MMA), Miller 1972, ref 28"]
+        },
+        {
+          "what": "Miller 1972 Minimal Medium A composition (K2HPO4/KH2PO4/(NH4)2SO4/citrate + Mg/glucose/thiamine)",
+          "obtained": true,
+          "how": "WebSearch (Rice Bennett Lab MinA wiki / iGEM HKUST-Rice recipe reproduce Miller MinA)",
+          "added": ["K2HPO4 10.5 g/L", "KH2PO4 4.5 g/L", "(NH4)2SO4 1 g/L", "sodium citrate.2H2O 0.5 g/L", "MgSO4.7H2O 1 mM", "thiamine ~5 mg/L"]
+        }
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "dipotassium hydrogen phosphate (K2HPO4) 10.5 g/L",
+        "potassium dihydrogen phosphate (KH2PO4) 4.5 g/L",
+        "ammonium sulfate 1.0 g/L (was only a generic NH4 exchange)",
+        "trisodium citrate dihydrate 0.5 g/L (concrete concentration)",
+        "magnesium sulfate heptahydrate 1 mM",
+        "ferrous sulfate (FeSO4) iron source",
+        "glucose concentration corrected to 0.08% (0.8 g/L)"
+      ],
+      "notes": "O-limited = oxygen-depleted (sparger airflow blocked) glucose-excess chemostat of E. coli MC4100; not a strictly reduced/anaerobic medium -- no cysteine/sulfide reductant is added and no defined gas mix is used, so 'anaerobic' here means O2-limited/fermentative. The base is Miller (1972) Minimal Medium A (confirmed as the Ferenci-lab basal salts medium in Tweeddale et al. 1998 and used for this paper's plates), plus FeSO4/citrate and thiamine, supplemented with 0.08% glucose. Note: Miller MMA contains NO trace-element solution, so the Zn2+, Mn2+, Cu2+, Co2+ (and Ca2+, Cl-) exchanges in the current GEM listing are model-default open uptakes, NOT defined recipe ingredients -- they have no textual source and were not added as sourced components. The exact FeSO4 concentration lives in the paywalled Schliep 2012 base reference and could not be recovered."
+    }
+  ]
+}

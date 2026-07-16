@@ -1,0 +1,153 @@
+{
+  "pmc": "PMC11879879",
+  "media": [
+    {
+      "id": "growthlit_PMC11879879_mineral_salts_medium_msm_4_fold_buffered",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "dipotassium hydrogen phosphate (K2HPO4)",
+          "concentration": "15.52 g/L",
+          "concentration_mM": 89.1,
+          "role": "phosphate / buffer",
+          "source": "main_text",
+          "evidence": "P. putida KT2440 strains were cultivated in 4-fold buffered (15.52 g l-1 K2HPO4 and 6.52 g l-1 NaH2PO4) MSM medium57."
+        },
+        {
+          "name": "sodium dihydrogen phosphate (NaH2PO4)",
+          "concentration": "6.52 g/L",
+          "concentration_mM": 54.3,
+          "role": "phosphate / buffer",
+          "source": "main_text",
+          "evidence": "P. putida KT2440 strains were cultivated in 4-fold buffered (15.52 g l-1 K2HPO4 and 6.52 g l-1 NaH2PO4) MSM medium57."
+        },
+        {
+          "name": "ammonium sulfate ((NH4)2SO4)",
+          "concentration": "2.0 g/L",
+          "concentration_mM": 15.1,
+          "role": "nitrogen source + sulfate",
+          "source": "cited:Hartmans-de Bont MSM (via Wierckx 2005, ref 57)",
+          "evidence": "Wierckx 2005 (ref 57): 'Mineral salts medium was prepared as described by Hartmans et al., using 37 mM phosphate buffer at pH 7.0.' The de Bont-group (HdB) MSM uses 2.0 g/L (NH4)2SO4 (=15.1 mM) as sole N source; value matches the target's prior curated concentration. Exact primary Hartmans amount could not be verbatim-fetched (paywalled Springer / no OA full text)."
+        },
+        {
+          "name": "magnesium chloride (MgCl2.6H2O)",
+          "concentration": "0.1 g/L",
+          "concentration_mM": 0.49,
+          "role": "magnesium",
+          "source": "cited:Hartmans-de Bont MSM (via Wierckx 2005, ref 57)",
+          "evidence": "de Bont-group (HdB) MSM contains 0.1 g/L MgCl2.6H2O (=0.49 mM); value matches the target's prior curated concentration. Exact primary Hartmans amount not verbatim-fetchable (paywalled)."
+        },
+        {
+          "name": "EDTA",
+          "concentration": "40 mg/L (10 mL/L of 4 g/L trace-solution stock)",
+          "concentration_mM": 0.137,
+          "role": "chelator (trace-element solution)",
+          "source": "cited:Wierckx 2005 (ref 57), Trace Solution 1",
+          "evidence": "Wierckx 2005 Trace Solution 1 (per liter): 4 g EDTA, 0.2 g ZnSO4.7H2O, 0.1 g CaCl2.2H2O, 1.5 g FeSO4.7H2O, 0.02 g Na2MoO4.2H2O, 0.2 g CuSO4.5H2O, 0.04 g CoCl2.6H2O, 0.1 g MnCl2.4H2O; trace solution dosed at 10 mL/L."
+        },
+        {
+          "name": "ferrous sulfate (FeSO4.7H2O)",
+          "concentration": "15 mg/L (10 mL/L of 1.5 g/L stock)",
+          "concentration_mM": 0.054,
+          "role": "trace metal (iron)",
+          "source": "cited:Wierckx 2005 (ref 57), Trace Solution 1",
+          "evidence": "Trace Solution 1 per liter: ... 1.5 g FeSO4.7H2O ... dosed at 10 mL/L."
+        },
+        {
+          "name": "zinc sulfate (ZnSO4.7H2O)",
+          "concentration": "2 mg/L (10 mL/L of 0.2 g/L stock)",
+          "concentration_mM": 0.00696,
+          "role": "trace metal (zinc)",
+          "source": "cited:Wierckx 2005 (ref 57), Trace Solution 1",
+          "evidence": "Trace Solution 1 per liter: ... 0.2 g ZnSO4.7H2O ... dosed at 10 mL/L."
+        },
+        {
+          "name": "calcium chloride (CaCl2.2H2O)",
+          "concentration": "1 mg/L (10 mL/L of 0.1 g/L stock)",
+          "concentration_mM": 0.0068,
+          "role": "trace metal / calcium",
+          "source": "cited:Wierckx 2005 (ref 57), Trace Solution 1",
+          "evidence": "Trace Solution 1 per liter: ... 0.1 g CaCl2.2H2O ... dosed at 10 mL/L."
+        },
+        {
+          "name": "manganese chloride (MnCl2.4H2O)",
+          "concentration": "1 mg/L (10 mL/L of 0.1 g/L stock)",
+          "concentration_mM": 0.00505,
+          "role": "trace metal (manganese)",
+          "source": "cited:Wierckx 2005 (ref 57), Trace Solution 1",
+          "evidence": "Trace Solution 1 per liter: ... 0.1 g MnCl2.4H2O ... dosed at 10 mL/L."
+        },
+        {
+          "name": "copper sulfate (CuSO4.5H2O)",
+          "concentration": "2 mg/L (10 mL/L of 0.2 g/L stock)",
+          "concentration_mM": 0.00801,
+          "role": "trace metal (copper)",
+          "source": "cited:Wierckx 2005 (ref 57), Trace Solution 1",
+          "evidence": "Trace Solution 1 per liter: ... 0.2 g CuSO4.5H2O ... dosed at 10 mL/L."
+        },
+        {
+          "name": "cobalt chloride (CoCl2.6H2O)",
+          "concentration": "0.4 mg/L (10 mL/L of 0.04 g/L stock)",
+          "concentration_mM": 0.00168,
+          "role": "trace metal (cobalt)",
+          "source": "cited:Wierckx 2005 (ref 57), Trace Solution 1",
+          "evidence": "Trace Solution 1 per liter: ... 0.04 g CoCl2.6H2O ... dosed at 10 mL/L."
+        },
+        {
+          "name": "sodium molybdate (Na2MoO4.2H2O)",
+          "concentration": "0.2 mg/L (10 mL/L of 0.02 g/L stock)",
+          "concentration_mM": 0.000827,
+          "role": "trace metal (molybdenum)",
+          "source": "cited:Wierckx 2005 (ref 57), Trace Solution 1",
+          "evidence": "Trace Solution 1 per liter: ... 0.02 g Na2MoO4.2H2O ... dosed at 10 mL/L."
+        },
+        {
+          "name": "1,6-hexamethylenediamine (HMDA)",
+          "concentration": "15 mM",
+          "concentration_mM": 15.0,
+          "role": "sole carbon (and nitrogen) source",
+          "source": "main_text",
+          "evidence": "MSM containing 15 mM of HMDA, Ahx or e-caprolactam as sole carbon source. ... supplemented with HMDA, Ahx or e-caprolactam as sole carbon and nitrogen sources."
+        },
+        {
+          "name": "O2 (aerobic gas phase)",
+          "concentration": "aerobic (shaken 180-225 r.p.m.)",
+          "concentration_mM": null,
+          "role": "electron acceptor / aeration",
+          "source": "main_text",
+          "evidence": "Precultures ... in a Multitron shaker (Infors) at 30 C and 180 r.p.m. ... Main cultures were grown in 96-well plates ... at 30 C and 225 r.p.m. shaking speed (aerobic, obligately aerobic P. putida)."
+        }
+      ],
+      "base_medium": "Mineral salts medium (MSM), 4-fold phosphate-buffered, = Hartmans-de Bont (HdB) mineral medium as used by the de Bont/Wierckx group; host Pseudomonas putida KT2440. Here the phosphate buffer is 4-fold concentrated and HMDA is the sole carbon/nitrogen source.",
+      "sources_chased": [
+        {
+          "what": "Paper main-text Methods (phosphate buffer strength, carbon source, aeration)",
+          "obtained": true,
+          "how": "Read corpus JATS XML /data/paper_corpus/fulltext_xml/PMC11879879.xml",
+          "added": ["K2HPO4 15.52 g/L", "NaH2PO4 6.52 g/L", "HMDA 15 mM", "aerobic gas phase"]
+        },
+        {
+          "what": "Base MSM cited as ref 57 = Wierckx et al. 2005, AEM 71:8221 (PMC1317433)",
+          "obtained": true,
+          "how": "WebFetch https://pmc.ncbi.nlm.nih.gov/articles/PMC1317433/",
+          "added": ["EDTA", "ZnSO4.7H2O", "CaCl2.2H2O", "FeSO4.7H2O", "Na2MoO4.2H2O", "CuSO4.5H2O", "CoCl2.6H2O", "MnCl2.4H2O (Trace Solution 1)", "(NH4)2SO4 N source", "MgCl2 (HdB base)"]
+        },
+        {
+          "what": "Primary MSM definition Hartmans-de Bont 1992 (doi 10.1007/BF00174849) and Hartmans 1989 (PMC203180) for exact (NH4)2SO4/MgCl2 amounts",
+          "obtained": false,
+          "how": "WebFetch to doi/Springer (paywalled, 302/303 to auth) and Europe PMC fullTextXML (404); amounts taken from the well-established HdB recipe matching the target's prior values",
+          "added": []
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "dipotassium hydrogen phosphate (K2HPO4) - was only listed as uncovered",
+        "EDTA - was only listed as uncovered",
+        "1,6-hexamethylenediamine (carbon/N source) - was only listed as uncovered",
+        "concentrations for all trace metals (were null) now recovered from Trace Solution 1"
+      ],
+      "notes": "MSM = de Bont/Wierckx-group Hartmans-de Bont mineral medium; paper only spells out the 4-fold phosphate buffer (15.52 g/L K2HPO4 + 6.52 g/L NaH2PO4) and 15 mM HMDA, and cites ref 57 (Wierckx 2005) for the rest. Wierckx 2005 defines the trace-element mix ('Trace Solution 1', dosed 10 mL/L) whose eight salts + EDTA exactly match the target's metal set, confirming completeness. The base MSM per Wierckx defers to Hartmans (37 mM phosphate, pH 7.0), whose (NH4)2SO4 (2 g/L, 15.1 mM) and MgCl2.6H2O (0.1 g/L, 0.49 mM) primary amounts could not be verbatim-fetched (paywalled Springer / no OA full text) but match the standard HdB recipe and the target's prior curated values. Trace Solution 1 contains no boron or nickel (those appear only in Wierckx's feed-only 'Trace Solution 2'), so B/Ni are correctly absent."
+    }
+  ]
+}

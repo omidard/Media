@@ -1,0 +1,43 @@
+{
+ "pmc": "PMC60676",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC60676/",
+ "media": [
+  {
+   "id": "complexlit_PMC60676_ms_mineral_standard_minimal_medium",
+   "name": "MS (mineral standard) minimal medium (PMC60676)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Thymine C5H6N2O2",
+     "exchange": "EX_thym_e",
+     "lb": -1.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": "MS (mineral standard) minimal medium",
+   "base_medium_reference": "Richaud C, Mengin-Lecreulx D, Pochet S, Johnson EJ, Cohen GN, Marliere P. Directed evolution of biosynthetic pathways. Recruitment of cysteine thioethers for constructing the cell wall of Escherichia coli. J Biol Chem. 1993;268(36):26827-26835. PMID 8262915; DOI 10.1016/S0021-9258(19)74186-6. (Cited as reference [24] in PMC60676 as the definition of MS medium.)",
+   "verification": "recipe partially recovered (base medium unresolved)",
+   "verification_evidence": null,
+   "citation": "Medium composition from PMC60676 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC60676/",
+   "doi": ""
+  }
+ ]
+}

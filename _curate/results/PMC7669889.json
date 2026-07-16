@@ -1,0 +1,63 @@
+{
+  "pmc": "PMC7669889",
+  "media": [
+    {
+      "id": "growthlit_PMC7669889_m9_minimal_medium_trace_elements_20_mm_g",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "Na2HPO4 (disodium phosphate)", "concentration": "47.8 mM", "concentration_mM": 47.8, "role": "phosphate/buffer, sodium source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "KH2PO4 (monopotassium phosphate)", "concentration": "22 mM", "concentration_mM": 22.0, "role": "phosphate/buffer, potassium source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "NaCl", "concentration": "8.6 mM", "concentration_mM": 8.6, "role": "sodium/chloride source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "NH4Cl (ammonium chloride)", "concentration": "18.7 mM", "concentration_mM": 18.7, "role": "nitrogen source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "MgSO4 (magnesium sulfate)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium/sulfur source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "CaCl2 (calcium chloride)", "concentration": "100 μM", "concentration_mM": 0.1, "role": "calcium source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "EDTA", "concentration": "134 μM", "concentration_mM": 0.134, "role": "metal chelator", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "FeCl3·6H2O (ferric chloride)", "concentration": "31 μM", "concentration_mM": 0.031, "role": "iron trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "ZnCl2 (zinc chloride)", "concentration": "6.2 μM", "concentration_mM": 0.0062, "role": "zinc trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "CuCl2·2H2O (cupric chloride)", "concentration": "0.76 μM", "concentration_mM": 0.00076, "role": "copper trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "CoCl2·2H2O (cobalt chloride)", "concentration": "0.42 μM", "concentration_mM": 0.00042, "role": "cobalt trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "H3BO3 (boric acid)", "concentration": "1.62 μM", "concentration_mM": 0.00162, "role": "boron trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "MnCl2·4H2O (manganese chloride)", "concentration": "0.081 μM", "concentration_mM": 0.000081, "role": "manganese trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "D-Gluconate (sodium gluconate)", "concentration": "20 mM", "concentration_mM": 20.0, "role": "carbon source", "source": "main_text", "evidence": "Carbon sources were added as described in the text at a concentration of 20 mM. [Specific carbon sources tested included ribose, xylose, and gluconate, all at 20 mM]"},
+        {"name": "O2 (dioxygen, air)", "concentration": null, "concentration_mM": null, "role": "electron acceptor / gas phase", "source": "main_text", "evidence": "cultures were grown in an orbital shaker set to maintain 37 °C and an atmosphere of 20% CO2 mixed with air"}
+      ],
+      "base_medium": "M9 minimal medium",
+      "sources_chased": [
+        {"what": "primary paper full text (PMC7669889)", "obtained": true, "how": "WebFetch https://pmc.ncbi.nlm.nih.gov/articles/PMC7669889/", "added": ["confirmed full M9 salts", "complete 7-component trace element mix (EDTA, FeCl3, ZnCl2, CuCl2, CoCl2, H3BO3, MnCl2)", "no Mo/Ni/Se/W present", "aerobic gas phase"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["EDTA", "H3BO3 (borate)"],
+      "notes": "Recipe is fully self-contained in the paper's Methods; no external base-medium reference is cited, so nothing needed chasing. The trace-element solution has exactly 7 components (EDTA + Fe, Zn, Cu, Co, B, Mn) with no molybdate/nickel/selenite/tungstate and no vitamins. EDTA and H3BO3 were previously uncovered (no exchange mapping) but are genuine medium constituents. Cultivation is aerobic at 37 °C (shaking); some experiments used 20% CO2 in air."
+    },
+    {
+      "id": "growthlit_PMC7669889_m9_minimal_medium_trace_elements_20_mm_r",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "Na2HPO4 (disodium phosphate)", "concentration": "47.8 mM", "concentration_mM": 47.8, "role": "phosphate/buffer, sodium source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "KH2PO4 (monopotassium phosphate)", "concentration": "22 mM", "concentration_mM": 22.0, "role": "phosphate/buffer, potassium source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "NaCl", "concentration": "8.6 mM", "concentration_mM": 8.6, "role": "sodium/chloride source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "NH4Cl (ammonium chloride)", "concentration": "18.7 mM", "concentration_mM": 18.7, "role": "nitrogen source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "MgSO4 (magnesium sulfate)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium/sulfur source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "CaCl2 (calcium chloride)", "concentration": "100 μM", "concentration_mM": 0.1, "role": "calcium source", "source": "main_text", "evidence": "M9 minimal medium (47.8 mM Na2HPO4, 22 mM KH2PO4, 8.6 mM NaCl, 18.7 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2)"},
+        {"name": "EDTA", "concentration": "134 μM", "concentration_mM": 0.134, "role": "metal chelator", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "FeCl3·6H2O (ferric chloride)", "concentration": "31 μM", "concentration_mM": 0.031, "role": "iron trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "ZnCl2 (zinc chloride)", "concentration": "6.2 μM", "concentration_mM": 0.0062, "role": "zinc trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "CuCl2·2H2O (cupric chloride)", "concentration": "0.76 μM", "concentration_mM": 0.00076, "role": "copper trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "CoCl2·2H2O (cobalt chloride)", "concentration": "0.42 μM", "concentration_mM": 0.00042, "role": "cobalt trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "H3BO3 (boric acid)", "concentration": "1.62 μM", "concentration_mM": 0.00162, "role": "boron trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "MnCl2·4H2O (manganese chloride)", "concentration": "0.081 μM", "concentration_mM": 0.000081, "role": "manganese trace element", "source": "main_text", "evidence": "trace elements (134 μM EDTA, 31 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "D-Ribose", "concentration": "20 mM", "concentration_mM": 20.0, "role": "carbon source", "source": "main_text", "evidence": "Carbon sources were added as described in the text at a concentration of 20 mM. [Specific carbon sources tested included ribose, xylose, and gluconate, all at 20 mM]"},
+        {"name": "O2 (dioxygen, air)", "concentration": null, "concentration_mM": null, "role": "electron acceptor / gas phase", "source": "main_text", "evidence": "cultures were grown in an orbital shaker set to maintain 37 °C and an atmosphere of 20% CO2 mixed with air"}
+      ],
+      "base_medium": "M9 minimal medium",
+      "sources_chased": [
+        {"what": "primary paper full text (PMC7669889)", "obtained": true, "how": "WebFetch https://pmc.ncbi.nlm.nih.gov/articles/PMC7669889/", "added": ["confirmed full M9 salts", "complete 7-component trace element mix (EDTA, FeCl3, ZnCl2, CuCl2, CoCl2, H3BO3, MnCl2)", "no Mo/Ni/Se/W present", "aerobic gas phase"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["EDTA", "H3BO3 (borate)"],
+      "notes": "Identical M9 + trace-element base as the gluconate variant; only the carbon source differs (D-ribose 20 mM). Recipe is fully self-contained in the paper's Methods with no external base-medium reference to chase. Trace mix has exactly 7 components with no molybdate/nickel/selenite/tungstate and no vitamins. EDTA and H3BO3 were previously uncovered but are genuine constituents. Aerobic, 37 °C."
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+ "pmc": "PMC7423363",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC7423363.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7423363/",
+ "media": [
+  {
+   "id": "complexlit_PMC7423363_carbon_source_minimal_medium_batch_glucose",
+   "name": "Carbon-source minimal medium (batch, glucose) (PMC7423363)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "L-cysteine",
+     "exchange": "EX_cys__L_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "D-glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "menadione (vitamin K3)",
+     "exchange": "EX_mndn_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "(NH4)2SO4 (ammonium sulfate)",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Wolfe's mineral solution",
+    "Wolfe's vitamin solution",
+    "resazurin"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "Overnight cultures grown anaerobically in minimal medium supplemented with either 0.5% (w/v) dextran or 0.5% (w/v) glucose ... We added 10 \u03bcl of cells to 200 \u03bcl of minimal medium containing various concentrations [0.125 to 0.5% (w/v)] of the carbon source. The plate was incubated at 37\u00b0C",
+   "citation": "Medium composition from PMC7423363 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7423363/",
+   "doi": ""
+  }
+ ]
+}

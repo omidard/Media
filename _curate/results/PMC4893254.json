@@ -1,0 +1,161 @@
+{
+  "pmc": "PMC4893254",
+  "media": [
+    {
+      "id": "complexlit_PMC4893254_m9_minimal_medium_1_w_v_glucose",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "D-Glucose",
+          "concentration": "1 % (w/v) (= 10 g/L)",
+          "concentration_mM": 55.5,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "M9 medium, supplemented with 1 % (w/v) glucose, 100 mM MOPS and 50 mg/L tryptophan, was used for assessing growth of genome-reduced strains [46]."
+        },
+        {
+          "name": "MOPS (3-(N-morpholino)propanesulfonic acid)",
+          "concentration": "100 mM",
+          "concentration_mM": 100.0,
+          "role": "buffer",
+          "source": "main_text",
+          "evidence": "M9 medium, supplemented with 1 % (w/v) glucose, 100 mM MOPS and 50 mg/L tryptophan, was used for assessing growth of genome-reduced strains [46]."
+        },
+        {
+          "name": "L-Tryptophan",
+          "concentration": "50 mg/L",
+          "concentration_mM": 0.245,
+          "role": "amino acid (trpC2 auxotrophy supplement)",
+          "source": "main_text",
+          "evidence": "M9 medium, supplemented with 1 % (w/v) glucose, 100 mM MOPS and 50 mg/L tryptophan, was used for assessing growth of genome-reduced strains [46]."
+        },
+        {
+          "name": "Disodium hydrogen phosphate (Na2HPO4.2H2O)",
+          "concentration": "8.5 g/L",
+          "concentration_mM": 47.8,
+          "role": "phosphate / buffer / sodium",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; recipe via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9 minimal medium (ref Harwood and Cutting 1990): Na2HPO4.2H2O 8.5 g/L, KH2PO4 3.0 g/L, NH4Cl 1.0 g/L, NaCl 0.5 g/L."
+        },
+        {
+          "name": "Monopotassium phosphate (KH2PO4)",
+          "concentration": "3.0 g/L",
+          "concentration_mM": 22.0,
+          "role": "phosphate / buffer / potassium",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; recipe via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9 minimal medium (ref Harwood and Cutting 1990): KH2PO4 3.0 g/L."
+        },
+        {
+          "name": "Ammonium chloride (NH4Cl)",
+          "concentration": "1.0 g/L",
+          "concentration_mM": 18.7,
+          "role": "nitrogen source",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; recipe via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9 minimal medium (ref Harwood and Cutting 1990): NH4Cl 1.0 g/L."
+        },
+        {
+          "name": "Sodium chloride (NaCl)",
+          "concentration": "0.5 g/L",
+          "concentration_mM": 8.56,
+          "role": "salt (Na, Cl)",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; recipe via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9 minimal medium (ref Harwood and Cutting 1990): NaCl 0.5 g/L."
+        },
+        {
+          "name": "Magnesium sulfate (MgSO4)",
+          "concentration": "1.0 mM",
+          "concentration_mM": 1.0,
+          "role": "magnesium / sulfate source",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; recipe via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9: MgSO4 1.0 mM (added separately after autoclaving)."
+        },
+        {
+          "name": "Calcium chloride (CaCl2)",
+          "concentration": "0.1 mM",
+          "concentration_mM": 0.1,
+          "role": "calcium source",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; recipe via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9: CaCl2 0.1 mM (added separately after autoclaving)."
+        },
+        {
+          "name": "Ferric chloride (FeCl3, in citric acid)",
+          "concentration": "0.05 mM",
+          "concentration_mM": 0.05,
+          "role": "iron source (trace, as Fe-citrate)",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; recipe via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9: FeCl3 0.05 mM (in 0.1 M citric acid)."
+        },
+        {
+          "name": "Citric acid / citrate",
+          "concentration": "iron-chelate carrier (0.1 M citric acid in Fe stock)",
+          "concentration_mM": null,
+          "role": "chelator (Fe carrier)",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; recipe via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9: FeCl3 0.05 mM in 0.1 M citric acid."
+        },
+        {
+          "name": "Manganese(II) chloride (MnCl2.4H2O)",
+          "concentration": "1 mg/L final (100 mg/L in 100x trace stock)",
+          "concentration_mM": 0.005,
+          "role": "trace element (Mn)",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; trace mix via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9 trace elements (100x): MnCl2.4H2O 100 mg, ZnCl2 170 mg, CuCl2.2H2O 43 mg, CoCl2.6H2O 60 mg, Na2MoO4.2H2O 60 mg (per L stock)."
+        },
+        {
+          "name": "Zinc chloride (ZnCl2)",
+          "concentration": "1.7 mg/L final (170 mg/L in 100x trace stock)",
+          "concentration_mM": 0.0125,
+          "role": "trace element (Zn)",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; trace mix via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9 trace elements (100x): ZnCl2 170 mg per L stock."
+        },
+        {
+          "name": "Copper(II) chloride (CuCl2.2H2O)",
+          "concentration": "0.43 mg/L final (43 mg/L in 100x trace stock)",
+          "concentration_mM": 0.0025,
+          "role": "trace element (Cu)",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; trace mix via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9 trace elements (100x): CuCl2.2H2O 43 mg per L stock."
+        },
+        {
+          "name": "Cobalt(II) chloride (CoCl2.6H2O)",
+          "concentration": "0.6 mg/L final (60 mg/L in 100x trace stock)",
+          "concentration_mM": 0.0025,
+          "role": "trace element (Co)",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; trace mix via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9 trace elements (100x): CoCl2.6H2O 60 mg per L stock."
+        },
+        {
+          "name": "Sodium molybdate (Na2MoO4.2H2O)",
+          "concentration": "0.6 mg/L final (60 mg/L in 100x trace stock)",
+          "concentration_mM": 0.0025,
+          "role": "trace element (Mo)",
+          "source": "cited:Harwood & Cutting 1990 (ref 46; trace mix via SubtiWiki M9)",
+          "evidence": "SubtiWiki M9 trace elements (100x): Na2MoO4.2H2O 60 mg per L stock."
+        }
+      ],
+      "base_medium": "M9 minimal medium (Bacillus subtilis formulation per Harwood & Cutting 1990) + 1% (w/v) glucose, 100 mM MOPS, 50 mg/L L-tryptophan",
+      "sources_chased": [
+        {
+          "what": "paper main text (PMC4893254 Methods) for the exact supplementation over M9",
+          "obtained": true,
+          "how": "EuropePMC fullTextXML",
+          "added": ["glucose 1% w/v", "MOPS 100 mM", "L-tryptophan 50 mg/L"]
+        },
+        {
+          "what": "base M9 recipe cited as ref [46] = Harwood CR, Cutting SM. Molecular biological methods for Bacillus. Wiley, 1990",
+          "obtained": true,
+          "how": "reference identified in fullTextXML (CR46); standard B. subtilis M9 recipe recovered from SubtiWiki M9 page, which cites the same Harwood & Cutting 1990 source",
+          "added": ["Na2HPO4.2H2O", "KH2PO4", "NH4Cl", "NaCl", "MgSO4", "CaCl2", "FeCl3/citrate", "MnCl2", "ZnCl2", "CuCl2", "CoCl2", "Na2MoO4"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "Sodium molybdate / Molybdenum (Na2MoO4.2H2O) trace element",
+        "Citrate (Fe-citrate chelate carrier)"
+      ],
+      "notes": "Organism is Bacillus subtilis (BSF1 and genome-reduced derivatives); cultivation was strictly aerobic shake-flask (37 C, 220-240 rpm, 100 mL in 500 mL flasks), so oxygen is aerobic rather than facultative. Main text gives only the three supplements over M9; the base M9 salts + FeCl3 + full trace-element mix were recovered from the cited Harwood & Cutting 1990 B. subtilis M9 (SubtiWiki formulation, same reference). This M9 contains no vitamins (no thiamine). The only trace element truly absent from the prior component set was molybdenum (Mo); Fe, Mn, Zn, Cu, Co were already present as open exchanges. Trace-element final concentrations assume 1:100 dilution of the 100x stock."
+    }
+  ]
+}

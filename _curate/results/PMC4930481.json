@@ -1,0 +1,126 @@
+{
+  "pmc": "PMC4930481",
+  "media": [
+    {
+      "id": "complexlit_PMC4930481_m9_minimal_medium_pyruvate_batch",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "disodium hydrogen phosphate (Na2HPO4)",
+          "concentration": "6.78 g/L (anhydrous; equiv. 12.8 g/L Na2HPO4·7H2O)",
+          "concentration_mM": 47.7,
+          "role": "phosphate buffer / sodium source",
+          "source": "cited:standard M9 (CSH Protocols M9 5X salts; Sambrook & Russell)",
+          "evidence": "Main text: 'Cells were grown on M9 minimal media, supplemented with 34 mg/l chloramphenicol and suitable carbon sources.' The paper never redefines M9, so the base salts are the canonical M9 composition (5X M9 salts: Na2HPO4·7H2O 64 g/L → final 12.8 g/L)."
+        },
+        {
+          "name": "monopotassium phosphate (KH2PO4)",
+          "concentration": "3 g/L",
+          "concentration_mM": 22.0,
+          "role": "phosphate buffer / potassium source",
+          "source": "cited:standard M9 (CSH Protocols M9 5X salts; Sambrook & Russell)",
+          "evidence": "Standard M9 5X salts: KH2PO4 15 g/L → final 3 g/L (22 mM). Paper uses undefined 'M9 minimal media'."
+        },
+        {
+          "name": "sodium chloride (NaCl)",
+          "concentration": "0.5 g/L",
+          "concentration_mM": 8.56,
+          "role": "salt / sodium + chloride source",
+          "source": "cited:standard M9 (CSH Protocols M9 5X salts; Sambrook & Russell)",
+          "evidence": "Standard M9 5X salts: NaCl 2.5 g/L → final 0.5 g/L (8.56 mM)."
+        },
+        {
+          "name": "ammonium chloride (NH4Cl)",
+          "concentration": "1 g/L",
+          "concentration_mM": 18.7,
+          "role": "nitrogen source",
+          "source": "cited:standard M9 (CSH Protocols M9 5X salts; Sambrook & Russell)",
+          "evidence": "Standard M9 5X salts: NH4Cl 5 g/L → final 1 g/L (18.7 mM). Sole N source in M9."
+        },
+        {
+          "name": "magnesium sulfate (MgSO4)",
+          "concentration": "2 mM",
+          "concentration_mM": 2.0,
+          "role": "magnesium + sulfate source",
+          "source": "cited:standard M9 (CSH Protocols)",
+          "evidence": "CSH M9 recipe: 'MgSO4 (1 M) 200 µL' per 100 mL → 2 mM final."
+        },
+        {
+          "name": "calcium chloride (CaCl2)",
+          "concentration": "0.1 mM",
+          "concentration_mM": 0.1,
+          "role": "calcium source",
+          "source": "cited:standard M9 (CSH Protocols)",
+          "evidence": "CSH M9 recipe: 'CaCl2 (1 M) 10 µL' per 100 mL → 0.1 mM final."
+        },
+        {
+          "name": "sodium pyruvate",
+          "concentration": "5 g/L",
+          "concentration_mM": 45.4,
+          "role": "organic carbon / energy source",
+          "source": "main_text + supplementary",
+          "evidence": "Main text: 'Cells were propagated in M9 minimal media supplemented with non-labeled pyruvate (5 g/L)'. Suppl. Exp. Procedures: 'Samples were grown in 500 mL glass flasks in M9 minimal media supplemented with sodium pyruvate [5 g/L].'"
+        },
+        {
+          "name": "chloramphenicol",
+          "concentration": "34 mg/L",
+          "concentration_mM": 0.105,
+          "role": "selection antibiotic (pCBB plasmid)",
+          "source": "main_text",
+          "evidence": "'Cells were grown on M9 minimal media, supplemented with 34 mg/l chloramphenicol and suitable carbon sources, as specified in the text.'"
+        },
+        {
+          "name": "carbon dioxide (CO2, elevated atmosphere)",
+          "concentration": "pCO2 = 0.1 atm (10% CO2 in gas phase)",
+          "concentration_mM": null,
+          "role": "inorganic carbon source / gas phase",
+          "source": "main_text",
+          "evidence": "'All growth was performed in enriched CO2 atmosphere (pCO2 = 0.1 atm).' Labeling gas mix: '10% 13CO2, 10% O2, and 80% N2.' Elevated CO2 is required for growth of the CBB-cycle strain."
+        },
+        {
+          "name": "oxygen (O2)",
+          "concentration": "~10% in gas phase (aerobic)",
+          "concentration_mM": null,
+          "role": "electron acceptor / aeration",
+          "source": "main_text",
+          "evidence": "Gas mixture used: '10% 13CO2, 10% O2, and 80% N2'; growth in a gas-controlled shaking incubator at 37°C. Growth is aerobic."
+        },
+        {
+          "name": "water (H2O)",
+          "concentration": "solvent",
+          "concentration_mM": null,
+          "role": "solvent",
+          "source": "cited:standard M9 (CSH Protocols)",
+          "evidence": "Aqueous medium; solvent of M9."
+        }
+      ],
+      "base_medium": "Standard M9 minimal medium (Cold Spring Harbor Protocols / Sambrook & Russell) supplemented with sodium pyruvate (5 g/L) as sole organic carbon/energy source, 34 mg/L chloramphenicol, under an elevated CO2 atmosphere (pCO2 = 0.1 atm).",
+      "sources_chased": [
+        {
+          "what": "Supplemental Experimental Procedures (mmc1.pdf) to confirm the medium and pyruvate concentration",
+          "obtained": true,
+          "how": "EuropePMC REST supplementaryFiles zip (https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4930481/supplementaryFiles) -> extracted mmc1.pdf -> pdftotext",
+          "added": ["confirmed sodium pyruvate 5 g/L", "confirmed 34 mg/L chloramphenicol", "confirmed M9 base is left undefined (no trace elements / vitamins stated)"]
+        },
+        {
+          "what": "Canonical M9 minimal medium base-salt composition (paper cites no base-medium reference and never lists salt concentrations)",
+          "obtained": true,
+          "how": "WebFetch CSH Protocols M9 recipe + WebSearch standard M9 5X salts",
+          "added": ["Na2HPO4 6.78 g/L", "KH2PO4 3 g/L", "NaCl 0.5 g/L", "NH4Cl 1 g/L", "MgSO4 2 mM", "CaCl2 0.1 mM"]
+        }
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "disodium hydrogen phosphate (Na2HPO4) as explicit reagent + concentration",
+        "monopotassium phosphate (KH2PO4) concentration",
+        "sodium chloride (NaCl) concentration",
+        "ammonium chloride (NH4Cl) as N source + concentration",
+        "MgSO4 concentration (2 mM)",
+        "CaCl2 concentration (0.1 mM)",
+        "elevated CO2 atmosphere (pCO2 = 0.1 atm) as inorganic carbon source"
+      ],
+      "notes": "The paper (Antonovsky et al., Cell 2016, 'Sugar Synthesis from CO2 in E. coli') and its Supplemental Experimental Procedures use undefined 'M9 minimal media' with no base-medium citation; base-salt concentrations are therefore the canonical M9 recipe. IMPORTANT: neither the paper nor standard M9 includes any trace-element mix (Co, Cu, Mn, Zn) or vitamins/thiamine, so the Co2+/Cu2+/Mn2+/Zn2+/Fe2+/Fe3+ entries in current_components are genome-scale-model open-exchange artifacts (lb -1000), NOT documented recipe compounds, and were intentionally not carried into the recipe. Iron is not specified in standard M9 and is not listed. This is the batch (flask/plate) pyruvate condition; the chemostat feed additionally contained 25-100 mg/L xylose (a separate medium)."
+    }
+  ]
+}

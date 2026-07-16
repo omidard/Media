@@ -1,0 +1,200 @@
+{
+  "pmc": "PMC11928476",
+  "media": [
+    {
+      "id": "lit_PMC11928476_mma_mineral_delft_medium_with_acetate",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "sodium acetate",
+          "concentration": "27.3 g/L",
+          "concentration_mM": 332.8,
+          "role": "carbon source (and sodium)",
+          "source": "main_text",
+          "evidence": "One liter of medium contained 7.5 g (NH4)2SO4, 14.4 g KH2PO4, 0.5 g MgSO4·7H2O, 27.3 g sodium acetate, 2 mL trace metals solution, 1 mL vitamin solution, and 1.5 mL antifoam."
+        },
+        {
+          "name": "ammonium sulfate ((NH4)2SO4)",
+          "concentration": "7.5 g/L",
+          "concentration_mM": 56.8,
+          "role": "nitrogen source + sulfate",
+          "source": "main_text",
+          "evidence": "One liter of medium contained 7.5 g (NH4)2SO4, 14.4 g KH2PO4, 0.5 g MgSO4·7H2O, 27.3 g sodium acetate, 2 mL trace metals solution, 1 mL vitamin solution, and 1.5 mL antifoam."
+        },
+        {
+          "name": "potassium dihydrogen phosphate (KH2PO4)",
+          "concentration": "14.4 g/L",
+          "concentration_mM": 105.8,
+          "role": "phosphate + potassium",
+          "source": "main_text",
+          "evidence": "One liter of medium contained 7.5 g (NH4)2SO4, 14.4 g KH2PO4, 0.5 g MgSO4·7H2O, 27.3 g sodium acetate, 2 mL trace metals solution, 1 mL vitamin solution, and 1.5 mL antifoam."
+        },
+        {
+          "name": "magnesium sulfate heptahydrate (MgSO4·7H2O)",
+          "concentration": "0.5 g/L",
+          "concentration_mM": 2.03,
+          "role": "magnesium + sulfate",
+          "source": "main_text",
+          "evidence": "One liter of medium contained 7.5 g (NH4)2SO4, 14.4 g KH2PO4, 0.5 g MgSO4·7H2O, 27.3 g sodium acetate, 2 mL trace metals solution, 1 mL vitamin solution, and 1.5 mL antifoam."
+        },
+        {
+          "name": "antifoam",
+          "concentration": "1.5 mL/L",
+          "concentration_mM": null,
+          "role": "antifoam (undefined additive)",
+          "source": "main_text",
+          "evidence": "...27.3 g sodium acetate, 2 mL trace metals solution, 1 mL vitamin solution, and 1.5 mL antifoam."
+        },
+        {
+          "name": "EDTA (disodium/ tetraacetic acid, chelator)",
+          "concentration": "15 g/L in trace-metal stock; 2 mL stock per L medium (0.03 g/L)",
+          "concentration_mM": null,
+          "role": "trace-metal chelator",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): EDTA 15 g; ZnSO4·7H2O 4.5 g; CaCl2·2H2O 4.5 g; FeSO4·7H2O 3 g; H3BO3 1 g; MnCl2·4H2O 1 g; Na2MoO4·2H2O 0.4 g; CoCl2·6H2O 0.3 g; CuSO4·5H2O 0.1 g; KI 0.1 g (Delft medium, EasyClone)."
+        },
+        {
+          "name": "zinc sulfate heptahydrate (ZnSO4·7H2O)",
+          "concentration": "4.5 g/L in trace-metal stock (~0.009 g/L in medium)",
+          "concentration_mM": null,
+          "role": "trace element (Zn)",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): ... ZnSO4·7H2O 4.5 g ..."
+        },
+        {
+          "name": "calcium chloride dihydrate (CaCl2·2H2O)",
+          "concentration": "4.5 g/L in trace-metal stock (~0.009 g/L in medium)",
+          "concentration_mM": null,
+          "role": "calcium / trace element",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): ... CaCl2·2H2O 4.5 g ..."
+        },
+        {
+          "name": "iron(II) sulfate heptahydrate (FeSO4·7H2O)",
+          "concentration": "3 g/L in trace-metal stock (~0.006 g/L in medium)",
+          "concentration_mM": null,
+          "role": "trace element (Fe)",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): ... FeSO4·7H2O 3 g ..."
+        },
+        {
+          "name": "boric acid (H3BO3)",
+          "concentration": "1 g/L in trace-metal stock (~0.002 g/L in medium)",
+          "concentration_mM": null,
+          "role": "trace element (B)",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): ... H3BO3 1 g ..."
+        },
+        {
+          "name": "manganese(II) chloride tetrahydrate (MnCl2·4H2O)",
+          "concentration": "1 g/L in trace-metal stock (~0.002 g/L in medium)",
+          "concentration_mM": null,
+          "role": "trace element (Mn)",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): ... MnCl2·4H2O 1 g ..."
+        },
+        {
+          "name": "sodium molybdate dihydrate (Na2MoO4·2H2O)",
+          "concentration": "0.4 g/L in trace-metal stock (~0.0008 g/L in medium)",
+          "concentration_mM": null,
+          "role": "trace element (Mo)",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): ... Na2MoO4·2H2O 0.4 g ..."
+        },
+        {
+          "name": "cobalt(II) chloride hexahydrate (CoCl2·6H2O)",
+          "concentration": "0.3 g/L in trace-metal stock (~0.0006 g/L in medium)",
+          "concentration_mM": null,
+          "role": "trace element (Co)",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): ... CoCl2·6H2O 0.3 g ..."
+        },
+        {
+          "name": "copper(II) sulfate pentahydrate (CuSO4·5H2O)",
+          "concentration": "0.1 g/L in trace-metal stock (~0.0002 g/L in medium)",
+          "concentration_mM": null,
+          "role": "trace element (Cu)",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): ... CuSO4·5H2O 0.1 g ..."
+        },
+        {
+          "name": "potassium iodide (KI)",
+          "concentration": "0.1 g/L in trace-metal stock (~0.0002 g/L in medium)",
+          "concentration_mM": null,
+          "role": "trace element (I)",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) trace metals solution",
+          "evidence": "Trace metals solution (per liter): ... KI 0.1 g ..."
+        },
+        {
+          "name": "biotin",
+          "concentration": "0.05 g/L in vitamin stock; 1 mL stock per L medium (~0.05 mg/L)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) vitamin solution",
+          "evidence": "Vitamin solution (per liter): biotin 50 mg; p-aminobenzoic acid 200 mg; nicotinic acid 1 g; Ca-pantothenate 1 g; pyridoxine-HCl 1 g; thiamine-HCl 1 g; myo-inositol 25 g (Delft medium, EasyClone)."
+        },
+        {
+          "name": "p-aminobenzoic acid (PABA)",
+          "concentration": "200 mg/L in vitamin stock (~0.2 mg/L in medium)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) vitamin solution",
+          "evidence": "Vitamin solution (per liter): ... p-aminobenzoic acid 200 mg ..."
+        },
+        {
+          "name": "nicotinic acid",
+          "concentration": "1 g/L in vitamin stock (~1 mg/L in medium)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) vitamin solution",
+          "evidence": "Vitamin solution (per liter): ... nicotinic acid 1 g ..."
+        },
+        {
+          "name": "calcium D-pantothenate",
+          "concentration": "1 g/L in vitamin stock (~1 mg/L in medium)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) vitamin solution",
+          "evidence": "Vitamin solution (per liter): ... Ca-pantothenate 1 g ..."
+        },
+        {
+          "name": "pyridoxine hydrochloride",
+          "concentration": "1 g/L in vitamin stock (~1 mg/L in medium)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) vitamin solution",
+          "evidence": "Vitamin solution (per liter): ... pyridoxine-HCl 1 g ..."
+        },
+        {
+          "name": "thiamine hydrochloride",
+          "concentration": "1 g/L in vitamin stock (~1 mg/L in medium)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) vitamin solution",
+          "evidence": "Vitamin solution (per liter): ... thiamine-HCl 1 g ..."
+        },
+        {
+          "name": "myo-inositol",
+          "concentration": "25 g/L in vitamin stock (~25 mg/L in medium)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "cited:Jensen 2014 (EasyClone, ref 37) vitamin solution",
+          "evidence": "Vitamin solution (per liter): ... myo-inositol 25 g ..."
+        }
+      ],
+      "base_medium": "Mineral / DELFT medium (Verduyn-type defined yeast minimal medium), cited as ref 37 (Jensen et al. 2014, EasyClone, FEMS Yeast Res 14:238-248), with sodium acetate as sole carbon source (MMA variant)",
+      "sources_chased": [
+        {
+          "what": "base recipe cited as ref 37 (Jensen 2014, EasyClone / DELFT medium)",
+          "obtained": true,
+          "how": "WebFetch academic.oup.com/femsyr article for the Delft medium trace metals + vitamin solution composition",
+          "added": ["EDTA", "ZnSO4·7H2O", "CaCl2·2H2O", "FeSO4·7H2O", "H3BO3", "MnCl2·4H2O", "Na2MoO4·2H2O", "CoCl2·6H2O", "CuSO4·5H2O", "KI", "biotin", "p-aminobenzoic acid", "nicotinic acid", "Ca-pantothenate", "pyridoxine-HCl", "thiamine-HCl", "myo-inositol"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": ["EDTA", "ZnSO4·7H2O", "CaCl2·2H2O (calcium)", "FeSO4·7H2O (iron)", "H3BO3 (boron)", "MnCl2·4H2O (manganese)", "Na2MoO4·2H2O (molybdenum)", "CoCl2·6H2O (cobalt)", "CuSO4·5H2O (copper)", "KI (iodine)", "biotin", "p-aminobenzoic acid", "nicotinic acid", "Ca-pantothenate", "pyridoxine-HCl", "thiamine-HCl", "myo-inositol", "antifoam"],
+      "notes": "MMA is the mineral/DELFT (Verduyn-type) medium of ref 37 with 27.3 g/L sodium acetate (= 20 g/L acetic acid) as sole carbon source, pH 6.0; the paper's main text gives only the bulk salts, acetate and stock-solution volumes, so all 10 trace metals and 7 vitamins were recovered from the cited EasyClone/Delft recipe. Organism is Yarrowia lipolytica grown aerobically (bioreactor DO maintained at 20%). Current_components previously listed only generic ion exchanges; calcium, all micronutrient metals and all vitamins were absent."
+    }
+  ]
+}

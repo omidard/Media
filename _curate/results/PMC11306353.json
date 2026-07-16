@@ -1,0 +1,36 @@
+{
+  "pmc": "PMC11306353",
+  "media": [
+    {
+      "id": "growthlit_PMC11306353_m9_minimal_medium_10_mm_glucose_8_mm_pyr",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "defined": true,
+      "components": [
+        {"name": "disodium hydrogen phosphate", "formula": "Na2HPO4", "concentration": "50 mM", "concentration_mM": 50.0, "role": "phosphate/buffer/sodium", "source": "main_text", "evidence": "standard M9 minimal media (50 mM Na2HPO4, 20 mM KH2PO4, 1 mM NaCl, 20 mM NH4Cl, 2 mM MgSO4 and 100 μM CaCl2, 134 μM EDTA, 13 μM FeCl3·6H2O, 6.2 μM ZnCl2, 0.76 μM CuCl2·2H2O, 0.42 μM CoCl2·2H2O, 1.62 μM H3BO3, 0.081 μM MnCl2·4H2O)"},
+        {"name": "monopotassium phosphate", "formula": "KH2PO4", "concentration": "20 mM", "concentration_mM": 20.0, "role": "phosphate/buffer/potassium", "source": "main_text", "evidence": "20 mM KH2PO4"},
+        {"name": "sodium chloride", "formula": "NaCl", "concentration": "1 mM", "concentration_mM": 1.0, "role": "sodium/chloride", "source": "main_text", "evidence": "1 mM NaCl"},
+        {"name": "ammonium chloride", "formula": "NH4Cl", "concentration": "20 mM", "concentration_mM": 20.0, "role": "nitrogen source", "source": "main_text", "evidence": "20 mM NH4Cl"},
+        {"name": "magnesium sulfate", "formula": "MgSO4", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "main_text", "evidence": "2 mM MgSO4"},
+        {"name": "calcium chloride", "formula": "CaCl2", "concentration": "100 μM", "concentration_mM": 0.1, "role": "calcium", "source": "main_text", "evidence": "100 μM CaCl2"},
+        {"name": "EDTA", "formula": "C10H16N2O8", "concentration": "134 μM", "concentration_mM": 0.134, "role": "chelator", "source": "main_text", "evidence": "134 μM EDTA"},
+        {"name": "iron(III) chloride hexahydrate", "formula": "FeCl3·6H2O", "concentration": "13 μM", "concentration_mM": 0.013, "role": "trace metal (Fe)", "source": "main_text", "evidence": "13 μM FeCl3·6H2O"},
+        {"name": "zinc chloride", "formula": "ZnCl2", "concentration": "6.2 μM", "concentration_mM": 0.0062, "role": "trace metal (Zn)", "source": "main_text", "evidence": "6.2 μM ZnCl2"},
+        {"name": "copper(II) chloride dihydrate", "formula": "CuCl2·2H2O", "concentration": "0.76 μM", "concentration_mM": 0.00076, "role": "trace metal (Cu)", "source": "main_text", "evidence": "0.76 μM CuCl2·2H2O"},
+        {"name": "cobalt(II) chloride dihydrate", "formula": "CoCl2·2H2O", "concentration": "0.42 μM", "concentration_mM": 0.00042, "role": "trace metal (Co)", "source": "main_text", "evidence": "0.42 μM CoCl2·2H2O"},
+        {"name": "boric acid", "formula": "H3BO3", "concentration": "1.62 μM", "concentration_mM": 0.00162, "role": "trace metal (B)", "source": "main_text", "evidence": "1.62 μM H3BO3"},
+        {"name": "manganese(II) chloride tetrahydrate", "formula": "MnCl2·4H2O", "concentration": "0.081 μM", "concentration_mM": 0.000081, "role": "trace metal (Mn)", "source": "main_text", "evidence": "0.081 μM MnCl2·4H2O"},
+        {"name": "D-glucose", "formula": "C6H12O6", "concentration": "10 mM", "concentration_mM": 10.0, "role": "carbon source", "source": "main_text", "evidence": "we supplied the NNmini strain growing on 10 mM glucose with different concentrations of acetate, pyruvate or casamino acids"},
+        {"name": "pyruvate", "formula": "C3H4O3", "concentration": "8 mM", "concentration_mM": 8.0, "role": "carbon source / supplement", "source": "main_text", "evidence": "max. OD = 0.47 with 8 mM pyruvate, growth rate = 0.108 ± 0.003 h−1"},
+        {"name": "oxygen", "formula": "O2", "concentration": null, "concentration_mM": null, "role": "electron acceptor / gas phase (aerobic)", "source": "main_text", "evidence": "Growth experiments were carried out ... in standard M9 minimal media ... (aerobic shaking cultures)"}
+      ],
+      "base_medium": "standard M9 minimal medium (fully specified in main text)",
+      "sources_chased": [
+        {"what": "paper main text 'Media and growth experiments' section", "obtained": true, "how": "Read corpus_path /data/paper_corpus/fulltext_xml/PMC11306353.xml", "added": ["EDTA", "H3BO3 (boric acid)", "explicit concentrations for all 13 salts/trace metals + glucose + pyruvate"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "The paper (Nat Commun 2024, doi:10.1038/s41467-024-51029-x) fully defines this M9 medium inline in the main text, including all trace metals (Fe, Zn, Cu, Co, B, Mn), EDTA chelator, and the CaCl2. No cited base-medium reference or supplement was required. Recipe was already complete in the target's verification_evidence; this run confirms it and assigns exact concentrations. EDTA and boric acid have no standalone BiGG exchange (they appear in the target's current_uncovered) but are genuine ingredients of the medium and are retained here. Carbon: 10 mM glucose + 8 mM pyruvate supplement; aerobic."
+    }
+  ]
+}

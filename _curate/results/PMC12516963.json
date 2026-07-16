@@ -1,0 +1,42 @@
+{
+  "pmc": "PMC12516963",
+  "media": [
+    {
+      "id": "growthlit_PMC12516963_modified_anoxic_burk_s_medium_n_free_5_m",
+      "status": "confirmed",
+      "oxygen": "anaerobic",
+      "components": [
+        {"name": "D-mannitol", "concentration": "20 g/L", "concentration_mM": 109.8, "role": "carbon_source",
+         "source": "main_text", "evidence": "The medium contained the following components (per liter): 20 g mannitol, 0.2 g KH2PO4, 0.8 g·K2HPO4, 0.2 g MgSO4·7H2O, 0.1 g CaSO4·2H2O, and trace amounts of Na2MoO4·2H2O and FeCl3, at pH 7.0."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "0.2 g/L", "concentration_mM": 1.47, "role": "phosphate/buffer",
+         "source": "main_text", "evidence": "The medium contained the following components (per liter): 20 g mannitol, 0.2 g KH2PO4, 0.8 g·K2HPO4, 0.2 g MgSO4·7H2O, 0.1 g CaSO4·2H2O, and trace amounts of Na2MoO4·2H2O and FeCl3, at pH 7.0."},
+        {"name": "dipotassium phosphate (K2HPO4)", "concentration": "0.8 g/L", "concentration_mM": 4.59, "role": "phosphate/buffer",
+         "source": "main_text", "evidence": "The medium contained the following components (per liter): 20 g mannitol, 0.2 g KH2PO4, 0.8 g·K2HPO4, 0.2 g MgSO4·7H2O, 0.1 g CaSO4·2H2O, and trace amounts of Na2MoO4·2H2O and FeCl3, at pH 7.0."},
+        {"name": "magnesium sulfate heptahydrate (MgSO4·7H2O)", "concentration": "0.2 g/L", "concentration_mM": 0.81, "role": "magnesium/sulfate",
+         "source": "main_text", "evidence": "The medium contained the following components (per liter): 20 g mannitol, 0.2 g KH2PO4, 0.8 g·K2HPO4, 0.2 g MgSO4·7H2O, 0.1 g CaSO4·2H2O, and trace amounts of Na2MoO4·2H2O and FeCl3, at pH 7.0."},
+        {"name": "calcium sulfate dihydrate (CaSO4·2H2O)", "concentration": "0.1 g/L", "concentration_mM": 0.58, "role": "calcium/sulfate",
+         "source": "main_text", "evidence": "The medium contained the following components (per liter): 20 g mannitol, 0.2 g KH2PO4, 0.8 g·K2HPO4, 0.2 g MgSO4·7H2O, 0.1 g CaSO4·2H2O, and trace amounts of Na2MoO4·2H2O and FeCl3, at pH 7.0."},
+        {"name": "sodium molybdate dihydrate (Na2MoO4·2H2O)", "concentration": "trace", "concentration_mM": null, "role": "trace_element/molybdenum (also Na source)",
+         "source": "main_text", "evidence": "and trace amounts of Na2MoO4·2H2O and FeCl3, at pH 7.0."},
+        {"name": "ferric chloride (FeCl3)", "concentration": "trace", "concentration_mM": null, "role": "trace_element/iron (also chloride source)",
+         "source": "main_text", "evidence": "and trace amounts of Na2MoO4·2H2O and FeCl3, at pH 7.0."},
+        {"name": "ferric citrate (Fe(III)-citrate)", "concentration": "5 mM", "concentration_mM": 5.0, "role": "electron_acceptor/iron+citrate supplement",
+         "source": "main_text", "evidence": "All groups were supplemented with 5 mM Fe(III)-citrate, degassed with N2, and incubated at 30°C ... in the dark."},
+        {"name": "dinitrogen gas (N2)", "concentration": "headspace / gas phase", "concentration_mM": null, "role": "nitrogen_source (diazotroph) + anoxic gas phase",
+         "source": "main_text", "evidence": "resuspended in sterilized anoxic N- and Fe-free Burk's medium ... All groups were supplemented with 5 mM Fe(III)-citrate, degassed with N2 ... The N2 + Fe and Ar + Fe groups were supplemented with 5 mM Fe(III)-citrate and degassed with N2."}
+      ],
+      "base_medium": "Modified anoxic Burk's medium (N-free, Azotobacter-type minimal medium), fully specified inline in the paper; no external base-medium reference cited.",
+      "sources_chased": [
+        {"what": "Base recipe for 'Burk's medium'", "obtained": true,
+         "how": "Recipe given verbatim inline in main text Materials & Methods; paper cites no external reference for Burk's medium composition.",
+         "added": []},
+        {"what": "Supplementary Materials Section S1 / Table S1", "obtained": false,
+         "how": "Section S1 describes only the FWAFC medium used for G. sulfurreducens PCA (a different, non-target medium); it does not add composition for Burk's medium.",
+         "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "The paper defines the complete modified anoxic Burk's medium inline (per liter): 20 g mannitol, 0.2 g KH2PO4, 0.8 g K2HPO4, 0.2 g MgSO4·7H2O, 0.1 g CaSO4·2H2O, trace Na2MoO4·2H2O and FeCl3, pH 7.0; N-free (N2 headspace) for diazotrophic N fixation, supplemented with 5 mM Fe(III)-citrate as the electron acceptor for the target group. It is a defined Azotobacter-type minimal medium with no vitamins, no complex ingredients, no added reductant (cysteine/sulfide), and no trace-element stock beyond the trace Mo and Fe stated. All target current_components are accounted for; the current 'Fe2+' entry corresponds to a reduction product, not a supplied ingredient (supplied iron is Fe(III) from FeCl3 and Fe(III)-citrate). Recipe is complete as published; no external base reference exists to chase."
+    }
+  ]
+}

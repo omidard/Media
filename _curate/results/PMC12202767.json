@@ -1,0 +1,112 @@
+{
+  "pmc": "PMC12202767",
+  "media": [
+    {
+      "id": "complexlit_PMC12202767_marine_basal_medium_3_mm_ammonium_phytoplank",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "NaCl",
+          "concentration": "11.7 g/L",
+          "concentration_mM": 200.2,
+          "role": "bulk salt (Na+, Cl-)",
+          "source": "cited:Baumann (ref 42, Baumann & Baumann 1981 The Prokaryotes; identical basal recipe from Baumann et al. 1971 quoted verbatim in Lopez-Cortes et al. 2010, PMC5615306)",
+          "evidence": "The MM composition described by Baumann et al. [17] for 1 L of the medium with a pH of 7.5 was 11.7 g of NaCl, 12.32 g of MgSO4.7H2O, 0.745 g of KCl, 1.47 g of CaCl2.2H2O, 6.05 g of Tris (hydroxymethyl) aminomethane (C4H11NO3), 6.65 g of NH4Cl, 0.062 g of K2HPO4.3H2O, and 0.026 g of FeSO4.7H2O."
+        },
+        {
+          "name": "MgSO4.7H2O",
+          "concentration": "12.32 g/L",
+          "concentration_mM": 50.0,
+          "role": "bulk salt (Mg2+ and sulfate source)",
+          "source": "cited:Baumann (ref 42; verbatim via PMC5615306)",
+          "evidence": "...12.32 g of MgSO4.7H2O..."
+        },
+        {
+          "name": "KCl",
+          "concentration": "0.745 g/L",
+          "concentration_mM": 9.99,
+          "role": "bulk salt (K+)",
+          "source": "cited:Baumann (ref 42; verbatim via PMC5615306)",
+          "evidence": "...0.745 g of KCl..."
+        },
+        {
+          "name": "CaCl2.2H2O",
+          "concentration": "1.47 g/L",
+          "concentration_mM": 10.0,
+          "role": "bulk salt (Ca2+)",
+          "source": "cited:Baumann (ref 42; verbatim via PMC5615306)",
+          "evidence": "...1.47 g of CaCl2.2H2O..."
+        },
+        {
+          "name": "Tris (tris(hydroxymethyl)aminomethane), pH 7.5 (Tris-HCl)",
+          "concentration": "6.05 g/L",
+          "concentration_mM": 49.9,
+          "role": "buffer",
+          "source": "cited:Baumann (ref 42; verbatim via PMC5615306)",
+          "evidence": "...6.05 g of Tris (hydroxymethyl) aminomethane (C4H11NO3)... for 1 L of the medium with a pH of 7.5"
+        },
+        {
+          "name": "NH4Cl (ammonium)",
+          "concentration": "3 mM ammonium",
+          "concentration_mM": 3.0,
+          "role": "nitrogen source",
+          "source": "main_text",
+          "evidence": "resuspended to an OD600 of ~0.01 in Marine Basal Medium [42] supplemented with 3 mM ammonium and each phytoplankton metabolite at 12 mM carbon. (Note: the original Baumann basal medium specifies 6.65 g/L NH4Cl ~124 mM; this paper controls ammonium at 3 mM, so 3 mM is reported here.)"
+        },
+        {
+          "name": "K2HPO4.3H2O (phosphate)",
+          "concentration": "0.062 g/L",
+          "concentration_mM": 0.272,
+          "role": "phosphate",
+          "source": "cited:Baumann (ref 42; verbatim via PMC5615306)",
+          "evidence": "...0.062 g of K2HPO4.3H2O..."
+        },
+        {
+          "name": "FeSO4.7H2O (iron)",
+          "concentration": "0.026 g/L",
+          "concentration_mM": 0.094,
+          "role": "iron / trace metal",
+          "source": "cited:Baumann (ref 42; verbatim via PMC5615306)",
+          "evidence": "...and 0.026 g of FeSO4.7H2O."
+        },
+        {
+          "name": "Phytoplankton metabolite as sole carbon source (one of: DMSP, spermidine, ectoine, DHPS/2,3-dihydroxypropane-1-sulfonate, trimethylamine, glycolate, ribose, isethionate, xylose, or glutamate)",
+          "concentration": "12 mM carbon",
+          "concentration_mM": null,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "Marine Basal Medium [42] supplemented with 3 mM ammonium and each phytoplankton metabolite at 12 mM carbon. ... one of ten 0.2 um filter sterilized chemoattractants ... DMSP ..., spermidine ..., ectoine ..., 2,3-dihydroxypropane-1-sulfonate (DHPS ...), trimethylamine (TMA ...), glycolate ..., ribose ..., isethionate ..., xylose ... and glutamate"
+        }
+      ],
+      "base_medium": "Baumann marine basal medium (BM), ref 42 = Baumann P. & Baumann L. 1981, 'The marine gram-negative eubacteria: genera Photobacterium, Beneckea, Alteromonas, Pseudomonas, and Alcaligenes', in The Prokaryotes (Springer); recipe originally from Baumann et al. 1971 J. Bacteriol. 107:268-294.",
+      "sources_chased": [
+        {
+          "what": "base recipe cited as ref 42 (Baumann & Baumann 1981, The Prokaryotes; = Baumann et al. 1971 basal medium)",
+          "obtained": true,
+          "how": "WebSearch + WebFetch of PMC5615306 (Lopez-Cortes et al.), which quotes the Baumann per-liter recipe verbatim",
+          "added": ["NaCl 11.7 g/L", "MgSO4.7H2O 12.32 g/L", "KCl 0.745 g/L", "CaCl2.2H2O 1.47 g/L", "Tris buffer 6.05 g/L", "K2HPO4.3H2O 0.062 g/L", "FeSO4.7H2O 0.026 g/L"]
+        },
+        {
+          "what": "paper-specific modifications (nitrogen and carbon)",
+          "obtained": true,
+          "how": "Read corpus JATS XML (Substrate growth tests section)",
+          "added": ["3 mM ammonium (N source)", "phytoplankton metabolite at 12 mM carbon (C source)"]
+        },
+        {
+          "what": "whether Baumann BM contains a separate trace-metal solution or vitamins (Co/Cu/Mn/Zn)",
+          "obtained": true,
+          "how": "WebSearch - no evidence links a Co/Cu/Mn/Zn trace-metal mix or vitamins to the cited Baumann basal medium; FeSO4 is its only micronutrient",
+          "added": []
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "Tris-HCl buffer (6.05 g/L, ~49.9 mM) - the pH 7.5 buffer of the basal medium, absent from current_components",
+        "Carbon source (phytoplankton metabolite at 12 mM carbon) - previously only listed as uncovered",
+        "Specific salt identities and concentrations for the bulk ions (NaCl, MgSO4.7H2O, KCl, CaCl2.2H2O, K2HPO4.3H2O, FeSO4.7H2O), which were present only as concentration-less exchange placeholders"
+      ],
+      "notes": "Medium = Baumann marine basal medium (8-component defined mineral base) with the paper's modifications: nitrogen supplied as 3 mM ammonium (not the 124 mM NH4Cl of the original Baumann recipe) and carbon supplied as one phytoplankton metabolite at 12 mM C. FeSO4 is the ONLY micronutrient in the cited Baumann BM; there is no separate trace-metal solution and no vitamins. The prior record's Co2+, Cu2+, Mn2+, Zn2+ exchanges and the generic 'Trace metal solution' are NOT supported by the cited Baumann medium and were dropped as unfounded (the 'Fe3+' and 'Fe2+ mitochondria' generic exchanges likewise collapse to the single FeSO4.7H2O source). Cultivation was aerobic (30C, 96-well microplate reader with constant shaking), so oxygen set to aerobic even though several strains (Vibrio spp.) are facultative anaerobes."
+    }
+  ]
+}

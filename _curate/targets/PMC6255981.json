@@ -1,0 +1,133 @@
+{
+ "pmc": "PMC6255981",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6255981/",
+ "media": [
+  {
+   "id": "complexlit_PMC6255981_modified_mr_1_medium_cao_et_al_2011_20_mm_so",
+   "name": "Modified MR-1 medium (Cao et al. 2011) + 20 mM sodium lactate ([3-13C]sodium lactate for MFA) (PMC6255981)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "aerobic",
+   "current_components": [
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.0068
+    },
+    {
+     "name": "ammonium chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": 28.0
+    },
+    {
+     "name": "cobalt chloride",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.004200000000000001
+    },
+    {
+     "name": "copper sulfate",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.0004
+    },
+    {
+     "name": "ferrous sulfate",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.0036
+    },
+    {
+     "name": "potassium chloride",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": 1.3
+    },
+    {
+     "name": "sodium lactate",
+     "exchange": "EX_lac__L_e",
+     "lb": -10.0,
+     "conc_mM": 20.0
+    },
+    {
+     "name": "magnesium sulfate",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.12171
+    },
+    {
+     "name": "manganese sulfate",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.02958
+    },
+    {
+     "name": "sodium molybdate",
+     "exchange": "EX_mobd_e",
+     "lb": -1000.0,
+     "conc_mM": 0.00103
+    },
+    {
+     "name": "sodium lactate",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": 20.0
+    },
+    {
+     "name": "ammonium chloride",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": 28.0
+    },
+    {
+     "name": "nickel chloride",
+     "exchange": "EX_ni2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.00101
+    },
+    {
+     "name": "O2 (aerobic)",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "magnesium sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": 0.12171
+    },
+    {
+     "name": "zinc chloride",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.00954
+    },
+    {
+     "name": "sodium dihydrogen phosphate (NaH2PO4\u00b7H2O)",
+     "exchange": "EX_pi_e",
+     "lb": -1.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "PIPES (piperazine-N,N'-bis(2-ethanesulfonic acid))",
+    "nitrilotriacetic acid",
+    "boric acid",
+    "vitamin solution",
+    "amino acid solution"
+   ],
+   "base_medium": "Shewanella oneidensis MR-1 defined medium (a.k.a. 'MR-1 medium'), lactate as electron donor, PIPES-buffered; modified here to 20 mM sodium lactate",
+   "base_medium_reference": "Cited in paper as 'modified MR-1 medium (Cao et al., 2011)'. Two candidate Cao et al. 2011 papers on Shewanella sp. HRCR-1 biofilms from the Beyenal/Fredrickson group: (1) Cao B, et al. 2011, Environ Microbiol 13:1018-1031, DOI 10.1111/j.1462-2920.2010.02407.x, PMID 21251176; (2) Cao B, et al. 2011, Environ Sci Technol 45:5483-5490, DOI 10.1021/es200095j. Both grew HRCR-1/MR-1 in the standard S. oneidensis defined medium whose full composition is documented in the same lineage (e.g. Bretschger et al. 2007, Appl Environ Microbiol, DOI 10.1128/AEM.01087-07). Neither Cao 2011 full text nor the PMC6255981 methods reprint the recipe; composition below is the canonical S. oneidensis MR-1 defined medium repeatedly reported for this organism/group.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": null,
+   "citation": "Medium composition from PMC6255981 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6255981/",
+   "doi": ""
+  }
+ ]
+}

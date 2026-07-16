@@ -1,0 +1,269 @@
+{
+ "pmc": "PMC5744179",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC5744179.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5744179/",
+ "media": [
+  {
+   "id": "growthlit_PMC5744179_0_6_m_na_soda_buffer_mineral_medium_with",
+   "name": "0.6 M Na+ soda buffer mineral medium with thiocyanate (PMC5744179)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl (sodium chloride)",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaHCO3 (sodium bicarbonate)",
+     "exchange": "EX_hco3_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Na2CO3 (sodium carbonate)",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 (compressed air, sparged)",
+     "exchange": "EX_o2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Trace mineral solution (ref 38, Pfennig-type)",
+    "Potassium thiocyanate (KSCN)"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "The growth medium used throughout these experiments contained 0.6 M Na+ soda buffer at pH 9.8 (17.5 g \u00b7 liter\u22121 Na2CO3, 13.9 g \u00b7 liter\u22121 NaHCO3, 6.2 g \u00b7 liter\u22121 NaCl, 1.0 g \u00b7 liter\u22121 K2HPO4) supplemented with (separately sterilized) 0.2 g \u00b7 liter\u22121 MgCl2 \u00b7 6H2O and 1 ml \u00b7 liter\u22121 trace mineral solution (38) with the final CuCl2 \u00b7 2H2O concentration increased to 30 \u03bcg \u00b7 liter\u22121. Either potassium th",
+   "citation": "Medium composition from PMC5744179 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5744179/",
+   "doi": ""
+  },
+  {
+   "id": "growthlit_PMC5744179_0_6_m_na_soda_buffer_ph_9_8_mineral_medi",
+   "name": "0.6 M Na+ soda buffer (pH 9.8) mineral medium + thiosulfate electron donor (PMC5744179)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl (sodium chloride)",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaHCO3 (sodium bicarbonate)",
+     "exchange": "EX_hco3_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Na2CO3 (sodium carbonate)",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 (compressed air, sparged)",
+     "exchange": "EX_o2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium thiosulfate (Na2S2O3\u00b75H2O)",
+     "exchange": "EX_tsul_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Trace mineral solution (ref 38, Pfennig-type)"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "The growth medium used throughout these experiments contained 0.6 M Na+ soda buffer at pH 9.8 (17.5 g \u00b7 liter\u22121 Na2CO3, 13.9 g \u00b7 liter\u22121 NaHCO3, 6.2 g \u00b7 liter\u22121 NaCl, 1.0 g \u00b7 liter\u22121 K2HPO4) supplemented with ... 0.2 g \u00b7 liter\u22121 MgCl2 \u00b7 6H2O and 1 ml \u00b7 liter\u22121 trace mineral solution (38) with the final CuCl2 \u00b7 2H2O concentration increased to 30 \u03bcg \u00b7 liter\u22121. ... sodium thiosulfate (Na2S2O3 \u00b7 5H2O)",
+   "citation": "Medium composition from PMC5744179 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5744179/",
+   "doi": ""
+  }
+ ]
+}

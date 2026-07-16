@@ -1,0 +1,147 @@
+{
+  "pmc": "PMC13134045",
+  "media": [
+    {
+      "id": "growthlit_PMC13134045_modified_n_free_hoagland_solution_20_mm_",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "components": [
+        {
+          "name": "D-Glucose",
+          "concentration": "20 mM",
+          "concentration_mM": 20.0,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "filter-sterilized glucose was added to each microcosm to achieve a final concentration of 20 mM, simulating root exudates"
+        },
+        {
+          "name": "Dinitrogen (N2, gas phase)",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "nitrogen source / gas phase",
+          "source": "main_text",
+          "evidence": "Nitrogen was omitted by replacing all N-containing salts ... The root-solution system was deoxygenated with N2, sealed with a rubber stopper ... (nitrogen-fixation microcosm; N2 is the sole nitrogen source for the diazotroph)"
+        },
+        {
+          "name": "Calcium chloride dihydrate (CaCl2.2H2O)",
+          "concentration": "4 mM",
+          "concentration_mM": 4.0,
+          "role": "calcium / chloride salt (N-free replacement of Ca(NO3)2.4H2O)",
+          "source": "main_text",
+          "evidence": "replacing all N-containing salts (Ca(NO3)2.4H2O, KNO3, and NH4H2PO4) with equimolar amounts of their chloride- or sulfate-based counterparts (CaCl2.2H2O, KH2PO4, and K2SO4). [conc = equimolar to canonical Hoagland Ca(NO3)2 = 4 mM; strength not stated in paper]"
+        },
+        {
+          "name": "Potassium sulfate (K2SO4)",
+          "concentration": "6 mM",
+          "concentration_mM": 6.0,
+          "role": "potassium / sulfate salt (N-free replacement of KNO3)",
+          "source": "main_text",
+          "evidence": "replacing all N-containing salts (Ca(NO3)2.4H2O, KNO3, and NH4H2PO4) with equimolar amounts of their chloride- or sulfate-based counterparts (CaCl2.2H2O, KH2PO4, and K2SO4). [conc = equimolar to canonical Hoagland KNO3 = 6 mM; strength not stated in paper]"
+        },
+        {
+          "name": "Monopotassium phosphate (KH2PO4)",
+          "concentration": "1 mM",
+          "concentration_mM": 1.0,
+          "role": "phosphate / potassium salt (N-free replacement of NH4H2PO4)",
+          "source": "main_text",
+          "evidence": "replacing all N-containing salts (Ca(NO3)2.4H2O, KNO3, and NH4H2PO4) with equimolar amounts of their chloride- or sulfate-based counterparts (CaCl2.2H2O, KH2PO4, and K2SO4). [conc = equimolar to canonical Hoagland NH4H2PO4 = 1 mM; strength not stated in paper]"
+        },
+        {
+          "name": "Magnesium sulfate heptahydrate (MgSO4.7H2O)",
+          "concentration": "2 mM",
+          "concentration_mM": 2.0,
+          "role": "magnesium / sulfate salt (base Hoagland macronutrient)",
+          "source": "stock:Hoagland & Arnon 1950",
+          "evidence": "20 ml of modified N-free Hoagland solution (pH 6.0). [MgSO4.7H2O is the standard Hoagland Mg source; canonical full-strength = 2 mM. Not the modified N-salt, so retained unchanged; not itemized in paper text.]"
+        },
+        {
+          "name": "Boric acid (H3BO3)",
+          "concentration": "2.86 mg/L",
+          "concentration_mM": 0.046,
+          "role": "trace element (boron)",
+          "source": "stock:Hoagland & Arnon 1950 micronutrient mix",
+          "evidence": "modified N-free Hoagland solution (pH 6.0). [Standard Hoagland micronutrient stock (1 mL/L): H3BO3 2.86 g/L stock -> 2.86 mg/L final]"
+        },
+        {
+          "name": "Manganese(II) chloride tetrahydrate (MnCl2.4H2O)",
+          "concentration": "1.81 mg/L",
+          "concentration_mM": 0.009,
+          "role": "trace element (manganese)",
+          "source": "stock:Hoagland & Arnon 1950 micronutrient mix",
+          "evidence": "modified N-free Hoagland solution (pH 6.0). [Standard Hoagland micronutrient stock (1 mL/L): MnCl2.4H2O 1.81 g/L stock -> 1.81 mg/L final]"
+        },
+        {
+          "name": "Zinc sulfate heptahydrate (ZnSO4.7H2O)",
+          "concentration": "0.22 mg/L",
+          "concentration_mM": 0.0008,
+          "role": "trace element (zinc)",
+          "source": "stock:Hoagland & Arnon 1950 micronutrient mix",
+          "evidence": "modified N-free Hoagland solution (pH 6.0). [Standard Hoagland micronutrient stock (1 mL/L): ZnSO4.7H2O 0.22 g/L stock -> 0.22 mg/L final]"
+        },
+        {
+          "name": "Copper(II) sulfate pentahydrate (CuSO4.5H2O)",
+          "concentration": "0.08 mg/L",
+          "concentration_mM": 0.0003,
+          "role": "trace element (copper)",
+          "source": "stock:Hoagland & Arnon 1950 micronutrient mix",
+          "evidence": "modified N-free Hoagland solution (pH 6.0). [Standard Hoagland micronutrient stock (1 mL/L): CuSO4.5H2O 0.08 g/L stock -> 0.08 mg/L final]"
+        },
+        {
+          "name": "Molybdic acid monohydrate (H2MoO4.H2O)",
+          "concentration": "0.02 mg/L",
+          "concentration_mM": 0.0001,
+          "role": "trace element (molybdenum; nitrogenase cofactor)",
+          "source": "stock:Hoagland & Arnon 1950 micronutrient mix",
+          "evidence": "modified N-free Hoagland solution (pH 6.0). [Standard Hoagland micronutrient stock (1 mL/L): H2MoO4.H2O 0.02 g/L stock -> 0.02 mg/L final]"
+        },
+        {
+          "name": "Iron(III)-EDTA chelate (Fe-EDTA / Fe-EDDHA)",
+          "concentration": null,
+          "concentration_mM": null,
+          "role": "trace element (iron), base Hoagland iron chelate",
+          "source": "stock:Hoagland & Arnon 1950",
+          "evidence": "modified N-free Hoagland solution (pH 6.0). [Standard Hoagland supplies iron as a Fe-EDTA/Fe-EDDHA chelate. Paper does not state iron omission from the base solution for the control; however this is an iron-focused study (CK = no iron plaque on roots) and the medium iron source/level is not explicitly confirmed -> flagged.]"
+        }
+      ],
+      "base_medium": "Modified nitrogen-free Hoagland solution (Hoagland & Arnon 1950), pH 6.0, N-omitted, + 20 mM glucose; anoxic (N2-sparged)",
+      "sources_chased": [
+        {
+          "what": "Paper main text (Materials and Methods, microcosm setup) — full-text JATS XML",
+          "obtained": true,
+          "how": "Read corpus_path /data/paper_corpus/fulltext_xml/PMC13134045.xml",
+          "added": ["glucose 20 mM confirmed", "N-free salt substitutions CaCl2.2H2O, KH2PO4, K2SO4", "anaerobic N2 gas phase", "removed erroneous NH4+ and NO3- (N was deliberately omitted)"]
+        },
+        {
+          "what": "Reference 36 (Liu et al. 2019, Soil Biol Biochem) cited for IRRI nutrient solution used to raise seedlings",
+          "obtained": true,
+          "how": "parsed reference list in XML",
+          "added": ["confirmed ref 36 is the seedling IRRI solution, NOT the microcosm Hoagland base recipe; no Hoagland recipe cited"]
+        },
+        {
+          "what": "Canonical Hoagland solution composition (Hoagland & Arnon 1950) to expand the named base medium",
+          "obtained": true,
+          "how": "WebFetch en.wikipedia.org/wiki/Hoagland_solution (Hoagland & Arnon 1950 table)",
+          "added": ["MgSO4.7H2O", "H3BO3", "MnCl2.4H2O", "ZnSO4.7H2O", "CuSO4.5H2O", "H2MoO4.H2O", "Fe-EDTA chelate"]
+        },
+        {
+          "what": "Supplementary files (wrag088_Supplemental_Files); Tables S1 (soil properties), S2 (fermentation products)",
+          "obtained": true,
+          "how": "identified supplementary section in XML — no media recipe table present (S1=soil physicochemistry, S2=metabolites)",
+          "added": ["confirmed no full media-recipe table exists in the supplement"]
+        }
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "Magnesium sulfate (MgSO4.7H2O)",
+        "Boric acid (H3BO3)",
+        "Manganese chloride (MnCl2.4H2O)",
+        "Zinc sulfate (ZnSO4.7H2O)",
+        "Copper sulfate (CuSO4.5H2O)",
+        "Molybdic acid / molybdate (H2MoO4.H2O)",
+        "Iron chelate (Fe-EDTA)",
+        "Dinitrogen (N2) as the nitrogen source / gas phase"
+      ],
+      "notes": "The current record wrongly listed Ammonium (nh4) and Nitrate (no3) as components: the paper explicitly OMITTED all nitrogen (this is the N-free nitrogen-fixation control), replacing the three N-salts with CaCl2.2H2O, KH2PO4 and K2SO4 — both were removed. The paper names 'modified N-free Hoagland solution' but cites no Hoagland recipe and gives no trace-element/Mg list, so the base macro/micronutrient salts (Mg, B, Mn, Zn, Cu, Mo, Fe chelate) were expanded from the canonical Hoagland & Arnon (1950) formulation; the exact Hoagland strength used, and whether iron was retained in this no-plaque control, are not stated in the paper (flagged), hence medium confidence. N2 is the sole nitrogen source (diazotrophic fixation)."
+    }
+  ]
+}

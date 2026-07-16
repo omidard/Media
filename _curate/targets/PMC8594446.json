@@ -1,0 +1,180 @@
+{
+ "pmc": "PMC8594446",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC8594446.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8594446/",
+ "media": [
+  {
+   "id": "lit_PMC8594446_liquid_minimal_medium_no_nh4_n2_fixing_c",
+   "name": "Liquid minimal medium, no-NH4+ (N2-fixing condition) (PMC8594446)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Molybdate",
+     "exchange": "EX_mobd_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium",
+     "exchange": "EX_na1_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "(R)-Pantothenate",
+     "exchange": "EX_pnto__R_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (confirmed)",
+   "verification_evidence": "In the case of no-NH4+ minimal medium, the 1 g/liter (NH4)2SO4 was replaced with 0.2 g/liter MgSO4 to achieve similar molarity.",
+   "citation": "Martien et al. Metabolic Remodeling during Nitrogen Fixation in Zymomonas mobilis. mSystems (2021). DOI: 10.1128/mSystems.00987-21. [PMC8594446]",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8594446/",
+   "doi": "10.1128/mSystems.00987-21"
+  },
+  {
+   "id": "lit_PMC8594446_liquid_minimal_medium_replete_ammonia_nh",
+   "name": "Liquid minimal medium, replete ammonia (NH4+-replete) (PMC8594446)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Molybdate",
+     "exchange": "EX_mobd_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium",
+     "exchange": "EX_na1_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "(R)-Pantothenate",
+     "exchange": "EX_pnto__R_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (confirmed)",
+   "verification_evidence": "liquid minimal medium with replete ammonia [20 g/liter glucose, 1 g/liter KH2PO4, 1 g/liter K2HPO4, 0.5 g/liter NaCl, 1 g/liter (NH4)2SO4, 0.2 g/liter MgSO4\u00b77 H2O, 25 mg/liter Na2MoO4\u00b72 H2O, 2.5 mg/liter FeSO4\u00b77 H2O, 0.01 g/liter CaCl2\u00b72 H2O, 1 mg/liter calcium pantothenate]",
+   "citation": "Martien et al. Metabolic Remodeling during Nitrogen Fixation in Zymomonas mobilis. mSystems (2021). DOI: 10.1128/mSystems.00987-21. [PMC8594446]",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8594446/",
+   "doi": "10.1128/mSystems.00987-21"
+  }
+ ]
+}

@@ -1,0 +1,98 @@
+{
+  "pmc": "PMC9974463",
+  "media": [
+    {
+      "id": "growthlit_PMC9974463_minimal_medium_lundgren_et_al_indicated_",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "defined": true,
+      "components": [
+        {
+          "name": "monopotassium phosphate (KH2PO4)",
+          "concentration": "22 mM",
+          "concentration_mM": 22.0,
+          "role": "phosphate/buffer + potassium source",
+          "source": "main_text",
+          "evidence": "P. aeruginosa was cultured in minimal media (22 mM KH2PO4, 42 mM Na2HPO4, 8.6 mM NaCl, 2.0 mM MgSO4, 5.0 μM FeSO4, pH 7.0)"
+        },
+        {
+          "name": "disodium phosphate (Na2HPO4)",
+          "concentration": "42 mM",
+          "concentration_mM": 42.0,
+          "role": "phosphate/buffer + sodium source",
+          "source": "main_text",
+          "evidence": "minimal media (22 mM KH2PO4, 42 mM Na2HPO4, 8.6 mM NaCl, 2.0 mM MgSO4, 5.0 μM FeSO4, pH 7.0)"
+        },
+        {
+          "name": "sodium chloride (NaCl)",
+          "concentration": "8.6 mM",
+          "concentration_mM": 8.6,
+          "role": "bulk salt (Na, Cl)",
+          "source": "main_text",
+          "evidence": "minimal media (22 mM KH2PO4, 42 mM Na2HPO4, 8.6 mM NaCl, 2.0 mM MgSO4, 5.0 μM FeSO4, pH 7.0)"
+        },
+        {
+          "name": "magnesium sulfate (MgSO4)",
+          "concentration": "2.0 mM",
+          "concentration_mM": 2.0,
+          "role": "bulk salt (Mg, SO4)",
+          "source": "main_text",
+          "evidence": "minimal media (22 mM KH2PO4, 42 mM Na2HPO4, 8.6 mM NaCl, 2.0 mM MgSO4, 5.0 μM FeSO4, pH 7.0)"
+        },
+        {
+          "name": "iron(II) sulfate (FeSO4)",
+          "concentration": "5.0 µM",
+          "concentration_mM": 0.005,
+          "role": "iron source (trace)",
+          "source": "main_text",
+          "evidence": "minimal media (22 mM KH2PO4, 42 mM Na2HPO4, 8.6 mM NaCl, 2.0 mM MgSO4, 5.0 μM FeSO4, pH 7.0)"
+        },
+        {
+          "name": "D-glucose",
+          "concentration": "20 mM",
+          "concentration_mM": 20.0,
+          "role": "carbon source (supplement, as indicated)",
+          "source": "main_text",
+          "evidence": "grown in 5 mL minimal media supplemented with 20 mM D-glucose and 10 mM NH4Cl"
+        },
+        {
+          "name": "ammonium chloride (NH4Cl)",
+          "concentration": "10 mM",
+          "concentration_mM": 10.0,
+          "role": "nitrogen source (supplement, as indicated)",
+          "source": "main_text",
+          "evidence": "grown in 5 mL minimal media supplemented with 20 mM D-glucose and 10 mM NH4Cl"
+        },
+        {
+          "name": "oxygen (O2)",
+          "concentration": "aerobic (shaking culture)",
+          "concentration_mM": null,
+          "role": "terminal electron acceptor / gas phase",
+          "source": "main_text",
+          "evidence": "grown for 24 h (230 rpm, 37 °C) ... incubated in either 15 mL (in 150-mL flasks, 230 rpm, 37 °C) or 200 μL (in 96-well plates, continuous shaking 282 CPM (3 mm), 37 °C)"
+        },
+        {
+          "name": "water (H2O)",
+          "concentration": "solvent",
+          "concentration_mM": null,
+          "role": "solvent",
+          "source": "main_text",
+          "evidence": "grown in 5 mL minimal media (implicit aqueous solvent)"
+        }
+      ],
+      "base_medium": "Lundgren et al. 2021 defined minimal medium for P. aeruginosa PAO1 (phosphate-buffered salts + FeSO4)",
+      "sources_chased": [
+        {
+          "what": "base recipe cited as ref 74 (Lundgren BR et al., BMC Microbiol 21:83, 2021; PMC7962211)",
+          "obtained": true,
+          "how": "WebFetch https://pmc.ncbi.nlm.nih.gov/articles/PMC7962211/",
+          "added": [],
+          "note": "Lundgren 2021 states the identical recipe (22 mM KH2PO4, 42 mM Na2HPO4, 8.6 mM NaCl, 2.0 mM MgSO4, 5.0 μM FeSO4, pH 7.0) with NO added trace-element solution and NO vitamins, and cites no earlier source for it. Base medium confirmed complete; nothing new to add."
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "This is a fully defined minimal medium with only five salts plus an as-indicated C/N supplement (20 mM D-glucose + 10 mM NH4Cl for the standard condition; the paper also uses 10 mM β-Asp-Arg, 10 mM L-aspartate, or 10 mM L-arginine). Chasing the cited base reference (Lundgren 2021) confirmed there is deliberately NO trace-element mix (only 5 µM FeSO4) and NO vitamins. The Ca2+, Co2+, Cu2+, Mn2+, Zn2+ and Fe3+ entries in the target's current_components are NOT part of the defined recipe (they have no textual source in either the paper or the base reference; trace metals are present only as unquantified salt impurities) and were dropped to avoid fabrication. Ionic decomposition of the real salts: K+ 22 mM; Na+ ~92.6 mM (84 from Na2HPO4 + 8.6 from NaCl); phosphate ~64 mM; Cl- ~18.6 mM (8.6 NaCl + 10 NH4Cl); SO4 ~2.005 mM; Mg2+ 2.0 mM; Fe2+ 0.005 mM; NH4+ 10 mM."
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "pmc": "PMC12858907",
+  "media": [
+    {
+      "id": "lit_PMC12858907_mineral_salts_medium_mm_quadruple_carbon",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "D-glucose",
+          "concentration": "25 mmol/gDW (simulation flux bound)",
+          "concentration_mM": null,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "MM with 25 mmol/gDW each of glucose, citrate, acetate, and fumarate (quadruple carbon sources, C = 4)."
+        },
+        {
+          "name": "citrate",
+          "concentration": "25 mmol/gDW (simulation flux bound)",
+          "concentration_mM": null,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "MM with 25 mmol/gDW each of glucose, citrate, acetate, and fumarate (quadruple carbon sources, C = 4)."
+        },
+        {
+          "name": "acetate",
+          "concentration": "25 mmol/gDW (simulation flux bound)",
+          "concentration_mM": null,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "MM with 25 mmol/gDW each of glucose, citrate, acetate, and fumarate (quadruple carbon sources, C = 4)."
+        },
+        {
+          "name": "fumarate",
+          "concentration": "25 mmol/gDW (simulation flux bound)",
+          "concentration_mM": null,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "MM with 25 mmol/gDW each of glucose, citrate, acetate, and fumarate (quadruple carbon sources, C = 4)."
+        },
+        {
+          "name": "ammonium chloride",
+          "concentration": "1 g/L (physical MM); NH4+ set to 100 mmol/gDW (simulation flux bound)",
+          "concentration_mM": 18.7,
+          "role": "nitrogen source (provides NH4+ and Cl-)",
+          "source": "supplementary",
+          "evidence": "The minimal medium medium (MM) consisted of 1 g/L NaCl, 1 g/L NH4Cl, 1.5 g/L K2HPO4, 0.5 g/L KH2PO4, and 0.2 g/L MgSO4 7H2O. [Supplementary Method 1. Media] Main text: 'the essential nitrogen source (NH4+) which was set to 100 mmol/gDW'."
+        },
+        {
+          "name": "sodium chloride",
+          "concentration": "1 g/L (physical MM); EX_na1_e / EX_cl_e opened at 1000 mmol/gDW (simulation)",
+          "concentration_mM": 17.1,
+          "role": "bulk salt (provides Na+ and Cl-)",
+          "source": "supplementary",
+          "evidence": "The minimal medium medium (MM) consisted of 1 g/L NaCl, 1 g/L NH4Cl, 1.5 g/L K2HPO4, 0.5 g/L KH2PO4, and 0.2 g/L MgSO4 7H2O."
+        },
+        {
+          "name": "dipotassium phosphate",
+          "concentration": "1.5 g/L (physical MM); EX_k_e / EX_pi_e opened at 1000 mmol/gDW (simulation)",
+          "concentration_mM": 8.61,
+          "role": "phosphate / buffer (provides K+ and HPO4^2-)",
+          "source": "supplementary",
+          "evidence": "The minimal medium medium (MM) consisted of 1 g/L NaCl, 1 g/L NH4Cl, 1.5 g/L K2HPO4, 0.5 g/L KH2PO4, and 0.2 g/L MgSO4 7H2O."
+        },
+        {
+          "name": "monopotassium phosphate",
+          "concentration": "0.5 g/L (physical MM); EX_k_e / EX_pi_e opened at 1000 mmol/gDW (simulation)",
+          "concentration_mM": 3.67,
+          "role": "phosphate / buffer (provides K+ and H2PO4-)",
+          "source": "supplementary",
+          "evidence": "The minimal medium medium (MM) consisted of 1 g/L NaCl, 1 g/L NH4Cl, 1.5 g/L K2HPO4, 0.5 g/L KH2PO4, and 0.2 g/L MgSO4 7H2O."
+        },
+        {
+          "name": "magnesium sulfate heptahydrate",
+          "concentration": "0.2 g/L (physical MM); EX_mg2_e / EX_so4_e opened at 1000 mmol/gDW (simulation)",
+          "concentration_mM": 0.811,
+          "role": "bulk salt (provides Mg2+ and SO4^2-)",
+          "source": "supplementary",
+          "evidence": "The minimal medium medium (MM) consisted of 1 g/L NaCl, 1 g/L NH4Cl, 1.5 g/L K2HPO4, 0.5 g/L KH2PO4, and 0.2 g/L MgSO4 7H2O."
+        },
+        {
+          "name": "oxygen",
+          "concentration": "EX_o2_e open (aerobic; simulation flux bound 1000 mmol/gDW)",
+          "concentration_mM": null,
+          "role": "electron acceptor / gas phase",
+          "source": "main_text",
+          "evidence": "All flasks were incubated aerobically at 30 C... incubated at 30 C with shaking at 180 rpm. Main text: 'the contents of all other inorganic substances without carbon (C) or nitrogen (N) were set to 1000 mmol/gDW' (includes O2 for the aerobic models)."
+        }
+      ],
+      "base_medium": "Minimal (mineral salts) medium MM: 1 g/L NaCl, 1 g/L NH4Cl, 1.5 g/L K2HPO4, 0.5 g/L KH2PO4, 0.2 g/L MgSO4·7H2O (Supplementary Method 1). In-silico for the SuperCC/GSMM C=4 condition, supplemented with 25 mmol/gDW each of glucose, citrate, acetate, and fumarate.",
+      "sources_chased": [
+        {
+          "what": "Base physical MM recipe (referenced as Supplementary Methods / Media section)",
+          "obtained": true,
+          "how": "Downloaded EuropePMC supplementaryFiles zip -> 41467_2025_67953_MOESM1_ESM.pdf (Supplementary Information), extracted 'Supplementary Method 1. Media'",
+          "added": ["NaCl 1 g/L", "NH4Cl 1 g/L", "K2HPO4 1.5 g/L", "KH2PO4 0.5 g/L (monopotassium phosphate, previously folded into dipotassium phosphate)", "MgSO4·7H2O 0.2 g/L", "confirmed MM contains NO trace-elements solution and NO vitamins"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": ["monopotassium phosphate (KH2PO4, the second/acidic phosphate buffer salt — only dipotassium phosphate was represented before)"],
+      "notes": "Complete recipe recovered from the paper's own Supplementary Method 1 (Media). The physical MM is a bare mineral-salts medium (NaCl, NH4Cl, K2HPO4, KH2PO4, MgSO4·7H2O) with NO trace-element mix, NO vitamins, NO added carbon in the base — distinct from the EM/DM media in the same paper, which DO carry a 1 mL/L trace-elements solution (FeSO4, MgSO4, CoCl2, ZnSO4, MnCl2, CuSO4, EDTA). The current exchange set was already chemically complete at the ion level (Na, Cl, K, pi, Mg, SO4, NH4, O2 + 4 carbons); this curation adds the actual salt identities/concentrations, splits phosphate into K2HPO4+KH2PO4, and confirms the true absence of trace metals and vitamins. Carbon-source concentrations (25 mmol/gDW each) and NH4+ (100 mmol/gDW) are in-silico flux bounds for the SuperCC C=4 simulation, not solution molarities, so concentration_mM is null for those."
+    }
+  ]
+}

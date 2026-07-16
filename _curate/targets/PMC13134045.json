@@ -1,0 +1,73 @@
+{
+ "pmc": "PMC13134045",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC13134045.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13134045/",
+ "media": [
+  {
+   "id": "growthlit_PMC13134045_modified_n_free_hoagland_solution_20_mm_",
+   "name": "Modified N-free Hoagland solution + 20 mM glucose, no iron plaque (control, CK) (PMC13134045)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Nitrate",
+     "exchange": "EX_no3_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "20 ml of modified N-free Hoagland solution (pH 6.0). Nitrogen was omitted by replacing all N-containing salts (Ca(NO3)2.4H2O, KNO3, and NH4H2PO4) with equimolar amounts of their chloride- or sulfate-based counterparts (CaCl2.2H2O, KH2PO4, and K2SO4)... deoxygenated with N2, sealed... filter-sterilized glucose was added... to a final concentration of 20 mM.",
+   "citation": "Medium composition from PMC13134045 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13134045/",
+   "doi": ""
+  }
+ ]
+}

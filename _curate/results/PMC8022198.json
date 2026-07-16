@@ -1,0 +1,70 @@
+{
+  "pmc": "PMC8022198",
+  "media": [
+    {
+      "id": "complexlit_PMC8022198_cdmpc_chemically_defined_medium_with_25_mm_g",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "components": [
+        {"name": "D-Glucose (from glucose monohydrate)", "concentration": "4950 mg/L (4.95 g/L)", "concentration_mM": 24.979, "role": "carbon source (limiting)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "glucose-monohydrate | 198.17 | 14431-43-7 | 4950.00 | 24.979 ... 4.95 g Glucose-monohydrate (final conc. 24.979 mM); paper: 'supplemented with 25 mM glucose as limiting carbon source'"},
+        {"name": "Potassium phosphate monobasic (KH2PO4)", "concentration": "2750 mg/L (2.75 g/L)", "concentration_mM": 20.207, "role": "phosphate / buffer / potassium", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Potassium phosphate monobasic | 136.09 | 7778-77-0 | 2750.00 | 20.207 ... 2.75 g Potassium phosphate monobasic (final conc. 20.207 mM)"},
+        {"name": "Sodium phosphate dibasic (Na2HPO4)", "concentration": "2850 mg/L (2.85 g/L)", "concentration_mM": 20.076, "role": "phosphate / buffer / sodium", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Sodium phosphate dibasic | 141.96 | 7558-79-4 | 2850.00 | 20.076 ... 2.85 g Sodium phosphate dibasic (final conc. 20.076 mM)"},
+        {"name": "Sodium chloride (NaCl)", "concentration": "2900 mg/L (2.9 g/L)", "concentration_mM": 49.624, "role": "bulk salt (Na, Cl)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Sodium chloride | 58.44 | 7647-14-5 | 2900.00 | 49.624 ... 2.90 g Sodium chloride (final conc. 49.624 mM)"},
+
+        {"name": "DL-6,8-Thioctic acid (alpha-lipoic acid)", "concentration": "2.00 mg/L", "concentration_mM": 0.00969, "role": "vitamin", "source": "cited:Price et al 2019 (Table S1)", "evidence": "(±)-α-Lipoic acid or DL-6,8-Thioctic acid | 206.33 | 1077-28-7 | 2.00 | 9.69 (uM)"},
+        {"name": "D-Pantothenic acid hemicalcium salt", "concentration": "0.50 mg/L", "concentration_mM": 0.00210, "role": "vitamin", "source": "cited:Price et al 2019 (Table S1)", "evidence": "D-Pantothenic acid hemicalcium salt | 238.27 | 137-08-6 | 0.50 | 2.10 (uM)"},
+        {"name": "Biotin", "concentration": "0.10 mg/L", "concentration_mM": 0.00041, "role": "vitamin", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Biotin | 244.31 | 58-85-5 | 0.10 | 0.41 (uM) ... 10 mg Biotin (final conc. 0.041 mM stock)"},
+        {"name": "Nicotinic acid (niacin)", "concentration": "1.00 mg/L", "concentration_mM": 0.00812, "role": "vitamin", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Nicotinic acid | 123.11 | 59-67-6 | 1.00 | 8.12 (uM)"},
+        {"name": "Pyridoxal hydrochloride", "concentration": "1.00 mg/L", "concentration_mM": 0.00491, "role": "vitamin", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Pyridoxal hydrochloride | 203.62 | 65-22-5 | 1.00 | 4.91 (uM)"},
+        {"name": "Pyridoxine hydrochloride", "concentration": "1.00 mg/L", "concentration_mM": 0.00486, "role": "vitamin", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Pyridoxine hydrochloride (Pyridoxol.HCl) | 205.64 | 58-56-0 | 1.00 | 4.86 (uM)"},
+        {"name": "Thiamine hydrochloride", "concentration": "1.00 mg/L", "concentration_mM": 0.00296, "role": "vitamin", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Thiamine hydrochloride | 337.27 | 67-03-8 | 1.00 | 2.96 (uM)"},
+
+        {"name": "Ammonium molybdate tetrahydrate ((NH4)6Mo7O24·4H2O)", "concentration": "0.30 mg/L", "concentration_mM": 0.00024, "role": "trace metal (Mo; minor NH4)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Ammonium molybdate tetrahydrate | 1235.86 | 12054-85-2 | 0.30 | 0.24 (uM)"},
+        {"name": "Calcium chloride dihydrate (CaCl2·2H2O)", "concentration": "3.00 mg/L", "concentration_mM": 0.02041, "role": "trace metal / bulk (Ca, Cl)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Calcium chloride dihydrate | 147.02 | 10035-04-8 | 3.00 | 20.41 (uM)"},
+        {"name": "Cobalt(II) sulfate heptahydrate (CoSO4·7H2O)", "concentration": "0.30 mg/L", "concentration_mM": 0.00107, "role": "trace metal (Co)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Cobalt(II) sulfate heptahydrate | 281.10 | 10026-24-1 | 0.30 | 1.07 (uM)"},
+        {"name": "Copper(II) sulfate pentahydrate (CuSO4·5H2O)", "concentration": "0.30 mg/L", "concentration_mM": 0.00120, "role": "trace metal (Cu)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Copper(II) sulfate pentahydrate | 249.68 | 7758-99-8 | 0.30 | 1.20 (uM)"},
+        {"name": "Iron(II) chloride tetrahydrate (FeCl2·4H2O)", "concentration": "4.00 mg/L", "concentration_mM": 0.02012, "role": "trace metal (Fe)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Iron(II) chloride tetrahydrate | 198.81 | 13478-10-9 | 4.00 | 20.12 (uM)"},
+        {"name": "Magnesium chloride hexahydrate (MgCl2·6H2O)", "concentration": "200.00 mg/L", "concentration_mM": 0.98376, "role": "bulk salt (Mg, Cl)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Magnesium chloride hexahydrate | 203.30 | 7791-18-6 | 200.00 | 983.76 (uM)"},
+        {"name": "Manganese chloride tetrahydrate (MnCl2·4H2O)", "concentration": "4.00 mg/L", "concentration_mM": 0.02021, "role": "trace metal (Mn)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Manganese chloride tetrahydrate | 197.91 | 13446-34-9 | 4.00 | 20.21 (uM)"},
+        {"name": "Zinc sulfate heptahydrate (ZnSO4·7H2O)", "concentration": "0.30 mg/L", "concentration_mM": 0.00104, "role": "trace metal (Zn)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Zinc sulfate heptahydrate | 287.56 | 7446-20-0 | 0.30 | 1.04 (uM)"},
+
+        {"name": "L-Alanine", "concentration": "130 mg/L", "concentration_mM": 1.4592, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Alanine | 89.09 | 56-41-7 | 130 | 1.4592"},
+        {"name": "L-Arginine", "concentration": "244 mg/L", "concentration_mM": 1.4007, "role": "amino acid / nitrogen & energy source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Arginine | 174.20 | 74-79-3 | 244 | 1.4007"},
+        {"name": "L-Asparagine", "concentration": "80 mg/L", "concentration_mM": 0.6055, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Asparagine | 132.12 | 70-47-3 | 80 | 0.6055"},
+        {"name": "L-Aspartic acid", "concentration": "137 mg/L", "concentration_mM": 1.0293, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Aspartic acid | 133.10 | 56-84-8 | 137 | 1.0293"},
+        {"name": "L-Cysteine hydrochloride monohydrate", "concentration": "61 mg/L", "concentration_mM": 0.3473, "role": "amino acid / sulfur source / mild reductant", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Cysteine hydrochloride monohydrate | 175.63 | 7048-04-6 | 61 | 0.3473"},
+        {"name": "L-Glutamic acid", "concentration": "97 mg/L", "concentration_mM": 0.6593, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Glutamic acid | 147.13 | 56-86-0 | 97 | 0.6593"},
+        {"name": "L-Glutamine", "concentration": "96 mg/L", "concentration_mM": 0.6569, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Glutamine | 146.14 | 56-85-9 | 96 | 0.6569"},
+        {"name": "Glycine", "concentration": "29 mg/L", "concentration_mM": 0.3863, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "Glycine | 75.07 | 56-40-6 | 29 | 0.3863"},
+        {"name": "L-Histidine", "concentration": "24 mg/L", "concentration_mM": 0.1547, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Histidine | 155.15 | 71-00-1 | 24 | 0.1547"},
+        {"name": "L-Isoleucine", "concentration": "82 mg/L", "concentration_mM": 0.6251, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Isoleucine | 131.17 | 73-32-5 | 82 | 0.6251"},
+        {"name": "L-Leucine", "concentration": "117 mg/L", "concentration_mM": 0.8920, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Leucine | 131.17 | 61-90-5 | 117 | 0.8920"},
+        {"name": "L-Lysine monohydrochloride", "concentration": "187 mg/L", "concentration_mM": 1.0238, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Lysine monohydrochloride | 182.65 | 657-27-2 | 187 | 1.0238"},
+        {"name": "L-Methionine", "concentration": "38 mg/L", "concentration_mM": 0.2547, "role": "amino acid / nitrogen & sulfur source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Methionine | 149.21 | 63-68-3 | 38 | 0.2547"},
+        {"name": "L-Phenylalanine", "concentration": "64 mg/L", "concentration_mM": 0.3874, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Phenylalanine | 165.19 | 63-91-2 | 64 | 0.3874"},
+        {"name": "L-Proline", "concentration": "412 mg/L", "concentration_mM": 3.5786, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Proline | 115.13 | 147-85-3 | 412 | 3.5786"},
+        {"name": "L-Serine", "concentration": "172 mg/L", "concentration_mM": 1.6367, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Serine | 105.09 | 56-45-1 | 172 | 1.6367"},
+        {"name": "L-Threonine", "concentration": "68 mg/L", "concentration_mM": 0.5709, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Threonine | 119.12 | 72-19-5 | 68 | 0.5709"},
+        {"name": "L-Tryptophan", "concentration": "36 mg/L", "concentration_mM": 0.1763, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Tryptophan | 204.23 | 73-22-3 | 36 | 0.1763"},
+        {"name": "L-Tyrosine", "concentration": "50 mg/L", "concentration_mM": 0.27595, "role": "amino acid / nitrogen source (added via alkaline solution)", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Tyrosine | 181.19 | 60-18-4 | 50 | 0.27595 ... 5000 mg L-Tyrosine (100x alkaline solution)"},
+        {"name": "L-Valine", "concentration": "86 mg/L", "concentration_mM": 0.7341, "role": "amino acid / nitrogen source", "source": "cited:Price et al 2019 (Table S1)", "evidence": "L-Valine | 117.15 | 72-18-4 | 86 | 0.7341"},
+
+        {"name": "CO2 (5%) / N2 (95%) headspace gas phase", "concentration": "5% CO2 / 95% N2", "concentration_mM": null, "role": "anaerobic gas phase / CO2 source", "source": "main_text", "evidence": "The headspace was continuously flushed with 5% CO2 and 95% N2."},
+        {"name": "Sodium hydroxide (NaOH, pH titrant)", "concentration": "2.5 M (titrant, to pH 6.5)", "concentration_mM": null, "role": "pH control base (adds Na+)", "source": "main_text", "evidence": "pH was controlled at 6.5 using 2.5 M NaOH."}
+      ],
+      "base_medium": "CDMpc (chemically defined medium for prolonged cultivation) for Lactococcus lactis MG1363, Price et al 2019 (BMC Evol Biol 19:15), Additional file 2 Table S1",
+      "sources_chased": [
+        {"what": "base recipe cited as 'CDMpc (Price et al, 2019)' = BMC Evol Biol 19:15, PMC6327505, doi 10.1186/s12862-018-1331-x", "obtained": true, "how": "WebFetch PMC6327505 + Europe PMC fullTextXML", "added": ["bulk salts KH2PO4/Na2HPO4/NaCl/MgCl2", "8 trace metals incl. Mo, Co, Cu, Fe(II), Mn, Zn, Ca", "7 vitamins (lipoic acid, pantothenate, biotin, nicotinic acid, pyridoxal, pyridoxine, thiamine)", "all 20 L-amino acids with concentrations"]},
+        {"what": "CDMpc composition table with exact concentrations", "obtained": true, "how": "Extracted Springer Additional file 2 (12862_2018_1331_MOESM2_ESM.docx) Table S1", "added": ["mg/L and mM for every component"]}
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "Molybdenum / ammonium molybdate (Mo trace element)",
+        "7 vitamins: DL-6,8-thioctic acid, D-pantothenate, biotin, nicotinic acid, pyridoxal, pyridoxine, thiamine",
+        "All 20 L-amino acids (the true nitrogen source and, for Arg/Cys/Met/Asp, energy/redox/sulfur sources)",
+        "Exact salt forms and concentrations for the bulk salts (KH2PO4, Na2HPO4, NaCl, MgCl2)"
+      ],
+      "notes": "Complete CDMpc recipe recovered from the cited base-medium reference (Price et al 2019, Additional file 2 Table S1). CDMpc is amino-acid-rich: nitrogen comes from all 20 amino acids, not from a bulk ammonium salt (ammonium appears only in trace ammonium molybdate). No selenium, tungsten, nickel, boron, added Na2S/sulfide, or yeast extract are present. Iron is supplied as Fe(II) (FeCl2), so the current-list 'Iron (Fe3+)' entry does not reflect the added form. Anaerobic, 30 degC, pH 6.5 (2.5 M NaOH), headspace 5% CO2 / 95% N2; L-cysteine acts as mild reductant. The paper's '25 mM glucose' is the standard CDMpc glucose (24.979 mM), the limiting carbon source."
+    }
+  ]
+}

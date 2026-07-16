@@ -1,0 +1,144 @@
+{
+  "pmc": "PMC7035108",
+  "media": [
+    {
+      "id": "growthlit_PMC7035108_m2g_m2_minimal_medium_0_2_glucose",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "D-Glucose",
+          "concentration": "0.2% (w/v)",
+          "concentration_mM": 11.1,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "grown in minimal media (M2) supplemented with 0.2 % glucose (M2G) according to Ely et al, which was modified by replacing MgCl2 with MgSO4."
+        },
+        {
+          "name": "Disodium hydrogen phosphate (Na2HPO4)",
+          "concentration": "6.1 mM",
+          "concentration_mM": 6.1,
+          "role": "phosphate / buffer / sodium source",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "M2 minimal salts medium (6.1 mM Na2HPO4, 3.9 mM KH2PO4, 9.3 mM NH4Cl, 0.5 mM MgSO4, 10 uM FeSO4 [EDTA chelate; Sigma Chemical Co.], 0.5 mM CaCl2) with 0.2% glucose as the sole carbon source"
+        },
+        {
+          "name": "Monopotassium phosphate (KH2PO4)",
+          "concentration": "3.9 mM",
+          "concentration_mM": 3.9,
+          "role": "phosphate / buffer / potassium source",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "M2 minimal salts medium (6.1 mM Na2HPO4, 3.9 mM KH2PO4, 9.3 mM NH4Cl, 0.5 mM MgSO4, 10 uM FeSO4 [EDTA chelate; Sigma Chemical Co.], 0.5 mM CaCl2) with 0.2% glucose as the sole carbon source"
+        },
+        {
+          "name": "Phosphate (total, from Na2HPO4 + KH2PO4)",
+          "concentration": "10.0 mM",
+          "concentration_mM": 10.0,
+          "role": "phosphate",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "M2 minimal salts medium (6.1 mM Na2HPO4, 3.9 mM KH2PO4, ...) -- summed inorganic phosphate = 6.1 + 3.9 mM"
+        },
+        {
+          "name": "Ammonium chloride (NH4Cl)",
+          "concentration": "9.3 mM",
+          "concentration_mM": 9.3,
+          "role": "nitrogen source (and chloride)",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "M2 minimal salts medium (6.1 mM Na2HPO4, 3.9 mM KH2PO4, 9.3 mM NH4Cl, 0.5 mM MgSO4, 10 uM FeSO4 [EDTA chelate; Sigma Chemical Co.], 0.5 mM CaCl2) with 0.2% glucose as the sole carbon source"
+        },
+        {
+          "name": "Magnesium sulfate (MgSO4)",
+          "concentration": "0.5 mM",
+          "concentration_mM": 0.5,
+          "role": "magnesium + sulfur source",
+          "source": "main_text + cited:Ely 1991 (Hottes 2004, PMC344409)",
+          "evidence": "according to Ely et al, which was modified by replacing MgCl2 with MgSO4. (base M2: '...0.5 mM MgSO4...'). In this sulfur-metabolism study MgSO4 is the principal sulfate source."
+        },
+        {
+          "name": "Calcium chloride (CaCl2)",
+          "concentration": "0.5 mM",
+          "concentration_mM": 0.5,
+          "role": "calcium source (and chloride)",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "M2 minimal salts medium (6.1 mM Na2HPO4, 3.9 mM KH2PO4, 9.3 mM NH4Cl, 0.5 mM MgSO4, 10 uM FeSO4 [EDTA chelate; Sigma Chemical Co.], 0.5 mM CaCl2) with 0.2% glucose as the sole carbon source"
+        },
+        {
+          "name": "Chloride (total, from NH4Cl + CaCl2)",
+          "concentration": "10.3 mM",
+          "concentration_mM": 10.3,
+          "role": "counterion",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "9.3 mM NH4Cl + 0.5 mM CaCl2 -> Cl- = 9.3 + (2 x 0.5) mM"
+        },
+        {
+          "name": "Sulfate (total, from MgSO4 + FeSO4)",
+          "concentration": "~0.51 mM",
+          "concentration_mM": 0.51,
+          "role": "sulfur source",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "0.5 mM MgSO4 + 10 uM FeSO4 -> SO4 = 0.5 + 0.01 mM (MgSO4 substituted for MgCl2 per paper's modification)"
+        },
+        {
+          "name": "Iron(II) sulfate (FeSO4), EDTA-chelated",
+          "concentration": "10 uM",
+          "concentration_mM": 0.01,
+          "role": "iron source (only trace metal in M2)",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "M2 minimal salts medium (... 10 uM FeSO4 [EDTA chelate; Sigma Chemical Co.] ...)"
+        },
+        {
+          "name": "EDTA (ethylenediaminetetraacetate)",
+          "concentration": "10 uM (iron chelate)",
+          "concentration_mM": 0.01,
+          "role": "iron chelator",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "10 uM FeSO4 [EDTA chelate; Sigma Chemical Co.] -- iron is supplied as a 1:1 FeSO4/EDTA chelate"
+        },
+        {
+          "name": "Dioxygen (O2)",
+          "concentration": "air (aerobic)",
+          "concentration_mM": null,
+          "role": "electron acceptor / gas phase",
+          "source": "main_text",
+          "evidence": "cultivated in Erlenmeyer shake flasks in Minitron incubators (Infors HT) with 150 rpm at 30 C -- Caulobacter crescentus is an obligate aerobe grown under vigorous aeration."
+        },
+        {
+          "name": "Water (H2O)",
+          "concentration": "solvent",
+          "concentration_mM": null,
+          "role": "solvent",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "Aqueous minimal salts medium (solvent)."
+        },
+        {
+          "name": "Proton (H+)",
+          "concentration": "pH ~7 (phosphate-buffered)",
+          "concentration_mM": null,
+          "role": "pH / proton",
+          "source": "cited:Ely 1991 (M2 recipe as stated in Hottes 2004, PMC344409)",
+          "evidence": "Na2HPO4/KH2PO4 phosphate buffer sets medium near neutral pH."
+        }
+      ],
+      "base_medium": "M2 minimal salts medium (Ely 1991, Methods Enzymol 204:372-384), modified: MgCl2 replaced by MgSO4; + 0.2% glucose = M2G",
+      "sources_chased": [
+        {
+          "what": "base M2 recipe cited as ref 79 (Ely B, 1991, Genetics of Caulobacter crescentus, Methods Enzymol 204:372-384)",
+          "obtained": true,
+          "how": "Ref 79 (Methods Enzymol, paywalled) recovered via primary Caulobacter methods paper that states the identical Ely M2 formulation verbatim: Hottes et al. 2004 J Bacteriol, WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC344409/",
+          "added": ["6.1 mM Na2HPO4", "3.9 mM KH2PO4", "9.3 mM NH4Cl", "0.5 mM MgSO4", "0.5 mM CaCl2", "10 uM FeSO4 (EDTA chelate)", "EDTA chelator", "total phosphate/chloride/sulfate concentrations"]
+        },
+        {
+          "what": "paper's own methods (modification + glucose + aeration)",
+          "obtained": true,
+          "how": "Read corpus_path /data/paper_corpus/fulltext_xml/PMC7035108.xml",
+          "added": ["0.2% glucose", "MgCl2->MgSO4 modification", "aerobic shake-flask cultivation"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "EDTA (iron chelator, present as the FeSO4/EDTA chelate)"
+      ],
+      "notes": "M2G is a fully defined minimal medium; the only trace metal is EDTA-chelated FeSO4 (10 uM). The current_components list contained spurious Fe3+ (EX_fe3_e), Co2+, Cu2+, Mn2+ and Zn2+ that are NOT part of authentic M2/M2G (no cobalt, copper, manganese, zinc or ferric salt is added) -- these should be dropped as reconstruction defaults. Oxygen corrected from 'facultative' to 'aerobic' (C. crescentus is an obligate aerobe cultivated in shake flasks at 150 rpm). All concentrations added; sulfate now derives from MgSO4 (the paper's deliberate MgCl2->MgSO4 swap), which is central to this sulfur/glutathione study. Recipe verbatim from Hottes et al. 2004 (PMC344409), which states the same Ely 1991 M2 formulation the paper cites."
+    }
+  ]
+}

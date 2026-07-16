@@ -1,0 +1,32 @@
+{
+  "pmc": "PMC12371093",
+  "media": [
+    {
+      "id": "growthlit_PMC12371093_m9_minimal_medium_4_g_l_acetate_slow_gro",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "sodium acetate (acetate)", "concentration": "4 g/L", "concentration_mM": null, "role": "carbon source", "source": "main_text", "evidence": "M9 supplemented with 4 g/L acetate at 37 °C for slow growth regime."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "5 g/L", "concentration_mM": 36.7, "role": "phosphate/buffer", "source": "main_text", "evidence": "M9 liquid medium (5 g/L KH2PO4, ...)"},
+        {"name": "disodium hydrogen phosphate (Na2HPO4)", "concentration": "6.78 g/L", "concentration_mM": 47.8, "role": "phosphate/buffer", "source": "main_text", "evidence": "M9 liquid medium (... 6.78 g/L Na2HPO4, ...)"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "salt (Na/Cl)", "source": "main_text", "evidence": "M9 liquid medium (... 0.5 g/L NaCl, ...)"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "1 g/L", "concentration_mM": 18.7, "role": "nitrogen source", "source": "main_text", "evidence": "M9 liquid medium (... 1 g/L NH4Cl, ...)"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4·7H2O)", "concentration": "0.5 g/L", "concentration_mM": 2.03, "role": "salt (Mg/SO4)", "source": "main_text", "evidence": "M9 liquid medium (... 0.5 g/L MgSO4 · 7H2O, ...)"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "11 mg/L", "concentration_mM": 0.099, "role": "salt (Ca)", "source": "main_text", "evidence": "M9 liquid medium (... 11 mg/L CaCl2)"},
+        {"name": "ferric chloride (FeCl3)", "concentration": "4.98 mg/L", "concentration_mM": 0.0307, "role": "trace element (Fe)", "source": "main_text", "evidence": "M9 liquid medium (... 4.98 mg/L FeCl3, ...)"},
+        {"name": "zinc chloride (ZnCl2)", "concentration": "0.84 mg/L", "concentration_mM": 0.00616, "role": "trace element (Zn)", "source": "main_text", "evidence": "M9 liquid medium (... 0.84 mg/L ZnCl2, ...)"},
+        {"name": "cupric chloride dihydrate (CuCl2·2H2O)", "concentration": "0.13 mg/L", "concentration_mM": 0.000763, "role": "trace element (Cu)", "source": "main_text", "evidence": "M9 liquid medium (... 0.13 mg/L CuCl2 · 2H2O, ...)"},
+        {"name": "cobalt chloride hexahydrate (CoCl2·6H2O)", "concentration": "0.1 mg/L", "concentration_mM": 0.00042, "role": "trace element (Co)", "source": "main_text", "evidence": "M9 liquid medium (... 0.1 mg/L CoCl2 · 6H2O, ...)"},
+        {"name": "boric acid (H3BO3)", "concentration": "0.1 mg/L", "concentration_mM": 0.00162, "role": "trace element (B)", "source": "main_text", "evidence": "M9 liquid medium (... 0.1 mg/L H3BO3, ...)"},
+        {"name": "manganese chloride tetrahydrate (MnCl2·4H2O)", "concentration": "0.016 mg/L", "concentration_mM": 0.0000808, "role": "trace element (Mn)", "source": "main_text", "evidence": "M9 liquid medium (... 0.016 mg/L MnCl · 4H2O, ...)"}
+      ],
+      "base_medium": "M9 minimal medium (custom formulation defined in full in the paper's Methods)",
+      "sources_chased": [
+        {"what": "M9 base recipe", "obtained": true, "how": "main_text Methods (Bacterial strains and growth conditions) — full salt+trace-metal composition given verbatim; no external base-medium reference cited", "added": ["complete salt set", "FeCl3, ZnCl2, CuCl2, CoCl2, H3BO3, MnCl2 trace metals"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["boron (H3BO3)", "manganese (MnCl2·4H2O)"],
+      "notes": "The entire recipe is given verbatim in the Methods; no cited base-medium reference to chase and no supplement needed. This is a fully chemically defined M9 with acetate as sole carbon source; no added vitamins or amino acids in the slow-growth regime (RPMI amino acids are added only in the fast/intermediate regimes). Aerobic stirred turbidostat/batch cultivation of E. coli, so oxygen=aerobic. Carbon-source salt form ('4 g/L acetate') and 'MnCl · 4H2O' (read as MnCl2·4H2O) are as written in the paper; acetate concentration_mM left null due to unspecified counter-ion. The current_uncovered items (H3BO3, MnCl) are the two trace metals lacking a distinct BiGG exchange, but both are genuinely in the medium."
+    }
+  ]
+}

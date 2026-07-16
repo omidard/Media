@@ -1,0 +1,60 @@
+{
+  "pmc": "PMC7393147",
+  "media": [
+    {
+      "id": "growthlit_PMC7393147_bg_11_hepes_nacl",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "sodium nitrate (NaNO3)", "concentration": "1.5 g/L", "concentration_mM": 17.65, "role": "nitrogen source / sodium",
+         "source": "main_text", "evidence": "BG-11 medium is composed of (in 1 L): 1.5 g NaNO3"},
+        {"name": "dipotassium phosphate (K2HPO4)", "concentration": "0.04 g/L", "concentration_mM": 0.23, "role": "phosphate / potassium",
+         "source": "main_text", "evidence": "0.04 g K2HPO4"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4·7H2O)", "concentration": "0.075 g/L", "concentration_mM": 0.304, "role": "magnesium / sulfate",
+         "source": "main_text", "evidence": "0.075 g MgSO4·7H2O"},
+        {"name": "calcium chloride dihydrate (CaCl2·2H2O)", "concentration": "0.036 g/L", "concentration_mM": 0.245, "role": "calcium / chloride",
+         "source": "main_text", "evidence": "0.036 g CaCl2·2H2O"},
+        {"name": "citric acid monohydrate (Citric Acid·H2O)", "concentration": "0.006 g/L", "concentration_mM": 0.0286, "role": "chelator / organic acid",
+         "source": "main_text", "evidence": "0.006 g Citric Acid·H2O"},
+        {"name": "ferric ammonium citrate", "concentration": "0.006 g/L", "concentration_mM": null, "role": "iron source (Fe3+) / ammonium; undefined stoichiometry",
+         "source": "main_text", "evidence": "0.006 g Ferric Ammonium Citrate"},
+        {"name": "disodium EDTA dihydrate (Na2EDTA·2H2O)", "concentration": "0.001 g/L", "concentration_mM": 0.00269, "role": "chelator",
+         "source": "main_text", "evidence": "0.001 g Na2EDTA·2H2O"},
+        {"name": "sodium carbonate (Na2CO3)", "concentration": "0.02 g/L", "concentration_mM": 0.189, "role": "carbonate / inorganic carbon buffer",
+         "source": "main_text", "evidence": "0.02 g Na2CO3"},
+        {"name": "boric acid (H3BO3)", "concentration": "2.86 mg/L", "concentration_mM": 0.0463, "role": "trace element (boron)",
+         "source": "main_text", "evidence": "1 mL BG-11 trace metals solution. The BG-11 trace metals solution (in 1 L) consists of: 2.86 g H3BO3 [diluted 1000x]"},
+        {"name": "manganese(II) chloride tetrahydrate (MnCl2·4H2O)", "concentration": "1.81 mg/L", "concentration_mM": 0.00915, "role": "trace element (manganese)",
+         "source": "main_text", "evidence": "1.81 g MnCl2·4H2O [in trace metals solution, 1 mL/L]"},
+        {"name": "zinc sulfate heptahydrate (ZnSO4·7H2O)", "concentration": "0.22 mg/L", "concentration_mM": 0.000765, "role": "trace element (zinc)",
+         "source": "main_text", "evidence": "0.22 g ZnSO4·7H2O [in trace metals solution, 1 mL/L]"},
+        {"name": "sodium molybdate dihydrate (Na2MoO4·2H2O)", "concentration": "0.39 mg/L", "concentration_mM": 0.00161, "role": "trace element (molybdenum)",
+         "source": "main_text", "evidence": "0.39 g Na2MoO4·2H2O [in trace metals solution, 1 mL/L]"},
+        {"name": "copper(II) sulfate pentahydrate (CuSO4·5H2O)", "concentration": "0.079 mg/L", "concentration_mM": 0.000316, "role": "trace element (copper)",
+         "source": "main_text", "evidence": "0.079 g CuSO4·5H2O [in trace metals solution, 1 mL/L]"},
+        {"name": "cobalt(II) nitrate hexahydrate (Co(NO3)2·6H2O)", "concentration": "0.0494 mg/L", "concentration_mM": 0.00017, "role": "trace element (cobalt)",
+         "source": "main_text", "evidence": "49.4 mg Co(NO3)2·6H2O [in trace metals solution, 1 mL/L]"},
+        {"name": "HEPES", "concentration": "1 g/L", "concentration_mM": 4.2, "role": "buffer (pH 8.9)",
+         "source": "main_text", "evidence": "supplemented with 1 g L−1 HEPES (pH 8.9)"},
+        {"name": "sodium chloride (NaCl)", "concentration": "100 mM", "concentration_mM": 100.0, "role": "salinity / sodium / chloride",
+         "source": "main_text", "evidence": "supplemented with 1 g L−1 HEPES (pH 8.9) and 100 mM NaCl at 35 °C"}
+      ],
+      "base_medium": "BG-11 (Sigma–Aldrich) cyanobacterial medium, supplemented with HEPES and NaCl",
+      "sources_chased": [
+        {"what": "full BG-11 base + trace-metals recipe", "obtained": true,
+         "how": "read main_text Methods (Strains and culturing conditions) — paper spells out the complete recipe including the trace metals solution, so no external reference chase was required",
+         "added": ["Na2CO3", "citric acid·H2O", "ferric ammonium citrate", "Na2EDTA·2H2O", "H3BO3", "MnCl2·4H2O", "ZnSO4·7H2O", "Na2MoO4·2H2O", "CuSO4·5H2O", "Co(NO3)2·6H2O"]}
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "citric acid·H2O",
+        "ferric ammonium citrate",
+        "Na2EDTA·2H2O",
+        "H3BO3 (boric acid / boron)",
+        "Na2CO3 (carbonate)",
+        "HEPES"
+      ],
+      "notes": "Complete standard BG-11 recipe is given verbatim in the paper's Methods, including the full trace-metals solution (B, Mn, Zn, Mo, Cu, Co) added at 1 mL/L, so trace-element concentrations are the stock values divided by 1000. Boron and the carbonate/EDTA/citrate chelator system were absent from current_components and are now added. Ferric ammonium citrate has undefined stoichiometry (concentration_mM null); it supplies both the Fe3+ and the ammonium seen in current_components. Medium is aerobic photoautotrophic (illuminated 24 h, shaking 150 rpm); target had listed oxygen as facultative reflecting the downstream phototroph/heterotroph coculture use."
+    }
+  ]
+}

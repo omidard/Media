@@ -1,0 +1,148 @@
+{
+  "pmc": "PMC3419522",
+  "media": [
+    {
+      "id": "growthlit_PMC3419522_modified_low_n_asp_2_n_deprived_pure_ar_",
+      "status": "corrected",
+      "oxygen": "facultative",
+      "components": [
+        {
+          "name": "sodium chloride",
+          "concentration": "18 g/L",
+          "concentration_mM": 308.0,
+          "role": "bulk salt (Na+, Cl-)",
+          "source": "cited:van Baalen 1962 ASP-2 (cellreg.org listing)",
+          "evidence": "ASP-2 Medium (per liter): ... NaCl: 18 g"
+        },
+        {
+          "name": "magnesium sulfate heptahydrate",
+          "concentration": "0.75 g/L",
+          "concentration_mM": 3.04,
+          "role": "bulk salt (Mg2+, SO4 2-)",
+          "source": "cited:van Baalen 1962 ASP-2 (cellreg.org listing)",
+          "evidence": "ASP-2 Medium (per liter): ... MgSO4x7H2O: 0.75 g"
+        },
+        {
+          "name": "potassium chloride",
+          "concentration": "0.6 g/L",
+          "concentration_mM": 8.05,
+          "role": "bulk salt (K+)",
+          "source": "cited:van Baalen 1962 ASP-2 (cellreg.org listing)",
+          "evidence": "ASP-2 Medium (per liter): ... KCl: 0.6 g"
+        },
+        {
+          "name": "calcium chloride dihydrate",
+          "concentration": "0.37 g/L",
+          "concentration_mM": 2.52,
+          "role": "bulk salt (Ca2+)",
+          "source": "cited:van Baalen 1962 ASP-2 (cellreg.org listing)",
+          "evidence": "ASP-2 Medium (per liter): ... CaCl2x2H2O: 0.37 g"
+        },
+        {
+          "name": "dipotassium hydrogen phosphate",
+          "concentration": "0.75 mM",
+          "concentration_mM": 0.75,
+          "role": "phosphate source",
+          "source": "main_text",
+          "evidence": "Cyanothece 51142 was routinely maintained in modified ASP-2 medium, containing 17 mM NH4Cl, 0.03 mM FeCl3, and 0.75 mM K2HPO4"
+        },
+        {
+          "name": "ammonium chloride",
+          "concentration": "0.75 mM",
+          "concentration_mM": 0.75,
+          "role": "nitrogen source (sole N; nitrate omitted)",
+          "source": "main_text",
+          "evidence": "NH4+-limited chemostat cultures were established ... using modified low-N ASP-2 containing 0.75 mM NH4Cl delivered at a 0.05 h-1 dilution rate"
+        },
+        {
+          "name": "ferric chloride",
+          "concentration": "0.03 mM",
+          "concentration_mM": 0.03,
+          "role": "iron source (added separately, in addition to PII trace Fe)",
+          "source": "main_text",
+          "evidence": "modified ASP-2 medium, containing 17 mM NH4Cl, 0.03 mM FeCl3, and 0.75 mM K2HPO4"
+        },
+        {
+          "name": "disodium EDTA",
+          "concentration": "0.03 g/L (plus PII contribution)",
+          "concentration_mM": 0.08,
+          "role": "metal chelator",
+          "source": "cited:van Baalen 1962 ASP-2 (cellreg.org listing)",
+          "evidence": "ASP-2 Medium (per liter): Na2-EDTA: 0.03 g"
+        },
+        {
+          "name": "boric acid",
+          "concentration": "~1.14 mg/L (PII metals at ~0.1 mL/L)",
+          "concentration_mM": 0.018,
+          "role": "trace element (boron)",
+          "source": "stock:PII trace metals (Provasoli 1968, NCMA)",
+          "evidence": "PII Trace Metals (Provasoli 1968), per liter of stock: H3BO3 ... 11.439 g (9.25 x 10-5 M in ES final medium)"
+        },
+        {
+          "name": "manganese sulfate",
+          "concentration": "0.00097 mM (PII metals)",
+          "concentration_mM": 0.00097,
+          "role": "trace element (Mn)",
+          "source": "stock:PII trace metals (Provasoli 1968, NCMA)",
+          "evidence": "PII Trace Metals (Provasoli 1968), per liter of stock: MnSO4 . 4H2O ... 1.624 g (3.64 x 10-5 M)"
+        },
+        {
+          "name": "zinc sulfate heptahydrate",
+          "concentration": "0.000077 mM (PII metals)",
+          "concentration_mM": 7.7e-05,
+          "role": "trace element (Zn)",
+          "source": "stock:PII trace metals (Provasoli 1968, NCMA)",
+          "evidence": "PII Trace Metals (Provasoli 1968), per liter of stock: ZnSO4 . 7H2O ... 0.220 g (3.82 x 10-6 M)"
+        },
+        {
+          "name": "cobalt sulfate heptahydrate",
+          "concentration": "0.000017 mM (PII metals)",
+          "concentration_mM": 1.7e-05,
+          "role": "trace element (Co)",
+          "source": "stock:PII trace metals (Provasoli 1968, NCMA)",
+          "evidence": "PII Trace Metals (Provasoli 1968), per liter of stock: CoSO4 . 7H2O ... 0.048 g (8.48 x 10-7 M)"
+        },
+        {
+          "name": "HEPES-Na (or Tris) buffer",
+          "concentration": "20 mM (40 mL of 0.5 M per L in base ASP-2; bioreactor pH controlled at 7.5)",
+          "concentration_mM": 20.0,
+          "role": "pH buffer",
+          "source": "cited:van Baalen 1962 ASP-2 (cellreg.org listing)",
+          "evidence": "ASP-2 Medium (per liter): ... HEPES-Na buffer (0.5 M, pH 8): 40 mL"
+        },
+        {
+          "name": "O2 (facultative)",
+          "concentration": "gas phase",
+          "concentration_mM": null,
+          "role": "oxygen; external O2 absent under pure-Ar sparge but produced internally by oxygenic photosynthesis",
+          "source": "main_text",
+          "evidence": "sparging with 1.3% CO2-Ar gas mix ... (this variant record = pure Ar atmosphere, no CO2)"
+        }
+      ],
+      "base_medium": "Modified low-N ASP-2 (van Baalen 1962 modification of Provasoli's ASP artificial seawater) for Cyanothece sp. ATCC 51142; nitrogen-limited (0.75 mM NH4Cl, nitrate omitted), sparged with pure Ar (no CO2).",
+      "sources_chased": [
+        {
+          "what": "primary paper PMC3419522 (medium name, N source, Fe, phosphate, gas)",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC3419522",
+          "added": ["confirmed modified ASP-2", "0.75 mM NH4Cl", "0.03 mM FeCl3", "0.75 mM K2HPO4", "pure Ar / 1.3% CO2-Ar gas"]
+        },
+        {
+          "what": "base ASP-2 recipe (ref 34 = van Baalen 1962), via cellreg.org ASP-2 / ASP-2-N listing",
+          "obtained": true,
+          "how": "WebFetch cellreg.org Catalog ASP 2+ASP 2-N",
+          "added": ["NaCl 18 g/L", "MgSO4.7H2O 0.75 g/L", "KCl 0.6 g/L", "CaCl2.2H2O 0.37 g/L", "Na2-EDTA 0.03 g/L", "HEPES-Na buffer", "NaNO3 confirmed OMITTED in ASP-2-N / low-N variant"]
+        },
+        {
+          "what": "PII (P-II) trace-metal stock composition (Provasoli 1968)",
+          "obtained": true,
+          "how": "WebFetch + Read NCMA ES Medium PDF (ncma.bigelow.org)",
+          "added": ["H3BO3 (boron)", "MnSO4.4H2O", "ZnSO4.7H2O", "CoSO4.7H2O", "FeCl3.6H2O + Na2EDTA in stock"]
+        }
+      ],
+      "confidence": "medium",
+      "missing_before": ["dipotassium hydrogen phosphate", "disodium EDTA", "boric acid", "HEPES-Na/Tris buffer"],
+      "notes": "Union recipe recovered. Nitrogen is NH4Cl only at 0.75 mM (nitrate omitted, ASP-2-N base); N-deprivation in the paper is achieved by interrupting the chemostat feed. This record is the pure-Ar (no CO2) variant, so NO inorganic carbon/bicarbonate is supplied in the gas and there is no organic carbon in the defined medium; the sister condition uses 1.3% CO2-Ar. Trace-metal concentrations (Co/Zn ~exact, Mn within 30%) are consistent with PII metals dosed at ~0.1 mL/L into ASP-2. Vitamin B12 (cyanocobalamin) is present in many ASP/ES seawater media but is NOT specified for van Baalen's modified ASP-2 in any source obtained, so it is deliberately not listed (no fabrication). HEPES/Tris buffer is from the cited base recipe but the 5.5-L bioreactor holds pH 7.5 actively, so effective buffer concentration is uncertain (low confidence on that one line)."
+    }
+  ]
+}

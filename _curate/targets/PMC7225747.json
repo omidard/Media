@@ -1,0 +1,139 @@
+{
+ "pmc": "PMC7225747",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7225747/",
+ "media": [
+  {
+   "id": "growthlit_PMC7225747_m9_minimal_medium_5_g_l_glucose_1_mm_l_a",
+   "name": "M9 minimal medium, 5 g/L glucose + 1 mM L-arginine (PMC7225747)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "L-Arginine",
+     "exchange": "EX_arg__L_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Calcium (ca2)",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Chloride (cl)",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Cobalt (cobalt2)",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper (cu2)",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (fe3)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O (h2o)",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+ (h)",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium (k)",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium (mg2)",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese (mn2)",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium (na1)",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium (nh4)",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 (o2)",
+     "exchange": "EX_o2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate (pi)",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate (so4)",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc (zn2)",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "\"5 g/L glucose, 42.2 mM Na2HPO4, 22 mM KH2PO4, 11.3 mM (NH4)2SO4, 8.56 mM NaCl, 1 mM MgSO4 x 7 H2O, 100 \u03bcM CaCl2 x 2 H2O ... 60 \u03bcM FeCl3, 7.6 \u03bcM CoCl2 x 6 H2O, 7.1 \u03bcM MnSO4 x 2 H2O, 7 \u03bcM CuCl2 x 2 H2O, and 6.3 \u03bcM ZnSO4 x 7 H2O\"; \"1 mM arginine\" supplemented for auxotrophy; cultures grown aerobically in shaking flasks (220 rpm) / bioreactors at 30-42 C.",
+   "citation": "Medium composition from PMC7225747 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7225747/",
+   "doi": ""
+  }
+ ]
+}

@@ -1,0 +1,79 @@
+{
+  "pmc": "PMC10589654",
+  "media": [
+    {
+      "id": "complexlit_PMC10589654_mineral_salts_minimal_medium_with_nahco3_as_",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "organism": "Sporomusa ovata (acetogen; grown chemo-/electro-autotrophically on H2:CO2)",
+      "components": [
+        {"name": "NaCl", "concentration": "1 g/L", "concentration_mM": 17.1, "role": "bulk salt (Na, Cl)", "source": "supplementary", "evidence": "Medium component A (per liter) ... NaCl 1g"},
+        {"name": "MgCl2·6H2O", "concentration": "0.5 g/L", "concentration_mM": 2.46, "role": "bulk salt (Mg)", "source": "supplementary", "evidence": "Medium component A (per liter) ... MgCl2•6 H2O 0.5 g"},
+        {"name": "KH2PO4 (in component A)", "concentration": "0.2 g/L", "concentration_mM": 1.47, "role": "phosphate/potassium", "source": "supplementary", "evidence": "Medium component A (per liter) ... KH2PO4 0.2 g"},
+        {"name": "NH4Cl", "concentration": "0.3 g/L", "concentration_mM": 5.61, "role": "nitrogen source (ammonium)", "source": "supplementary", "evidence": "Medium component A (per liter) ... NH4Cl 0.3 g"},
+        {"name": "KCl", "concentration": "0.3 g/L", "concentration_mM": 4.02, "role": "bulk salt (K, Cl)", "source": "supplementary", "evidence": "Medium component A (per liter) ... KCl 0.3 g"},
+        {"name": "CaCl2·2H2O", "concentration": "0.015 g/L", "concentration_mM": 0.102, "role": "bulk salt (Ca)", "source": "supplementary", "evidence": "Medium component A (per liter) ... CaCl2•2 H2O 0.015 g"},
+        {"name": "Resazurin", "concentration": "0.25 mg/L", "concentration_mM": 0.00109, "role": "redox indicator", "source": "supplementary", "evidence": "Medium component A (per liter) ... Resazurin 0.25 mg"},
+        {"name": "Na2S·9H2O", "concentration": "0.048 g/L", "concentration_mM": 0.2, "role": "reductant (sulfide) / sulfur source", "source": "supplementary", "evidence": "Medium component A (per liter) ... Na2S•9H2O 0.048 g; and main text: 'reducing reagents of 0.2 mM Na2S and 0.2 mM cysteine.'"},
+        {"name": "L-cysteine", "concentration": "0.031 g/L (~0.2 mM per main text)", "concentration_mM": 0.2, "role": "reductant / sulfur source", "source": "supplementary", "evidence": "Medium component A (per liter) ... Cysteine 0.031 g; main text: 'reducing reagents of 0.2 mM Na2S and 0.2 mM cysteine.'"},
+        {"name": "NaHCO3 (sodium bicarbonate)", "concentration": "2.52 g/L", "concentration_mM": 30.0, "role": "bicarbonate buffer / carbon source", "source": "supplementary", "evidence": "Medium component A (per liter) ... NaHCO3 2.52 g; main text: 'CO2 and NaHCO3 as the carbon sources.'"},
+        {"name": "K2HPO4 (from 10X phosphate stock)", "concentration": "1.05 g/L final (10.5 g/L stock, added 1:9)", "concentration_mM": 6.0, "role": "phosphate buffer", "source": "supplementary", "evidence": "10X phosphate stock (per liter) ... K2HPO4 10.5 g; 'The 10X phosphate stock was added to the medium component A in a 1:9 volume ratio after autoclaving.'"},
+        {"name": "KH2PO4 (from 10X phosphate stock)", "concentration": "0.69 g/L final (6.9 g/L stock)", "concentration_mM": 5.07, "role": "phosphate buffer", "source": "supplementary", "evidence": "10X phosphate stock (per liter) ... KH2PO4 6.9 g"},
+        {"name": "Na2HPO4·7H2O (from 10X phosphate stock)", "concentration": "6.435 g/L final (64.35 g/L stock)", "concentration_mM": 24.0, "role": "phosphate buffer", "source": "supplementary", "evidence": "10X phosphate stock (per liter) ... Na2HPO4•7H2O 64.35 g"},
+        {"name": "NaH2PO4·H2O (from 10X phosphate stock)", "concentration": "2.814 g/L final (28.14 g/L stock)", "concentration_mM": 20.4, "role": "phosphate buffer", "source": "supplementary", "evidence": "10X phosphate stock (per liter) ... NaH2PO4•H2O 28.14 g (total phosphate buffer ~50 mM per SI Note)"},
+        {"name": "HCl (25% w/w)", "concentration": "10 mL/L of trace stock (1 mL stock per L medium)", "concentration_mM": null, "role": "acidifier for trace-metal stock", "source": "stock:Trace element solution", "evidence": "Trace element solution contained the following (per liter): HCl (25%, w/w), 10 mL"},
+        {"name": "FeCl2·4H2O", "concentration": "1.5 mg/L final (1.5 g/L stock, 1 mL/L)", "concentration_mM": 0.00755, "role": "trace metal (Fe2+)", "source": "stock:Trace element solution", "evidence": "Trace element solution ... FeCl2•4H2O 1.5 g"},
+        {"name": "CoCl2·2H2O", "concentration": "0.19 mg/L final (0.19 g/L stock)", "concentration_mM": 0.00115, "role": "trace metal (Co)", "source": "stock:Trace element solution", "evidence": "Trace element solution ... CoCl2•2H2O, 0.19 g"},
+        {"name": "MnCl2·4H2O", "concentration": "0.1 mg/L final (0.1 g/L stock)", "concentration_mM": 0.000505, "role": "trace metal (Mn)", "source": "stock:Trace element solution", "evidence": "Trace element solution ... MnCl2•4H2O, 0.1 g"},
+        {"name": "ZnCl2", "concentration": "0.07 mg/L final (70 mg/L stock)", "concentration_mM": 0.000514, "role": "trace metal (Zn)", "source": "stock:Trace element solution", "evidence": "Trace element solution ... ZnCl2, 70 mg"},
+        {"name": "H3BO3", "concentration": "0.006 mg/L final (6 mg/L stock)", "concentration_mM": 0.000097, "role": "trace element (B)", "source": "stock:Trace element solution", "evidence": "Trace element solution ... H3BO3, 6 mg"},
+        {"name": "Na2MoO4·2H2O", "concentration": "0.036 mg/L final (36 mg/L stock)", "concentration_mM": 0.000149, "role": "trace metal (Mo)", "source": "stock:Trace element solution", "evidence": "Trace element solution ... Na2MoO4•2H2O, 36 mg"},
+        {"name": "NiCl2·6H2O", "concentration": "0.024 mg/L final (24 mg/L stock)", "concentration_mM": 0.000101, "role": "trace metal (Ni)", "source": "stock:Trace element solution", "evidence": "Trace element solution ... NiCl2•6H2O, 24 mg"},
+        {"name": "CuCl2·2H2O", "concentration": "0.002 mg/L final (2 mg/L stock)", "concentration_mM": 0.0000117, "role": "trace metal (Cu)", "source": "stock:Trace element solution", "evidence": "Trace element solution ... CuCl2•2H2O, 2 mg"},
+        {"name": "Na2SeO3·5H2O", "concentration": "0.006 mg/L final (6 mg/L Se/W stock, 1 mL/L)", "concentration_mM": 0.0000228, "role": "trace element (Se)", "source": "stock:Se/W solution", "evidence": "Se/W solution contained the following (per liter): Na2SeO3•5H2O, 6 mg"},
+        {"name": "Na2WO4·2H2O", "concentration": "0.008 mg/L final (8 mg/L stock)", "concentration_mM": 0.0000242, "role": "trace element (W)", "source": "stock:Se/W solution", "evidence": "Se/W solution ... Na2WO4•2H2O, 8 mg"},
+        {"name": "NaOH (Se/W stock)", "concentration": "0.5 mg/L final (0.5 g/L stock)", "concentration_mM": null, "role": "alkalizer for Se/W stock", "source": "stock:Se/W solution", "evidence": "Se/W solution ... and NaOH, 0.5 g"},
+        {"name": "Biotin", "concentration": "0.02 mg/L final (20 mg/L vitamin stock, 1 mL/L)", "concentration_mM": 0.0000819, "role": "vitamin", "source": "stock:Wolin's vitamins", "evidence": "The Wolin's vitamins stock solution contained the following (per liter): biotin, 20 mg"},
+        {"name": "Folic acid", "concentration": "0.02 mg/L final (20 mg/L stock)", "concentration_mM": 0.0000453, "role": "vitamin", "source": "stock:Wolin's vitamins", "evidence": "Wolin's vitamins ... folic acid, 20 mg"},
+        {"name": "Pyridoxine hydrochloride", "concentration": "0.1 mg/L final (100 mg/L stock)", "concentration_mM": 0.000486, "role": "vitamin (B6)", "source": "stock:Wolin's vitamins", "evidence": "Wolin's vitamins ... pyridoxine hydrochloride, 100 mg"},
+        {"name": "Riboflavin", "concentration": "0.05 mg/L final (50 mg/L stock)", "concentration_mM": 0.000133, "role": "vitamin (B2)", "source": "stock:Wolin's vitamins", "evidence": "Wolin's vitamins ... riboflavin 50 mg"},
+        {"name": "Thiamine", "concentration": "0.05 mg/L final (50 mg/L stock)", "concentration_mM": 0.000148, "role": "vitamin (B1)", "source": "stock:Wolin's vitamins", "evidence": "Wolin's vitamins ... thiamine, 50 mg"},
+        {"name": "Nicotinic acid", "concentration": "0.05 mg/L final (50 mg/L stock)", "concentration_mM": 0.000406, "role": "vitamin (B3)", "source": "stock:Wolin's vitamins", "evidence": "Wolin's vitamins ... nicotinic acid, 50 mg"},
+        {"name": "Pantothenic acid", "concentration": "0.05 mg/L final (50 mg/L stock)", "concentration_mM": 0.000228, "role": "vitamin (B5)", "source": "stock:Wolin's vitamins", "evidence": "Wolin's vitamins ... pantothenic acid, 50 mg"},
+        {"name": "Vitamin B12 (cyanocobalamin)", "concentration": "0.001 mg/L final (1 mg/L stock)", "concentration_mM": 0.00000074, "role": "vitamin (B12)", "source": "stock:Wolin's vitamins", "evidence": "Wolin's vitamins ... vitamin B12, 1 mg"},
+        {"name": "p-Aminobenzoic acid (PABA)", "concentration": "0.05 mg/L final (50 mg/L stock)", "concentration_mM": 0.000365, "role": "vitamin", "source": "stock:Wolin's vitamins", "evidence": "Wolin's vitamins ... p-aminobenzoic acid, 50 mg"},
+        {"name": "Thioctic acid (lipoic acid)", "concentration": "0.05 mg/L final (50 mg/L stock)", "concentration_mM": 0.000242, "role": "vitamin/cofactor", "source": "stock:Wolin's vitamins", "evidence": "Wolin's vitamins ... and thioctic acid, 50 mg"},
+        {"name": "H2 (hydrogen gas)", "concentration": "headspace H2:CO2 80:20 v/v, 1 bar", "concentration_mM": null, "role": "electron donor (gas phase)", "source": "main_text", "evidence": "The headspace was filled with 1-bar H2:CO2 (80:20, v:v) ... S. ovata utilized H2 as the sole electron donor"},
+        {"name": "CO2 (carbon dioxide gas)", "concentration": "headspace H2:CO2 (or N2:CO2) 80:20 v/v, 1 bar", "concentration_mM": null, "role": "carbon source (gas phase)", "source": "main_text", "evidence": "The headspace was filled with 1-bar H2:CO2 (80:20, v:v) ... CO2 and NaHCO3 as the carbon sources."}
+      ],
+      "base_medium": "Reduced anaerobic bicarbonate-buffered defined mineral salts medium (Loffler-lab), cited as refs 75 (Loffler, Sanford & Tiedje 1996, Appl. Environ. Microbiol. 62:3809; PMC1388963) and 76 (He et al. 2003, Nature 424:62); full recipe expanded in SI Appendix Supplementary Note 1.",
+      "base_medium_reference": "Loffler et al. 1996 (AEM 62:3809) / He et al. 2003 (Nature 424:62)",
+      "sources_chased": [
+        {"what": "SI Appendix Supplementary Note 1 (full medium recipe: component A, 10X phosphate stock, trace element solution, Se/W solution, Wolin's vitamins)", "obtained": true, "how": "downloaded pnas.2308373120.sapp.pdf via EuropePMC supplementaryFiles endpoint and read Supplementary Note 1", "added": ["10X phosphate buffer salts (K2HPO4, KH2PO4, Na2HPO4, NaH2PO4; ~50 mM total)", "corrected Mg source to MgCl2 (not MgSO4)", "corrected Fe to FeCl2/Fe2+ only", "KCl", "CaCl2", "full trace-element solution: FeCl2, CoCl2, MnCl2, ZnCl2, H3BO3, Na2MoO4, NiCl2, CuCl2 (+HCl)", "Se/W solution: Na2SeO3, Na2WO4, NaOH", "Wolin's vitamins: biotin, folic acid, pyridoxine, riboflavin, thiamine, nicotinic acid, pantothenic acid, B12, PABA, thioctic acid", "Na2S reductant", "Resazurin", "H2/CO2 gas phase"]},
+        {"what": "base-medium refs 75 (Loffler 1996, PMC1388963) and 76 (He 2003)", "obtained": false, "how": "WebFetch of PMC1388963 did not surface the medium table in the accessible text; not required because SI Note 1 fully expands the recipe", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "10X phosphate buffer salts (K2HPO4, KH2PO4, Na2HPO4·7H2O, NaH2PO4·H2O; ~50 mM buffer)",
+        "KCl",
+        "CaCl2·2H2O",
+        "Na2S·9H2O (sulfide reductant; main text lists it alongside cysteine)",
+        "Resazurin (redox indicator)",
+        "Cobalt (CoCl2·2H2O)",
+        "Nickel (NiCl2·6H2O)",
+        "Molybdenum (Na2MoO4·2H2O)",
+        "Boron (H3BO3)",
+        "Selenium (Na2SeO3·5H2O)",
+        "Tungsten (Na2WO4·2H2O)",
+        "Biotin, folic acid, pyridoxine, riboflavin, thiamine, nicotinic acid, pantothenic acid, vitamin B12, PABA, thioctic acid (Wolin's vitamins)",
+        "H2 electron donor and CO2 gas phase"
+      ],
+      "corrections": [
+        "Mg source is MgCl2·6H2O, NOT MgSO4 — the current record's 'MgSO4' (EX_mg2_e/EX_so4_e) is wrong; there is no sulfate salt in the medium. Sulfur is supplied only by Na2S and cysteine.",
+        "Iron is added as FeCl2·4H2O (Fe2+) only; the current 'Iron (Fe3+)' (EX_fe3_e) entry has no source in the recipe.",
+        "The current 'CO2' entry mapped to EX_cobalt2_e conflates CO2 gas with cobalt; cobalt is a real component (CoCl2) and CO2 is a real gas-phase component — both are now listed correctly."
+      ],
+      "notes": "Sporomusa ovata acetogen medium, strictly anaerobic (H2:CO2 or N2:CO2 headspace, resazurin-monitored, Na2S+cysteine reduced). Recipe fully recovered from SI Appendix Supplementary Note 1: component A + 10X phosphate stock (added 1:9 after separate autoclaving, giving ~50 mM phosphate) + 1 mL/L each of trace-element, Se/W, and Wolin's vitamins stocks. Component-A concentrations are stated per-liter and are diluted ~10% when the phosphate stock is added; reported values are as stated in the recipe. Trace/vitamin concentrations shown as final after 1000x dilution of the 1 mL/L stocks."
+    }
+  ]
+}

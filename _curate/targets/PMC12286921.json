@@ -1,0 +1,144 @@
+{
+ "pmc": "PMC12286921",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC12286921.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12286921/",
+ "media": [
+  {
+   "id": "growthlit_PMC12286921_defined_dnra_chemostat_medium_1_mm_aceta",
+   "name": "Defined DNRA chemostat medium + 1 mM acetate + 2 mM NO3-, H2/CO2/N2 gas-fed (PMC12286921)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "Sodium acetate (acetate)",
+     "exchange": "EX_ac_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "CaCl2\u00b72H2O -> Calcium (Ca2+)",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Chloride (Cl-)",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "CO2 (carbon dioxide)",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2 (dihydrogen)",
+     "exchange": "EX_h2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium (K+)",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "MgCl2\u00b76H2O -> Magnesium (Mg2+)",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl -> Sodium (Na+)",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NH4Cl -> Ammonium (NH4+)",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "KNO3 -> Nitrate (NO3-)",
+     "exchange": "EX_no3_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "KH2PO4 -> Phosphate (Pi)",
+    "PIPES buffer",
+    "Wolin's vitamin solution",
+    "Trace mineral solution"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "The defined medium used for enrichment, isolation, and routine cultivation contained, per liter of deionized water: 4.76 mmol NaCl, 0.47 mmol CaCl2\u00b72H2O, 0.24 mmol MgCl2\u00b76H2O, 0.2 mmol NH4Cl, and 1 ml trace mineral solution ... the medium was supplemented with filter-sterilized 5 mM piperazine-N,N\u2032-bis(2-ethanesulfonic acid) (PIPES; pH 7.0), Wolin's vitamin solution, and 0.15 mM KH2PO4. The bottle",
+   "citation": "Medium composition from PMC12286921 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12286921/",
+   "doi": ""
+  }
+ ]
+}

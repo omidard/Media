@@ -1,0 +1,51 @@
+{
+ "pmc": "PMC12229818",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12229818/",
+ "media": [
+  {
+   "id": "growthlit_PMC12229818_ca_mg_hepes_buffer_with_pseudomonas_sp_p",
+   "name": "Ca/Mg-HEPES buffer with Pseudomonas sp. prey (predation batch) (PMC12229818)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "aerobic",
+   "current_components": [
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": 2.0
+    },
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": 2.0
+    },
+    {
+     "name": "magnesium chloride",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": 3.0
+    },
+    {
+     "name": "O2 (aerobic)",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "HEPES"
+   ],
+   "base_medium": "Ca/Mg-HEPES buffer (Bdellovibrio predation buffer)",
+   "base_medium_reference": "Full composition stated verbatim in this paper's Materials and Methods (PMC12229818). The buffer is the standard Ca/HEPES Bdellovibrio predation buffer (25 mM HEPES, 2 mM CaCl2, pH 7.6; e.g. Lambert C. & Sockett R.E., and Lambert et al. 2006 Appl Environ Microbiol 72:6757-6765, PMID:17021229), here additionally supplemented with 3 mM MgCl2.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": "\"Ca/Mg-HEPES buffer (25 mM HEPES, 2 mM CaCl2, 3 mM MgCl2, pH 7.6)\". Used for Pseudomonas sp. prey + B. bacteriovorus predation batches; all cultures aerobic at 30 degC.",
+   "citation": "Medium composition from PMC12229818 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12229818/",
+   "doi": ""
+  }
+ ]
+}

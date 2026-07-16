@@ -1,0 +1,40 @@
+{
+  "pmc": "PMC6367249",
+  "media": [
+    {
+      "id": "growthlit_PMC6367249_gamma_pga_fermentation_production_medium",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "20 g/L", "concentration_mM": 111.0, "role": "carbon_source",
+         "source": "main_text", "evidence": "The γ-PGA fermentation medium contains 20 g/L glucose, 5 g/L NH₄NO₃, 11.35 g/L Na₂HPO₄, 8.15 g/L KH₂PO₄, 0.20 g/L MgSO₄⋅7H₂O, 0.01 g/L MnSO₄⋅H₂O, 0.0008 g/L CaCl₂, and 0.0045 g/L Na₂-EDTA."},
+        {"name": "ammonium nitrate", "concentration": "5 g/L", "concentration_mM": 62.5, "role": "nitrogen_source",
+         "source": "main_text", "evidence": "The γ-PGA fermentation medium contains 20 g/L glucose, 5 g/L NH₄NO₃ ... (provides both NH4+ and NO3-, 62.5 mM each)"},
+        {"name": "disodium hydrogen phosphate (Na2HPO4)", "concentration": "11.35 g/L", "concentration_mM": 79.9, "role": "phosphate_buffer",
+         "source": "main_text", "evidence": "... 11.35 g/L Na₂HPO₄ ..."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "8.15 g/L", "concentration_mM": 59.9, "role": "phosphate_buffer",
+         "source": "main_text", "evidence": "... 8.15 g/L KH₂PO₄ ..."},
+        {"name": "magnesium sulfate heptahydrate (MgSO4·7H2O)", "concentration": "0.20 g/L", "concentration_mM": 0.811, "role": "salt/trace",
+         "source": "main_text", "evidence": "... 0.20 g/L MgSO₄⋅7H₂O ..."},
+        {"name": "manganese sulfate monohydrate (MnSO4·H2O)", "concentration": "0.01 g/L", "concentration_mM": 0.059, "role": "trace_element",
+         "source": "main_text", "evidence": "... 0.01 g/L MnSO₄⋅H₂O ..."},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.0008 g/L", "concentration_mM": 0.0072, "role": "trace_element",
+         "source": "main_text", "evidence": "... 0.0008 g/L CaCl₂ ..."},
+        {"name": "disodium EDTA (Na2-EDTA)", "concentration": "0.0045 g/L", "concentration_mM": 0.012, "role": "chelator",
+         "source": "main_text", "evidence": "... and 0.0045 g/L Na₂-EDTA."},
+        {"name": "O2 (air, shake/well-plate)", "concentration": null, "concentration_mM": null, "role": "gas_phase",
+         "source": "main_text", "evidence": "B. licheniformis were grown in twenty-four well plates with 2 mL working volume, and cultivated at 220 rpm and 37°C for 14 h."}
+      ],
+      "base_medium": "chemically defined γ-PGA production medium (glucose / NH4NO3 / phosphate-buffered, no complex components)",
+      "sources_chased": [
+        {"what": "paper full text (Methods, media & culture conditions)", "obtained": true,
+         "how": "WebFetch europepmc fullTextXML + PMC HTML", "added": []},
+        {"what": "cited base-medium reference", "obtained": true,
+         "how": "verified none exists — the paper defines the full recipe inline with no external base-medium citation, no named trace/vitamin stock", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Fully defined medium stated verbatim in the main text; recipe is complete (carbon = glucose; N = NH4NO3; phosphate buffer = Na2HPO4/KH2PO4; salts/trace = Mg, Mn, Ca; chelator = Na2-EDTA). No complex ingredients, no vitamins, no reductant — conditions are aerobic (220 rpm, 24-well plate), so target 'facultative'/O2 lb -10 should read aerobic. LB was used only as the seed/antibiotic growth medium for cloning, not as the fermentation medium. The current_components ion set already covers all elements; Na2-EDTA (a chelator, not an ion-exchange) is the only compound not representable as an existing exchange reaction."
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+ "pmc": "PMC11972089",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC11972089.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11972089/",
+ "media": [
+  {
+   "id": "growthlit_PMC11972089_dbaf_db_bicarbonate_mineral_medium_aceta",
+   "name": "DBAF (DB bicarbonate mineral medium + acetate + fumarate) (PMC11972089)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium chloride (KCl)",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "CO2 (headspace gas, N2:CO2 80:20)",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium bicarbonate (NaHCO3)",
+     "exchange": "EX_hco3_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium chloride (KCl)",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium bicarbonate (NaHCO3)",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium acetate",
+     "exchange": "EX_ac_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium fumarate",
+     "exchange": "EX_fum_e",
+     "lb": -1.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Vitamin solution (Wolfe's / DSMZ-type)",
+    "Trace element / mineral solution (Wolfe's-type)",
+    "Cysteine\u00b7HCl"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "T. lovleyi SZ ... routinely cultured in anoxic DBAF, a bicarbonate-based mineral medium (DB) [39] supplemented with sodium acetate (20 mM) and sodium fumarate (40 mM) as the electron donor and acceptor, respectively ... sparged with an oxygen-free gas mix of N2:CO2 (80:20) ... Cysteine\u2022HCl (2 mM, final concentration) was added as a reducing agent.",
+   "citation": "Medium composition from PMC11972089 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11972089/",
+   "doi": ""
+  }
+ ]
+}

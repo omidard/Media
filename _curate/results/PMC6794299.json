@@ -1,0 +1,149 @@
+{
+  "pmc": "PMC6794299",
+  "media": [
+    {
+      "id": "complexlit_PMC6794299_hartmans_de_bont_hdb_minimal_medium",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "glycerol",
+          "concentration": "5.8 mM",
+          "concentration_mM": 5.8,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "For broth culture, M. smegmatis was grown on Hartmans de Bont minimal medium [67] supplemented with 0.05% (w/v) tyloxapol and 5.8 mM glycerol."
+        },
+        {
+          "name": "ammonium sulfate ((NH4)2SO4)",
+          "concentration": "2 g/L",
+          "concentration_mM": 15.1,
+          "role": "nitrogen source / sulfate",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "2 g L-1 (NH4)2SO4, 0.1 g L-1 MgCl2 6 H2O, 3 g L-1 Na2HPO4, 1 g L-1 KH2PO4"
+        },
+        {
+          "name": "magnesium chloride hexahydrate (MgCl2 6H2O)",
+          "concentration": "0.1 g/L",
+          "concentration_mM": 0.49,
+          "role": "magnesium / chloride",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "2 g L-1 (NH4)2SO4, 0.1 g L-1 MgCl2 6 H2O, 3 g L-1 Na2HPO4, 1 g L-1 KH2PO4"
+        },
+        {
+          "name": "disodium hydrogen phosphate (Na2HPO4)",
+          "concentration": "3 g/L",
+          "concentration_mM": 21.1,
+          "role": "phosphate / buffer / sodium",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "2 g L-1 (NH4)2SO4, 0.1 g L-1 MgCl2 6 H2O, 3 g L-1 Na2HPO4, 1 g L-1 KH2PO4"
+        },
+        {
+          "name": "potassium dihydrogen phosphate (KH2PO4)",
+          "concentration": "1 g/L",
+          "concentration_mM": 7.35,
+          "role": "phosphate / buffer / potassium",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "2 g L-1 (NH4)2SO4, 0.1 g L-1 MgCl2 6 H2O, 3 g L-1 Na2HPO4, 1 g L-1 KH2PO4"
+        },
+        {
+          "name": "EDTA (disodium)",
+          "concentration": "100 mg/L in trace stock; 1 mg/L final (10 mL/L)",
+          "concentration_mM": 0.0034,
+          "role": "chelator (trace-element solution)",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "10 mL L-1 trace element solution (100 mg L-1 EDTA, 20 mg L-1 ZnSO4 7 H2O, 10 mg L-1 CaCl2 2 H2O, 50 mg L-1 FeSO4 7 H2O, 2 mg L-1 Na2MoO4 2 H2O, 2 mg L-1 CuSO4 5 H2O, 4 mg L-1 CoCl2 6 H2O, 12 mg L-1 MnCl2 7 H2O)"
+        },
+        {
+          "name": "zinc sulfate heptahydrate (ZnSO4 7H2O)",
+          "concentration": "20 mg/L in trace stock; 0.2 mg/L final (10 mL/L)",
+          "concentration_mM": 0.0007,
+          "role": "trace element (Zn)",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "10 mL L-1 trace element solution (100 mg L-1 EDTA, 20 mg L-1 ZnSO4 7 H2O, 10 mg L-1 CaCl2 2 H2O, 50 mg L-1 FeSO4 7 H2O, 2 mg L-1 Na2MoO4 2 H2O, 2 mg L-1 CuSO4 5 H2O, 4 mg L-1 CoCl2 6 H2O, 12 mg L-1 MnCl2 7 H2O)"
+        },
+        {
+          "name": "calcium chloride dihydrate (CaCl2 2H2O)",
+          "concentration": "10 mg/L in trace stock; 0.1 mg/L final (10 mL/L)",
+          "concentration_mM": 0.00068,
+          "role": "trace element (Ca)",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "10 mL L-1 trace element solution (100 mg L-1 EDTA, 20 mg L-1 ZnSO4 7 H2O, 10 mg L-1 CaCl2 2 H2O, 50 mg L-1 FeSO4 7 H2O, 2 mg L-1 Na2MoO4 2 H2O, 2 mg L-1 CuSO4 5 H2O, 4 mg L-1 CoCl2 6 H2O, 12 mg L-1 MnCl2 7 H2O)"
+        },
+        {
+          "name": "iron(II) sulfate heptahydrate (FeSO4 7H2O)",
+          "concentration": "50 mg/L in trace stock; 0.5 mg/L final (10 mL/L)",
+          "concentration_mM": 0.0018,
+          "role": "trace element (Fe)",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "10 mL L-1 trace element solution (100 mg L-1 EDTA, 20 mg L-1 ZnSO4 7 H2O, 10 mg L-1 CaCl2 2 H2O, 50 mg L-1 FeSO4 7 H2O, 2 mg L-1 Na2MoO4 2 H2O, 2 mg L-1 CuSO4 5 H2O, 4 mg L-1 CoCl2 6 H2O, 12 mg L-1 MnCl2 7 H2O)"
+        },
+        {
+          "name": "sodium molybdate dihydrate (Na2MoO4 2H2O)",
+          "concentration": "2 mg/L in trace stock; 0.02 mg/L final (10 mL/L)",
+          "concentration_mM": 0.00008,
+          "role": "trace element (Mo)",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "10 mL L-1 trace element solution (100 mg L-1 EDTA, 20 mg L-1 ZnSO4 7 H2O, 10 mg L-1 CaCl2 2 H2O, 50 mg L-1 FeSO4 7 H2O, 2 mg L-1 Na2MoO4 2 H2O, 2 mg L-1 CuSO4 5 H2O, 4 mg L-1 CoCl2 6 H2O, 12 mg L-1 MnCl2 7 H2O)"
+        },
+        {
+          "name": "copper(II) sulfate pentahydrate (CuSO4 5H2O)",
+          "concentration": "2 mg/L in trace stock; 0.02 mg/L final (10 mL/L)",
+          "concentration_mM": 0.00008,
+          "role": "trace element (Cu)",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "10 mL L-1 trace element solution (100 mg L-1 EDTA, 20 mg L-1 ZnSO4 7 H2O, 10 mg L-1 CaCl2 2 H2O, 50 mg L-1 FeSO4 7 H2O, 2 mg L-1 Na2MoO4 2 H2O, 2 mg L-1 CuSO4 5 H2O, 4 mg L-1 CoCl2 6 H2O, 12 mg L-1 MnCl2 7 H2O)"
+        },
+        {
+          "name": "cobalt(II) chloride hexahydrate (CoCl2 6H2O)",
+          "concentration": "4 mg/L in trace stock; 0.04 mg/L final (10 mL/L)",
+          "concentration_mM": 0.00017,
+          "role": "trace element (Co)",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "10 mL L-1 trace element solution (100 mg L-1 EDTA, 20 mg L-1 ZnSO4 7 H2O, 10 mg L-1 CaCl2 2 H2O, 50 mg L-1 FeSO4 7 H2O, 2 mg L-1 Na2MoO4 2 H2O, 2 mg L-1 CuSO4 5 H2O, 4 mg L-1 CoCl2 6 H2O, 12 mg L-1 MnCl2 7 H2O)"
+        },
+        {
+          "name": "manganese chloride (MnCl2, stated as 7H2O)",
+          "concentration": "12 mg/L in trace stock; 0.12 mg/L final (10 mL/L)",
+          "concentration_mM": null,
+          "role": "trace element (Mn)",
+          "source": "cited:Hartmans & de Bont HdB medium (restated in Frontiers 2020 10.3389/fbioe.2020.593781)",
+          "evidence": "10 mL L-1 trace element solution (100 mg L-1 EDTA, 20 mg L-1 ZnSO4 7 H2O, 10 mg L-1 CaCl2 2 H2O, 50 mg L-1 FeSO4 7 H2O, 2 mg L-1 Na2MoO4 2 H2O, 2 mg L-1 CuSO4 5 H2O, 4 mg L-1 CoCl2 6 H2O, 12 mg L-1 MnCl2 7 H2O)"
+        },
+        {
+          "name": "tyloxapol",
+          "concentration": "0.05% (w/v) = 0.5 g/L",
+          "concentration_mM": null,
+          "role": "nonionic detergent / anti-clumping surfactant (undefined for modeling)",
+          "source": "main_text",
+          "evidence": "supplemented with 0.05% (w/v) tyloxapol and 5.8 mM glycerol."
+        },
+        {
+          "name": "oxygen (O2)",
+          "concentration": "air (aerobic, shaken 200 rpm)",
+          "concentration_mM": null,
+          "role": "electron acceptor / gas phase",
+          "source": "main_text",
+          "evidence": "Liquid cultures of both M. smegmatis and E. coli were incubated on a rotary shaker at 200 rpm, 37 C"
+        }
+      ],
+      "base_medium": "Hartmans & de Bont (HdB) mineral (minimal) medium",
+      "sources_chased": [
+        {
+          "what": "base recipe cited as ref 67 (Hartmans S, De Bont JAM 1992, Appl Environ Microbiol 58:1220-6, PMID 1599242, PMC195578)",
+          "obtained": true,
+          "how": "primary is a scanned PDF (PMC195578, text not machine-readable); identical HdB recipe recovered verbatim from Frontiers 2020 (doi:10.3389/fbioe.2020.593781) and corroborated by web search of the primary",
+          "added": ["(NH4)2SO4 2 g/L", "MgCl2 6H2O 0.1 g/L", "Na2HPO4 3 g/L", "KH2PO4 1 g/L", "trace solution: EDTA, ZnSO4, CaCl2, FeSO4, Na2MoO4 (molybdenum), CuSO4, CoCl2, MnCl2"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "molybdenum / molybdate (Na2MoO4) - present in HdB trace solution but absent from current_components (no EX_mobd/EX_mo)",
+        "EDTA (chelator in trace solution)",
+        "explicit salt identities and concentrations for (NH4)2SO4, MgCl2, Na2HPO4, KH2PO4 and each trace metal (previously only listed as ion exchanges with no source-backed concentrations)",
+        "tyloxapol and glycerol previously in current_uncovered / unquantified"
+      ],
+      "notes": "HdB is a purely mineral (vitamin-free) medium; mycobacteria need no added vitamins, so none are absent. Trace-element concentrations are the stock values (per Frontiers restatement of Hartmans & de Bont); the stock is added at 10 mL/L, so concentration_mM is the final in-medium molar (100-fold dilution). Only real gap versus current_components is molybdate; Ni/Se/W/B are genuinely not in this recipe. Growth was aerobic (37 C, 200 rpm) despite target 'facultative' tag."
+    }
+  ]
+}

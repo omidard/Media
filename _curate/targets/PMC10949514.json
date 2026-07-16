@@ -1,0 +1,39 @@
+{
+ "pmc": "PMC10949514",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC10949514.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10949514/",
+ "media": [
+  {
+   "id": "complexlit_PMC10949514_20_heat_inactivated_human_serum_with_menadio",
+   "name": "20% heat-inactivated human serum with menadione and hemin (PMC10949514)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "menadione",
+     "exchange": "EX_mndn_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "hemin",
+     "exchange": "EX_pheme_e",
+     "lb": -10.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "heat-inactivated human serum"
+   ],
+   "base_medium": "20% heat-inactivated human serum (complex biological fluid; not a chemically defined mineral medium)",
+   "base_medium_reference": "No cited base-medium recipe. This is the assay medium defined in-paper: Nagai et al. (2024), 'Porphyromonas gingivalis PGN_1547 ...', PMC10949514. Organism grown anaerobically; serum is undiluted-basis 20% (v/v), the balance being the assay buffer/broth which the paper does not specify.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": "Growth curves of P. gingivalis ATCC 33277 and \u0394pgn_1547 mutant growing in 20% heat-inactivated human serum supplemented with 1 \u00b5g/mL menadione and 5 \u00b5g/mL hemin ... P. gingivalis ATCC 33277 was cultured anaerobically at 37\u00b0C.",
+   "citation": "Medium composition from PMC10949514 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10949514/",
+   "doi": ""
+  }
+ ]
+}

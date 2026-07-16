@@ -1,12 +1,12 @@
 {
- "count": 12340,
+ "count": 13073,
  "by_category": {
-  "laboratory": 4198,
+  "laboratory": 4931,
   "biospecimen": 17,
   "food": 8125
  },
  "by_source_db": {
-  "standard": 31,
+  "standard": 293,
   "Published (HMDB-derived)": 8,
   "HMDB": 9,
   "Published (GEM paper)": 1,
@@ -14,6 +14,7 @@
   "FooDB": 701,
   "Literature (GrowthDB)": 598,
   "Literature (GEM papers)": 87,
+  "MediaDB (ISB defined media)": 471,
   "DSMZ MediaDive": 3148,
   "USDA FoodData Central": 7424
  },
@@ -23,5 +24,12 @@
   "medium": "data/media/{id}.json",
   "stats": "data/stats.json"
  },
- "note": "Small enough to fetch for a count without pulling the 6.5 MB catalog. Regenerate alongside index.json."
+ "note": "Small enough to fetch for a count without pulling the 6.5 MB catalog. Regenerate alongside index.json.",
+ "by_curation": {
+  "database": 11733,
+  "expert": 93,
+  "verified": 983,
+  "auto": 2,
+  "curated": 262
+ }
 }

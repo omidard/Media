@@ -1,0 +1,72 @@
+{
+  "pmc": "PMC7443923",
+  "media": [
+    {
+      "id": "complexlit_PMC7443923_laguna_chitin_lc_mineral_medium_with_amorpho",
+      "status": "corrected",
+      "oxygen": "facultative",
+      "components": [
+        {"name": "sodium chloride (NaCl)", "concentration": "200 g/L", "concentration_mM": 3422.0, "role": "bulk salt / Na+ / Cl-", "source": "supplementary", "evidence": "The 'Laguna Chitin' mineral medium (LC medium) was prepared on the basis of ONR7a medium (45), modified by the addition of (final concentration, g l-1): 200 NaCl; 30 MgCl2; 0.5 NH4Cl and 5 HEPES"},
+        {"name": "magnesium chloride (MgCl2)", "concentration": "30 g/L", "concentration_mM": 315.0, "role": "bulk salt / Mg2+", "source": "supplementary", "evidence": "modified by the addition of (final concentration, g l-1): ... 30 MgCl2 ... (main text: 240 g L-1, 3.42 M Na+, and 0.37 M Mg2+)"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "0.5 g/L", "concentration_mM": 9.35, "role": "nitrogen source", "source": "supplementary", "evidence": "modified by the addition of (final concentration, g l-1): ... 0.5 NH4Cl"},
+        {"name": "HEPES", "concentration": "5 g/L", "concentration_mM": 21.0, "role": "buffer (organic, not consumed)", "source": "supplementary", "evidence": "modified by the addition of (final concentration, g l-1): ... 5 HEPES (4-[2-hydroxyethyl]-1-piperazineethanesulfonic acid). The pH was adjusted to 7.0 by addition of 1 M KOH"},
+        {"name": "sodium sulfate (Na2SO4)", "concentration": "3.98 g/L", "concentration_mM": 28.0, "role": "sulfate source", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 1: NaCl 22.79 g, Na2SO4 3.98 g, KCl 0.72 g ..."},
+        {"name": "potassium chloride (KCl)", "concentration": "0.72 g/L", "concentration_mM": 9.66, "role": "potassium source", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 1: ... KCl 0.72 g ..."},
+        {"name": "disodium hydrogen phosphate (Na2HPO4 x 7 H2O)", "concentration": "89 mg/L", "concentration_mM": 0.332, "role": "phosphate source", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 1: ... Na2HPO4 x 7 H2O 89.00 mg ..."},
+        {"name": "calcium chloride (CaCl2 x 2 H2O)", "concentration": "1.46 g/L", "concentration_mM": 9.93, "role": "calcium source", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 2: MgCl2 x 6 H2O 11.18 g, CaCl2 x 2 H2O 1.46 g, SrCl2 x 6 H2O 24.00 mg"},
+        {"name": "sodium bromide (NaBr)", "concentration": "83 mg/L", "concentration_mM": 0.807, "role": "trace bulk salt / bromide", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 1: ... NaBr 83.00 mg ..."},
+        {"name": "sodium bicarbonate (NaHCO3)", "concentration": "31 mg/L", "concentration_mM": 0.369, "role": "bicarbonate / inorganic carbon", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 1: ... NaHCO3 31.00 mg ..."},
+        {"name": "boric acid (H3BO3)", "concentration": "27 mg/L (ONR7a base) + 0.03 mg/L (trace mix)", "concentration_mM": 0.437, "role": "borate / boron", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 1: ... H3BO3 27.00 mg ... (also present in the Pfennig & Lippert trace mix)"},
+        {"name": "sodium fluoride (NaF)", "concentration": "2.60 mg/L", "concentration_mM": 0.062, "role": "trace bulk salt / fluoride", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 1: ... NaF 2.60 mg ..."},
+        {"name": "strontium chloride (SrCl2 x 6 H2O)", "concentration": "24 mg/L", "concentration_mM": 0.090, "role": "trace bulk salt / strontium", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 2: ... SrCl2 x 6 H2O 24.00 mg"},
+        {"name": "TAPSO", "concentration": "1.30 g/L", "concentration_mM": 5.01, "role": "buffer (organic, from ONR7a base; not consumed)", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 1: ... TAPSO 1.30 g ... adjust pH to 7.6 with NaOH"},
+        {"name": "ferrous chloride (FeCl2 x 4 H2O)", "concentration": "2.00 mg/L", "concentration_mM": 0.010, "role": "iron source (Fe2+)", "source": "cited:Dyksterhouse 1995 (ONR7a, DSMZ Medium 950)", "evidence": "ONR7a MEDIUM Solution 3: FeCl2 x 4 H2O 2.00 mg, H2O dest 50.00 ml"},
+        {"name": "EDTA", "concentration": "5 mg/L (1 mL/L of 5 g/L stock)", "concentration_mM": 0.017, "role": "chelator (trace-metal solution)", "source": "cited:Pfennig & Lippert 1966 (DSMZ trace elements solution S3087)", "evidence": "supplemented with 1 ml l-1 acidic trace metal solution (46) [Pfennig & Lippert 1966]; DSMZ solution: EDTA 5.00 g, FeSO4 x 7 H2O 2.20 g, ZnSO4 x 7 H2O 0.10 g, MnCl2 x 4 H2O 0.03 g, H3BO3 0.03 g, CoCl2 x 6 H2O 0.20 g, CuCl2 x 2 H2O 0.03 g, NiCl2 x 6 H2O 0.03 g, Na2MoO4 x 2 H2O 0.03 g per L"},
+        {"name": "iron(II) sulfate (FeSO4 x 7 H2O)", "concentration": "2.2 mg/L (1 mL/L of 2.2 g/L stock)", "concentration_mM": 0.0079, "role": "iron source (Fe2+) - trace mix", "source": "cited:Pfennig & Lippert 1966 (DSMZ trace elements solution S3087)", "evidence": "acidic trace metal solution (46): FeSO4 x 7 H2O 2.20 g/L"},
+        {"name": "zinc sulfate (ZnSO4 x 7 H2O)", "concentration": "0.1 mg/L (1 mL/L of 0.1 g/L stock)", "concentration_mM": 0.00035, "role": "zinc (trace)", "source": "cited:Pfennig & Lippert 1966 (DSMZ trace elements solution S3087)", "evidence": "acidic trace metal solution (46): ZnSO4 x 7 H2O 0.10 g/L"},
+        {"name": "manganese chloride (MnCl2 x 4 H2O)", "concentration": "0.03 mg/L (1 mL/L of 0.03 g/L stock)", "concentration_mM": 0.00015, "role": "manganese (trace)", "source": "cited:Pfennig & Lippert 1966 (DSMZ trace elements solution S3087)", "evidence": "acidic trace metal solution (46): MnCl2 x 4 H2O 0.03 g/L"},
+        {"name": "cobalt chloride (CoCl2 x 6 H2O)", "concentration": "0.2 mg/L (1 mL/L of 0.2 g/L stock)", "concentration_mM": 0.00084, "role": "cobalt (trace)", "source": "cited:Pfennig & Lippert 1966 (DSMZ trace elements solution S3087)", "evidence": "acidic trace metal solution (46): CoCl2 x 6 H2O 0.20 g/L"},
+        {"name": "copper chloride (CuCl2 x 2 H2O)", "concentration": "0.03 mg/L (1 mL/L of 0.03 g/L stock)", "concentration_mM": 0.00018, "role": "copper (trace)", "source": "cited:Pfennig & Lippert 1966 (DSMZ trace elements solution S3087)", "evidence": "acidic trace metal solution (46): CuCl2 x 2 H2O 0.03 g/L"},
+        {"name": "nickel chloride (NiCl2 x 6 H2O)", "concentration": "0.03 mg/L (1 mL/L of 0.03 g/L stock)", "concentration_mM": 0.00013, "role": "nickel (trace)", "source": "cited:Pfennig & Lippert 1966 (DSMZ trace elements solution S3087)", "evidence": "acidic trace metal solution (46): NiCl2 x 6 H2O 0.03 g/L"},
+        {"name": "sodium molybdate (Na2MoO4 x 2 H2O)", "concentration": "0.03 mg/L (1 mL/L of 0.03 g/L stock)", "concentration_mM": 0.00012, "role": "molybdenum (trace)", "source": "cited:Pfennig & Lippert 1966 (DSMZ trace elements solution S3087)", "evidence": "acidic trace metal solution (46): Na2MoO4 x 2 H2O 0.03 g/L"},
+        {"name": "thiamine (vitamin B1)", "concentration": "5 ug/L (1 mL/L of 5 mg/L stock)", "concentration_mM": 0.0000148, "role": "vitamin", "source": "cited:Pfennig & Lippert 1966 (DSMZ vitamin mix S3031)", "evidence": "supplemented with 1 ml l-1 vitamin mix (46); DSMZ vitamin mix (Pfennig & Lippert 1966): Thiamin 5.0 mg, Calcium pantothenate 5.0 mg, Biotin 2.0 mg, PABA 5.0 mg, Nicotinic acid 5.0 mg, Pyridoxine 10.0 mg, Folic acid 2.0 mg, Riboflavin 5.0 mg, B12 0.5 mg per L"},
+        {"name": "calcium pantothenate (vitamin B5)", "concentration": "5 ug/L (1 mL/L of 5 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "cited:Pfennig & Lippert 1966 (DSMZ vitamin mix S3031)", "evidence": "vitamin mix (46): Calcium pantothenate 5.0 mg/L"},
+        {"name": "biotin (vitamin B7)", "concentration": "2 ug/L (1 mL/L of 2 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "cited:Pfennig & Lippert 1966 (DSMZ vitamin mix S3031)", "evidence": "vitamin mix (46): Biotin 2.0 mg/L"},
+        {"name": "p-aminobenzoic acid (PABA)", "concentration": "5 ug/L (1 mL/L of 5 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "cited:Pfennig & Lippert 1966 (DSMZ vitamin mix S3031)", "evidence": "vitamin mix (46): (p-aminobenzoic acid) 5.0 mg/L"},
+        {"name": "nicotinic acid (niacin, vitamin B3)", "concentration": "5 ug/L (1 mL/L of 5 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "cited:Pfennig & Lippert 1966 (DSMZ vitamin mix S3031)", "evidence": "vitamin mix (46): Nicotinic acid 5.0 mg/L"},
+        {"name": "pyridoxine (vitamin B6)", "concentration": "10 ug/L (1 mL/L of 10 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "cited:Pfennig & Lippert 1966 (DSMZ vitamin mix S3031)", "evidence": "vitamin mix (46): Pyridoxine 10.0 mg/L"},
+        {"name": "folic acid (vitamin B9)", "concentration": "2 ug/L (1 mL/L of 2 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "cited:Pfennig & Lippert 1966 (DSMZ vitamin mix S3031)", "evidence": "vitamin mix (46): Folic acid 2.0 mg/L"},
+        {"name": "riboflavin (vitamin B2)", "concentration": "5 ug/L (1 mL/L of 5 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "cited:Pfennig & Lippert 1966 (DSMZ vitamin mix S3031)", "evidence": "vitamin mix (46): Riboflavin 5.0 mg/L"},
+        {"name": "cyanocobalamin (vitamin B12)", "concentration": "0.5 ug/L (1 mL/L of 0.5 mg/L stock)", "concentration_mM": null, "role": "vitamin", "source": "cited:Pfennig & Lippert 1966 (DSMZ vitamin mix S3031)", "evidence": "vitamin mix (46): B12 0.5 mg/L"},
+        {"name": "yeast extract", "concentration": "50 mg/L", "concentration_mM": null, "role": "undefined complex (trace N / vitamin / growth-factor source)", "source": "supplementary", "evidence": "supplemented with 1 ml l-1 acidic trace metal solution (46), 1 ml l-1 vitamin mix (46) and 50 mg l-1 yeast extract"},
+        {"name": "amorphous chitin (poly-N-acetylglucosamine; hydrolyzed to GlcNAc)", "concentration": "2 g/L (5 g/L in primary enrichment)", "concentration_mM": null, "role": "carbon/energy source (growth substrate)", "source": "main_text + supplementary", "evidence": "mineral medium Laguna Chitin (LC), pH 7.0 ... supplemented with amorphous chitin (2 g L-1, final concentration) ... Chitin from shrimp shells was added at the final concentration 5 g l-1 to serve as growth substrate ... N-acetylglucosamine (GlcNAc) was found in supernatants"}
+      ],
+      "base_medium": "ONR7a artificial seawater medium (Dyksterhouse et al. 1995; DSMZ Medium 950), made hypersaline (240 g/L total salinity) by raising NaCl to 200 g/L and MgCl2 to 30 g/L, buffered with 5 g/L HEPES at pH 7.0, plus Pfennig & Lippert (1966) acidic trace-metal solution and vitamin mix, 50 mg/L yeast extract, and amorphous chitin as carbon source.",
+      "sources_chased": [
+        {"what": "paper main text (PMC7443923) - LC salinity, Na+/Mg2+, chitin", "obtained": true, "how": "Read local corpus XML", "added": ["NaCl salinity 240 g/L", "3.42 M Na+", "0.37 M Mg2+", "amorphous chitin 2 g/L"]},
+        {"what": "SI Appendix (pnas.2007232117.sapp.pdf) - full LC recipe & base-medium citation", "obtained": true, "how": "EuropePMC supplementaryFiles zip -> pdftotext", "added": ["ONR7a base reference (ref 45)", "NaCl 200 / MgCl2 30 / NH4Cl 0.5 / HEPES 5 g/L modifications", "1 mL/L trace metals (ref 46)", "1 mL/L vitamin mix (ref 46)", "50 mg/L yeast extract"]},
+        {"what": "base recipe cited as ref 45 (Dyksterhouse 1995, ONR7a medium)", "obtained": true, "how": "DSMZ Medium 950 PDF via WebFetch/pdftotext", "added": ["Na2SO4", "KCl", "Na2HPO4", "CaCl2", "NaBr", "NaHCO3", "H3BO3", "NaF", "SrCl2", "FeCl2", "TAPSO buffer"]},
+        {"what": "trace-metal + vitamin stocks cited as ref 46 (Pfennig & Lippert 1966)", "obtained": true, "how": "DSMZ MediaDive solutions S3087 (trace) and S3031 (vitamins)", "added": ["EDTA","FeSO4","ZnSO4","MnCl2","CoCl2","CuCl2","NiCl2","Na2MoO4","thiamine","pantothenate","biotin","PABA","nicotinic acid","pyridoxine","folate","riboflavin","B12"]}
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "nickel (NiCl2, trace)",
+        "molybdate (Na2MoO4, trace)",
+        "thiamine (B1)",
+        "calcium pantothenate (B5)",
+        "biotin (B7)",
+        "p-aminobenzoic acid (PABA)",
+        "nicotinic acid (B3)",
+        "pyridoxine (B6)",
+        "folic acid (B9)",
+        "riboflavin (B2)",
+        "cyanocobalamin (B12)",
+        "bicarbonate (NaHCO3, inorganic carbon)",
+        "amorphous chitin / GlcNAc carbon source",
+        "yeast extract (complex)",
+        "sulfate/phosphate/K+/Ca2+ were present but underspecified; NaBr, NaF, SrCl2, EDTA, buffers (HEPES/TAPSO) newly enumerated"
+      ],
+      "notes": "LC medium is a hypersaline (240 g/L) derivative of ONR7a: base ONR7a salts + NaCl to 200 g/L, MgCl2 to 30 g/L, NH4Cl 0.5 g/L, HEPES buffer to pH 7.0, plus 1 mL/L each of the Pfennig & Lippert (1966) acidic trace-metal solution and vitamin mix, 50 mg/L yeast extract, and amorphous chitin (hydrolyzed extracellularly to GlcNAc) as sole carbon source. No chemical reductant is added; the host is aerobic/facultative and the coculture self-generates microoxic conditions in sealed serum bottles (hence oxygen=facultative, microoxic optimum). Trace/vitamin per-L amounts are the DSMZ rendering of the cited Pfennig & Lippert 1966 stocks; minor amount discrepancies exist between DSMZ renderings but the element/vitamin set is consistent."
+    }
+  ]
+}

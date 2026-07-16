@@ -1,0 +1,143 @@
+{
+ "pmc": "PMC9381517",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC9381517.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9381517/",
+ "media": [
+  {
+   "id": "growthlit_PMC9381517_mr_1_medium_acetate_n2o",
+   "name": "MR-1 medium + acetate + N2O (PMC9381517)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "Sodium acetate (acetate)",
+     "exchange": "EX_ac_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Calcium (Ca2+, from trace metal solution)",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe2+/Fe3+, from trace metal solution)",
+     "exchange": "EX_fe_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium (Mg2+, from trace metal solution)",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "N2O (nitrous oxide, dissolved)",
+     "exchange": "EX_n2o_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "1000X trace metal solution (Table S1; per Yoon et al. 2013 AEM, ref 31)",
+    "Other trace metals (Mn, Zn, Co, Ni, Cu, B, Mo, Se, W, from trace metal solution)",
+    "1000X vitamin stock solution (Table S2; per Yoon et al. 2013 AEM, ref 31)"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "The modified MR-1 medium, used for all three reactor experiments, contained per liter of double-distilled water, 0.50 g NaCl, 0.29 g KH2PO4, 0.50 g K2HPO4, 0.27 g NH4Cl, 1 mL of 1000X trace metal solution (Table S1), and 1 mL of 1000X vitamin stock solution (Table S2; added to the autoclaved medium through a 0.22-um syringe filter). Sodium acetate was added to a concentration of 5.0 mM as the sole",
+   "citation": "Medium composition from PMC9381517 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9381517/",
+   "doi": ""
+  }
+ ]
+}

@@ -1,0 +1,104 @@
+{
+  "pmc": "PMC11894529",
+  "media": [
+    {
+      "id": "growthlit_PMC11894529_m63_minimal_medium_0_5_w_v_glucose",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "0.5% (w/v)", "concentration_mM": 27.8, "role": "carbon source",
+         "source": "main_text", "evidence": "test strains were cultured in M63 minimal media [29] with 0.5% (w/v) glycerol, 0.5% (w/v) L-fucose, or 0.5% (w/v) glucose as the carbon source."},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "15 mM (in 10x salts)", "concentration_mM": 15.0, "role": "nitrogen source + sulfate",
+         "source": "main_text", "evidence": "The 10x M63 salts solution contained 15 mM of (NH4)2SO4, 100 mM of KH2PO4, and 2 x 10-2 mM of FeSO4.7H2O."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "100 mM (in 10x salts)", "concentration_mM": 100.0, "role": "phosphate / buffer / potassium",
+         "source": "main_text", "evidence": "The 10x M63 salts solution contained 15 mM of (NH4)2SO4, 100 mM of KH2PO4, and 2 x 10-2 mM of FeSO4.7H2O."},
+        {"name": "ferrous sulfate heptahydrate (FeSO4.7H2O)", "concentration": "2 x 10-2 mM (in 10x salts)", "concentration_mM": 0.002, "role": "iron / trace metal",
+         "source": "main_text", "evidence": "The 10x M63 salts solution contained 15 mM of (NH4)2SO4, 100 mM of KH2PO4, and 2 x 10-2 mM of FeSO4.7H2O."},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "1.7 mM", "concentration_mM": 1.7, "role": "magnesium + sulfate",
+         "source": "main_text", "evidence": "After diluting to 1x M63 medium, it was supplemented with 10-4% thiamine and 1.7 mM MgSO4."},
+        {"name": "thiamine (vitamin B1)", "concentration": "10-4% (~1 mg/L)", "concentration_mM": 0.003, "role": "vitamin",
+         "source": "main_text", "evidence": "After diluting to 1x M63 medium, it was supplemented with 10-4% thiamine and 1.7 mM MgSO4."},
+        {"name": "water", "concentration": null, "concentration_mM": null, "role": "solvent",
+         "source": "main_text", "evidence": "M63 minimal media [29] ... After diluting to 1x M63 medium"},
+        {"name": "dioxygen (O2)", "concentration": null, "concentration_mM": null, "role": "electron acceptor (aerobic)",
+         "source": "main_text", "evidence": "Bacterial strains were routinely grown in LB media at 30 C or 37 C ... cultured in M63 minimal media (aerobic shake cultures for fucAO/lacZ reporter assays)"},
+        {"name": "proton (H+)", "concentration": null, "concentration_mM": null, "role": "pH / charge balance",
+         "source": "stock:M63 (Pardee/Miller)", "evidence": "M63 is a phosphate-buffered defined medium adjusted to ~pH 7 with KOH (classic M63 recipe, ref 29)."}
+      ],
+      "base_medium": "M63 minimal medium (Pardee, Jacob & Monod 1959 / Miller)",
+      "sources_chased": [
+        {"what": "base recipe cited as ref 29 (Pardee AB, Jacob F, Monod J. J Mol Biol 1959;1:165-78) — origin of 'medium 63' (M63)", "obtained": true,
+         "how": "identified from reference list; classic M63 composition confirmed no additional trace-metal or vitamin mix beyond iron and thiamine", "added": ["confirmed medium identity; no hidden trace/vitamin stock"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "M63 is a fully defined minimal medium; the paper's methods spell out the entire composition (NH4/SO4, KH2PO4 phosphate buffer, Fe, Mg, thiamine, carbon source) and classic M63 (ref 29) adds no trace-metal or vitamin mix, so nothing was hidden. Caveat: the paper labels the salts as a '10x' stock yet lists 15 mM (NH4)2SO4 and 100 mM KH2PO4 which already equal standard 1x M63 working concentrations; conc_mM therefore reports these as the working (1x) values (the FeSO4 value, given as 2e-2 mM in 10x, dilutes to ~2e-3 mM = standard M63 1x iron). Ampicillin/kanamycin/chloramphenicol were added only 'when necessary' for selection and are not part of the growth medium."
+    },
+    {
+      "id": "growthlit_PMC11894529_m63_minimal_medium_0_5_w_v_glycerol",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "glycerol", "concentration": "0.5% (w/v)", "concentration_mM": 54.3, "role": "carbon source",
+         "source": "main_text", "evidence": "test strains were cultured in M63 minimal media [29] with 0.5% (w/v) glycerol, 0.5% (w/v) L-fucose, or 0.5% (w/v) glucose as the carbon source."},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "15 mM (in 10x salts)", "concentration_mM": 15.0, "role": "nitrogen source + sulfate",
+         "source": "main_text", "evidence": "The 10x M63 salts solution contained 15 mM of (NH4)2SO4, 100 mM of KH2PO4, and 2 x 10-2 mM of FeSO4.7H2O."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "100 mM (in 10x salts)", "concentration_mM": 100.0, "role": "phosphate / buffer / potassium",
+         "source": "main_text", "evidence": "The 10x M63 salts solution contained 15 mM of (NH4)2SO4, 100 mM of KH2PO4, and 2 x 10-2 mM of FeSO4.7H2O."},
+        {"name": "ferrous sulfate heptahydrate (FeSO4.7H2O)", "concentration": "2 x 10-2 mM (in 10x salts)", "concentration_mM": 0.002, "role": "iron / trace metal",
+         "source": "main_text", "evidence": "The 10x M63 salts solution contained 15 mM of (NH4)2SO4, 100 mM of KH2PO4, and 2 x 10-2 mM of FeSO4.7H2O."},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "1.7 mM", "concentration_mM": 1.7, "role": "magnesium + sulfate",
+         "source": "main_text", "evidence": "After diluting to 1x M63 medium, it was supplemented with 10-4% thiamine and 1.7 mM MgSO4."},
+        {"name": "thiamine (vitamin B1)", "concentration": "10-4% (~1 mg/L)", "concentration_mM": 0.003, "role": "vitamin",
+         "source": "main_text", "evidence": "After diluting to 1x M63 medium, it was supplemented with 10-4% thiamine and 1.7 mM MgSO4."},
+        {"name": "water", "concentration": null, "concentration_mM": null, "role": "solvent",
+         "source": "main_text", "evidence": "M63 minimal media [29] ... After diluting to 1x M63 medium"},
+        {"name": "dioxygen (O2)", "concentration": null, "concentration_mM": null, "role": "electron acceptor (aerobic)",
+         "source": "main_text", "evidence": "cultured in M63 minimal media (aerobic shake cultures for fucAO/lacZ reporter assays)"},
+        {"name": "proton (H+)", "concentration": null, "concentration_mM": null, "role": "pH / charge balance",
+         "source": "stock:M63 (Pardee/Miller)", "evidence": "M63 is a phosphate-buffered defined medium adjusted to ~pH 7 with KOH (classic M63 recipe, ref 29)."}
+      ],
+      "base_medium": "M63 minimal medium (Pardee, Jacob & Monod 1959 / Miller)",
+      "sources_chased": [
+        {"what": "base recipe cited as ref 29 (Pardee AB, Jacob F, Monod J. J Mol Biol 1959;1:165-78) — origin of 'medium 63' (M63)", "obtained": true,
+         "how": "identified from reference list; classic M63 composition confirmed no additional trace-metal or vitamin mix beyond iron and thiamine", "added": ["confirmed medium identity; no hidden trace/vitamin stock"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Same defined M63 base as the glucose medium, differing only in carbon source (0.5% w/v glycerol = ~54 mM). Fully defined; no hidden trace/vitamin mix. Same '10x' salts-label caveat as noted for the glucose medium; conc_mM reports standard 1x M63 working values."
+    },
+    {
+      "id": "growthlit_PMC11894529_m63_minimal_medium_0_5_w_v_l_fucose",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "L-fucose", "concentration": "0.5% (w/v)", "concentration_mM": 30.5, "role": "carbon source",
+         "source": "main_text", "evidence": "test strains were cultured in M63 minimal media [29] with 0.5% (w/v) glycerol, 0.5% (w/v) L-fucose, or 0.5% (w/v) glucose as the carbon source."},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "15 mM (in 10x salts)", "concentration_mM": 15.0, "role": "nitrogen source + sulfate",
+         "source": "main_text", "evidence": "The 10x M63 salts solution contained 15 mM of (NH4)2SO4, 100 mM of KH2PO4, and 2 x 10-2 mM of FeSO4.7H2O."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "100 mM (in 10x salts)", "concentration_mM": 100.0, "role": "phosphate / buffer / potassium",
+         "source": "main_text", "evidence": "The 10x M63 salts solution contained 15 mM of (NH4)2SO4, 100 mM of KH2PO4, and 2 x 10-2 mM of FeSO4.7H2O."},
+        {"name": "ferrous sulfate heptahydrate (FeSO4.7H2O)", "concentration": "2 x 10-2 mM (in 10x salts)", "concentration_mM": 0.002, "role": "iron / trace metal",
+         "source": "main_text", "evidence": "The 10x M63 salts solution contained 15 mM of (NH4)2SO4, 100 mM of KH2PO4, and 2 x 10-2 mM of FeSO4.7H2O."},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "1.7 mM", "concentration_mM": 1.7, "role": "magnesium + sulfate",
+         "source": "main_text", "evidence": "After diluting to 1x M63 medium, it was supplemented with 10-4% thiamine and 1.7 mM MgSO4."},
+        {"name": "thiamine (vitamin B1)", "concentration": "10-4% (~1 mg/L)", "concentration_mM": 0.003, "role": "vitamin",
+         "source": "main_text", "evidence": "After diluting to 1x M63 medium, it was supplemented with 10-4% thiamine and 1.7 mM MgSO4."},
+        {"name": "water", "concentration": null, "concentration_mM": null, "role": "solvent",
+         "source": "main_text", "evidence": "M63 minimal media [29] ... After diluting to 1x M63 medium"},
+        {"name": "dioxygen (O2)", "concentration": null, "concentration_mM": null, "role": "electron acceptor (aerobic)",
+         "source": "main_text", "evidence": "cultured in M63 minimal media (aerobic shake cultures for fucAO/lacZ reporter assays)"},
+        {"name": "proton (H+)", "concentration": null, "concentration_mM": null, "role": "pH / charge balance",
+         "source": "stock:M63 (Pardee/Miller)", "evidence": "M63 is a phosphate-buffered defined medium adjusted to ~pH 7 with KOH (classic M63 recipe, ref 29)."}
+      ],
+      "base_medium": "M63 minimal medium (Pardee, Jacob & Monod 1959 / Miller)",
+      "sources_chased": [
+        {"what": "base recipe cited as ref 29 (Pardee AB, Jacob F, Monod J. J Mol Biol 1959;1:165-78) — origin of 'medium 63' (M63)", "obtained": true,
+         "how": "identified from reference list; classic M63 composition confirmed no additional trace-metal or vitamin mix beyond iron and thiamine", "added": ["confirmed medium identity; no hidden trace/vitamin stock"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Same defined M63 base as the glucose/glycerol media, differing only in carbon source (0.5% w/v L-fucose = ~30.5 mM). The paper studies L-fucose metabolism both aerobically and anaerobically, but the M63 fucAO/lacZ reporter assays are aerobic shake cultures. Fully defined; no hidden trace/vitamin mix. Same '10x' salts-label caveat as the other two media."
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+ "pmc": "PMC12371093",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC12371093.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12371093/",
+ "media": [
+  {
+   "id": "growthlit_PMC12371093_m9_minimal_medium_4_g_l_acetate_slow_gro",
+   "name": "M9 minimal medium + 4 g/L acetate (slow growth regime) (PMC12371093)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Acetate (sodium acetate)",
+     "exchange": "EX_ac_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2",
+     "exchange": "EX_o2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "H3BO3",
+    "MnCl\u00b74H2O"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "M9 liquid medium (5 g/L KH2PO4, 0.5 g/L NaCl, 6.78 g/L Na2HPO4, 1 g/L NH4Cl, 4.98 mg/L FeCl3, 0.84 mg/L ZnCl2, 0.13 mg/L CuCl2 \u00b7 2H2O, 0.1 mg/L CoCl2 \u00b7 6H2O, 0.1 mg/L H3BO3, 0.016 mg/L MnCl \u00b7 4H2O, 0.5 g/L MgSO4 \u00b7 7H2O, 11 mg/L CaCl2) ... M9 supplemented with 4 g/L acetate at 37 \u00b0C for slow growth regime.",
+   "citation": "Medium composition from PMC12371093 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12371093/",
+   "doi": ""
+  }
+ ]
+}

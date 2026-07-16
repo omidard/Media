@@ -1,0 +1,123 @@
+{
+ "pmc": "PMC13185565",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC13185565.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13185565/",
+ "media": [
+  {
+   "id": "complexlit_PMC13185565_modg_mod_medium_supplemented_with_30_mm_gluc",
+   "name": "MODG (MOD medium supplemented with 30 mM glucose) (PMC13185565)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": 2.47
+    },
+    {
+     "name": "ferrous chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": 3.39
+    },
+    {
+     "name": "cobalt chloride",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.12
+    },
+    {
+     "name": "copper sulfate",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.25
+    },
+    {
+     "name": "ferrous chloride",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": 3.39
+    },
+    {
+     "name": "D-glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -10.0,
+     "conc_mM": 30.0
+    },
+    {
+     "name": "potassium phosphate dibasic",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": 5.74
+    },
+    {
+     "name": "magnesium sulfate",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.16
+    },
+    {
+     "name": "manganese chloride",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.25
+    },
+    {
+     "name": "sodium molybdate",
+     "exchange": "EX_mobd_e",
+     "lb": -1000.0,
+     "conc_mM": 0.12
+    },
+    {
+     "name": "sodium molybdate",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": 0.12
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": 45.41
+    },
+    {
+     "name": "potassium phosphate dibasic",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": 5.74
+    },
+    {
+     "name": "sodium selenate",
+     "exchange": "EX_sel_e",
+     "lb": -1000.0,
+     "conc_mM": 0.12
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": 45.41
+    },
+    {
+     "name": "zinc chloride",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.62
+    }
+   ],
+   "current_uncovered": [
+    "amino acid mixture (15 L-amino acids)"
+   ],
+   "base_medium": "MOD medium (chemically defined medium for Bacillus cereus), used as MODG = MOD + 30 mM glucose",
+   "base_medium_reference": "Rosenfeld E, Duport C, Zigha A, Schmitt P. 2005. Characterization of aerobic and anaerobic vegetative growth of the food-borne pathogen Bacillus cereus F4430/73 strain. Can J Microbiol 51(2):149-158. doi:10.1139/w04-132 (PMID:15920631). MOD originally derived from Glatz BA, Goepfert JM. 1977 and reformulated by Duport et al. 2004 (Arch Microbiol, doi:10.1007/s00203-004-0688-y). Full salt/trace composition also compiled in the 2025 defined-medium bioRxiv preprint doi:10.1101/2025.07.14.664712.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": "grown in MOD medium supplemented with 30 mM glucose (MODG) as the carbon source (32). Anaerobic batch cultures were carried out at 37 \u00b0C ... Strict anaerobic conditions (pO2 = 0%) were achieved by continuously sparging the medium with pure nitrogen gas. // The MOD medium used in this study is not supplemented with metal ions, leading to mild iron limitation.",
+   "citation": "Medium composition from PMC13185565 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13185565/",
+   "doi": ""
+  }
+ ]
+}

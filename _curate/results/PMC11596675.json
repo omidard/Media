@@ -1,0 +1,50 @@
+{
+  "pmc": "PMC11596675",
+  "media": [
+    {
+      "id": "growthlit_PMC11596675_defined_mineral_glucose_minimal_medium_m",
+      "status": "corrected",
+      "oxygen": "facultative",
+      "defined": true,
+      "components": [
+        {"name": "D-glucose", "concentration": "20 g/L", "concentration_mM": 111.0, "role": "carbon source",
+         "source": "main_text", "evidence": "supplemented with ... glucose to a final concentration of 20 g L-1 (bioreactor medium)"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "5 g/L", "concentration_mM": 93.5, "role": "nitrogen source / chloride",
+         "source": "main_text", "evidence": "autoclaved base salt solution: 5 g L-1 NH4Cl, 2 g L-1 K2HPO4, and 0.5 g L-1 NaCl in MQ H2O"},
+        {"name": "dipotassium phosphate (K2HPO4)", "concentration": "2 g/L", "concentration_mM": 11.5, "role": "phosphate / potassium / buffer",
+         "source": "main_text", "evidence": "5 g L-1 NH4Cl, 2 g L-1 K2HPO4, and 0.5 g L-1 NaCl"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "sodium / chloride",
+         "source": "main_text", "evidence": "5 g L-1 NH4Cl, 2 g L-1 K2HPO4, and 0.5 g L-1 NaCl"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4.7H2O)", "concentration": "0.74 g/L", "concentration_mM": 3.0, "role": "magnesium / sulfate",
+         "source": "main_text", "evidence": "supplemented with sterile-filtered 0.74 g L-1 MgSO4.7H2O (bioreactor); secondary preculture used 0.25 + 0.74 additions"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4.7H2O)", "concentration": "10 g/L in trace element solution (added 2 mL/L)", "concentration_mM": 0.072, "role": "trace element (Fe)",
+         "source": "cited:Thorfinnsdottir 2023 (PMC9965072)", "evidence": "trace element solution: 10 g/L FeSO4.7H2O, 2.25 g/L ZnSO4.7H2O, 2 g/L CaCl2.2H2O, 1 g/L CuSO4.5H2O, 0.38 g/L MnCl2.4H2O, 0.14 g/L H3BO3, and 0.1 g/L (NH4)6Mo7O24.4H2O in 5 M HCl; added at 2 mL L-1"},
+        {"name": "zinc sulfate heptahydrate (ZnSO4.7H2O)", "concentration": "2.25 g/L in trace element solution (added 2 mL/L)", "concentration_mM": 0.0157, "role": "trace element (Zn)",
+         "source": "cited:Thorfinnsdottir 2023 (PMC9965072)", "evidence": "2.25 g/L ZnSO4.7H2O ... in 5 M HCl"},
+        {"name": "calcium chloride dihydrate (CaCl2.2H2O)", "concentration": "2 g/L in trace element solution (added 2 mL/L)", "concentration_mM": 0.027, "role": "trace element (Ca) / chloride",
+         "source": "cited:Thorfinnsdottir 2023 (PMC9965072)", "evidence": "2 g/L CaCl2.2H2O ... in 5 M HCl"},
+        {"name": "copper(II) sulfate pentahydrate (CuSO4.5H2O)", "concentration": "1 g/L in trace element solution (added 2 mL/L)", "concentration_mM": 0.008, "role": "trace element (Cu)",
+         "source": "cited:Thorfinnsdottir 2023 (PMC9965072)", "evidence": "1 g/L CuSO4.5H2O ... in 5 M HCl"},
+        {"name": "manganese(II) chloride tetrahydrate (MnCl2.4H2O)", "concentration": "0.38 g/L in trace element solution (added 2 mL/L)", "concentration_mM": 0.0038, "role": "trace element (Mn)",
+         "source": "cited:Thorfinnsdottir 2023 (PMC9965072)", "evidence": "0.38 g/L MnCl2.4H2O ... in 5 M HCl"},
+        {"name": "boric acid (H3BO3)", "concentration": "0.14 g/L in trace element solution (added 2 mL/L)", "concentration_mM": 0.0045, "role": "trace element (B)",
+         "source": "cited:Thorfinnsdottir 2023 (PMC9965072)", "evidence": "0.14 g/L H3BO3 (printed 'H2BO3'; boric acid) ... in 5 M HCl"},
+        {"name": "ammonium molybdate tetrahydrate ((NH4)6Mo7O24.4H2O)", "concentration": "0.1 g/L in trace element solution (added 2 mL/L)", "concentration_mM": 0.00016, "role": "trace element (Mo)",
+         "source": "cited:Thorfinnsdottir 2023 (PMC9965072)", "evidence": "0.1 g/L (NH4)6Mo7O24.4H2O in 5 M HCl"},
+        {"name": "cobalt(II) chloride hexahydrate (CoCl2.6H2O)", "concentration": "50 mg/L cobalt solution (added 2 mL/L)", "concentration_mM": 0.00042, "role": "trace element (Co)",
+         "source": "main_text", "evidence": "2 mL L-1 of 50 mg L-1 cobalt solution (CoCl2.6H2O)"},
+        {"name": "O2 (dissolved oxygen, air sparging)", "concentration": "DO >= 40% (aerobic phase); N2 sparged for anaerobic phase", "concentration_mM": null, "role": "electron acceptor / gas phase",
+         "source": "main_text", "evidence": "aerobic: DO >= 40% via continuous sparging air at 600 mL/min; anaerobic phase initiated via N2 sparging"}
+      ],
+      "base_medium": "Defined mineral (glucose minimal) medium, modified from Thorfinnsdottir et al. 2023 (higher glucose)",
+      "sources_chased": [
+        {"what": "base mineral medium + trace element solution cited as Thorfinnsdottir et al. [22]", "obtained": true,
+         "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC9965072 (Metabolites 2023, 13(2):150)",
+         "added": ["FeSO4.7H2O", "ZnSO4.7H2O", "CaCl2.2H2O", "CuSO4.5H2O", "MnCl2.4H2O", "H3BO3", "(NH4)6Mo7O24.4H2O"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["iron (FeSO4)", "zinc (ZnSO4)", "calcium (CaCl2)", "copper (CuSO4)", "manganese (MnCl2)", "boron (H3BO3)", "molybdenum ((NH4)6Mo7O24)"],
+      "notes": "Bioreactor mineral glucose medium; base salts/Mg/glucose/cobalt from the target paper's main text, and the full 7-component trace element solution recovered from the directly cited Thorfinnsdottir et al. 2023 (PMC9965072). The bioreactor formulation uses NH4Cl/K2HPO4/NaCl directly (not the 10X Na2HPO4-containing salt solution used for the secondary preculture), so no Na2HPO4 is present. No vitamins are used (defined mineral medium). Trace metals were the missing piece; concentration_mM values are final-in-medium molarities after the 2 mL/L dilution."
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+ "pmc": "PMC11596675",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11596675/",
+ "media": [
+  {
+   "id": "growthlit_PMC11596675_defined_mineral_glucose_minimal_medium_m",
+   "name": "Defined mineral (glucose minimal) medium, modified from Thorfinnsdottir et al. (PMC11596675)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium",
+     "exchange": "EX_na1_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (confirmed)",
+   "verification_evidence": "Bioreactor basal mineral medium (autoclaved): '5 g L-1 NH4Cl, 2 g L-1 K2HPO4, and 0.5 g L-1 NaCl'; post-autoclaving sterile additions: '0.74 g L-1 MgSO4, 7H2O, 2 mL L-1 trace element solution, 2 mL L-1 cobalt solution'; carbon source '20 g L-1' glucose in bioreactor. Cobalt solution = 'CoCl2,6H2O'. Both aerobic (DO >= 40%) and anaerobic conditions were tested.",
+   "citation": "Medium composition from PMC11596675 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11596675/",
+   "doi": ""
+  }
+ ]
+}

@@ -1,0 +1,126 @@
+{
+ "pmc": "PMC10811727",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC10811727.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10811727/",
+ "media": [
+  {
+   "id": "complexlit_PMC10811727_anoxic_mineral_medium_per_ref_16_with_nitrat",
+   "name": "Anoxic mineral medium (per ref 16) with nitrate; ethane as sole carbon/energy source (PMC10811727)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": 2.04
+    },
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": 2.04
+    },
+    {
+     "name": "carbon dioxide",
+     "exchange": "EX_co2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "cobalt chloride",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.00025
+    },
+    {
+     "name": "copper sulfate",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.001
+    },
+    {
+     "name": "ferrous sulfate",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.00375
+    },
+    {
+     "name": "potassium dihydrogen phosphate",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": 0.37
+    },
+    {
+     "name": "magnesium sulfate",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.81
+    },
+    {
+     "name": "manganese chloride",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.00126
+    },
+    {
+     "name": "sodium molybdate",
+     "exchange": "EX_mobd_e",
+     "lb": -1000.0,
+     "conc_mM": 0.00023999999999999998
+    },
+    {
+     "name": "sodium nitrate",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": 5.0
+    },
+    {
+     "name": "nickel chloride",
+     "exchange": "EX_ni2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.0002
+    },
+    {
+     "name": "sodium nitrate",
+     "exchange": "EX_no3_e",
+     "lb": -1000.0,
+     "conc_mM": 5.0
+    },
+    {
+     "name": "potassium dihydrogen phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": 0.37
+    },
+    {
+     "name": "magnesium sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": 0.81
+    },
+    {
+     "name": "zinc sulfate",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.00011999999999999999
+    }
+   ],
+   "current_uncovered": [
+    "potassium bicarbonate",
+    "boric acid",
+    "selenium dioxide",
+    "ethane"
+   ],
+   "base_medium": "Anoxic (NC10-type) mineral medium",
+   "base_medium_reference": "Recipe chains through two citations. PMC10811727 cites ref 16 = Wu M, et al. 'Anaerobic oxidation of propane coupled to nitrate reduction by a lineage within the class Symbiobacteriia' Nat Commun 2022;13:6115, DOI 10.1038/s41467-022-33872-y (PMC9576796). That paper defines its 'anoxic synthetic medium' by citing Ettwig KF, van Alen T, van de Pas-Schoonen KT, Jetten MSM, Strous M. 'Enrichment and Molecular Detection of Denitrifying Methanotrophic Bacteria of the NC10 Phylum' Appl Environ Microbiol 2009;75(11):3656-3662, DOI 10.1128/AEM.00067-09 (PMC2687271), which gives the full composition.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": "An anoxic mineral medium [16] of 0.67 and 1.69 l was initially added to the ethane and butane reactor ... Two anaerobic bioreactors seeded with activated sludge and anaerobic digestion sludge ... One was fed with ethane (C2H6) and nitrate ... resulting in the production of dinitrogen gas and ammonium.",
+   "citation": "Medium composition from PMC10811727 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10811727/",
+   "doi": ""
+  }
+ ]
+}

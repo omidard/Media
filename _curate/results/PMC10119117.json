@@ -1,0 +1,124 @@
+{
+  "pmc": "PMC10119117",
+  "media": [
+    {
+      "id": "growthlit_PMC10119117_wheat_grass_medium",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "Wheat grass infusion (aqueous extract, 0.2 um filtered)",
+          "concentration": "10 mL/L of a 25 g/L concentrate (= 0.25 g/L wheat grass, effective)",
+          "concentration_mM": null,
+          "role": "complex carbon/nitrogen source (undefined plant extract)",
+          "source": "main_text",
+          "evidence": "a concentrated infusion was prepared from wheat grass (GSE Vertrieb GmbH, Germany) at a concentration of 25 g L-1 which was subsequently cleared from larger particles through filtration (0.2 um pore size). 10 mL L-1 of the concentrated infusion were supplemented with a balanced salt solution"
+        },
+        {
+          "name": "sodium chloride (NaCl)",
+          "concentration": "1.78 mM",
+          "concentration_mM": 1.78,
+          "role": "bulk salt (Na, Cl)",
+          "source": "main_text",
+          "evidence": "supplemented with a balanced salt solution (1.78 mM NaCl, 0.42 mM MgCl2, 0.16 mM MgSO4, 0.31 mM KCl and 0.09 mM CaCl2, as final concentrations)"
+        },
+        {
+          "name": "magnesium chloride (MgCl2)",
+          "concentration": "0.42 mM",
+          "concentration_mM": 0.42,
+          "role": "bulk salt (Mg, Cl)",
+          "source": "main_text",
+          "evidence": "a balanced salt solution (1.78 mM NaCl, 0.42 mM MgCl2, 0.16 mM MgSO4, 0.31 mM KCl and 0.09 mM CaCl2, as final concentrations)"
+        },
+        {
+          "name": "magnesium sulfate (MgSO4)",
+          "concentration": "0.16 mM",
+          "concentration_mM": 0.16,
+          "role": "bulk salt (Mg, SO4)",
+          "source": "main_text",
+          "evidence": "a balanced salt solution (1.78 mM NaCl, 0.42 mM MgCl2, 0.16 mM MgSO4, 0.31 mM KCl and 0.09 mM CaCl2, as final concentrations)"
+        },
+        {
+          "name": "potassium chloride (KCl)",
+          "concentration": "0.31 mM",
+          "concentration_mM": 0.31,
+          "role": "bulk salt (K, Cl)",
+          "source": "main_text",
+          "evidence": "a balanced salt solution (1.78 mM NaCl, 0.42 mM MgCl2, 0.16 mM MgSO4, 0.31 mM KCl and 0.09 mM CaCl2, as final concentrations)"
+        },
+        {
+          "name": "calcium chloride (CaCl2)",
+          "concentration": "0.09 mM",
+          "concentration_mM": 0.09,
+          "role": "bulk salt (Ca, Cl)",
+          "source": "main_text",
+          "evidence": "a balanced salt solution (1.78 mM NaCl, 0.42 mM MgCl2, 0.16 mM MgSO4, 0.31 mM KCl and 0.09 mM CaCl2, as final concentrations)"
+        },
+        {
+          "name": "ammonium chloride (NH4Cl)",
+          "concentration": "100 mg/L",
+          "concentration_mM": 1.87,
+          "role": "nitrogen source (NH4+)",
+          "source": "main_text",
+          "evidence": "NH4Cl (100 mg L-1) and phosphate buffer (pH 7, ...)"
+        },
+        {
+          "name": "disodium hydrogen phosphate dihydrate (Na2HPO4 x 2 H2O)",
+          "concentration": "500 mg/L",
+          "concentration_mM": 2.81,
+          "role": "phosphate buffer (pH 7)",
+          "source": "main_text",
+          "evidence": "phosphate buffer (pH 7, Na2HPO4 x 2 H2O at 500 mg L-1 and NaH2PO4 x H2O at 120 mg L-1)"
+        },
+        {
+          "name": "sodium dihydrogen phosphate monohydrate (NaH2PO4 x H2O)",
+          "concentration": "120 mg/L",
+          "concentration_mM": 0.87,
+          "role": "phosphate buffer (pH 7)",
+          "source": "main_text",
+          "evidence": "phosphate buffer (pH 7, Na2HPO4 x 2 H2O at 500 mg L-1 and NaH2PO4 x H2O at 120 mg L-1)"
+        },
+        {
+          "name": "oxygen (O2)",
+          "concentration": "air (aerobic, kept oxic)",
+          "concentration_mM": null,
+          "role": "electron acceptor / gas phase",
+          "source": "main_text",
+          "evidence": "All experiments were performed in 100 mL glass vials filled with only 10 mL of cell culture to prevent notable oxygen depletion. Vials were incubated at 19 C on a rotary shaker (120 rpm)."
+        },
+        {
+          "name": "water (H2O)",
+          "concentration": "solvent",
+          "concentration_mM": null,
+          "role": "solvent",
+          "source": "main_text",
+          "evidence": "a concentrated infusion was prepared from wheat grass ... at a concentration of 25 g L-1 ... 10 mL L-1 of the concentrated infusion were supplemented with a balanced salt solution"
+        }
+      ],
+      "base_medium": "Wheat grass medium (Cerophyl-type Paramecium medium) after Krenek, Berendonk & Petzoldt 2011 (Eur J Protistol) and Sonneborn 1970, but with stigmasterol omitted.",
+      "sources_chased": [
+        {
+          "what": "original wheat grass medium recipe cited as ref 29 (Krenek, Berendonk & Petzoldt 2011, Eur J Protistol 47:124-137, doi:10.1016/j.ejop.2010.12.001)",
+          "obtained": false,
+          "how": "WebFetch doi.org -> Elsevier (linkinghub S0932473910000878) paywalled; WebSearch + furthlab.xyz protocol consulted for context",
+          "added": []
+        },
+        {
+          "what": "wheat grass infusion preparation cited as ref 30 (Sonneborn 1970, Methods in Paramecium Research, Methods in Cell Biology vol. 4)",
+          "obtained": false,
+          "how": "reference identified in reference list; only supplies the wheat grass infusion step, which is fully re-stated in the target paper main text (25 g/L, 0.2 um filtered, 10 mL/L)",
+          "added": []
+        },
+        {
+          "what": "supplementary material (MOESM1_ESM.pdf) of the target paper",
+          "obtained": true,
+          "how": "europepmc supplementaryFiles zip -> pdftotext; contains only modeling/results, no medium composition",
+          "added": []
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "The complete recipe used in THIS paper is fully specified in the main text as explicit final concentrations, so nothing had to be recovered from the cited base recipe. The base reference [29] Krenek 2011 is paywalled, but its only additive not already in the main text is stigmasterol, which the authors explicitly did NOT add ('Contrary to the original recipe, no stigmasterol was added') - so stigmasterol is correctly excluded. NOTE ON PROVENANCE: the trace metals in the target's current_components (Co2+, Cu2+, Fe2+, Fe3+, Mn2+, Zn2+) have NO textual support in the defined recipe - the balanced salt solution, NH4Cl and phosphate buffer contain none of them. They can only enter via the undefined wheat grass plant infusion (a complex extract whose molecular composition is not stated and must not be fabricated); they are therefore not reported as quantified compounds. Oxygen corrected from 'facultative' to 'aerobic': P. putida KT2440 and the flagellate are aerobes and the vials were deliberately kept shallow to stay oxic; no reductant or anaerobic gas phase is present."
+    }
+  ]
+}

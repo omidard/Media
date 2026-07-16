@@ -1,0 +1,47 @@
+{
+  "pmc": "PMC12552152",
+  "media": [
+    {
+      "id": "growthlit_PMC12552152_m9_minimal_salts_medium_10_g_l_arabinose",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "disodium phosphate (Na2HPO4)", "concentration": "6.78 g/L", "concentration_mM": 47.8, "role": "phosphate/sodium buffer", "source": "main_text", "evidence": "1 × M9 minimal salts (6.78 g/L Na2PO4, 3 g/L KH2PO4, 0.5 g/L NaCl, 1.0 g/L NH4Cl)"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "3 g/L", "concentration_mM": 22.0, "role": "phosphate/potassium buffer", "source": "main_text", "evidence": "1 × M9 minimal salts (6.78 g/L Na2PO4, 3 g/L KH2PO4, 0.5 g/L NaCl, 1.0 g/L NH4Cl)"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "sodium/chloride salt", "source": "main_text", "evidence": "1 × M9 minimal salts (6.78 g/L Na2PO4, 3 g/L KH2PO4, 0.5 g/L NaCl, 1.0 g/L NH4Cl)"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "1.0 g/L", "concentration_mM": 18.7, "role": "nitrogen source", "source": "main_text", "evidence": "1 × M9 minimal salts (6.78 g/L Na2PO4, 3 g/L KH2PO4, 0.5 g/L NaCl, 1.0 g/L NH4Cl)"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "main_text", "evidence": "supplemented with 2 mM MgSO4, 0.1 mM CaCl2"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium", "source": "main_text", "evidence": "supplemented with 2 mM MgSO4, 0.1 mM CaCl2"},
+        {"name": "L-arabinose", "concentration": "10 g/L", "concentration_mM": 66.6, "role": "carbon source (sole)", "source": "main_text", "evidence": "strain VA11 was capable of utilizing 10 g/L arabinose as the sole carbon source for growth"}
+      ],
+      "base_medium": "M9 minimal salts (standard 1×), no trace-element or vitamin supplement stated",
+      "sources_chased": [
+        {"what": "paper Methods/Results (PMC12552152 full text + EuropePMC XML)", "obtained": true, "how": "WebFetch pmc.ncbi.nlm.nih.gov and ebi.ac.uk fullTextXML", "added": ["confirmed exact M9 salt masses", "MgSO4 2 mM", "CaCl2 0.1 mM", "aerobic 30 C / 220 rpm"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Paper defines a plain 1× M9 (Na2HPO4/KH2PO4/NaCl/NH4Cl + 2 mM MgSO4 + 0.1 mM CaCl2) with 10 g/L L-arabinose as sole carbon source; grown aerobically at 30 C, 220 rpm. No base-medium reference, no trace-element solution, and no vitamins are cited anywhere. The trace-metal exchanges in current_components (Co2+, Cu2+, Fe2+/Fe3+, Mn2+, Zn2+) are model auto-additions and are NOT part of the paper's stated recipe."
+    },
+    {
+      "id": "growthlit_PMC12552152_m9_minimal_salts_medium_20_g_l_xylose_so",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "disodium phosphate (Na2HPO4)", "concentration": "6.78 g/L", "concentration_mM": 47.8, "role": "phosphate/sodium buffer", "source": "main_text", "evidence": "1 × M9 minimal salts (6.78 g/L Na2PO4, 3 g/L KH2PO4, 0.5 g/L NaCl, 1.0 g/L NH4Cl)"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "3 g/L", "concentration_mM": 22.0, "role": "phosphate/potassium buffer", "source": "main_text", "evidence": "1 × M9 minimal salts (6.78 g/L Na2PO4, 3 g/L KH2PO4, 0.5 g/L NaCl, 1.0 g/L NH4Cl)"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L", "concentration_mM": 8.56, "role": "sodium/chloride salt", "source": "main_text", "evidence": "1 × M9 minimal salts (6.78 g/L Na2PO4, 3 g/L KH2PO4, 0.5 g/L NaCl, 1.0 g/L NH4Cl)"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "1.0 g/L", "concentration_mM": 18.7, "role": "nitrogen source", "source": "main_text", "evidence": "1 × M9 minimal salts (6.78 g/L Na2PO4, 3 g/L KH2PO4, 0.5 g/L NaCl, 1.0 g/L NH4Cl)"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "main_text", "evidence": "supplemented with 2 mM MgSO4, 0.1 mM CaCl2"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium", "source": "main_text", "evidence": "supplemented with 2 mM MgSO4, 0.1 mM CaCl2"},
+        {"name": "D-xylose", "concentration": "20 g/L", "concentration_mM": 133.2, "role": "carbon source (sole)", "source": "main_text", "evidence": "Shake-flask profiles of strains VA05 and VA06 in M9 medium with 20 g/L xylose; the strain VA06 was capable of utilizing xylose as the sole carbon source for growth"}
+      ],
+      "base_medium": "M9 minimal salts (standard 1× base; shake-flask experiments use 2× M9 in some panels), no trace-element or vitamin supplement stated",
+      "sources_chased": [
+        {"what": "paper Methods/Results + Figure 3 legend (PMC12552152)", "obtained": true, "how": "WebFetch pmc.ncbi.nlm.nih.gov and ebi.ac.uk fullTextXML", "added": ["confirmed exact M9 salt masses", "20 g/L xylose sole carbon", "aerobic 30 C / 220 rpm"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Same plain 1× M9 base (Na2HPO4/KH2PO4/NaCl/NH4Cl + 2 mM MgSO4 + 0.1 mM CaCl2) with 20 g/L D-xylose as sole carbon source; aerobic, 30 C, 220 rpm. No base-medium reference, trace-element solution, or vitamins are cited. Trace-metal exchanges in current_components (Co2+, Cu2+, Fe2+/Fe3+, Mn2+, Zn2+) are model auto-additions, not part of the paper's stated recipe."
+    }
+  ]
+}

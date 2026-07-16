@@ -1,0 +1,408 @@
+{
+  "pmc": "PMC12997748",
+  "media": [
+    {
+      "id": "growthlit_PMC12997748_mdc_anoxic_m9_derived_coculture_minimal_",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "components": [
+        {
+          "name": "D-glucose",
+          "concentration": "25 mM",
+          "concentration_mM": 25.0,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "Media supplements were then added by syringe to the following final concentrations from anoxic 100x stock solutions: glucose, 25 mM; NH4Cl, 10 mM; MgSO4, 1 mM; CaCl2, 0.1 mM."
+        },
+        {
+          "name": "ammonium chloride (NH4Cl)",
+          "concentration": "10 mM",
+          "concentration_mM": 10.0,
+          "role": "nitrogen source (NH4+) + chloride",
+          "source": "main_text",
+          "evidence": "Media supplements were then added by syringe to the following final concentrations from anoxic 100x stock solutions: glucose, 25 mM; NH4Cl, 10 mM; MgSO4, 1 mM; CaCl2, 0.1 mM."
+        },
+        {
+          "name": "magnesium sulfate (MgSO4)",
+          "concentration": "1 mM",
+          "concentration_mM": 1.0,
+          "role": "bulk salt (Mg2+, SO4 2-) - primary sulfate source",
+          "source": "main_text",
+          "evidence": "Media supplements were then added by syringe to the following final concentrations from anoxic 100x stock solutions: glucose, 25 mM; NH4Cl, 10 mM; MgSO4, 1 mM; CaCl2, 0.1 mM."
+        },
+        {
+          "name": "calcium chloride (CaCl2)",
+          "concentration": "0.1 mM",
+          "concentration_mM": 0.1,
+          "role": "bulk salt (Ca2+, Cl-)",
+          "source": "main_text",
+          "evidence": "Media supplements were then added by syringe to the following final concentrations from anoxic 100x stock solutions: glucose, 25 mM; NH4Cl, 10 mM; MgSO4, 1 mM; CaCl2, 0.1 mM."
+        },
+        {
+          "name": "MOPS (3-(N-morpholino)propanesulfonic acid), pH 7.0",
+          "concentration": "100 or 200 mM (from a 2 M anoxic stock, pH adjusted with NaOH)",
+          "concentration_mM": null,
+          "role": "buffer (also contributes Na+ from NaOH neutralization)",
+          "source": "main_text",
+          "evidence": "A 2 M MOPS solution was prepared by dissolving the free acid in ultrapure water and adjusting the pH to 7.0 using NaOH pellets. To make an anoxic stock, the solution was then filter-sterilized into a serum vial and flushed with filter-sterilized argon. ... MOPS pH 7.0 added post-autoclave to indicated concentration (100 or 200 mM)."
+        },
+        {
+          "name": "disodium hydrogen phosphate (Na2HPO4)",
+          "concentration": "42.5 mM",
+          "concentration_mM": 42.5,
+          "role": "phosphate + buffer + sodium source (M9-derived base)",
+          "source": "cited:LaSarre 2017 (ISME J 11:337-348), the source of MDC via ref 63 Sangani 2019",
+          "evidence": "MDC contained Na2HPO4 (42.5 mM), KH2PO4 (22 mM), Na2S2O3 (0.1 mM), p-aminobenzoic acid (14.6 uM) and trace elements solution (0.1% v/v)"
+        },
+        {
+          "name": "potassium dihydrogen phosphate (KH2PO4)",
+          "concentration": "22 mM",
+          "concentration_mM": 22.0,
+          "role": "phosphate + buffer + potassium source (M9-derived base)",
+          "source": "cited:LaSarre 2017 (ISME J 11:337-348)",
+          "evidence": "MDC contained Na2HPO4 (42.5 mM), KH2PO4 (22 mM), Na2S2O3 (0.1 mM), p-aminobenzoic acid (14.6 uM) and trace elements solution (0.1% v/v)"
+        },
+        {
+          "name": "sodium thiosulfate (Na2S2O3)",
+          "concentration": "0.1 mM",
+          "concentration_mM": 0.1,
+          "role": "reduced-sulfur source / mild reductant",
+          "source": "cited:LaSarre 2017 (ISME J 11:337-348)",
+          "evidence": "MDC contained Na2HPO4 (42.5 mM), KH2PO4 (22 mM), Na2S2O3 (0.1 mM), p-aminobenzoic acid (14.6 uM) and trace elements solution (0.1% v/v)"
+        },
+        {
+          "name": "p-aminobenzoic acid (PABA)",
+          "concentration": "14.6 uM",
+          "concentration_mM": 0.0146,
+          "role": "vitamin",
+          "source": "cited:LaSarre 2017 (ISME J 11:337-348)",
+          "evidence": "MDC contained Na2HPO4 (42.5 mM), KH2PO4 (22 mM), Na2S2O3 (0.1 mM), p-aminobenzoic acid (14.6 uM) and trace elements solution (0.1% v/v)"
+        },
+        {
+          "name": "iron(II) sulfate (FeSO4.7H2O)",
+          "concentration": "198 mg/L in trace-element solution added at 0.1% v/v; plus 5 g/L within the 'Metals 44' sub-mix",
+          "concentration_mM": null,
+          "role": "trace element (iron)",
+          "source": "cited:Kremer 2015 (PNAS 112:2222-2226) trace-element solution, composition reproduced verbatim in group patent WO2016109286A1",
+          "evidence": "Trace Elements Solution (0.1% v/v): Nitrilotriacetic acid 20 g/L; MgSO4 28.9 g/L; CaCl2.2H2O 6.67 g/L; (NH4)6Mo7O24.4H2O 18.5 mg/L; FeSO4.7H2O 198 mg/L; Metals 44 0.1% v/v"
+        },
+        {
+          "name": "ammonium molybdate ((NH4)6Mo7O24.4H2O)",
+          "concentration": "18.5 mg/L in trace-element solution (added at 0.1% v/v)",
+          "concentration_mM": null,
+          "role": "trace element (molybdenum)",
+          "source": "cited:Kremer 2015 (PNAS 112:2222-2226) / patent WO2016109286A1",
+          "evidence": "Trace Elements Solution (0.1% v/v): Nitrilotriacetic acid 20 g/L; MgSO4 28.9 g/L; CaCl2.2H2O 6.67 g/L; (NH4)6Mo7O24.4H2O 18.5 mg/L; FeSO4.7H2O 198 mg/L; Metals 44 0.1% v/v"
+        },
+        {
+          "name": "nitrilotriacetic acid (NTA)",
+          "concentration": "20 g/L in trace-element solution (added at 0.1% v/v)",
+          "concentration_mM": null,
+          "role": "metal chelator (carrier for trace metals)",
+          "source": "cited:Kremer 2015 (PNAS 112:2222-2226) / patent WO2016109286A1",
+          "evidence": "Trace Elements Solution (0.1% v/v): Nitrilotriacetic acid 20 g/L; MgSO4 28.9 g/L; CaCl2.2H2O 6.67 g/L; (NH4)6Mo7O24.4H2O 18.5 mg/L; FeSO4.7H2O 198 mg/L; Metals 44 0.1% v/v"
+        },
+        {
+          "name": "zinc sulfate (ZnSO4.7H2O)",
+          "concentration": "10.95 g/L in 'Metals 44' (Metals 44 added at 0.1% v/v within the trace-element solution, itself 0.1% v/v)",
+          "concentration_mM": null,
+          "role": "trace element (zinc)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "manganese sulfate (MnSO4.H2O)",
+          "concentration": "1.54 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (manganese)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "copper sulfate (CuSO4.5H2O)",
+          "concentration": "0.392 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (copper)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "cobalt nitrate (Co(NO3)2.6H2O)",
+          "concentration": "0.25 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (cobalt)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "sodium borate (Na2B4O7.10H2O)",
+          "concentration": "0.177 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (boron)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "EDTA (ethylenediaminetetraacetic acid)",
+          "concentration": "2.5 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "metal chelator",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "nitrogen gas (N2)",
+          "concentration": "gas phase (headspace); medium sparged with N2",
+          "concentration_mM": null,
+          "role": "anoxic gas phase / inert headspace",
+          "source": "main_text",
+          "evidence": "anoxic minimal M9-derived coculture medium (MDC) ... was prepared by aliquoting 10 mL media into 27-mL anaerobic tubes or 60 mL media into 150-mL serum vials, bubbling with N2, then sealing with rubber stoppers and aluminum crimps before autoclaving."
+        },
+        {
+          "name": "water (H2O)",
+          "concentration": "solvent",
+          "concentration_mM": null,
+          "role": "solvent",
+          "source": "main_text",
+          "evidence": "A 2 M MOPS solution was prepared by dissolving the free acid in ultrapure water ..."
+        }
+      ],
+      "base_medium": "MDC = anoxic minimal M9-derived coculture medium of LaSarre et al. 2017 (ISME J 11:337-348), re-used via Sangani et al. 2019 (FEMS Microbiol Lett 366:fnz162; ref 63 of this paper). This paper adds a MOPS buffer (100 or 200 mM, pH 7.0) and prepares it anoxically under N2. Trace-element solution is that of Kremer et al. 2015 (PNAS 112:2222-2226).",
+      "sources_chased": [
+        {
+          "what": "target paper methods (PMC12997748 / bioRxiv 2025.08.29.673078 / AEM aem.01745-25): MDC supplements, MOPS buffer, N2 anoxic prep",
+          "obtained": true,
+          "how": "WebFetch europepmc fullTextXML + WebSearch (biorxiv/AEM paywalled 403)",
+          "added": ["glucose 25 mM", "NH4Cl 10 mM", "MgSO4 1 mM", "CaCl2 0.1 mM", "MOPS 100/200 mM", "N2 gas phase"]
+        },
+        {
+          "what": "ref 63 = Sangani, McCully, LaSarre, McKinlay 2019, FEMS Microbiol Lett 366:fnz162, doi:10.1093/femsle/fnz162 (source cited for MDC)",
+          "obtained": true,
+          "how": "WebFetch doi.org -> academic.oup.com; confirms MDC and points to LaSarre 2017 as the full recipe source",
+          "added": []
+        },
+        {
+          "what": "MDC full base recipe = LaSarre, Deutschbauer, Love, McKinlay 2017, ISME J 11:337-348, doi:10.1038/ismej.2016.141 (Nature paywalled; OUP mirror open)",
+          "obtained": true,
+          "how": "WebFetch academic.oup.com/ismej/article/11/2/337",
+          "added": ["Na2HPO4 42.5 mM", "KH2PO4 22 mM", "Na2S2O3 0.1 mM", "p-aminobenzoic acid 14.6 uM", "trace-element solution 0.1% v/v"]
+        },
+        {
+          "what": "trace-element solution = Kremer, LaSarre, Posto, McKinlay 2015, PNAS 112:2222-2226, doi:10.1073/pnas.1420663112; full composition (incl. 'Metals 44') reproduced in same-group patent WO2016109286A1",
+          "obtained": true,
+          "how": "PNAS 403; recipe recovered verbatim from Google Patents WO2016109286A1 (same authors, identical defined medium and trace solution)",
+          "added": ["FeSO4.7H2O", "(NH4)6Mo7O24 (molybdate)", "nitrilotriacetic acid", "Metals 44: ZnSO4, MnSO4, CuSO4, Co(NO3)2, Na2B4O7, EDTA, FeSO4"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "molybdate / molybdenum ((NH4)6Mo7O24)",
+        "borate / boron (Na2B4O7)",
+        "sodium thiosulfate (reduced-sulfur source)",
+        "p-aminobenzoic acid (PABA vitamin)",
+        "N2 anoxic gas phase"
+      ],
+      "notes": "Anoxic defined minimal medium (N2 headspace, sealed serum vials/tubes). The current model list captured Ca, Cl, Co, Cu, Fe, K, Mg, Mn, Na, NH4, Pi, SO4, Zn and MOPS but was missing molybdate (Mo) and borate (B) - both present in the Kremer 2015 trace solution - plus thiosulfate, the PABA vitamin, and the N2 gas phase. Bulk phosphate is Na2HPO4 42.5 mM + KH2PO4 22 mM (M9-derived, from LaSarre 2017); sulfate comes chiefly from the 1 mM MgSO4 supplement. Trace-metal salts sit in a 0.1% v/v solution (and 'Metals 44' a further 0.1% v/v within it), so final metal concentrations are extremely low; stock concentrations are reported and conc_mM left null to avoid over-precise double-dilution figures. No nickel and no separate biotin/thiamine/B12 in this defined medium (only PABA)."
+    },
+    {
+      "id": "growthlit_PMC12997748_mdc80_anoxic_m9_derived_coculture_minima",
+      "status": "corrected",
+      "oxygen": "anaerobic",
+      "components": [
+        {
+          "name": "sodium chloride (NaCl)",
+          "concentration": "80 mM (additional, added to base MDC)",
+          "concentration_mM": 80.0,
+          "role": "osmolyte / salinity adjustment for Vibrio natriegens (Na+, Cl-)",
+          "source": "main_text",
+          "evidence": "MDC with an additional 80 mM NaCl for V. natriegens (MDC80)."
+        },
+        {
+          "name": "D-glucose",
+          "concentration": "25 mM",
+          "concentration_mM": 25.0,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "Media supplements were then added by syringe to the following final concentrations from anoxic 100x stock solutions: glucose, 25 mM; NH4Cl, 10 mM; MgSO4, 1 mM; CaCl2, 0.1 mM."
+        },
+        {
+          "name": "ammonium chloride (NH4Cl)",
+          "concentration": "10 mM",
+          "concentration_mM": 10.0,
+          "role": "nitrogen source (NH4+) + chloride",
+          "source": "main_text",
+          "evidence": "Media supplements were then added by syringe to the following final concentrations from anoxic 100x stock solutions: glucose, 25 mM; NH4Cl, 10 mM; MgSO4, 1 mM; CaCl2, 0.1 mM."
+        },
+        {
+          "name": "magnesium sulfate (MgSO4)",
+          "concentration": "1 mM",
+          "concentration_mM": 1.0,
+          "role": "bulk salt (Mg2+, SO4 2-) - primary sulfate source",
+          "source": "main_text",
+          "evidence": "Media supplements were then added by syringe to the following final concentrations from anoxic 100x stock solutions: glucose, 25 mM; NH4Cl, 10 mM; MgSO4, 1 mM; CaCl2, 0.1 mM."
+        },
+        {
+          "name": "calcium chloride (CaCl2)",
+          "concentration": "0.1 mM",
+          "concentration_mM": 0.1,
+          "role": "bulk salt (Ca2+, Cl-)",
+          "source": "main_text",
+          "evidence": "Media supplements were then added by syringe to the following final concentrations from anoxic 100x stock solutions: glucose, 25 mM; NH4Cl, 10 mM; MgSO4, 1 mM; CaCl2, 0.1 mM."
+        },
+        {
+          "name": "MOPS (3-(N-morpholino)propanesulfonic acid), pH 7.0",
+          "concentration": "100 or 200 mM (from a 2 M anoxic stock, pH adjusted with NaOH)",
+          "concentration_mM": null,
+          "role": "buffer (also contributes Na+ from NaOH neutralization)",
+          "source": "main_text",
+          "evidence": "A 2 M MOPS solution was prepared by dissolving the free acid in ultrapure water and adjusting the pH to 7.0 using NaOH pellets. ... MOPS pH 7.0 added post-autoclave to indicated concentration (100 or 200 mM)."
+        },
+        {
+          "name": "disodium hydrogen phosphate (Na2HPO4)",
+          "concentration": "42.5 mM",
+          "concentration_mM": 42.5,
+          "role": "phosphate + buffer + sodium source (M9-derived base)",
+          "source": "cited:LaSarre 2017 (ISME J 11:337-348)",
+          "evidence": "MDC contained Na2HPO4 (42.5 mM), KH2PO4 (22 mM), Na2S2O3 (0.1 mM), p-aminobenzoic acid (14.6 uM) and trace elements solution (0.1% v/v)"
+        },
+        {
+          "name": "potassium dihydrogen phosphate (KH2PO4)",
+          "concentration": "22 mM",
+          "concentration_mM": 22.0,
+          "role": "phosphate + buffer + potassium source (M9-derived base)",
+          "source": "cited:LaSarre 2017 (ISME J 11:337-348)",
+          "evidence": "MDC contained Na2HPO4 (42.5 mM), KH2PO4 (22 mM), Na2S2O3 (0.1 mM), p-aminobenzoic acid (14.6 uM) and trace elements solution (0.1% v/v)"
+        },
+        {
+          "name": "sodium thiosulfate (Na2S2O3)",
+          "concentration": "0.1 mM",
+          "concentration_mM": 0.1,
+          "role": "reduced-sulfur source / mild reductant",
+          "source": "cited:LaSarre 2017 (ISME J 11:337-348)",
+          "evidence": "MDC contained Na2HPO4 (42.5 mM), KH2PO4 (22 mM), Na2S2O3 (0.1 mM), p-aminobenzoic acid (14.6 uM) and trace elements solution (0.1% v/v)"
+        },
+        {
+          "name": "p-aminobenzoic acid (PABA)",
+          "concentration": "14.6 uM",
+          "concentration_mM": 0.0146,
+          "role": "vitamin",
+          "source": "cited:LaSarre 2017 (ISME J 11:337-348)",
+          "evidence": "MDC contained Na2HPO4 (42.5 mM), KH2PO4 (22 mM), Na2S2O3 (0.1 mM), p-aminobenzoic acid (14.6 uM) and trace elements solution (0.1% v/v)"
+        },
+        {
+          "name": "iron(II) sulfate (FeSO4.7H2O)",
+          "concentration": "198 mg/L in trace-element solution (0.1% v/v); plus 5 g/L within 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (iron)",
+          "source": "cited:Kremer 2015 (PNAS 112:2222-2226) / patent WO2016109286A1",
+          "evidence": "Trace Elements Solution (0.1% v/v): Nitrilotriacetic acid 20 g/L; MgSO4 28.9 g/L; CaCl2.2H2O 6.67 g/L; (NH4)6Mo7O24.4H2O 18.5 mg/L; FeSO4.7H2O 198 mg/L; Metals 44 0.1% v/v"
+        },
+        {
+          "name": "ammonium molybdate ((NH4)6Mo7O24.4H2O)",
+          "concentration": "18.5 mg/L in trace-element solution (0.1% v/v)",
+          "concentration_mM": null,
+          "role": "trace element (molybdenum)",
+          "source": "cited:Kremer 2015 (PNAS 112:2222-2226) / patent WO2016109286A1",
+          "evidence": "Trace Elements Solution (0.1% v/v): ... (NH4)6Mo7O24.4H2O 18.5 mg/L; FeSO4.7H2O 198 mg/L; Metals 44 0.1% v/v"
+        },
+        {
+          "name": "nitrilotriacetic acid (NTA)",
+          "concentration": "20 g/L in trace-element solution (0.1% v/v)",
+          "concentration_mM": null,
+          "role": "metal chelator",
+          "source": "cited:Kremer 2015 (PNAS 112:2222-2226) / patent WO2016109286A1",
+          "evidence": "Trace Elements Solution (0.1% v/v): Nitrilotriacetic acid 20 g/L; MgSO4 28.9 g/L; CaCl2.2H2O 6.67 g/L; (NH4)6Mo7O24.4H2O 18.5 mg/L; FeSO4.7H2O 198 mg/L; Metals 44 0.1% v/v"
+        },
+        {
+          "name": "zinc sulfate (ZnSO4.7H2O)",
+          "concentration": "10.95 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (zinc)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "manganese sulfate (MnSO4.H2O)",
+          "concentration": "1.54 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (manganese)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "copper sulfate (CuSO4.5H2O)",
+          "concentration": "0.392 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (copper)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "cobalt nitrate (Co(NO3)2.6H2O)",
+          "concentration": "0.25 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (cobalt)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "sodium borate (Na2B4O7.10H2O)",
+          "concentration": "0.177 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "trace element (boron)",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "EDTA (ethylenediaminetetraacetic acid)",
+          "concentration": "2.5 g/L in 'Metals 44'",
+          "concentration_mM": null,
+          "role": "metal chelator",
+          "source": "stock:Metals 44 (via cited:Kremer 2015 / patent WO2016109286A1)",
+          "evidence": "Metals 44 Composition: EDTA 2.5 g/L; ZnSO4.7H2O 10.95 g/L; FeSO4.7H2O 5 g/L; MnSO4.H2O 1.54 g/L; CuSO4.5H2O 0.392 g/L; Co(NO3)2.6H2O 0.25 g/L; Na2B4O7.10H2O 0.177 g/L"
+        },
+        {
+          "name": "nitrogen gas (N2)",
+          "concentration": "gas phase (headspace); medium sparged with N2",
+          "concentration_mM": null,
+          "role": "anoxic gas phase / inert headspace",
+          "source": "main_text",
+          "evidence": "anoxic minimal M9-derived coculture medium (MDC) ... was prepared by aliquoting 10 mL media into 27-mL anaerobic tubes or 60 mL media into 150-mL serum vials, bubbling with N2, then sealing with rubber stoppers and aluminum crimps before autoclaving."
+        },
+        {
+          "name": "water (H2O)",
+          "concentration": "solvent",
+          "concentration_mM": null,
+          "role": "solvent",
+          "source": "main_text",
+          "evidence": "A 2 M MOPS solution was prepared by dissolving the free acid in ultrapure water ..."
+        }
+      ],
+      "base_medium": "Identical to MDC (LaSarre 2017 M9-derived anoxic coculture medium via Sangani 2019 ref 63; trace elements from Kremer 2015), with an additional 80 mM NaCl to raise salinity for Vibrio natriegens.",
+      "sources_chased": [
+        {
+          "what": "target paper methods (PMC12997748): MDC80 = MDC + 80 mM NaCl; supplements; MOPS; N2 anoxic prep",
+          "obtained": true,
+          "how": "WebFetch europepmc fullTextXML + WebSearch",
+          "added": ["NaCl 80 mM", "glucose 25 mM", "NH4Cl 10 mM", "MgSO4 1 mM", "CaCl2 0.1 mM", "MOPS 100/200 mM", "N2 gas phase"]
+        },
+        {
+          "what": "MDC base recipe chain: ref 63 Sangani 2019 (FEMS Microbiol Lett 366:fnz162) -> LaSarre 2017 (ISME J 11:337-348) -> Kremer 2015 trace solution (PNAS 112:2222-2226) / patent WO2016109286A1",
+          "obtained": true,
+          "how": "WebFetch academic.oup.com (Sangani, LaSarre) + Google Patents WO2016109286A1 (Kremer trace solution + 'Metals 44')",
+          "added": ["Na2HPO4 42.5 mM", "KH2PO4 22 mM", "Na2S2O3 0.1 mM", "PABA 14.6 uM", "trace-element solution: Fe, Mo, Zn, Mn, Cu, Co, B, NTA, EDTA"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [
+        "the 80 mM NaCl (defining feature of MDC80)",
+        "molybdate / molybdenum ((NH4)6Mo7O24)",
+        "borate / boron (Na2B4O7)",
+        "sodium thiosulfate (reduced-sulfur source)",
+        "p-aminobenzoic acid (PABA vitamin)",
+        "N2 anoxic gas phase"
+      ],
+      "notes": "MDC80 is exactly MDC plus 80 mM NaCl (for Vibrio natriegens' halophilic salt requirement). Same recovered additions as MDC: molybdate and borate (from the Kremer 2015 trace solution) plus thiosulfate, PABA vitamin, and the N2 gas phase were absent from the current model list. The extra NaCl adds substantial Na+/Cl- beyond the already-present Na and Cl exchanges. Trace-metal final concentrations are very low (0.1% v/v solution, with 'Metals 44' a further 0.1% v/v); stock concentrations reported, conc_mM left null."
+    }
+  ]
+}

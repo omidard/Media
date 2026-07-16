@@ -1,0 +1,44 @@
+{
+  "pmc": "PMC8562481",
+  "media": [
+    {
+      "id": "growthlit_PMC8562481_quarter_strength_m63_minimal_medium_10_m",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "10 mM", "concentration_mM": 10.0, "role": "carbon source",
+         "source": "main_text", "evidence": "strains were grown in quarter-strength M63 [...] with 10 mM glucose."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "3.4 g/L", "concentration_mM": 25.0, "role": "phosphate/potassium/buffer",
+         "source": "main_text", "evidence": "quarter-strength M63 [per liter: 3.4 g KH2PO4, 0.5 g (NH4)2SO4, 10 μl of 1.25 mg/ml FeSO4·7H2O, 51.7 μl of 1 M MgSO4; adjusted to pH 7]"},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "0.5 g/L", "concentration_mM": 3.78, "role": "nitrogen source (NH4+) + sulfate",
+         "source": "main_text", "evidence": "quarter-strength M63 [per liter: 3.4 g KH2PO4, 0.5 g (NH4)2SO4, ...]"},
+        {"name": "ammonium (NH4+)", "concentration": "from 0.5 g/L (NH4)2SO4", "concentration_mM": 7.57, "role": "nitrogen source",
+         "source": "main_text", "evidence": "0.5 g (NH4)2SO4"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4·7H2O)", "concentration": "12.5 µg/L (10 μl of 1.25 mg/ml)", "concentration_mM": 0.000045, "role": "trace metal (iron)",
+         "source": "main_text", "evidence": "10 μl of 1.25 mg/ml FeSO4·7H2O"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "51.7 µM (51.7 μl of 1 M per liter)", "concentration_mM": 0.0517, "role": "magnesium + sulfate",
+         "source": "main_text", "evidence": "51.7 μl of 1 M MgSO4"},
+        {"name": "sulfate (SO4 2-)", "concentration": "sum of (NH4)2SO4 + MgSO4 + FeSO4", "concentration_mM": 3.83, "role": "sulfur source",
+         "source": "main_text", "evidence": "0.5 g (NH4)2SO4 [...] 51.7 μl of 1 M MgSO4 [...] FeSO4·7H2O"},
+        {"name": "water", "concentration": null, "concentration_mM": null, "role": "solvent",
+         "source": "main_text", "evidence": "quarter-strength M63 [per liter: ...]"},
+        {"name": "proton (H+)", "concentration": "adjusted to pH 7", "concentration_mM": null, "role": "pH/proton",
+         "source": "main_text", "evidence": "adjusted to pH 7"},
+        {"name": "dioxygen (O2)", "concentration": null, "concentration_mM": null, "role": "electron acceptor (aerobic)",
+         "source": "main_text", "evidence": "Ralstonia was routinely grown [...] at 28°C [aerobic shaking growth; growth curves and fitness assays performed aerobically]"}
+      ],
+      "base_medium": "M63 minimal medium (quarter strength), full recipe stated inline; no external reference cited",
+      "sources_chased": [
+        {"what": "cited base-medium reference for M63", "obtained": true,
+         "how": "none needed — paper defines the complete recipe inline in the Materials and Methods (per-liter composition given in brackets)",
+         "added": []},
+        {"what": "supplementary trace-element / vitamin mix", "obtained": true,
+         "how": "checked full text: no trace-element solution or vitamin mix is added; thiamine/vitamin mentions refer to biosynthesis genes, not medium ingredients",
+         "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "M63 is a chemically defined minimal medium whose only trace metal is FeSO4 and which contains no vitamin mixture (Ralstonia synthesizes its own cofactors). The paper states the entire per-liter recipe inline, so the medium is complete: glucose (C), (NH4)2SO4 (N + S), KH2PO4 (P/K/buffer), MgSO4 (Mg), FeSO4·7H2O (Fe), pH 7, grown aerobically at 28°C. The target's current_components already covered every real ingredient; oxygen corrected from 'facultative' to 'aerobic' (cultures grown shaking/aerobically)."
+    }
+  ]
+}

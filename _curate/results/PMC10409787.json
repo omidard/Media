@@ -1,0 +1,108 @@
+{
+  "pmc": "PMC10409787",
+  "media": [
+    {
+      "id": "growthlit_PMC10409787_m9_minimal_medium_25_cryptococcus_five_d",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "0.4 g/L", "concentration_mM": 2.22, "role": "carbon source",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "Mg2+ / sulfate source",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "Na+ / Cl- salt",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "disodium hydrogen phosphate heptahydrate (Na2HPO4.7H2O)", "concentration": "0.048 mM", "concentration_mM": 0.048, "role": "phosphate / buffer (Na+ source)",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "0.022 mM", "concentration_mM": 0.022, "role": "phosphate / buffer (K+ source)",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "sodium chloride (NaCl) [second listed aliquot]", "concentration": "0.017 mM", "concentration_mM": 0.017, "role": "Na+ / Cl- salt",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "Cryptococcus 5-day spent minimal-media filtrate (25% v/v)", "concentration": "25% v/v", "concentration_mM": null, "role": "undefined complex supplement (thiamine bioassay / pantothenate source)",
+         "source": "main_text",
+         "evidence": "we monitored for thiamine while culturing Variovorax in minimal media with the addition of 25% spent media from a Cryptococcus five-day monoculture in minimal media ... quantified during the growth in 75% fresh minimal media and 25% filter-sterilized spent medium"},
+        {"name": "(R)-pantothenate (vitamin B5)", "concentration": "~5 mg/L (measured in the spent-media fraction)", "concentration_mM": null, "role": "vitamin (contributed by the spent-media supplement)",
+         "source": "main_text",
+         "evidence": "we were able to detect ~5 mg/L of pantothenate in its spent media, suggesting that Cryptococcus production of pantothenate may account for Varioovrax's improved growth"},
+        {"name": "oxygen (O2, air)", "concentration": "aerobic (air)", "concentration_mM": null, "role": "gas phase / terminal electron acceptor",
+         "source": "main_text",
+         "evidence": "The Variovorax isolate grew aerobically on sugars, pyruvate and branched-chain amino acids ... predicted to encode for a highly versatile aerobic metabolism"}
+      ],
+      "base_medium": "M9 minimal medium (liquid; composition as defined inline in the paper's Methods, agar omitted for liquid culture)",
+      "sources_chased": [
+        {"what": "cited base-medium reference for M9", "obtained": true,
+         "how": "read corpus JATS full text; the Methods define M9 inline with NO external citation, so there is no cited recipe to chase",
+         "added": []},
+        {"what": "supplementary materials (Supplementary Information PDF; Supplementary data 1-3)", "obtained": true,
+         "how": "reviewed main text references to supplements; they concern genome/vitamin-pathway data, not media composition",
+         "added": []}
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "D-glucose concentration (0.4 g/L)",
+        "MgSO4 concentration (2 mM)",
+        "NaCl concentrations (0.1 mM and 0.017 mM)",
+        "Na2HPO4.7H2O (0.048 mM)",
+        "KH2PO4 (0.022 mM)",
+        "explicit identity of the 25% Cryptococcus spent-media supplement and its ~5 mg/L pantothenate"
+      ],
+      "notes": "Paper defines M9 inline (Methods, 'Isolate culturing and co-culturing'); there is no cited base-medium reference to expand. The stated recipe contains NO nitrogen source (no NH4Cl/ammonium), NO CaCl2, and NO trace metals or vitamin mix anywhere in the article (verified by full-text search) - therefore the ammonium, calcium, Co2+, Cu, Fe2+, Fe3+, Mn, and Zn entries in current_components are NOT supported by this paper and were dropped. Printed phosphate values (0.048/0.022 mM) are ~1000x below standard M9 and are almost certainly a units typo, but are reported verbatim per the no-fabrication rule. The two NaCl entries are listed as printed. Medium = 75% fresh M9 + 25% Cryptococcus 5-day spent-media filtrate."
+    },
+    {
+      "id": "growthlit_PMC10409787_m9_minimal_medium_5_mg_l_pantothenate_vi",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "0.4 g/L", "concentration_mM": 2.22, "role": "carbon source",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2 mM", "concentration_mM": 2.0, "role": "Mg2+ / sulfate source",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "Na+ / Cl- salt",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "disodium hydrogen phosphate heptahydrate (Na2HPO4.7H2O)", "concentration": "0.048 mM", "concentration_mM": 0.048, "role": "phosphate / buffer (Na+ source)",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "0.022 mM", "concentration_mM": 0.022, "role": "phosphate / buffer (K+ source)",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "sodium chloride (NaCl) [second listed aliquot]", "concentration": "0.017 mM", "concentration_mM": 0.017, "role": "Na+ / Cl- salt",
+         "source": "main_text",
+         "evidence": "solid M9 minimal media (0.4 g/L glucose, 2 mM MgSO4, 0.1 mM NaCl, 0.048 mM Na2HPO4.7H2O, 0.022 mM KH2PO4, 0.017 mM NaCl, 15 g/L agar)"},
+        {"name": "(R)-pantothenate (vitamin B5)", "concentration": "5 mg/L", "concentration_mM": null, "role": "vitamin supplement (defined addition)",
+         "source": "main_text",
+         "evidence": "Variovorax was cultured in M9 minimal media in the presence of varying concentrations of pantothenate ... a maximum of 39.5 mg/L thiamine observed in the 5 mg/L pantothenate supplemented culture (Fig. 7 caption: 'grown in M9 minimal media with the addition of varying concentrations of pantothenate (vitamin B5)')"},
+        {"name": "oxygen (O2, air)", "concentration": "aerobic (air)", "concentration_mM": null, "role": "gas phase / terminal electron acceptor",
+         "source": "main_text",
+         "evidence": "The Variovorax isolate grew aerobically on sugars, pyruvate and branched-chain amino acids ... predicted to encode for a highly versatile aerobic metabolism"}
+      ],
+      "base_medium": "M9 minimal medium (liquid; composition as defined inline in the paper's Methods, agar omitted for liquid culture)",
+      "sources_chased": [
+        {"what": "cited base-medium reference for M9", "obtained": true,
+         "how": "read corpus JATS full text; Methods define M9 inline with NO external citation, so there is no cited recipe to chase",
+         "added": []},
+        {"what": "supplementary materials (Supplementary Information PDF; Supplementary data 1-3)", "obtained": true,
+         "how": "reviewed main-text references to supplements; they concern genome/vitamin-pathway data, not media composition",
+         "added": []}
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "D-glucose concentration (0.4 g/L)",
+        "MgSO4 concentration (2 mM)",
+        "NaCl concentrations (0.1 mM and 0.017 mM)",
+        "Na2HPO4.7H2O (0.048 mM)",
+        "KH2PO4 (0.022 mM)",
+        "pantothenate concentration (5 mg/L)"
+      ],
+      "notes": "Same M9 base as the spent-media medium, here supplemented with a defined 5 mg/L pantothenate (vitamin B5) - the single tested concentration referenced in the medium id. As above, the article contains NO nitrogen source (NH4Cl/ammonium), NO CaCl2, and NO trace metals/vitamin mix (verified by full-text search), so the ammonium/calcium/Co2+/Cu/Fe/Mn/Zn entries in current_components are unsupported by this paper and were dropped. Phosphate values reported verbatim despite an apparent ~1000x units typo. No reductant/anaerobic gas - Variovorax grows aerobically."
+    }
+  ]
+}

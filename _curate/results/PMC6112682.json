@@ -1,0 +1,54 @@
+{
+  "pmc": "PMC6112682",
+  "media": [
+    {
+      "id": "growthlit_PMC6112682_m9_glucose_minimal_medium",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "disodium phosphate (Na2HPO4, anhydrous)", "concentration": "6.78 g/L (1x; 33.9 g/L in 5x concentrate)", "concentration_mM": 47.8, "role": "phosphate/buffer + sodium", "source": "cited:Difco M9 Minimal Salts 5x (248510)", "evidence": "Disodium Phosphate (anhydrous)............................... 33.9 g [per liter of 5x concentrate; cited in paper as 'M9 salts [248510, Difco]']"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "3.0 g/L (1x; 15.0 g/L in 5x concentrate)", "concentration_mM": 22.0, "role": "phosphate/buffer + potassium", "source": "cited:Difco M9 Minimal Salts 5x (248510)", "evidence": "Monopotassium Phosphate........................................ 15.0 g [per liter of 5x concentrate]"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L (1x; 2.5 g/L in 5x concentrate)", "concentration_mM": 8.56, "role": "salt (Na, Cl)", "source": "cited:Difco M9 Minimal Salts 5x (248510)", "evidence": "Sodium Chloride.......................................................... 2.5 g [per liter of 5x concentrate]"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "1.0 g/L (1x; 5.0 g/L in 5x concentrate)", "concentration_mM": 18.7, "role": "nitrogen source", "source": "cited:Difco M9 Minimal Salts 5x (248510)", "evidence": "Ammonium Chloride.................................................... 5.0 g [per liter of 5x concentrate]"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "1 mM", "concentration_mM": 1.0, "role": "magnesium + sulfate source", "source": "main_text", "evidence": "M9 salts [248510, Difco] supplemented with 0.4% maltose [6363-53-7, Fisher Scientific], 1 mM MgSO4, 0.1 mM CaCl, and 0.2% Thiamine [B1]"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium source", "source": "main_text", "evidence": "supplemented with 0.4% maltose ..., 1 mM MgSO4, 0.1 mM CaCl, and 0.2% Thiamine [B1] (paper writes 'CaCl'; standard M9 supplement is CaCl2)"},
+        {"name": "D-glucose", "concentration": "500 ug/mL - 1 mg/mL", "concentration_mM": 5.55, "role": "limiting carbon source", "source": "main_text", "evidence": "The experiments were performed in M9 minimal medium supplemented with 1 mg/mL glucose as the limiting carbon source. ... Maximum growth rates in M9 glucose (500 ug/mL) minimal medium. Glucose was used in these experiments instead of maltose, as several of the mutants were Mal- and displayed no growth in maltose-limited minimal medium."},
+        {"name": "thiamine (vitamin B1)", "concentration": "0.2%", "concentration_mM": null, "role": "vitamin", "source": "main_text", "evidence": "... 1 mM MgSO4, 0.1 mM CaCl, and 0.2% Thiamine [B1] (value reported verbatim; 0.2% is unusually high for thiamine and is likely a units typo in the paper, so no confident mM conversion is given)"},
+        {"name": "oxygen (O2)", "concentration": null, "concentration_mM": null, "role": "electron acceptor / gas phase", "source": "main_text", "evidence": "Bacterial cultures were grown at 37 C in either M9M ... or LB (aerobic serial-transfer culture; no reductant or anaerobic gas phase specified)"},
+        {"name": "water (H2O)", "concentration": null, "concentration_mM": null, "role": "solvent", "source": "main_text", "evidence": "aqueous liquid medium (implicit solvent for all M9 components)"}
+      ],
+      "base_medium": "M9 minimal salts (Difco M9 Minimal Salts 5x, cat. 248510)",
+      "sources_chased": [
+        {"what": "Difco M9 Minimal Salts 5x formula (cat. 248510) cited in Methods", "obtained": true, "how": "WebSearch + WebFetch voigtglobal.com product formula (BD Difco documentation)", "added": ["Na2HPO4", "KH2PO4", "NaCl", "NH4Cl"]},
+        {"what": "carbon source and concentration for the glucose variant", "obtained": true, "how": "corpus XML: Fig S3/S5 captions and Results", "added": ["D-glucose 500 ug/mL - 1 mg/mL"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Recipe is fully defined in the paper Methods (same M9 base as M9M but with glucose as the limiting carbon source instead of maltose). Base salts expanded from the cited Difco M9 Minimal Salts 5x (248510) formula. The current_components list carried model-default trace metals (Co2+, Cu2+, Fe2+, Fe3+, Mn2+, Zn2+) that are NOT present in Difco M9 salts nor in any supplement stated by the paper; these were dropped as unsupported. No trace-element solution, no additional vitamins, and no anaerobic reductant/gas are part of this medium."
+    },
+    {
+      "id": "growthlit_PMC6112682_m9m_maltose_limited_m9_minimal_medium",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "disodium phosphate (Na2HPO4, anhydrous)", "concentration": "6.78 g/L (1x; 33.9 g/L in 5x concentrate)", "concentration_mM": 47.8, "role": "phosphate/buffer + sodium", "source": "cited:Difco M9 Minimal Salts 5x (248510)", "evidence": "Disodium Phosphate (anhydrous)............................... 33.9 g [per liter of 5x concentrate; cited in paper as 'M9 salts [248510, Difco]']"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "3.0 g/L (1x; 15.0 g/L in 5x concentrate)", "concentration_mM": 22.0, "role": "phosphate/buffer + potassium", "source": "cited:Difco M9 Minimal Salts 5x (248510)", "evidence": "Monopotassium Phosphate........................................ 15.0 g [per liter of 5x concentrate]"},
+        {"name": "sodium chloride (NaCl)", "concentration": "0.5 g/L (1x; 2.5 g/L in 5x concentrate)", "concentration_mM": 8.56, "role": "salt (Na, Cl)", "source": "cited:Difco M9 Minimal Salts 5x (248510)", "evidence": "Sodium Chloride.......................................................... 2.5 g [per liter of 5x concentrate]"},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "1.0 g/L (1x; 5.0 g/L in 5x concentrate)", "concentration_mM": 18.7, "role": "nitrogen source", "source": "cited:Difco M9 Minimal Salts 5x (248510)", "evidence": "Ammonium Chloride.................................................... 5.0 g [per liter of 5x concentrate]"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "1 mM", "concentration_mM": 1.0, "role": "magnesium + sulfate source", "source": "main_text", "evidence": "M9 salts [248510, Difco] supplemented with 0.4% maltose [6363-53-7, Fisher Scientific], 1 mM MgSO4, 0.1 mM CaCl, and 0.2% Thiamine [B1]"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium source", "source": "main_text", "evidence": "supplemented with 0.4% maltose ..., 1 mM MgSO4, 0.1 mM CaCl, and 0.2% Thiamine [B1] (paper writes 'CaCl'; standard M9 supplement is CaCl2)"},
+        {"name": "maltose", "concentration": "0.4% (4 g/L) in base M9M; 500 ug/mL in the resource-limited population experiments", "concentration_mM": 11.69, "role": "limiting carbon source", "source": "main_text", "evidence": "M9M (M9 salts [248510, Difco] supplemented with 0.4% maltose [6363-53-7, Fisher Scientific] ...). ... 12 in maltose (500 ug/mL)-limited M9 medium (M9M)"},
+        {"name": "thiamine (vitamin B1)", "concentration": "0.2%", "concentration_mM": null, "role": "vitamin", "source": "main_text", "evidence": "... 1 mM MgSO4, 0.1 mM CaCl, and 0.2% Thiamine [B1] (value reported verbatim; 0.2% is unusually high for thiamine and is likely a units typo in the paper, so no confident mM conversion is given)"},
+        {"name": "oxygen (O2)", "concentration": null, "concentration_mM": null, "role": "electron acceptor / gas phase", "source": "main_text", "evidence": "Bacterial cultures were grown at 37 C in either M9M ... or LB (aerobic serial-transfer culture; no reductant or anaerobic gas phase specified)"},
+        {"name": "water (H2O)", "concentration": null, "concentration_mM": null, "role": "solvent", "source": "main_text", "evidence": "aqueous liquid medium (implicit solvent for all M9 components)"}
+      ],
+      "base_medium": "M9 minimal salts (Difco M9 Minimal Salts 5x, cat. 248510)",
+      "sources_chased": [
+        {"what": "Difco M9 Minimal Salts 5x formula (cat. 248510) cited in Methods", "obtained": true, "how": "WebSearch + WebFetch voigtglobal.com product formula (BD Difco documentation)", "added": ["Na2HPO4", "KH2PO4", "NaCl", "NH4Cl"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "M9M is fully defined in the paper Methods: Difco M9 salts (248510) + 0.4% maltose + 1 mM MgSO4 + 0.1 mM CaCl2 + 0.2% thiamine. Base salts expanded from the cited Difco 248510 formula. The current_components carried model-default trace metals (Co2+, Cu2+, Fe2+, Fe3+, Mn2+, Zn2+) that are NOT in Difco M9 salts nor in any stated supplement; dropped as unsupported. Maltose is 0.4% in the base recipe but was diluted to the limiting 500 ug/mL for the serial-transfer population-dynamics experiments. No trace-element solution, no additional vitamins, and no anaerobic reductant/gas are part of this medium."
+    }
+  ]
+}

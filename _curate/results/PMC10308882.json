@@ -1,0 +1,48 @@
+{
+  "pmc": "PMC10308882",
+  "media": [
+    {
+      "id": "lit_PMC10308882_de_bont_minimal_dbm_medium",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "dipotassium hydrogen phosphate (K2HPO4)", "concentration": "3.88 g/L", "concentration_mM": 22.28, "role": "phosphate/buffer/potassium",
+         "source": "main_text", "evidence": "DBM medium contained 3.88 g L−1 K2HPO4"},
+        {"name": "sodium dihydrogen phosphate (NaH2PO4)", "concentration": "1.63 g/L", "concentration_mM": 13.59, "role": "phosphate/buffer/sodium",
+         "source": "main_text", "evidence": "1.63 g L−1 NaH2PO4"},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "2 g/L", "concentration_mM": 15.14, "role": "nitrogen/sulfate",
+         "source": "main_text", "evidence": "2 g L−1 (NH4)2SO4"},
+        {"name": "magnesium chloride hexahydrate (MgCl2·6H2O)", "concentration": "0.1 g/L", "concentration_mM": 0.492, "role": "magnesium/chloride",
+         "source": "main_text", "evidence": "0.1 g L−1 MgCl2∙6H2O, with the initial pH adjusted at 7.0"},
+        {"name": "D-glucose", "concentration": "20 mM", "concentration_mM": 20.0, "role": "carbon source",
+         "source": "main_text", "evidence": "All bacterial cultivations were performed in de Bont minimal medium containing 20 mM glucose."},
+        {"name": "EDTA (ethylenediaminetetraacetic acid)", "concentration": "10 mg/L", "concentration_mM": 0.0342, "role": "chelator",
+         "source": "main_text", "evidence": "trace element solution [10 mg L−1 ethylenediaminetetraacetic acid (EDTA)"},
+        {"name": "zinc sulfate heptahydrate (ZnSO4·7H2O)", "concentration": "2 mg/L", "concentration_mM": 0.00696, "role": "trace element (Zn)",
+         "source": "main_text", "evidence": "2 mg L−1 ZnSO4∙7H2O"},
+        {"name": "calcium chloride dihydrate (CaCl2·2H2O)", "concentration": "1 mg/L", "concentration_mM": 0.0068, "role": "trace element (Ca)",
+         "source": "main_text", "evidence": "1 mg L−1 CaCl2∙2H2O"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4·7H2O)", "concentration": "5 mg/L", "concentration_mM": 0.0180, "role": "trace element (Fe)",
+         "source": "main_text", "evidence": "5 mg L−1 FeSO4∙7H2O"},
+        {"name": "sodium molybdate dihydrate (Na2MoO4·2H2O)", "concentration": "0.2 mg/L", "concentration_mM": 0.000827, "role": "trace element (Mo)",
+         "source": "main_text", "evidence": "0.2 mg L−1 Na2MoO4∙2H2O"},
+        {"name": "copper(II) sulfate pentahydrate (CuSO4·5H2O)", "concentration": "0.2 mg/L", "concentration_mM": 0.000801, "role": "trace element (Cu)",
+         "source": "main_text", "evidence": "0.2 mg L−1 CuSO4∙5H2O"},
+        {"name": "cobalt(II) chloride hexahydrate (CoCl2·6H2O)", "concentration": "0.4 mg/L", "concentration_mM": 0.00168, "role": "trace element (Co)",
+         "source": "main_text", "evidence": "0.4 mg L−1 CoCl2∙6H2O"},
+        {"name": "manganese(II) chloride dihydrate (MnCl2·2H2O)", "concentration": "1 mg/L", "concentration_mM": 0.00618, "role": "trace element (Mn)",
+         "source": "main_text", "evidence": "and 1 mg L−1 MnCl2∙2H2O]"}
+      ],
+      "base_medium": "de Bont minimal medium (DBM), Hartmans/de Bont mineral medium",
+      "sources_chased": [
+        {"what": "base medium cited as ref 34 (Hartmans, Smits, van der Werf, Volkering, de Bont 1989, Appl Environ Microbiol 55:2850-2855, PMC203180, doi:10.1128/aem.55.11.2850-2855.1989)",
+         "obtained": false,
+         "how": "WebFetch of PMC203180 HTML and PDF returned only abstract/download-shell (methods not text-extractable); full DBM recipe including complete trace-element solution is already spelled out verbatim in the main text of PMC10308882, so no additional constituents were recoverable or needed",
+         "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "The paper's main text gives the DBM recipe in full: phosphate buffer (K2HPO4 + NaH2PO4), (NH4)2SO4 as N/S source, MgCl2·6H2O, and the complete de Bont trace-element solution (EDTA chelator + Zn, Ca, Fe, Mo, Cu, Co, Mn salts). DBM is a defined medium requiring no vitamins/growth factors for P. putida; none are added. Standard carbon source is 20 mM glucose (methanol and formate are experiment-specific supplements, not part of the base medium). Cultivations are aerobic (P. putida is an obligate aerobe). All element exchanges in current_components are covered; concentrations and exact salt identities were added. EDTA is a chelator, not a modeled nutrient exchange."
+    }
+  ]
+}

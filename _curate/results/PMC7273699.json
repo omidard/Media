@@ -1,0 +1,94 @@
+{
+  "pmc": "PMC7273699",
+  "media": [
+    {
+      "id": "growthlit_PMC7273699_n_c_minimal_medium_5_mm_glycerol_batch",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "dipotassium hydrogen phosphate trihydrate (K2HPO4·3H2O)",
+          "concentration": "17.7 g/L",
+          "concentration_mM": 77.6,
+          "role": "phosphate / pH buffer / potassium",
+          "source": "main_text",
+          "evidence": "N−C− minimal medium (Csonka et al, 1994), containing K2SO4 (1 g), K2HPO4·3H2O (17.7 g), KH2PO4 (4.7 g), MgSO4·7H2O (0.1 g), and NaCl (2.5 g) per liter."
+        },
+        {
+          "name": "potassium dihydrogen phosphate (KH2PO4)",
+          "concentration": "4.7 g/L",
+          "concentration_mM": 34.5,
+          "role": "phosphate / pH buffer / potassium",
+          "source": "main_text",
+          "evidence": "containing K2SO4 (1 g), K2HPO4·3H2O (17.7 g), KH2PO4 (4.7 g), MgSO4·7H2O (0.1 g), and NaCl (2.5 g) per liter."
+        },
+        {
+          "name": "potassium sulfate (K2SO4)",
+          "concentration": "1 g/L",
+          "concentration_mM": 5.74,
+          "role": "potassium / sulfate",
+          "source": "main_text",
+          "evidence": "containing K2SO4 (1 g), K2HPO4·3H2O (17.7 g), KH2PO4 (4.7 g), MgSO4·7H2O (0.1 g), and NaCl (2.5 g) per liter."
+        },
+        {
+          "name": "magnesium sulfate heptahydrate (MgSO4·7H2O)",
+          "concentration": "0.1 g/L",
+          "concentration_mM": 0.406,
+          "role": "magnesium / sulfate",
+          "source": "main_text",
+          "evidence": "containing K2SO4 (1 g), K2HPO4·3H2O (17.7 g), KH2PO4 (4.7 g), MgSO4·7H2O (0.1 g), and NaCl (2.5 g) per liter."
+        },
+        {
+          "name": "sodium chloride (NaCl)",
+          "concentration": "2.5 g/L",
+          "concentration_mM": 42.8,
+          "role": "sodium / chloride",
+          "source": "main_text",
+          "evidence": "containing K2SO4 (1 g), K2HPO4·3H2O (17.7 g), KH2PO4 (4.7 g), MgSO4·7H2O (0.1 g), and NaCl (2.5 g) per liter."
+        },
+        {
+          "name": "ammonium chloride (NH4Cl)",
+          "concentration": "20 mM",
+          "concentration_mM": 20.0,
+          "role": "nitrogen source (also contributes chloride)",
+          "source": "main_text",
+          "evidence": "The medium was supplemented with 20 mM NH4Cl, as nitrogen source, and 5 mM glycerol, as the sole carbon source."
+        },
+        {
+          "name": "glycerol",
+          "concentration": "5 mM",
+          "concentration_mM": 5.0,
+          "role": "carbon source (sole)",
+          "source": "main_text",
+          "evidence": "The medium was supplemented with 20 mM NH4Cl, as nitrogen source, and 5 mM glycerol, as the sole carbon source."
+        },
+        {
+          "name": "oxygen (O2)",
+          "concentration": "aerobic batch culture",
+          "concentration_mM": null,
+          "role": "terminal electron acceptor / gas phase",
+          "source": "main_text",
+          "evidence": "For growth in batch cultures, the same protocol described in Schink et al, 2019 was applied. However, due to acetate excretion in the medium in the pre[culture]... (aerobic shaking batch cultures of E. coli)."
+        }
+      ],
+      "base_medium": "N−C− minimal medium (Csonka LN, Ikeda TP, Fletcher SA, Kustu S, 1994, J Bacteriol 176:6324–6333)",
+      "sources_chased": [
+        {
+          "what": "base recipe cited as Csonka et al 1994 (N−C− minimal medium, J Bacteriol 176:6324–6333, PMC196974)",
+          "obtained": true,
+          "how": "WebFetch PMC196974 (full text only as scanned page images, not OCR'd); cross-confirmed the identical salt recipe in two independent same-lab papers that reproduce N−C− verbatim (WebFetch PMC10477958 and this paper's Culture-medium section)",
+          "added": []
+        },
+        {
+          "what": "growth protocol reference Schink et al 2019 (Cell Systems 9:64–73) for batch-culture conditions / oxygenation",
+          "obtained": true,
+          "how": "WebSearch confirmed same aerobic batch-culture N−C− protocol",
+          "added": []
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "The medium is fully defined in the paper's 'Culture medium' section and is already complete at the ionic level: the current exchange list (Cl, glycerol, K, Mg, Na, NH4, O2, Pi, SO4) captures every species contributed by the five salts plus the N and C sources. N−C− minimal medium (Csonka/Kustu) is a phosphate-buffered defined salts medium that intentionally contains NO added trace-metal/micronutrient mix, NO CaCl2, and NO vitamins/thiamine — verified by convergent reproduction of the identical recipe in independent papers; growth relies on trace-metal contaminants. 1 mM IPTG was added 'when necessary' to induce the lac operon; it is an inducer, not a nutrient, so it is not listed as a medium component. All chemicals were from Carl Roth. Reported concentrations converted from g/L using MW: K2HPO4·3H2O 228.22, KH2PO4 136.09, K2SO4 174.26, MgSO4·7H2O 246.47, NaCl 58.44."
+    }
+  ]
+}

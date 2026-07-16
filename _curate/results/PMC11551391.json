@@ -1,0 +1,72 @@
+{
+  "pmc": "PMC11551391",
+  "media": [
+    {
+      "id": "complexlit_PMC11551391_minimal_fed_batch_medium_with_corn_steep_liq",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "40 g/L", "concentration_mM": 222.0, "role": "carbon source", "source": "supplementary", "evidence": "Fed-batch fermentations ... containing 1.8 L modified CGXII-P medium without MOPS. ... The CGXII-P medium (pH 7.0, adjusted with NaOH) contains per liter: 40 g glucose, 20 g (NH4)2SO4, 5 g urea, 1 g KH2PO4, 1 g K2HPO4, 1 g MgSO4·7H2O, 42 g 3-morpholinopropanesulfonic acid (MOPS), 13 mg CaCl2·2H2O, 10 mg FeSO4·7H2O, 14 mg MnSO4·5H2O, 1 mg ZnSO4·7H2O, 0.3 mg CuSO4·5H2O, 0.02 mg NiCl2·6H2O, 0.2 mg biotin, 30 mg citric acid, and 0.5 mg thiamine-HCl."},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "20 g/L", "concentration_mM": 151.4, "role": "nitrogen source / sulfate", "source": "supplementary", "evidence": "The CGXII-P medium ... contains per liter: 40 g glucose, 20 g (NH4)2SO4, 5 g urea ..."},
+        {"name": "urea", "concentration": "5 g/L", "concentration_mM": 83.2, "role": "nitrogen source", "source": "supplementary", "evidence": "... contains per liter: 40 g glucose, 20 g (NH4)2SO4, 5 g urea, 1 g KH2PO4 ..."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "1 g/L", "concentration_mM": 7.35, "role": "phosphate / potassium", "source": "supplementary", "evidence": "... 5 g urea, 1 g KH2PO4, 1 g K2HPO4, 1 g MgSO4·7H2O ..."},
+        {"name": "dipotassium phosphate (K2HPO4)", "concentration": "1 g/L", "concentration_mM": 5.74, "role": "phosphate / potassium", "source": "supplementary", "evidence": "... 1 g KH2PO4, 1 g K2HPO4, 1 g MgSO4·7H2O, 42 g ... (MOPS) ..."},
+        {"name": "magnesium sulfate heptahydrate (MgSO4·7H2O)", "concentration": "1 g/L", "concentration_mM": 4.06, "role": "magnesium / sulfate", "source": "supplementary", "evidence": "... 1 g K2HPO4, 1 g MgSO4·7H2O, 42 g 3-morpholinopropanesulfonic acid (MOPS) ..."},
+        {"name": "calcium chloride dihydrate (CaCl2·2H2O)", "concentration": "13 mg/L", "concentration_mM": 0.088, "role": "calcium / chloride trace", "source": "supplementary", "evidence": "... (MOPS), 13 mg CaCl2·2H2O, 10 mg FeSO4·7H2O ..."},
+        {"name": "ferrous sulfate heptahydrate (FeSO4·7H2O)", "concentration": "10 mg/L", "concentration_mM": 0.036, "role": "iron trace element", "source": "supplementary", "evidence": "... 13 mg CaCl2·2H2O, 10 mg FeSO4·7H2O, 14 mg MnSO4·5H2O ..."},
+        {"name": "manganese sulfate pentahydrate (MnSO4·5H2O)", "concentration": "14 mg/L", "concentration_mM": 0.058, "role": "manganese trace element", "source": "supplementary", "evidence": "... 10 mg FeSO4·7H2O, 14 mg MnSO4·5H2O, 1 mg ZnSO4·7H2O ..."},
+        {"name": "zinc sulfate heptahydrate (ZnSO4·7H2O)", "concentration": "1 mg/L", "concentration_mM": 0.0035, "role": "zinc trace element", "source": "supplementary", "evidence": "... 14 mg MnSO4·5H2O, 1 mg ZnSO4·7H2O, 0.3 mg CuSO4·5H2O ..."},
+        {"name": "copper(II) sulfate pentahydrate (CuSO4·5H2O)", "concentration": "0.3 mg/L", "concentration_mM": 0.0012, "role": "copper trace element", "source": "supplementary", "evidence": "... 1 mg ZnSO4·7H2O, 0.3 mg CuSO4·5H2O, 0.02 mg NiCl2·6H2O ..."},
+        {"name": "nickel(II) chloride hexahydrate (NiCl2·6H2O)", "concentration": "0.02 mg/L", "concentration_mM": 0.000084, "role": "nickel trace element", "source": "supplementary", "evidence": "... 0.3 mg CuSO4·5H2O, 0.02 mg NiCl2·6H2O, 0.2 mg biotin ..."},
+        {"name": "biotin", "concentration": "0.2 mg/L", "concentration_mM": 0.00082, "role": "vitamin (biotin auxotroph)", "source": "supplementary", "evidence": "... 0.02 mg NiCl2·6H2O, 0.2 mg biotin, 30 mg citric acid, and 0.5 mg thiamine-HCl."},
+        {"name": "citric acid", "concentration": "30 mg/L", "concentration_mM": 0.156, "role": "metal chelator", "source": "supplementary", "evidence": "... 0.2 mg biotin, 30 mg citric acid, and 0.5 mg thiamine-HCl."},
+        {"name": "thiamine-HCl", "concentration": "0.5 mg/L", "concentration_mM": 0.0015, "role": "vitamin", "source": "supplementary", "evidence": "... 30 mg citric acid, and 0.5 mg thiamine-HCl."},
+        {"name": "corn steep liquor (CSL)", "concentration": "40 g/L", "concentration_mM": null, "role": "complex nitrogen / vitamin source (undefined)", "source": "supplementary", "evidence": "When necessary, 10 g/L of yeast extract or 40 g/L of crude corn steep liquor (CSL) (Hanwha Solutions, Daejeon, Korea), and the appropriate amount of NH4Cl were added to the medium."},
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "appropriate amount (unspecified)", "concentration_mM": null, "role": "nitrogen source", "source": "supplementary", "evidence": "... and the appropriate amount of NH4Cl were added to the medium."},
+        {"name": "ammonium hydroxide (NH4OH, 28% v/v)", "concentration": "pH control (to pH 7.0)", "concentration_mM": null, "role": "pH titrant / nitrogen source", "source": "supplementary", "evidence": "The fermentation pH was maintained at 7.0 with the addition of 28% (v/v) NH4OH, and the fermentation temperature was set at 30 °C."},
+        {"name": "sodium hydroxide (NaOH)", "concentration": "for initial pH 7.0 adjustment", "concentration_mM": null, "role": "pH titrant / sodium source", "source": "supplementary", "evidence": "The CGXII-P medium (pH 7.0, adjusted with NaOH) contains per liter: ..."}
+      ],
+      "base_medium": "modified CGXII-P minimal medium (CGXII-P without MOPS) supplemented with 40 g/L corn steep liquor; CGXII-P is a MOPS-buffered CGXII-type C. glutamicum minimal medium",
+      "sources_chased": [
+        {"what": "SI Appendix Materials and Methods (culture media; fed-batch fermentation section) giving the full CGXII-P recipe and the fed-batch modifications", "obtained": true, "how": "EuropePMC supplementaryFiles zip -> pnas.2415213121.sapp.pdf (PNAS SI Appendix); pdftotext", "added": ["glucose 40 g/L", "(NH4)2SO4 20 g/L", "urea 5 g/L", "KH2PO4 1 g/L", "K2HPO4 1 g/L", "MgSO4·7H2O 1 g/L", "CaCl2·2H2O 13 mg/L", "FeSO4·7H2O 10 mg/L", "MnSO4·5H2O 14 mg/L", "ZnSO4·7H2O 1 mg/L", "CuSO4·5H2O 0.3 mg/L", "NiCl2·6H2O 0.02 mg/L", "biotin 0.2 mg/L", "citric acid 30 mg/L", "thiamine-HCl 0.5 mg/L", "NH4Cl", "NH4OH pH control", "MOPS omitted (without MOPS)"]},
+        {"what": "Glucose feed solution composition (fed-batch feed)", "obtained": true, "how": "same SI Appendix", "added": ["feed per liter: 700 g glucose, 1 g MgSO4·7H2O, 13 mg CaCl2·2H2O, 10 mg FeSO4·7H2O, 14 mg MnSO4·5H2O, 1 mg ZnSO4·7H2O, 0.3 mg CuSO4·5H2O, 0.02 mg NiCl2·6H2O, antibiotics, 1 mM IPTG"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["D-glucose (identity/conc)", "(NH4)2SO4", "urea", "KH2PO4", "K2HPO4", "MgSO4·7H2O", "CaCl2·2H2O", "FeSO4·7H2O", "MnSO4·5H2O", "ZnSO4·7H2O", "CuSO4·5H2O", "NiCl2·6H2O", "biotin", "citric acid", "thiamine-HCl", "NH4Cl", "NH4OH (pH control)", "corn steep liquor amount (40 g/L)"],
+      "notes": "Fed-batch PDC medium = 'modified CGXII-P without MOPS' + 40 g/L CSL; batch = 1.8 L, fed with a 700 g/L glucose feed that also carries MgSO4 and the same trace metals (Fe/Mn/Zn/Cu/Ni). Verified evidence: '40 g/L of CSL in fed-batch fermentation medium, the production titer reached a maximum of 62.03 g/L'. CAUTION: the prior current_components listed Co2+ (cobalt) and Fe3+, but the defined recipe contains NO cobalt salt and only Fe2+ (FeSO4·7H2O) — those two ion exchanges are model artifacts, not real ingredients (cobalt could in principle enter via undefined CSL but is not a declared component)."
+    },
+    {
+      "id": "complexlit_PMC11551391_minimal_medium_corn_steep_liquor_glucose",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "D-glucose", "concentration": "40 g/L", "concentration_mM": 222.0, "role": "carbon source", "source": "supplementary", "evidence": "Flask cultivations of PDC-producing strains were performed in baffled flasks (300 mL) containing 25 mL of CGXII-P minimal medium. The CGXII-P medium (pH 7.0, adjusted with NaOH) contains per liter: 40 g glucose, 20 g (NH4)2SO4, 5 g urea, 1 g KH2PO4, 1 g K2HPO4, 1 g MgSO4·7H2O, 42 g 3-morpholinopropanesulfonic acid (MOPS), 13 mg CaCl2·2H2O, 10 mg FeSO4·7H2O, 14 mg MnSO4·5H2O, 1 mg ZnSO4·7H2O, 0.3 mg CuSO4·5H2O, 0.02 mg NiCl2·6H2O, 0.2 mg biotin, 30 mg citric acid, and 0.5 mg thiamine-HCl."},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "20 g/L", "concentration_mM": 151.4, "role": "nitrogen source / sulfate", "source": "supplementary", "evidence": "... per liter: 40 g glucose, 20 g (NH4)2SO4, 5 g urea, 1 g KH2PO4 ..."},
+        {"name": "urea", "concentration": "5 g/L", "concentration_mM": 83.2, "role": "nitrogen source", "source": "supplementary", "evidence": "... 20 g (NH4)2SO4, 5 g urea, 1 g KH2PO4, 1 g K2HPO4 ..."},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "1 g/L", "concentration_mM": 7.35, "role": "phosphate / potassium", "source": "supplementary", "evidence": "... 5 g urea, 1 g KH2PO4, 1 g K2HPO4, 1 g MgSO4·7H2O ..."},
+        {"name": "dipotassium phosphate (K2HPO4)", "concentration": "1 g/L", "concentration_mM": 5.74, "role": "phosphate / potassium", "source": "supplementary", "evidence": "... 1 g KH2PO4, 1 g K2HPO4, 1 g MgSO4·7H2O, 42 g ... (MOPS) ..."},
+        {"name": "magnesium sulfate heptahydrate (MgSO4·7H2O)", "concentration": "1 g/L", "concentration_mM": 4.06, "role": "magnesium / sulfate", "source": "supplementary", "evidence": "... 1 g K2HPO4, 1 g MgSO4·7H2O, 42 g 3-morpholinopropanesulfonic acid (MOPS) ..."},
+        {"name": "3-(N-morpholino)propanesulfonic acid (MOPS)", "concentration": "42 g/L", "concentration_mM": 200.7, "role": "buffer", "source": "supplementary", "evidence": "... 1 g MgSO4·7H2O, 42 g 3-morpholinopropanesulfonic acid (MOPS), 13 mg CaCl2·2H2O ..."},
+        {"name": "calcium chloride dihydrate (CaCl2·2H2O)", "concentration": "13 mg/L", "concentration_mM": 0.088, "role": "calcium / chloride trace", "source": "supplementary", "evidence": "... (MOPS), 13 mg CaCl2·2H2O, 10 mg FeSO4·7H2O ..."},
+        {"name": "ferrous sulfate heptahydrate (FeSO4·7H2O)", "concentration": "10 mg/L", "concentration_mM": 0.036, "role": "iron trace element", "source": "supplementary", "evidence": "... 13 mg CaCl2·2H2O, 10 mg FeSO4·7H2O, 14 mg MnSO4·5H2O ..."},
+        {"name": "manganese sulfate pentahydrate (MnSO4·5H2O)", "concentration": "14 mg/L", "concentration_mM": 0.058, "role": "manganese trace element", "source": "supplementary", "evidence": "... 10 mg FeSO4·7H2O, 14 mg MnSO4·5H2O, 1 mg ZnSO4·7H2O ..."},
+        {"name": "zinc sulfate heptahydrate (ZnSO4·7H2O)", "concentration": "1 mg/L", "concentration_mM": 0.0035, "role": "zinc trace element", "source": "supplementary", "evidence": "... 14 mg MnSO4·5H2O, 1 mg ZnSO4·7H2O, 0.3 mg CuSO4·5H2O ..."},
+        {"name": "copper(II) sulfate pentahydrate (CuSO4·5H2O)", "concentration": "0.3 mg/L", "concentration_mM": 0.0012, "role": "copper trace element", "source": "supplementary", "evidence": "... 1 mg ZnSO4·7H2O, 0.3 mg CuSO4·5H2O, 0.02 mg NiCl2·6H2O ..."},
+        {"name": "nickel(II) chloride hexahydrate (NiCl2·6H2O)", "concentration": "0.02 mg/L", "concentration_mM": 0.000084, "role": "nickel trace element", "source": "supplementary", "evidence": "... 0.3 mg CuSO4·5H2O, 0.02 mg NiCl2·6H2O, 0.2 mg biotin ..."},
+        {"name": "biotin", "concentration": "0.2 mg/L", "concentration_mM": 0.00082, "role": "vitamin (biotin auxotroph)", "source": "supplementary", "evidence": "... 0.02 mg NiCl2·6H2O, 0.2 mg biotin, 30 mg citric acid, and 0.5 mg thiamine-HCl."},
+        {"name": "citric acid", "concentration": "30 mg/L", "concentration_mM": 0.156, "role": "metal chelator", "source": "supplementary", "evidence": "... 0.2 mg biotin, 30 mg citric acid, and 0.5 mg thiamine-HCl."},
+        {"name": "thiamine-HCl", "concentration": "0.5 mg/L", "concentration_mM": 0.0015, "role": "vitamin", "source": "supplementary", "evidence": "... 30 mg citric acid, and 0.5 mg thiamine-HCl."},
+        {"name": "corn steep liquor (CSL)", "concentration": "40 g/L", "concentration_mM": null, "role": "complex nitrogen / vitamin source (undefined)", "source": "main_text", "evidence": "Supplementing 40 g/L of CSL in flask cultivation improved PDC production to 12.54 ± 0.11 g/L compared to the control ... CSL: Corn steep liquor."},
+        {"name": "sodium hydroxide (NaOH)", "concentration": "for pH 7.0 adjustment", "concentration_mM": null, "role": "pH titrant / sodium source", "source": "supplementary", "evidence": "The CGXII-P medium (pH 7.0, adjusted with NaOH) contains per liter: ..."}
+      ],
+      "base_medium": "CGXII-P minimal medium (MOPS-buffered CGXII-type C. glutamicum minimal medium) supplemented with 40 g/L corn steep liquor",
+      "sources_chased": [
+        {"what": "SI Appendix Materials and Methods, 'Flask cultivations' — full CGXII-P recipe", "obtained": true, "how": "EuropePMC supplementaryFiles zip -> pnas.2415213121.sapp.pdf; pdftotext", "added": ["glucose 40 g/L", "(NH4)2SO4 20 g/L", "urea 5 g/L", "KH2PO4 1 g/L", "K2HPO4 1 g/L", "MgSO4·7H2O 1 g/L", "MOPS 42 g/L", "CaCl2·2H2O 13 mg/L", "FeSO4·7H2O 10 mg/L", "MnSO4·5H2O 14 mg/L", "ZnSO4·7H2O 1 mg/L", "CuSO4·5H2O 0.3 mg/L", "NiCl2·6H2O 0.02 mg/L", "biotin 0.2 mg/L", "citric acid 30 mg/L", "thiamine-HCl 0.5 mg/L"]},
+        {"what": "Main-text confirmation of 40 g/L CSL in flask cultivation", "obtained": true, "how": "corpus JATS full text PMC11551391.xml", "added": ["corn steep liquor 40 g/L"]}
+      ],
+      "confidence": "high",
+      "missing_before": ["D-glucose (identity/conc)", "(NH4)2SO4", "urea", "KH2PO4", "K2HPO4", "MgSO4·7H2O", "MOPS buffer", "CaCl2·2H2O", "FeSO4·7H2O", "MnSO4·5H2O", "ZnSO4·7H2O", "CuSO4·5H2O", "NiCl2·6H2O", "biotin", "citric acid", "thiamine-HCl", "corn steep liquor amount (40 g/L)"],
+      "notes": "Flask-cultivation PDC medium = full CGXII-P (42 g/L MOPS retained) + 40 g/L CSL. This differs from the fed-batch record only by the presence of MOPS buffer (fed-batch drops MOPS). CAUTION: prior current_components listed Co2+ (cobalt) and Fe3+; the defined recipe has NO cobalt salt and only Fe2+ (FeSO4·7H2O) — those ion exchanges are model artifacts, not declared ingredients."
+    }
+  ]
+}

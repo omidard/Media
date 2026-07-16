@@ -1,0 +1,93 @@
+{
+  "pmc": "PMC7253198",
+  "media": [
+    {
+      "id": "complexlit_PMC7253198_lmf_lactate_mineral_medium_supplemented_with",
+      "status": "corrected",
+      "oxygen": "facultative",
+      "components": [
+        {
+          "name": "sodium DL-lactate",
+          "concentration": "15 mM",
+          "concentration_mM": 15.0,
+          "role": "carbon source / electron donor",
+          "source": "cited:Paulick 2009 (LM medium; restated in Kreienbaum et al. 2020, Rick et al. 2022)",
+          "evidence": "LM medium (10 mM HEPES, pH 7.5; 100 mM NaCl; 0.02% yeast extract; 0.01% peptone; 15 mM lactate) [Kreienbaum et al. 2020, PMC7530303]; 'lactate medium (LM): 10 mM HEPES, pH 7.5, 200 mM NaCl, 0.02% (w/v) yeast extract, 0.01% (w/v) peptone, 15 mM lactate' [Rick et al. 2022, PMC9061725]"
+        },
+        {
+          "name": "sodium fumarate",
+          "concentration": "0.015 M",
+          "concentration_mM": 15.0,
+          "role": "alternative electron acceptor",
+          "source": "main_text",
+          "evidence": "All evolution and plasmid persistence assays were carried out in lactate mineral medium (Paulick et al. 2009) supplemented with 0.015 M sodium fumarate (LMF). Sodium fumarate was added as an alternative electron acceptor because oxygen can be limiting in our system."
+        },
+        {
+          "name": "HEPES (sodium HEPES)",
+          "concentration": "10 mM",
+          "concentration_mM": 10.0,
+          "role": "buffer",
+          "source": "cited:Paulick 2009 (LM medium; restated in Kreienbaum et al. 2020, Rick et al. 2022)",
+          "evidence": "LM medium (10 mM HEPES, pH 7.5; 100 mM NaCl; 0.02% yeast extract; 0.01% peptone; 15 mM lactate) [Kreienbaum et al. 2020, PMC7530303]"
+        },
+        {
+          "name": "sodium chloride (NaCl)",
+          "concentration": "100 mM",
+          "concentration_mM": 100.0,
+          "role": "bulk salt (Na, Cl)",
+          "source": "cited:Paulick 2009 (LM medium; restated in Kreienbaum et al. 2020)",
+          "evidence": "LM medium (10 mM HEPES, pH 7.5; 100 mM NaCl; 0.02% yeast extract; 0.01% peptone; 15 mM lactate) [Kreienbaum et al. 2020, PMC7530303]. NOTE: a 200 mM NaCl variant is used in Rick et al. 2022; Paulick 2009 (Wiley, paywalled) could not be read directly."
+        },
+        {
+          "name": "yeast extract",
+          "concentration": "0.02% (w/v) (~0.2 g/L)",
+          "concentration_mM": null,
+          "role": "undefined complex ingredient (supplies N source, phosphate, sulfate, K, Mg, Ca, trace metals Fe/Zn/Mn/Co/Cu, and vitamins)",
+          "source": "cited:Paulick 2009 (LM medium; restated in Kreienbaum et al. 2020, Rick et al. 2022)",
+          "evidence": "LM medium (10 mM HEPES, pH 7.5; 100 mM NaCl; 0.02% yeast extract; 0.01% peptone; 15 mM lactate) [Kreienbaum et al. 2020, PMC7530303]"
+        },
+        {
+          "name": "peptone",
+          "concentration": "0.01% (w/v) (~0.1 g/L)",
+          "concentration_mM": null,
+          "role": "undefined complex ingredient (amino-acid / nitrogen source)",
+          "source": "cited:Paulick 2009 (LM medium; restated in Kreienbaum et al. 2020, Rick et al. 2022)",
+          "evidence": "LM medium (10 mM HEPES, pH 7.5; 100 mM NaCl; 0.02% yeast extract; 0.01% peptone; 15 mM lactate) [Kreienbaum et al. 2020, PMC7530303]"
+        },
+        {
+          "name": "gentamicin",
+          "concentration": "10 mg/L",
+          "concentration_mM": null,
+          "role": "antibiotic selection (evolution phase only; omitted in persistence assays)",
+          "source": "main_text",
+          "evidence": "Experimental evolution was performed in LMF supplemented with 10 mg/l of Gm selecting for the retention of the plasmid pBP136Gm, and the plasmid persistence assays were done in the same medium without Gm."
+        }
+      ],
+      "base_medium": "LM medium (lactate medium) of the Thormann lab, cited by Stalder et al. as Paulick et al. 2009: 10 mM HEPES (pH 7.4-7.5), 100 mM NaCl (200 mM in some variants), 0.02% (w/v) yeast extract, 0.01% (w/v) peptone, 15 mM lactate.",
+      "sources_chased": [
+        {
+          "what": "base recipe cited as 'lactate mineral medium (Paulick et al. 2009)' = Paulick A, Koerdt A, Lassak J, Huntley S, Wilms I, Narberhaus F, Thormann KM. 2009. Two different stator systems drive a single polar flagellum in Shewanella oneidensis MR-1. Mol Microbiol 71(4):836. doi:10.1111/j.1365-2958.2008.06570.x",
+          "obtained": false,
+          "how": "WebFetch of Wiley full text/PDF returned HTTP 403 (paywalled); recipe reconstructed from concordant restatements in Thormann-lab papers that cite Paulick 2009 for LM medium",
+          "added": ["HEPES buffer (10 mM)", "NaCl (100 mM)", "yeast extract (0.02%)", "peptone (0.01%)", "lactate concentration (15 mM)"]
+        },
+        {
+          "what": "LM medium verbatim recipe + Paulick attribution",
+          "obtained": true,
+          "how": "WebFetch Kreienbaum et al. 2020 (PMC7530303), Rick et al. 2022 (PMC9061725), Binnenkade et al. 2018 (PMC6085458), Godeke et al. 2011 (PMC3105746) - all Thormann-lab papers citing 'LM medium (Paulick et al., 2009)'",
+          "added": ["confirmed LM medium = HEPES + NaCl + 0.02% yeast extract + 0.01% peptone + 15 mM lactate", "confirmed Paulick 2009 is the defining reference"]
+        }
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "HEPES buffer (10 mM) - the actual buffer (medium is NOT phosphate-buffered)",
+        "NaCl (100 mM) - primary bulk salt",
+        "yeast extract (0.02% w/v) - undefined complex ingredient supplying N, P, S, K, Mg, Ca, trace metals and vitamins",
+        "peptone (0.01% w/v) - undefined complex ingredient",
+        "lactate concentration (15 mM)",
+        "sodium fumarate concentration (15 mM / 0.015 M)"
+      ],
+      "notes": "Despite being called 'lactate mineral medium' by Stalder et al., the Paulick 2009 'LM medium' is a HEPES-buffered lactate medium containing yeast extract + peptone as complex ingredients, NOT a fully defined mineral medium with a salts/trace-element stock. Nitrogen, phosphate, sulfate, K, Mg, Ca and all trace metals (Fe, Zn, Mn, Co, Cu) and vitamins are supplied by the 0.02% yeast extract + 0.01% peptone (which the DB decomposes separately), so the ion exchanges in the original component list are justified by these complex ingredients rather than by defined salts. LMF = LM medium + 0.015 M (15 mM) sodium fumarate as an alternative electron acceptor for O2-limited zones (hence facultative). Confidence is 'medium' because Paulick 2009 itself is paywalled (Wiley 403); the recipe was reconstructed from four independent Thormann-lab papers that cite Paulick 2009 for LM medium and agree on the formulation (NaCl reported as 100 mM in Kreienbaum 2020 vs 200 mM in Rick 2022)."
+    }
+  ]
+}

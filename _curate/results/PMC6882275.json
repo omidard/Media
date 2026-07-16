@@ -1,0 +1,134 @@
+{
+  "pmc": "PMC6882275",
+  "media": [
+    {
+      "id": "growthlit_PMC6882275_mineral_salts_medium_msm_hartmans_et_al_",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "D-glucose",
+          "concentration": "20 mM",
+          "concentration_mM": 20.0,
+          "role": "carbon source",
+          "source": "cited:Otto et al. Front Bioeng Biotechnol 2019 (fbioe.2019.00130), same-group MSM per Hartmans 1989",
+          "evidence": "20 mM glucose, 40 mM glycerol, or 24 mM xylose as sole carbon source"
+        },
+        {
+          "name": "dipotassium phosphate (K2HPO4)",
+          "concentration": "111.5 mM",
+          "concentration_mM": 111.5,
+          "role": "phosphate / buffer / potassium",
+          "source": "main_text",
+          "evidence": "The medium's standard phosphate buffer capacity was increased to 5-fold (111.5 mM K2HPO4 and 68 mM NaH2PO4)"
+        },
+        {
+          "name": "monosodium phosphate (NaH2PO4)",
+          "concentration": "68 mM",
+          "concentration_mM": 68.0,
+          "role": "phosphate / buffer / sodium",
+          "source": "main_text",
+          "evidence": "The medium's standard phosphate buffer capacity was increased to 5-fold (111.5 mM K2HPO4 and 68 mM NaH2PO4)"
+        },
+        {
+          "name": "ammonium sulfate ((NH4)2SO4)",
+          "concentration": "2 g/L",
+          "concentration_mM": 15.1,
+          "role": "nitrogen source (+ sulfate)",
+          "source": "cited:Otto et al. Front Bioeng Biotechnol 2019 (fbioe.2019.00130), same-group MSM per Hartmans 1989",
+          "evidence": "2 g l-1 (NH4)2SO4"
+        },
+        {
+          "name": "magnesium chloride hexahydrate (MgCl2.6H2O)",
+          "concentration": "0.2 g/L",
+          "concentration_mM": 0.984,
+          "role": "magnesium (bulk) + chloride",
+          "source": "main_text",
+          "evidence": "the addition of mineral salts stock was increased by 2-fold (MgCl2.6H2O 0.2 g L-1, ...)"
+        },
+        {
+          "name": "zinc sulfate heptahydrate (ZnSO4.7H2O)",
+          "concentration": "0.004 g/L",
+          "concentration_mM": 0.0139,
+          "role": "trace element (Zn)",
+          "source": "main_text",
+          "evidence": "increased by 2-fold (... ZnSO4.7H2O 0.004 g L-1, ...)"
+        },
+        {
+          "name": "calcium chloride dihydrate (CaCl2.2H2O)",
+          "concentration": "0.002 g/L",
+          "concentration_mM": 0.0136,
+          "role": "trace element (Ca) + chloride",
+          "source": "main_text",
+          "evidence": "increased by 2-fold (... CaCl2.2H2O 0.002 g L-1, ...)"
+        },
+        {
+          "name": "iron(II) sulfate heptahydrate (FeSO4.7H2O)",
+          "concentration": "0.01 g/L",
+          "concentration_mM": 0.036,
+          "role": "trace element (Fe2+)",
+          "source": "main_text",
+          "evidence": "increased by 2-fold (... FeSO4.7H2O 0.01 g L-1, ...)"
+        },
+        {
+          "name": "sodium molybdate dihydrate (Na2MoO4.2H2O)",
+          "concentration": "0.0004 g/L",
+          "concentration_mM": 0.00165,
+          "role": "trace element (Mo)",
+          "source": "main_text",
+          "evidence": "increased by 2-fold (... Na2MoO4.2H2O 0.0004 g L-1, ...)"
+        },
+        {
+          "name": "copper(II) sulfate pentahydrate (CuSO4.5H2O)",
+          "concentration": "0.0004 g/L",
+          "concentration_mM": 0.0016,
+          "role": "trace element (Cu)",
+          "source": "main_text",
+          "evidence": "increased by 2-fold (... CuSO4.5H2O 0.0004 g L-1, ...)"
+        },
+        {
+          "name": "cobalt(II) chloride hexahydrate (CoCl2.6H2O)",
+          "concentration": "0.0008 g/L",
+          "concentration_mM": 0.00336,
+          "role": "trace element (Co) + chloride",
+          "source": "main_text",
+          "evidence": "increased by 2-fold (... CoCl2.6H2O 0.0008 g L-1, ...)"
+        },
+        {
+          "name": "manganese(II) chloride dihydrate (MnCl2.2H2O)",
+          "concentration": "0.002 g/L",
+          "concentration_mM": 0.0124,
+          "role": "trace element (Mn) + chloride",
+          "source": "main_text",
+          "evidence": "increased by 2-fold (... MnCL2.2H2O 0.002 g L-1)"
+        },
+        {
+          "name": "EDTA (ethylenediaminetetraacetate)",
+          "concentration": "10 mg/L",
+          "concentration_mM": 0.0342,
+          "role": "chelator (trace-metal complexant)",
+          "source": "cited:Otto et al. Front Bioeng Biotechnol 2019 (fbioe.2019.00130), same-group MSM per Hartmans 1989",
+          "evidence": "10 mg l-1 EDTA"
+        }
+      ],
+      "base_medium": "Mineral salts medium (MSM) of Hartmans et al. 1989 (Appl. Environ. Microbiol. 55:2850-2855), as used for Pseudomonas taiwanensis; here with 5-fold phosphate buffer and 2-fold mineral-salts stock.",
+      "sources_chased": [
+        {
+          "what": "target paper main text (PMC6882275) - modifications to Hartmans MSM (2x mineral salts, 5x phosphate)",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC6882275/",
+          "added": ["exact 2x salt concentrations", "5-fold phosphate (111.5 mM K2HPO4, 68 mM NaH2PO4)"]
+        },
+        {
+          "what": "base Hartmans 1989 MSM full composition (missing EDTA chelator, (NH4)2SO4 amount, 20 mM glucose baseline)",
+          "obtained": true,
+          "how": "WebFetch Frontiers fbioe.2019.00130 and fbioe.2019.00312 (same Blank/Schmid group, verbatim MSM recipe per Hartmans 1989); original Hartmans 1989 AEM article not directly retrievable but recipe cross-confirmed across 3 same-lineage sources",
+          "added": ["EDTA 10 mg/L", "(NH4)2SO4 2 g/L", "confirmed 20 mM glucose carbon source"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": ["EDTA (10 mg/L chelator)"],
+      "notes": "MSM for Pseudomonas taiwanensis grown aerobically in shake flasks / well plates at pH 7.0. Union recipe = Hartmans 1989 base + this paper's 5x phosphate buffer + 2x mineral-salts stock + 20 mM glucose. The paper's explicit 2x list omits EDTA; EDTA is recovered from the base recipe at its 1x value of 10 mg/L (whether it was also doubled is not stated). Note: the current model exchange set carried a spurious Fe3+ (EX_fe3_e) - the actual medium supplies only ferrous iron as FeSO4.7H2O; oxygen corrected from 'facultative' to aerobic."
+    }
+  ]
+}

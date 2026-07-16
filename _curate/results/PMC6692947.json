@@ -1,0 +1,53 @@
+{
+  "pmc": "PMC6692947",
+  "media": [
+    {
+      "id": "growthlit_PMC6692947_m63_minimal_medium_0_75_m_nacl_20_mm_fru",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "13.6 g/L", "concentration_mM": 99.9, "role": "phosphate + potassium buffer", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "potassium hydroxide (KOH)", "concentration": "4.2 g/L", "concentration_mM": 74.9, "role": "potassium / pH adjustment", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "2 g/L", "concentration_mM": 15.1, "role": "nitrogen source (NH4+) + sulfate", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4.7H2O)", "concentration": "39.5 mg/L", "concentration_mM": 0.16, "role": "magnesium + sulfate", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4.7H2O)", "concentration": "0.5 mg/L", "concentration_mM": 0.0018, "role": "iron (Fe2+) source + trace sulfate", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "sodium chloride (NaCl)", "concentration": "43.8 g/L (0.75 M)", "concentration_mM": 749.5, "role": "salinity / Na+ + Cl-", "source": "main_text", "evidence": "M63 was supplemented with 43.8, 87.6 or 146.0 g/L NaCl (corresponding to 0.75, 1.5 or 2.5 M)"},
+        {"name": "D-fructose", "concentration": "20 mM", "concentration_mM": 20.0, "role": "sole carbon source", "source": "main_text", "evidence": "20 mM fructose or glucose was used [as sole carbon source]"},
+        {"name": "O2 (aeration)", "concentration": null, "concentration_mM": null, "role": "electron acceptor / aerobic gas phase", "source": "main_text", "evidence": "Batch 100 mL cultures were grown in 0.5 L flasks at 37 C with aeration on a rotary shaker at 210 rpm."},
+        {"name": "water", "concentration": null, "concentration_mM": null, "role": "solvent", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) ... [aqueous minimal medium]"}
+      ],
+      "base_medium": "M63 minimal medium (composition given in full in the paper; no external base-medium reference cited)",
+      "sources_chased": [
+        {"what": "paper full text (Methods, culture conditions)", "obtained": true, "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC6692947/", "added": ["explicit KH2PO4/KOH/(NH4)2SO4/MgSO4/FeSO4 quantities", "aerobic O2 (rotary shaker 210 rpm)"]},
+        {"what": "cited base-medium reference for M63", "obtained": false, "how": "none exists — Methods states the full recipe inline and cites no reference", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "The paper (Chromohalobacter salexigens 13C-fluxomics) states the ENTIRE M63 recipe inline and cites no external base medium, so there is no hidden trace-element or vitamin stock to expand: this M63 is genuinely just KH2PO4, KOH, (NH4)2SO4, MgSO4.7H2O and FeSO4.7H2O plus NaCl and one sugar. The prior curation's Ca/Co2+/Cu/Mn/Zn/Fe3+ entries have NO textual support in this paper and were dropped as unsourced (classic M63 contains no trace-metal cocktail). Culture is aerobic (37 C, 210 rpm shaking), not merely facultative. Total SO4 ~15.3 mM (dominated by (NH4)2SO4); total K ~175 mM."
+    },
+    {
+      "id": "growthlit_PMC6692947_m63_minimal_medium_0_75_m_nacl_20_mm_glu",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "13.6 g/L", "concentration_mM": 99.9, "role": "phosphate + potassium buffer", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "potassium hydroxide (KOH)", "concentration": "4.2 g/L", "concentration_mM": 74.9, "role": "potassium / pH adjustment", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "ammonium sulfate ((NH4)2SO4)", "concentration": "2 g/L", "concentration_mM": 15.1, "role": "nitrogen source (NH4+) + sulfate", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "magnesium sulfate heptahydrate (MgSO4.7H2O)", "concentration": "39.5 mg/L", "concentration_mM": 0.16, "role": "magnesium + sulfate", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "iron(II) sulfate heptahydrate (FeSO4.7H2O)", "concentration": "0.5 mg/L", "concentration_mM": 0.0018, "role": "iron (Fe2+) source + trace sulfate", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) containing: 13.6 g/L KH2PO4, 4.2 g/L KOH, 2 g/L (NH4)2SO4, 39.5 mg/L MgSO4.7H2O, 0.5 mg/L FeSO4.7H2O"},
+        {"name": "sodium chloride (NaCl)", "concentration": "43.8 g/L (0.75 M)", "concentration_mM": 749.5, "role": "salinity / Na+ + Cl-", "source": "main_text", "evidence": "M63 was supplemented with 43.8, 87.6 or 146.0 g/L NaCl (corresponding to 0.75, 1.5 or 2.5 M)"},
+        {"name": "D-glucose", "concentration": "20 mM", "concentration_mM": 20.0, "role": "sole carbon source", "source": "main_text", "evidence": "20 mM fructose or glucose was used [as sole carbon source]"},
+        {"name": "O2 (aeration)", "concentration": null, "concentration_mM": null, "role": "electron acceptor / aerobic gas phase", "source": "main_text", "evidence": "Batch 100 mL cultures were grown in 0.5 L flasks at 37 C with aeration on a rotary shaker at 210 rpm."},
+        {"name": "water", "concentration": null, "concentration_mM": null, "role": "solvent", "source": "main_text", "evidence": "M63 minimal medium (pH 7.2) ... [aqueous minimal medium]"}
+      ],
+      "base_medium": "M63 minimal medium (composition given in full in the paper; no external base-medium reference cited)",
+      "sources_chased": [
+        {"what": "paper full text (Methods, culture conditions)", "obtained": true, "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC6692947/", "added": ["explicit KH2PO4/KOH/(NH4)2SO4/MgSO4/FeSO4 quantities", "aerobic O2 (rotary shaker 210 rpm)"]},
+        {"what": "cited base-medium reference for M63", "obtained": false, "how": "none exists — Methods states the full recipe inline and cites no reference", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Identical medium to the fructose condition except the sole carbon source is 20 mM D-glucose. The full M63 recipe is stated inline with no external reference, so there is no hidden trace-element/vitamin stock to expand. The prior curation's Ca/Co2+/Cu/Mn/Zn/Fe3+ entries are unsupported by this paper and were dropped. Culture is aerobic (37 C, 210 rpm)."
+    }
+  ]
+}

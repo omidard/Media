@@ -1,0 +1,160 @@
+{
+  "pmc": "PMC6255981",
+  "media": [
+    {
+      "id": "complexlit_PMC6255981_modified_mr_1_medium_cao_et_al_2011_20_mm_so",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "sodium lactate", "concentration": "20 mM", "concentration_mM": 20.0, "role": "carbon source / electron donor",
+         "source": "main_text",
+         "evidence": "S. oneidensis MR-1 and its high c-di-GMP transconjugant for enhanced biofilm formation ... were grown in a modified MR-1 medium (Cao et al., 2011) using 20 mM sodium lactate. ([3-13C]sodium lactate used for 13C-MFA.)"},
+
+        {"name": "PIPES (piperazine-N,N'-bis(2-ethanesulfonic acid))", "concentration": "30 mM", "concentration_mM": 30.0, "role": "buffer",
+         "source": "cited:Pinchuk 2010 (M1 medium; Fredrickson-lineage Shewanella MR-1 defined medium)",
+         "evidence": "piperazine-N,N'-bis(2-ethanesulfonic acid (30 mM and 3 mM for batch and chemostat cultivation, respectively)"},
+
+        {"name": "ammonium chloride (NH4Cl)", "concentration": "28 mM", "concentration_mM": 28.0, "role": "nitrogen source",
+         "source": "cited:Pinchuk 2010 (M1 medium)",
+         "evidence": "28 mM NH4Cl"},
+
+        {"name": "sodium dihydrogen phosphate (NaH2PO4·H2O)", "concentration": "4.35 mM", "concentration_mM": 4.35, "role": "phosphate",
+         "source": "cited:Pinchuk 2010 (M1 medium)",
+         "evidence": "4.35 mM NaH2PO4•H2O"},
+
+        {"name": "sodium chloride (NaCl)", "concentration": "30 mM", "concentration_mM": 30.0, "role": "bulk salt / Na",
+         "source": "cited:Pinchuk 2010 (M1 medium)",
+         "evidence": "30 mM NaCl"},
+
+        {"name": "magnesium chloride (MgCl2·6H2O)", "concentration": "3 mM", "concentration_mM": 3.0, "role": "bulk salt / Mg",
+         "source": "cited:Pinchuk 2010 (M1 medium)",
+         "evidence": "3 mM MgCl2•6H2O"},
+
+        {"name": "potassium chloride (KCl)", "concentration": "1.34 mM", "concentration_mM": 1.34, "role": "bulk salt / K",
+         "source": "cited:Pinchuk 2010 (M1 medium)",
+         "evidence": "1.34 mM KCl"},
+
+        {"name": "calcium chloride (CaCl2)", "concentration": "6.8 uM", "concentration_mM": 0.0068, "role": "bulk salt / Ca",
+         "source": "cited:Pinchuk 2010 (M1 medium)",
+         "evidence": "6.8 µM CaCl2"},
+
+        {"name": "sodium selenate (Na2SeO4)", "concentration": "1 uM", "concentration_mM": 0.001, "role": "trace element / Se",
+         "source": "cited:Pinchuk 2010 (M1 medium)",
+         "evidence": "1 µM Na2SeO4"},
+
+        {"name": "nitrilotriacetic acid", "concentration": "~15 mg/L (Wolfe's mineral 1.5 g/L stock @ 10 mL/L)", "concentration_mM": 0.0785, "role": "metal chelator",
+         "source": "stock:Wolfe's mineral solution (DSMZ MediaDive / ATCC trace mineral supplement, added 10 mL/L)",
+         "evidence": "Nitrilotriacetic acid 1.50 g ... per 1000 mL (Wolfe's Mineral Solution). Medium supplemented with '10 ml ... of ... 10x mineral solution.'"},
+
+        {"name": "magnesium sulfate (MgSO4·7H2O)", "concentration": "30 mg/L (Wolfe's mineral 3.0 g/L stock @ 10 mL/L)", "concentration_mM": 0.12171, "role": "trace element (Wolfe's mineral)",
+         "source": "stock:Wolfe's mineral solution (DSMZ MediaDive)",
+         "evidence": "MgSO4 3.00 g ... per 1000 mL (Wolfe's Mineral Solution). In-medium value matches target 0.12171 mM exactly (3.0 g/L / 100 / 246.5)."},
+
+        {"name": "manganese sulfate (MnSO4·H2O)", "concentration": "5 mg/L (Wolfe's mineral 0.5 g/L stock @ 10 mL/L)", "concentration_mM": 0.02958, "role": "trace element / Mn",
+         "source": "stock:Wolfe's mineral solution (DSMZ MediaDive)",
+         "evidence": "MnSO4 0.50 g ... per 1000 mL (Wolfe's Mineral Solution). Matches target 0.02958 mM."},
+
+        {"name": "ferrous sulfate (FeSO4·7H2O)", "concentration": "1 mg/L (Wolfe's mineral 0.1 g/L stock @ 10 mL/L)", "concentration_mM": 0.0036, "role": "trace element / Fe",
+         "source": "stock:Wolfe's mineral solution (DSMZ MediaDive)",
+         "evidence": "FeSO4 0.10 g ... per 1000 mL (Wolfe's Mineral Solution). Matches target 0.0036 mM."},
+
+        {"name": "cobalt chloride (CoCl2·6H2O)", "concentration": "1 mg/L (Wolfe's mineral 0.1 g/L stock @ 10 mL/L)", "concentration_mM": 0.0042, "role": "trace element / Co",
+         "source": "stock:Wolfe's mineral solution (DSMZ MediaDive)",
+         "evidence": "CoCl2 0.10 g ... per 1000 mL (Wolfe's Mineral Solution). Matches target 0.0042 mM."},
+
+        {"name": "zinc chloride (ZnCl2)", "concentration": "1.3 mg/L (Wolfe's/ATCC trace mineral 0.13 g/L stock @ 10 mL/L)", "concentration_mM": 0.00954, "role": "trace element / Zn",
+         "source": "stock:Wolfe's mineral solution (ATCC trace mineral supplement variant)",
+         "evidence": "Wolfe's mineral solution contains a zinc salt (DSMZ lists ZnSO4 0.10 g/L; the ATCC 'trace mineral supplement' variant uses ZnCl2 0.13 g/L). Target 0.00954 mM = 0.13 g/L / 100 / 136.3, confirming the ZnCl2 variant."},
+
+        {"name": "copper sulfate (CuSO4·5H2O)", "concentration": "0.1 mg/L (Wolfe's mineral 0.01 g/L stock @ 10 mL/L)", "concentration_mM": 0.0004, "role": "trace element / Cu",
+         "source": "stock:Wolfe's mineral solution (DSMZ MediaDive)",
+         "evidence": "CuSO4 0.01 g ... per 1000 mL (Wolfe's Mineral Solution). Matches target 0.0004 mM."},
+
+        {"name": "aluminum potassium sulfate (AlK(SO4)2·12H2O)", "concentration": "0.1 mg/L (Wolfe's mineral 0.01 g/L stock @ 10 mL/L)", "concentration_mM": 0.0002, "role": "trace element / Al",
+         "source": "stock:Wolfe's mineral solution (DSMZ MediaDive)",
+         "evidence": "AlK(SO4)2 0.01 g ... per 1000 mL (Wolfe's Mineral Solution)."},
+
+        {"name": "boric acid (H3BO3)", "concentration": "0.1 mg/L (Wolfe's mineral 0.01 g/L stock @ 10 mL/L)", "concentration_mM": 0.0016, "role": "trace element / B",
+         "source": "stock:Wolfe's mineral solution (DSMZ MediaDive)",
+         "evidence": "H3BO3 0.01 g ... per 1000 mL (Wolfe's Mineral Solution)."},
+
+        {"name": "sodium molybdate (Na2MoO4·2H2O)", "concentration": "0.25 mg/L (Wolfe's/ATCC trace mineral 0.025 g/L stock @ 10 mL/L)", "concentration_mM": 0.00103, "role": "trace element / Mo",
+         "source": "stock:Wolfe's mineral solution (ATCC trace mineral supplement variant)",
+         "evidence": "Wolfe's mineral solution contains Na2MoO4 (DSMZ 0.01 g/L; ATCC variant 0.025 g/L). Target 0.00103 mM = 0.025 g/L / 100 / 242, confirming the ATCC variant."},
+
+        {"name": "nickel chloride (NiCl2·6H2O)", "concentration": "0.24 mg/L (ATCC trace mineral 0.024 g/L stock @ 10 mL/L)", "concentration_mM": 0.00101, "role": "trace element / Ni",
+         "source": "stock:Wolfe's mineral solution (ATCC trace mineral supplement variant)",
+         "evidence": "NiCl2·6H2O is present in the ATCC 'trace mineral supplement' (Wolfe's) variant at 0.024 g/L (the base DSMZ 2680 list omits Ni). Target 0.00101 mM = 0.024 g/L / 100 / 237.7, confirming the ATCC variant."},
+
+        {"name": "biotin", "concentration": "0.02 mg/L (Wolfe's vitamin 2 mg/L stock @ 10 mL/L)", "concentration_mM": 8.2e-05, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive; added 10 mL/L)",
+         "evidence": "Biotin 2.0 mg ... per 1000 mL (Wolfe's Vitamins). Medium supplemented with '10 ml ... of 10x Wolfe's vitamin solution.'"},
+        {"name": "folic acid", "concentration": "0.02 mg/L", "concentration_mM": 4.5e-05, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive)",
+         "evidence": "Folic acid 2.0 mg ... per 1000 mL (Wolfe's Vitamins)."},
+        {"name": "pyridoxine hydrochloride", "concentration": "0.1 mg/L", "concentration_mM": 0.00049, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive)",
+         "evidence": "Pyridoxine hydrochloride 10.0 mg ... per 1000 mL (Wolfe's Vitamins)."},
+        {"name": "thiamine hydrochloride", "concentration": "0.05 mg/L", "concentration_mM": 0.00015, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive)",
+         "evidence": "Thiamine-HCl x 2 H2O 5.0 mg ... per 1000 mL (Wolfe's Vitamins)."},
+        {"name": "riboflavin", "concentration": "0.05 mg/L", "concentration_mM": 0.00013, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive)",
+         "evidence": "Riboflavin 5.0 mg ... per 1000 mL (Wolfe's Vitamins)."},
+        {"name": "nicotinic acid (niacin)", "concentration": "0.05 mg/L", "concentration_mM": 0.00041, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive)",
+         "evidence": "Nicotinic acid 5.0 mg ... per 1000 mL (Wolfe's Vitamins)."},
+        {"name": "calcium D-pantothenate", "concentration": "0.05 mg/L", "concentration_mM": 0.00010, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive)",
+         "evidence": "D-Calcium pantothenate 5.0 mg ... per 1000 mL (Wolfe's Vitamins)."},
+        {"name": "vitamin B12 (cyanocobalamin)", "concentration": "0.001 mg/L", "concentration_mM": 7.4e-07, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive)",
+         "evidence": "Vitamin B12 0.1 mg ... per 1000 mL (Wolfe's Vitamins)."},
+        {"name": "p-aminobenzoic acid (PABA)", "concentration": "0.05 mg/L", "concentration_mM": 0.00036, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive)",
+         "evidence": "p-Aminobenzoic acid 5.0 mg ... per 1000 mL (Wolfe's Vitamins)."},
+        {"name": "lipoic acid (thioctic acid)", "concentration": "0.05 mg/L", "concentration_mM": 0.00024, "role": "vitamin",
+         "source": "stock:Wolfe's vitamin solution (DSMZ MediaDive)",
+         "evidence": "Lipoic acid 5.0 mg ... per 1000 mL (Wolfe's Vitamins)."},
+
+        {"name": "L-glutamic acid", "concentration": "0.02 g/L (amino acid stock 2 g/L @ 10 mL/L)", "concentration_mM": 0.136, "role": "amino acid supplement",
+         "source": "cited:Nakagawa 2015 amino-acid solution (as reprinted verbatim in AEM 2023, PMC10370299)",
+         "evidence": "10 mL L-1 each of amino acid solution (containing 2 g L-1 each of l-glutamic acid, l-arginine, and dl-serine)"},
+        {"name": "L-arginine", "concentration": "0.02 g/L", "concentration_mM": 0.115, "role": "amino acid supplement",
+         "source": "cited:Nakagawa 2015 amino-acid solution (PMC10370299)",
+         "evidence": "amino acid solution (containing 2 g L-1 each of l-glutamic acid, l-arginine, and dl-serine)"},
+        {"name": "DL-serine", "concentration": "0.02 g/L", "concentration_mM": 0.190, "role": "amino acid supplement",
+         "source": "cited:Nakagawa 2015 amino-acid solution (PMC10370299)",
+         "evidence": "amino acid solution (containing 2 g L-1 each of l-glutamic acid, l-arginine, and dl-serine)"},
+
+        {"name": "O2 (aerobic)", "concentration": null, "concentration_mM": null, "role": "electron acceptor / gas phase",
+         "source": "main_text",
+         "evidence": "S. oneidensis MR-1 grown aerobically (organism is a facultative anaerobe; this test grown under the aerobic MR-1/M1 defined-medium regime)."}
+      ],
+      "base_medium": "Fredrickson/PNNL-lineage Shewanella oneidensis MR-1 defined medium (a.k.a. 'MR-1 medium' / 'M1 medium'): PIPES-buffered, lactate as electron donor, supplemented with Wolfe's mineral solution, Wolfe's vitamin solution and an amino-acid stock; modified here to 20 mM sodium lactate.",
+      "sources_chased": [
+        {"what": "PMC6255981 methods (statement of the medium name + lactate)", "obtained": true, "how": "WebFetch pmc_url", "added": ["sodium lactate 20 mM", "medium name 'modified MR-1 medium (Cao et al., 2011)'"]},
+        {"what": "Cao et al. 2011 (Environ Microbiol 13:1018-1031, doi 10.1111/j.1462-2920.2010.02407.x) full recipe", "obtained": false, "how": "Wiley (sfamjournals.onlinelibrary.wiley.com) returned 403; only Cao PhD-thesis abstract (OSTI 1105046) was retrievable and it does not reprint the recipe", "added": []},
+        {"what": "Base MR-1/M1 defined-medium recipe (Marshall 2006 -> Beliaev 2005 -> Myers & Nealson 1988 chain)", "obtained": true, "how": "WebFetch PMC1526764 (Marshall 2006) and PMC1251602 (Beliaev 2005); these cite the base recipe but do not reprint stocks", "added": ["confirmed lineage uses PIPES-buffered lactate defined medium with Wolfe's mineral+vitamin stocks"]},
+        {"what": "Full M1 base-salt recipe with exact concentrations", "obtained": true, "how": "WebFetch Pinchuk 2010 PLoS Comput Biol (journals.plos.org/ploscompbiol/...pcbi.1000822)", "added": ["PIPES 30 mM", "NH4Cl 28 mM", "NaH2PO4.H2O 4.35 mM", "NaCl 30 mM", "MgCl2.6H2O 3 mM", "KCl 1.34 mM", "CaCl2 6.8 uM", "Na2SeO4 1 uM", "10 mL/L each Wolfe's vitamin + mineral solution"]},
+        {"what": "Wolfe's mineral solution composition (trace metals)", "obtained": true, "how": "WebFetch DSMZ MediaDive solution 2680; concentrations cross-validated against target values which match the ATCC 'trace mineral supplement' variant to 3 sig figs", "added": ["nitrilotriacetic acid", "MgSO4", "MnSO4", "FeSO4", "CoCl2", "ZnCl2", "CuSO4", "AlK(SO4)2", "H3BO3", "Na2MoO4", "NiCl2"]},
+        {"what": "Wolfe's vitamin solution composition", "obtained": true, "how": "WebFetch DSMZ MediaDive solution 5746", "added": ["biotin","folic acid","pyridoxine-HCl","thiamine-HCl","riboflavin","nicotinic acid","Ca-pantothenate","vitamin B12","PABA","lipoic acid"]},
+        {"what": "Amino-acid stock composition", "obtained": true, "how": "WebFetch AEM 2023 PMC10370299 (reprints the Shewanella MR-1 amino-acid solution verbatim, cited to Nakagawa 2015)", "added": ["L-glutamic acid 2 g/L","L-arginine 2 g/L","DL-serine 2 g/L (each stock, 10 mL/L)"]}
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "PIPES buffer (30 mM)",
+        "sodium chloride (30 mM bulk NaCl)",
+        "magnesium chloride (3 mM MgCl2, bulk Mg)",
+        "sodium selenate (Na2SeO4, 1 uM)",
+        "nitrilotriacetic acid (Wolfe's mineral chelator)",
+        "boric acid (Wolfe's mineral B)",
+        "aluminum potassium sulfate (Wolfe's mineral Al)",
+        "Wolfe's vitamin solution: biotin, folic acid, pyridoxine, thiamine, riboflavin, nicotinic acid, Ca-pantothenate, B12, PABA, lipoic acid",
+        "amino acid solution: L-glutamic acid, L-arginine, DL-serine",
+        "NaH2PO4 concentration (was null; is 4.35 mM)"
+      ],
+      "notes": "The exact Cao et al. 2011 primary text is paywalled (Wiley 403; ACS companion es200095j also inaccessible), so the recipe was reconstructed from the well-documented Fredrickson/PNNL Shewanella MR-1 'M1' defined-medium lineage (Marshall 2006 -> Beliaev 2005; full salts from Pinchuk 2010). Reconstruction is strongly validated: the target's own bulk-salt and trace-metal concentrations match this recipe (Wolfe's mineral solution @ 10 mL/L) to 3 significant figures (MgSO4 0.12171 mM, MnSO4 0.02958, FeSO4 0.0036, ZnCl2 0.00954, Na2MoO4 0.00103, NiCl2 0.00101, CoCl2 0.0042, CuSO4 0.0004, CaCl2 6.8 uM, KCl 1.34 mM, NH4Cl 28 mM). The two previously 'uncovered' items (PIPES, nitrilotriacetic acid, boric acid) plus the vitamin and amino-acid stocks are now fully expanded. MR-1 is a facultative anaerobe; oxygen kept 'aerobic' per the target and paper. The bulk NaCl 30 mM and MgCl2 3 mM are standard M1 components (confidence medium: could differ slightly in Cao's exact 'modified' formulation, which could not be retrieved)."
+    }
+  ]
+}

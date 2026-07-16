@@ -1,0 +1,24 @@
+{
+  "pmc": "PMC10949514",
+  "media": [
+    {
+      "id": "complexlit_PMC10949514_20_heat_inactivated_human_serum_with_menadio",
+      "status": "confirmed",
+      "oxygen": "anaerobic",
+      "components": [
+        {"name": "heat-inactivated human serum", "concentration": "20% (v/v)", "concentration_mM": null, "role": "complex base / carbon-nitrogen-lipid-protein source (undefined biological fluid)", "source": "main_text", "evidence": "Growth curves of P. gingivalis ATCC 33277 and Δpgn_1547 mutant growing in 20% heat-inactivated human serum supplemented with 1 µg/mL menadione and 5 µg/mL hemin."},
+        {"name": "menadione (vitamin K3)", "concentration": "1 µg/mL", "concentration_mM": 0.0058, "role": "vitamin / menaquinone precursor (electron carrier)", "source": "main_text", "evidence": "growing in 20% heat-inactivated human serum supplemented with 1 µg/mL menadione and 5 µg/mL hemin"},
+        {"name": "hemin", "concentration": "5 µg/mL", "concentration_mM": 0.0077, "role": "heme / iron source", "source": "main_text", "evidence": "growing in 20% heat-inactivated human serum supplemented with 1 µg/mL menadione and 5 µg/mL hemin"},
+        {"name": "anaerobic atmosphere (no O2)", "concentration": null, "concentration_mM": null, "role": "gas phase / anaerobic condition", "source": "main_text", "evidence": "P. gingivalis ATCC 33277 was cultured anaerobically at 37°C."}
+      ],
+      "base_medium": "20% (v/v) heat-inactivated human serum (complex, undefined biological fluid) supplemented with menadione and hemin; the paper does not state the identity of the ~80% diluent/balance and cites no defined mineral base medium for this growth-curve assay.",
+      "sources_chased": [
+        {"what": "Full-text methods (Bacterial growth conditions) and Fig. 3a caption for the serum growth-curve medium", "obtained": true, "how": "corpus_path JATS XML full text (Read + grep)", "added": ["explicit menadione 1 µg/mL and hemin 5 µg/mL concentrations", "serum listed as explicit 20% (v/v) complex component", "anaerobic gas phase"]},
+        {"what": "Any cited base-medium reference / trace-element mix / vitamin stock for the serum medium", "obtained": true, "how": "grep for cited refs, serum, diluent, PBS, trace, vitamin, SL-10, Widdel; none present", "added": ["none — the serum medium has no cited base recipe; it is serum + menadione + hemin only, and human serum is decomposed separately by the DB as a complex ingredient"]}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "This is a complex biological assay medium, not a chemically defined mineral medium, so there is no hidden trace-element/vitamin stock to expand. The paper fully defines the additives (menadione 1 µg/mL, hemin 5 µg/mL) in both the Fig. 3a caption and the Bacterial growth conditions section; the ~80% balance/diluent of the 20% serum is not stated by the authors and was NOT fabricated. Serum is retained as a named complex component for separate DB decomposition. conc_mM computed from menadione MW 172.18 and hemin MW 651.94 (1 and 5 mg/L respectively). Note: routine TSB/BHI-blood plates (also hemin+menadione supplemented) are a separate maintenance medium and are not this record."
+    }
+  ]
+}

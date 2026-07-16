@@ -1,0 +1,121 @@
+{
+ "pmc": "PMC10308882",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC10308882.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10308882/",
+ "media": [
+  {
+   "id": "lit_PMC10308882_de_bont_minimal_dbm_medium",
+   "name": "de Bont minimal (DBM) medium (PMC10308882)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "D-Glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -1.0,
+     "conc_mM": 20.0
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Molybdate",
+     "exchange": "EX_mobd_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium",
+     "exchange": "EX_na1_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 O2",
+     "exchange": "EX_o2_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (confirmed)",
+   "verification_evidence": "DBM medium contained 3.88 g L\u22121 K2HPO4, 1.63 g L\u22121 NaH2PO4, 2 g L\u22121 (NH4)2SO4, and 0.1 g L\u22121 MgCl2\u22196H2O, with the initial pH adjusted at 7.0. DBM medium was supplemented with a trace element solution [10 mg L\u22121 EDTA, 2 mg L\u22121 ZnSO4\u22197H2O, 1 mg L\u22121 CaCl2\u22192H2O, 5 mg L\u22121 FeSO4\u22197H2O, 0.2 mg L\u22121 Na2MoO4\u22192H2O, 0.2 mg L\u22121 CuSO4\u22195H2O, 0.4 mg L\u22121 CoCl2\u22196H2O, and 1 mg L\u22121 MnCl2\u22192H2O].",
+   "citation": "Turlin et al. Core and auxiliary functions of one-carbon metabolism in Pseudomonas putida exposed by a systems-level analysis of transcriptional and physiological responses. mSystems (2023). DOI: 10.1128/msystems.00004-23. [PMC10308882]",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10308882/",
+   "doi": "10.1128/msystems.00004-23"
+  }
+ ]
+}

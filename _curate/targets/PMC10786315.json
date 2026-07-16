@@ -1,0 +1,66 @@
+{
+ "pmc": "PMC10786315",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC10786315.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10786315/",
+ "media": [
+  {
+   "id": "complexlit_PMC10786315_mucin_containing_minimal_medium_10_mm_l_lact",
+   "name": "Mucin-containing minimal medium + 10 mM L-lactate (PMC10786315)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "aerobic",
+   "current_components": [
+    {
+     "name": "L-aspartic acid",
+     "exchange": "EX_asp__L_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "carbon dioxide",
+     "exchange": "EX_co2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "L-cysteine",
+     "exchange": "EX_cys__L_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "L-leucine",
+     "exchange": "EX_leu__L_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "L-methionine",
+     "exchange": "EX_met__L_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "oxygen",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "sodium L-lactate",
+    "partially purified gastric mucin",
+    "niacinamide",
+    "inorganic mineral salts (unspecified salts/buffer, iron and trace elements)"
+   ],
+   "base_medium": "MCLMAN minimal medium (Campylobacter jejuni NCTC 11168 defined minimal medium) supplemented with 0.5% (w/v) partially purified gastric mucin",
+   "base_medium_reference": "Alazzam B, Bonnassie-Rouxin S, Dufour V, Ermel G. MCLMAN, a new minimal medium for Campylobacter jejuni NCTC 11168. Res Microbiol 162:173-179 (2011). DOI 10.1016/j.resmic.2010.09.024; PMID 21144899. As applied (0.5% gastric mucin + carbon source) by the DiRita lab: Sinha R, LeVeque RM, Bowlin MQ, Gray MJ, DiRita VJ. Phosphate Transporter PstSCAB of Campylobacter jejuni Is a Critical Determinant of Lactate-Dependent Growth and Colonization in Chickens. J Bacteriol 202:e00716-19 (2020). DOI 10.1128/jb.00716-19; PMID 31932316; PMC7167465 (this is reference (1) cited in the PMC10786315 SI Appendix).",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": "We tested C. jejuni growth in mucin-containing minimal media supplemented with either 10 mM butyrate or 10 mM L-lactate and observed better growth with L-lactate in the media than with butyrate (Fig. 4A).",
+   "citation": "Medium composition from PMC10786315 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10786315/",
+   "doi": ""
+  }
+ ]
+}

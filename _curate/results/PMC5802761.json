@@ -1,0 +1,221 @@
+{
+  "pmc": "PMC5802761",
+  "media": [
+    {
+      "id": "growthlit_PMC5802761_modified_p_medium_alkaline_carbonate_buf",
+      "status": "corrected",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "KNO3 (potassium nitrate)",
+          "concentration": "1 g/L",
+          "concentration_mM": 9.89,
+          "role": "nitrogen source (nitrate) + potassium",
+          "source": "main_text",
+          "evidence": "M. alcaliphilum 20ZR cells were grown using modified P media (g/L): KNO3, 1"
+        },
+        {
+          "name": "MgSO4·7H2O (magnesium sulfate heptahydrate)",
+          "concentration": "0.2 g/L",
+          "concentration_mM": 0.81,
+          "role": "magnesium + sulfate",
+          "source": "main_text",
+          "evidence": "MgSO4 x 7H2O, 0.2"
+        },
+        {
+          "name": "CaCl2·2H2O (calcium chloride dihydrate)",
+          "concentration": "0.02 g/L",
+          "concentration_mM": 0.136,
+          "role": "calcium + chloride",
+          "source": "main_text",
+          "evidence": "CaCl2 x 2H2O, 0.02"
+        },
+        {
+          "name": "NaCl (sodium chloride)",
+          "concentration": "30 g/L",
+          "concentration_mM": 513.0,
+          "role": "sodium + chloride (haloalkaliphile osmoticum)",
+          "source": "main_text",
+          "evidence": "NaCl, 30"
+        },
+        {
+          "name": "KH2PO4 (monopotassium phosphate)",
+          "concentration": "20 ml/L of phosphate solution (5.44 g/L KH2PO4)",
+          "concentration_mM": 0.8,
+          "role": "phosphate + buffer",
+          "source": "main_text",
+          "evidence": "supplemented with 20 ml/L of phosphate solution (5.44 g KH2PO4; 5.68 g Na2HPO4)"
+        },
+        {
+          "name": "Na2HPO4 (disodium phosphate)",
+          "concentration": "20 ml/L of phosphate solution (5.68 g/L Na2HPO4)",
+          "concentration_mM": 0.8,
+          "role": "phosphate + buffer + sodium",
+          "source": "main_text",
+          "evidence": "supplemented with 20 ml/L of phosphate solution (5.44 g KH2PO4; 5.68 g Na2HPO4)"
+        },
+        {
+          "name": "Carbonate buffer (Na2CO3 / NaHCO3)",
+          "concentration": "20 ml/L of 1 M carbonate buffer",
+          "concentration_mM": 20.0,
+          "role": "buffer / inorganic carbon / alkaline pH (~9)",
+          "source": "main_text",
+          "evidence": "and 20 ml/L of 1 M carbonate buffer"
+        },
+        {
+          "name": "Methane (CH4)",
+          "concentration": "5% (v/v) in gas phase",
+          "concentration_mM": null,
+          "role": "carbon and energy source",
+          "source": "main_text",
+          "evidence": "cells were cultured with 5% CH4: 5% O2 gas mixture"
+        },
+        {
+          "name": "Oxygen (O2)",
+          "concentration": "5% (v/v) in gas phase (O2-limited / microaerobic)",
+          "concentration_mM": null,
+          "role": "terminal electron acceptor (required for methane monooxygenase)",
+          "source": "main_text",
+          "evidence": "cells were cultured with 5% CH4: 5% O2 gas mixture"
+        },
+        {
+          "name": "Copper (Cu2+, added as CuCl2/Cu-EDTA)",
+          "concentration": "5–10 µM (optimal); required for growth",
+          "concentration_mM": 0.0075,
+          "role": "essential trace metal (pMMO cofactor)",
+          "source": "main_text",
+          "evidence": "The M. alcaliphilum 20ZR does not grow without copper, and the optimal growth is observed between 5-10 uM of Cu (II)"
+        },
+        {
+          "name": "Sodium tungstate (Na2WO4)",
+          "concentration": "0.07 mg/L",
+          "concentration_mM": 0.00021,
+          "role": "tungsten trace element (reduces formate excretion; increases biomass yield)",
+          "source": "main_text",
+          "evidence": "sodium tungsten (Na2WO4, 0.07 mg/L) ... all experiments carried-out in this work were done with the W-supplemented growth medium"
+        },
+        {
+          "name": "Na2-EDTA (chelator, in trace solution)",
+          "concentration": "0.5 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "metal chelator (not typically a model exchange)",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "Trace elements (2 mL/L): Na2-EDTA 0.5 g/L, FeSO4·7H2O 1 g/L, Fe-EDTA 0.75 g/L, ZnSO4·7H2O 0.8 g/L, MnCl2·4H2O 0.005 g/L, H3BO3 0.03 g/L, CoCl2·6H2O 0.05 g/L, Cu-EDTA 0.4 g/L, CuCl2·2H2O 0.6 g/L, NiCl2·6H2O 0.002 g/L, Na2MoO4·2H2O 0.05 g/L"
+        },
+        {
+          "name": "FeSO4·7H2O (iron, in trace solution)",
+          "concentration": "1 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "iron trace element (Fe2+)",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "FeSO4·7H2O 1 g/L"
+        },
+        {
+          "name": "Fe-EDTA (iron, in trace solution)",
+          "concentration": "0.75 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "iron trace element (Fe3+, chelated)",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "Fe-EDTA 0.75 g/L"
+        },
+        {
+          "name": "ZnSO4·7H2O (zinc, in trace solution)",
+          "concentration": "0.8 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "zinc trace element",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "ZnSO4·7H2O 0.8 g/L"
+        },
+        {
+          "name": "MnCl2·4H2O (manganese, in trace solution)",
+          "concentration": "0.005 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "manganese trace element",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "MnCl2·4H2O 0.005 g/L"
+        },
+        {
+          "name": "H3BO3 (boric acid, in trace solution)",
+          "concentration": "0.03 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "boron trace element",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "H3BO3 0.03 g/L"
+        },
+        {
+          "name": "CoCl2·6H2O (cobalt, in trace solution)",
+          "concentration": "0.05 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "cobalt trace element",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "CoCl2·6H2O 0.05 g/L"
+        },
+        {
+          "name": "Cu-EDTA (copper, in trace solution)",
+          "concentration": "0.4 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "copper trace element (chelated)",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "Cu-EDTA 0.4 g/L"
+        },
+        {
+          "name": "CuCl2·2H2O (copper, in trace solution)",
+          "concentration": "0.6 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "copper trace element",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "CuCl2·2H2O 0.6 g/L"
+        },
+        {
+          "name": "NiCl2·6H2O (nickel, in trace solution)",
+          "concentration": "0.002 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "nickel trace element",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "NiCl2·6H2O 0.002 g/L"
+        },
+        {
+          "name": "Na2MoO4·2H2O (molybdate, in trace solution)",
+          "concentration": "0.05 g/L in trace-element stock (added 1 ml/L)",
+          "concentration_mM": null,
+          "role": "molybdenum trace element",
+          "source": "stock:P-medium trace solution [ref 9 Demidenko], composition via same 20Z lineage PMC6570963",
+          "evidence": "Na2MoO4·2H2O 0.05 g/L"
+        }
+      ],
+      "base_medium": "Modified 'P medium' (haloalkaliphilic methanotroph mineral medium; nitrate mineral salts, 3% NaCl, carbonate-buffered ~pH 9) as used by the Kalyuzhnaya lab for Methylomicrobium alcaliphilum 20ZR; trace solution cited from Demidenko et al. 2016 (ref 9), which derives from Ojala et al. 2011 (Methods Enzymol.).",
+      "base_medium_reference": "Demidenko A. et al. Fatty acid biosynthesis pathways in Methylomicrobium buryatense 5G(B1). Front. Microbiol. 2016;7:2167 (PMC5222806) [cited as ref 9 for the trace solution]; trace-element composition confirmed via same-lineage 20Z NMS medium in PMC6570963.",
+      "sources_chased": [
+        {
+          "what": "Target paper main text (PMC5802761) — base salts, phosphate solution, carbonate buffer, copper requirement, tungsten, gas phase",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC5802761/",
+          "added": ["KNO3", "MgSO4", "CaCl2", "NaCl", "KH2PO4", "Na2HPO4", "carbonate buffer", "Cu 5-10 uM", "Na2WO4 0.07 mg/L", "5% CH4 / 5% O2"]
+        },
+        {
+          "what": "Ref 9 trace solution (Demidenko 2016, PMC5222806)",
+          "obtained": false,
+          "how": "WebFetch PMC5222806 — main text points trace solution to Table S1 (DataSheet2.docx); table body not machine-readable in fetch",
+          "added": []
+        },
+        {
+          "what": "Full trace-element solution composition for M. alcaliphilum 20Z (same Kalyuzhnaya-lab NMS/P-medium lineage)",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC6570963/ (putrescine engineering paper, same organism/lab)",
+          "added": ["Na2-EDTA", "FeSO4·7H2O", "Fe-EDTA", "ZnSO4·7H2O", "MnCl2·4H2O", "H3BO3", "CoCl2·6H2O", "Cu-EDTA", "CuCl2·2H2O", "NiCl2·6H2O", "Na2MoO4·2H2O"]
+        }
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "Nickel (Ni2+ / NiCl2·6H2O)",
+        "Molybdate (Mo / Na2MoO4·2H2O)",
+        "Borate (B / H3BO3)",
+        "Tungstate (W / Na2WO4)",
+        "Carbonate/bicarbonate buffer (was in current_uncovered)",
+        "EDTA chelator (Na2-EDTA / Fe-EDTA / Cu-EDTA)",
+        "Explicit copper concentration (5–10 µM optimal)"
+      ],
+      "notes": "Base salts, phosphate, carbonate buffer, essential copper (5–10 µM) and tungsten (Na2WO4, 0.07 mg/L) come verbatim from the target paper; the 1 ml/L 'trace solution' is cited (ref 9, Demidenko 2016) and its full metal composition was recovered from the same 20Z lineage medium (PMC6570963), adding the previously-missing Ni, Mo, B and W plus EDTA. The nitrogen source is nitrate (KNO3); the 'Ammonium (EX_nh4_e)' entry in current_components is NOT an actual ingredient of this medium. Organism is an aerobic methanotroph grown under O2 limitation (5% O2), so classified aerobic/microaerobic rather than facultative. Final trace-metal molarities left null because the exact ref-9 stock/dilution was not directly readable; salt identities are robust across the lab's 20Z papers."
+    }
+  ]
+}

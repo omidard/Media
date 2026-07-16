@@ -1,0 +1,143 @@
+{
+ "pmc": "PMC8692401",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC8692401.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8692401/",
+ "media": [
+  {
+   "id": "growthlit_PMC8692401_anaerobic_minimal_medium_with_acetate_as",
+   "name": "Anaerobic minimal medium with acetate as electron donor and iodate (IO3-) as electron acceptor (PMC8692401)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "anaerobic",
+   "current_components": [
+    {
+     "name": "Acetate (sodium acetate)",
+     "exchange": "EX_ac_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium chloride (NaCl)",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium bicarbonate (NaHCO3)",
+     "exchange": "EX_hco3_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium chloride (NaCl)",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sodium molybdate (Na2MoO4)",
+     "exchange": "EX_mobd_e",
+     "lb": -1.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Iodate (sodium iodate, IO3-)",
+    "Vitamin mix",
+    "Mineral (trace element) mix"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "Anaerobic enrichment cultures from marine environments were grown at 30 \u00b0C using a minimal media containing the following per liter: 0.54 g NH4Cl, 0.14 g KH2PO4, 0.20 g MgCl2\u00b76H2O, 0.14 g Na2SO4\u00b710H2O, 20.0 g NaCl, 0.24 g Na2MoO4 ... and 2.5 g NaHCO3 with an added vitamin mix and mineral mix (composition of mixes in Supplementary Methods). Oxygen was removed from the media and bottles were dispens",
+   "citation": "Medium composition from PMC8692401 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8692401/",
+   "doi": ""
+  }
+ ]
+}

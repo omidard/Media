@@ -1,0 +1,172 @@
+{
+  "pmc": "PMC3958174",
+  "media": [
+    {
+      "id": "complexlit_PMC3958174_crude_cashew_apple_juice_caj_no_aeration",
+      "status": "corrected",
+      "oxygen": "facultative",
+      "components": [
+        {
+          "name": "glucose",
+          "concentration": "part of ~10% (w/v) reducing sugars",
+          "concentration_mM": null,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "CAJ...includes 10% of reducing sugars (glucose and fructose), phosphorous and amino acids."
+        },
+        {
+          "name": "fructose",
+          "concentration": "part of ~10% (w/v) reducing sugars",
+          "concentration_mM": null,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "CAJ...includes 10% of reducing sugars (glucose and fructose), phosphorous and amino acids."
+        },
+        {
+          "name": "sucrose",
+          "concentration": "1110 mg/100 mL (~11.1 g/L) in unclarified pressed CAJ",
+          "concentration_mM": 32.4,
+          "role": "carbon source",
+          "source": "cited:CAJ composition (unclarified pressed CAJ, PMC10084989)",
+          "evidence": "Sucrose: 1110 ± 6.08 mg/100 ml (unclarified pressed cashew apple juice)"
+        },
+        {
+          "name": "amino acids (total organic nitrogen)",
+          "concentration": "total nitrogen 0.04% (w/v)",
+          "concentration_mM": null,
+          "role": "nitrogen source",
+          "source": "main_text",
+          "evidence": "CAJ has low total nitrogen content (0.04% w/v) and requires an additional nitrogen supplementation.  ...includes 10% of reducing sugars (glucose and fructose), phosphorous and amino acids."
+        },
+        {
+          "name": "phosphate (phosphorus)",
+          "concentration": "0.8 mg P/100 mL (~8 mg/L) in unclarified pressed CAJ",
+          "concentration_mM": 0.26,
+          "role": "phosphate",
+          "source": "main_text",
+          "evidence": "CAJ...includes 10% of reducing sugars (glucose and fructose), phosphorous and amino acids. (concentration from composition ref PMC10084989: Phosphorus 0.8 ± 0.2 mg/100 ml)"
+        },
+        {
+          "name": "thiamine (vitamin B1)",
+          "concentration": "present (not quantified)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "main_text",
+          "evidence": "CAJ also contains B-vitamins, mainly thiamin, riboflavin, niacin and folic acid, which are beneficial to the streptococci cultivation."
+        },
+        {
+          "name": "riboflavin (vitamin B2)",
+          "concentration": "present (not quantified)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "main_text",
+          "evidence": "CAJ also contains B-vitamins, mainly thiamin, riboflavin, niacin and folic acid, which are beneficial to the streptococci cultivation."
+        },
+        {
+          "name": "niacin (nicotinic acid / nicotinamide, vitamin B3)",
+          "concentration": "present (not quantified)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "main_text",
+          "evidence": "CAJ also contains B-vitamins, mainly thiamin, riboflavin, niacin and folic acid, which are beneficial to the streptococci cultivation."
+        },
+        {
+          "name": "folic acid (vitamin B9)",
+          "concentration": "present (not quantified)",
+          "concentration_mM": null,
+          "role": "vitamin",
+          "source": "main_text",
+          "evidence": "CAJ also contains B-vitamins, mainly thiamin, riboflavin, niacin and folic acid, which are beneficial to the streptococci cultivation."
+        },
+        {
+          "name": "L-ascorbic acid (vitamin C)",
+          "concentration": "present; ~289 mg/100 mL in pressed CAJ",
+          "concentration_mM": null,
+          "role": "vitamin / redox agent",
+          "source": "main_text",
+          "evidence": "A possible synergic redox-depolymerization mechanism provides by ascorbate presence in cashew apple juice possibly causes HA molecular weight reduction. (concentration from composition ref PMC10084989: Vitamin C 289.39 ± 19.49 mg/100 ml)"
+        },
+        {
+          "name": "potassium",
+          "concentration": "244 mg/100 mL (~2.44 g/L) in unclarified pressed CAJ",
+          "concentration_mM": 62.4,
+          "role": "bulk cation",
+          "source": "cited:CAJ composition (unclarified pressed CAJ, PMC10084989)",
+          "evidence": "Potassium: 244.00 ± 4.0 mg/100 ml (unclarified pressed cashew apple juice)"
+        },
+        {
+          "name": "magnesium",
+          "concentration": "40.3 mg/100 mL (~0.40 g/L) in unclarified pressed CAJ",
+          "concentration_mM": 16.6,
+          "role": "bulk cation",
+          "source": "cited:CAJ composition (unclarified pressed CAJ, PMC10084989)",
+          "evidence": "Magnesium: 40.30 ± 0.30 mg/100 ml (unclarified pressed cashew apple juice)"
+        },
+        {
+          "name": "calcium",
+          "concentration": "19.9 mg/100 mL (~0.20 g/L) in unclarified pressed CAJ",
+          "concentration_mM": 4.97,
+          "role": "bulk cation",
+          "source": "cited:CAJ composition (unclarified pressed CAJ, PMC10084989)",
+          "evidence": "Calcium: 19.90 ± 0.2 mg/100 ml (unclarified pressed cashew apple juice)"
+        },
+        {
+          "name": "iron",
+          "concentration": "1.66 mg/100 mL (~16.6 mg/L) in unclarified pressed CAJ",
+          "concentration_mM": 0.30,
+          "role": "trace metal",
+          "source": "cited:CAJ composition (unclarified pressed CAJ, PMC10084989)",
+          "evidence": "Iron: 1.66 ± 0.06 mg/100 ml (unclarified pressed cashew apple juice)"
+        },
+        {
+          "name": "zinc",
+          "concentration": "0.2 mg/100 mL (~2 mg/L) in unclarified pressed CAJ",
+          "concentration_mM": 0.031,
+          "role": "trace metal",
+          "source": "cited:CAJ composition (unclarified pressed CAJ, PMC10084989)",
+          "evidence": "Zinc: 0.2 ± 0.13 mg/100 ml (unclarified pressed cashew apple juice)"
+        },
+        {
+          "name": "O2 (facultative, no forced aeration)",
+          "concentration": "no forced aeration (Erlenmeyer flask, 150 rpm)",
+          "concentration_mM": null,
+          "role": "gas phase",
+          "source": "main_text",
+          "evidence": "a 3 L BioFLO III fermenter...with...2 vvm aeration was used for aerobic trials; Erlenmeyer flasks provided natural (non-forced) aeration. This record is the non-aerated (no forced 2 vvm) condition."
+        }
+      ],
+      "base_medium": "Crude/undiluted cashew apple juice (CAJ) from Anacardium occidentale L., used as sole cultivation medium without supplementation (no yeast extract), no forced aeration; UV-sterilized",
+      "sources_chased": [
+        {
+          "what": "Target paper PMC3958174 (Oliveira et al. 2014, Braz J Microbiol) full text",
+          "obtained": true,
+          "how": "WebFetch pmc_url + EuropePMC fullTextXML",
+          "added": ["niacin", "amino acids / total nitrogen 0.04% w/v", "confirmed glucose, fructose, phosphorus, thiamine, riboflavin, folic acid, ascorbate presence"]
+        },
+        {
+          "what": "Cited CAJ composition ref Rocha et al. 2007 (Appl Biochem Biotechnol 136:185-194, doi:10.1007/s12010-007-9050-6)",
+          "obtained": false,
+          "how": "Springer paywall (idp.springer.com redirect); abstract via PubMed 18478387 gives no numeric CAJ composition",
+          "added": []
+        },
+        {
+          "what": "Open CAJ composition study (unclarified pressed CAJ, PMC10084989)",
+          "obtained": true,
+          "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC10084989/",
+          "added": ["sucrose (~11 g/L)", "potassium", "magnesium", "calcium", "iron", "zinc", "phosphorus value", "ascorbic acid value"]
+        }
+      ],
+      "confidence": "medium",
+      "missing_before": [
+        "niacin (vitamin B3)",
+        "amino acids / total nitrogen (0.04% w/v)",
+        "potassium",
+        "magnesium",
+        "calcium",
+        "iron",
+        "zinc"
+      ],
+      "notes": "Crude CAJ is a natural fruit juice used undiluted with no defined-salt supplementation, so its 'recipe' is the juice's intrinsic composition. Sugars/phosphorus/amino-acids/B-vitamins/ascorbate are confirmed verbatim in PMC3958174; niacin and total-nitrogen were recovered from the same paper. The cited numeric composition source (Rocha 2007) is paywalled, so bulk cations (K, Mg, Ca) and trace metals (Fe, Zn) plus numeric sugar/vitamin values were taken from an open composition study of pressed CAJ (PMC10084989); absolute concentrations vary with cultivar/processing so confidence is medium. Sodium, Cu, Mn, Co, Mo not reported verbatim in an obtainable source and are therefore omitted rather than invented."
+    }
+  ]
+}

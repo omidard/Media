@@ -1,0 +1,80 @@
+{
+  "pmc": "PMC3782435",
+  "media": [
+    {
+      "id": "growthlit_PMC3782435_m9_minimal_medium_0_1_w_v_lactate",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "disodium hydrogen phosphate (Na2HPO4)", "concentration": "47.7 mM", "concentration_mM": 47.7, "role": "phosphate/buffer/sodium", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "25 mM", "concentration_mM": 25.0, "role": "phosphate/buffer/potassium", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "sodium chloride (NaCl)", "concentration": "9.3 mM", "concentration_mM": 9.3, "role": "sodium/chloride", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "ammonium (NH4+, as NH4Cl)", "concentration": "17.1 mM", "concentration_mM": 17.1, "role": "nitrogen", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2.0 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "uracil", "concentration": "0.2 mM", "concentration_mM": 0.2, "role": "pyrimidine supplement", "source": "main_text", "evidence": "with 0.2 mM uracil, supplemented with 0.1% (w/v) lactose, maltose or lactate ... adding uracil compensates for intrinsic pyrimidine starvation of the MG1655 strain"},
+        {"name": "D-lactate (sodium lactate)", "concentration": "0.1% (w/v)", "concentration_mM": 11.1, "role": "carbon source", "source": "main_text", "evidence": "supplemented with 0.1% (w/v) lactose, maltose or lactate and 0.001% (w/v) lactose in the limiting case"},
+        {"name": "oxygen (O2)", "concentration": null, "concentration_mM": null, "role": "gas phase / terminal electron acceptor", "source": "main_text", "evidence": "Growth was aerobic at 37 C (E. coli MG1655 derivatives grown at 37 C)"},
+        {"name": "water (H2O)", "concentration": null, "concentration_mM": null, "role": "solvent", "source": "main_text", "evidence": "aqueous M9 minimal medium"}
+      ],
+      "base_medium": "M9 minimal medium (self-contained, fully specified in the paper's Methods)",
+      "sources_chased": [
+        {"what": "Base M9 recipe / any cited base-medium reference", "obtained": true, "how": "Read full text via EuropePMC fullTextXML and PMC HTML; the paper states all M9 macronutrient concentrations explicitly and cites NO base-medium reference", "added": []},
+        {"what": "Any trace-element or vitamin stock solution", "obtained": true, "how": "Verified against Methods (EuropePMC XML + PMC HTML): no trace-metal mix, no micronutrient solution, and no vitamins are added; classic M9 relies on reagent-impurity trace metals", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Paper gives a complete, self-contained M9 recipe with no cited base medium. No trace-element solution or vitamins are added. The Co2+/Cu2+/Fe2+/Fe3+/Mn2+/Zn2+ entries in current_components are metabolic-model exchange artifacts, not real medium ingredients, so they are omitted here. Lactate 0.1% (w/v) = 1 g/L -> ~11.1 mM (lactate MW 90.08). Growth aerobic at 37 C."
+    },
+    {
+      "id": "growthlit_PMC3782435_m9_minimal_medium_0_1_w_v_lactose",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "disodium hydrogen phosphate (Na2HPO4)", "concentration": "47.7 mM", "concentration_mM": 47.7, "role": "phosphate/buffer/sodium", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "25 mM", "concentration_mM": 25.0, "role": "phosphate/buffer/potassium", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "sodium chloride (NaCl)", "concentration": "9.3 mM", "concentration_mM": 9.3, "role": "sodium/chloride", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "ammonium (NH4+, as NH4Cl)", "concentration": "17.1 mM", "concentration_mM": 17.1, "role": "nitrogen", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2.0 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "uracil", "concentration": "0.2 mM", "concentration_mM": 0.2, "role": "pyrimidine supplement", "source": "main_text", "evidence": "with 0.2 mM uracil, supplemented with 0.1% (w/v) lactose, maltose or lactate ... adding uracil compensates for intrinsic pyrimidine starvation of the MG1655 strain"},
+        {"name": "lactose", "concentration": "0.1% (w/v)", "concentration_mM": 2.92, "role": "carbon source", "source": "main_text", "evidence": "supplemented with 0.1% (w/v) lactose, maltose or lactate and 0.001% (w/v) lactose in the limiting case"},
+        {"name": "oxygen (O2)", "concentration": null, "concentration_mM": null, "role": "gas phase / terminal electron acceptor", "source": "main_text", "evidence": "Growth was aerobic at 37 C (E. coli MG1655 derivatives grown at 37 C)"},
+        {"name": "water (H2O)", "concentration": null, "concentration_mM": null, "role": "solvent", "source": "main_text", "evidence": "aqueous M9 minimal medium"}
+      ],
+      "base_medium": "M9 minimal medium (self-contained, fully specified in the paper's Methods)",
+      "sources_chased": [
+        {"what": "Base M9 recipe / any cited base-medium reference", "obtained": true, "how": "Read full text via EuropePMC fullTextXML and PMC HTML; the paper states all M9 macronutrient concentrations explicitly and cites NO base-medium reference", "added": []},
+        {"what": "Any trace-element or vitamin stock solution", "obtained": true, "how": "Verified against Methods: no trace-metal mix, no micronutrient solution, and no vitamins are added", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Same self-contained M9 base as the lactate medium; carbon source is lactose 0.1% (w/v) = 1 g/L -> ~2.92 mM (lactose MW 342.3), with a 0.001% (w/v) limiting case also reported. No trace-element or vitamin solution added; model trace-metal exchanges are FBA artifacts, omitted. Growth aerobic at 37 C."
+    },
+    {
+      "id": "growthlit_PMC3782435_m9_minimal_medium_0_1_w_v_maltose",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {"name": "disodium hydrogen phosphate (Na2HPO4)", "concentration": "47.7 mM", "concentration_mM": 47.7, "role": "phosphate/buffer/sodium", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "monopotassium phosphate (KH2PO4)", "concentration": "25 mM", "concentration_mM": 25.0, "role": "phosphate/buffer/potassium", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "sodium chloride (NaCl)", "concentration": "9.3 mM", "concentration_mM": 9.3, "role": "sodium/chloride", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "ammonium (NH4+, as NH4Cl)", "concentration": "17.1 mM", "concentration_mM": 17.1, "role": "nitrogen", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "magnesium sulfate (MgSO4)", "concentration": "2.0 mM", "concentration_mM": 2.0, "role": "magnesium/sulfate", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "calcium chloride (CaCl2)", "concentration": "0.1 mM", "concentration_mM": 0.1, "role": "calcium", "source": "main_text", "evidence": "M9 minimal medium (47.7 mM Na2HPO4, 25 mM KH2PO4, 9.3 mM NaCl, 17.1 mM NH4, 2.0 mM MgSO4, 0.1 mM CaCl2)"},
+        {"name": "uracil", "concentration": "0.2 mM", "concentration_mM": 0.2, "role": "pyrimidine supplement", "source": "main_text", "evidence": "with 0.2 mM uracil, supplemented with 0.1% (w/v) lactose, maltose or lactate ... adding uracil compensates for intrinsic pyrimidine starvation of the MG1655 strain"},
+        {"name": "maltose", "concentration": "0.1% (w/v)", "concentration_mM": 2.92, "role": "carbon source", "source": "main_text", "evidence": "supplemented with 0.1% (w/v) lactose, maltose or lactate"},
+        {"name": "oxygen (O2)", "concentration": null, "concentration_mM": null, "role": "gas phase / terminal electron acceptor", "source": "main_text", "evidence": "Growth was aerobic at 37 C (E. coli MG1655 derivatives grown at 37 C)"},
+        {"name": "water (H2O)", "concentration": null, "concentration_mM": null, "role": "solvent", "source": "main_text", "evidence": "aqueous M9 minimal medium"}
+      ],
+      "base_medium": "M9 minimal medium (self-contained, fully specified in the paper's Methods)",
+      "sources_chased": [
+        {"what": "Base M9 recipe / any cited base-medium reference", "obtained": true, "how": "Read full text via EuropePMC fullTextXML and PMC HTML; the paper states all M9 macronutrient concentrations explicitly and cites NO base-medium reference", "added": []},
+        {"what": "Any trace-element or vitamin stock solution", "obtained": true, "how": "Verified against Methods: no trace-metal mix, no micronutrient solution, and no vitamins are added", "added": []}
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "Same self-contained M9 base as the lactate medium; carbon source is maltose 0.1% (w/v) = 1 g/L -> ~2.92 mM (maltose MW 342.3). No trace-element or vitamin solution added; model trace-metal exchanges are FBA artifacts, omitted. Growth aerobic at 37 C."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+ "pmc": "PMC2998477",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2998477/",
+ "media": [
+  {
+   "id": "growthlit_PMC2998477_pseudomonas_basal_mineral_medium_pbm",
+   "name": "Pseudomonas basal mineral medium (PBM) (PMC2998477)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "aerobic",
+   "current_components": [
+    {
+     "name": "ferrous ammonium sulfate",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.0015
+    },
+    {
+     "name": "glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -10.0,
+     "conc_mM": null
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 (aerobic)",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [],
+   "base_medium": "Pseudomonas basal mineral medium (PBM)",
+   "base_medium_reference": "Cited in Folsom et al. 2010 (BMC Microbiol 10:294; PMID 21083928; doi:10.1186/1471-2180-10-294) as reference [89]: Atlas RM. Handbook of Microbiological Media. Boca Raton: CRC Press; 1993. The numeric per-liter composition is defined only in that (paywalled/lending-restricted) handbook, not in the paper.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": null,
+   "citation": "Medium composition from PMC2998477 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2998477/",
+   "doi": ""
+  }
+ ]
+}

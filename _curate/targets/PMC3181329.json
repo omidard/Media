@@ -1,0 +1,118 @@
+{
+ "pmc": "PMC3181329",
+ "in_corpus": false,
+ "corpus_path": null,
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3181329/",
+ "media": [
+  {
+   "id": "complexlit_PMC3181329_carbon_limited_evans_defined_minimal_medium",
+   "name": "Carbon-limited Evans defined minimal medium (PMC3181329)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.001
+    },
+    {
+     "name": "ammonium chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": 5.0
+    },
+    {
+     "name": "cobalt chloride",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.002
+    },
+    {
+     "name": "copper chloride",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.001
+    },
+    {
+     "name": "ferrous chloride",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.02
+    },
+    {
+     "name": "D-glucose",
+     "exchange": "EX_glc__D_e",
+     "lb": -10.0,
+     "conc_mM": 21.9
+    },
+    {
+     "name": "potassium phosphate dibasic",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": 50.0
+    },
+    {
+     "name": "magnesium chloride",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.062
+    },
+    {
+     "name": "manganese chloride",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.01
+    },
+    {
+     "name": "ammonium molybdate",
+     "exchange": "EX_mobd_e",
+     "lb": -1000.0,
+     "conc_mM": 5e-06
+    },
+    {
+     "name": "sodium sulfate",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": 0.1
+    },
+    {
+     "name": "ammonium chloride",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": 5.0
+    },
+    {
+     "name": "oxygen",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": 0.01
+    },
+    {
+     "name": "potassium phosphate dibasic",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": 50.0
+    },
+    {
+     "name": "sodium sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": 0.1
+    }
+   ],
+   "current_uncovered": [
+    "zinc oxide",
+    "boric acid"
+   ],
+   "base_medium": "Evans defined medium (carbon/glucose-limited variant)",
+   "base_medium_reference": "Evans CGT, Herbert D, Tempest DW (1970) The continuous cultivation of micro-organisms. 2. Construction of a chemostat. Methods in Microbiology 2: 277-327. (cited as ref [22] in PMC3181329). No DOI/PMID (book chapter). Full salt composition recovered from methods sections of papers reproducing this cited recipe.",
+   "verification": "paper-verified (recipe recovered from primary literature)",
+   "verification_evidence": "\"...using 21.9 mM glucose as the carbon source\" and \"Anaerobic cultures were maintained by sparging with N2 (95%) and CO2 (5%)\"; aerobic transition \"...air to maintain a dissolved O2 tension in the culture at 5% (~10 uM).\" The medium is named a 'Carbon-limited Evans defined medium', citing Evans CGT, Herbert D, Tempest DW, Methods Microbiol 1970;2:278-327 for the base formulation.",
+   "citation": "Medium composition from PMC3181329 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3181329/",
+   "doi": ""
+  }
+ ]
+}

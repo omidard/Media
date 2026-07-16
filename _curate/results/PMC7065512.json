@@ -1,0 +1,78 @@
+{
+  "pmc": "PMC7065512",
+  "media": [
+    {
+      "id": "lit_PMC7065512_minimal_medium_glucose_13c_labeling_expe",
+      "status": "confirmed",
+      "oxygen": "aerobic",
+      "components": [
+        {
+          "name": "D-glucose",
+          "concentration": "5 g/L (0.5% wt/vol)",
+          "concentration_mM": 27.75,
+          "role": "carbon source",
+          "source": "main_text",
+          "evidence": "redistributed in minimal medium supplemented with labeled glucose (0.5%, wt/vol) with four replicates"
+        },
+        {
+          "name": "ammonium sulfate ((NH4)2SO4)",
+          "concentration": "0.5 g/L",
+          "concentration_mM": 3.78,
+          "role": "nitrogen source + sulfate",
+          "source": "main_text",
+          "evidence": "The composition of minimal medium (14) is as follows (in grams/liter): FeSO4-7H2O, 1.25 x 10-4; (NH4)2SO4, 0.5; MgSO4-7H2O, 0.05; KH2PO4, 3.4."
+        },
+        {
+          "name": "potassium dihydrogen phosphate (KH2PO4)",
+          "concentration": "3.4 g/L",
+          "concentration_mM": 24.98,
+          "role": "phosphate + potassium + buffer",
+          "source": "main_text",
+          "evidence": "The composition of minimal medium (14) is as follows (in grams/liter): ... KH2PO4, 3.4. The pH was adjusted to 7.0 with 1 M KOH."
+        },
+        {
+          "name": "magnesium sulfate heptahydrate (MgSO4-7H2O)",
+          "concentration": "0.05 g/L",
+          "concentration_mM": 0.203,
+          "role": "magnesium + sulfate",
+          "source": "main_text",
+          "evidence": "The composition of minimal medium (14) is as follows (in grams/liter): ... MgSO4-7H2O, 0.05 ..."
+        },
+        {
+          "name": "iron(II) sulfate heptahydrate (FeSO4-7H2O)",
+          "concentration": "1.25 x 10-4 g/L",
+          "concentration_mM": 0.00045,
+          "role": "iron trace element + sulfate",
+          "source": "main_text",
+          "evidence": "The composition of minimal medium (14) is as follows (in grams/liter): FeSO4-7H2O, 1.25 x 10-4 ..."
+        },
+        {
+          "name": "potassium hydroxide (KOH)",
+          "concentration": "to pH 7.0 (unquantified)",
+          "concentration_mM": null,
+          "role": "pH titrant + additional potassium",
+          "source": "main_text",
+          "evidence": "The pH was adjusted to 7.0 with 1 M KOH."
+        }
+      ],
+      "base_medium": "MP medium (a.k.a. minimal medium/MM for Ralstonia solanacearum) - a defined 4-salt minimal medium; Ray et al. 2015 cite it as MP medium from Plener et al. 2010, J Bacteriol 192:1011-1019.",
+      "sources_chased": [
+        {
+          "what": "base recipe cited as ref 14 (Ray SK et al. 2015, Front Microbiol 6:229, PMC4371752)",
+          "obtained": true,
+          "how": "WebFetch https://pmc.ncbi.nlm.nih.gov/articles/PMC4371752/",
+          "added": ["confirmed identical 4-salt composition; names it MP medium and attributes it to Plener et al. 2010"]
+        },
+        {
+          "what": "original MP medium source (Plener L et al. 2010, J Bacteriol 192:1011-1019, PMID 19897645)",
+          "obtained": false,
+          "how": "WebFetch of ASM DOI (HTTP 403) and PMC (reCAPTCHA/paywalled) blocked; europepmc search returned no fuller recipe",
+          "added": ["none - could not open full text; composition already reproduced verbatim by both citing papers so no new components expected"]
+        }
+      ],
+      "confidence": "high",
+      "missing_before": [],
+      "notes": "This is the classic Ralstonia solanacearum defined minimal (MP/MM) medium: only four salts plus glucose. R. solanacearum is prototrophic, so there is no separate trace-element cocktail or vitamin mix - iron is supplied solely by FeSO4-7H2O and sulfate is shared by the Fe/ammonium/Mg sulfates. The current ion-level components (Fe2+, glucose, K+, Mg2+, NH4+, phosphate, sulfate, O2) were already complete; this record re-expresses them as the actual source compounds with concentrations. Cells were pre-grown/adapted in BG medium (glucose 5 g/L, bactoagar 15 g/L) then transferred to this minimal medium; the labeling medium itself is the defined recipe above. Grown aerobically (orbital shaker, 180 rpm, 28C); organism is a facultative anaerobe but this experiment is aerobic."
+    }
+  ]
+}

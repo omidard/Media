@@ -1,0 +1,88 @@
+{
+ "pmc": "PMC11892951",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC11892951.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11892951/",
+ "media": [
+  {
+   "id": "complexlit_PMC11892951_salt_minimal_medium_mm_with_ibuprofen_ibu_as",
+   "name": "Salt minimal medium (MM) with ibuprofen (IBU) as sole carbon source (PMC11892951)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "aerobic",
+   "current_components": [
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "ammonium iron(III) citrate",
+     "exchange": "EX_cit_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "calcium chloride",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "ammonium iron(III) citrate",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "potassium dihydrogen phosphate",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "magnesium sulfate heptahydrate",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2 (aerobic)",
+     "exchange": "EX_o2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "potassium dihydrogen phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "ammonium sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "ibuprofen (sodium salt)",
+    "disodium hydrogen phosphate dihydrate"
+   ],
+   "base_medium": "Salt minimal medium (MM) of the Santero/Seville lab; a phosphate-buffered mineral salts medium derived from the mineral medium of Dorn et al. (1974)",
+   "base_medium_reference": "In-text: 'salt minimal medium (MM) [43]'. Ref 43 = Hernaez MJ, Reineke W, Santero E. Genetic analysis of biodegradation of tetralin by a Sphingomonas strain. Appl Environ Microbiol. 1999;65(4):1806-1810. doi:10.1128/AEM.65.4.1806-1810.1999 (PMID 10103288; PMC91258). That paper in turn defines MM as the carbon-free mineral medium of Dorn E, Hellwig M, Reineke W, Knackmuss HJ. Isolation and characterization of a 3-chlorobenzoate degrading pseudomonad. Arch Microbiol. 1974;99:61-70. doi:10.1007/BF00696222. Numeric salt composition below is taken from a documented reproduction of the Dorn (1974) base medium: Mehboob F et al., Appl Environ Microbiol 2009;75(23):7567-7574, PMC2690828.",
+   "verification": "recipe recovered (base identity confirmed; some concentrations uncertain \u2014 see notes)",
+   "verification_evidence": "Cultures in salt minimal medium (MM) [43] with IBU 1 g/L as carbon source were diluted one-fourth of the previous 20 ml saturated culture in aeration at 30\u00b0C for ~15 days ... Commercial IBU sodium salt was purchased from Sigma-Aldrich.",
+   "citation": "Medium composition from PMC11892951 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11892951/",
+   "doi": ""
+  }
+ ]
+}

@@ -1,0 +1,145 @@
+{
+ "pmc": "PMC7393147",
+ "in_corpus": true,
+ "corpus_path": "/data/paper_corpus/fulltext_xml/PMC7393147.xml",
+ "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7393147/",
+ "media": [
+  {
+   "id": "growthlit_PMC7393147_bg_11_hepes_nacl",
+   "name": "BG-11 + HEPES + NaCl (PMC7393147)",
+   "category": "laboratory",
+   "defined": null,
+   "oxygen": "facultative",
+   "current_components": [
+    {
+     "name": "Calcium",
+     "exchange": "EX_ca2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaCl",
+     "exchange": "EX_cl_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Co2+",
+     "exchange": "EX_cobalt2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Copper",
+     "exchange": "EX_cu2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Fe2+ mitochondria",
+     "exchange": "EX_fe2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Iron (Fe3+)",
+     "exchange": "EX_fe3_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H2O H2O",
+     "exchange": "EX_h2o_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "H+",
+     "exchange": "EX_h_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Potassium",
+     "exchange": "EX_k_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Magnesium",
+     "exchange": "EX_mg2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Manganese",
+     "exchange": "EX_mn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaNO3 (sodium nitrate)",
+     "exchange": "EX_na1_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Ammonium",
+     "exchange": "EX_nh4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "NaNO3 (sodium nitrate)",
+     "exchange": "EX_no3_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "O2",
+     "exchange": "EX_o2_e",
+     "lb": -1.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Phosphate",
+     "exchange": "EX_pi_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Sulfate",
+     "exchange": "EX_so4_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Zinc",
+     "exchange": "EX_zn2_e",
+     "lb": -1000.0,
+     "conc_mM": null
+    },
+    {
+     "name": "Na2MoO4\u00b72H2O",
+     "exchange": "EX_mobd_e",
+     "lb": -1.0,
+     "conc_mM": null
+    }
+   ],
+   "current_uncovered": [
+    "Citric acid\u00b7H2O",
+    "Ferric ammonium citrate",
+    "Na2EDTA\u00b72H2O",
+    "H3BO3 (boric acid)",
+    "HEPES"
+   ],
+   "base_medium": null,
+   "base_medium_reference": null,
+   "verification": "paper-verified (corrected via workflow)",
+   "verification_evidence": "Inoculum culture of sucrose-secreting cyanobacterium was prepared using BG-11 (Sigma\u2013Aldrich) medium supplemented with 1 g L\u22121 HEPES (pH 8.9) and 100 mM NaCl at 35 \u00b0C. BG-11 medium is composed of (in 1 L): 1.5 g NaNO3, 0.04 g K2HPO4, 0.075 g MgSO4\u00b77H2O, 0.036 g CaCl2\u00b72H2O, 0.006 g Citric Acid\u00b7H2O, 0.006 g Ferric Ammonium Citrate, 0.001 g Na2EDTA\u00b72H2O, 0.02 g Na2CO3, 1 mL BG-11 trace metals solutio",
+   "citation": "Medium composition from PMC7393147 (see GrowthDB record).",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7393147/",
+   "doi": ""
+  }
+ ]
+}
