@@ -27,6 +27,14 @@ function hasRefLink(p){
   if(p.url||p.doi||p.pmid||p.pmcid||(p.references&&p.references.length)) return true;
   const txt=(p.citation||'')+' '+(p.wellknown_reference||'')+' '+(p.notes||'');
   return /(https?:\/\/|\bdoi:|\b10\.\d{4,9}\/|\bPMID\b|\bpubmed\b|\bPMC\d)/i.test(txt);}
+/* linkify a citation; if it yields no link (e.g. a book with no DOI), append a
+   Google-Scholar search icon so EVERY reference is still clickable */
+function linkOrSearch(text,name){
+  const lk=linkifyRef(text||'');
+  if(lk.indexOf('<a ')>=0) return lk;
+  let q=String(text||'').split('—').slice(1).join('—')||String(text||'');   // drop "Name —" prefix
+  q=encodeURIComponent((q.trim()||name||'').slice(0,140));
+  return `${lk} <a href="https://scholar.google.com/scholar?q=${q}" target="_blank" rel="noopener" title="search for this reference" style="color:#3a6ea5;text-decoration:none">🔍</a>`;}
 const fmt=n=>Number(n).toLocaleString();
 const jget=p=>fetch(p).then(r=>r.json());
 
@@ -253,7 +261,7 @@ async function openMed(id){
       ${med.category==='food'?`<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef6ff;border:1px solid #cfe0f5;color:#2c5f9e;font-size:.82rem">🍎 <b>Food-derived medium (approximate)</b> — a growth substrate built from the <b>measured composition of this food</b> (population-average nutrient data), not a defined laboratory medium. Component presence is real; use bounds and the mineral base as a starting point, not exact experimental conditions.</div>`:''}
       ${(()=>{const v=p.verification||'';
         if(v.startsWith('expert-curated'))
-          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #bfe0d4;color:#0a5c49;font-size:.82rem">★ <b>Expert-curated</b> — canonical formulation with reviewed component bounds.${p.wellknown_reference?`<br><span style="color:#4c6b60">Reference: ${linkifyRef(p.wellknown_reference)}</span>`:''}</div>`;
+          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #bfe0d4;color:#0a5c49;font-size:.82rem">★ <b>Expert-curated</b> — canonical formulation with reviewed component bounds.${p.wellknown_reference?`<br><span style="color:#4c6b60">Reference: ${linkOrSearch(p.wellknown_reference,med.name)}</span>`:''}</div>`;
         if(v.startsWith('paper-verified'))
           return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #cfe7dd;color:#0a5c49;font-size:.82rem">✓ <b>Paper-verified</b> — this formulation was ${v.includes('corrected')?'corrected against':'confirmed against'} the source paper.${p.verification_evidence?`<br><span style="color:#4c6b60;font-style:italic">"${esc(p.verification_evidence)}"</span>`:''}</div>`;
         if(v.startsWith('reference-database'))
