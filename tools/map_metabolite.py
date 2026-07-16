@@ -30,6 +30,27 @@ def strip_formula(name):
         return parts[0]
     return name
 
+# Strip salts / hydrates / adducts / parentheticals so the underlying nutrient resolves:
+#   "Calcium D-pantothenate" -> "D-pantothenate", "Thiamine HCl (vitamin B1)" -> "Thiamine",
+#   "L-cysteine hydrochloride monohydrate" -> "L-cysteine", "Sodium ascorbate" -> "ascorbate".
+_HYDRATE = re.compile(r"[·.*x×]\s*\d*\s*h2?\s*o\b", re.I)
+_ADDUCT = re.compile(
+    r"\b(?:hydrochlorides?|dihydrochlorides?|hydrobromides?|"
+    r"(?:mono|di|tri|tetra|penta|hexa|hepta)?[- ]?hydrates?|anhydrous|hemi[- ]?calcium|"
+    r"(?:mono|di|tri|hemi)?[- ]?(?:sodium|potassium|calcium|magnesium|ammonium|zinc|ferrous|ferric)\s+salt|"
+    r"hcl|hbr|na\s*salt|k\s*salt|free\s*acid|free\s*base)\b", re.I)
+_LEADCAT = re.compile(
+    r"^\s*(?:di|mono|tri)?[- ]?(?:calcium|sodium|potassium|magnesium|ammonium|ferrous|ferric|"
+    r"zinc|cupric|cuprous|manganous|lithium)[\s\-]+", re.I)
+def preclean(name):
+    """Best-effort removal of counterions / water of crystallisation / trivial adducts."""
+    s = re.sub(r"\s*\([^)]*\)", " ", name or "")   # drop "(vitamin B1)", "(PABA)", "(TPP)"
+    s = _HYDRATE.sub(" ", s)
+    s = _ADDUCT.sub(" ", s)
+    s = _LEADCAT.sub(" ", s)
+    s = re.sub(r"[·*×]", " ", s)
+    return re.sub(r"\s+", " ", s).strip(" -·.,")
+
 # common-name -> BiGG id aliases (keyed by norm()). Fixes trivial misses like
 # "acetic acid" (->ac), "O2", amino-acid full names, gases, organic acids.
 _AA = {"alanine":"ala__L","arginine":"arg__L","asparagine":"asn__L","aspartate":"asp__L","asparticacid":"asp__L",
@@ -130,6 +151,57 @@ _ALIASES = {**_AA,
     "pufa204":"arachd","pufa204n6":"arachd","arachidonicacid":"arachd",
     "pufa202":"M00008","pufa202n6":"M00008","pufa202n6cc":"M00008","eicosadienoicacid":"M00008"}
 
+# Vitamins / cofactors / common salt-form synonyms across databases (keyed by norm();
+# every target verified present in the BiGG dict). Salt forms are also handled by preclean().
+_ALIASES.update({
+    # p-aminobenzoate (PABA)
+    "4aminobenzoicacid":"4abz","paminobenzoicacid":"4abz","paraaminobenzoicacid":"4abz",
+    "paraaminobenzoate":"4abz","paba":"4abz","4aminobenzoate":"4abz","aminobenzoicacid":"4abz",
+    "paminobenzoate":"4abz","4aminobenzoicacidpaba":"4abz",
+    # lipoic / thioctic acid
+    "lipoicacid":"lipoate","alphalipoicacid":"lipoate","thiocticacid":"lipoate","lipoate":"lipoate",
+    "68thiocticacid":"lipoate","thioctate":"lipoate","alphalipoate":"lipoate","6thiocticacid":"lipoate",
+    # nicotinamide / niacin
+    "nicotinamide":"ncam","nicotineamide":"ncam","niacinamide":"ncam","nicotinicacidamide":"ncam",
+    "niacin":"nac","nicotinicacid":"nac","nicotinate":"nac","pyridine3carboxylicacid":"nac",
+    # inositol
+    "inositol":"inost","myoinositol":"inost","mesoinositol":"inost","iinositol":"inost","cyclohexanehexol":"inost",
+    # pantothenate (calcium/greek salt forms handled by preclean too)
+    "pantothenate":"pnto__R","pantothenicacid":"pnto__R","dpantothenate":"pnto__R",
+    "capantothenate":"pnto__R","cadpantothenate":"pnto__R","pantothenatecalcium":"pnto__R",
+    "hemicalciumpantothenate":"pnto__R","vitaminb5":"pnto__R",
+    # choline
+    "choline":"chol","cholinechloride":"chol","cholinebitartrate":"chol","cholinecl":"chol",
+    # thiamine pyrophosphate (TPP / cocarboxylase)
+    "thiaminepyrophosphate":"thmpp","thiaminpyrophosphate":"thmpp","thiaminediphosphate":"thmpp",
+    "thiamindiphosphate":"thmpp","cocarboxylase":"thmpp","tpp":"thmpp",
+    # glutathione (reduced)
+    "glutathione":"gthrd","reducedglutathione":"gthrd","glutathionereduced":"gthrd","gsh":"gthrd",
+    "glutathionelreduced":"gthrd",
+    # pyridoxine / pyridoxal / pyridoxamine (vitamin B6)
+    "pyridoxine":"pydxn","pyridoxol":"pydxn","vitaminb6":"pydxn","pyridoxinehydrochloride":"pydxn",
+    "pyridoxal":"pydx","pyridoxamine":"pydam",
+    # biotin (vitamin B7/H)
+    "biotin":"btn","biotine":"btn","vitaminh":"btn","vitaminb7":"btn","dbiotin":"btn",
+    # ascorbate (vitamin C)
+    "ascorbate":"ascb__L","ascorbicacid":"ascb__L","sodiumascorbate":"ascb__L","vitaminc":"ascb__L",
+    # thiamine (vitamin B1) extras
+    "thiaminechloride":"thm","vitaminb1":"thm","thiaminmononitrate":"thm","thiaminemononitrate":"thm",
+    "aneurine":"thm",
+    # riboflavin (vitamin B2)
+    "riboflavin":"ribflv","vitaminb2":"ribflv","lactoflavin":"ribflv",
+    # folate (vitamin B9)
+    "folicacid":"fol","folate":"fol","vitaminb9":"fol","pteroylglutamicacid":"fol","pteroylmonoglutamicacid":"fol",
+    # menaquinone (vitamin K2) — approximate to menaquinone-8
+    "menaquinone":"mqn8","vitamink2":"mqn8",
+    # a few more common cofactors / spelling variants
+    "cyanocobalamine":"cbl1","cobalamine":"cbl1","hydroxocobalamine":"cbl1",
+    "tetrahydrofolate":"thf","tetrahydrofolicacid":"thf","5methyltetrahydrofolate":"5mthf",
+    "nad":"nad","nicotinamideadeninedinucleotide":"nad","betanad":"nad","vfactor":"nad",
+    "nadp":"nadp","nicotinamideadeninedinucleotidephosphate":"nadp",
+    "nicotinamidemononucleotide":"nmn","pyridoxal5phosphate":"pydx5p","pyridoxalphosphate":"pydx5p",
+})
+
 class Mapper:
     def __init__(self, base=HERE):
         self.dict = json.load(open(os.path.join(base, "bigg_metabolite_dict.json")))
@@ -207,27 +279,40 @@ class Mapper:
             bid = self.xref_idx.get(key, {}).get(self._norm_xref(key, val))
             if bid:
                 return self._result(bid, key, "exact")
-        # 2) name (normalized, then strict)
+        # 2) name — try the raw name, then a salt/hydrate/adduct-stripped version
         if name:
-            n = norm(name)
-            hits = self.name_idx.get(n) or self.name_strict.get(re.sub(r"[^a-z0-9]", "", name.lower()))
-            if hits:
-                best = self._prefer(hits)[0]
-                return self._result(best, "name", "inferred")
-            # 3) alias table (acids, gases, amino acids, common products)
-            if n in self.aliases:
-                return self._result(self.aliases[n], "name_alias", "inferred")
-            # 4) name with trailing molecular formula stripped ("Lactose C12H22O11" -> lactose)
-            if n in self.name_nf:
-                return self._result(self._prefer(self.name_nf[n])[0], "name_deformula", "inferred")
-            # 5) data-driven acid heuristic: "…ic acid" -> try "…ate" / "…oate" via the name index
-            m2 = re.match(r"(.+?)ic(?:acid)?$", n)
-            if m2:
-                stem = m2.group(1)
-                for cand in (stem + "ate", stem + "oate"):
-                    h = self.name_idx.get(cand)
-                    if h:
-                        return self._result(self._prefer(h)[0], "name_acid_heuristic", "inferred")
+            r = self._by_name(name)
+            if r:
+                return r
+            pc = preclean(name)
+            if pc and pc.lower() != (name or "").lower():
+                r = self._by_name(pc, precleaned=True)
+                if r:
+                    return r
+        return None
+
+    def _by_name(self, name, precleaned=False):
+        n = norm(name)
+        if not n:
+            return None
+        suffix = "_salt" if precleaned else ""
+        hits = self.name_idx.get(n) or self.name_strict.get(re.sub(r"[^a-z0-9]", "", name.lower()))
+        if hits:
+            return self._result(self._prefer(hits)[0], "name" + suffix, "inferred")
+        # alias table (acids, gases, amino acids, vitamins/cofactors, common products)
+        if n in self.aliases:
+            return self._result(self.aliases[n], "name_alias" + suffix, "inferred")
+        # name with trailing molecular formula stripped ("Lactose C12H22O11" -> lactose)
+        if n in self.name_nf:
+            return self._result(self._prefer(self.name_nf[n])[0], "name_deformula" + suffix, "inferred")
+        # data-driven acid heuristic: "…ic acid" -> try "…ate" / "…oate" via the name index
+        m2 = re.match(r"(.+?)ic(?:acid)?$", n)
+        if m2:
+            stem = m2.group(1)
+            for cand in (stem + "ate", stem + "oate"):
+                h = self.name_idx.get(cand)
+                if h:
+                    return self._result(self._prefer(h)[0], "name_acid_heuristic" + suffix, "inferred")
         return None
 
 
