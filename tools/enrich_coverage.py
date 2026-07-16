@@ -144,6 +144,13 @@ _SALTS_RAW = {
     "tripotassiumcitrate": ["k", "cit"], "sodiumgluconate": ["na1", "glcn"],
     "sodiumpropionate": ["na1", "ppa"], "sodiumbutyrate": ["na1", "but"],
     "sodiummalate": ["na1", "mal__L"], "sodiumfumarate": ["na1", "fum"],
+    # sulfides / misc
+    "sodiumsulfide": ["na1", "h2s"], "sodiumsulphide": ["na1", "h2s"], "na2s": ["na1", "h2s"],
+    "potassiumsulfide": ["k", "h2s"], "ammoniumsulfide": ["nh4", "h2s"],
+    "ferricammoniumcitrate": ["fe3", "nh4", "cit"], "ironiiiammoniumcitrate": ["fe3", "nh4", "cit"],
+    "ammoniumironiiisulfate": ["fe3", "nh4", "so4"], "ammoniumferricsulfate": ["fe3", "nh4", "so4"],
+    "ferrousammoniumsulfate": ["fe2", "nh4", "so4"], "ammoniumironiisulfate": ["fe2", "nh4", "so4"],
+    "sodiumtungstate": ["na1", "tungs"], "na2wo4": ["na1", "tungs"],
 }
 # strip a trailing hydrate (·7H2O, .2H2O, x6H2O, " 7H2O") before matching
 _HYDRATE = re.compile(r"[·.x*]\s*\d*\s*h2o$|\s+\d*\s*h2o$", re.I)
@@ -151,6 +158,77 @@ def _dehydrate(s):
     return _HYDRATE.sub("", (s or "").strip())
 SALTS = {k: [b for b in v if valid(b)] for k, v in _SALTS_RAW.items()}
 SALTS = {k: v for k, v in SALTS.items() if v}
+
+# --- compositional inorganic-salt parser: dissociate ANY "cation ... anion" name into ions ---
+# Distinguishes known inorganic ions (BiGG id, or None if BiGG lacks that element -> skip it) from
+# unknown tokens (-> reject). So double/hydrated salts dissociate, while organic esters
+# ("bornyl acetate", "ethyl acetate") and antibiotics ("kanamycin sulfate") are left untouched.
+_CATION = {
+    "sodium":"na1","na":"na1","potassium":"k","ammonium":"nh4","calcium":"ca2","magnesium":"mg2",
+    "ferrous":"fe2","ferric":"fe3","iron":"fe2","zinc":"zn2","copper":"cu2","cupric":"cu2","cuprous":"cu2",
+    "manganese":"mn2","manganous":"mn2","manganic":"mn2","cobalt":"cobalt2","cobaltous":"cobalt2",
+    "nickel":"ni2","nickelous":"ni2","lead":"pb",
+    # recognized inorganic cations that BiGG has no metabolite for -> skip (do NOT reject the salt)
+    "aluminium":None,"aluminum":None,"barium":None,"strontium":None,"lanthanum":None,"cerium":None,
+    "rubidium":None,"cesium":None,"caesium":None,"lithium":None,"chromium":None,"chromic":None,
+    "silver":None,"tin":None,"titanium":None,"vanadium":None,
+}
+_ANION = {
+    "sulfate":"so4","sulphate":"so4","chloride":"cl","phosphate":"pi","nitrate":"no3",
+    "carbonate":"hco3","bicarbonate":"hco3","hydrogencarbonate":"hco3","sulfide":"h2s","sulphide":"h2s",
+    "hydroxide":"oh1","molybdate":"mobd","tungstate":"tungs","selenate":"slnt","selenite":"slnt",
+    "iodide":"iodine","thiosulfate":"tsul","thiosulphate":"tsul","citrate":"cit","gluconate":"glcn",
+    "acetate":"ac","formate":"for","nitrite":"no2",
+    # recognized anions BiGG has no metabolite for -> skip
+    "bromide":None,"fluoride":None,"borate":None,"silicate":None,
+}
+_SALT_STOP = {"hydrogen","hydrate","anhydrous","hydrated","and","of","the","x","dot","ph","w","v","wv",
+              "reductant","buffer","solution","source","base","trace","mix","element","elements","dihydrogen"}
+_HYD_WORD = re.compile(r"\b\w*hydrate\b|\banhydrous\b", re.I)
+_PREFIX = re.compile(r"^(?:di|tri|tetra|penta|hexa|hepta|octa|nona|deca|dodeca|mono|bis|hemi|bi)")
+
+def parse_salt(name):
+    """Dissociate an inorganic salt NAME into BiGG ions, or None. Tries the name with
+    parentheticals removed AND any parenthetical content (handles 'Na2S·9H2O (sodium
+    sulfide)' where the parsable name is in the parens)."""
+    raw = name or ""
+    cands = [re.sub(r"\([^)]*\)", " ", raw)] + re.findall(r"\(([^)]*)\)", raw)
+    for c in cands:
+        ions = _parse_one(c)
+        if ions:
+            return ions
+    return None
+
+def _parse_one(s):
+    s = (s or "").lower()
+    s = re.split(r"->|→|/|,|;| - ", s)[0]              # keep the part before a note/arrow
+    s = _HYD_WORD.sub(" ", s)                               # dodeca/hexa/mono-hydrate, anhydrous
+    s = _dehydrate(s)                                       # ·7H2O forms
+    toks = re.findall(r"[a-z]+", s)
+    if not toks:
+        return None
+    cats, ans = [], []
+    for t in toks:
+        if t in _SALT_STOP:
+            continue
+        cand = t if (t in _CATION or t in _ANION) else _PREFIX.sub("", t)
+        if cand in _CATION:
+            cats.append(_CATION[cand])
+        elif cand in _ANION:
+            ans.append(_ANION[cand])
+        elif cand in _SALT_STOP:
+            continue
+        elif len(cand) <= 2:
+            continue                                       # stray formula fragment ("so", "po") — ignore
+        else:
+            return None                                    # unknown token -> not a clean inorganic salt
+    if not cats or not ans:
+        return None
+    ions = []
+    for b in cats + ans:
+        if b and valid(b) and b not in ions:
+            ions.append(b)
+    return ions or None
 
 # --- reason classification for still-uncovered components ---
 _UNDEFINED = re.compile(
@@ -291,6 +369,13 @@ def recover(name, xref):
                                    "in_biggr": DICT.get(b, {}).get("in_biggr", False),
                                    "mapping_confidence": "inferred"}, name, "salt_dissociation_remap")
                     for b in SALTS[n]]
+    # 2b) compositional inorganic-salt parser (double/hydrated salts not in the fixed table)
+    ions = parse_salt(name)
+    if ions:
+        return [new_component({"bigg_metabolite": b, "exchange": f"EX_{b}_e",
+                               "in_biggr": DICT.get(b, {}).get("in_biggr", False),
+                               "mapping_confidence": "inferred"}, name, "salt_parse_remap")
+                for b in ions]
     # 3) ModelSEED / KEGG / MetaNetX fallback (only possible when an xref exists)
     fb = MAP.fallback_exchange(chebi=xref.get("chebi"), kegg=xref.get("kegg"), name=name)
     if fb:
