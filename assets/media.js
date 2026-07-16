@@ -27,14 +27,13 @@ function hasRefLink(p){
   if(p.url||p.doi||p.pmid||p.pmcid||(p.references&&p.references.length)) return true;
   const txt=(p.citation||'')+' '+(p.wellknown_reference||'')+' '+(p.notes||'');
   return /(https?:\/\/|\bdoi:|\b10\.\d{4,9}\/|\bPMID\b|\bpubmed\b|\bPMC\d)/i.test(txt);}
-/* linkify a citation; if it yields no link (e.g. a book with no DOI), append a
-   Google-Scholar search icon so EVERY reference is still clickable */
-function linkOrSearch(text,name){
-  const lk=linkifyRef(text||'');
-  if(lk.indexOf('<a ')>=0) return lk;
-  let q=String(text||'').split('—').slice(1).join('—')||String(text||'');   // drop "Name —" prefix
-  q=encodeURIComponent((q.trim()||name||'').slice(0,140));
-  return `${lk} <a href="https://scholar.google.com/scholar?q=${q}" target="_blank" rel="noopener" title="search for this reference" style="color:#3a6ea5;text-decoration:none">🔍</a>`;}
+/* render a citation as a link to the EXACT publication: prefer the resolved
+   provenance.doi/url, else a DOI/URL embedded in the text; plain text if neither */
+function refLink(text,p){
+  const t=esc(text||'');
+  const url=(p&&p.doi)?('https://doi.org/'+String(p.doi).replace(/^https?:\/\/doi\.org\//,'')):((p&&p.url)?p.url:null);
+  if(url) return `<a href="${esc(url)}" target="_blank" rel="noopener">${t}</a>`;
+  return linkifyRef(text||'');}
 const fmt=n=>Number(n).toLocaleString();
 const jget=p=>fetch(p).then(r=>r.json());
 
@@ -261,7 +260,7 @@ async function openMed(id){
       ${med.category==='food'?`<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef6ff;border:1px solid #cfe0f5;color:#2c5f9e;font-size:.82rem">🍎 <b>Food-derived medium (approximate)</b> — a growth substrate built from the <b>measured composition of this food</b> (population-average nutrient data), not a defined laboratory medium. Component presence is real; use bounds and the mineral base as a starting point, not exact experimental conditions.</div>`:''}
       ${(()=>{const v=p.verification||'';
         if(v.startsWith('expert-curated'))
-          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #bfe0d4;color:#0a5c49;font-size:.82rem">★ <b>Expert-curated</b> — canonical formulation with reviewed component bounds.${p.wellknown_reference?`<br><span style="color:#4c6b60">Reference: ${linkOrSearch(p.wellknown_reference,med.name)}</span>`:''}</div>`;
+          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #bfe0d4;color:#0a5c49;font-size:.82rem">★ <b>Expert-curated</b> — canonical formulation with reviewed component bounds.${p.wellknown_reference?`<br><span style="color:#4c6b60">Reference: ${refLink(p.wellknown_reference,p)}</span>`:''}</div>`;
         if(v.startsWith('paper-verified'))
           return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #cfe7dd;color:#0a5c49;font-size:.82rem">✓ <b>Paper-verified</b> — this formulation was ${v.includes('corrected')?'corrected against':'confirmed against'} the source paper.${p.verification_evidence?`<br><span style="color:#4c6b60;font-style:italic">"${esc(p.verification_evidence)}"</span>`:''}</div>`;
         if(v.startsWith('reference-database'))
@@ -269,7 +268,7 @@ async function openMed(id){
         if(v.startsWith('auto-extracted'))
           return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#fff8ec;border:1px solid #f0dcae;color:#8a6414;font-size:.82rem">⚠ <b>Auto-extracted from literature</b> — mined from the paper by an automated pipeline; ${v.includes('external reference')?'the base recipe is cited from an external reference and needs manual review':'not manually verified against the source'}. Check the citation before relying on it.</div>`;
         return '';})()}
-      <div class="cite" style="margin-bottom:14px"><b>Source:</b> ${linkifyRef(p.citation||'')} ${p.url?`· <a href="${esc(p.url)}" target="_blank" rel="noopener">link ↗</a>`:''}${p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi ↗</a>`:''}${p.pmid?` · <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(p.pmid)}/" target="_blank" rel="noopener">PubMed ↗</a>`:''}<br><span style="color:#8a978f">${linkifyRef(p.notes||'')}</span>${(p.references&&p.references.length)?`<div style="margin-top:8px;font-size:.8rem">${p.references.map(r=>`<div style="margin-top:2px">📄 ${r.url?`<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.citation)} ↗</a>`:linkifyRef(r.citation)}</div>`).join('')}</div>`:''}${p.decomposition_refs?`<div style="margin-top:8px;padding-top:8px;border-top:1px solid #e6ecea;font-size:.78rem;color:#66756f"><b style="color:#c77800">Complex-ingredient composition references:</b> ${Object.entries(p.decomposition_refs).map(([ing,ref])=>{const c=(ref&&ref.citation)?ref.citation:ref;const u=(ref&&ref.url)?ref.url:null;const lk=linkifyRef(c);const body=(lk!==esc(c))?lk:(u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(c)} ↗</a>`:esc(c));return `<div style="margin-top:3px">• <b>${esc(ing)}</b> — ${body}${(u&&lk!==esc(c)&&c.indexOf(u.replace('https://doi.org/',''))<0)?` · <a href="${esc(u)}" target="_blank" rel="noopener">source ↗</a>`:''}</div>`;}).join('')}</div>`:''}${!hasRefLink(p)?`<div style="margin-top:6px"><a href="https://scholar.google.com/scholar?q=${encodeURIComponent((med.name||'')+' '+(p.citation||'').split(/[—.]/)[0])}" target="_blank" rel="noopener" style="font-size:.78rem;color:#3a6ea5">🔍 Find this reference ↗</a></div>`:''}</div>
+      <div class="cite" style="margin-bottom:14px"><b>Source:</b> ${linkifyRef(p.citation||'')} ${p.url?`· <a href="${esc(p.url)}" target="_blank" rel="noopener">link ↗</a>`:''}${p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi ↗</a>`:''}${p.pmid?` · <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(p.pmid)}/" target="_blank" rel="noopener">PubMed ↗</a>`:''}<br><span style="color:#8a978f">${linkifyRef(p.notes||'')}</span>${(p.references&&p.references.length)?`<div style="margin-top:8px;font-size:.8rem">${p.references.map(r=>`<div style="margin-top:2px">📄 ${r.url?`<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.citation)} ↗</a>`:linkifyRef(r.citation)}</div>`).join('')}</div>`:''}${p.decomposition_refs?`<div style="margin-top:8px;padding-top:8px;border-top:1px solid #e6ecea;font-size:.78rem;color:#66756f"><b style="color:#c77800">Complex-ingredient composition references:</b> ${Object.entries(p.decomposition_refs).map(([ing,ref])=>{const c=(ref&&ref.citation)?ref.citation:ref;const u=(ref&&ref.url)?ref.url:null;const lk=linkifyRef(c);const body=(lk!==esc(c))?lk:(u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(c)} ↗</a>`:esc(c));return `<div style="margin-top:3px">• <b>${esc(ing)}</b> — ${body}${(u&&lk!==esc(c)&&c.indexOf(u.replace('https://doi.org/',''))<0)?` · <a href="${esc(u)}" target="_blank" rel="noopener">source ↗</a>`:''}</div>`;}).join('')}</div>`:''}</div>
       <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
         <button class="btn btn-primary btn-sm" onclick='navigator.clipboard.writeText(${JSON.stringify(cobra)}).then(()=>{this.innerHTML="✓ Copied";setTimeout(()=>this.innerHTML="⧉ Copy as COBRApy medium",1500)});gcDownload("copy_cobrapy")'>⧉ Copy as COBRApy medium</button>
         <a class="btn btn-ghost btn-sm" href="data/media/${id}.json" download onclick='gcDownload("medium_json")'>↓ JSON</a>

@@ -1,0 +1,740 @@
+{
+ "std_2xyt": {
+  "url": "https://search.worldcat.org/title/45015638",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Sambrook & Russell, Molecular Cloning: A Laboratory Manual, 3rd ed., CSHL Press 2001 (OCLC 45015638). Primary book cited for 2xYT (recipe also in Miller 1972)."
+ },
+ "std_aia": {
+  "url": "https://archive.org/details/difcomanualdehyd0000unse",
+  "kind": "standard",
+  "confidence": "medium",
+  "note": "Actinomycete Isolation Agar is a Difco formulation with no single primary paper; Difco Manual archive per convention."
+ },
+ "std_alkaline_peptone_water": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Alkaline Peptone Water (pH ~8.5) is a generic classical Vibrio/Aeromonas enrichment medium with no single locatable origin publication."
+ },
+ "std_anaerobe_basal": {
+  "url": "https://doi.org/10.1128/aac.10.6.926",
+  "kind": "doi",
+  "confidence": "medium",
+  "note": "Anaerobe Basal Agar (Oxoid) derives from the Wilkins-Chalgren anaerobe medium: Wilkins & Chalgren, Antimicrob Agents Chemother 1976;10:926-928. Verified exact match to the 'Wilkins' reference."
+ },
+ "std_andrade": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Andrade's acid-fuchsin indicator (Andrade E. 1906). Original 1906 publication is not indexed in Crossref and has no locatable DOI/stable URL."
+ },
+ "std_av_agar": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Nonomura & Ohara, J Ferment Technol 1969;47:463 (arginine-vitamin agar) is not indexed in Crossref; no DOI. Later HV/humic-acid-vitamin agar papers (1987, 10.1016/0385-6380(87)90108-7) are a different medium and were rejected."
+ },
+ "std_azide_dextrose": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Mallmann & Seligmann, Am J Public Health 1930;20:499 is not indexed/locatable (verified AJPH vol.20 issue 5 has no such paper at p.499). Only a same-title 1950 reprise exists (10.2105/ajph.40.3.286), which fails the year check."
+ },
+ "std_baars": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Baars J.K. 1930 doctoral dissertation (Delft), 'Over sulfaatreductie door bacterien'; a thesis with no DOI and not indexed."
+ },
+ "std_baird_parker": {
+  "url": "https://doi.org/10.1111/j.1365-2672.1962.tb01113.x",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Baird-Parker AC, 'An improved diagnostic and selective medium for isolating coagulase positive staphylococci', J Appl Bacteriol 1962;25:12-19. Exact match (author/journal/volume/page/year)."
+ },
+ "std_bbm": {
+  "url": "https://doi.org/10.2307/2482218",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Bold HC, 'The Morphology of Chlamydomonas chlamydogama, sp. nov.', Bull Torrey Bot Club 1949;76:101 - the paper introducing Bold's Basal Medium."
+ },
+ "std_bg11": {
+  "url": "https://doi.org/10.1099/00221287-111-1-1",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Rippka et al., 'Generic Assignments, Strain Histories and Properties of Pure Cultures of Cyanobacteria', J Gen Microbiol 1979;111:1-61. Exact match."
+ },
+ "std_bglb": {
+  "url": "https://www.standardmethods.org/",
+  "kind": "standard",
+  "confidence": "medium",
+  "note": "Brilliant Green Lactose Bile (2%) broth is an APHA Standard Methods coliform-confirmation medium with no single primary paper; Standard Methods Online (official APHA/AWWA/WEF site; live but bot-blocks automated fetch)."
+ },
+ "std_bile_esculin": {
+  "url": "https://doi.org/10.1128/am.20.2.245-250.1970",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Facklam RR, Moody MD, 'Presumptive Identification of Group D Streptococci: the Bile-Esculin Test', Appl Microbiol 1970;20:245-250. Exact match."
+ },
+ "std_blood_agar": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic tryptic-soy-agar + 5% sheep blood clinical medium; no single origin publication."
+ },
+ "std_bolton": {
+  "url": "https://doi.org/10.1136/jcp.35.4.462",
+  "kind": "doi",
+  "confidence": "medium",
+  "note": "Bolton FJ & Robertson L, 'A selective medium for isolating Campylobacter jejuni/coli', J Clin Pathol 1982;35:462-467 - the foundational eponymous Bolton Campylobacter medium. The reference's '1988' does not match any locatable Bolton primary medium paper in Crossref."
+ },
+ "std_bordet_gengou": {
+  "url": "https://wellcomecollection.org/works/tk5twuxg",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Bordet J & Gengou O, 'Le microbe de la coqueluche', Ann Inst Pasteur 1906;20:731-741. Verified stable Wellcome Collection permalink (matches vol/page/year); no DOI exists for this 1906 article."
+ },
+ "std_bpw": {
+  "url": "https://www.iso.org/standard/29315.html",
+  "kind": "standard",
+  "confidence": "high",
+  "note": "ISO 6579:2002 'Microbiology of food and animal feeding stuffs - Horizontal method for the detection of Salmonella spp.' - the standard defining buffered peptone water non-selective pre-enrichment (superseded by ISO 6579-1:2017, standard/56712.html)."
+ },
+ "std_brilliant_green": {
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2047851/",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Kristensen M, Lester V, Jurgens A. 'On the Use of Trypsinized Casein, Brom-Thymol-Blue, Brom-Cresol-Purple, Phenol-Red and Brilliant-Green for Bacteriological Nutrient Media.' Br J Exp Pathol 1925;6:291. No DOI exists; stable PMC full-text URL verified as the exact original paper."
+ },
+ "std_brucella_blood": {
+  "url": "https://stacks.cdc.gov/view/cdc/7666",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Dowell VR, Hawkins TM. 'Laboratory Methods in Anaerobic Bacteriology: CDC Laboratory Manual' (1974). Official CDC Stacks repository record for the exact manual."
+ },
+ "std_bsm": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic defined mineral/basal salts base with no single origin publication; reference itself says 'standard generic defined mineral base'."
+ },
+ "std_cfc": {
+  "url": "https://doi.org/10.1080/00071667708416418",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Mead GC, Adams BW. 'A selective medium for the rapid isolation of pseudomonads associated with poultry meat spoilage.' Br Poult Sci 1977;18(6):661-670. Verified (author/journal/vol/page match)."
+ },
+ "std_chocolate_agar": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic clinical medium (heated blood agar); reference cites no single author/paper, so no locatable exact origin publication."
+ },
+ "std_chopped_meat_glucose": {
+  "url": "https://catalog.hathitrust.org/Record/000737155",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Holdeman LV, Cato EP, Moore WEC (eds). Anaerobe Laboratory Manual, 4th ed., VPI, Blacksburg, 1977. HathiTrust catalog record for the cited VPI manual."
+ },
+ "std_cna": {
+  "url": "https://doi.org/10.1093/ajcp/45.4_ts.502",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Ellner PD, Stoessel CJ, Drakeford E, Vasi F. 'A New Culture Medium for Medical Bacteriology.' Am J Clin Pathol 1966;45:502-504 - the Columbia agar base paper cited for CNA (colistin-nalidixic) selective agar. Verified vol 45, p502."
+ },
+ "std_columbia_blood": {
+  "url": "https://doi.org/10.1093/ajcp/45.4_ts.502",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Ellner PD, Stoessel CJ, Drakeford E, Vasi F. 'A New Culture Medium for Medical Bacteriology.' Am J Clin Pathol 1966;45:502-504 - the original Columbia blood agar base paper. Verified vol 45, p502."
+ },
+ "std_columbia_broth": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard (Columbia base)' broth with no single origin publication cited."
+ },
+ "std_cooked_meat": {
+  "url": "https://doi.org/10.1002/path.1700200207",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Robertson M. 'Notes upon certain anaerobes isolated from wounds.' J Pathol Bacteriol vol 20:327-349 (Crossref dates it 1915; commonly cited as 1916) - the original Robertson's cooked meat medium paper. Verified author/journal/vol/page."
+ },
+ "std_cornmeal": {
+  "url": "https://archive.org/details/difcomanualdehyd0000unse",
+  "kind": "standard",
+  "confidence": "medium",
+  "note": "Cornmeal Agar (with Tween-80) is a 'standard (BD/Difco)' formulation with no single origin paper; per instruction resolves to the Difco Manual archive.org copy (verified, loads)."
+ },
+ "std_cya": {
+  "url": "https://books.google.com/books?id=iDh1vwEACAAJ",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Pitt JI. 'The Genus Penicillium and its Teleomorphic States Eupenicillium and Talaromyces.' Academic Press, 1979 - source of Czapek Yeast Autolysate (CYA) agar. Google Books record for the exact 1979 edition."
+ },
+ "std_czapek_dox": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Compound eponymous medium (Czapek F 1902, Beitr Chem Physiol Pathol; Dox AW 1910, USDA Bur Anim Ind Bull 120); neither original source has a verifiable DOI and there is no single canonical publication. No reliable exact link."
+ },
+ "std_dixon": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "van Abbe NJ 1964, J Soc Cosmet Chem 15:609 (modified Dixon agar for Malassezia). Old cosmetic-chemistry journal not indexed in Crossref/PMC; no verifiable DOI or stable URL located."
+ },
+ "std_emerson": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Emerson R. 'An experimental study of the life cycles and taxonomy of Allomyces.' Lloydia 1941;4:77 (source of Emerson YpSs agar). Lloydia (1941) is not indexed in Crossref; no DOI or stable URL located."
+ },
+ "std_endo": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Origin is Endo S 1904 (Zentralbl Bakteriol; German) which has no resolvable DOI, plus APHA Standard Methods (multi-edition paywalled book with no single canonical page). No single locatable exact publication link. Note: a same-titled 1902 paper found in Crossref (10.1007/bf02140310) is by von Drigalski & Conradi, not Endo, so it was rejected."
+ },
+ "std_fries": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Fries N. 1938, Symbolae Botanicae Upsalienses (Uppsala) monograph on growth substances for fungi. Old monograph series, no DOI and no stable canonical URL located."
+ },
+ "std_gam": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Gifu Anaerobic Medium is a commercial Nissui formulation with no single primary publication; the vague 'Ueki et al.' reference does not point to one defining paper. No locatable exact link."
+ },
+ "std_gauze1": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Gause GF, Preobrazhenskaya TP, Kudrina ES et al. (1957) 'Problems in the Classification of Antagonistic Actinomycetes', Medgiz, Moscow (Russian monograph). No resolvable DOI or stable WorldCat/Google Books permalink found. Crossref 'Soil Science' translations are by other translators and are not clearly this monograph."
+ },
+ "std_gye": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Glycerol Yeast Extract agar is a generic 'standard' actinomycete/Nocardia medium with no single origin publication."
+ },
+ "std_halobacterium": {
+  "url": "https://mediadive.dsmz.de/medium/97",
+  "kind": "standard",
+  "confidence": "high",
+  "note": "DSMZ MediaDive Medium 97 = 'Halobacterium Medium' (verified HTTP 200; 250 g/L NaCl, Halobacterium/haloarchaea). Matches the cited 'DSMZ 97'. The companion citation Oesterhelt & Stoeckenius 1974 = Methods Enzymol 31:667 (DOI 10.1016/0076-6879(74)31072-5)."
+ },
+ "std_halophilic_agar": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard' moderately-halophilic agar (~10% NaCl); no single origin publication."
+ },
+ "std_heym": {
+  "url": "https://doi.org/10.1093/infdis/48.2.236",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Herrold RD. 'Egg Yolk Agar Medium For The Growth of Tubercle Bacilli.' J Infect Dis 1931;48(2):236-241. Author/journal/volume/page/year verified via Crossref. Exact match to citation."
+ },
+ "std_ima": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Inhibitory Mould Agar is a proprietary BD formulation ('standard') with no single primary publication."
+ },
+ "std_iron_milk": {
+  "url": "https://www.fda.gov/food/laboratory-methods-food/bam-media-m68-iron-milk-medium-modified",
+  "kind": "standard",
+  "confidence": "high",
+  "note": "FDA BAM Media M68: Iron Milk Medium (Modified), used in BAM Chapter 16 for Clostridium perfringens 'stormy fermentation'. Verified HTTP 200. Exact authoritative standard page."
+ },
+ "std_jensen_nfree": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Jensen HL, Proc Linn Soc NSW 1942;67 — no DOI; Proc Linn Soc NSW not in Crossref and no per-paper stable URL. The Linnean Society archive shows Jensen 1942 vol 67 at pp.205-212 (a different title), so the cited page 98 is also uncertain. No verifiable exact link."
+ },
+ "std_kaa": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Mossel DAA et al., J Appl Bacteriol 1978;45:381 (original KAA agar paper) is not indexed in Crossref or PubMed with a resolvable DOI. Only later book-chapter reproductions of the method have DOIs (e.g. Handbook of Culture Media, 10.1016/s0079-6352(03)80059-0), which are not the cited 1978 original, so no verified exact link is returned."
+ },
+ "std_kia": {
+  "url": "https://doi.org/10.1084/jem.28.3.319",
+  "kind": "doi",
+  "confidence": "medium",
+  "note": "Kligler IJ. 'Modifications of Culture Media Used in the Isolation and Differentiation of Typhoid, Dysentery, and Allied Bacilli.' J Exp Med 1918;28(3):319-322 — the authentic Kligler J Exp Med paper describing his iron-containing differential medium (Kligler Iron Agar). The citation's 'J Exp Med 1917;26:87' does not resolve to any real article (DOI 10.1084/jem.26.1.87 not found); this is the correct J Exp Med Kligler differential-media source. Author/journal/vol/page verified via Crossref."
+ },
+ "std_kings_a": {
+  "url": "https://pubmed.ncbi.nlm.nih.gov/13184240/",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "King EO, Ward MK, Raney DE. 'Two simple media for the demonstration of pyocyanin and fluorescin.' J Lab Clin Med 1954;44(2):301-307. No DOI issued for this 1954 paper; PubMed permalink (PMID 13184240) verified via efetch as exact match. King's A and King's B both derive from this one paper."
+ },
+ "std_kings_b": {
+  "url": "https://pubmed.ncbi.nlm.nih.gov/13184240/",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Same source paper as King's A: King EO, Ward MK, Raney DE. 'Two simple media for the demonstration of pyocyanin and fluorescin.' J Lab Clin Med 1954;44(2):301-307 (PMID 13184240; no DOI issued). Verified via PubMed efetch."
+ },
+ "std_kirchner": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Kirchner O. 1932, Zentralbl Bakteriol (German) liquid TB medium. No resolvable DOI found; Crossref hits for that journal/year are unrelated. No verifiable exact link."
+ },
+ "std_kvlb": {
+  "url": "https://stacks.cdc.gov/view/cdc/7666",
+  "kind": "book",
+  "confidence": "medium",
+  "note": "Dowell VR & Hawkins TM, 'Laboratory Methods in Anaerobic Bacteriology: CDC Laboratory Manual' — the cited CDC anaerobe manual in which KVLB (Kanamycin-Vancomycin Laked Blood) agar is described. Authoritative CDC Stacks copy (HTTP 200)."
+ },
+ "std_lactose_broth": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard (APHA/FDA BAM)' pre-enrichment broth; a recipe with no single origin publication or DOI."
+ },
+ "std_les_endo": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Original McCarthy et al. LES Endo agar description (Water & Sewage Works, ~1961) is not in Crossref and has no DOI; the formulation lives in APHA Standard Methods, which is a generic manual, not a single locatable paper."
+ },
+ "std_levinthal": {
+  "url": "https://doi.org/10.1007/bf02173140",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Levinthal W, 'Bakteriologische und serologische Influenzastudien', Zeitschrift fur Hygiene und Infektionskrankheiten, vol 86, 1918 — the origin of Levinthal medium for Haemophilus influenzae. Author/year/journal verified via Crossref."
+ },
+ "std_littman": {
+  "url": "https://doi.org/10.1126/science.106.2744.109-a",
+  "kind": "doi",
+  "confidence": "medium",
+  "note": "Littman ML, 'A Culture Medium for the Primary Isolation of Fungi', Science 1947;106(2744):109-111 — the original description of Littman's oxgall medium. Note: the reference string lists Am J Clin Pathol 1947;17:659, but the canonical primary-isolation-medium paper by the same author/year is this Science article (his AJCP follow-up is 1948;18:409)."
+ },
+ "std_loeffler": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Loeffler F 1887 (Zentralblatt fur Bakteriologie) original serum-slope description predates DOIs; no DOI or stable canonical URL for that exact paper could be verified."
+ },
+ "std_lowenstein_jensen": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "The Jensen KA (1932) / Loewenstein E (1931) German Zentralblatt fur Bakteriologie papers introducing L-J medium are not indexed in Crossref and have no verifiable DOI/stable URL for the specific work."
+ },
+ "std_m63_minimal": {
+  "url": "https://search.worldcat.org/title/541237",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Miller JH, 'Experiments in Molecular Genetics', Cold Spring Harbor Laboratory, 1972 (ISBN 0879691069), WorldCat OCLC 541237 — the canonical source of M63 minimal medium."
+ },
+ "std_m9_minimal": {
+  "url": "https://search.worldcat.org/title/45015638",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Sambrook J & Russell DW, 'Molecular Cloning: A Laboratory Manual', 3rd ed., Cold Spring Harbor Laboratory Press, 2001 (ISBN 0879695765/0879695773), WorldCat OCLC 45015638 — the cited source of M9 minimal medium."
+ },
+ "std_macconkey_broth": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard' presumptive-coliform broth; no single origin publication with a locatable DOI/stable URL."
+ },
+ "std_malt_extract_agar": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard (BD/Oxoid)' fungal medium; a commercial formulation with no single origin publication or DOI."
+ },
+ "std_marine_broth_2216": {
+  "url": "https://mediadive.dsmz.de/medium/514",
+  "kind": "standard",
+  "confidence": "high",
+  "note": "DSMZ MediaDive medium 514, 'Bacto Marine Broth (Difco 2216)' — the exact ZoBell 2216 marine broth. The cited ZoBell 1941 J Mar Res paper (4:42-75) is not indexed in Crossref and has no DOI, so this authoritative DSMZ formulation of the same medium is used (HTTP 200)."
+ },
+ "std_mbm": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard' defined marine minimal medium; no single origin publication or DOI."
+ },
+ "std_methanobacterium": {
+  "url": "https://mediadive.dsmz.de/medium/119",
+  "kind": "standard",
+  "confidence": "high",
+  "note": "DSMZ MediaDive medium 119, 'Methanobacterium Medium' (Bryant-type H2/CO2 autotrophic methanogen medium) — the exact DSMZ 119 medium cited (HTTP 200)."
+ },
+ "std_mgyp": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard' Malt-Glucose-Yeast-Peptone yeast medium; no single origin publication or DOI."
+ },
+ "std_mh_medium": {
+  "url": "https://doi.org/10.1099/00221287-128-9-1959",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Ventosa A et al., 'Numerical Taxonomy of Moderately Halophilic Gram-negative Rods', J Gen Microbiol (Microbiology) 1982;128(9):1959 — the source of MH (Moderate Halophile) medium. Author/year/journal/volume/page verified via Crossref."
+ },
+ "std_middlebrook_7h10": {
+  "url": "https://doi.org/10.1164/arrd.1968.98.2.295",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Cohn ML, Waggoner RF, McClatchy JK. The 7H11 medium for the cultivation of mycobacteria. Am Rev Respir Dis 1968;98(2):295-296 (PMID 4299186). Exact paper named in the citation (vol/issue/page match). Note: the paper itself describes 7H11; the original 7H10 is Middlebrook & Cohn 1958, but the reference string cites this 1968 paper."
+ },
+ "std_middlebrook_7h11": {
+  "url": "https://doi.org/10.1164/arrd.1968.98.2.295",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Cohn ML, Waggoner RF, McClatchy JK. The 7H11 medium for the cultivation of mycobacteria. Am Rev Respir Dis 1968;98(2):295-296 (PMID 4299186). Exact match to the citation."
+ },
+ "std_moeller_decarboxylase": {
+  "url": "https://doi.org/10.1111/j.1699-0463.1955.tb04583.x",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Moller V. Simplified tests for some amino acid decarboxylases and for the arginine dihydrolase system. Acta Pathol Microbiol Scand 1955;36(2):158-172. Exact match (year, vol 36, page 158). DOI resolves to Wiley."
+ },
+ "std_moeller_ornithine": {
+  "url": "https://doi.org/10.1111/j.1699-0463.1955.tb04583.x",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Same Moller V 1955 paper (Acta Pathol Microbiol Scand 36:158-172) that defines the ornithine/lysine decarboxylase and arginine dihydrolase tests. Exact match to the citation."
+ },
+ "std_motility_test": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic semisolid Motility Test Medium; reference is 'standard' with no cited author/paper and no single origin publication."
+ },
+ "std_mrvp": {
+  "url": "https://doi.org/10.1128/jb.2.2.109-136.1917",
+  "kind": "doi",
+  "confidence": "medium",
+  "note": "Clark WM & Lubs HA. The colorimetric determination of hydrogen ion concentration and its applications in bacteriology, Part II. J Bacteriol; journal and page 109 match the citation ('J Bacteriol ...1:109') but the true record is vol 2(2):109-136, 1917 (citation's vol 1 / year 1915 are off). This Clark-Lubs pH-indicator work underlies the methyl-red test. Alternative origin: Clark & Lubs, J Infect Dis 1915;17:160-173 (10.1093/infdis/17.1.160)."
+ },
+ "std_mtec": {
+  "url": "https://19january2017snapshot.epa.gov/sites/production/files/2015-08/documents/method_1603_2009.pdf",
+  "kind": "standard",
+  "confidence": "high",
+  "note": "US EPA Method 1603: Escherichia coli in water by membrane filtration using modified mTEC agar. Official EPA-hosted PDF (verified: valid 499 KB PDF, loads HTTP 200)."
+ },
+ "std_mya": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Malt Yeast Agar; reference is 'standard' with no cited author/paper and no single origin publication."
+ },
+ "std_mycosel": {
+  "url": "https://archive.org/details/difcomanualdehyd0000unse",
+  "kind": "standard",
+  "confidence": "low",
+  "note": "Mycosel/Mycobiotic agar is a BD/BBL product ('standard (BD)'); no origin paper. Per batch rules, generic 'standard (BD/Difco)' references map to the Difco Manual (Internet Archive)."
+ },
+ "std_mygp": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "MYGP (Malt Yeast Glucose Peptone); reference is 'standard' with no cited author/paper and no single origin publication."
+ },
+ "std_nfb": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "NFb semisolid medium originates from Dobereiner J & Day JM (1976), 'Associative symbioses in tropical grasses...', Proc. 1st Int. Symp. on Nitrogen Fixation, WSU Press, pp. 518-538 — a conference proceedings with no DOI/stable URL (not in Crossref)."
+ },
+ "std_nitrate_broth": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Nitrate Broth (nitrate reduction test); reference is 'standard' with no cited author/paper and no single origin publication."
+ },
+ "std_nitrobacter": {
+  "url": "https://mediadive.dsmz.de/medium/756c",
+  "kind": "standard",
+  "confidence": "medium",
+  "note": "DSMZ MediaDive medium 756c 'Autotrophic Nitrobacter Medium' — matches the cited chemolithoautotrophic NOB medium (Nitrobacter vulgaris/hamburgensis). Citation is a generic ATCC/DSMZ catalog reference, not a paper; this is the closest authoritative DSMZ medium page (verified loads)."
+ },
+ "std_nitrosomonas": {
+  "url": "https://mediadive.dsmz.de/medium/1583",
+  "kind": "standard",
+  "confidence": "medium",
+  "note": "DSMZ MediaDive medium 1583 'Medium for Ammonia Oxidizing Bacteria' — includes Nitrosomonas europaea/eutropha, matching the cited chemolithoautotrophic AOB medium. Citation is a generic ATCC/DSMZ catalog reference; this is the closest authoritative DSMZ medium page (verified loads)."
+ },
+ "std_norris": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Norris 1959 free-living-diazotroph N-free medium; best candidate is Norris, 'The isolation and identification of azotobacters', Laboratory Practice 1959;8:239-243 — not in Crossref, no DOI, and author-initial ambiguity (Lab Pract paper is D.O. Norris vs cited 'J.R.'). No locatable exact link."
+ },
+ "std_nutrient_broth": {
+  "url": "https://doi.org/10.1201/9781420039726",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Atlas RM, Handbook of Microbiological Media (CRC Press / Taylor & Francis). Book DOI 10.1201/9781420039726 (4th ed). Canonical publisher landing page for the cited book."
+ },
+ "std_nutrient_gelatin": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard' gelatin-hydrolysis medium with no single originating publication; no exact link to invent."
+ },
+ "std_nyc": {
+  "url": "https://pubmed.ncbi.nlm.nih.gov/4633802/",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Original NYC medium paper part I: Faur YC, Weisburd MH, Wilson ME, May PS. 'A new medium for the isolation of pathogenic Neisseria (NYC medium). I. Formulation and comparisons with standard media.' Health Lab Sci 1973;10(2):44-54. Matches citation page 44 exactly. No DOI issued; PubMed permalink is the stable identifier."
+ },
+ "std_ogawa": {
+  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2366248/",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Kudoh S, Kudoh T. 'A simple technique for culturing tubercle bacilli.' Bull World Health Organ 1974;51(1):71-82 (the modified Ogawa egg medium / Kudoh-Ogawa method). Free full text via PMC. The other co-cited work, Ogawa T. 1949, has no locatable online link."
+ },
+ "std_petragnani": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Original Petragnani G. 1926 (Italian) egg medium description has no locatable DOI or stable publication URL; only later derivative papers exist. No exact link to invent."
+ },
+ "std_phenol_red_broth": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard' phenol-red carbohydrate fermentation broth base; no single originating publication."
+ },
+ "std_pia": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Pseudomonas Isolation Agar is a generic BD/commercial formulation (King's A base + Irgasan) with no single originating paper."
+ },
+ "std_pikovskaya": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Pikovskaya RI, Mikrobiologiya 1948;17:362 — classic Soviet journal article with no DOI or stable online link. No exact link to invent."
+ },
+ "std_plate_count_agar": {
+  "url": "https://doi.org/10.2105/ajph.43.7.869",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Buchbinder L, Baris Y, Goldstein L. 'Further Studies on New Milk-Free Media for the Standard Plate Count of Dairy Products.' Am J Public Health Nations Health 1953;43(7):869-872. This is the Buchbinder et al. 1953 origin of the milk-free Plate Count / Standard Methods Agar cited."
+ },
+ "std_postgate_c": {
+  "url": "https://books.google.com/books?id=SW1yAQAACAAJ",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Postgate JR. 'The Sulphate-Reducing Bacteria', 2nd ed., Cambridge University Press, 1984 (ISBN 0521257913 / 9780521257916). Google Books canonical record for that edition."
+ },
+ "std_potato_carrot": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard' Potato Carrot Agar for fungal morphology; no single originating publication."
+ },
+ "std_potato_dextrose": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Potato Dextrose Agar is a generic BD/standard commercial formulation with no single originating paper."
+ },
+ "std_purple_broth": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Generic 'standard' Purple Broth Base (bromocresol purple fermentation) with no single originating publication."
+ },
+ "std_pyg": {
+  "url": "https://openlibrary.org/books/OL14797948M/Anaerobe_laboratory_manual",
+  "kind": "book",
+  "confidence": "high",
+  "note": "Holdeman LV, Cato EP, Moore WEC (eds). 'Anaerobe Laboratory Manual', 4th ed., 1977, V.P.I. Anaerobe Laboratory, Virginia Polytechnic Institute and State University, Blacksburg. Open Library permalink for that edition; source of the PYG (Peptone-Yeast-Glucose) formulation."
+ },
+ "std_rappaport_vassiliadis": {
+  "url": "https://doi.org/10.1111/j.1365-2672.1983.tb01302.x",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Vassiliadis P. 'The Rappaport-Vassiliadis (RV) enrichment medium for the isolation of salmonellas: An overview.' J Appl Bacteriol 1983;54(1):69-76. Page 69 matches the citation (which lists a slightly off 1984;56:69); this is the canonical RV-medium paper."
+ },
+ "std_sabhi": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Gorman JC. 1967 SABHI agar, Am J Med Technol 33:151. American Journal of Medical Technology is defunct with no DOI or stable online article link; only commercial/secondary sources cite it. No exact link to invent."
+ },
+ "std_sabouraud_dextrose": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Sabouraud R. 1892 original (Annales de Dermatologie et de Syphiligraphie) has no locatable DOI or stable publication URL; the BD/commercial formulation has no single paper. No exact link to invent."
+ },
+ "std_sauton": {
+  "url": "https://gallica.bnf.fr/ark:/12148/bpt6k31089",
+  "kind": "book",
+  "confidence": "medium",
+  "note": "Sauton B. 'Sur la nutrition minerale du bacille tuberculeux.' Comptes rendus hebd. Acad. Sci. tome 155 (1912), p.860. No DOI exists; this is the BnF Gallica digitized scan of the tome 155 (1912) volume containing the note (volume-level link; exact page ~860 within)."
+ },
+ "std_sim": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "SIM (Sulfide-Indole-Motility) medium is a generic 'standard, BD' formulation with no single origin publication; no exact locatable link."
+ },
+ "std_sob_soc": {
+  "url": "https://doi.org/10.1016/S0022-2836(83)80284-8",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Hanahan D. 'Studies on transformation of Escherichia coli with plasmids.' J Mol Biol 1983;166(4):557-580 (introduces SOB/SOC). Crossref-verified; year/journal/author match."
+ },
+ "std_sp_medium": {
+  "url": "https://doi.org/10.1099/00221287-119-2-535",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Rodriguez-Valera F, Ruiz-Berraquero F, Ramos-Cormenzana A. 'Isolation of Extremely Halophilic Bacteria Able to Grow in Defined Inorganic Media with Single Carbon Sources.' J Gen Microbiol 1980;119(2):535 (SP medium). Crossref-verified 1980, authors match."
+ },
+ "std_ss_agar": {
+  "url": "https://archive.org/details/difcomanualdehyd0000unse",
+  "kind": "standard",
+  "confidence": "medium",
+  "note": "Salmonella-Shigella (SS) agar is a 'standard (Difco/BD)' medium with no single origin paper; per instructions, points to the Difco Manual archive (resolves HTTP 200)."
+ },
+ "std_stonebrink": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Stonebrink B. 1958 pyruvate egg medium (Acta Tuberc Scand / Selecta Med) has no locatable DOI or stable publisher URL; Crossref returns no matching record."
+ },
+ "std_swc": {
+  "url": "https://doi.org/10.1128/jb.172.7.3701-3706.1990",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Boettcher KJ, Ruby EG. 'Depressed light emission by symbiotic Vibrio fischeri of the sepiolid squid Euprymna scolopes.' J Bacteriol 1990;172(7):3701-3706 (SWC seawater-complete medium). Crossref-verified; matches the cited Boettcher & Ruby 1990."
+ },
+ "std_swt": {
+  "url": "https://doi.org/10.1016/0076-6879(78)57017-1",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Nealson KH. 'Isolation, identification, and manipulation of luminous bacteria.' Methods Enzymol 1978;57:153 (SWT seawater-tryptone medium). Crossref-verified 1978, author matches."
+ },
+ "std_takashio": {
+  "url": "https://doi.org/10.1080/00362177285190251",
+  "kind": "doi",
+  "confidence": "medium",
+  "note": "Takashio M. 'Is Arthroderma benhamiae the perfect state of Trichophyton mentagrophytes?' Sabouraudia (Med Mycol) 1972;10(3) (describes the dilute-Sabouraud 'Takashio' medium for conidia induction). Crossref-verified 1972, author matches; medium as the exact medium-defining paper by Takashio in 1972."
+ },
+ "std_tbx": {
+  "url": "https://www.iso.org/standard/29824.html",
+  "kind": "standard",
+  "confidence": "high",
+  "note": "ISO 16649-2:2001 'Microbiology of food and animal feeding stuffs - Horizontal method for enumeration of beta-glucuronidase-positive E. coli - Part 2: Colony-count at 44 C using TBX' (catalog no. 29824, confirmed via the official ISO 16649-2:2001 PDF)."
+ },
+ "std_terrific_broth": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Primary reference Tartof KD, Hobbs CA. 'Improved media for growing plasmid and cosmid clones.' Bethesda Res Lab Focus 1987;9(2):12 is a company newsletter (BRL Focus) with no DOI and no stable indexed URL; not in Crossref. Secondary cite is Sambrook & Russell Molecular Cloning 2001. No verifiable exact link for the primary source."
+ },
+ "std_tetrathionate": {
+  "url": "https://doi.org/10.1007/BF02176950",
+  "kind": "doi",
+  "confidence": "medium",
+  "note": "Kauffmann F. 'Weitere Erfahrungen mit dem kombinierten Anreicherungsverfahren fuer Salmonellabakterien.' Z Hyg Infektionskr 1935;117:26 - the Kauffmann modification of the tetrathionate (Mueller-Kauffmann) enrichment broth. Crossref-verified 1935, Kauffmann. (Mueller 1923 C R Soc Biol has no DOI.)"
+ },
+ "std_tryptone_water": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Tryptone Water (indole test) is a generic 'standard' formulation with no single origin publication; no exact locatable link."
+ },
+ "std_tsb": {
+  "url": "https://archive.org/details/difcomanualdehyd0000unse",
+  "kind": "standard",
+  "confidence": "medium",
+  "note": "Tryptic Soy Broth (Soybean-Casein Digest) is a BD/Difco standard medium (also USP <62>) with no single origin paper; per instructions, points to the Difco Manual archive (resolves HTTP 200). Not the exact USP monograph."
+ },
+ "std_v8_agar": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "V8 juice agar is a generic 'standard' fungal/oomycete sporulation medium with no single origin publication; no exact locatable link."
+ },
+ "std_vogel_johnson": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Vogel RA, Johnson M. 'A modification of the tellurite-glycine medium for use in the identification of Staphylococcus aureus.' Public Health Lab 1960;18:131 - the journal 'Public Health Laboratory' is not DOI-indexed and has no stable online record; citation confirmed but no locatable exact link."
+ },
+ "std_vogel_n": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Vogel HJ 1956, 'A convenient growth medium for Neurospora (Medium N)', Microbial Genetics Bulletin 13:42-43 - a mimeographed newsletter with no DOI and no stable digitized copy of the article. Recipe is reproduced at FGSC (fgsc.net/methods/stanford.html) but that is a methods page, not the publication."
+ },
+ "std_vrba": {
+  "url": "https://www.standardmethods.org/",
+  "kind": "standard",
+  "confidence": "low",
+  "note": "Violet Red Bile Agar is a compendium medium of APHA Standard Methods for the Examination of Water and Wastewater (Standard Methods Online); no single origin paper/DOI. Homepage is bot-blocked (403) but resolves in a browser."
+ },
+ "std_vrbga": {
+  "url": "https://doi.org/10.1128/jb.84.2.381-381.1962",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Mossel DAA, Mengerink WHJ, Scholts HH (1962) 'Use of a modified MacConkey agar medium for the selective growth and enumeration of Enterobacteriaceae', J Bacteriol 84:381 - origin of Violet Red Bile Glucose agar. DOI verified via Crossref (year/journal/volume/page/title all match); publisher page bot-blocks curl (403)."
+ },
+ "std_water_agar": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Plain water agar (agar in water) is a generic base medium with no single origin publication; the DB reference is 'standard'."
+ },
+ "std_winogradsky": {
+  "url": "https://wellcomecollection.org/works/x5fvtc9y",
+  "kind": "book",
+  "confidence": "medium",
+  "note": "Winogradsky S (1949) 'Microbiologie du sol: problemes et methodes (cinquante ans de recherches)', Masson et Cie, Paris - source of Winogradsky's mineral salt solution. Stable Wellcome Collection catalog record for that edition (HTTP 200)."
+ },
+ "std_xlt4": {
+  "url": "https://doi.org/10.3382/ps.0702429",
+  "kind": "doi",
+  "confidence": "medium",
+  "note": "Miller RG, Tate CR, Mallinson ET, Scherrer JA (1991) 'Xylose-Lysine-Tergitol 4: An Improved Selective Agar Medium for the Isolation of Salmonella', Poultry Science 70:2429-2432 - the actual XLT4 origin paper (same authors, same year). The DB citation 'J Food Prot 1991;54:826' appears to be a miscite; no article was locatable at J Food Prot 54:826. DOI verified (HTTP 200)."
+ },
+ "std_ycb": {
+  "url": "https://books.google.com/books/about/Taxonomy_of_Yeasts.html?id=meupMQEACAAJ",
+  "kind": "book",
+  "confidence": "medium",
+  "note": "Wickerham LJ (1951) 'Taxonomy of Yeasts', USDA Technical Bulletin 1029, pp.1-56 - the bulletin that introduced Yeast Carbon Base (YCB). Google Books catalog record for that title (HTTP 200)."
+ },
+ "std_ym_agar": {
+  "url": "https://books.google.com/books/about/Taxonomy_of_Yeasts.html?id=meupMQEACAAJ",
+  "kind": "book",
+  "confidence": "medium",
+  "note": "Wickerham LJ (1951) 'Taxonomy of Yeasts', USDA Technical Bulletin 1029 - source of YM (Yeast-Mould) medium. Google Books catalog record for that title (HTTP 200)."
+ },
+ "std_ypd": {
+  "url": "https://doi.org/10.1016/s0076-6879(02)50954-x",
+  "kind": "doi",
+  "confidence": "high",
+  "note": "Sherman F (2002) 'Getting started with yeast', Methods in Enzymology 350:3-41. DOI verified (HTTP 200); journal/volume/pages/year match the citation exactly."
+ },
+ "std_ypgal": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "YP-Galactose (YPGal) is a standard galactose variant of YPD for S. cerevisiae with no distinct origin publication; the same YP formulations are described in Sherman F 2002 Methods Enzymol 350:3-41 (see std_ypd)."
+ },
+ "std_z8": {
+  "url": null,
+  "kind": "none",
+  "confidence": "low",
+  "note": "Kotai J (1972) 'Instructions for Preparation of Modified Nutrient Solution Z8 for Algae', publication B-11/69, Norwegian Institute for Water Research (NIVA), Oslo - a technical report with no DOI and no stable digitized/canonical URL."
+ }
+}
