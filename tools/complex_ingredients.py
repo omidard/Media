@@ -44,7 +44,7 @@ COMPOSITION = {
 # name -> ingredient key (order matters: more specific first)
 _PATTERNS = [
     (re.compile(r"casamino", re.I), "casamino_acids"),
-    (re.compile(r"casein\s*(peptone|hydrolysate|digest)|tryptic\s*digest\s*of\s*casein", re.I), "casein_peptone"),
+    (re.compile(r"casein\s*(peptone|hydrolysate|digest)|tryptic\s*digest\s*of\s*casein|casitone", re.I), "casein_peptone"),
     (re.compile(r"trypticase", re.I), "trypticase"),
     (re.compile(r"tryptone", re.I), "tryptone"),
     (re.compile(r"proteose\s*peptone", re.I), "proteose_peptone"),

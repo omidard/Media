@@ -101,7 +101,34 @@ _ALIASES = {**_AA,
     # --- more fatty acids (IUPAC / class names) -> clean BiGG species ---
     "eicosapentaenoicacid":"tmndnc","docosahexaenoicacid":"crvnc","sfa220":"behen","behenicacid":"behen",
     "pufa203n6":"dlnlcg","pufa203":"dlnlcg","dihomogammalinolenicacid":"dlnlcg",
-    "c181n9":"ocdcea","oleicacid":"ocdcea","zz912octadecadienoicacid":"lnlc","c182n6":"lnlc","c183n3":"lnlnca"}
+    "c181n9":"ocdcea","oleicacid":"ocdcea","zz912octadecadienoicacid":"lnlc","c182n6":"lnlc","c183n3":"lnlnca",
+    # --- sugar anomers / pyranose-furanose synonyms -> the parent BiGG sugar ---
+    "betadglucopyranose":"glc__D","alphadglucopyranose":"glc__D","glucopyranose":"glc__D",
+    "betadglucose":"glc__D","alphadglucose":"glc__D","dextrose":"glc__D",
+    "betadfructofuranose":"fru","alphadfructofuranose":"fru","fructofuranose":"fru","betadfructose":"fru",
+    "betadgalactopyranose":"gal","alphadgalactopyranose":"gal","galactopyranose":"gal","betadgalactose":"gal",
+    "betadmannopyranose":"man","alphadmannopyranose":"man","mannopyranose":"man","betadmannose":"man","alphadmannose":"man",
+    "betadxylopyranose":"xyl__D","xylopyranose":"xyl__D","alphalarabinofuranose":"arab__L",
+    # --- amino-acid / metabolite synonyms ---
+    "hydroxyproline":"4hpro_LT","4hydroxyproline":"4hpro_LT","trans4hydroxyproline":"4hpro_LT",
+    "hydroxylproline":"4hpro_LT","4hydroxylproline":"4hpro_LT","transhydroxyproline":"4hpro_LT",
+    "octanoicacid":"octa","octanoate":"octa","caprylicacid":"octa","caprylate":"octa","noctanoicacid":"octa",
+    "cobalamin":"cbl1","hydroxocobalamin":"cbl1","hydroxycobalamin":"cbl1","aquocobalamin":"cbl1",
+    "vitamind3":"vitd3","cholecalciferol":"vitd3","calciol":"vitd3",
+    "gamolenicacid":"dlnlcg","gammalinolenicacid":"dlnlcg","glaacid":"dlnlcg",
+    "doconexent":"crvnc","docosahexaenoate":"crvnc","icosapent":"tmndnc","eicosapentaenoate":"tmndnc",
+    # --- elements/ions that DO exist as BiGG metabolites ---
+    "chlorine":"cl","chloride":"cl","chlorinecl":"cl","mercury":"hg2","mercuryhg":"hg2",
+    "lead":"pb","leadpb":"pb","cadmium":"cd2","cadmiumcd":"cd2","cadmium2":"cd2",
+    # --- saturated fatty-acid classes with a clean BiGG species ---
+    "sfa200":"arach","arachidicacid":"arach","eicosanoicacid":"arach","icosanoicacid":"arach",
+    # --- mono/polyunsaturated fatty-acid classes -> dominant BiGG species (approximate) ---
+    "mufa201":"M01235","mufa201c":"M01235","gadoleicacid":"M01235","gondoicacid":"M01235","eicosenoicacid":"M01235",
+    "mufa171":"hepedecacid","mufa171c":"hepedecacid","heptadecenoicacid":"hepedecacid",
+    "mufa221":"doco13ac","mufa221c":"doco13ac","erucicacid":"doco13ac",
+    "mufa241":"nrvnc","mufa241c":"nrvnc","nervonicacid":"nrvnc",
+    "pufa204":"arachd","pufa204n6":"arachd","arachidonicacid":"arachd",
+    "pufa202":"M00008","pufa202n6":"M00008","pufa202n6cc":"M00008","eicosadienoicacid":"M00008"}
 
 class Mapper:
     def __init__(self, base=HERE):
