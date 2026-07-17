@@ -2,18 +2,18 @@
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
  "catalog_count": 13073,
- "component_records": 662536,
- "distinct_compounds": 1813,
+ "component_records": 662743,
+ "distinct_compounds": 1814,
  "coverage": {
   "by_exchange_source": {
-   "biggr": 647317,
-   "bigg": 13855,
+   "biggr": 647518,
+   "bigg": 13861,
    "modelseed": 767,
    "kegg": 22,
    "metanetx": 575
   },
-  "total_uncovered": 31801,
-  "media_below_100pct": 8825
+  "total_uncovered": 31515,
+  "media_below_100pct": 8815
  },
  "by_category": {
   "laboratory": 4931,
@@ -71,10 +71,10 @@
     "url",
     "food_group"
    ],
-   "size": "472.4 KB"
+   "size": "472.7 KB"
   },
   "components.parquet": {
-   "rows": 662536,
+   "rows": 662743,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",
@@ -96,7 +96,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "3.0 MB"
+   "size": "3.1 MB"
   },
   "media.sqlite.gz": {
    "tables": [
