@@ -1,0 +1,70 @@
+{
+  "id": "food_FOOD00058",
+  "name": "Coffee, brewed (food medium)",
+  "basis": "per 100 g (≈100 mL) brewed coffee beverage, fresh",
+  "components": [
+    {"name":"chlorogenic acid (5-caffeoylquinic acid)","amount":0.081,"unit":"g/100g","concentration_mM":2.29,"role":"organic_acid","source":"Rune et al. 2023 Curr Res Food Sci 6:100485 doi:10.1016/j.crfs.2023.100485","evidence":"Mean 0.81 mg/mL across roasts in French-press specialty coffee; the single most abundant acid; decreases with roast degree. Dominant phenolic carbon source."},
+    {"name":"quinic acid","amount":0.068,"unit":"g/100g","concentration_mM":3.54,"role":"organic_acid","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"Mean 0.68 mg/mL; rises with roast (chlorogenic-acid hydrolysis). Readily catabolised aliphatic acid."},
+    {"name":"citric acid","amount":0.040,"unit":"g/100g","concentration_mM":2.08,"role":"organic_acid","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"Mean 0.40 mg/mL; decreases with roast degree."},
+    {"name":"acetic acid","amount":0.028,"unit":"g/100g","concentration_mM":4.66,"role":"organic_acid","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"Mean 0.28 mg/mL; increases with roast (carbohydrate degradation)."},
+    {"name":"phosphoric acid","amount":0.027,"unit":"g/100g","concentration_mM":2.76,"role":"organic_acid","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"Mean 0.27 mg/mL; increases with roast. Also a phosphate/proton source in the brew."},
+    {"name":"lactic acid","amount":0.017,"unit":"g/100g","concentration_mM":1.89,"role":"organic_acid","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"Mean 0.17 mg/mL; increases with roast."},
+    {"name":"formic acid","amount":0.017,"unit":"g/100g","concentration_mM":3.69,"role":"organic_acid","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"Mean 0.17 mg/mL; increases with roast."},
+    {"name":"malic acid","amount":0.016,"unit":"g/100g","concentration_mM":1.19,"role":"organic_acid","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"Mean 0.16 mg/mL; decreases with roast degree."},
+    {"name":"glycolic acid","amount":0.009,"unit":"g/100g","concentration_mM":1.18,"role":"organic_acid","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"Mean 0.09 mg/mL; increases with roast."},
+    {"name":"D-glucose","amount":0.039,"unit":"g/100g","concentration_mM":2.16,"role":"sugar","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"0.39 mg/mL in light roast; free sugars collapse to <0.2 mg/mL total in medium/dark roasts. Most preferred carbon source but low."},
+    {"name":"D-fructose","amount":0.053,"unit":"g/100g","concentration_mM":2.94,"role":"sugar","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"0.53 mg/mL in light roast; largely lost in darker roasts."},
+    {"name":"sucrose","amount":null,"unit":"g/100g","concentration_mM":null,"role":"sugar","source":"Rune et al. 2023 doi:10.1016/j.crfs.2023.100485","evidence":"Green-bean sucrose (~6-9% dry) is almost entirely degraded during roasting/Maillard; present only in trace amounts in the brew, not quantified separately here."},
+    {"name":"caffeine","amount":0.040,"unit":"g/100g","concentration_mM":2.06,"role":"alkaloid","source":"USDA FDC / SR NDB 14209 'Coffee, brewed from grounds, prepared with tap water'","evidence":"40 mg/100 g. Poorly catabolised by most microbes and growth-inhibitory; a defining non-nutritive metabolite."},
+    {"name":"trigonelline","amount":0.050,"unit":"g/100g","concentration_mM":3.65,"role":"alkaloid","source":"Konieczka et al. 2020 LWT (S0023643820303339); Wu et al. 2023 (ResearchGate 370031941)","evidence":"Brewed coffee ~0.3-1.5 mg/mL (range 30-100 mg/100 mL depending on species/roast); ~50 mg/100 mL typical. Thermally decarboxylates to nicotinic acid on roasting."},
+    {"name":"potassium","amount":0.049,"unit":"g/100g","concentration_mM":12.53,"role":"mineral","source":"USDA SR NDB 14209","evidence":"49 mg/100 g; the dominant mineral / main cation in the brew."},
+    {"name":"magnesium","amount":0.003,"unit":"g/100g","concentration_mM":1.23,"role":"mineral","source":"USDA SR NDB 14209","evidence":"3 mg/100 g."},
+    {"name":"phosphorus","amount":0.003,"unit":"g/100g","concentration_mM":0.97,"role":"mineral","source":"USDA SR NDB 14209","evidence":"3 mg/100 g (in addition to phosphoric-acid phosphate above)."},
+    {"name":"calcium","amount":0.002,"unit":"g/100g","concentration_mM":0.50,"role":"mineral","source":"USDA SR NDB 14209","evidence":"2 mg/100 g."},
+    {"name":"sodium","amount":0.002,"unit":"g/100g","concentration_mM":0.87,"role":"mineral","source":"USDA SR NDB 14209","evidence":"2 mg/100 g."},
+    {"name":"manganese","amount":0.000024,"unit":"g/100g","concentration_mM":null,"role":"mineral","source":"USDA SR NDB 14209","evidence":"0.024 mg/100 g."},
+    {"name":"zinc","amount":0.00003,"unit":"g/100g","concentration_mM":null,"role":"mineral","source":"USDA SR NDB 14209","evidence":"0.03 mg/100 g."},
+    {"name":"iron","amount":0.00002,"unit":"g/100g","concentration_mM":null,"role":"mineral","source":"USDA SR NDB 14209","evidence":"~0.01-0.02 mg/100 g; trace."},
+    {"name":"copper","amount":0.000002,"unit":"g/100g","concentration_mM":null,"role":"mineral","source":"USDA SR NDB 14209","evidence":"~0.002 mg/100 g; trace."},
+    {"name":"fluoride","amount":null,"unit":"g/100g","concentration_mM":null,"role":"mineral","source":"USDA SR NDB 14209","evidence":"Variable, derived largely from the tap water used to brew; present but not fixed by the food."},
+    {"name":"niacin (vitamin B3 / nicotinic acid)","amount":0.00019,"unit":"g/100g","concentration_mM":null,"role":"vitamin","source":"USDA SR NDB 14209","evidence":"0.19 mg/100 g; rises during roasting from trigonelline demethylation."},
+    {"name":"riboflavin (vitamin B2)","amount":0.000077,"unit":"g/100g","concentration_mM":null,"role":"vitamin","source":"USDA SR NDB 14209","evidence":"0.077 mg/100 g."},
+    {"name":"thiamin (vitamin B1)","amount":0.000014,"unit":"g/100g","concentration_mM":null,"role":"vitamin","source":"USDA SR NDB 14209","evidence":"0.014 mg/100 g; trace."},
+    {"name":"pantothenic acid (vitamin B5)","amount":0.0000596,"unit":"g/100g","concentration_mM":null,"role":"vitamin","source":"USDA SR NDB 14209","evidence":"~0.06 mg/100 g; trace."},
+    {"name":"folate (vitamin B9)","amount":0.000002,"unit":"g/100g","concentration_mM":null,"role":"vitamin","source":"USDA SR NDB 14209","evidence":"2 µg/100 g."},
+    {"name":"choline","amount":0.00267,"unit":"g/100g","concentration_mM":null,"role":"vitamin","source":"USDA SR NDB 14209","evidence":"2.67 mg/100 g."},
+    {"name":"total protein / free amino acids","amount":0.12,"unit":"g/100g","concentration_mM":null,"role":"nitrogen_source","source":"USDA SR NDB 14209","evidence":"Total protein 0.12 g/100 g; free amino acids are near-trace because most are consumed in Maillard reactions during roasting. The many individual amino acids in the FooDB record reflect green-bean storage protein, not the brew — the brew is severely nitrogen-limited."}
+  ],
+  "remove": [
+    {"name":"Cholesterol","reason":"Animal sterol; biologically implausible in a plant-derived beverage; FooDB predicted, not measured."},
+    {"name":"Retinol","reason":"Preformed (animal-form) vitamin A; USDA reports 0 in brewed coffee; implausible in a plant beverage."},
+    {"name":"Beta-Carotene","reason":"USDA reports negligible/zero provitamin A carotenoid in brewed coffee; FooDB predicted."},
+    {"name":"Cyanocobalamin","reason":"Vitamin B12 is not synthesised by plants; not present in coffee; FooDB predicted/implausible."},
+    {"name":"Phytomenadione","reason":"Vitamin K1; USDA reports 0 in brewed coffee; negligible in the brew."},
+    {"name":"L-Ascorbate","reason":"Vitamin C; USDA reports 0 in brewed coffee; heat/roast-labile and absent from the beverage."},
+    {"name":"Starch C12H20O10","reason":"No starch is extracted into the brewed beverage (retained in the grounds); USDA carbohydrate ~0."},
+    {"name":"Nickel","reason":"Ultratrace, non-nutritive in this matrix; FooDB contaminant-level entry, not a growth nutrient."},
+    {"name":"Co2+","reason":"Cobalt ion at ultratrace/contaminant level; not a defined growth nutrient of the brew."},
+    {"name":"Decanoic acid / Dodecanoic acid / Pentadecanoic acid / Octanoic acid / Heptanoate / Hexanoate / alpha-Linolenic acid / (Z,Z)-9,12-octadecadienoic acid / C18:1 n-9","reason":"Filtered brewed coffee contains ~0.02 g/100 g total lipid; these green-bean fatty acids are almost entirely retained in the grounds/paper filter and are not meaningful growth substrates in the brew."}
+  ],
+  "missing_added": [
+    "chlorogenic acid","quinic acid","citric acid","acetic acid","phosphoric acid","lactic acid","formic acid","malic acid","glycolic acid",
+    "D-glucose (with amount)","D-fructose (with amount)","caffeine (with amount)","trigonelline (with amount)"
+  ],
+  "keep_uncovered": [
+    "neochlorogenic acid / cryptochlorogenic acid (3- and 4-caffeoylquinic acid isomers)",
+    "feruloylquinic acids (3-,4-,5-FQA) and dicaffeoylquinic acids (3,4-/3,5-/4,5-diCQA) — genuine coffee chlorogenic-acid family",
+    "caffeic acid, ferulic acid, p-coumaric acid, cinnamic acid — hydroxycinnamates",
+    "quercetin, myricetin, catechins/epigallocatechin — flavonoid phytochemicals",
+    "guaiacol (2-methoxyphenol), 4-vinylguaiacol, 4-ethylguaiacol, pyrogallol (1,2,3-benzenetriol), catechols — roast-derived volatile phenols",
+    "theobromine — minor purine alkaloid (real coffee compound)"
+  ],
+  "confidence": "medium",
+  "sources": [
+    "USDA FoodData Central / SR Legacy NDB 14209 'Coffee, brewed from grounds, prepared with tap water'",
+    "Rune, Giacalone, Steen et al. 2023, Current Research in Food Science 6:100485, doi:10.1016/j.crfs.2023.100485 (individual organic acids & sugars in French-press brewed coffee)",
+    "Konieczka et al. 2020, LWT (S0023643820303339) and Wu et al. 2023 (trigonelline in coffee brews)",
+    "FooDB FOOD00058 (Coffee)"
+  ],
+  "notes": "For a growth medium, brewed coffee is a dilute (~99% water), nitrogen-poor beverage whose dominant carbon/energy substrates are ORGANIC ACIDS — chlorogenic and quinic acids first, then acetic, citric, formic, lactic, malic — with only modest free glucose/fructose that survive roasting (light roasts only). Caffeine (~40 mg/100 mL) and trigonelline (~50 mg/100 mL) are abundant but largely non-nutritive/inhibitory. Potassium is the main mineral. Acid/sugar amounts come from a specialty French-press study and scale with brew strength and roast degree (acids like quinic/acetic rise, chlorogenic/citric/malic fall with roast), hence medium confidence; minerals/vitamins/caffeine are from the standard USDA drip-coffee panel."
+}

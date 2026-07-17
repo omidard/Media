@@ -1,0 +1,84 @@
+{
+  "id": "food_FOOD00848",
+  "name": "Milk substitute (food medium)",
+  "basis": "per 100 g as consumed (fluid)",
+  "components": [
+    {"name":"water","amount":88.2,"unit":"g/100g","concentration_mM":null,"role":"water","source":"USDA FDC 171264 (SR Legacy NDB 01050)","evidence":"Water 215.2 g per 244 g cup = 88.2 g/100g"},
+    {"name":"total protein","amount":1.75,"unit":"g/100g","concentration_mM":null,"role":"protein","source":"USDA FDC 171264","evidence":"Protein 4.3 g/244g cup; amino-acid profile below is Glu/Pro-rich = sodium caseinate"},
+    {"name":"total carbohydrate","amount":6.16,"unit":"g/100g","concentration_mM":null,"role":"carbohydrate","source":"USDA FDC 171264","evidence":"Carbohydrate by difference 15 g/244g cup; principal fermentable carbon pool. USDA record does NOT resolve individual sugars (all listed --)"},
+    {"name":"sucrose","amount":null,"unit":"g/100g","concentration_mM":null,"role":"sugar","source":"FooDB FOOD00848 component / USDA FDC 171264 (sugars not quantified)","evidence":"Sucrose (or corn-syrup solids) is the typical carbohydrate carrier of lauric-oil milk substitutes, but this USDA record gives no specific-sugar breakdown; amount unquantified"},
+    {"name":"total fat","amount":3.41,"unit":"g/100g","concentration_mM":null,"role":"lipid","source":"USDA FDC 171264","evidence":"Total lipid 8.3 g/244g; saturated 3.03 g/100g, dominated by lauric-acid (coconut/lauric) oil"},
+    {"name":"octanoic acid (caprylic, C8:0)","amount":0.192,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 171264","evidence":"0.468 g/244g"},
+    {"name":"decanoic acid (capric, C10:0)","amount":0.176,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 171264","evidence":"0.429 g/244g"},
+    {"name":"dodecanoic acid (lauric, C12:0)","amount":1.421,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 171264","evidence":"3.467 g/244g; dominant fatty acid (lauric-oil base)"},
+    {"name":"tetradecanoic acid (myristic, C14:0)","amount":0.592,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 171264","evidence":"1.444 g/244g; ADDED (absent from FooDB list)"},
+    {"name":"hexadecanoic acid (palmitic, C16:0)","amount":0.326,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 171264","evidence":"0.795 g/244g; ADDED"},
+    {"name":"octadecanoic acid (stearic, C18:0)","amount":0.312,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 171264","evidence":"0.761 g/244g; ADDED"},
+    {"name":"oleic acid (C18:1)","amount":0.176,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 171264","evidence":"0.429 g/244g; ADDED"},
+    {"name":"linoleic acid (C18:2)","amount":0.008,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 171264","evidence":"0.02 g/244g; ADDED"},
+
+    {"name":"L-glutamate","amount":398.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"971 mg/244g; most abundant AA (caseinate)"},
+    {"name":"L-proline","amount":197.1,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"481 mg/244g"},
+    {"name":"L-leucine","amount":173.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"422 mg/244g"},
+    {"name":"L-lysine","amount":141.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"344 mg/244g"},
+    {"name":"L-aspartate","amount":124.2,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"303 mg/244g"},
+    {"name":"L-valine","amount":125.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"305 mg/244g; ADDED (absent from FooDB list)"},
+    {"name":"L-serine","amount":108.2,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"264 mg/244g; ADDED (FooDB listed D-serine artifact)"},
+    {"name":"L-isoleucine","amount":107.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"261 mg/244g"},
+    {"name":"L-tyrosine","amount":100.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"244 mg/244g"},
+    {"name":"L-phenylalanine","amount":93.9,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"229 mg/244g; ADDED (absent from FooDB list)"},
+    {"name":"L-threonine","amount":74.2,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"181 mg/244g"},
+    {"name":"L-arginine","amount":68.9,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"168 mg/244g"},
+    {"name":"L-alanine","amount":54.9,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"134 mg/244g"},
+    {"name":"L-methionine","amount":52.9,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"129 mg/244g"},
+    {"name":"L-histidine","amount":52.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"127 mg/244g"},
+    {"name":"glycine","amount":34.8,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"85 mg/244g"},
+    {"name":"L-tryptophan","amount":24.2,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"59 mg/244g"},
+    {"name":"L-cystine","amount":8.2,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 171264","evidence":"20 mg/244g"},
+
+    {"name":"potassium","amount":114.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"278.2 mg/244g"},
+    {"name":"sodium","amount":78.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"190.3 mg/244g"},
+    {"name":"phosphorus (phosphate)","amount":74.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"180.6 mg/244g"},
+    {"name":"calcium","amount":33.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"80.5 mg/244g"},
+    {"name":"magnesium","amount":5.98,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"14.6 mg/244g"},
+    {"name":"zinc","amount":1.19,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"2.9 mg/244g"},
+    {"name":"iron","amount":0.389,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"0.95 mg/244g (single Fe pool; FooDB Fe compartment duplicates removed)"},
+    {"name":"manganese","amount":0.098,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"0.24 mg/244g"},
+    {"name":"copper","amount":0.049,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"0.12 mg/244g"},
+    {"name":"selenium","amount":1.89,"unit":"mcg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 171264","evidence":"4.6 mcg/244g"},
+    {"name":"chloride","amount":null,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"FooDB FOOD00848 component; USDA FDC 171264 (Cl not quantified)","evidence":"Present (counter-ion, salt-fortified) but not quantified in this USDA record"},
+    {"name":"sulfate","amount":null,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"FooDB FOOD00848 component; derived from Met/Cys + ash","evidence":"Present as sulfur pool; not separately quantified"},
+    {"name":"molybdate","amount":null,"unit":"mcg/100g","concentration_mM":null,"role":"mineral","source":"FooDB FOOD00848 component; USDA FDC 171264 (Mo listed --)","evidence":"Trace micronutrient, not quantified in this record; retained at null"},
+
+    {"name":"riboflavin (B2)","amount":0.086,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 171264","evidence":"0.21 mg/244g"},
+    {"name":"thiamine (B1)","amount":0.012,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 171264","evidence":"0.03 mg/244g"},
+    {"name":"niacin (B3, nicotinate)","amount":0.0,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 171264","evidence":"Reported 0 in this record; retained (FooDB component) but not a meaningful source here"},
+    {"name":"vitamin A (retinol)","amount":0.0,"unit":"mcg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 171264","evidence":"Retinol / Vitamin A RAE reported 0 in this record"},
+    {"name":"vitamin D","amount":null,"unit":"mcg/100g","concentration_mM":null,"role":"vitamin","source":"FooDB FOOD00848 component; USDA FDC 171264 (D listed --, not measured)","evidence":"Milk substitutes are commonly D-fortified but this USDA record does not quantify it; amount null"}
+  ],
+  "remove": [
+    {"name":"Nickel","reason":"non-nutritive trace/contaminant element, not a growth nutrient; not quantified in USDA record"},
+    {"name":"Co2+","reason":"cobalt trace ion; only nutritionally relevant via B12, which is 0 in this record; unquantified trace"},
+    {"name":"Fe2+ mitochondria","reason":"model intracellular-compartment duplicate of iron; consolidated into single 'iron' entry"},
+    {"name":"Iron (Fe3+)","reason":"redox/compartment duplicate of iron; consolidated into single 'iron' entry"},
+    {"name":"O2 O2","reason":"environmental/model boundary metabolite (electron acceptor), not a food-derived nutrient"},
+    {"name":"CO2 CO2","reason":"model boundary/exchange metabolite, not a food-derived nutrient"},
+    {"name":"H+","reason":"model proton boundary metabolite, not a food composition nutrient"},
+    {"name":"Ammonium","reason":"model nitrogen boundary metabolite; not a food-intrinsic nutrient of this product"}
+  ],
+  "missing_added": [
+    "L-phenylalanine, L-valine, L-serine (amino acids absent from FooDB list)",
+    "myristic, palmitic, stearic, oleic, linoleic acids (only C8/C10/C12 were present)",
+    "full quantitative mineral panel (K, Na, P, Ca, Mg, Zn, Mn, Cu, Se) and B1/B2 amounts",
+    "flag: individual fermentable sugars are NOT resolved by USDA for this item (total carbohydrate 6.16 g/100g only)"
+  ],
+  "keep_uncovered": [
+    "Ergocalciferol (vitamin D2) — fortificant, unquantified in this USDA record, no growth-relevant amount"
+  ],
+  "confidence": "high",
+  "notes": "Composition maps to USDA 'Milk substitutes, fluid, with lauric acid oil' (FDC 171264 / SR Legacy NDB 01050); the lauric-dominant fatty-acid profile (coconut/lauric oil) and Glu/Pro-rich amino-acid profile (sodium caseinate) confirm the identity. Dominant carbon/energy sources are total carbohydrate (6.16 g/100g, likely sucrose/corn-syrup solids but not sugar-resolved by USDA) plus the lauric-oil fat fraction; this is an unfermented processed product so no organic acids are characteristic or reported. This specific USDA record does not quantify individual sugars, vitamin D/E/K, or several B vitamins (reported 0 or --), so those are given null/0 with notes rather than fabricated. concentration_mM left null throughout to avoid a density assumption.",
+  "sources": [
+    "USDA FoodData Central FDC 171264 (SR Legacy, Milk substitutes, fluid, with lauric acid oil; NDB 01050)",
+    "FooDB FOOD00848 (Milk substitute)"
+  ]
+}

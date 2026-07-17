@@ -1,0 +1,83 @@
+{
+  "id": "food_FOOD00485",
+  "name": "Sugar apple / sweetsop (Annona squamosa) (food medium)",
+  "basis": "per 100 g fresh weight (raw edible pulp). concentration_mM assumes 100 g ~ 100 mL (water-rich matrix, density ~1).",
+  "components": [
+    {"name":"water","amount":73.2,"unit":"g/100g","concentration_mM":null,"role":"solvent","source":"USDA FDC 168175 (SR Legacy, Sugar-apples, (sweetsop), raw; NDB 09520)","evidence":"matrix / solvent, ~73% w/w"},
+
+    {"name":"D-glucose","amount":7.0,"unit":"g/100g","concentration_mM":388.5,"role":"sugar","source":"Kumar et al. review (Foods, MDPI 14(19):3413 / PMC12523297; total sugars ~18.15%) + Yang/Paull postharvest review (S0963996911001037, reducing sugars glucose+fructose dominate over sucrose)","evidence":"DOMINANT carbon source; free sugars are ~starch-hydrolysis products. Amount is a literature-derived split of ~18 g/100g total sugars (glucose ~= fructose, reducing sugars > sucrose); treat as approximate (range for total sugars 15.6-18.2 g/100g across cultivars)"},
+    {"name":"D-fructose","amount":6.0,"unit":"g/100g","concentration_mM":333.0,"role":"sugar","source":"Kumar et al. review PMC12523297 / postharvest review S0963996911001037 (glucose:fructose ~50:50 reducing-sugar pool)","evidence":"co-dominant carbon source with glucose; approximate literature-derived split (see D-glucose note)"},
+    {"name":"sucrose","amount":5.0,"unit":"g/100g","concentration_mM":146.1,"role":"sugar","source":"Kumar et al. review PMC12523297 (non-reducing sugar, secondary to reducing sugars; sucrose rises on ripening)","evidence":"secondary carbon source; approximate literature-derived split (see D-glucose note)"},
+    {"name":"total sugars","amount":18.0,"unit":"g/100g","concentration_mM":null,"role":"sugar_total","source":"Kumar et al. review PMC12523297 (18.15%); cultivar range 15.6-18.2 g/100g","evidence":"aggregate of the free sugars above; provided for reconciliation, not a separate consumable"},
+    {"name":"starch","amount":null,"unit":"g/100g","concentration_mM":null,"role":"polysaccharide","source":"Postharvest review S0963996911001037 (sugars are starch-hydrolysis products; starch declines as fruit ripens)","evidence":"present in less-ripe pulp, near-zero at eating-ripe stage; unquantified"},
+
+    {"name":"citric acid","amount":0.20,"unit":"g/100g","concentration_mM":10.4,"role":"organic_acid","source":"Yang/Paull postharvest review S0963996911001037 + Kumar review PMC12523297 (citric is the predominant acid); titratable acidity of ripe pulp ~0.29 g/100g as citric-equiv","evidence":"DOMINANT organic acid and a secondary carbon/energy source; was ABSENT from the FooDB profile. Amount apportioned from ripe-pulp titratable acidity (~0.29 g/100g, citric>>malic>isocitric); approximate"},
+    {"name":"malic acid","amount":0.06,"unit":"g/100g","concentration_mM":4.5,"role":"organic_acid","source":"Postharvest review S0963996911001037 (malic present at low content, second to citric)","evidence":"secondary organic acid; was absent from FooDB profile; approximate from titratable-acidity apportionment"},
+    {"name":"isocitric acid","amount":null,"unit":"g/100g","concentration_mM":null,"role":"organic_acid","source":"Postharvest review S0963996911001037 (citric > malic > isocitric)","evidence":"genuine minor acid, present but not separately quantified"},
+
+    {"name":"total protein","amount":2.06,"unit":"g/100g","concentration_mM":null,"role":"protein","source":"USDA FDC 168175","evidence":"modest-protein fruit; higher than most fleshy fruits"},
+    {"name":"L-lysine","amount":55.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 168175 amino-acid profile","evidence":"one of the few USDA-quantified free/bound amino acids for this fruit"},
+    {"name":"L-tryptophan","amount":10.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 168175","evidence":""},
+    {"name":"L-methionine","amount":7.0,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 168175","evidence":""},
+    {"name":"other protein-bound amino acids","amount":null,"unit":"mg/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 168175 (only Lys/Trp/Met quantified); full profile not measured","evidence":"remaining ~1.98 g/100g protein present as unresolved amino acids (Arg/Glu/Asp-rich by analogy to Annona seed profiles); unquantified"},
+
+    {"name":"potassium","amount":247.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 168175","evidence":"principal mineral"},
+    {"name":"phosphorus (as phosphate)","amount":32.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 168175","evidence":""},
+    {"name":"calcium","amount":24.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 168175","evidence":""},
+    {"name":"magnesium","amount":21.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 168175","evidence":""},
+    {"name":"sodium","amount":9.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 168175","evidence":""},
+    {"name":"iron","amount":0.6,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 168175","evidence":"single consolidated iron pool; FooDB listed 3 compartmental duplicates (Iron, Iron(Fe3+), Fe2+ mitochondria) - collapsed to one here"},
+    {"name":"manganese","amount":0.42,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"Kumar review PMC12523297 (Mn 0.21-1.75 mg/100g, midpoint used)","evidence":"USDA panel did not quantify; review-derived midpoint"},
+    {"name":"zinc","amount":0.1,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 168175","evidence":""},
+    {"name":"copper","amount":0.084,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 168175","evidence":""},
+    {"name":"selenium","amount":0.6,"unit":"mcg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 168175","evidence":"trace"},
+    {"name":"molybdenum (as molybdate)","amount":null,"unit":"mcg/100g","concentration_mM":null,"role":"mineral","source":"FooDB profile (ultratrace micronutrient)","evidence":"genuine trace micronutrient, unquantified; retained"},
+
+    {"name":"L-ascorbate (vitamin C)","amount":36.3,"unit":"mg/100g","concentration_mM":2.06,"role":"vitamin","source":"USDA FDC 168175","evidence":"also functions as an organic acid; high in this fruit; listed once here"},
+    {"name":"niacin (B3, nicotinate)","amount":0.883,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 168175","evidence":""},
+    {"name":"pantothenic acid (B5)","amount":0.226,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 168175","evidence":""},
+    {"name":"vitamin B6 (pyridoxine)","amount":0.2,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 168175","evidence":""},
+    {"name":"riboflavin (B2)","amount":0.113,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 168175","evidence":""},
+    {"name":"thiamin (B1)","amount":0.11,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 168175","evidence":""},
+    {"name":"folate (B9)","amount":14.0,"unit":"mcg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 168175","evidence":""},
+    {"name":"biotin (B7)","amount":null,"unit":"mcg/100g","concentration_mM":null,"role":"vitamin","source":"Kumar review PMC12523297 (B-complex present); not quantified","evidence":"trace, unquantified"},
+    {"name":"vitamin B12","amount":0.0,"unit":"mcg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 168175 / plant food","evidence":"absent (plant food); flag if a model requires B12 supplementation"},
+    {"name":"beta-carotene (provitamin A)","amount":null,"unit":"mcg/100g","concentration_mM":null,"role":"carotenoid","source":"Kumar review PMC12523297 (vitamin A activity 1.8-7.0 mcg RAE/100g; USDA FDC 168175 reports 0 RAE)","evidence":"only a trace provitamin-A carotenoid; genuine but near-negligible, unquantified"},
+
+    {"name":"total lipid (fat)","amount":0.29,"unit":"g/100g","concentration_mM":null,"role":"lipid","source":"USDA FDC 168175","evidence":"very low-fat matrix"},
+    {"name":"monounsaturated fatty acids","amount":0.114,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 168175","evidence":"dominant lipid fraction (largely oleic 18:1); pulp lipids negligible for growth"},
+    {"name":"saturated fatty acids","amount":0.048,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 168175","evidence":"largely palmitic 16:0 / stearic 18:0"},
+    {"name":"polyunsaturated fatty acids","amount":0.040,"unit":"g/100g","concentration_mM":null,"role":"fatty_acid","source":"USDA FDC 168175","evidence":"largely linoleic 18:2"},
+
+    {"name":"dietary fiber","amount":4.4,"unit":"g/100g","concentration_mM":null,"role":"polysaccharide","source":"USDA FDC 168175","evidence":"partly fermentable by fiber-degrading microbes"}
+  ],
+  "remove": [
+    {"name":"Retinol","reason":"preformed (animal-form) vitamin A; does not occur in plant fruit - only provitamin-A carotenoids do. USDA reports 0 RAE for this fruit; FooDB artifact"},
+    {"name":"Co2+ / Cobalt","reason":"ultratrace, non-nutritive at fruit levels (no cobalamin synthesis in a plant food); FooDB noise, mirrors handling in other plant-food curations"},
+    {"name":"Nickel","reason":"ultratrace non-nutritive element, not a growth-relevant nutrient at food concentrations; FooDB noise"},
+    {"name":"Iron (Fe3+) / Fe2+ mitochondria (duplicate iron entries)","reason":"compartmental BiGG duplicates of the same iron pool; consolidated into a single 'iron' 0.6 mg/100g component"}
+  ],
+  "missing_added": [
+    "citric acid (~0.20 g/100g - DOMINANT organic acid, was completely absent from FooDB profile)",
+    "malic acid (~0.06 g/100g - secondary organic acid, was absent)",
+    "isocitric acid (present, trace, was absent)",
+    "quantified individual sugars: D-glucose ~7.0, D-fructose ~6.0, sucrose ~5.0 g/100g (FooDB carried only qualitative 'Sucrose' and 'beta-D-Glucopyranose')",
+    "quantified full USDA vitamin/mineral panel amounts (C, B1/B2/B3/B5/B6/B9, K, Ca, Mg, P, Na, Fe, Zn, Cu, Se) plus review-derived Mn",
+    "amino-acid amounts (Lys 55, Trp 10, Met 7 mg/100g) and total protein 2.06 g",
+    "fatty-acid fraction breakdown and total fat"
+  ],
+  "keep_uncovered": [
+    "Boron (genuine ultratrace micronutrient; already uncovered, retained)",
+    "annonaceous acetogenins (squamocin, bullatacin, etc. - Annona-defining phytochemicals, no BiGG met)",
+    "flavonoids/polyphenols: rutin, quercetin, kaempferol, catechin, epicatechin, chlorogenic acid, gallic acid, caffeic/ferulic acids (genuine, no BiGG met)",
+    "ent-kaurenoic acid and related diterpenoids (genuine Annona phytochemicals)"
+  ],
+  "confidence": "medium",
+  "sources": [
+    "USDA FoodData Central FDC 168175 (SR Legacy, Sugar-apples, (sweetsop), raw; NDB 09520) - proximates, vitamins, minerals, fatty-acid fractions, Lys/Trp/Met",
+    "Kumar et al., A Review of Nutrition, Bioactivities and Health Benefits of Custard Apple (Annona squamosa), Foods 2025, 14(19):3413 / PMC12523297 (total sugars ~18.15%, mineral & vitamin ranges, Mn)",
+    "Yang & Paull, Postharvest physiology and technology of Annona fruits, Food Res. Int. (S0963996911001037) - citric>>malic>isocitric acids; reducing sugars (glucose+fructose) dominate over sucrose; ripe-pulp titratable acidity ~0.29 g/100g",
+    "FooDB FOOD00485 (source of the original component list)"
+  ],
+  "notes": "Sugar apple is a SWEET, LOW-ACID fruit: the dominant carbon sources are the free reducing sugars glucose (~7) + fructose (~6) with secondary sucrose (~5 g/100g), ~18 g/100g total sugars. The dominant organic acid is CITRIC (~0.2 g/100g, > malic > isocitric) - completely missing from the original FooDB profile and the single most important gap fixed here. Individual sugar and organic-acid absolutes are literature-derived apportionments (total sugars 18.15%; ripe titratable acidity 0.29 g/100g) and should be treated as approximate; the USDA vitamin/mineral/proximate panel is high-confidence. K/citrate-buffered, modest-protein (2.06 g), very-low-fat medium; a metabolic model may need vitamin B12 supplemented (absent). Removed one implausible animal-form vitamer (retinol), two ultratrace non-nutritive metals (cobalt, nickel), and consolidated three duplicate iron entries."
+}

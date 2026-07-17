@@ -1,0 +1,71 @@
+{
+  "id": "food_FOOD00014",
+  "name": "Custard apple / sugar-apple (Annona squamosa) (food medium)",
+  "basis": "per 100 g fresh fruit pulp",
+  "components": [
+    {"name":"D-glucose","amount":8.98,"unit":"g/100g","concentration_mM":498.0,"role":"sugar","source":"Elhassaneen 2016 (Arab. J. Chem., Sudan Gishta pulp): reducing sugars 17.96 g/100g; glucose:fructose ~50:50 (Chowdhury 2021 PMC7973736; MDPI Foods 2025 14:3413)","evidence":"Reducing sugars dominate the pulp and are split ~equally between glucose and fructose; half of the measured 17.96 g/100g reducing-sugar fraction assigned to glucose."},
+    {"name":"D-fructose","amount":8.98,"unit":"g/100g","concentration_mM":498.0,"role":"sugar","source":"Elhassaneen 2016 (Arab. J. Chem.); MDPI Foods 2025 14:3413","evidence":"Second half of the 17.96 g/100g reducing-sugar fraction; glucose and fructose are the two dominant free sugars."},
+    {"name":"sucrose","amount":12.47,"unit":"g/100g","concentration_mM":364.0,"role":"sugar","source":"Elhassaneen 2016 (Arab. J. Chem., Sudan Gishta pulp): non-reducing sugar (sucrose) 12.47 g/100g; total sugars 30.43 g/100g","evidence":"Measured non-reducing sugar as sucrose in ripe pulp. Note: ripe-fruit total-sugar values (18-30 g/100g) vary strongly with cultivar/ripeness; USDA sweetsop total carbohydrate is 23.6 g/100g."},
+    {"name":"citric acid","amount":0.24,"unit":"g/100g","concentration_mM":12.5,"role":"organic_acid","source":"Elhassaneen 2016 (Arab. J. Chem.): titratable acidity 0.24 g/100g expressed as citric acid; MDPI Foods 2025 14:3413 (citric is the predominant organic acid)","evidence":"Citric acid is the dominant organic acid of Annona squamosa pulp; total titratable acidity (0.24 g/100g, pH 5.5) is expressed as citric-acid equivalents and is largely citric."},
+    {"name":"malic acid","amount":null,"unit":"g/100g","concentration_mM":null,"role":"organic_acid","source":"MDPI Foods 2025 14:3413; Chowdhury 2021 PMC7973736","evidence":"Malic acid is the second organic acid after citric (with minor isocitric acid) but present at low, unquantified levels in the pulp; included as present-but-unquantified."},
+    {"name":"total protein","amount":2.0,"unit":"g/100g","concentration_mM":null,"role":"nitrogen_source","source":"USDA sugar-apples (sweetsop) raw 2.06 g/100g; Elhassaneen 2016 1.13 g/100g; Chowdhury 2021 2.13 g/100g","evidence":"Protein is the principal organic-nitrogen source of the pulp; the free/bound amino acids below derive from this fraction."},
+    {"name":"L-lysine","amount":null,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"MDPI Foods 2025 14:3413 (amino-acid profile of pulp protein)","evidence":"Lysine is a protein-derived amino acid of the pulp; per-100g fresh-weight amount not separately quantified (protein ~2 g/100g)."},
+    {"name":"L-methionine","amount":null,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"MDPI Foods 2025 14:3413","evidence":"Sulfur amino acid present in pulp protein; unquantified on fresh-weight basis."},
+    {"name":"L-tryptophan","amount":null,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"MDPI Foods 2025 14:3413","evidence":"Protein-derived amino acid; unquantified on fresh-weight basis."},
+    {"name":"L-ascorbate (vitamin C)","amount":35.0,"unit":"mg/100g","concentration_mM":1.99,"role":"vitamin","source":"USDA sweetsop raw 36.3 mg/100g; Elhassaneen 2016 31.22 mg/100mL","evidence":"Custard apple is a notable vitamin-C source; midpoint of USDA and Sudan measurements."},
+    {"name":"thiamine (vitamin B1)","amount":0.11,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA sugar-apples (sweetsop) raw","evidence":"USDA nutrient panel value."},
+    {"name":"riboflavin (vitamin B2)","amount":0.11,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA sugar-apples (sweetsop) raw","evidence":"USDA nutrient panel value."},
+    {"name":"nicotinate (niacin, vitamin B3)","amount":0.88,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA sugar-apples (sweetsop) raw","evidence":"USDA nutrient panel value."},
+    {"name":"pantothenic acid (vitamin B5)","amount":0.23,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA sugar-apples (sweetsop) raw","evidence":"USDA nutrient panel value."},
+    {"name":"pyridoxine (vitamin B6)","amount":0.2,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA sugar-apples (sweetsop) raw","evidence":"USDA nutrient panel value; custard apple is a good B6 source."},
+    {"name":"folate (vitamin B9)","amount":14.0,"unit":"ug/100g","concentration_mM":null,"role":"vitamin","source":"USDA sugar-apples (sweetsop) raw","evidence":"USDA nutrient panel value (added; missing from current profile)."},
+    {"name":"beta-carotene","amount":null,"unit":"ug/100g","concentration_mM":null,"role":"vitamin","source":"USDA sweetsop vitamin A ~0-6 ug RAE; MDPI Foods 2025 14:3413","evidence":"Only trace provitamin-A carotenoid; kept at trace/unquantified level (custard apple has essentially no preformed vitamin A)."},
+    {"name":"potassium","amount":250.0,"unit":"mg/100g","concentration_mM":63.2,"role":"mineral","source":"USDA sweetsop 247 mg/100g; Elhassaneen 2016 371 mg/100g","evidence":"Dominant mineral cation of the pulp."},
+    {"name":"phosphate (phosphorus)","amount":32.0,"unit":"mg/100g","concentration_mM":10.3,"role":"mineral","source":"USDA sweetsop 32 mg/100g; Elhassaneen 2016 40.8 mg/100g","evidence":"USDA phosphorus value; principal phosphate source."},
+    {"name":"calcium","amount":24.0,"unit":"mg/100g","concentration_mM":5.99,"role":"mineral","source":"USDA sweetsop 24 mg/100g; Elhassaneen 2016 33.9 mg/100g","evidence":"USDA nutrient panel value."},
+    {"name":"magnesium","amount":21.0,"unit":"mg/100g","concentration_mM":8.64,"role":"mineral","source":"USDA sweetsop 21 mg/100g; Elhassaneen 2016 22.4 mg/100g","evidence":"USDA nutrient panel value."},
+    {"name":"sodium","amount":9.0,"unit":"mg/100g","concentration_mM":3.91,"role":"mineral","source":"USDA sweetsop 9 mg/100g; Elhassaneen 2016 12.3 mg/100g","evidence":"USDA nutrient panel value."},
+    {"name":"iron","amount":0.6,"unit":"mg/100g","concentration_mM":0.107,"role":"mineral","source":"USDA sweetsop 0.6 mg/100g; Elhassaneen 2016 0.77 mg/100g","evidence":"Consolidated single iron entry (replaces compartment-tagged Fe2+/Fe3+ duplicates in current profile)."},
+    {"name":"zinc","amount":0.1,"unit":"mg/100g","concentration_mM":0.015,"role":"mineral","source":"USDA sweetsop 0.1 mg/100g; Elhassaneen 2016 0.37 mg/100g","evidence":"USDA nutrient panel value (range 0.1-0.37 across sources)."},
+    {"name":"copper","amount":0.08,"unit":"mg/100g","concentration_mM":0.013,"role":"mineral","source":"USDA sweetsop 0.08 mg/100g; Elhassaneen 2016 0.29 mg/100g","evidence":"USDA nutrient panel value."},
+    {"name":"manganese","amount":0.4,"unit":"mg/100g","concentration_mM":0.073,"role":"mineral","source":"MDPI Foods 2025 14:3413 (pulp Mn 0.21-1.75 mg/100g)","evidence":"Midpoint of reported pulp range; USDA sweetsop panel omits Mn."},
+    {"name":"selenium","amount":0.6,"unit":"ug/100g","concentration_mM":null,"role":"mineral","source":"USDA sugar-apples (sweetsop) raw","evidence":"USDA nutrient panel value (added)."},
+    {"name":"sulfate","amount":null,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"FooDB FOOD00014 (present, unquantified)","evidence":"Sulfur source present in pulp; not separately quantified."},
+    {"name":"chloride","amount":null,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"FooDB FOOD00014 (present, unquantified)","evidence":"Present anion; not separately quantified."},
+    {"name":"ammonium","amount":null,"unit":"mg/100g","concentration_mM":null,"role":"nitrogen_source","source":"FooDB FOOD00014 (present, unquantified)","evidence":"Minor free inorganic-nitrogen source; not separately quantified."},
+    {"name":"water","amount":78.5,"unit":"g/100g","concentration_mM":null,"role":"solvent","source":"USDA sweetsop 73.2 g/100g; Elhassaneen 2016 78.5 g/100g","evidence":"Bulk matrix / solvent of the medium."}
+  ],
+  "remove": [
+    {"name":"Retinol","reason":"Preformed (animal-form) vitamin A; custard apple pulp contains only trace provitamin-A carotenoids, not retinol (USDA vitamin A ~0). FooDB artifact."},
+    {"name":"Nickel","reason":"Non-nutritive ultratrace element; not a defined growth nutrient of this fruit."},
+    {"name":"Co2+ (cobalt)","reason":"Ultratrace; relevant only as B12 cofactor, and plant pulp has no meaningful cobalt/B12. FooDB trace, not a growth nutrient here."},
+    {"name":"Molybdate","reason":"Ultratrace element; not quantified as a nutrient of custard apple. FooDB trace."},
+    {"name":"Fe2+ mitochondria","reason":"Compartment-tagged model duplicate of iron; consolidated into a single 'iron' component."},
+    {"name":"Iron (Fe3+)","reason":"Redox/compartment duplicate of iron; consolidated into a single 'iron' component."},
+    {"name":"CO2 CO2","reason":"Gas-exchange/model metabolite, not a food nutrient contributed by the medium."},
+    {"name":"O2 O2","reason":"Gas-exchange/model metabolite, not a food nutrient."},
+    {"name":"H+","reason":"Proton/charge-balance model species, not a food nutrient (pH handled separately; pulp pH ~5.5)."},
+    {"name":"Barium","reason":"Non-nutritive trace contaminant reported in some analyses; not a growth nutrient. Drop."}
+  ],
+  "missing_added": [
+    "D-glucose (8.98 g/100g)","D-fructose (8.98 g/100g)","sucrose (12.47 g/100g)",
+    "citric acid (dominant organic acid, 0.24 g/100g as titratable acidity)","malic acid (present)",
+    "total protein (2.0 g/100g)","folate/B9 (14 ug/100g)","manganese (0.4 mg/100g)","selenium (0.6 ug/100g)"
+  ],
+  "keep_uncovered": [
+    "Anonaine (Annona benzylisoquinoline alkaloid)",
+    "Procyanidin B1/B2/B3/B4/B5/B7","Procyanidin C1","Procyanidin trimer EEC",
+    "Catechin","alpha-Catechin/(epi)catechin","Catechin 3-gallate","Epicatechin 3-gallate",
+    "(genuine Annona phytochemicals/polyphenols; no BiGG metabolite)"
+  ],
+  "confidence": "medium",
+  "sources": [
+    "USDA FoodData Central - Sugar-apples (sweetsop), raw (SR legacy NDB 09071)",
+    "USDA FoodData Central - Custard-apple (bullock's-heart), raw (SR legacy NDB 09070)",
+    "Elhassaneen et al. 2016, Arabian Journal of Chemistry - Postharvest physicochemical properties of pulp and seed oil from Annona squamosa (Gishta), Sudan",
+    "Chowdhury et al. 2021, PMC7973736 - Nutritional, phytochemical and anticancer potential of Annona squamosa fruits",
+    "Review of Nutrition, Bioactivities and Health Benefits of Custard Apple (Annona squamosa), MDPI Foods 2025, 14(19):3413 / PMC12523297",
+    "FooDB FOOD00014 (Custard apple)"
+  ],
+  "notes": "Dominant carbon/energy source is free sugars: near-equal glucose and fructose (reducing sugars ~18 g/100g) plus sucrose (~12 g/100g); citric acid is the dominant organic acid (~0.24 g/100g, pulp pH ~5.5) with minor malic/isocitric. Sugar totals vary strongly with ripeness (USDA total carbohydrate 23.6 g/100g vs 30 g/100g in ripe Sudan pulp). Vitamin/mineral panel anchored to USDA sweetsop (A. squamosa); removed model/gas species (CO2,O2,H+), preformed retinol, and ultratrace non-nutrient elements (Ni, Co, Mo, Ba)."
+}

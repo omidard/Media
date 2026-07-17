@@ -26,8 +26,8 @@
  },
  "note": "Small enough to fetch for a count without pulling the 6.5 MB catalog. Regenerate alongside index.json.",
  "by_curation": {
-  "database": 11733,
-  "expert": 93,
+  "database": 11633,
+  "expert": 193,
   "verified": 983,
   "auto": 2,
   "curated": 262

@@ -1,0 +1,502 @@
+[
+ {
+  "id": "food_FOOD00618",
+  "name": "Milk (Cow) (food medium)",
+  "ncomp": 179
+ },
+ {
+  "id": "food_FOOD00105",
+  "name": "Apple (food medium)",
+  "ncomp": 92
+ },
+ {
+  "id": "food_FOOD00065",
+  "name": "Cucumber (food medium)",
+  "ncomp": 89
+ },
+ {
+  "id": "food_FOOD00891",
+  "name": "Cow milk, pasteurized, vitamin A + D added, 2% fat (food medium)",
+  "ncomp": 88
+ },
+ {
+  "id": "food_FOOD00085",
+  "name": "Soy bean (food medium)",
+  "ncomp": 86
+ },
+ {
+  "id": "food_FOOD00890",
+  "name": "Cow milk, pasteurized, vitamin A + D added, 1% fat (food medium)",
+  "ncomp": 85
+ },
+ {
+  "id": "food_FOOD00887",
+  "name": "White cabbage (food medium)",
+  "ncomp": 83
+ },
+ {
+  "id": "food_FOOD00088",
+  "name": "Barley (food medium)",
+  "ncomp": 80
+ },
+ {
+  "id": "food_FOOD00892",
+  "name": "Cow milk, pasteurized, vitamin D added, 3.25% fat (food medium)",
+  "ncomp": 80
+ },
+ {
+  "id": "food_FOOD00204",
+  "name": "Common grape (food medium)",
+  "ncomp": 79
+ },
+ {
+  "id": "food_FOOD00889",
+  "name": "Cow milk, pasteurized, vitamin A + D added, 0% fat (food medium)",
+  "ncomp": 79
+ },
+ {
+  "id": "food_FOOD00012",
+  "name": "Pineapple (food medium)",
+  "ncomp": 73
+ },
+ {
+  "id": "food_FOOD00692",
+  "name": "Buttermilk (food medium)",
+  "ncomp": 72
+ },
+ {
+  "id": "food_FOOD00030",
+  "name": "Common cabbage (food medium)",
+  "ncomp": 70
+ },
+ {
+  "id": "food_FOOD00612",
+  "name": "Grape wine (food medium)",
+  "ncomp": 70
+ },
+ {
+  "id": "food_FOOD00121",
+  "name": "Olive (food medium)",
+  "ncomp": 68
+ },
+ {
+  "id": "food_FOOD00689",
+  "name": "Dried milk (food medium)",
+  "ncomp": 68
+ },
+ {
+  "id": "food_FOOD00153",
+  "name": "Radish (food medium)",
+  "ncomp": 67
+ },
+ {
+  "id": "food_FOOD00658",
+  "name": "Whey (food medium)",
+  "ncomp": 67
+ },
+ {
+  "id": "food_FOOD00369",
+  "name": "Grape (food medium)",
+  "ncomp": 66
+ },
+ {
+  "id": "food_FOOD00693",
+  "name": "Other fermented milk (food medium)",
+  "ncomp": 66
+ },
+ {
+  "id": "food_FOOD00690",
+  "name": "Milk (Other mammals) (food medium)",
+  "ncomp": 64
+ },
+ {
+  "id": "food_FOOD00035",
+  "name": "Chinese cabbage (food medium)",
+  "ncomp": 63
+ },
+ {
+  "id": "food_FOOD00851",
+  "name": "Cabbage (food medium)",
+  "ncomp": 62
+ },
+ {
+  "id": "food_FOOD00271",
+  "name": "Other soy product (food medium)",
+  "ncomp": 61
+ },
+ {
+  "id": "food_FOOD00666",
+  "name": "Milk (Human) (food medium)",
+  "ncomp": 59
+ },
+ {
+  "id": "food_FOOD00798",
+  "name": "Evaporated milk (food medium)",
+  "ncomp": 59
+ },
+ {
+  "id": "food_FOOD00025",
+  "name": "Common beet (food medium)",
+  "ncomp": 58
+ },
+ {
+  "id": "food_FOOD00261",
+  "name": "Daikon radish (food medium)",
+  "ncomp": 58
+ },
+ {
+  "id": "food_FOOD00626",
+  "name": "Honey (food medium)",
+  "ncomp": 58
+ },
+ {
+  "id": "food_FOOD00842",
+  "name": "Condensed milk (food medium)",
+  "ncomp": 58
+ },
+ {
+  "id": "food_FOOD00247",
+  "name": "Black cabbage (food medium)",
+  "ncomp": 56
+ },
+ {
+  "id": "food_FOOD00736",
+  "name": "Soy milk (food medium)",
+  "ncomp": 55
+ },
+ {
+  "id": "food_FOOD00253",
+  "name": "Napa cabbage (food medium)",
+  "ncomp": 54
+ },
+ {
+  "id": "food_FOOD00002",
+  "name": "Savoy cabbage (food medium)",
+  "ncomp": 51
+ },
+ {
+  "id": "food_FOOD00694",
+  "name": "Soy sauce (food medium)",
+  "ncomp": 51
+ },
+ {
+  "id": "food_FOOD00091",
+  "name": "Swamp cabbage (food medium)",
+  "ncomp": 49
+ },
+ {
+  "id": "food_FOOD00343",
+  "name": "Malus (Crab apple) (food medium)",
+  "ncomp": 48
+ },
+ {
+  "id": "food_FOOD00848",
+  "name": "Milk substitute (food medium)",
+  "ncomp": 47
+ },
+ {
+  "id": "food_FOOD00485",
+  "name": "Sugar apple (food medium)",
+  "ncomp": 37
+ },
+ {
+  "id": "food_FOOD00405",
+  "name": "Mammee apple (food medium)",
+  "ncomp": 35
+ },
+ {
+  "id": "food_FOOD00767",
+  "name": "Soy yogurt (food medium)",
+  "ncomp": 35
+ },
+ {
+  "id": "food_FOOD00014",
+  "name": "Custard apple (food medium)",
+  "ncomp": 32
+ },
+ {
+  "id": "food_FOOD00786",
+  "name": "Molasses (food medium)",
+  "ncomp": 31
+ },
+ {
+  "id": "food_FOOD00203",
+  "name": "Muscadine grape (food medium)",
+  "ncomp": 29
+ },
+ {
+  "id": "food_FOOD00205",
+  "name": "Corn (food medium)",
+  "ncomp": 116
+ },
+ {
+  "id": "food_FOOD00245",
+  "name": "Carrot (food medium)",
+  "ncomp": 104
+ },
+ {
+  "id": "food_FOOD00057",
+  "name": "Sweet orange (food medium)",
+  "ncomp": 91
+ },
+ {
+  "id": "food_FOOD00877",
+  "name": "Green bell pepper (food medium)",
+  "ncomp": 89
+ },
+ {
+  "id": "food_FOOD00880",
+  "name": "Red bell pepper (food medium)",
+  "ncomp": 88
+ },
+ {
+  "id": "food_FOOD00040",
+  "name": "Pepper (food medium)",
+  "ncomp": 84
+ },
+ {
+  "id": "food_FOOD00056",
+  "name": "Mandarin orange (Clementine, Tangerine) (food medium)",
+  "ncomp": 84
+ },
+ {
+  "id": "food_FOOD00617",
+  "name": "Cheese (food medium)",
+  "ncomp": 84
+ },
+ {
+  "id": "food_FOOD00134",
+  "name": "Common bean (food medium)",
+  "ncomp": 82
+ },
+ {
+  "id": "food_FOOD00141",
+  "name": "Common pea (food medium)",
+  "ncomp": 82
+ },
+ {
+  "id": "food_FOOD00147",
+  "name": "European plum (food medium)",
+  "ncomp": 81
+ },
+ {
+  "id": "food_FOOD00022",
+  "name": "Oat (food medium)",
+  "ncomp": 79
+ },
+ {
+  "id": "food_FOOD00135",
+  "name": "Date (food medium)",
+  "ncomp": 79
+ },
+ {
+  "id": "food_FOOD00152",
+  "name": "Pear (food medium)",
+  "ncomp": 79
+ },
+ {
+  "id": "food_FOOD00561",
+  "name": "Wheat (food medium)",
+  "ncomp": 79
+ },
+ {
+  "id": "food_FOOD00878",
+  "name": "Yellow bell pepper (food medium)",
+  "ncomp": 79
+ },
+ {
+  "id": "food_FOOD00059",
+  "name": "Arabica coffee (food medium)",
+  "ncomp": 77
+ },
+ {
+  "id": "food_FOOD00149",
+  "name": "Peach (food medium)",
+  "ncomp": 77
+ },
+ {
+  "id": "food_FOOD00169",
+  "name": "Rye (food medium)",
+  "ncomp": 77
+ },
+ {
+  "id": "food_FOOD00808",
+  "name": "Wheat bread (food medium)",
+  "ncomp": 77
+ },
+ {
+  "id": "food_FOOD00058",
+  "name": "Coffee (food medium)",
+  "ncomp": 76
+ },
+ {
+  "id": "food_FOOD00060",
+  "name": "Robusta coffee (food medium)",
+  "ncomp": 76
+ },
+ {
+  "id": "food_FOOD00879",
+  "name": "Orange bell pepper (food medium)",
+  "ncomp": 76
+ },
+ {
+  "id": "food_FOOD00883",
+  "name": "Green bean (food medium)",
+  "ncomp": 76
+ },
+ {
+  "id": "food_FOOD00006",
+  "name": "Garden onion (food medium)",
+  "ncomp": 75
+ },
+ {
+  "id": "food_FOOD00125",
+  "name": "Rice (food medium)",
+  "ncomp": 75
+ },
+ {
+  "id": "food_FOOD00650",
+  "name": "Cream (food medium)",
+  "ncomp": 75
+ },
+ {
+  "id": "food_FOOD00809",
+  "name": "Rye bread (food medium)",
+  "ncomp": 75
+ },
+ {
+  "id": "food_FOOD00881",
+  "name": "Italian sweet red pepper (food medium)",
+  "ncomp": 75
+ },
+ {
+  "id": "food_FOOD00171",
+  "name": "Garden tomato (food medium)",
+  "ncomp": 74
+ },
+ {
+  "id": "food_FOOD00336",
+  "name": "Coconut (food medium)",
+  "ncomp": 74
+ },
+ {
+  "id": "food_FOOD00620",
+  "name": "Yogurt (food medium)",
+  "ncomp": 74
+ },
+ {
+  "id": "food_FOOD00685",
+  "name": "Cocoa powder (food medium)",
+  "ncomp": 74
+ },
+ {
+  "id": "food_FOOD00711",
+  "name": "Processed cheese (food medium)",
+  "ncomp": 74
+ },
+ {
+  "id": "food_FOOD00081",
+  "name": "Fig (food medium)",
+  "ncomp": 73
+ },
+ {
+  "id": "food_FOOD00139",
+  "name": "Pepper (Spice) (food medium)",
+  "ncomp": 72
+ },
+ {
+  "id": "food_FOOD00206",
+  "name": "Ginger (food medium)",
+  "ncomp": 72
+ },
+ {
+  "id": "food_FOOD00054",
+  "name": "Lemon (food medium)",
+  "ncomp": 71
+ },
+ {
+  "id": "food_FOOD00173",
+  "name": "Garden tomato (var.) (food medium)",
+  "ncomp": 71
+ },
+ {
+  "id": "food_FOOD00144",
+  "name": "Apricot (food medium)",
+  "ncomp": 70
+ },
+ {
+  "id": "food_FOOD00208",
+  "name": "Banana (food medium)",
+  "ncomp": 70
+ },
+ {
+  "id": "food_FOOD00072",
+  "name": "Wild carrot (food medium)",
+  "ncomp": 69
+ },
+ {
+  "id": "food_FOOD00106",
+  "name": "Mango (food medium)",
+  "ncomp": 69
+ },
+ {
+  "id": "food_FOOD00707",
+  "name": "Chili (food medium)",
+  "ncomp": 69
+ },
+ {
+  "id": "food_FOOD00722",
+  "name": "Corn chip (food medium)",
+  "ncomp": 69
+ },
+ {
+  "id": "food_FOOD00759",
+  "name": "Macaroni and cheese (food medium)",
+  "ncomp": 69
+ },
+ {
+  "id": "food_FOOD00008",
+  "name": "Garlic (food medium)",
+  "ncomp": 68
+ },
+ {
+  "id": "food_FOOD00187",
+  "name": "Common wheat (food medium)",
+  "ncomp": 68
+ },
+ {
+  "id": "food_FOOD00200",
+  "name": "Mung bean (food medium)",
+  "ncomp": 67
+ },
+ {
+  "id": "food_FOOD00691",
+  "name": "Kefir (food medium)",
+  "ncomp": 66
+ },
+ {
+  "id": "food_FOOD00882",
+  "name": "Yellow wax bean (food medium)",
+  "ncomp": 66
+ },
+ {
+  "id": "food_FOOD00197",
+  "name": "Broad bean (food medium)",
+  "ncomp": 65
+ },
+ {
+  "id": "food_FOOD00621",
+  "name": "Bean (food medium)",
+  "ncomp": 65
+ },
+ {
+  "id": "food_FOOD00126",
+  "name": "Millet (food medium)",
+  "ncomp": 64
+ },
+ {
+  "id": "food_FOOD00038",
+  "name": "Tea (food medium)",
+  "ncomp": 63
+ }
+]

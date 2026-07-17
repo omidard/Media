@@ -1,0 +1,107 @@
+{
+  "id": "food_FOOD00025",
+  "name": "Common beet / red beetroot (food medium)",
+  "basis": "per 100 g fresh weight (raw root, Beta vulgaris subsp. vulgaris)",
+  "components": [
+    {"name":"water","amount":87.58,"unit":"g/100g","concentration_mM":null,"role":"solvent","source":"USDA FDC 169145 (Beets, raw)","evidence":"USDA proximate; beet root is ~87-88% water"},
+
+    {"name":"sucrose","amount":6.41,"unit":"g/100g","concentration_mM":187.3,"role":"sugar","source":"USDA FDC 169145 total sugars 6.76 g x 94.8% sucrose (Wruss/Nemzer beetroot juice profile; Sci food-comp)","evidence":"DOMINANT carbon source: red beet carbohydrate is >90% sucrose; roots are 94.8% sucrose of total free sugar"},
+    {"name":"D-glucose","amount":0.22,"unit":"g/100g","concentration_mM":12.2,"role":"sugar","source":"USDA FDC 169145 total sugars 6.76 g x 3.3% glucose","evidence":"minor free sugar in root (3.3% of total sugars)"},
+    {"name":"D-fructose","amount":0.13,"unit":"g/100g","concentration_mM":7.2,"role":"sugar","source":"USDA FDC 169145 total sugars 6.76 g x 1.9% fructose","evidence":"minor free sugar in root (1.9% of total sugars)"},
+
+    {"name":"succinic acid","amount":1.30,"unit":"g/100g","concentration_mM":110.0,"role":"organic_acid","source":"Sady et al. 2025, Plants 14(4):591 (Beta vulgaris root organic acids) doi:10.3390/plants14040591","evidence":"Reported as the DOMINANT root organic acid (4.29-15.0 g/100g dw); midpoint 9.6 dw x ~0.135 dry-matter = ~1.3 g/100g fw. Cultivar-dependent, treat as approximate/high estimate"},
+    {"name":"oxalic acid","amount":0.15,"unit":"g/100g","concentration_mM":16.3,"role":"organic_acid","source":"Sady et al. 2025 doi:10.3390/plants14040591 (0.85-1.33 g/100g dw); Wruss 2015 juice 0.3-0.5 g/L","evidence":"midpoint 1.09 dw x 0.135 = 0.147 g/100g fw; a defining anti-nutritive acid of beet"},
+    {"name":"quinic acid","amount":0.13,"unit":"g/100g","concentration_mM":6.5,"role":"organic_acid","source":"Sady et al. 2025 doi:10.3390/plants14040591 (0.49-1.36 g/100g dw)","evidence":"midpoint 0.925 dw x 0.135 = 0.125 g/100g fw"},
+    {"name":"citric acid","amount":0.10,"unit":"g/100g","concentration_mM":5.2,"role":"organic_acid","source":"Sady et al. 2025 doi:10.3390/plants14040591 (0.35-1.11 g/100g dw)","evidence":"midpoint 0.73 dw x 0.135 = 0.099 g/100g fw"},
+    {"name":"malic acid","amount":0.09,"unit":"g/100g","concentration_mM":6.5,"role":"organic_acid","source":"Sady et al. 2025 doi:10.3390/plants14040591 (0.34-0.95 g/100g dw)","evidence":"midpoint 0.645 dw x 0.135 = 0.087 g/100g fw"},
+    {"name":"fumaric acid","amount":null,"unit":"g/100g","concentration_mM":null,"role":"organic_acid","source":"Sady et al. 2025 doi:10.3390/plants14040591","evidence":"present in trace amounts only; unquantified"},
+    {"name":"L-ascorbate","amount":0.0049,"unit":"g/100g","concentration_mM":null,"role":"organic_acid","source":"USDA FDC 169145 (vitamin C 4.9 mg/100g)","evidence":"vitamin C = ascorbic acid"},
+
+    {"name":"nitrate","amount":0.250,"unit":"g/100g","concentration_mM":40.3,"role":"nitrogen_source","source":"Hord et al. 2009 Am J Clin Nutr 90:1-10 (beet classified 'very high nitrate', >250 mg/100g); range 110-400 mg/100g","evidence":"MAJOR defining metabolite of beetroot; a preferred N source; not in FooDB profile"},
+    {"name":"ammonium","amount":null,"unit":"g/100g","concentration_mM":null,"role":"nitrogen_source","source":"FooDB FOOD00025","evidence":"free ammonium present, minor; unquantified"},
+
+    {"name":"glycine betaine","amount":0.129,"unit":"g/100g","concentration_mM":11.0,"role":"osmolyte","source":"USDA FDC 169145 (betaine 129 mg/100g)","evidence":"beet is one of the richest dietary betaine sources; usable N/methyl donor and osmolyte"},
+    {"name":"choline","amount":0.0060,"unit":"g/100g","concentration_mM":null,"role":"osmolyte","source":"USDA FDC 169145 (choline 6.0 mg/100g)","evidence":"total choline"},
+
+    {"name":"total protein","amount":1.61,"unit":"g/100g","concentration_mM":null,"role":"protein","source":"USDA FDC 169145","evidence":"basis for amino-acid profile below"},
+    {"name":"L-glutamate","amount":0.428,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":"most abundant amino acid (Glu+Gln); beet root notably high in free glutamine/glutamate"},
+    {"name":"L-aspartate","amount":0.116,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":"Asp+Asn"},
+    {"name":"L-leucine","amount":0.068,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-alanine","amount":0.060,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-serine","amount":0.059,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":"corrected from D-serine in FooDB profile (protein-derived AA is L)"},
+    {"name":"L-lysine","amount":0.058,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-valine","amount":0.056,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-isoleucine","amount":0.048,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-threonine","amount":0.047,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-phenylalanine","amount":0.046,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-arginine","amount":0.042,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-proline","amount":0.042,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-tyrosine","amount":0.038,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"glycine","amount":0.031,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-histidine","amount":0.021,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-cystine","amount":0.019,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":"(2x cysteine)"},
+    {"name":"L-tryptophan","amount":0.019,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+    {"name":"L-methionine","amount":0.018,"unit":"g/100g","concentration_mM":null,"role":"amino_acid","source":"USDA FDC 169145","evidence":""},
+
+    {"name":"potassium","amount":325.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145","evidence":"dominant cation"},
+    {"name":"sodium","amount":78.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145","evidence":""},
+    {"name":"phosphate","amount":40.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145 (P 40 mg/100g)","evidence":"as phosphorus"},
+    {"name":"magnesium","amount":23.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145","evidence":""},
+    {"name":"calcium","amount":16.0,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145","evidence":""},
+    {"name":"iron","amount":0.80,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145","evidence":"single consolidated iron value (Fe2+/Fe3+ compartment duplicates removed)"},
+    {"name":"zinc","amount":0.35,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145","evidence":""},
+    {"name":"manganese","amount":0.33,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145","evidence":""},
+    {"name":"copper","amount":0.074,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145","evidence":""},
+    {"name":"selenium","amount":0.0007,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"USDA FDC 169145 (0.70 mcg)","evidence":"trace"},
+    {"name":"chloride","amount":null,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"FooDB FOOD00025","evidence":"present, counter-ion; unquantified in USDA"},
+    {"name":"sulfate","amount":null,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"FooDB FOOD00025","evidence":"sulfur source; unquantified"},
+    {"name":"molybdate","amount":null,"unit":"mg/100g","concentration_mM":null,"role":"mineral","source":"FooDB FOOD00025","evidence":"genuine trace micronutrient (Mo); unquantified"},
+
+    {"name":"folate","amount":0.109,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 169145 (109 mcg DFE)","evidence":"beet is folate-rich (B9)"},
+    {"name":"pantothenic acid","amount":0.155,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 169145","evidence":"B5"},
+    {"name":"nicotinate","amount":0.334,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 169145 (niacin)","evidence":"B3"},
+    {"name":"pyridoxine","amount":0.067,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 169145 (vitamin B6)","evidence":"B6"},
+    {"name":"riboflavin","amount":0.040,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 169145","evidence":"B2"},
+    {"name":"thiamine","amount":0.031,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 169145","evidence":"B1"},
+    {"name":"alpha-tocopherol","amount":0.037,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 169145","evidence":"vitamin E"},
+    {"name":"beta-carotene","amount":0.020,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 169145 (20 mcg)","evidence":"provitamin A; trace in red beet"},
+    {"name":"phytomenadione","amount":0.00022,"unit":"mg/100g","concentration_mM":null,"role":"vitamin","source":"USDA FDC 169145 (vitamin K 0.22 mcg)","evidence":"vitamin K1; trace"},
+
+    {"name":"total lipid","amount":0.17,"unit":"g/100g","concentration_mM":null,"role":"lipid","source":"USDA FDC 169145","evidence":"beet root is essentially fat-free; not a growth-relevant lipid source"}
+  ],
+  "remove": [
+    {"name":"Alpha-Carotene","reason":"not measured in red beet (a betalain, not carotenoid, vegetable); USDA lists no alpha-carotene; FooDB noise"},
+    {"name":"Retinol","reason":"preformed vitamin A (retinol) does not occur in plants; beet vitamin A is provitamin-A carotenoid only"},
+    {"name":"D-Galactose","reason":"free galactose is not a documented beet root sugar (root sugar is 94.8% sucrose, 3.3% glucose, 1.9% fructose); FooDB noise"},
+    {"name":"Iron (Fe3+)","reason":"duplicate/compartment-specific iron entry; consolidated into single 'iron' value"},
+    {"name":"Fe2+ mitochondria","reason":"BiGG compartment artifact, not a food-composition entry; consolidated into 'iron'"},
+    {"name":"Nickel","reason":"non-nutritive trace contaminant, not a beet growth nutrient"},
+    {"name":"Co2+","reason":"cobalt only enters biology via B12, which plants lack; non-nutritive trace"},
+    {"name":"Fluoride","reason":"trace, not quantified for beet by USDA; not a growth nutrient"},
+    {"name":"CO2 CO2","reason":"metabolic gas / boundary metabolite, not a food nutrient of the medium"},
+    {"name":"Alpha-Tocopherol duplicate note","reason":"retained once as alpha-tocopherol (vitamin E); no change, listed for clarity"}
+  ],
+  "missing_added": [
+    "sucrose (with amount) - the dominant carbon source, previously only listed generically",
+    "D-glucose amount, D-fructose amount",
+    "succinic acid","oxalic acid","quinic acid","citric acid","malic acid","fumaric acid (all organic acids were absent)",
+    "nitrate (major defining N source)",
+    "quantitative betaine, choline",
+    "quantitative amino-acid profile","quantitative vitamins and minerals"
+  ],
+  "keep_uncovered": [
+    "betanin / betacyanins (defining red betalain pigments; genuine, no BiGG met)",
+    "vulgaxanthin / betaxanthins (yellow betalains; genuine)",
+    "Luteolin (genuine flavone, low; from FooDB uncovered)",
+    "Quercetin (genuine but low in beet; kept as uncovered phytochemical, no reliable amount)"
+  ],
+  "confidence": "high",
+  "sources": [
+    "USDA FoodData Central FDC 169145 (Beets, raw) - proximates, sugars, amino acids, minerals, vitamins, betaine, choline",
+    "Sady et al. 2025, Plants 14(4):591, doi:10.3390/plants14040591 - Beta vulgaris root organic acids and free sugars",
+    "Wruss et al. 2015, J Food Comp Anal 42:46-55, doi:10.1016/j.jfca.2015.03.005 - beetroot sugar (94.8% sucrose) and oxalic acid in juice",
+    "Hord, Tang & Bryan 2009, Am J Clin Nutr 90:1-10 - dietary nitrate content of vegetables (beet 'very high', >250 mg/100g)",
+    "FooDB FOOD00025 - base compound list"
+  ],
+  "notes": "Dominant carbon/energy source is sucrose (~6.4 g/100g, >90% of sugars) with minor glucose+fructose; organic acids (succinic, oxalic, quinic, citric, malic) were entirely missing from the FooDB profile and are added here (succinic value is cultivar-dependent and treated as a high estimate). Nitrate (~250 mg/100g) is a defining beet metabolite and a preferred N source; betaine (129 mg/100g) is an abundant osmolyte/methyl donor. Organic-acid amounts converted from dry weight using ~13.5% dry matter and should be read as fresh-weight approximations."
+}

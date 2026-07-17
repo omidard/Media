@@ -1,0 +1,41 @@
+{
+ "id": "food_FOOD00203",
+ "name": "Muscadine grape (food medium)",
+ "food_record": "https://foodb.ca/foods/FOOD00203",
+ "foodb_url": "https://foodb.ca/foods",
+ "current_components": [
+  "Alpha-Carotene",
+  "Beta-Cryptoxanthin",
+  "Calcium",
+  "Beta-Carotene",
+  "Chloride",
+  "CO2 CO2",
+  "Co2+",
+  "Copper",
+  "Fe2+ mitochondria",
+  "Iron (Fe3+)",
+  "Iron",
+  "Folate",
+  "D-Fructose",
+  "D-Glucose",
+  "H2O H2O",
+  "H+",
+  "Potassium",
+  "Magnesium",
+  "Manganese",
+  "Molybdate",
+  "Sodium",
+  "Ammonium",
+  "Nickel",
+  "O2 O2",
+  "Phosphate",
+  "Sulfate",
+  "Sucrose C12H22O11",
+  "Zinc",
+  "Retinol"
+ ],
+ "current_uncovered": [
+  "Ellagic acid"
+ ],
+ "n_current": 29
+}
