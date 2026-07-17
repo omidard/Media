@@ -307,6 +307,12 @@ def _name_variants(name):
         if s and s.lower() not in seen:
             seen.add(s.lower()); out.append(s)
     add(name)
+    # "KH2PO4 -> Potassium" / "MgSO4·7H2O -> Sulfate": the real compound (a formula the
+    # salt table can dissociate) is the part BEFORE the arrow; the ion after it is just an
+    # annotation. Keep only the left side so the formula dissociates into all its ions.
+    arrow = re.split(r"\s*(?:->|→|⟶|=>|➞|→)\s*", name)
+    if len(arrow) > 1 and arrow[0].strip():
+        add(arrow[0])
     add(re.sub(r"\s*\([^)]*\)", "", name))          # drop parenthetical qualifier
     m = re.findall(r"\(([^)]*)\)", name)              # the parenthetical content itself
     for x in m:

@@ -201,6 +201,43 @@ _ALIASES.update({
     "nadp":"nadp","nicotinamideadeninedinucleotidephosphate":"nadp",
     "nicotinamidemononucleotide":"nmn","pyridoxal5phosphate":"pydx5p","pyridoxalphosphate":"pydx5p",
 })
+# Fatty acids (common + IUPAC + salt/ester names) -> BiGG species; organic acids;
+# nucleosides. All targets verified present in the BiGG dict and name-checked.
+_ALIASES.update({
+    # saturated fatty acids by common + systematic name (norm strips a leading n-)
+    "caproicacid":"hxa","hexanoicacid":"hxa","caproate":"hxa","hexanoate":"hxa",
+    "caprylicacid":"octa","octanoicacid":"octa","caprylate":"octa","octanoate":"octa",
+    "capricacid":"dca","decanoicacid":"dca","caprate":"dca","decanoate":"dca",
+    "lauricacid":"ddca","dodecanoicacid":"ddca","laurate":"ddca","dodecanoate":"ddca",
+    "myristicacid":"ttdca","tetradecanoicacid":"ttdca","myristate":"ttdca","tetradecanoate":"ttdca",
+    "pentadecanoicacid":"ptdca","pentadecanoate":"ptdca","pentadecylicacid":"ptdca",
+    "palmiticacid":"hdca","hexadecanoicacid":"hdca","palmitate":"hdca","hexadecanoate":"hdca","cetylicacid":"hdca",
+    "stearicacid":"ocdca","octadecanoicacid":"ocdca","stearate":"ocdca","octadecanoate":"ocdca",
+    "arachidicacid":"arach","eicosanoicacid":"arach","icosanoicacid":"arach","arachidate":"arach",
+    "behenicacid":"behen","docosanoicacid":"behen","behenate":"behen","docosanoate":"behen",
+    "lignocericacid":"lgnc","tetracosanoicacid":"lgnc","lignocerate":"lgnc",
+    # unsaturated fatty acids
+    "palmitoleicacid":"hdcea","palmitoleate":"hdcea","hexadecenoicacid":"hdcea","9hexadecenoicacid":"hdcea",
+    "myristoleicacid":"ttdcea","myristoleate":"ttdcea","tetradecenoicacid":"ttdcea","9tetradecenoicacid":"ttdcea",
+    "oleicacid":"ocdcea","oleate":"ocdcea","octadecenoicacid":"ocdcea","cisoleicacid":"ocdcea",
+    "linoleicacid":"lnlc","linoleate":"lnlc","octadecadienoicacid":"lnlc",
+    "linolenicacid":"lnlnca","linolenate":"lnlnca","alphalinolenicacid":"lnlnca","octadecatrienoicacid":"lnlnca",
+    # short / branched-chain acids
+    "butyricacid":"but","nbutyricacid":"but","butanoicacid":"but","butyrate":"but","nbutyrate":"but",
+    "isobutyricacid":"2mpa","2methylpropanoicacid":"2mpa","isobutyrate":"2mpa","2methylpropanoate":"2mpa",
+    "isovalericacid":"3mb","3methylbutyricacid":"3mb","3methylbutanoicacid":"3mb","isovalerate":"3mb","3methylbutanoate":"3mb","betamethylbutyricacid":"3mb",
+    "3hydroxybutyricacid":"bhb","betahydroxybutyricacid":"bhb","3hydroxybutyrate":"bhb","3hydroxybutanoicacid":"bhb",
+    "3hydroxyisobutyricacid":"3hmp","3hydroxyisobutyrate":"3hmp","3hydroxy2methylpropanoicacid":"3hmp",
+    "polyhydroxybutyricacid":"phb","polybetahydroxybutyricacid":"phb","polyhydroxybutyrate":"phb","poly3hydroxybutyricacid":"phb","polyrhydroxybutyricacid":"phb",
+    # orotic acid (pyrimidine intermediate, characteristic milk acid)
+    "oroticacid":"orot","orotate":"orot",
+    # GABA
+    "gammaaminobutyricacid":"4abut","4aminobutyricacid":"4abut","4aminobutanoicacid":"4abut","gaba":"4abut","aminobutyricacid":"4abut","4aminobutyrate":"4abut","4aminobutanoate":"4abut",
+    # nucleosides
+    "adenosine":"adn","guanosine":"gsn","cytidine":"cytd","uridine":"uri","inosine":"ins",
+    "thymidine":"thymd","deoxyguanosine":"dgsn","2deoxyguanosine":"dgsn","deoxyadenosine":"dad_2",
+    "2deoxyadenosine":"dad_2","xanthosine":"xtsn","hypoxanthine":"hxan","xanthine":"xan",
+})
 
 class Mapper:
     def __init__(self, base=HERE):
