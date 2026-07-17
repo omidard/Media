@@ -14,10 +14,10 @@
     {"name": "dietary fiber", "amount": 3.4, "unit": "g/100g", "concentration_mM": null, "role": "fiber", "source": "USDA FDC 169320", "evidence": "Largely insoluble; not a rapidly fermentable carbon source"},
     {"name": "total carbohydrate", "amount": 7.13, "unit": "g/100g", "concentration_mM": null, "role": "carbohydrate_total", "source": "USDA FDC 169320", "evidence": "By difference"},
 
-    {"name": "L-malic acid", "amount": null, "unit": "mg/100g", "concentration_mM": null, "role": "organic_acid", "source": "Lopez-Hernandez et al. 1996 Eur Food Res Technol doi:10.1007/s002170050091; Gonzalez-Castro/AOAC method 1994 (J AOAC Int 77:1056, PMID 8069112)", "evidence": "Malic acid is the PREDOMINANT organic acid of green/snap-bean pods; absolute fresh-weight value not accessible open-access. Flagged as the key growth-relevant metabolite missing from the FooDB profile"},
-    {"name": "citric acid", "amount": null, "unit": "mg/100g", "concentration_mM": null, "role": "organic_acid", "source": "Lopez-Hernandez et al. 1996 doi:10.1007/s002170050091; AOAC 1994 PMID 8069112", "evidence": "Second organic acid quantified in green-bean pods after malic; amount not open-access"},
-    {"name": "oxalic acid", "amount": null, "unit": "mg/100g", "concentration_mM": null, "role": "organic_acid", "source": "Lopez-Hernandez et al. 1996 doi:10.1007/s002170050091; AOAC 1994 PMID 8069112", "evidence": "Minor organic acid measured in green beans; decreases with freezing/blanching"},
-    {"name": "fumaric acid", "amount": null, "unit": "mg/100g", "concentration_mM": null, "role": "organic_acid", "source": "Lopez-Hernandez et al. 1996 doi:10.1007/s002170050091; AOAC 1994 PMID 8069112", "evidence": "Present at trace level in green-bean pods"},
+    {"name": "L-malic acid", "amount": 286.0, "unit": "mg/100g", "concentration_mM": 21.3, "role": "organic_acid", "source": "Gonzalez-Castro, Oruna-Concha, Lopez-Hernandez & Simal-Lozano 1997 Z Lebensm Unters Forsch A 204:365-368 doi:10.1007/s002170050091 (fresh P. vulgaris var. Helda pods, HPLC)", "evidence": "PREDOMINANT organic acid of fresh green/snap-bean pods; a major C4 carbon/energy source that was entirely missing from the FooDB profile. Titratable acidity (as malic) of fresh pods = 613 mg/100g"},
+    {"name": "citric acid", "amount": 39.9, "unit": "mg/100g", "concentration_mM": 2.08, "role": "organic_acid", "source": "Gonzalez-Castro et al. 1997 doi:10.1007/s002170050091", "evidence": "Third-ranked acid after malic and oxalic in fresh pods, HPLC; contributes to pod tartness"},
+    {"name": "oxalic acid", "amount": 191.0, "unit": "mg/100g", "concentration_mM": 21.2, "role": "organic_acid", "source": "Gonzalez-Castro et al. 1997 doi:10.1007/s002170050091", "evidence": "Second-most-abundant acid by HPLC (total oxalic); method-sensitive - aggregator soluble-oxalate values are lower (22-65 mg/100g). Decreases with freezing/blanching"},
+    {"name": "fumaric acid", "amount": 1.09, "unit": "mg/100g", "concentration_mM": 0.094, "role": "organic_acid", "source": "Gonzalez-Castro et al. 1997 doi:10.1007/s002170050091", "evidence": "Minor TCA-cycle acid, trace level in green-bean pods, HPLC"},
 
     {"name": "L-ascorbate (vitamin C)", "amount": 16.3, "unit": "mg/100g", "concentration_mM": null, "role": "vitamin", "source": "USDA FDC 169320", "evidence": "Ascorbic acid; also an organic acid"},
     {"name": "thiamine (B1)", "amount": 0.084, "unit": "mg/100g", "concentration_mM": null, "role": "vitamin", "source": "USDA FDC 169320", "evidence": ""},
@@ -81,10 +81,10 @@
     {"name": "Histamine", "reason": "Trace biogenic amine, predicted; not a growth-relevant nutrient of fresh bean pods"}
   ],
   "missing_added": [
-    "L-malic acid (predominant organic acid, presence + rank sourced; absolute value paywalled)",
-    "citric acid",
-    "oxalic acid",
-    "fumaric acid (trace)",
+    "L-malic acid (286 mg/100g) - PREDOMINANT organic acid, quantified; absent from FooDB",
+    "oxalic acid (191 mg/100g)",
+    "citric acid (39.9 mg/100g)",
+    "fumaric acid (1.09 mg/100g, trace)",
     "individual free sugars with amounts: D-fructose, D-glucose, sucrose",
     "myo-inositol",
     "quantitative full vitamin panel (B1/B2/B3/B5/B6/B9/C/E/K, choline)",
@@ -100,15 +100,15 @@
     "glycine betaine", "putrescine", "L-DOPA / dopamine (trace catecholamines; low confidence for Phaseolus pods)",
     "4-hydroxyproline (cell-wall derived)"
   ],
-  "confidence": "medium",
-  "notes": "Yellow wax bean = yellow-podded cultivar of common snap bean (Phaseolus vulgaris); full macro/amino-acid/vitamin/mineral panel is high-confidence from USDA FDC 169320 (Beans, snap, yellow, raw). Dominant fermentable carbon sources are the monosaccharides fructose and glucose (fructose >= glucose > sucrose); it is a low-acid vegetable whose predominant organic acid is malic (then citric, oxalic; fumaric trace) - these organic acids were the main FooDB omission and are added here from Lopez-Hernandez 1996 (doi:10.1007/s002170050091) and the AOAC HPLC method (PMID 8069112), though open-access absolute fresh-weight amounts were unavailable. Quinic acid is deliberately NOT included: Lopez-Hernandez 1996 detected quinic acid only in the co-studied peppers, not in green beans. Yellow cultivar carotene is negligible (vitamin A RAE = 0).",
+  "confidence": "high",
+  "notes": "Yellow wax bean = yellow-podded cultivar of common snap bean (Phaseolus vulgaris); full macro/amino-acid/vitamin/mineral panel is high-confidence from USDA FDC 169320 (Beans, snap, yellow, raw). Dominant fermentable carbon sources are the monosaccharides fructose and glucose (fructose >= glucose > sucrose) plus the previously-missing organic acids - chiefly malic (286 mg/100g, ~21 mM) and oxalic (191 mg/100g, ~21 mM), with minor citric (39.9 mg/100g) and trace fumaric. These organic acids were the main FooDB omission and are now quantified from Gonzalez-Castro et al. 1997 (doi:10.1007/s002170050091, fresh var. Helda pods, HPLC); oxalic is the most method-sensitive value. Quinic acid is deliberately NOT included: that study explicitly detected quinic acid only in the co-studied peppers, not in green beans. Yellow cultivar carotene is negligible (vitamin A RAE = 0). Low-fat, moderate-protein (1.8 g/100g), potassium-dominant mineral matrix.",
   "sources": [
     "USDA FoodData Central FDC 169320 (Beans, snap, yellow, raw)",
     "FooDB FOOD00882 (Yellow wax bean)",
     "VandenLangenberg, Bethke & Nienhuis 2012, Crop Science 52:1692, doi:10.2135/cropsci2011.07.0396 (fructose/glucose/sucrose in snap-bean pods)",
     "VandenLangenberg et al. 2012, HortScience 47:874 (sugar accumulation patterns in snap/dry bean pods)",
     "Sanchez-Mata et al. 2002, Eur Food Res Technol, doi:10.1007/s00217-001-0447-0 (soluble sugars in green beans by HPLC)",
-    "Lopez-Hernandez et al. 1996, Eur Food Res Technol, doi:10.1007/s002170050091 (organic acids of green beans: oxalic/malic/citric/fumaric; quinic absent)",
-    "Gonzalez-Castro et al. 1994, J AOAC Int 77:1056, PMID 8069112 (HPLC organic acids + vitamin C in green beans)"
+    "Gonzalez-Castro, Oruna-Concha, Lopez-Hernandez & Simal-Lozano 1997, Z Lebensm Unters Forsch A 204:365-368, doi:10.1007/s002170050091 (quantified fresh green-bean organic acids: malic 286, oxalic 191, citric 39.9, fumaric 1.09 mg/100g; quinic not detected)",
+    "Vazquez Oderiz et al. 1994, J AOAC Int 77:1056, PMID 8069112 (HPLC method for organic acids + vitamin C in green beans)"
   ]
 }
