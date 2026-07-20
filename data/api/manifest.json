@@ -1,8 +1,8 @@
 {
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
- "catalog_count": 13496,
- "component_records": 665189,
+ "catalog_count": 13511,
+ "component_records": 665475,
  "distinct_compounds": 1814,
  "coverage": {
   "by_exchange_source": {
@@ -11,16 +11,16 @@
    "modelseed": 767,
    "kegg": 22,
    "metanetx": 575,
-   "growthdb_formulation": 2451
+   "growthdb_formulation": 2737
   },
-  "total_uncovered": 31556,
-  "media_below_100pct": 8846
+  "total_uncovered": 31559,
+  "media_below_100pct": 8849
  },
  "by_category": {
   "laboratory": 4931,
   "biospecimen": 17,
   "food": 8125,
-  "growth_medium": 423
+  "growth_medium": 438
  },
  "by_source_db": {
   "standard": 293,
@@ -29,7 +29,7 @@
   "Published (GEM paper)": 1,
   "literature": 333,
   "FooDB": 701,
-  "Literature (GrowthDB)": 1021,
+  "Literature (GrowthDB)": 1036,
   "Literature (GEM papers)": 87,
   "MediaDB (ISB defined media)": 471,
   "DSMZ MediaDive": 3148,
@@ -50,7 +50,7 @@
  },
  "bulk_files": {
   "media.parquet": {
-   "rows": 13496,
+   "rows": 13511,
    "grain": "one row per medium",
    "columns": [
     "id",
@@ -73,10 +73,10 @@
     "url",
     "food_group"
    ],
-   "size": "496.6 KB"
+   "size": "497.5 KB"
   },
   "components.parquet": {
-   "rows": 665189,
+   "rows": 665475,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",
@@ -109,7 +109,7 @@
    "size": "16.4 MB"
   },
   "media.jsonl.gz": {
-   "rows": 13496,
+   "rows": 13511,
    "grain": "one full medium record per line",
    "note": "streamable; same schema as data/media/<id>.json",
    "size": "51.2 MB"
