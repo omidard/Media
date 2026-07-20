@@ -1,0 +1,61 @@
+{
+ "id": "growthlit_PMC2991311_minimal_medium_succinate_limited",
+ "name": "Minimal medium (succinate-limited)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "Minimal medium (succinate-limited) \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC2991311 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2991311/",
+  "notes": "Formulation status: defined. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Succinate",
+   "bigg_metabolite": "succ",
+   "exchange": "EX_succ_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-113536",
+    "kegg": "C00042",
+    "chebi": "CHEBI:132287",
+    "hmdb": "HMDB00254",
+    "inchikey": "KDYFGRWQOYBRFD-UHFFFAOYSA-L",
+    "lipidmaps": "LMFA01170043",
+    "biocyc": "META:SUC",
+    "mnx": "MNXM25",
+    "seed": "cpd00036",
+    "metacyc": "SUC",
+    "sabiork": "1924",
+    "inchi": "InChI=1S/C4H6O4/c5-3(6)1-2-4(7)8/h1-2H2,(H,5,6)(H,7,8)/p-2",
+    "formula": "C4H4O4"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 1
+  }
+ },
+ "oxygen": null,
+ "curation": "defined",
+ "uncovered": []
+}

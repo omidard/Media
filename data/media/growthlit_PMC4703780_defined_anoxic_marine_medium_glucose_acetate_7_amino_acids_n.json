@@ -1,0 +1,86 @@
+{
+ "id": "growthlit_PMC4703780_defined_anoxic_marine_medium_glucose_acetate_7_amino_acids_n",
+ "name": "Defined anoxic marine medium (glucose+acetate+7 amino acids, nitrite/nitrate)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "Defined anoxic marine medium (glucose+acetate+7 amino acids, nitrite/nitrate) \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC4703780 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4703780/",
+  "notes": "Formulation status: partial_unmapped. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Nitrite",
+   "bigg_metabolite": "no2",
+   "exchange": "EX_no2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-1222379",
+    "kegg": "C00088",
+    "chebi": "CHEBI:14658",
+    "hmdb": "HMDB02786",
+    "inchikey": "IOVCWXUNBOPUCH-UHFFFAOYSA-M",
+    "biocyc": "META:NITRITE",
+    "mnx": "MNXM107",
+    "seed": "cpd00075",
+    "metacyc": "NITRITE",
+    "sabiork": "3058",
+    "inchi": "InChI=1S/HNO2/c2-1-3/h(H,2,3)/p-1",
+    "formula": "NO2"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "Nitrate",
+   "bigg_metabolite": "no3",
+   "exchange": "EX_no3_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "kegg": "C00244",
+    "chebi": "CHEBI:14654",
+    "kegg_drug": "D02313",
+    "hmdb": "HMDB01853",
+    "biocyc": "META:CPD-15028",
+    "mnx": "MNXM732398",
+    "inchikey": "NHNBFGGVMKEFGY-UHFFFAOYSA-N",
+    "seed": "cpd00209",
+    "metacyc": "NITRATE",
+    "reactome": "R-ALL-432031",
+    "inchi": "InChI=1S/NO3/c2-1(3)4/q-1",
+    "formula": "NO3"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 2,
+ "n_mapped": 2,
+ "n_in_biggr": 2,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 2,
+  "n_covered": 2,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 2
+  }
+ },
+ "oxygen": null,
+ "curation": "partial_unmapped",
+ "uncovered": []
+}

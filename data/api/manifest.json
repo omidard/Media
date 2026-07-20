@@ -1,24 +1,26 @@
 {
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
- "catalog_count": 13073,
- "component_records": 662743,
+ "catalog_count": 13476,
+ "component_records": 664800,
  "distinct_compounds": 1814,
  "coverage": {
   "by_exchange_source": {
-   "biggr": 647518,
+   "biggr": 647513,
    "bigg": 13861,
    "modelseed": 767,
    "kegg": 22,
-   "metanetx": 575
+   "metanetx": 575,
+   "growthdb_formulation": 2062
   },
-  "total_uncovered": 31515,
-  "media_below_100pct": 8815
+  "total_uncovered": 31556,
+  "media_below_100pct": 8846
  },
  "by_category": {
-  "laboratory": 4931,
+  "laboratory": 4930,
   "biospecimen": 17,
-  "food": 8125
+  "food": 8125,
+  "growth_medium": 404
  },
  "by_source_db": {
   "standard": 293,
@@ -27,7 +29,7 @@
   "Published (GEM paper)": 1,
   "literature": 333,
   "FooDB": 701,
-  "Literature (GrowthDB)": 598,
+  "Literature (GrowthDB)": 1001,
   "Literature (GEM papers)": 87,
   "MediaDB (ISB defined media)": 471,
   "DSMZ MediaDive": 3148,
@@ -48,7 +50,7 @@
  },
  "bulk_files": {
   "media.parquet": {
-   "rows": 13073,
+   "rows": 13476,
    "grain": "one row per medium",
    "columns": [
     "id",
@@ -71,10 +73,10 @@
     "url",
     "food_group"
    ],
-   "size": "472.7 KB"
+   "size": "492.4 KB"
   },
   "components.parquet": {
-   "rows": 662743,
+   "rows": 664800,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",
@@ -96,7 +98,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "3.1 MB"
+   "size": "2.6 MB"
   },
   "media.sqlite.gz": {
    "tables": [
@@ -104,13 +106,13 @@
     "components"
    ],
    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "16.2 MB"
+   "size": "16.4 MB"
   },
   "media.jsonl.gz": {
-   "rows": 13073,
+   "rows": 13476,
    "grain": "one full medium record per line",
    "note": "streamable; same schema as data/media/<id>.json",
-   "size": "51.0 MB"
+   "size": "51.2 MB"
   }
  },
  "notes": [

@@ -1,0 +1,114 @@
+{
+ "id": "growthlit_PMC5688252_complex_medium_hippe_et_al_under_h2_atmosphere",
+ "name": "Complex medium (Hippe et al.) under H2 atmosphere",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "Complex medium (Hippe et al.) under H2 atmosphere \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC5688252 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5688252/",
+  "notes": "Formulation status: defined. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Methanol",
+   "bigg_metabolite": "meoh",
+   "exchange": "EX_meoh_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-5359061",
+    "kegg": "C00132",
+    "chebi": "CHEBI:14588",
+    "kegg_drug": "D02309",
+    "hmdb": "HMDB01875",
+    "biocyc": "META:ALCOHOL-GROUP",
+    "mnx": "MNXM729799",
+    "inchikey": "OKKJLVBELUTLKV-UHFFFAOYSA-N",
+    "seed": "cpd00116",
+    "metacyc": "ALCOHOL-GROUP",
+    "sabiork": "55",
+    "inchi": "InChI=1S/CH4O/c1-2/h2H,1H3",
+    "formula": "CH4O"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "Hydrogen",
+   "bigg_metabolite": "h2",
+   "exchange": "EX_h2_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-113555",
+    "kegg": "C00282",
+    "chebi": "CHEBI:13350",
+    "hmdb": "HMDB01362",
+    "biocyc": "META:HYDROGEN-MOLECULE",
+    "mnx": "MNXM1108018",
+    "inchikey": "UFHFLCQGNIYNRP-UHFFFAOYSA-N",
+    "seed": "cpd11640",
+    "metacyc": "HYDROGEN-MOLECULE",
+    "inchi": "InChI=1S/H2/h1H",
+    "formula": "H2"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "Acetate",
+   "bigg_metabolite": "ac",
+   "exchange": "EX_ac_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-113539",
+    "kegg": "C00033",
+    "chebi": "CHEBI:13704",
+    "kegg_drug": "D00010",
+    "hmdb": "HMDB00042",
+    "lipidmaps": "LMFA01010002",
+    "biocyc": "META:ACET",
+    "mnx": "MNXM26",
+    "inchikey": "QTBSBXVTEAMEQO-UHFFFAOYSA-M",
+    "seed": "cpd00029",
+    "metacyc": "ACET",
+    "sabiork": "1278",
+    "inchi": "InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)/p-1",
+    "formula": "C2H3O2"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 3,
+ "n_mapped": 3,
+ "n_in_biggr": 3,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 3,
+  "n_covered": 3,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 3
+  }
+ },
+ "oxygen": null,
+ "curation": "defined",
+ "uncovered": []
+}

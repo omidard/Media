@@ -1,0 +1,61 @@
+{
+ "id": "growthlit_PMC11665112_mo_minimal_medium_methanol_sole_carbon_source",
+ "name": "MO minimal medium, methanol sole carbon source",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "MO minimal medium, methanol sole carbon source \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC11665112 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11665112/",
+  "notes": "Formulation status: defined_nocarbon. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Methanol",
+   "bigg_metabolite": "meoh",
+   "exchange": "EX_meoh_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-5359061",
+    "kegg": "C00132",
+    "chebi": "CHEBI:14588",
+    "kegg_drug": "D02309",
+    "hmdb": "HMDB01875",
+    "biocyc": "META:ALCOHOL-GROUP",
+    "mnx": "MNXM729799",
+    "inchikey": "OKKJLVBELUTLKV-UHFFFAOYSA-N",
+    "seed": "cpd00116",
+    "metacyc": "ALCOHOL-GROUP",
+    "sabiork": "55",
+    "inchi": "InChI=1S/CH4O/c1-2/h2H,1H3",
+    "formula": "CH4O"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 1
+  }
+ },
+ "oxygen": null,
+ "curation": "defined_nocarbon",
+ "uncovered": []
+}

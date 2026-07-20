@@ -1,0 +1,89 @@
+{
+ "id": "growthlit_PMC3998878_fumarate_medium_freshwater_medium_acetate_donor_fumarate_acc",
+ "name": "Fumarate medium (freshwater medium, acetate donor / fumarate acceptor)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "Fumarate medium (freshwater medium, acetate donor / fumarate acceptor) \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC3998878 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3998878/",
+  "notes": "Formulation status: defined. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Acetate",
+   "bigg_metabolite": "ac",
+   "exchange": "EX_ac_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-113539",
+    "kegg": "C00033",
+    "chebi": "CHEBI:13704",
+    "kegg_drug": "D00010",
+    "hmdb": "HMDB00042",
+    "lipidmaps": "LMFA01010002",
+    "biocyc": "META:ACET",
+    "mnx": "MNXM26",
+    "inchikey": "QTBSBXVTEAMEQO-UHFFFAOYSA-M",
+    "seed": "cpd00029",
+    "metacyc": "ACET",
+    "sabiork": "1278",
+    "inchi": "InChI=1S/C2H4O2/c1-2(3)4/h1H3,(H,3,4)/p-1",
+    "formula": "C2H3O2"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "Fumarate",
+   "bigg_metabolite": "fum",
+   "exchange": "EX_fum_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-113588",
+    "kegg": "C00122",
+    "chebi": "CHEBI:14284",
+    "kegg_drug": "D02308",
+    "hmdb": "HMDB00134",
+    "biocyc": "META:FUM",
+    "mnx": "MNXM737340",
+    "inchikey": "VZCYOOQTPOCHFL-OWOJBTEDSA-L",
+    "seed": "cpd00106",
+    "metacyc": "FUM",
+    "sabiork": "1910",
+    "inchi": "InChI=1S/C4H4O4/c5-3(6)1-2-4(7)8/h1-2H,(H,5,6)(H,7,8)/p-2/b2-1+",
+    "formula": "C4H2O4"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 2,
+ "n_mapped": 2,
+ "n_in_biggr": 2,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 2,
+  "n_covered": 2,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 2
+  }
+ },
+ "oxygen": null,
+ "curation": "defined",
+ "uncovered": []
+}

@@ -1,0 +1,59 @@
+{
+ "id": "growthlit_PMC5563964_lake_zug_water_natural_lake_water_160_m_depth_low_o2",
+ "name": "Lake Zug water (natural lake water, 160 m depth) + low O2",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "Lake Zug water (natural lake water, 160 m depth) + low O2 \u2014 formulated for GrowthDB (mined recipe (paper Methods)) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC5563964 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5563964/",
+  "notes": "Formulation status: partial_complex. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Methane",
+   "bigg_metabolite": "ch4",
+   "exchange": "EX_ch4_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "kegg": "C01438",
+    "chebi": "CHEBI:14585",
+    "hmdb": "HMDB02714",
+    "biocyc": "META:CH4",
+    "mnx": "MNXM739586",
+    "inchikey": "VNWKTOKETHGBQD-UHFFFAOYSA-N",
+    "seed": "cpd01024",
+    "metacyc": "CH4",
+    "sabiork": "2285",
+    "inchi": "InChI=1S/CH4/h1H4",
+    "formula": "CH4"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 1
+  }
+ },
+ "oxygen": null,
+ "curation": "partial_complex",
+ "uncovered": []
+}

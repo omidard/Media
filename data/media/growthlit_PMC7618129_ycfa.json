@@ -1,0 +1,60 @@
+{
+ "id": "growthlit_PMC7618129_ycfa",
+ "name": "YCFA",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "YCFA \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC7618129 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7618129/",
+  "notes": "Formulation status: partial_unmapped. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Myo-Inositol",
+   "bigg_metabolite": "inost",
+   "exchange": "EX_inost_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-426910",
+    "kegg": "C00137",
+    "inchikey": "CDAISMWEOUEBRE-GPIVLXJGSA-N",
+    "chebi": "CHEBI:10601",
+    "kegg_drug": "D08079",
+    "hmdb": "HMDB00211",
+    "biocyc": "META:CPD-8052",
+    "mnx": "MNXM1105941",
+    "seed": "cpd00121",
+    "metacyc": "MYO-INOSITOL",
+    "inchi": "InChI=1S/C6H12O6/c7-1-2(8)4(10)6(12)5(11)3(1)9/h1-12H/t1-,2-,3-,4+,5-,6-",
+    "formula": "C6H12O6"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 1
+  }
+ },
+ "oxygen": null,
+ "curation": "partial_unmapped",
+ "uncovered": []
+}

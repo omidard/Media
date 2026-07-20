@@ -1,0 +1,61 @@
+{
+ "id": "growthlit_PMC3425912_dsm457_based_minimal_medium_mm_with_5_mm_salicylate_sal",
+ "name": "DSM457-based minimal medium (MM) with 5 mM salicylate (SAL)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "DSM457-based minimal medium (MM) with 5 mM salicylate (SAL) \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC3425912 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3425912/",
+  "notes": "Formulation status: defined. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Salicylate",
+   "bigg_metabolite": "salc",
+   "exchange": "EX_salc_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-159559",
+    "kegg": "C00805",
+    "chebi": "CHEBI:15061",
+    "kegg_drug": "D00097",
+    "hmdb": "HMDB01895",
+    "biocyc": "META:CPD-110",
+    "mnx": "MNXM730078",
+    "inchikey": "YGSDEFSMJLZEOE-UHFFFAOYSA-M",
+    "seed": "cpd00599",
+    "metacyc": "CPD-110",
+    "sabiork": "2163",
+    "inchi": "InChI=1S/C7H6O3/c8-6-4-2-1-3-5(6)7(9)10/h1-4,8H,(H,9,10)/p-1",
+    "formula": "C7H5O3"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 1
+  }
+ },
+ "oxygen": null,
+ "curation": "defined",
+ "uncovered": []
+}

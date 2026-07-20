@@ -1,0 +1,113 @@
+{
+ "id": "growthlit_PMC7594717_cgxii_minimal_medium_12_g_l_d_glucose_30_mg_l_pca_13c_labeli",
+ "name": "CGXII minimal medium + 12 g/L D-glucose + 30 mg/L PCA (13C-labeling experiment)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "CGXII minimal medium + 12 g/L D-glucose + 30 mg/L PCA (13C-labeling experiment) \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC7594717 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7594717/",
+  "notes": "Formulation status: partial_unmapped. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "D-Glucose",
+   "bigg_metabolite": "glc__D",
+   "exchange": "EX_glc__D_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "kegg": "C00031",
+    "chebi": "CHEBI:12965",
+    "kegg_drug": "D00009",
+    "hmdb": "HMDB00122",
+    "biocyc": "META:Glucopyranose",
+    "mnx": "MNXM1364061",
+    "inchikey": "WQZGKKKJIJFFOK-GASJEMHNSA-N",
+    "seed": "cpd00027",
+    "metacyc": "Glucopyranose",
+    "sabiork": "1407",
+    "inchi": "InChI=1S/C6H12O6/c7-1-2-3(8)4(9)5(10)6(11)12-2/h2-11H,1H2/t2-,3-,4+,5-,6?/m1/s1",
+    "formula": "C6H12O6"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "Ammonium",
+   "bigg_metabolite": "nh4",
+   "exchange": "EX_nh4_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-1132163",
+    "kegg": "C00014",
+    "chebi": "CHEBI:13405",
+    "kegg_drug": "D02915",
+    "hmdb": "HMDB00051",
+    "biocyc": "META:AMMONIA",
+    "mnx": "MNXM729302",
+    "inchikey": "QGZKDVFQNNGYKY-UHFFFAOYSA-O",
+    "seed": "cpd00013",
+    "metacyc": "AMMONIA",
+    "sabiork": "1268",
+    "inchi": "InChI=1S/H3N/h1H3/p+1",
+    "formula": "H4N"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "Hydroxide ion HO",
+   "bigg_metabolite": "oh1",
+   "exchange": "EX_oh1_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-109276",
+    "kegg": "C00001",
+    "chebi": "CHEBI:10743",
+    "kegg_drug": "D00001",
+    "hmdb": "HMDB01039",
+    "biocyc": "META:CPD-15815",
+    "mnx": "MNXM02",
+    "inchikey": "XLYOFNOQVPJJNP-UHFFFAOYSA-N",
+    "seed": "cpd00001",
+    "metacyc": "OH",
+    "inchi": "InChI=1S/H2O/h1H2/p-1",
+    "formula": "HO"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 3,
+ "n_mapped": 3,
+ "n_in_biggr": 3,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 3,
+  "n_covered": 3,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 3
+  }
+ },
+ "oxygen": null,
+ "curation": "partial_unmapped",
+ "uncovered": []
+}

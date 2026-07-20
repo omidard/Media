@@ -1,0 +1,60 @@
+{
+ "id": "growthlit_PMC3014970_defined_minimal_medium_nahku_et_al",
+ "name": "Defined minimal medium (Nahku et al.)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "Defined minimal medium (Nahku et al.) \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC3014970 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3014970/",
+  "notes": "Formulation status: defined. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Alpha D-glucose",
+   "bigg_metabolite": "glc__aD",
+   "exchange": "EX_glc__aD_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-113780",
+    "kegg": "C00267",
+    "chebi": "CHEBI:10242",
+    "hmdb": "HMDB03345",
+    "biocyc": "META:ALPHA-GLUCOSE",
+    "mnx": "MNXM1105027",
+    "inchikey": "WQZGKKKJIJFFOK-DVKNGEFBSA-N",
+    "seed": "cpd19001",
+    "metacyc": "ALPHA-GLUCOSE",
+    "sabiork": "1364",
+    "inchi": "InChI=1S/C6H12O6/c7-1-2-3(8)4(9)5(10)6(11)12-2/h2-11H,1H2/t2-,3-,4+,5-,6+/m1/s1",
+    "formula": "C6H12O6"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 1
+  }
+ },
+ "oxygen": null,
+ "curation": "defined",
+ "uncovered": []
+}

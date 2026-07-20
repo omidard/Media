@@ -1,0 +1,62 @@
+{
+ "id": "growthlit_PMC7316355_roisin_s_minimal_medium_carbon_glycerol_limited_glycerol_twe",
+ "name": "Roisin's minimal medium (carbon/glycerol-limited) + glycerol + Tween80 (oleic acid)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "Roisin's minimal medium (carbon/glycerol-limited) + glycerol + Tween80 (oleic ac \u2014 formulated for GrowthDB (name(minimal+carbon)) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC7316355 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7316355/",
+  "notes": "Formulation status: defined_from_name. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Octadecenoate (n-C18:1)",
+   "bigg_metabolite": "ocdcea",
+   "exchange": "EX_ocdcea_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "kegg": "C00712",
+    "chebi": "CHEBI:104361",
+    "kegg_drug": "D02315",
+    "hmdb": "HMDB00207",
+    "lipidmaps": "LMFA01030002",
+    "biocyc": "META:OLEATE-CPD",
+    "mnx": "MNXM1364393",
+    "inchikey": "ZQPPMHVWECSIRJ-KTKRTIGZSA-M",
+    "seed": "cpd00536",
+    "metacyc": "OLEATE-CPD",
+    "reactome": "R-ALL-2864104",
+    "sabiork": "2139",
+    "inchi": "InChI=1S/C18H34O2/c1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18(19)20/h9-10H,2-8,11-17H2,1H3,(H,19,20)/p-1/b10-9-",
+    "formula": "C18H33O2"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 1
+  }
+ },
+ "oxygen": null,
+ "curation": "defined_from_name",
+ "uncovered": []
+}

@@ -1,0 +1,61 @@
+{
+ "id": "growthlit_PMC5776718_media_a_with_24_mm_nh4_ammonium",
+ "name": "Media A+ with 24 mM NH4 (ammonium)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "Media A+ with 24 mM NH4 (ammonium) \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC5776718 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5776718/",
+  "notes": "Formulation status: defined_nocarbon. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Ammonium",
+   "bigg_metabolite": "nh4",
+   "exchange": "EX_nh4_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-1132163",
+    "kegg": "C00014",
+    "chebi": "CHEBI:13405",
+    "kegg_drug": "D02915",
+    "hmdb": "HMDB00051",
+    "biocyc": "META:AMMONIA",
+    "mnx": "MNXM729302",
+    "inchikey": "QGZKDVFQNNGYKY-UHFFFAOYSA-O",
+    "seed": "cpd00013",
+    "metacyc": "AMMONIA",
+    "sabiork": "1268",
+    "inchi": "InChI=1S/H3N/h1H3/p+1",
+    "formula": "H4N"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 1
+  }
+ },
+ "oxygen": null,
+ "curation": "defined_nocarbon",
+ "uncovered": []
+}

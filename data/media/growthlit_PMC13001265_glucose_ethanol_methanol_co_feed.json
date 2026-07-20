@@ -1,0 +1,114 @@
+{
+ "id": "growthlit_PMC13001265_glucose_ethanol_methanol_co_feed",
+ "name": "glucose + ethanol + methanol (co-feed)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "glucose + ethanol + methanol (co-feed) \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC13001265 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13001265/",
+  "notes": "Formulation status: defined. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "Methanol",
+   "bigg_metabolite": "meoh",
+   "exchange": "EX_meoh_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-5359061",
+    "kegg": "C00132",
+    "chebi": "CHEBI:14588",
+    "kegg_drug": "D02309",
+    "hmdb": "HMDB01875",
+    "biocyc": "META:ALCOHOL-GROUP",
+    "mnx": "MNXM729799",
+    "inchikey": "OKKJLVBELUTLKV-UHFFFAOYSA-N",
+    "seed": "cpd00116",
+    "metacyc": "ALCOHOL-GROUP",
+    "sabiork": "55",
+    "inchi": "InChI=1S/CH4O/c1-2/h2H,1H3",
+    "formula": "CH4O"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "D-Glucose",
+   "bigg_metabolite": "glc__D",
+   "exchange": "EX_glc__D_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "kegg": "C00031",
+    "chebi": "CHEBI:12965",
+    "kegg_drug": "D00009",
+    "hmdb": "HMDB00122",
+    "biocyc": "META:Glucopyranose",
+    "mnx": "MNXM1364061",
+    "inchikey": "WQZGKKKJIJFFOK-GASJEMHNSA-N",
+    "seed": "cpd00027",
+    "metacyc": "Glucopyranose",
+    "sabiork": "1407",
+    "inchi": "InChI=1S/C6H12O6/c7-1-2-3(8)4(9)5(10)6(11)12-2/h2-11H,1H2/t2-,3-,4+,5-,6?/m1/s1",
+    "formula": "C6H12O6"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "Ethanol",
+   "bigg_metabolite": "etoh",
+   "exchange": "EX_etoh_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-113748",
+    "kegg": "C00469",
+    "chebi": "CHEBI:14222",
+    "kegg_drug": "D00068",
+    "hmdb": "HMDB00108",
+    "inchikey": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N",
+    "biocyc": "META:ETOH",
+    "mnx": "MNXM1108092",
+    "seed": "cpd00363",
+    "metacyc": "ETOH",
+    "sabiork": "56",
+    "inchi": "InChI=1S/C2H6O/c1-2-3/h3H,2H2,1H3",
+    "formula": "C2H6O"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 3,
+ "n_mapped": 3,
+ "n_in_biggr": 3,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 3,
+  "n_covered": 3,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 3
+  }
+ },
+ "oxygen": null,
+ "curation": "defined",
+ "uncovered": []
+}

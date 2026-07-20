@@ -1,0 +1,61 @@
+{
+ "id": "growthlit_PMC11290209_mm_dsmz_medium_81_modified_fructose_2_3_butanediol_up_to_450",
+ "name": "MM (DSMZ medium 81, modified) + fructose + 2,3-butanediol (up to 450 mM)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "MM (DSMZ medium 81, modified) + fructose + 2,3-butanediol (up to 450 mM) \u2014 formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC11290209 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11290209/",
+  "notes": "Formulation status: partial_unmapped. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."
+ },
+ "components": [
+  {
+   "name": "D-Fructose",
+   "bigg_metabolite": "fru",
+   "exchange": "EX_fru_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-189049",
+    "kegg": "C00095",
+    "chebi": "CHEBI:12923",
+    "kegg_drug": "D00114",
+    "hmdb": "HMDB62538",
+    "biocyc": "META:CPD-15382",
+    "mnx": "MNXM1364098",
+    "inchikey": "RFSUNEUAIZKAJO-VRPWFDPXSA-N",
+    "seed": "cpd00082",
+    "metacyc": "BETA-D-FRUCTOSE",
+    "sabiork": "1367",
+    "inchi": "InChI=1S/C6H12O6/c7-1-3-4(9)5(10)6(11,2-8)12-3/h3-5,7-11H,1-2H2/t3-,4-,5+,6-/m1/s1",
+    "formula": "C6H12O6"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 1
+  }
+ },
+ "oxygen": null,
+ "curation": "partial_unmapped",
+ "uncovered": []
+}
