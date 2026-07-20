@@ -13,14 +13,14 @@
    "metanetx": 575,
    "growthdb_formulation": 2737
   },
-  "total_uncovered": 31559,
-  "media_below_100pct": 8849
+  "total_uncovered": 31515,
+  "media_below_100pct": 8815
  },
  "by_category": {
-  "laboratory": 4931,
+  "laboratory": 4930,
   "biospecimen": 17,
   "food": 8125,
-  "growth_medium": 438
+  "growth_medium": 424
  },
  "by_source_db": {
   "standard": 293,
@@ -73,7 +73,7 @@
     "url",
     "food_group"
    ],
-   "size": "497.5 KB"
+   "size": "495.2 KB"
   },
   "components.parquet": {
    "rows": 665475,
@@ -98,7 +98,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "2.6 MB"
+   "size": "3.1 MB"
   },
   "media.sqlite.gz": {
    "tables": [
