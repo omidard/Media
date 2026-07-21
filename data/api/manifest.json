@@ -2,7 +2,7 @@
  "api_version": "v1",
  "base_url": "https://omidard.github.io/Media",
  "catalog_count": 13515,
- "component_records": 665563,
+ "component_records": 665582,
  "distinct_compounds": 1814,
  "coverage": {
   "by_exchange_source": {
@@ -12,7 +12,7 @@
    "kegg": 22,
    "metanetx": 575,
    "growthdb_formulation": 2737,
-   "biolog_base_formulation": 88
+   "biolog_base_formulation": 107
   },
   "total_uncovered": 31515,
   "media_below_100pct": 8815
@@ -77,7 +77,7 @@
    "size": "496.8 KB"
   },
   "components.parquet": {
-   "rows": 665563,
+   "rows": 665582,
    "grain": "one row per (medium, component)",
    "columns": [
     "medium_id",

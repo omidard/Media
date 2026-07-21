@@ -194,6 +194,56 @@
    "mapping_confidence": "curated"
   },
   {
+   "name": "co2",
+   "bigg_metabolite": "co2",
+   "exchange": "EX_co2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "cbl1",
+   "bigg_metabolite": "cbl1",
+   "exchange": "EX_cbl1_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "sel",
+   "bigg_metabolite": "sel",
+   "exchange": "EX_sel_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "slnt",
+   "bigg_metabolite": "slnt",
+   "exchange": "EX_slnt_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "tungs",
+   "bigg_metabolite": "tungs",
+   "exchange": "EX_tungs_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
    "name": "o2",
    "bigg_metabolite": "o2",
    "exchange": "EX_o2_e",
@@ -204,17 +254,17 @@
    "mapping_confidence": "curated"
   }
  ],
- "n_components": 19,
- "n_mapped": 19,
- "n_in_biggr": 19,
+ "n_components": 24,
+ "n_mapped": 24,
+ "n_in_biggr": 24,
  "version": 1,
  "coverage": {
-  "n_compounds": 19,
-  "n_covered": 19,
+  "n_compounds": 24,
+  "n_covered": 24,
   "n_uncovered": 0,
   "pct_covered": 100.0,
   "by_source": {
-   "biggr": 19
+   "biggr": 24
   }
  },
  "uncovered": [],
