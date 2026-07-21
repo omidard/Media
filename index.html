@@ -66,6 +66,30 @@
   <div class="muted" style="text-align:center;font-size:.78rem;margin-top:8px">Live usage since launch · privacy-friendly analytics (GoatCounter)</div>
 </div>
 
+<section class="section feature"><div class="wrap">
+  <div class="feat-grid">
+    <div class="feat-copy" data-rise>
+      <div class="eyebrow">From library to model</div>
+      <h2>Adopt any medium<br>in <span class="grad-ink">one line.</span></h2>
+      <p>Every medium is already resolved to standard <b>BiGG exchange reactions</b> with bounds — no manual
+        mapping, no unit wrangling. Pull it straight into COBRApy and constrain your model.</p>
+      <ul class="feat-list">
+        <li><span class="fl-ic"></span>Components pre-mapped to exchange ids</li>
+        <li><span class="fl-ic"></span>Bounds ready — presence, or measured rates</li>
+        <li><span class="fl-ic"></span>Every medium keeps its original citation</li>
+      </ul>
+      <a class="btn btn-ghost btn-sm feat-cta" href="API.md">Read the data API →</a>
+    </div>
+    <div class="code-card" data-rise>
+      <div class="cc-bar"><span class="cc-dot"></span><span class="cc-dot"></span><span class="cc-dot"></span>
+        <span class="cc-file mono">adopt_medium.py</span>
+        <button class="cc-copy" id="cc-copy" title="Copy"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy</span></button></div>
+      <pre class="cc-body"><code id="cc-code"></code></pre>
+      <div class="cc-out"><span class="cc-prompt">→</span> objective <b>0.874&nbsp;h⁻¹</b> <span class="cc-ok">✓ matches the measured growth rate</span></div>
+    </div>
+  </div>
+</div></section>
+
 <section class="section"><div class="wrap">
   <div class="portals">
     <a class="portal" data-rise href="#explore">
@@ -158,6 +182,37 @@ function clearF(){['f-cur','f-cat','f-src','f-grp','f-o2'].forEach(id=>document.
 function popF(id,vals){const s=document.getElementById(id);[...new Set(vals)].filter(Boolean).sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});}
 
 heroNetwork(document.getElementById('hero-net'));
+
+// ---- one-line code showcase ----
+(function(){
+  const raw=`import cobra, requests
+
+model = cobra.io.load_model("iML1515")
+
+# pull a medium straight from the Media library
+base = "https://omidard.github.io/Media/data/media/"
+med  = requests.get(base + "glucose_m9.json").json()
+
+# already BiGG-mapped exchanges with bounds → drop it in
+model.medium = {c["exchange"]: -c["lower_bound"]
+                for c in med["components"]}
+
+model.slim_optimize()`;
+  // tokenise: pull comments + strings out first (placeholders) so keyword/attr regexes can't corrupt them
+  const store=[];const keep=(cls,txt)=>{store.push('<span class="'+cls+'">'+txt+'</span>');return '@@'+(store.length-1)+'@@';};
+  let hl=raw.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))
+    .replace(/(#[^\n]*)/g,m=>keep('c',m))
+    .replace(/("[^"]*")/g,m=>keep('s',m))
+    .replace(/\b(import|for|in|return|from|as)\b/g,'<span class="k">$1</span>')
+    .replace(/\.(load_model|get|json|slim_optimize)\b/g,'.<span class="f">$1</span>')
+    .replace(/\b(cobra|requests|model|med|base)\b/g,'<span class="v">$1</span>')
+    .replace(/@@(\d+)@@/g,(m,i)=>store[+i]);
+  document.getElementById('cc-code').innerHTML=hl;
+  const btn=document.getElementById('cc-copy');
+  btn.addEventListener('click',()=>{navigator.clipboard.writeText(raw).then(()=>{
+    btn.classList.add('ok');btn.querySelector('span').textContent='Copied';
+    setTimeout(()=>{btn.classList.remove('ok');btn.querySelector('span').textContent='Copy';},1600);});});
+})();
 
 Promise.all([jget('data/index.json'),jget('data/media_stats.json'),jget('data/api/manifest.json').catch(()=>({}))]).then(([idx,st,mf])=>{
   DATA=idx.media;

@@ -431,7 +431,7 @@ function heroNetwork(canvas){
     ctx.strokeStyle=MINT(.35+.25*g);ctx.beginPath();for(let i=0;i<4;i++){ctx.moveTo(-5,-4+i*5);ctx.lineTo(6,-4+i*5);}ctx.stroke();ctx.restore();}
   function drawSource(s,g){({lab:drawFlask,food:drawFood,body:drawBody,paper:drawPaper})[s.type](s.x,s.y,g);label(s,g);}
   function drawComputer(x,y,p){ctx.save();ctx.translate(x,y);ctx.lineJoin='round';ctx.lineWidth=2;
-    const gl=0.4+0.6*(0.5+0.5*Math.sin(t*0.05))+p*0.6;
+    const gl=0.4+0.6*(0.5+0.5*Math.sin(t*0.022))+p*0.6;
     ctx.shadowColor='rgba(127,230,200,'+Math.min(.9,.3+gl*.5)+')';ctx.shadowBlur=14+22*p;
     ctx.strokeStyle=MINT(.72+.25*p);rr(-30,-23,60,40,7);ctx.stroke();ctx.shadowBlur=0;
     ctx.fillStyle=`rgba(14,90,73,${.35+.3*p})`;rr(-26,-19,52,32,4);ctx.fill();
@@ -454,13 +454,13 @@ function heroNetwork(canvas){
     for(let k=0;k<p.bits.length;k++){const a=p.alpha*(1-k*0.14);if(a<=0)continue;
       ctx.fillStyle=CY(Math.min(1,a));ctx.fillText(p.bits[k],p.x-ux*k*10,p.y-uy*k*10);}ctx.textAlign='start';}
   function spawn(){const s=src[(Math.random()*src.length)|0];
-    parts.push({s,sx:s.x,sy:s.y,x:s.x,y:s.y,prog:0,sp:0.006+Math.random()*0.004,phase:'mol',
-      rot:Math.random()*6.28,vr:(Math.random()-.5)*0.03,scale:6.5+Math.random()*4,mol:(Math.random()*3)|0,
+    parts.push({s,sx:s.x,sy:s.y,x:s.x,y:s.y,prog:0,sp:0.0024+Math.random()*0.0016,phase:'mol',
+      rot:Math.random()*6.28,vr:(Math.random()-.5)*0.012,scale:6.5+Math.random()*4,mol:(Math.random()*3)|0,
       alpha:0,bits:null,jit:(Math.random()-.5)*22,jf:Math.random()*6.28});}
   function updateDraw(){
-    const gg=0.4+0.6*(0.5+0.5*Math.sin(t*0.03));
+    const gg=0.4+0.6*(0.5+0.5*Math.sin(t*0.014));
     // spokes
-    ctx.setLineDash([2,6]);ctx.lineDashOffset=-t*0.5;ctx.lineWidth=1;
+    ctx.setLineDash([2,6]);ctx.lineDashOffset=-t*0.22;ctx.lineWidth=1;
     for(const s of src){const grd=ctx.createLinearGradient(s.x,s.y,C.x,C.y);grd.addColorStop(0,MINT(.10));grd.addColorStop(1,CY(.18));
       ctx.strokeStyle=grd;ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(C.x,C.y);ctx.stroke();}
     ctx.setLineDash([]);
@@ -471,14 +471,14 @@ function heroNetwork(canvas){
       const dx=C.x-p.sx,dy=C.y-p.sy,L=Math.hypot(dx,dy)||1;const nx=-dy/L,ny=dx/L;   // perpendicular for a gentle arc
       const bow=Math.sin(p.prog*Math.PI)*p.jit;
       p.x=px+nx*bow;p.y=py+ny*bow;
-      p.alpha=Math.min(1,p.alpha+0.05);
+      p.alpha=Math.min(1,p.alpha+0.022);
       if(p.phase==='mol'&&p.prog>0.48){p.phase='bin';p.bits=Array.from({length:4+((Math.random()*4)|0)},()=>Math.random()<.5?'0':'1');}
       if(p.phase==='mol')drawMol(p);
-      else{if(p.prog>0.9)p.alpha=Math.max(0,1-(p.prog-0.9)/0.1);drawBits(p);if(Math.random()<0.06)p.bits[(Math.random()*p.bits.length)|0]=Math.random()<.5?'0':'1';}
+      else{if(p.prog>0.9)p.alpha=Math.max(0,1-(p.prog-0.9)/0.1);drawBits(p);if(Math.random()<0.018)p.bits[(Math.random()*p.bits.length)|0]=Math.random()<.5?'0':'1';}
       if(p.prog>=0.99){parts.splice(i,1);comp.pulse=Math.min(1,comp.pulse+0.4);}}
     comp.pulse*=0.90;drawComputer(C.x,C.y,comp.pulse);}
   function frame(){t++;ctx.clearRect(0,0,W,H);
-    if(!reduce&&Math.random()<0.10&&parts.length<40)spawn();
+    if(!reduce&&Math.random()<0.022&&parts.length<16)spawn();
     updateDraw();raf=requestAnimationFrame(frame);}
   size();
   if(reduce){for(let i=0;i<12;i++){spawn();const p=parts[i];p.prog=Math.random()*0.9;p.alpha=1;const px=p.sx+(C.x-p.sx)*p.prog,py=p.sy+(C.y-p.sy)*p.prog;p.x=px;p.y=py;if(p.prog>0.48){p.phase='bin';p.bits=Array.from({length:5},()=>Math.random()<.5?'0':'1');}}
