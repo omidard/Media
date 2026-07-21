@@ -7,24 +7,24 @@
  "coverage": {
   "by_exchange_source": {
    "biggr": 647513,
+   "biolog_base_formulation": 88,
    "bigg": 13861,
    "modelseed": 767,
    "kegg": 22,
    "metanetx": 575,
-   "growthdb_formulation": 2737,
-   "biolog_base_formulation": 88
+   "growthdb_formulation": 2737
   },
   "total_uncovered": 31515,
   "media_below_100pct": 8815
  },
  "by_category": {
   "laboratory": 4930,
+  "growth_medium": 443,
   "biospecimen": 17,
-  "food": 8125,
-  "growth_medium": 443
+  "food": 8125
  },
  "by_source_db": {
-  "standard": 293,
+  "standard": 297,
   "Published (HMDB-derived)": 8,
   "HMDB": 9,
   "Published (GEM paper)": 1,
@@ -74,7 +74,7 @@
     "url",
     "food_group"
    ],
-   "size": "496.8 KB"
+   "size": "495.8 KB"
   },
   "components.parquet": {
    "rows": 665563,
@@ -99,7 +99,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "2.6 MB"
+   "size": "3.1 MB"
   },
   "media.sqlite.gz": {
    "tables": [
