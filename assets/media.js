@@ -393,78 +393,95 @@ function coverageScatter(canvas, data, onClick){
 }
 
 /* ===================== hero constellation animation ======================== */
-/* Hero animation — the lab-to-model story: chemical structures emitted by an Erlenmeyer flask, a
-   food, and a biospecimen tube drift right, dissolve into a binary stream, and flow into a computer. */
+/* Hero animation — the lab-to-model story. A COMPUTER sits at the centre; FOUR sources encircle it —
+   Laboratory (flask), Food, Biospecimen (human body) and Papers. Each emits chemical structures that
+   travel inward, morph into a binary stream at the mid-point, and converge into the computer. */
 function heroNetwork(canvas){
-  const ctx=canvas.getContext('2d');let W,H,dpr,raf,t=0,parts=[],sources=[],comp={pulse:0};
+  const ctx=canvas.getContext('2d');let W,H,dpr,raf,t=0,parts=[],src=[],C={x:0,y:0},comp={pulse:0};
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const SHAPES=[
-    {atoms:[[1,0],[.5,.87],[-.5,.87],[-1,0],[-.5,-.87],[.5,-.87]],bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0]],ring:1},
-    {atoms:[[1,0],[.5,.87],[-.5,.87],[-1,0],[-.5,-.87],[.5,-.87],[2,0]],bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,6]],ring:1},
-    {atoms:[[-1.6,.2],[-.6,.7],[.5,-.2],[1.5,.5],[.5,-1.3]],bonds:[[0,1],[1,2],[2,3],[2,4]]}];
+  const MOL=[
+    {a:[[1,0],[.5,.87],[-.5,.87],[-1,0],[-.5,-.87],[.5,-.87]],b:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0]],ring:1},
+    {a:[[1,0],[.5,.87],[-.5,.87],[-1,0],[-.5,-.87],[.5,-.87],[2,0]],b:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,6]],ring:1},
+    {a:[[-1.6,.2],[-.6,.7],[.5,-.2],[1.5,.5],[.5,-1.3]],b:[[0,1],[1,2],[2,3],[2,4]]}];
   function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=canvas.offsetWidth;H=canvas.offsetHeight;
     canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
-    const lx=Math.max(70,W*0.12);
-    sources=[{type:'flask',x:lx,y:H*0.30},{type:'food',x:lx*0.82,y:H*0.60},{type:'tube',x:lx*1.06,y:H*0.84}];
-    comp.x=W*0.88;comp.y=H*0.50;}
-  const transX=()=>W*0.56,absorbX=()=>comp.x-26;
+    C.x=W*0.5;C.y=H*0.5;const R=Math.min(W,H)*0.40;
+    const d=[[-1,-1],[1,-1],[1,1],[-1,1]],ty=['lab','food','body','paper'],lb=['Laboratory','Food','Biospecimen','Literature'];
+    src=d.map((v,i)=>({type:ty[i],label:lb[i],x:C.x+v[0]*R*0.94,y:C.y+v[1]*R*0.80,lx:v[0],ly:v[1]}));}
   function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
-  function drawFlask(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineJoin='round';ctx.lineWidth=1.7;
-    ctx.strokeStyle=`rgba(166,245,218,${.55+.35*g})`;ctx.beginPath();
-    ctx.moveTo(-3,-15);ctx.lineTo(-3,-4);ctx.lineTo(-12,11);ctx.quadraticCurveTo(-13,15,-8,15);ctx.lineTo(8,15);ctx.quadraticCurveTo(13,15,12,11);ctx.lineTo(3,-4);ctx.lineTo(3,-15);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(-6,-15);ctx.lineTo(6,-15);ctx.stroke();
-    ctx.fillStyle=`rgba(95,224,182,${.22+.22*g})`;ctx.beginPath();ctx.moveTo(-9,5);ctx.lineTo(9,5);ctx.lineTo(9,11);ctx.quadraticCurveTo(10,15,5,15);ctx.lineTo(-5,15);ctx.quadraticCurveTo(-10,15,-9,11);ctx.closePath();ctx.fill();
-    ctx.fillStyle=`rgba(180,248,222,${.6*g})`;ctx.beginPath();ctx.arc(-2,9,1.4,0,7);ctx.arc(3,7,1,0,7);ctx.fill();ctx.restore();}
-  function drawFood(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineWidth=1.7;ctx.strokeStyle=`rgba(166,245,218,${.55+.35*g})`;
-    ctx.beginPath();ctx.arc(0,3,9,0,7);ctx.stroke();ctx.beginPath();ctx.moveTo(0,-6);ctx.lineTo(1,-12);ctx.stroke();
-    ctx.beginPath();ctx.ellipse(5,-11,4,2,-.6,0,7);ctx.stroke();
-    ctx.fillStyle=`rgba(198,137,63,${.16+.16*g})`;ctx.beginPath();ctx.arc(0,3,8,0,7);ctx.fill();ctx.restore();}
-  function drawTube(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineJoin='round';ctx.lineWidth=1.7;ctx.strokeStyle=`rgba(166,245,218,${.55+.35*g})`;
-    ctx.beginPath();ctx.moveTo(-4,-14);ctx.lineTo(-4,9);ctx.quadraticCurveTo(-4,15,0,15);ctx.quadraticCurveTo(4,15,4,9);ctx.lineTo(4,-14);ctx.stroke();
+  const MINT=(a)=>`rgba(166,245,218,${a})`,CY=(a)=>`rgba(160,236,255,${a})`,GRN=(a)=>`rgba(95,224,182,${a})`;
+  function label(s,g){ctx.font='700 10.5px Inter,system-ui,sans-serif';ctx.textBaseline='middle';
+    ctx.textAlign=s.lx<0?'end':'start';ctx.fillStyle=`rgba(205,238,227,${.5+.35*g})`;
+    ctx.fillText(s.label,s.x+(s.lx<0?-16:16),s.y+ (s.ly<0?-2:2));ctx.textAlign='start';}
+  function drawFlask(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineJoin='round';ctx.lineWidth=1.7;ctx.strokeStyle=MINT(.6+.3*g);
+    ctx.beginPath();ctx.moveTo(-3,-14);ctx.lineTo(-3,-3);ctx.lineTo(-11,11);ctx.quadraticCurveTo(-12,15,-7,15);ctx.lineTo(7,15);ctx.quadraticCurveTo(12,15,11,11);ctx.lineTo(3,-3);ctx.lineTo(3,-14);ctx.stroke();
     ctx.beginPath();ctx.moveTo(-6,-14);ctx.lineTo(6,-14);ctx.stroke();
-    ctx.fillStyle=`rgba(155,232,255,${.24+.2*g})`;ctx.beginPath();ctx.moveTo(-4,1);ctx.lineTo(4,1);ctx.lineTo(4,9);ctx.quadraticCurveTo(4,15,0,15);ctx.quadraticCurveTo(-4,15,-4,9);ctx.closePath();ctx.fill();ctx.restore();}
-  function drawComputer(x,y,p){ctx.save();ctx.translate(x,y);ctx.lineJoin='round';ctx.lineWidth=1.9;
-    ctx.shadowColor='rgba(127,230,200,'+(.3+.5*p)+')';ctx.shadowBlur=8+18*p;
-    ctx.strokeStyle=`rgba(166,245,218,${.6+.35*p})`;rr(-24,-18,48,32,5);ctx.stroke();ctx.shadowBlur=0;
-    ctx.fillStyle=`rgba(20,184,146,${.10+.28*p})`;rr(-21,-15,42,26,3);ctx.fill();
-    ctx.beginPath();ctx.moveTo(-7,14);ctx.lineTo(-9,21);ctx.lineTo(9,21);ctx.lineTo(7,14);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(-13,23);ctx.lineTo(13,23);ctx.stroke();
-    ctx.fillStyle=`rgba(180,248,222,${.55+.35*p})`;const bh=[5,9,6,11];for(let i=0;i<4;i++){ctx.fillRect(-17+i*9,7-bh[i],5,bh[i]);}
+    ctx.fillStyle=GRN(.22+.22*g);ctx.beginPath();ctx.moveTo(-8,5);ctx.lineTo(8,5);ctx.lineTo(8,11);ctx.quadraticCurveTo(9,15,5,15);ctx.lineTo(-5,15);ctx.quadraticCurveTo(-9,15,-8,11);ctx.closePath();ctx.fill();ctx.restore();}
+  function drawFood(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineWidth=1.7;ctx.strokeStyle=MINT(.6+.3*g);
+    ctx.beginPath();ctx.arc(-3,3,7,0,7);ctx.arc(3,3,7,0,7);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(0,-4);ctx.lineTo(1,-11);ctx.stroke();ctx.beginPath();ctx.ellipse(5,-10,4,2,-.6,0,7);ctx.stroke();
+    ctx.fillStyle=`rgba(198,137,63,${.14+.14*g})`;ctx.beginPath();ctx.arc(0,3,7.5,0,7);ctx.fill();ctx.restore();}
+  function drawBody(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineWidth=1.7;ctx.strokeStyle=MINT(.6+.3*g);ctx.lineJoin='round';
+    ctx.beginPath();ctx.arc(0,-7,5,0,7);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-10,15);ctx.quadraticCurveTo(-10,1,0,1);ctx.quadraticCurveTo(10,1,10,15);ctx.stroke();
+    ctx.fillStyle=CY(.12+.15*g);ctx.beginPath();ctx.arc(0,-7,4,0,7);ctx.fill();ctx.restore();}
+  function drawPaper(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineWidth=1.6;ctx.strokeStyle=MINT(.6+.3*g);ctx.lineJoin='round';
+    ctx.beginPath();ctx.moveTo(-8,-13);ctx.lineTo(4,-13);ctx.lineTo(9,-8);ctx.lineTo(9,14);ctx.lineTo(-8,14);ctx.closePath();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(4,-13);ctx.lineTo(4,-8);ctx.lineTo(9,-8);ctx.stroke();
+    ctx.strokeStyle=MINT(.35+.25*g);ctx.beginPath();for(let i=0;i<4;i++){ctx.moveTo(-5,-4+i*5);ctx.lineTo(6,-4+i*5);}ctx.stroke();ctx.restore();}
+  function drawSource(s,g){({lab:drawFlask,food:drawFood,body:drawBody,paper:drawPaper})[s.type](s.x,s.y,g);label(s,g);}
+  function drawComputer(x,y,p){ctx.save();ctx.translate(x,y);ctx.lineJoin='round';ctx.lineWidth=2;
+    const gl=0.4+0.6*(0.5+0.5*Math.sin(t*0.05))+p*0.6;
+    ctx.shadowColor='rgba(127,230,200,'+Math.min(.9,.3+gl*.5)+')';ctx.shadowBlur=14+22*p;
+    ctx.strokeStyle=MINT(.72+.25*p);rr(-30,-23,60,40,7);ctx.stroke();ctx.shadowBlur=0;
+    ctx.fillStyle=`rgba(14,90,73,${.35+.3*p})`;rr(-26,-19,52,32,4);ctx.fill();
+    ctx.beginPath();ctx.moveTo(-9,17);ctx.lineTo(-12,26);ctx.lineTo(12,26);ctx.lineTo(9,17);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-17,28);ctx.lineTo(17,28);ctx.stroke();
+    // on-screen: a little metabolic network + bars, lit by incoming data
+    const a=.5+.4*p+.1*Math.sin(t*0.1);
+    ctx.strokeStyle=CY(a*.8);ctx.lineWidth=1.2;const nd=[[-16,-8],[-6,-13],[2,-4],[13,-10],[8,4],[-9,6]];
+    ctx.beginPath();ctx.moveTo(nd[0][0],nd[0][1]);for(let i=1;i<nd.length;i++)ctx.lineTo(nd[i][0],nd[i][1]);ctx.stroke();
+    ctx.fillStyle=MINT(a);for(const n of nd){ctx.beginPath();ctx.arc(n[0],n[1],1.6,0,7);ctx.fill();}
     ctx.restore();}
-  function drawMol(p){const S=SHAPES[p.mol],c=Math.cos(p.rot),s=Math.sin(p.rot),sc=p.scale,a=p.alpha;
-    const pts=S.atoms.map(([ax,ay])=>[p.x+(ax*c-ay*s)*sc,p.y+(ax*s+ay*c)*sc]);
-    ctx.lineWidth=1.5;ctx.strokeStyle=`rgba(166,245,218,${.78*a})`;ctx.beginPath();
-    for(const [i,j] of S.bonds){ctx.moveTo(pts[i][0],pts[i][1]);ctx.lineTo(pts[j][0],pts[j][1]);}ctx.stroke();
-    if(S.ring){ctx.strokeStyle=`rgba(155,232,255,${.38*a})`;ctx.beginPath();ctx.arc(p.x,p.y,sc*.55,0,7);ctx.stroke();}
-    ctx.fillStyle=`rgba(180,248,222,${.92*a})`;for(const [px,py] of pts){ctx.beginPath();ctx.arc(px,py,1.7,0,7);ctx.fill();}}
-  function drawBits(p){ctx.font='700 13.5px "JetBrains Mono",ui-monospace,monospace';ctx.textBaseline='middle';
-    const fz=W*0.76,fade=p.x>fz?Math.max(0,1-(p.x-fz)/(absorbX()-fz)):1;
-    for(let k=0;k<p.bits.length;k++){const a=p.alpha*fade*(1-k*0.1);if(a<=0)continue;
-      ctx.fillStyle=`rgba(160,236,255,${Math.min(1,a*1.15)})`;ctx.fillText(p.bits[k],p.x-k*9.5,p.y);}}
-  function spawn(){const s=sources[Math.floor(Math.random()*sources.length)];
-    parts.push({x:s.x+8,y:s.y-8,vx:0.65+Math.random()*0.5,vy:(Math.random()-.5)*0.12,phase:'mol',
-      rot:Math.random()*6.28,vr:(Math.random()-.5)*0.02,scale:7.5+Math.random()*4.5,mol:Math.floor(Math.random()*3),
-      alpha:0,bits:null,wob:Math.random()*6.28});}
+  function drawMol(p){const S=MOL[p.mol],c=Math.cos(p.rot),s=Math.sin(p.rot),sc=p.scale,a=p.alpha;
+    const P=S.a.map(([ax,ay])=>[p.x+(ax*c-ay*s)*sc,p.y+(ax*s+ay*c)*sc]);
+    ctx.lineWidth=1.5;ctx.strokeStyle=MINT(.8*a);ctx.beginPath();
+    for(const[i,j]of S.b){ctx.moveTo(P[i][0],P[i][1]);ctx.lineTo(P[j][0],P[j][1]);}ctx.stroke();
+    if(S.ring){ctx.strokeStyle=CY(.38*a);ctx.beginPath();ctx.arc(p.x,p.y,sc*.55,0,7);ctx.stroke();}
+    ctx.fillStyle=`rgba(180,248,222,${.92*a})`;for(const[px,py]of P){ctx.beginPath();ctx.arc(px,py,1.7,0,7);ctx.fill();}}
+  function drawBits(p){ctx.font='700 13px "JetBrains Mono",ui-monospace,monospace';ctx.textBaseline='middle';ctx.textAlign='center';
+    const dx=(C.x-p.sx),dy=(C.y-p.sy),L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;   // trail points back toward the source
+    for(let k=0;k<p.bits.length;k++){const a=p.alpha*(1-k*0.14);if(a<=0)continue;
+      ctx.fillStyle=CY(Math.min(1,a));ctx.fillText(p.bits[k],p.x-ux*k*10,p.y-uy*k*10);}ctx.textAlign='start';}
+  function spawn(){const s=src[(Math.random()*src.length)|0];
+    parts.push({s,sx:s.x,sy:s.y,x:s.x,y:s.y,prog:0,sp:0.006+Math.random()*0.004,phase:'mol',
+      rot:Math.random()*6.28,vr:(Math.random()-.5)*0.03,scale:6.5+Math.random()*4,mol:(Math.random()*3)|0,
+      alpha:0,bits:null,jit:(Math.random()-.5)*22,jf:Math.random()*6.28});}
   function updateDraw(){
-    // faint data-highway line from the transition zone into the computer
-    const grd=ctx.createLinearGradient(transX(),0,comp.x,0);
-    grd.addColorStop(0,'rgba(127,230,200,0)');grd.addColorStop(1,'rgba(155,232,255,.16)');
-    ctx.strokeStyle=grd;ctx.lineWidth=1;ctx.setLineDash([2,5]);ctx.lineDashOffset=-t*0.6;
-    ctx.beginPath();ctx.moveTo(transX(),comp.y);ctx.lineTo(comp.x-24,comp.y);ctx.stroke();ctx.setLineDash([]);
-    const g=0.45+0.55*(0.5+0.5*Math.sin(t*0.028));
-    drawFlask(sources[0].x,sources[0].y,g);drawFood(sources[1].x,sources[1].y,0.9-g*0.5);drawTube(sources[2].x,sources[2].y,g*0.8+0.1);
+    const gg=0.4+0.6*(0.5+0.5*Math.sin(t*0.03));
+    // spokes
+    ctx.setLineDash([2,6]);ctx.lineDashOffset=-t*0.5;ctx.lineWidth=1;
+    for(const s of src){const grd=ctx.createLinearGradient(s.x,s.y,C.x,C.y);grd.addColorStop(0,MINT(.10));grd.addColorStop(1,CY(.18));
+      ctx.strokeStyle=grd;ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(C.x,C.y);ctx.stroke();}
+    ctx.setLineDash([]);
+    for(const s of src)drawSource(s,gg);
     for(let i=parts.length-1;i>=0;i--){const p=parts[i];
-      if(!reduce){p.x+=p.vx;p.y+=p.vy+Math.sin(t*0.05+p.wob)*0.18;p.rot+=p.vr;}
-      p.alpha=Math.min(1,p.alpha+0.04);
-      if(p.phase==='mol'&&p.x>transX()){p.phase='bin';p.bits=Array.from({length:4+((Math.random()*4)|0)},()=>Math.random()<.5?'0':'1');}
-      if(p.phase==='mol')drawMol(p);else{drawBits(p);if(Math.random()<0.05)p.bits[(Math.random()*p.bits.length)|0]=Math.random()<.5?'0':'1';}
-      if(p.x>absorbX()){parts.splice(i,1);comp.pulse=Math.min(1,comp.pulse+0.5);}}
-    comp.pulse*=0.90;drawComputer(comp.x,comp.y,comp.pulse);}
+      if(!reduce){p.prog+=p.sp;p.rot+=p.vr;}
+      const px=p.sx+(C.x-p.sx)*p.prog,py=p.sy+(C.y-p.sy)*p.prog;
+      const dx=C.x-p.sx,dy=C.y-p.sy,L=Math.hypot(dx,dy)||1;const nx=-dy/L,ny=dx/L;   // perpendicular for a gentle arc
+      const bow=Math.sin(p.prog*Math.PI)*p.jit;
+      p.x=px+nx*bow;p.y=py+ny*bow;
+      p.alpha=Math.min(1,p.alpha+0.05);
+      if(p.phase==='mol'&&p.prog>0.48){p.phase='bin';p.bits=Array.from({length:4+((Math.random()*4)|0)},()=>Math.random()<.5?'0':'1');}
+      if(p.phase==='mol')drawMol(p);
+      else{if(p.prog>0.9)p.alpha=Math.max(0,1-(p.prog-0.9)/0.1);drawBits(p);if(Math.random()<0.06)p.bits[(Math.random()*p.bits.length)|0]=Math.random()<.5?'0':'1';}
+      if(p.prog>=0.99){parts.splice(i,1);comp.pulse=Math.min(1,comp.pulse+0.4);}}
+    comp.pulse*=0.90;drawComputer(C.x,C.y,comp.pulse);}
   function frame(){t++;ctx.clearRect(0,0,W,H);
-    if(!reduce&&Math.random()<0.055&&parts.length<32)spawn();
+    if(!reduce&&Math.random()<0.10&&parts.length<40)spawn();
     updateDraw();raf=requestAnimationFrame(frame);}
   size();
-  if(reduce){for(let i=0;i<10;i++){spawn();const p=parts[i];p.x=sources[0].x+Math.random()*(comp.x-sources[0].x-40);p.alpha=1;if(p.x>transX()){p.phase='bin';p.bits=Array.from({length:5},()=>Math.random()<.5?'0':'1');}}
+  if(reduce){for(let i=0;i<12;i++){spawn();const p=parts[i];p.prog=Math.random()*0.9;p.alpha=1;const px=p.sx+(C.x-p.sx)*p.prog,py=p.sy+(C.y-p.sy)*p.prog;p.x=px;p.y=py;if(p.prog>0.48){p.phase='bin';p.bits=Array.from({length:5},()=>Math.random()<.5?'0':'1');}}
     ctx.clearRect(0,0,W,H);updateDraw();return;}
   frame();
   window.addEventListener('resize',()=>{cancelAnimationFrame(raf);size();frame();});

@@ -25,16 +25,28 @@
 </div></nav>
 
 <header class="hero">
-  <canvas id="hero-net"></canvas>
-  <div class="wrap">
-    <div class="eyebrow">Genome-scale metabolic modelling · validation-data suite</div>
-    <h1>The <span class="grad">growth media</span> library for metabolic models.</h1>
-    <p class="lead">Thousands of semi-curated, citation-backed growth &amp; simulation media — every component
-      mapped to a standard <b>BiGG exchange reaction</b>, so any GEM can adopt a medium in one line.
-      Browse provenance, compare formulations, and read the patterns across the whole collection.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="#explore">Explore the library →</a>
-      <a class="btn btn-ghost" href="API.md">Use the data API</a>
+  <div class="hero-grid wrap">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="eb-dot"></span>Genome-scale metabolic modelling · validation-data suite</div>
+      <h1>The <span class="grad">growth media</span> library for metabolic models.</h1>
+      <p class="lead">The world's lab benches, food matrices, biospecimens and literature — distilled into
+        thousands of citation-backed media, every component mapped to a standard <b>BiGG exchange reaction</b>,
+        so any genome-scale model can adopt a medium in one line.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#explore">Explore the library <span class="btn-arrow">→</span></a>
+        <a class="btn btn-ghost" href="API.md">Use the data API</a>
+      </div>
+      <div class="hero-tags">
+        <span class="htag">★ curated reference collection</span>
+        <span class="htag">BiGG-mapped exchanges</span>
+        <span class="htag">one-line COBRApy import</span>
+      </div>
+    </div>
+    <div class="hero-viz">
+      <div class="viz-frame">
+        <canvas id="hero-net"></canvas>
+        <div class="viz-cap"><span class="mono">experiment → data → model</span></div>
+      </div>
     </div>
   </div>
   <div class="hero-fade"></div>
@@ -48,23 +60,23 @@
     <div class="stat"><div class="n" id="s-db">—</div><div class="l">Source databases</div></div>
   </div>
   <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:16px">
-    <div class="stat" style="flex:0 1 250px;text-align:center"><div class="n" id="stat-views">—</div><div class="l">👁 Page views</div></div>
-    <div class="stat" style="flex:0 1 250px;text-align:center"><div class="n" id="stat-downloads">—</div><div class="l">⬇ Downloads</div></div>
+    <div class="stat" style="flex:0 1 250px;text-align:center"><div class="n" id="stat-views">—</div><div class="l"><svg class="l-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Page views</div></div>
+    <div class="stat" style="flex:0 1 250px;text-align:center"><div class="n" id="stat-downloads">—</div><div class="l"><svg class="l-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>Downloads</div></div>
   </div>
   <div class="muted" style="text-align:center;font-size:.78rem;margin-top:8px">Live usage since launch · privacy-friendly analytics (GoatCounter)</div>
 </div>
 
 <section class="section"><div class="wrap">
   <div class="portals">
-    <a class="portal" href="#explore">
+    <a class="portal" data-rise href="#explore">
       <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
       <h3>Explore</h3><p>Search and filter every medium by category, source, food group and oxygen. Click any one to inspect its full component list, cross-references and citation — then copy it into COBRApy.</p>
       <span class="go">Browse all media →</span></a>
-    <a class="portal" href="compare.html">
+    <a class="portal" data-rise href="compare.html">
       <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></div>
       <h3>Compare</h3><p>Put two to eight media side by side. See a Jaccard similarity matrix, an UpSet intersection plot, and a clustered grid of exactly which compounds they share and where they diverge.</p>
       <span class="go">Compare formulations →</span></a>
-    <a class="portal" href="patterns.html">
+    <a class="portal" data-rise href="patterns.html">
       <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
       <h3>Patterns</h3><p>A hierarchically clustered view of the whole collection — which compounds co-occur, and how media groups separate by composition. Row- and column-clustered heatmaps with dendrograms.</p>
       <span class="go">See the clustering →</span></a>
@@ -74,10 +86,10 @@
 <section class="section" style="padding-top:0"><div class="wrap">
   <div class="section-head"><div class="eyebrow">At a glance</div><h2>What's in the library</h2></div>
   <div class="bento">
-    <div class="card card-p bento-cat"><div class="ch-head"><h4>Media by category</h4><span class="ch-sub">3 classes</span></div><div class="ch-box" style="height:236px"><canvas id="ch-cat"></canvas></div></div>
-    <div class="card card-p bento-db"><div class="ch-head"><h4>Media by source database</h4><span class="ch-sub">provenance</span></div><div class="ch-box" style="height:236px"><canvas id="ch-db"></canvas></div></div>
-    <div class="card card-p bento-cmp"><div class="ch-head"><h4>Most common components</h4><span class="ch-sub">across all media</span></div><div class="ch-box" style="height:300px"><canvas id="ch-cmp"></canvas></div></div>
-    <div class="card card-p bento-metric">
+    <div class="card card-p bento-cat" data-rise><div class="ch-head"><h4>Media by category</h4><span class="ch-sub">3 classes</span></div><div class="ch-box" style="height:236px"><canvas id="ch-cat"></canvas></div></div>
+    <div class="card card-p bento-db" data-rise><div class="ch-head"><h4>Media by source database</h4><span class="ch-sub">provenance</span></div><div class="ch-box" style="height:236px"><canvas id="ch-db"></canvas></div></div>
+    <div class="card card-p bento-cmp" data-rise><div class="ch-head"><h4>Most common components</h4><span class="ch-sub">across all media</span></div><div class="ch-box" style="height:300px"><canvas id="ch-cmp"></canvas></div></div>
+    <div class="card card-p bento-metric" data-rise>
       <div class="metric-row"><div class="metric"><div class="mv" id="m-med">50</div><div class="ml">components in the median medium</div></div></div>
       <div class="metric-row"><div class="metric"><div class="mv" id="m-max">—</div><div class="ml">in the richest formulation</div></div></div>
       <div class="complexity-bar"><span class="cb-min">1</span><div class="cb-track"><div class="cb-fill" id="cb-fill"></div><div class="cb-median" id="cb-median"></div></div><span class="cb-max" id="cb-maxlbl">—</span></div>
@@ -135,6 +147,13 @@
 <script src="assets/media.js"></script>
 <script>
 let DATA=[],table;
+// premium micro-interactions: number count-up + scroll reveal
+function countUp(el,to,suffix){if(!el)return;const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce||to<50){el.textContent=fmt(to)+(suffix||'');return;}
+  const dur=1100,t0=performance.now();function step(now){const p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3);
+    el.textContent=fmt(Math.round(to*e))+(suffix||'');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+const _revObs=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');_revObs.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+function initReveal(){document.querySelectorAll('[data-rise]').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,6)*55)+'ms';_revObs.observe(el);});}
 function clearF(){['f-cur','f-cat','f-src','f-grp','f-o2'].forEach(id=>document.getElementById(id).value='');table.columns().search('').draw();}
 function popF(id,vals){const s=document.getElementById(id);[...new Set(vals)].filter(Boolean).sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});}
 
@@ -142,10 +161,11 @@ heroNetwork(document.getElementById('hero-net'));
 
 Promise.all([jget('data/index.json'),jget('data/media_stats.json'),jget('data/api/manifest.json').catch(()=>({}))]).then(([idx,st,mf])=>{
   DATA=idx.media;
-  document.getElementById('s-total').textContent=fmt(idx.count);
+  countUp(document.getElementById('s-total'),idx.count);
   document.getElementById('s-rec').innerHTML=mf.component_records?Math.round(mf.component_records/1000)+'<span class="u">k</span>':'—';
-  document.getElementById('s-cmp').textContent=mf.distinct_compounds?fmt(mf.distinct_compounds):Object.keys(st.top_exchanges||{}).length;
+  countUp(document.getElementById('s-cmp'),mf.distinct_compounds||Object.keys(st.top_exchanges||{}).length);
   document.getElementById('s-db').textContent=Object.keys(idx.by_source_db||{}).length;
+  initReveal();
 
   document.getElementById('loading').style.display='none';
   document.getElementById('tbl').style.display='table';
