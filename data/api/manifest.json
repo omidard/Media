@@ -7,13 +7,12 @@
  "coverage": {
   "by_exchange_source": {
    "biggr": 647513,
-   "biolog_base_formulation": 88,
+   "biolog_base_formulation": 107,
    "bigg": 13861,
    "modelseed": 767,
    "kegg": 22,
    "metanetx": 575,
-   "growthdb_formulation": 2737,
-   "biolog_base_formulation": 107
+   "growthdb_formulation": 2737
   },
   "total_uncovered": 31515,
   "media_below_100pct": 8815
@@ -75,7 +74,7 @@
     "url",
     "food_group"
    ],
-   "size": "495.8 KB"
+   "size": "495.7 KB"
   },
   "components.parquet": {
    "rows": 665582,
