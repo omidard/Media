@@ -14,8 +14,8 @@
    "growthdb_formulation": 2737,
    "biolog_base_formulation": 88
   },
-  "total_uncovered": 31518,
-  "media_below_100pct": 8818
+  "total_uncovered": 31515,
+  "media_below_100pct": 8815
  },
  "by_category": {
   "laboratory": 4930,
@@ -99,7 +99,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "2.6 MB"
+   "size": "3.1 MB"
   },
   "media.sqlite.gz": {
    "tables": [
