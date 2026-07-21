@@ -1,0 +1,333 @@
+{
+ "id": "biolog_base_def_min_c_vit",
+ "name": "Defined-minimal carbon base + vitamins (gram-positive / fastidious, IF-10 style)",
+ "category": "growth_medium",
+ "organism_scope": "prokaryote",
+ "aerobic": true,
+ "namespace": "bigg",
+ "description": "Mineral salts + trace metals + B-vitamins, no carbon; for fastidious gram-positives whose Biolog base (IF-10) is supplemented, so vitamin auxotrophy is not scored as a carbon-utilisation failure.",
+ "provenance": {
+  "source_type": "standard",
+  "citation": "Biolog Phenotype MicroArray / BacDive substrate-utilisation base medium, formulated to BiGG exchanges for GEM validation.",
+  "doi": "",
+  "url": ""
+ },
+ "components": [
+  {
+   "name": "pi",
+   "bigg_metabolite": "pi",
+   "exchange": "EX_pi_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "so4",
+   "bigg_metabolite": "so4",
+   "exchange": "EX_so4_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "cl",
+   "bigg_metabolite": "cl",
+   "exchange": "EX_cl_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "na1",
+   "bigg_metabolite": "na1",
+   "exchange": "EX_na1_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "k",
+   "bigg_metabolite": "k",
+   "exchange": "EX_k_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "nh4",
+   "bigg_metabolite": "nh4",
+   "exchange": "EX_nh4_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "mg2",
+   "bigg_metabolite": "mg2",
+   "exchange": "EX_mg2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "ca2",
+   "bigg_metabolite": "ca2",
+   "exchange": "EX_ca2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "fe2",
+   "bigg_metabolite": "fe2",
+   "exchange": "EX_fe2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "fe3",
+   "bigg_metabolite": "fe3",
+   "exchange": "EX_fe3_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "mn2",
+   "bigg_metabolite": "mn2",
+   "exchange": "EX_mn2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "zn2",
+   "bigg_metabolite": "zn2",
+   "exchange": "EX_zn2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "cu2",
+   "bigg_metabolite": "cu2",
+   "exchange": "EX_cu2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "cobalt2",
+   "bigg_metabolite": "cobalt2",
+   "exchange": "EX_cobalt2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "mobd",
+   "bigg_metabolite": "mobd",
+   "exchange": "EX_mobd_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "ni2",
+   "bigg_metabolite": "ni2",
+   "exchange": "EX_ni2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "h2o",
+   "bigg_metabolite": "h2o",
+   "exchange": "EX_h2o_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "h",
+   "bigg_metabolite": "h",
+   "exchange": "EX_h_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "thm",
+   "bigg_metabolite": "thm",
+   "exchange": "EX_thm_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "ribflv",
+   "bigg_metabolite": "ribflv",
+   "exchange": "EX_ribflv_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "nac",
+   "bigg_metabolite": "nac",
+   "exchange": "EX_nac_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "pnto__R",
+   "bigg_metabolite": "pnto__R",
+   "exchange": "EX_pnto__R_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "pydxn",
+   "bigg_metabolite": "pydxn",
+   "exchange": "EX_pydxn_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "fol",
+   "bigg_metabolite": "fol",
+   "exchange": "EX_fol_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "btn",
+   "bigg_metabolite": "btn",
+   "exchange": "EX_btn_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "4abz",
+   "bigg_metabolite": "4abz",
+   "exchange": "EX_4abz_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "cbl1",
+   "bigg_metabolite": "cbl1",
+   "exchange": "EX_cbl1_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "lipoate",
+   "bigg_metabolite": "lipoate",
+   "exchange": "EX_lipoate_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "5mthf",
+   "bigg_metabolite": "5mthf",
+   "exchange": "EX_5mthf_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  },
+  {
+   "name": "o2",
+   "bigg_metabolite": "o2",
+   "exchange": "EX_o2_e",
+   "lower_bound": -1000.0,
+   "upper_bound": 1000.0,
+   "exchange_source": "biolog_base_formulation",
+   "mapping_method": "curated",
+   "mapping_confidence": "curated"
+  }
+ ],
+ "n_components": 30,
+ "n_mapped": 30,
+ "n_in_biggr": 30,
+ "version": 1,
+ "coverage": {
+  "n_compounds": 30,
+  "n_covered": 30,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "biggr": 30
+  }
+ },
+ "uncovered": [],
+ "oxygen": "aerobic",
+ "curation": "curated"
+}
