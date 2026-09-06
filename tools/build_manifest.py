@@ -192,11 +192,56 @@ def git_head() -> str | None:
         return None
 
 
+#: Manifest keys that date the BUILD rather than describe the artifacts.
+BUILD_STAMP_FIELDS = ("built_utc", "git_head")
+#: The same, per artifact entry.
+ARTIFACT_STAMP_FIELDS = ("mtime_utc",)
+
+STAMP_POLICY = (
+    "built_utc, git_head and each artifact's mtime_utc date the build that last "
+    "CHANGED what is described here; a rebuild that reproduces the same bytes "
+    "leaves this file untouched. `make derived` is therefore idempotent, and a git "
+    "diff on a derived artifact means its CONTENT moved — which is what makes "
+    "`--check-tree` a usable gate rather than one that is red on every clean tree.")
+
+
+def _stamp_free(man: dict) -> str:
+    """The manifest's substance, with every build stamp removed, canonically."""
+    core = {k: v for k, v in man.items() if k not in BUILD_STAMP_FIELDS}
+    core["artifacts"] = {
+        rel: {k: v for k, v in e.items() if k not in ARTIFACT_STAMP_FIELDS}
+        for rel, e in (man.get("artifacts") or {}).items()}
+    return json.dumps(core, sort_keys=True)
+
+
+def carry_stamps_forward(man: dict, previous: dict) -> dict:
+    """Keep the previous stamps when nothing but the stamps would change.
+
+    Same defect as the one in tools/web_payload.py, one level up: a wall-clock
+    built_utc (and an mtime that moves whenever a builder rewrites a file with
+    identical content) made data/MANIFEST.json differ from the committed one after
+    every `make derived`, so `make preflight` dirtied the tree it had just checked
+    and CI committed the manifest on every trigger for a timestamp.
+    """
+    if _stamp_free(man) != _stamp_free(previous):
+        return man
+    for f in BUILD_STAMP_FIELDS:
+        if f in previous:
+            man[f] = previous[f]
+    for rel, e in man.get("artifacts", {}).items():
+        prev = (previous.get("artifacts") or {}).get(rel) or {}
+        for f in ARTIFACT_STAMP_FIELDS:
+            if f in prev and f in e:
+                e[f] = prev[f]
+    return man
+
+
 def build() -> dict:
     man = {
         "schema": "mediadb-artifact-manifest/1",
         "built_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "git_head": git_head(),
+        "stamp_policy": STAMP_POLICY,
         "provenance": PROVENANCE,
         "artifacts": {},
     }
@@ -485,9 +530,22 @@ if __name__ == "__main__":
             rc |= check_tree(man, a.rev)
         sys.exit(rc)
     m = build()
-    with open(OUT, "w", encoding="utf-8") as fh:
-        json.dump(m, fh, indent=1)
-    print("manifest -> %s" % os.path.relpath(OUT, REPO))
+    old_raw = None
+    if os.path.exists(OUT):
+        with open(OUT, "rb") as fh:
+            old_raw = fh.read()
+        try:
+            m = carry_stamps_forward(m, json.loads(old_raw.decode("utf-8")))
+        except ValueError:
+            pass                          # unparseable previous manifest: write ours
+    blob = json.dumps(m, indent=1)
+    if old_raw is not None and blob.encode("utf-8") == old_raw:
+        print("manifest -> %s (unchanged; nothing this build produced differs)"
+              % os.path.relpath(OUT, REPO))
+    else:
+        with open(OUT, "w", encoding="utf-8") as fh:
+            fh.write(blob)
+        print("manifest -> %s" % os.path.relpath(OUT, REPO))
     for rel, e in m["artifacts"].items():
         print("  %-32s %-42s rows=%s" % (rel, e["generator"][:42], e.get("rows")))
     ident = m["catalog_count_identity"]

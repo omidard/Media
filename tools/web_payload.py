@@ -212,6 +212,65 @@ FIELD_RENAMES = [
 ]
 
 
+#: Payload keys that record the BUILD rather than the DATA.
+BUILD_STAMP_FIELDS = ("built_utc", "git_head")
+
+
+def _payload_view(obj: dict) -> str:
+    """The file's content with the build stamp removed, canonically serialised."""
+    return json.dumps({k: v for k, v in obj.items() if k not in BUILD_STAMP_FIELDS},
+                      separators=(",", ":"), ensure_ascii=False)
+
+
+def write_payload_file(path: str, obj: dict) -> tuple[str, bool]:
+    """Write one payload file, leaving it untouched when only the stamp would move.
+
+    `make derived` stamped a fresh built_utc and git_head into all six data/web
+    files on every run, so the six files always differed from the ones committed,
+    and two things followed that nobody wanted:
+
+      * `make preflight` could never pass. It runs `derived` and then
+        `manifest-check --check-tree`, which hashes each artifact and compares it
+        with the COMMITTED blob — the check that exists because CI once would have
+        committed a manifest describing a payload it had not committed. With a
+        wall-clock stamp inside the hashed bytes, that comparison was guaranteed to
+        fail from a clean tree: `git diff --numstat` showed exactly one line changed
+        per file and the content byte-identical otherwise. A gate that is red no
+        matter what the repository does teaches people to skip it.
+      * the CI job's "derived artifacts unchanged — nothing to commit" branch was
+        dead code. Every trigger committed and pushed ~5 MiB of data/web for a
+        timestamp, forever, to a repository whose pack is already 1.3 GiB.
+
+    The fix is at the generator, and it is not to hash less: it is to stop claiming
+    a build happened when nothing was built. The stamp now dates the build that last
+    CHANGED the payload. If the data is identical, the previous stamp is kept and
+    the file is not rewritten — not even its mtime — so `make derived` is idempotent
+    and a git diff on data/web means the data moved.
+
+    Returns (the bytes now in the file, whether it was rewritten).
+    """
+    blob = json.dumps(obj, separators=(",", ":"), ensure_ascii=False)
+    old_raw = None
+    if os.path.exists(path):
+        with open(path, "rb") as fh:
+            old_raw = fh.read()
+        try:
+            old = json.loads(old_raw.decode("utf-8"))
+        except (ValueError, UnicodeDecodeError):
+            old = None
+        if isinstance(old, dict) and _payload_view(old) == _payload_view(obj):
+            kept = dict(obj)
+            for f in BUILD_STAMP_FIELDS:
+                if f in old:
+                    kept[f] = old[f]
+            blob = json.dumps(kept, separators=(",", ":"), ensure_ascii=False)
+            if blob.encode("utf-8") == old_raw:
+                return blob, False
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write(blob)
+    return blob, True
+
+
 def git_head(repo: str) -> str | None:
     try:
         out = subprocess.run(["git", "-C", repo, "rev-parse", "HEAD"],
@@ -581,6 +640,11 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         "schema": SCHEMA,
         "built_utc": built,
         "git_head": head,
+        "stamp_policy": ("built_utc and git_head date the build that last CHANGED "
+                         "this payload, not the last time the builder ran: a "
+                         "rebuild that reproduces these bytes leaves the file, and "
+                         "this stamp, alone. So a diff on this file means its data "
+                         "changed."),
         "corpus": os.path.relpath(media_dir, repo),
         "count": n,
         "count_authority": ("data/media/*.json on disk, counted by "
@@ -705,11 +769,9 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
                       ("tombstones.json", tomb),
                       ("twins.json", twins)):
         path = os.path.join(out_dir, name)
-        blob = json.dumps(obj, separators=(",", ":"), ensure_ascii=False)
-        with open(path, "w", encoding="utf-8") as fh:
-            fh.write(blob)
+        blob, rewritten = write_payload_file(path, obj)
         raw = len(blob.encode("utf-8"))
-        written[name] = {"bytes": raw,
+        written[name] = {"bytes": raw, "rewritten": rewritten,
                          "bytes_gzip": len(gzip.compress(blob.encode("utf-8"), 6))}
 
     return {

@@ -41,6 +41,7 @@ on:
       - "build_index.py"
       - "data/media/**"
       - "data/refs.json"
+      - "tools/baseline.py"
       - "tools/bigg_metabolite_dict.json"
       - "tools/build_api_exports.py"
       - "tools/build_ci_paths.py"
@@ -123,6 +124,11 @@ jobs:
       - name: Commit refreshed artifacts (if changed)
         run: |
           set -euo pipefail
+          # This early exit is reachable, which it was not while the payload
+          # builders stamped a fresh built_utc into data/web on every run: the job
+          # would have committed and pushed ~5 MiB of browser payload for a
+          # timestamp on every trigger, forever. The stamp now moves only when the
+          # payload does, so "unchanged" means unchanged.
           if git diff --quiet -- data; then
             echo "derived artifacts unchanged — nothing to commit."
             exit 0

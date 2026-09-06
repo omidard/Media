@@ -268,3 +268,168 @@ def test_manifest_matches_the_committed_tree(manifest):
                       capture_output=True).returncode != 0:
         pytest.skip("not a git checkout")
     assert build_manifest.check_tree(manifest) == 0
+
+
+# ------------------------------------ (c) again: the guard, seeded and made to fire
+# `make preflight` ran `derived` and then `manifest-check --check-tree`, and could
+# never pass: the six data/web payloads and the manifest carried a wall-clock
+# built_utc, so the just-rebuilt artifacts always differed from the committed ones by
+# exactly one line. The fix is idempotence at the generator — a stamp that dates the
+# build which last CHANGED the payload — and the risk of that fix is that it could
+# blunt the check it unblocks. These two tests hold both ends: the rebuild must be a
+# no-op when the data is unchanged, and the check must still fire when data/web is
+# genuinely stale or unstaged, which is defect (c) itself.
+
+def _tmp_repo(tmp_path):
+    subprocess.run(["git", "init", "-q", "-b", "main", str(tmp_path)], check=True)
+    for k, v in (("user.email", "t@example.com"), ("user.name", "t")):
+        subprocess.run(["git", "-C", str(tmp_path), "config", k, v], check=True)
+    os.makedirs(os.path.join(tmp_path, "data", "web"))
+    return str(tmp_path)
+
+
+def _point_build_manifest_at(monkeypatch, root):
+    monkeypatch.setattr(build_manifest, "REPO", root)
+    monkeypatch.setattr(build_manifest, "DATA", os.path.join(root, "data"))
+    monkeypatch.setattr(build_manifest, "OUT",
+                        os.path.join(root, "data", "MANIFEST.json"))
+
+
+def _write_web(root, name, payload):
+    with open(os.path.join(root, "data", "web", name), "w", encoding="utf-8") as fh:
+        json.dump(payload, fh)
+
+
+def _commit(root, *paths):
+    subprocess.run(["git", "-C", root, "add", "--"] + list(paths), check=True)
+    subprocess.run(["git", "-C", root, "commit", "-qm", "payload"], check=True)
+
+
+def test_check_tree_still_fires_when_the_payload_is_stale_or_unstaged(
+        tmp_path, monkeypatch, capsys):
+    """(c), seeded: a manifest that describes bytes git does not hold must fail."""
+    root = _tmp_repo(tmp_path)
+    _point_build_manifest_at(monkeypatch, root)
+
+    _write_web(root, "catalog.json", {"built_utc": "2026-09-06T00:00:00Z",
+                                      "git_head": None, "rows": [[1], [2]]})
+    man = build_manifest.build()
+    with open(os.path.join(root, "data", "MANIFEST.json"), "w", encoding="utf-8") as fh:
+        json.dump(man, fh)
+    _commit(root, "data/web/catalog.json", "data/MANIFEST.json")
+    assert build_manifest.check_tree(man) == 0, "a consistent tree must pass"
+
+    # Seed the defect: the payload genuinely changes (a record was added) and the
+    # rebuilt manifest describes it, but data/web is never staged.
+    _write_web(root, "catalog.json", {"built_utc": "2026-09-07T00:00:00Z",
+                                      "git_head": None, "rows": [[1], [2], [3]]})
+    stale = build_manifest.build()
+    capsys.readouterr()
+    assert build_manifest.check_tree(stale) == 1, (
+        "the manifest describes a payload git does not hold and --check-tree "
+        "passed: defect (c) is back")
+    out = capsys.readouterr().out
+    assert "data/web/catalog.json" in out and "not committed" in out
+
+    # A payload file that exists and is described but was never added at all.
+    _write_web(root, "summary.json", {"built_utc": "2026-09-07T00:00:00Z",
+                                      "git_head": None, "count": 3})
+    untracked = build_manifest.build()
+    capsys.readouterr()
+    assert build_manifest.check_tree(untracked) == 1
+    assert "NOT" in capsys.readouterr().out
+
+    # Staging both clears it — the guard is discriminating, not merely noisy.
+    _commit(root, "data/web/catalog.json", "data/web/summary.json")
+    fixed = build_manifest.build()
+    with open(os.path.join(root, "data", "MANIFEST.json"), "w", encoding="utf-8") as fh:
+        json.dump(fixed, fh)
+    _commit(root, "data/MANIFEST.json")
+    assert build_manifest.check_tree(fixed) == 0
+
+
+def test_rebuilding_an_unchanged_payload_changes_no_bytes(tmp_path):
+    """Idempotence at the generator: this is what lets `make preflight` pass."""
+    sys.path.insert(0, os.path.join(REPO, "tools"))
+    import web_payload                                        # noqa: E402
+
+    path = os.path.join(tmp_path, "catalog.json")
+    first = {"schema": "s", "built_utc": "2026-09-06T10:00:00Z",
+             "git_head": "a" * 40, "count": 2, "rows": [[1], [2]]}
+    blob, rewritten = web_payload.write_payload_file(path, first)
+    assert rewritten
+    before = (open(path, "rb").read(), os.path.getmtime(path))
+
+    # A later build of the SAME data, from a different commit, seconds later.
+    again = dict(first, built_utc="2026-09-06T11:22:33Z", git_head="b" * 40)
+    blob2, rewritten2 = web_payload.write_payload_file(path, again)
+    assert not rewritten2, "an unchanged payload was rewritten for its stamp alone"
+    assert (open(path, "rb").read(), os.path.getmtime(path)) == before
+    assert json.loads(blob2)["built_utc"] == "2026-09-06T10:00:00Z"
+
+    # A real change moves both the data and the stamp.
+    changed = dict(again, count=3, rows=[[1], [2], [3]])
+    blob3, rewritten3 = web_payload.write_payload_file(path, changed)
+    assert rewritten3
+    assert json.loads(blob3)["built_utc"] == "2026-09-06T11:22:33Z"
+    assert json.loads(open(path, encoding="utf-8").read())["count"] == 3
+
+
+def test_the_manifest_keeps_its_stamp_when_nothing_it_describes_changed():
+    """The same rule one level up: data/MANIFEST.json must not churn either."""
+    old = {"schema": "m", "built_utc": "2026-09-06T10:00:00Z", "git_head": "a" * 40,
+           "artifacts": {"data/web/catalog.json": {"present": True, "sha256": "ff",
+                                                   "mtime_utc": "2026-09-06T10:00:00Z"}}}
+    def rebuilt():
+        """What build() would produce seconds later, from a different commit."""
+        m = json.loads(json.dumps(old))
+        m["built_utc"] = "2026-09-06T12:00:00Z"
+        m["git_head"] = "b" * 40
+        m["artifacts"]["data/web/catalog.json"]["mtime_utc"] = "2026-09-06T12:00:00Z"
+        return m
+
+    carried = build_manifest.carry_stamps_forward(rebuilt(), old)
+    assert carried == old
+
+    moved = rebuilt()
+    moved["artifacts"]["data/web/catalog.json"]["sha256"] = "ee"
+    carried2 = build_manifest.carry_stamps_forward(moved, old)
+    assert carried2["built_utc"] == "2026-09-06T12:00:00Z", (
+        "a manifest whose artifacts changed must carry the new build stamp")
+
+
+# --------------------------------------- the reproduction claim, cheaply sentinelled
+# `make reproduce` runs the whole chain over 13,515 records and takes ~20 minutes, so
+# it is not in `make preflight` and no test can run it. It failed on 13,515 of 13,515
+# records for ONE reason: the corpus was promoted before stage 40 renamed
+# pct_covered_observed -> pct_sourced_components_with_bigg_id, so the shipped records
+# carried a field name the chain no longer emits, and README's "reproducible byte for
+# byte" was false. The corpus is now the chain's output. This is the cheap sentinel
+# for that class — the field names the chain writes must be the ones the shipped
+# records carry — so the same drift fails in seconds instead of surviving to a
+# pre-push audit.
+
+def test_the_corpus_carries_the_field_names_the_chain_emits(corpus_dir, corpus_ids):
+    stage = read(os.path.join(REPO, "tools", "stages", "remap_components.py"))
+    emitted = re.findall(r'med\["(pct_[a-z_0-9]+)"\]\s*=', stage)
+    assert "pct_sourced_components_with_bigg_id" in emitted, (
+        "stage 40 no longer writes pct_sourced_components_with_bigg_id; if that is "
+        "intended, promote a chain run and update this test with it")
+    retired = "pct_covered_observed"
+    assert retired not in emitted
+
+    offenders = []
+    for mid in corpus_ids:
+        with open(os.path.join(corpus_dir, mid + ".json"), encoding="utf-8") as fh:
+            text = fh.read()
+        if '"%s"' % retired in text:
+            offenders.append(mid)
+        elif '"pct_sourced_components_with_bigg_id"' not in text:
+            offenders.append(mid)
+        if len(offenders) >= 5:
+            break
+    assert not offenders, (
+        "%s of the shipped records carry the retired field name or lack the one the "
+        "chain emits (%s ...) — the corpus is not what `make stages` produces and "
+        "`make reproduce` will fail on every record"
+        % (len(offenders), ", ".join(offenders)))
