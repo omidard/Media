@@ -2,220 +2,546 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Media — compare formulations</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230a5c49%27/%3E%3Cpath d=%27M13 5h6v6l5 11a2 2 0 0 1-2 3H10a2 2 0 0 1-2-3l5-11z%27 fill=%27none%27 stroke=%27%237fe6c8%27 stroke-width=%272%27/%3E%3Ccircle cx=%2716%27 cy=%2721%27 r=%272%27 fill=%27%237fe6c8%27/%3E%3C/svg%3E">
-<meta name="description" content="Compare two to eight growth media: Jaccard similarity, UpSet intersection plot, and a clustered grid of shared vs unique compounds.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediaDB: compare formulations, compound by compound</title>
+<meta name="description" content="Put two to eight growth media side by side: pairwise similarity, the compounds they share and the compounds that separate them, with every compound labelled as stated by the source or supplied by the pipeline.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/media.css">
 </head>
 <body>
+<a class="skip" href="#picker">Skip to the medium picker</a>
 
 <nav class="nav"><div class="wrap">
-  <a class="brand" href="index.html"><span class="dot"></span> Media</a>
-  <div class="links">
-    <a href="index.html#explore">Explore</a>
-    <a href="compare.html" class="active">Compare</a>
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
+  <div class="navlinks">
+    <a href="index.html">Explore</a>
+    <a href="families.html">Families</a>
+    <a href="compare.html" aria-current="page">Compare</a>
     <a href="patterns.html">Patterns</a>
-    <a href="API.md" class="ext hide-sm">API</a>
-    <a href="https://github.com/omidard/Media" class="ext hide-sm" target="_blank">GitHub ↗</a>
+    <a href="methods.html">Methods &amp; limits</a>
+    <a href="API.md">API</a>
+    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
   </div>
 </div></nav>
 
-<section class="section" style="padding-bottom:24px"><div class="wrap">
-  <div class="section-head"><div class="eyebrow">Compare</div>
-    <h2>Compare media, compound by compound</h2>
-    <p>Add two to eight media. See how similar they are, exactly which compounds they share, and what makes each unique.</p></div>
+<main id="main">
 
+<header class="masthead"><div class="wrap">
+  <p class="kicker">Compare</p>
+  <h1>Two to eight media, compound by compound.</h1>
+  <p class="lead">See how similar two formulations really are, which compounds separate
+    them, and, for every compound, whether it was stated by the cited source or supplied
+    by this pipeline. A shared compound that both pipelines invented is not evidence that
+    two media are alike.</p>
+</div></header>
+
+<section class="section" id="picker"><div class="wrap">
   <div class="card card-p">
-    <label class="lbl">Add a medium</label>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;max-width:760px">
-      <input id="q" class="input" list="med-list" placeholder="Search a medium by name…" style="flex:1;min-width:260px">
-      <datalist id="med-list"></datalist>
-      <button class="btn btn-primary btn-sm" onclick="addByQuery()">Add</button>
-      <button class="btn btn-ghost btn-sm" onclick="clearSel()">Clear</button>
+    <div class="field" style="max-width:520px">
+      <label for="q">Add a medium</label>
+      <input id="q" class="input" type="search"
+             placeholder="Search by name, family or source" autocomplete="off">
+      <p class="muted" style="font-size:var(--t-cap)" id="q-note">
+        Up to eight media. Every match is listed so you choose, rather than the page
+        choosing the first substring hit for you.
+      </p>
     </div>
-    <div id="presets" style="margin-top:12px;font-size:.85rem"></div>
-    <div id="chips" style="margin-top:12px"></div>
+    <div id="matches" style="margin-top:var(--s3)"></div>
+    <div style="margin-top:var(--s4)">
+      <h4>Selected</h4>
+      <div id="chips" class="chip-line" style="margin-top:var(--s2)"></div>
+    </div>
+    <div class="chip-line" style="margin-top:var(--s3)">
+      <button class="btn" type="button" id="clear">Clear the selection</button>
+      <span class="muted" style="font-size:var(--t-cap)">Or start from an example:</span>
+      <span id="presets" class="chip-line"></span>
+    </div>
   </div>
 
-  <div id="empty" class="card card-p" style="margin-top:20px;text-align:center;color:var(--muted);padding:48px">
-    Add at least two media to compare them.
-  </div>
-  <div id="out" style="display:none">
-    <div class="stats" id="cmp-stats" style="grid-template-columns:repeat(4,1fr);margin-top:20px"></div>
+  <p class="resultline" id="status" role="status" aria-live="polite"
+     style="margin-top:var(--s4)">Add at least two media to compare them.</p>
 
-    <div style="display:grid;grid-template-columns:1fr 1.35fr;gap:18px;margin-top:18px" class="cmp-top">
-      <div class="card card-p"><h3 style="font-size:1.12rem">Similarity</h3>
-        <p class="muted" style="font-size:.88rem;margin:6px 0 10px">Jaccard index between each pair — shared compounds ÷ combined.</p>
-        <div class="viz-wrap" style="border:0" id="sim-wrap"><svg id="sim-svg"></svg></div></div>
-      <div class="card card-p"><h3 style="font-size:1.12rem">Intersections (UpSet)</h3>
-        <p class="muted" style="font-size:.88rem;margin:6px 0 10px">Each bar = compounds belonging to exactly the marked media. The right tool when Venn diagrams break down.</p>
-        <div class="viz-wrap" style="border:0" id="upset-wrap"><svg id="upset-svg"></svg></div></div>
+  <div id="out" hidden>
+    <div class="figures" id="figures" style="margin-top:var(--s3)"></div>
+
+    <div class="card card-p" style="margin-top:var(--s4)">
+      <h3>What the selected media are made of</h3>
+      <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)">
+        The evidence composition of each selection, so a similarity below is read against
+        how much of each recipe is actually from its source.
+      </p>
+      <div id="ev-per-medium"></div>
     </div>
 
-    <div class="card card-p" style="margin-top:18px">
-      <h3 style="font-size:1.12rem">Differentiating compounds</h3>
-      <p class="muted" style="font-size:.88rem;margin:6px 0 10px">Compounds present in some but not all selected media, clustered so similar presence patterns group together. Filled = present.</p>
-      <div class="viz-wrap" id="grid-wrap"><svg id="grid-svg"></svg></div>
+    <div style="display:grid;gap:var(--s4);grid-template-columns:minmax(0,1fr)" id="grid-top">
+      <div class="card card-p">
+        <h3>Pairwise similarity</h3>
+        <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)">
+          Jaccard index over exchange sets: compounds in both, divided by compounds in
+          either. Computed over every component, including the pipeline-derived ones.
+        </p>
+        <div class="viz" id="sim-wrap"><svg id="sim-svg" role="img"
+          aria-label="Pairwise Jaccard similarity matrix"></svg></div>
+        <p class="muted" style="font-size:var(--t-cap);margin-top:var(--s2)" id="sim-note"></p>
+      </div>
+      <div class="card card-p">
+        <h3>Intersections</h3>
+        <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)">
+          Each bar counts the compounds belonging to exactly the marked media and no others.
+        </p>
+        <div class="viz" id="upset-wrap"><svg id="upset-svg" role="img"
+          aria-label="Intersection sizes between the selected media"></svg></div>
+        <p class="muted" style="font-size:var(--t-cap);margin-top:var(--s2)" id="upset-note"></p>
+      </div>
+    </div>
+
+    <div class="card card-p" style="margin-top:var(--s4)">
+      <h3>Compounds that separate them</h3>
+      <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)">
+        Present in some of the selection and absent from the rest, ordered so the most
+        discriminating come first, then clustered by presence pattern. A hatched cell is a
+        compound this pipeline supplied for that medium rather than reading it from the source.
+      </p>
+      <div class="viz" id="grid-wrap"><svg id="grid-svg" role="img"
+        aria-label="Presence grid of the most differentiating compounds"></svg></div>
+      <p class="muted" style="font-size:var(--t-cap);margin-top:var(--s2)" id="grid-note"></p>
     </div>
   </div>
 </div></section>
 
-<footer class="ft"><div class="wrap">
-  <div><b style="color:var(--body)">Media</b> · compare view · all computed in your browser from the public data</div>
-  <div><a href="index.html#explore">Explore</a> · <a href="patterns.html">Patterns</a> · <a href="API.md">API</a></div>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p>Everything on this page is computed in your browser from the published records. It
+    uses the same numbers as the rest of the site; the definitions are on the
+    <a href="methods.html">methods page</a>, and the per-source attribution and licence
+    terms are in <a href="methods.html#licensing">the licence schedule</a>.</p>
 </div></footer>
 
 <script src="assets/media.js"></script>
 <script>
-let INDEX=[],NAME2ID={},SEL=[];
-const PRESETS=[
-  {label:'Human biofluids (serum · urine · faeces)',ids:['biospecimen_serum','biospecimen_urine','biospecimen_feces']},
-  {label:'Minimal vs rich (M9 · TSB)',ids:['m9_glucose_aerobic','mediadive_1617']},
-  {label:'M9: aerobic vs anaerobic',ids:['m9_glucose_aerobic','m9_glucose_anaerobic']},
-];
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const el = MDB.el, fmt = MDB.fmt, svgEl = MDB.svgEl;
+  const SHOWN_INTERSECTIONS = 14;
+  const SHOWN_COMPOUNDS = 44;
+  const SHOWN_MATCHES = 12;
+  const MAX_MEDIA = 8;
 
-jget('data/index.json').then(idx=>{
-  INDEX=idx.media;const dl=document.getElementById('med-list');
-  INDEX.forEach(m=>{NAME2ID[m.name.toLowerCase()]=m.id;const o=document.createElement('option');o.value=m.name;dl.appendChild(o);});
-  const P=document.getElementById('presets');
-  P.innerHTML='<span class="muted">Try: </span>'+PRESETS.map((p,i)=>`<a href="#" onclick="loadPreset(${i});return false" style="margin-right:14px">${esc(p.label)}</a>`).join('');
-  const ids=new URLSearchParams(location.search).get('ids');
-  if(ids)ids.split(',').filter(Boolean).forEach(id=>select(id));
-  else loadPreset(0); // show a good example on first visit
-});
-function byId(id){return INDEX.find(m=>m.id===id);}
-function loadPreset(i){SEL=[];PRESETS[i].ids.forEach(id=>{if(byId(id))SEL.push(id);});render();}
-function addByQuery(){const q=document.getElementById('q').value.trim();if(!q)return;
-  let id=NAME2ID[q.toLowerCase()];
-  if(!id){const m=INDEX.find(x=>x.name.toLowerCase().includes(q.toLowerCase()));id=m&&m.id;}
-  if(!id){alert('No medium matches “'+q+'”');return;}document.getElementById('q').value='';select(id);}
-function select(id){if(!byId(id)||SEL.includes(id))return;if(SEL.length>=8){alert('Up to 8 media.');return;}SEL.push(id);render();}
-function unselect(id){SEL=SEL.filter(x=>x!==id);render();}
-function clearSel(){SEL=[];render();}
-document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')addByQuery();});
+  let CAT = null, SEL = [], LOADED = {};
 
-function render(){
-  const chips=document.getElementById('chips');
-  chips.innerHTML=SEL.map(id=>{const m=byId(id),col=CAT_COLORS[m.category]||'#889';
-    return `<span class="chip"><span class="swatch" style="background:${col}"></span>${esc(m.name.length>40?m.name.slice(0,39)+'…':m.name)}
-      <span class="x" onclick="unselect('${id}')">✕</span></span>`;}).join('');
-  const has=SEL.length>=2;
-  document.getElementById('empty').style.display=has?'none':'block';
-  document.getElementById('out').style.display=has?'block':'none';
-  const url=new URL(location);if(SEL.length)url.searchParams.set('ids',SEL.join(','));else url.searchParams.delete('ids');
-  history.replaceState(null,'',url);
-  if(has)compute();
-}
+  MDB.delegateMediumLinks();
 
-async function compute(){
-  const meds=await Promise.all(SEL.map(id=>jget('data/media/'+id+'.json')));
-  const sets=meds.map(m=>new Set(m.components.map(c=>c.exchange)));
-  const nameOf={};meds.forEach(m=>m.components.forEach(c=>{if(!nameOf[c.exchange])nameOf[c.exchange]=c.name;}));
-  const short=m=>m.name.length>18?m.name.slice(0,17)+'…':m.name;
-  const N=meds.length;
-  const union=new Set();sets.forEach(s=>s.forEach(x=>union.add(x)));
-  const core=[...union].filter(e=>sets.every(s=>s.has(e)));
-  // pairwise jaccard
-  const J=[];let jsum=0,jn=0;
-  for(let i=0;i<N;i++){J[i]=[];for(let j=0;j<N;j++){const inter=[...sets[i]].filter(x=>sets[j].has(x)).length;
-    const uni=new Set([...sets[i],...sets[j]]).size;const v=uni?inter/uni:0;J[i][j]=v;if(i<j){jsum+=v;jn++;}}}
+  const PRESETS = [
+    { label: 'Minimal vs rich (M9, BHI)', ids: ['m9_glucose_aerobic', 'bhi'] },
+    { label: 'M9 aerobic vs anaerobic', ids: ['m9_glucose_aerobic', 'm9_glucose_anaerobic'] },
+    { label: 'Human biofluids', ids: ['biospecimen_serum', 'biospecimen_urine', 'biospecimen_feces'] }
+  ];
 
-  // ---- stat chips ----
-  document.getElementById('cmp-stats').innerHTML=[
-    ['n', N,'media compared'],['n', fmt(union.size),'compounds in total'],
-    ['n', fmt(core.length),'shared by all'],['n', jn?(jsum/jn).toFixed(2):'—','mean similarity']
-  ].map(s=>`<div class="stat"><div class="n">${s[1]}</div><div class="l">${s[2]}</div></div>`).join('');
+  function rowOf(id) { return CAT.media.find((m) => m.id === id); }
 
-  drawSim(meds.map(short),J);
-  drawUpset(meds.map(short),sets,union);
-  drawGrid(meds.map(short),meds,sets,union,core,nameOf);
-}
+  function drawMatches(query) {
+    const box = $('matches');
+    box.replaceChildren();
+    const needle = query.trim().toLowerCase();
+    if (!needle) return;
+    const flat = MDB.flatten(needle);
+    const hits = CAT.media.filter((m) =>
+      m._hay.indexOf(needle) >= 0 || (flat && m._flat.indexOf(flat) >= 0));
+    if (!hits.length) {
+      box.appendChild(el('div', { class: 'state', text:
+        '0 of ' + fmt(CAT.count) + ' media match “' + query + '”.' }));
+      return;
+    }
+    const shown = hits.slice(0, SHOWN_MATCHES);
+    box.appendChild(el('p', {
+      class: 'muted', style: 'font-size:var(--t-cap)',
+      text: 'Showing ' + fmt(shown.length) + ' of ' + fmt(hits.length) +
+        ' matching media' + (hits.length > shown.length
+          ? '; narrow the search to see the rest.' : '.')
+    }));
+    const list = el('div', { class: 'chip-line', style: 'margin-top:var(--s2)' });
+    shown.forEach((m) => {
+      const b = el('button', {
+        class: 'btn btn-sm', type: 'button',
+        disabled: SEL.indexOf(m.id) >= 0 ? true : null,
+        title: m.source_db + ' · ' + fmt(m.n_components) + ' components (' +
+          fmt(m.n_derived) + ' pipeline-derived)',
+        text: m.name
+      });
+      b.addEventListener('click', () => add(m.id));
+      list.appendChild(b);
+    });
+    box.appendChild(list);
+  }
 
-/* ---- Jaccard similarity matrix ---- */
-function drawSim(labels,J){const N=labels.length;const svg=document.getElementById('sim-svg');
-  const cell=Math.max(34,Math.min(66,300/N)),lab=120,top=120;
-  const W=lab+N*cell+8,H=top+N*cell+8;svg.setAttribute('width',W);svg.setAttribute('height',H);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  while(svg.firstChild)svg.removeChild(svg.firstChild);
-  labels.forEach((l,j)=>{const x=lab+j*cell+cell/2;const t=svgEl('text',{x,y:top-6,transform:`rotate(-45 ${x} ${top-6})`,'font-size':11,fill:'#40524c','text-anchor':'start'});t.textContent=l;svg.appendChild(t);});
-  labels.forEach((l,i)=>{const y=top+i*cell+cell/2;const t=svgEl('text',{x:lab-6,y,'font-size':11,fill:'#40524c','text-anchor':'end','dominant-baseline':'middle'});t.textContent=l;svg.appendChild(t);});
-  for(let i=0;i<N;i++)for(let j=0;j<N;j++){const v=J[i][j];
-    const r=svgEl('rect',{x:lab+j*cell,y:top+i*cell,width:cell-2,height:cell-2,rx:3,fill:tealRamp(v)});svg.appendChild(r);
-    const t=svgEl('text',{x:lab+j*cell+cell/2,y:top+i*cell+cell/2,'font-size':11,'text-anchor':'middle','dominant-baseline':'middle',
-      fill:v>.55?'#eafaf5':'#2a3d38','font-weight':600});t.textContent=v.toFixed(2);svg.appendChild(t);}
-}
+  function add(id) {
+    if (SEL.indexOf(id) >= 0) return;
+    if (SEL.length >= MAX_MEDIA) {
+      $('status').textContent = 'Up to ' + MAX_MEDIA + ' media at a time; ' +
+        SEL.length + ' are already selected. Remove one first.';
+      return;
+    }
+    SEL.push(id);
+    sync();
+  }
+  function remove(id) { SEL = SEL.filter((x) => x !== id); sync(); }
 
-/* ---- UpSet-style intersection plot ---- */
-function drawUpset(labels,sets,union){const N=labels.length,svg=document.getElementById('upset-svg');
-  const sig={};union.forEach(e=>{let k=0;for(let i=0;i<N;i++)if(sets[i].has(e))k|=(1<<i);sig[k]=(sig[k]||0)+1;});
-  let combos=Object.entries(sig).map(([k,n])=>({mask:+k,n})).filter(c=>c.mask>0).sort((a,b)=>b.n-a.n).slice(0,14);
-  const maxN=Math.max(...combos.map(c=>c.n),1);
-  const leftM=150,cw=Math.max(26,Math.min(46,560/combos.length)),barH=140,rowH=22,gapl=14;
-  const W=leftM+combos.length*cw+10,H=barH+gapl+N*rowH+16;
-  svg.setAttribute('width',W);svg.setAttribute('height',H);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  while(svg.firstChild)svg.removeChild(svg.firstChild);
-  // set labels + size bars on left
-  const setSize=sets.map(s=>s.size),maxSet=Math.max(...setSize,1);
-  labels.forEach((l,i)=>{const y=barH+gapl+i*rowH+rowH/2;
-    const t=svgEl('text',{x:leftM-8,y,'font-size':11,fill:'#40524c','text-anchor':'end','dominant-baseline':'middle'});t.textContent=l;svg.appendChild(t);});
-  // bars + dots
-  combos.forEach((c,j)=>{const x=leftM+j*cw+cw/2;
-    const h=(c.n/maxN)*(barH-22);const rect=svgEl('rect',{x:x-cw*0.32,y:barH-h,width:cw*0.64,height:h,rx:3,fill:'#0e8f70'});svg.appendChild(rect);
-    const lab=svgEl('text',{x,y:barH-h-4,'font-size':10,'text-anchor':'middle',fill:'#40524c','font-weight':600});lab.textContent=fmt(c.n);svg.appendChild(lab);
-    // membership dots
-    const members=[];for(let i=0;i<N;i++)if(c.mask&(1<<i))members.push(i);
-    if(members.length>1){const y1=barH+gapl+members[0]*rowH+rowH/2,y2=barH+gapl+members[members.length-1]*rowH+rowH/2;
-      svg.appendChild(svgEl('line',{x1:x,y1,x2:x,y2,stroke:'#0a5c49','stroke-width':2}));}
-    for(let i=0;i<N;i++){const y=barH+gapl+i*rowH+rowH/2;const on=c.mask&(1<<i);
-      svg.appendChild(svgEl('circle',{cx:x,cy:y,r:5,fill:on?'#0a5c49':'#dbe6e2'}));}
+  function sync() {
+    const chips = $('chips');
+    chips.replaceChildren();
+    if (!SEL.length) {
+      chips.appendChild(el('span', { class: 'muted', style: 'font-size:var(--t-cap)',
+        text: 'Nothing selected yet.' }));
+    }
+    SEL.forEach((id) => {
+      const m = rowOf(id);
+      const b = el('button', {
+        class: 'btn btn-sm', type: 'button',
+        'aria-label': 'Remove ' + (m ? m.name : id) + ' from the comparison',
+        text: (m ? m.name : id) + '  ✕'
+      });
+      b.addEventListener('click', () => remove(id));
+      chips.appendChild(b);
+    });
+    const url = new URL(location.href);
+    if (SEL.length) url.searchParams.set('ids', SEL.join(','));
+    else url.searchParams.delete('ids');
+    history.replaceState({}, '', url);
+    if (SEL.length < 2) {
+      $('out').hidden = true;
+      $('status').textContent = SEL.length === 1
+        ? 'One medium selected. Add at least one more to compare.'
+        : 'Add at least two media to compare them.';
+      return;
+    }
+    compute();
+  }
+
+  async function compute() {
+    $('status').textContent = 'Loading ' + fmt(SEL.length) + ' records.';
+    let meds;
+    try {
+      meds = await Promise.all(SEL.map(async (id) => {
+        if (!LOADED[id]) LOADED[id] = await MDB.getJSON('data/media/' + id + '.json');
+        return LOADED[id];
+      }));
+    } catch (e) {
+      $('out').hidden = true;
+      $('status').textContent = e.kind === 'not_found'
+        ? 'One of the selected identifiers is not served. Remove it and pick another.'
+        : 'The records could not be loaded (' + (e.message || e.kind) + '). Reload and try again.';
+      return;
+    }
+    $('out').hidden = false;
+
+    const N = meds.length;
+    const sets = meds.map((m) => new Set(m.components.map((c) => c.exchange)));
+    const derivedIn = meds.map((m) => {
+      const s = new Set();
+      m.components.forEach((c) => { if (c.derived_not_sourced) s.add(c.exchange); });
+      return s;
+    });
+    const nameOf = {};
+    meds.forEach((m) => m.components.forEach((c) => {
+      if (!nameOf[c.exchange]) nameOf[c.exchange] = c.source_name || c.target_name || c.name;
+    }));
+    const union = new Set();
+    sets.forEach((s) => s.forEach((x) => union.add(x)));
+    const core = [...union].filter((e) => sets.every((s) => s.has(e)));
+    const coreAllDerived = core.filter((e) => derivedIn.some((d) => d.has(e)));
+
+    const J = [];
+    let jsum = 0, jn = 0;
+    for (let i = 0; i < N; i++) {
+      J[i] = [];
+      for (let j = 0; j < N; j++) {
+        let inter = 0;
+        sets[i].forEach((x) => { if (sets[j].has(x)) inter++; });
+        const uni = new Set([...sets[i], ...sets[j]]).size;
+        const v = uni ? inter / uni : 0;
+        J[i][j] = v;
+        if (i < j) { jsum += v; jn++; }
+      }
+    }
+
+    const short = (m) => {
+      const n = m.name_display || m.name;
+      return n.length > 18 ? n.slice(0, 17) + '…' : n;
+    };
+    const labels = meds.map(short);
+
+    $('figures').replaceChildren(
+      figure(fmt(N), 'media compared', 'of ' + fmt(CAT.count) + ' in the library'),
+      figure(fmt(union.size), 'distinct compounds in total',
+        'across the ' + fmt(N) + ' selections'),
+      figure(fmt(core.length), 'present in every one',
+        MDB.share(core.length, union.size) + ' of the union'),
+      figure(jn ? (jsum / jn).toFixed(2) : 'not computed', 'mean pairwise similarity',
+        'Jaccard, over ' + fmt(jn) + ' pairs'));
+
+    $('status').textContent = 'Comparing ' + fmt(N) + ' media: ' + fmt(union.size) +
+      ' distinct compounds, ' + fmt(core.length) + ' present in all of them.';
+
+    const perMedium = $('ev-per-medium');
+    perMedium.replaceChildren();
+    meds.forEach((m) => {
+      const counts = CAT.evidence_classes.map((c) => {
+        let n = 0;
+        c.tiers.forEach((t) => { n += (m.tier_counts || {})[t] || 0; });
+        return n;
+      });
+      const covs = m.coverage_source || {};
+      const row = el('div', { style: 'margin-top:var(--s3)' });
+      row.appendChild(el('div', { class: 'chip-line' }, [
+        el('a', { class: 'medlink', href: MDB.permalink(m.id), 'data-medium': m.id,
+          text: m.name_display || m.name }),
+        MDB.o2Chip(m.oxygen),
+        MDB.licenceChip((m.provenance || {}).license, (m.provenance || {}).commercial_use_ok)
+      ]));
+      row.appendChild(el('div', { style: 'margin-top:var(--s2)' }, [MDB.evidenceBar(counts)]));
+      row.appendChild(el('p', {
+        class: 'muted', style: 'font-size:var(--t-cap);margin-top:var(--s1)',
+        text: MDB.withDenominator(covs.n_sourced, m.n_components, 'components') +
+          ' are stated by its source; ' +
+          MDB.withDenominator(m.n_derived, m.n_components) +
+          ' were supplied by the pipeline.'
+      }));
+      perMedium.appendChild(row);
+    });
+
+    drawSim(labels, J);
+    $('sim-note').textContent = 'Computed over ' + fmt(union.size) +
+      ' distinct compounds. ' + (core.length === 0
+        ? 'No compound is present in every selection.'
+        : (coreAllDerived.length === 0
+            ? 'None of the ' + fmt(core.length) + ' compounds shared by all of them is ' +
+              'pipeline-derived, so the shared set is what the sources actually state.'
+            : MDB.withDenominator(coreAllDerived.length, core.length) +
+              ' of the compounds shared by all of them are pipeline-derived in at least ' +
+              'one selection, so that much of the similarity is this pipeline rather ' +
+              'than the recipes.'));
+
+    drawUpset(labels, sets, union);
+    drawGrid(labels, meds, sets, derivedIn, union, core, nameOf);
+  }
+
+  function figure(v, k, d) {
+    return el('div', { class: 'figure' }, [
+      el('div', { class: 'v', text: v }),
+      el('div', { class: 'k', text: k }),
+      el('div', { class: 'd', text: d })
+    ]);
+  }
+
+  function drawSim(labels, J) {
+    const N = labels.length;
+    const svg = $('sim-svg');
+    const cell = Math.max(38, Math.min(64, 320 / N));
+    const lab = 150, top = 150;
+    const W = lab + N * cell + 8, H = top + N * cell + 8;
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.replaceChildren();
+    labels.forEach((l, j) => {
+      const x = lab + j * cell + cell / 2;
+      const t = svgEl('text', { x, y: top - 8, transform: 'rotate(-45 ' + x + ' ' + (top - 8) + ')',
+        'font-size': 13, fill: '#253430', 'text-anchor': 'start' });
+      t.textContent = l; svg.appendChild(t);
+    });
+    labels.forEach((l, i) => {
+      const y = top + i * cell + cell / 2;
+      const t = svgEl('text', { x: lab - 8, y, 'font-size': 13, fill: '#253430',
+        'text-anchor': 'end', 'dominant-baseline': 'middle' });
+      t.textContent = l; svg.appendChild(t);
+    });
+    for (let i = 0; i < N; i++) {
+      for (let j = 0; j < N; j++) {
+        const v = J[i][j];
+        svg.appendChild(svgEl('rect', { x: lab + j * cell, y: top + i * cell,
+          width: cell - 2, height: cell - 2, rx: 3, fill: MDB.accentRamp(v) }));
+        const t = svgEl('text', { x: lab + j * cell + cell / 2, y: top + i * cell + cell / 2,
+          'font-size': 13, 'text-anchor': 'middle', 'dominant-baseline': 'middle',
+          fill: v > 0.55 ? '#ffffff' : '#0f2420', 'font-weight': 600 });
+        t.textContent = v.toFixed(2);
+        svg.appendChild(t);
+      }
+    }
+  }
+
+  function drawUpset(labels, sets, union) {
+    const N = labels.length, svg = $('upset-svg');
+    const sig = {};
+    union.forEach((e) => {
+      let k = 0;
+      for (let i = 0; i < N; i++) if (sets[i].has(e)) k |= (1 << i);
+      sig[k] = (sig[k] || 0) + 1;
+    });
+    const all = Object.entries(sig).map(([k, n]) => ({ mask: +k, n }))
+      .filter((c) => c.mask > 0).sort((a, b) => b.n - a.n);
+    const combos = all.slice(0, SHOWN_INTERSECTIONS);
+    const hidden = all.length - combos.length;
+    const hiddenCompounds = all.slice(SHOWN_INTERSECTIONS)
+      .reduce((a, c) => a + c.n, 0);
+    const tallest = Math.max.apply(null, combos.map((c) => c.n).concat([1]));
+    const leftM = 170, cw = Math.max(30, Math.min(48, 560 / combos.length));
+    const barH = 150, rowH = 24, gap = 16;
+    const W = leftM + combos.length * cw + 12, H = barH + gap + N * rowH + 18;
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.replaceChildren();
+    labels.forEach((l, i) => {
+      const y = barH + gap + i * rowH + rowH / 2;
+      const t = svgEl('text', { x: leftM - 10, y, 'font-size': 13, fill: '#253430',
+        'text-anchor': 'end', 'dominant-baseline': 'middle' });
+      t.textContent = l; svg.appendChild(t);
+    });
+    combos.forEach((c, j) => {
+      const x = leftM + j * cw + cw / 2;
+      const h = (c.n / tallest) * (barH - 26);
+      svg.appendChild(svgEl('rect', { x: x - cw * 0.3, y: barH - h, width: cw * 0.6,
+        height: h, rx: 3, fill: '#0b6a54' }));
+      const t = svgEl('text', { x, y: barH - h - 6, 'font-size': 13, 'text-anchor': 'middle',
+        fill: '#253430', 'font-weight': 600 });
+      t.textContent = fmt(c.n); svg.appendChild(t);
+      const members = [];
+      for (let i = 0; i < N; i++) if (c.mask & (1 << i)) members.push(i);
+      if (members.length > 1) {
+        svg.appendChild(svgEl('line', {
+          x1: x, y1: barH + gap + members[0] * rowH + rowH / 2,
+          x2: x, y2: barH + gap + members[members.length - 1] * rowH + rowH / 2,
+          stroke: '#0b6a54', 'stroke-width': 2 }));
+      }
+      for (let i = 0; i < N; i++) {
+        svg.appendChild(svgEl('circle', { cx: x, cy: barH + gap + i * rowH + rowH / 2,
+          r: 5, fill: (c.mask & (1 << i)) ? '#0b6a54' : '#dfe6e3' }));
+      }
+    });
+    $('upset-note').textContent = hidden > 0
+      ? 'Showing the ' + fmt(combos.length) + ' largest of ' + fmt(all.length) +
+        ' intersections; the ' + fmt(hidden) + ' not shown hold ' +
+        fmt(hiddenCompounds) + ' of ' + fmt(union.size) + ' compounds between them.'
+      : 'Showing all ' + fmt(all.length) + ' intersections; nothing is hidden.';
+    svg.setAttribute('aria-label', 'Intersection sizes: ' +
+      combos.map((c) => fmt(c.n) + ' compounds in ' +
+        labels.filter((_, i) => c.mask & (1 << i)).join(' and ')).join('; '));
+  }
+
+  function drawGrid(labels, meds, sets, derivedIn, union, core, nameOf) {
+    const N = meds.length, svg = $('grid-svg');
+    let items = [...union].filter((e) => core.indexOf(e) < 0).map((e) => {
+      const vec = sets.map((s) => (s.has(e) ? 1 : 0));
+      const k = vec.reduce((a, b) => a + b, 0);
+      return { e, vec, k, score: k * (N - k) };
+    });
+    const total = items.length;
+    items.sort((a, b) => b.score - a.score || a.k - b.k);
+    items = items.slice(0, SHOWN_COMPOUNDS);
+    const order = MDB.clusterOrder(items.map((it) => it.vec));
+    items = order.map((i) => items[i]);
+
+    if (!items.length) {
+      svg.replaceChildren();
+      svg.setAttribute('width', 0); svg.setAttribute('height', 0);
+      $('grid-note').textContent = 'Every one of the ' + fmt(union.size) +
+        ' compounds is present in all ' + fmt(N) + ' selections, so nothing separates ' +
+        'them by composition. They may still differ in bounds, in quantities and in ' +
+        'oxygen regime, none of which this grid shows.';
+      return;
+    }
+    const R = items.length, cellH = 24, cw = Math.max(56, Math.min(110, 620 / N));
+    const labW = 280, top = 150, pad = 14;
+    const W = labW + N * cw + pad, H = top + R * cellH + pad;
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.replaceChildren();
+
+    const defs = svgEl('defs');
+    const pat = svgEl('pattern', { id: 'derivedhatch', width: 6, height: 6,
+      patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' });
+    pat.appendChild(svgEl('rect', { width: 6, height: 6, fill: '#ede8f4' }));
+    pat.appendChild(svgEl('rect', { width: 3, height: 6, fill: '#7d51ae' }));
+    defs.appendChild(pat);
+    svg.appendChild(defs);
+
+    labels.forEach((l, j) => {
+      const x = labW + j * cw + cw / 2;
+      const t = svgEl('text', { x, y: top - 10,
+        transform: 'rotate(-38 ' + x + ' ' + (top - 10) + ')',
+        'font-size': 13, fill: '#253430', 'text-anchor': 'start', 'font-weight': 600 });
+      t.textContent = l; svg.appendChild(t);
+    });
+    items.forEach((it, i) => {
+      const y = top + i * cellH;
+      if (i % 2) svg.appendChild(svgEl('rect', { x: labW, y, width: N * cw,
+        height: cellH, fill: '#f4f7f5' }));
+      const nm = nameOf[it.e] || it.e;
+      const t = svgEl('text', { x: labW - 12, y: y + cellH / 2, 'font-size': 13,
+        fill: '#253430', 'text-anchor': 'end', 'dominant-baseline': 'middle' });
+      t.textContent = nm.length > 34 ? nm.slice(0, 33) + '…' : nm;
+      svg.appendChild(t);
+      for (let j = 0; j < N; j++) {
+        const on = it.vec[j];
+        const isDerived = on && derivedIn[j].has(it.e);
+        const r = svgEl('rect', { x: labW + j * cw + 3, y: y + 3, width: cw - 6,
+          height: cellH - 6, rx: 4,
+          fill: on ? (isDerived ? 'url(#derivedhatch)' : '#0b6a54') : '#eef3f0' });
+        const title = svgEl('title');
+        title.textContent = nm + ' (' + it.e + '): ' +
+          (on ? (isDerived ? 'present, supplied by the pipeline for ' : 'present, stated by the source of ')
+              : 'absent from ') + labels[j];
+        r.appendChild(title);
+        svg.appendChild(r);
+      }
+    });
+    $('grid-note').textContent = total > items.length
+      ? 'Showing the ' + fmt(items.length) + ' most differentiating of ' + fmt(total) +
+        ' compounds that are not shared by every selection. A solid cell is stated by ' +
+        'that medium’s source; a hatched cell was supplied by this pipeline.'
+      : 'Showing all ' + fmt(total) + ' compounds that are not shared by every ' +
+        'selection. A solid cell is stated by that medium’s source; a hatched cell was ' +
+        'supplied by this pipeline.';
+  }
+
+  MDB.loadCatalog().then((cat) => {
+    CAT = cat;
+    const box = $('presets');
+    PRESETS.forEach((p) => {
+      const b = el('button', { class: 'btn btn-sm', type: 'button', text: p.label });
+      b.addEventListener('click', () => {
+        SEL = p.ids.filter((id) => rowOf(id));
+        sync();
+      });
+      box.appendChild(b);
+    });
+    $('q').addEventListener('input', (e) => drawMatches(e.target.value));
+    $('clear').addEventListener('click', () => { SEL = []; sync(); $('q').focus(); });
+
+    const wanted = new URLSearchParams(location.search).get('ids');
+    if (wanted) {
+      const asked = wanted.split(',').filter(Boolean);
+      const known = asked.filter((id) => rowOf(id));
+      SEL = known.slice(0, MAX_MEDIA);
+      if (known.length < asked.length) {
+        $('q-note').textContent = fmt(asked.length - known.length) + ' of the ' +
+          fmt(asked.length) + ' identifiers in this link are not served and were dropped: ' +
+          asked.filter((id) => !rowOf(id)).join(', ') + '.';
+      } else if (asked.length > MAX_MEDIA) {
+        $('q-note').textContent = 'This link asked for ' + fmt(asked.length) +
+          ' media; showing the first ' + MAX_MEDIA + '.';
+      }
+    } else {
+      SEL = PRESETS[0].ids.filter((id) => rowOf(id));
+    }
+    sync();
+  }).catch((err) => {
+    $('status').textContent = 'The catalogue could not be loaded (' +
+      (err.message || err.kind) + '), so no medium can be picked. Reload the page.';
   });
-  // row striping guides
-  for(let i=0;i<N;i++){const y=barH+gapl+i*rowH;if(i%2)svg.insertBefore(svgEl('rect',{x:leftM,y,width:combos.length*cw,height:rowH,fill:'#f4f8f6'}),svg.firstChild);}
-}
-
-/* ---- clustered differentiating-compound grid ---- */
-function drawGrid(labels,meds,sets,union,core,nameOf){const N=meds.length,svg=document.getElementById('grid-svg');
-  const CAP=44;
-  let diff=[...union].filter(e=>!core.includes(e));
-  let items=diff.map(e=>{const vec=sets.map(s=>s.has(e)?1:0),k=vec.reduce((a,b)=>a+b,0);
-    return {e,vec,k,score:k*(N-k)};});          // score peaks when a compound splits the set
-  const total=items.length;
-  items.sort((a,b)=>b.score-a.score||a.k-b.k); // most-differentiating first
-  items=items.slice(0,CAP);
-  const order=clusterOrder(items.map(it=>it.vec));   // then cluster by presence pattern
-  items=order.map(i=>items[i]);
-  const R=items.length,cellH=20,cw=Math.max(46,Math.min(96,560/N));
-  const labW=248,top=132,pad=12,H=top+R*cellH+pad,W=labW+N*cw+pad;
-  svg.setAttribute('width',W);svg.setAttribute('height',H);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  svg.style.maxWidth='100%';
-  while(svg.firstChild)svg.removeChild(svg.firstChild);
-  // column headers with category swatch
-  labels.forEach((l,j)=>{const x=labW+j*cw+cw/2;
-    const col=CAT_COLORS[(meds[j].category)]||'#0e8f70';
-    svg.appendChild(svgEl('circle',{cx:x,cy:top-12,r:4,fill:col}));
-    const t=svgEl('text',{x:x+7,y:top-9,transform:`rotate(-38 ${x+7} ${top-9})`,'font-size':11.5,fill:'#40524c','text-anchor':'start','font-weight':600});
-    t.textContent=l;svg.appendChild(t);});
-  const cells=svgEl('g',{});svg.appendChild(cells);
-  items.forEach((it,i)=>{const y=top+i*cellH;
-    if(i%2)svg.insertBefore(svgEl('rect',{x:labW,y,width:N*cw,height:cellH,fill:'#f7faf9'}),cells);
-    const nm=nameOf[it.e]||it.e;
-    const t=svgEl('text',{x:labW-10,y:y+cellH/2,'font-size':11.5,fill:'#31463f','text-anchor':'end','dominant-baseline':'middle'});
-    t.textContent=nm.length>34?nm.slice(0,33)+'…':nm;svg.appendChild(t);
-    // count chip
-    const cnt=svgEl('text',{x:labW-4,y:y+cellH/2,'font-size':9,fill:'#8a978f','text-anchor':'start','dominant-baseline':'middle'});
-    for(let j=0;j<N;j++){const on=it.vec[j];const col=CAT_COLORS[meds[j].category]||'#0e8f70';
-      const r=svgEl('rect',{x:labW+j*cw+3,y:y+3,width:cw-6,height:cellH-6,rx:4,
-        fill:on?col:'#eef3f1',opacity:on?0.92:1,'data-i':i,'data-j':j});cells.appendChild(r);
-      if(on){const chk=svgEl('text',{x:labW+j*cw+cw/2,y:y+cellH/2+0.5,'font-size':11,fill:'#fff','text-anchor':'middle','dominant-baseline':'middle','pointer-events':'none','font-weight':700});chk.textContent='✓';svg.appendChild(chk);}}
-  });
-  if(total>CAP){const n=svgEl('text',{x:labW,y:H-2,'font-size':11,fill:'#8a978f'});n.textContent=`showing the ${CAP} most-differentiating of ${fmt(total)} compounds`;svg.appendChild(n);}
-  cells.addEventListener('mousemove',ev=>{const t=ev.target;if(t.tagName!=='rect'){tipHide();return;}
-    const i=+t.getAttribute('data-i'),j=+t.getAttribute('data-j');
-    tipShow(`<b>${esc(nameOf[items[i].e]||items[i].e)}</b><br><code>${esc(items[i].e)}</code><br>${items[i].vec[j]?'✓ present in':'absent from'} <b>${esc(labels[j])}</b>`,ev);});
-  cells.addEventListener('mouseleave',tipHide);
-}
+})();
 </script>
 </body>
 </html>

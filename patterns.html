@@ -2,148 +2,278 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Media — composition patterns &amp; clustering</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230a5c49%27/%3E%3Cpath d=%27M13 5h6v6l5 11a2 2 0 0 1-2 3H10a2 2 0 0 1-2-3l5-11z%27 fill=%27none%27 stroke=%27%237fe6c8%27 stroke-width=%272%27/%3E%3Ccircle cx=%2716%27 cy=%2721%27 r=%272%27 fill=%27%237fe6c8%27/%3E%3C/svg%3E">
-<meta name="description" content="Hierarchically clustered views of the media collection: compound co-occurrence and compound × media-group presence, with row and column dendrograms.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediaDB: composition patterns across the collection</title>
+<meta name="description" content="Hierarchically clustered views of the whole media library: which compounds recur across source databases, food groups and categories, and which compounds travel together.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/media.css">
 </head>
 <body>
+<a class="skip" href="#clustergram">Skip to the clustering</a>
 
 <nav class="nav"><div class="wrap">
-  <a class="brand" href="index.html"><span class="dot"></span> Media</a>
-  <div class="links">
-    <a href="index.html#explore">Explore</a>
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
+  <div class="navlinks">
+    <a href="index.html">Explore</a>
+    <a href="families.html">Families</a>
     <a href="compare.html">Compare</a>
-    <a href="patterns.html" class="active">Patterns</a>
-    <a href="API.md" class="ext hide-sm">API</a>
-    <a href="https://github.com/omidard/Media" class="ext hide-sm" target="_blank">GitHub ↗</a>
+    <a href="patterns.html" aria-current="page">Patterns</a>
+    <a href="methods.html">Methods &amp; limits</a>
+    <a href="API.md">API</a>
+    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
   </div>
 </div></nav>
 
-<section class="section" style="padding-bottom:24px"><div class="wrap">
-  <div class="section-head"><div class="eyebrow">Patterns</div>
-    <h2>Composition patterns across the collection</h2>
-    <p>Real hierarchical clustering (Ward linkage) computed over all media. Rows and columns are
-      reordered so that compositionally similar things sit together; the dendrograms show the structure.</p></div>
+<main id="main">
 
-  <!-- Clustergram -->
-  <div class="card card-p" style="margin-bottom:26px">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;margin-bottom:6px">
-      <div>
-        <h3 style="font-size:1.2rem">Compound × media-group presence</h3>
-        <p class="muted" style="margin:6px 0 0;max-width:640px;font-size:.92rem">Each cell is the fraction of media in a
-          group that contain a compound. The 60 most group-discriminating compounds are shown; both axes are clustered.</p>
+<header class="masthead"><div class="wrap">
+  <p class="kicker">Patterns</p>
+  <h1>What recurs across the whole collection.</h1>
+  <p class="lead" id="claim">Ward-linkage hierarchical clustering over the library, computed
+    once by <code>tools/build_cluster_data.py</code> and published as data.</p>
+  <div class="note derived" style="margin-top:var(--s4);max-width:78ch">
+    <b>Read these heatmaps with the pipeline in mind.</b>
+    <p style="margin-top:var(--s1)" id="derived-warning">A third of all component records in
+      this library were supplied by the pipeline rather than by a source, and the mineral
+      and oxygen base it injects is by construction present in almost every medium. Blocks
+      that look like a universal biochemical core are partly that convention.
+      <a href="methods.html#derived">What the pipeline supplies, and why</a>.</p>
+  </div>
+</div></header>
+
+<section class="section" id="clustergram"><div class="wrap">
+  <div class="card card-p">
+    <div style="display:flex;gap:var(--s4);flex-wrap:wrap;justify-content:space-between;align-items:flex-start">
+      <div style="max-width:64ch">
+        <h2>Compound presence, by group</h2>
+        <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s2)" id="cg-caption">
+          Loading the clustering.
+        </p>
       </div>
-      <div>
-        <label class="lbl">Group media by</label>
-        <div class="seg-btn" id="gb-seg"></div>
+      <div class="field" style="min-width:200px">
+        <label for="cg-group" id="cg-group-label">Group the media by</label>
+        <select id="cg-group" class="input"></select>
       </div>
     </div>
-    <div class="legend-scale" style="margin:12px 0 4px"><span>0%</span><div class="bar" id="cg-legend"></div><span>100% of media in group</span>
-      <span style="margin-left:auto" class="muted">scroll to pan · hover a cell</span></div>
-    <div class="viz-wrap" id="cg-wrap"><svg id="cg-svg"></svg></div>
-    <div style="margin-top:14px;padding:12px 15px;border-radius:11px;background:linear-gradient(135deg,#eef7f3,#f4faf8);border:1px solid #d6ebe3;font-size:.9rem;color:#31463f">
-      <b style="color:#0a5c49">How to read it</b> — dark cells mean a compound is present in nearly every medium of that group. Vertical bands reveal a database's signature: laboratory media cluster on amino acids and vitamins, food databases on sugars and lipids. The dendrograms group databases (top) and compounds (left) by how alike their profiles are.
+    <div class="chip-line" style="margin-top:var(--s3)">
+      <span class="muted" style="font-size:var(--t-cap)">Share of a group's media containing the compound:</span>
+      <span class="mono">0%</span>
+      <span id="cg-legend" style="height:14px;width:160px;border-radius:var(--r-sm);
+        border:1px solid var(--line);display:inline-block"></span>
+      <span class="mono">100%</span>
+    </div>
+    <div class="viz" id="cg-wrap" style="margin-top:var(--s3)">
+      <svg id="cg-svg" role="img" aria-label="Clustered heatmap of compound presence by group"></svg>
+    </div>
+    <p class="muted" style="font-size:var(--t-cap);margin-top:var(--s2)" id="cg-note"
+       role="status" aria-live="polite"></p>
+    <div class="note" style="margin-top:var(--s3)">
+      <b>How to read it</b>
+      <p style="margin-top:var(--s1)">A dark cell means the compound is in nearly every
+        medium of that group. A vertical band is a source database's signature: laboratory
+        recipes carry amino acids and vitamins, food databases carry sugars and lipids. The
+        dendrograms order the axes by how alike their profiles are; they are not a claim
+        that the groups are biologically related.</p>
     </div>
   </div>
 
-  <!-- Co-occurrence -->
-  <div class="card card-p">
-    <h3 style="font-size:1.2rem">Compound co-occurrence</h3>
-    <p class="muted" style="margin:6px 0 12px;max-width:680px;font-size:.92rem">How often two compounds appear together
-      across all media (Jaccard index). Clustered blocks are groups of compounds that tend to travel together —
-      mineral bases, amino-acid sets, vitamin panels, lipid fractions.</p>
-    <div class="legend-scale" style="margin:0 0 4px"><span>0</span><div class="bar" id="co-legend"></div><span>1 · always together</span></div>
-    <div class="viz-wrap" id="co-wrap"><svg id="co-svg"></svg></div>
-    <div style="margin-top:14px;padding:12px 15px;border-radius:11px;background:linear-gradient(135deg,#eef7f3,#f4faf8);border:1px solid #d6ebe3;font-size:.9rem;color:#31463f">
-      <b style="color:#0a5c49">How to read it</b> — the bright square blocks along the diagonal are natural compound modules that tend to be added together: the mineral base (salts + trace metals), the 20 amino acids, the B-vitamin panel, and the lipid / fatty-acid fraction. It's the recurring biochemical "recipe" structure of growth media, learned from the data alone.
+  <div class="card card-p" style="margin-top:var(--s5)">
+    <h2>Which compounds travel together</h2>
+    <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s2)" id="co-caption">
+      Loading the co-occurrence matrix.
+    </p>
+    <div class="chip-line" style="margin-top:var(--s3)">
+      <span class="muted" style="font-size:var(--t-cap)">Jaccard index between two compounds:</span>
+      <span class="mono">0</span>
+      <span id="co-legend" style="height:14px;width:160px;border-radius:var(--r-sm);
+        border:1px solid var(--line);display:inline-block"></span>
+      <span class="mono">1</span>
+    </div>
+    <div class="viz" id="co-wrap" style="margin-top:var(--s3)">
+      <svg id="co-svg" role="img" aria-label="Clustered compound co-occurrence matrix"></svg>
+    </div>
+    <p class="muted" style="font-size:var(--t-cap);margin-top:var(--s2)" id="co-note"
+       role="status" aria-live="polite"></p>
+    <div class="note" style="margin-top:var(--s3)">
+      <b>How to read it</b>
+      <p style="margin-top:var(--s1)">Bright square blocks on the diagonal are sets of
+        compounds that are added together: a mineral base, the amino acids, a vitamin panel,
+        a lipid fraction. Some of that structure is real recipe design and some of it is the
+        standard base this pipeline injects, which is why the two cannot be separated by
+        eye here.</p>
     </div>
   </div>
 </div></section>
 
-<footer class="ft"><div class="wrap">
-  <div><b style="color:var(--body)">Media</b> · clustering: SciPy Ward linkage, precomputed by <span class="mono">tools/build_cluster_data.py</span></div>
-  <div><a href="index.html#explore">Explore</a> · <a href="compare.html">Compare</a> · <a href="API.md">API</a></div>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p>Clustering: SciPy Ward linkage, precomputed by <code>tools/build_cluster_data.py</code>
+    and published under <code>data/cluster/</code>. Definitions and limits are on the
+    <a href="methods.html">methods page</a>; per-source attribution and licence terms are
+    in <a href="methods.html#licensing">the licence schedule</a>.</p>
 </div></footer>
 
 <script src="assets/media.js"></script>
 <script>
-document.getElementById('cg-legend').style.background='linear-gradient(90deg,'+[0,.25,.5,.75,1].map(t=>tealRamp(t)).join(',')+')';
-document.getElementById('co-legend').style.background='linear-gradient(90deg,'+[0,.25,.5,.75,1].map(t=>tealRamp(t)).join(',')+')';
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const el = MDB.el, fmt = MDB.fmt, svgEl = MDB.svgEl;
+  let CG = null, CAT = null;
 
-/* -------- generic clustered-heatmap renderer -------- */
-function renderHeatmap(svg,opts){
-  const {rows,cols,matrix,rowDendro,colDendro,cellW,cellH,rowLabelW,colLabelH,
-    rowDendroW,colDendroH,fmtCell,tipHtml,symmetric}=opts;
-  const R=rows.length,C=cols.length;
-  const hx=rowDendroW+rowLabelW, hy=colLabelH+colDendroH;
-  const W=hx+C*cellW+8, H=hy+R*cellH+4;
-  svg.setAttribute('width',W);svg.setAttribute('height',H);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  while(svg.firstChild)svg.removeChild(svg.firstChild);
-  const root=svgEl('g',{});svg.appendChild(root);
+  const ramp = [0, 0.25, 0.5, 0.75, 1].map((t) => MDB.accentRamp(t)).join(',');
+  $('cg-legend').style.background = 'linear-gradient(90deg,' + ramp + ')';
+  $('co-legend').style.background = 'linear-gradient(90deg,' + ramp + ')';
 
-  // column dendrogram (top)
-  if(colDendro){const g=svgEl('g',{transform:`translate(0,${colLabelH})`});root.appendChild(g);
-    drawDendro(g,colDendro,'top',null,cellW,hx,colDendroH,'#9fb3ab');}
-  // row dendrogram (left)
-  if(rowDendro){const g=svgEl('g',{});root.appendChild(g);
-    drawDendro(g,rowDendro,'left',null,cellH,hy,rowDendroW,'#9fb3ab');}
-
-  // column labels (rotated, at very top)
-  cols.forEach((c,j)=>{const x=hx+j*cellW+cellW/2;
-    const t=svgEl('text',{x,y:colLabelH-6,transform:`rotate(-45 ${x} ${colLabelH-6})`,
-      'font-size':10,fill:'#40524c','text-anchor':'start','font-family':'Inter'});
-    t.textContent=(c.name||c).length>22?(c.name||c).slice(0,21)+'…':(c.name||c);root.appendChild(t);});
-
-  // row labels (right-aligned, left of heatmap)
-  rows.forEach((r,i)=>{const y=hy+i*cellH+cellH/2;
-    const t=svgEl('text',{x:hx-6,y,'font-size':10,fill:'#40524c','text-anchor':'end',
-      'dominant-baseline':'middle','font-family':'Inter'});
-    t.textContent=(r.name||r).length>24?(r.name||r).slice(0,23)+'…':(r.name||r);root.appendChild(t);});
-
-  // cells
-  const cellsG=svgEl('g',{});root.appendChild(cellsG);
-  for(let i=0;i<R;i++)for(let j=0;j<C;j++){
-    const v=matrix[i][j];
-    const rect=svgEl('rect',{x:hx+j*cellW,y:hy+i*cellH,width:cellW-1,height:cellH-1,rx:1.5,
-      fill:tealRamp(v),'data-i':i,'data-j':j});
-    if(symmetric&&i===j)rect.setAttribute('stroke','#0a5c49'),rect.setAttribute('stroke-width','.6');
-    cellsG.appendChild(rect);
+  function label(x) { return (x && x.name) ? x.name : String(x); }
+  function shortLabel(x, n) {
+    const s = label(x);
+    return s.length > n ? s.slice(0, n - 1) + '…' : s;
   }
-  cellsG.addEventListener('mousemove',ev=>{const t=ev.target;if(t.tagName!=='rect'){tipHide();return;}
-    const i=+t.getAttribute('data-i'),j=+t.getAttribute('data-j');tipShow(tipHtml(i,j),ev);});
-  cellsG.addEventListener('mouseleave',tipHide);
-}
 
-/* -------- clustergram (compound × group) -------- */
-let CG=null;
-jget('data/cluster/clustergram.json').then(d=>{CG=d;
-  const seg=document.getElementById('gb-seg');
-  d.views.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v.label;b.className=i===0?'on':'';
-    b.onclick=()=>{[...seg.children].forEach(c=>c.className='');b.className='on';drawCG(i);};seg.appendChild(b);});
-  drawCG(0);
-});
-function drawCG(vi){const v=CG.views[vi];
-  const C=v.cols.length,cellW=Math.max(30,Math.min(64,760/C));
-  renderHeatmap(document.getElementById('cg-svg'),{
-    rows:v.rows,cols:v.cols,matrix:v.matrix,rowDendro:v.row_dendro,colDendro:v.col_dendro,
-    cellW,cellH:15,rowLabelW:172,colLabelH:150,rowDendroW:64,colDendroH:52,
-    tipHtml:(i,j)=>`<b>${esc(v.rows[i].name)}</b><br>${esc(v.cols[j].name)} <span style="opacity:.7">(n=${fmt(v.cols[j].n)})</span><br>
-      <b style="color:#7fe6c8">${(v.matrix[i][j]*100).toFixed(1)}%</b> of media contain it`});
-}
+  function heatmap(svg, o) {
+    const R = o.rows.length, C = o.cols.length;
+    const hx = o.rowDendroW + o.rowLabelW, hy = o.colLabelH + o.colDendroH;
+    const W = hx + C * o.cellW + 10, H = hy + R * o.cellH + 6;
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.replaceChildren();
+    const root = svgEl('g');
+    svg.appendChild(root);
+    if (o.colDendro) {
+      const g = svgEl('g', { transform: 'translate(0,' + o.colLabelH + ')' });
+      root.appendChild(g);
+      MDB.drawDendro(g, o.colDendro, 'top', o.cellW, hx, o.colDendroH, '#c7d4cf');
+    }
+    if (o.rowDendro) {
+      const g = svgEl('g');
+      root.appendChild(g);
+      MDB.drawDendro(g, o.rowDendro, 'left', o.cellH, hy, o.rowDendroW, '#c7d4cf');
+    }
+    o.cols.forEach((c, j) => {
+      const x = hx + j * o.cellW + o.cellW / 2;
+      const t = svgEl('text', { x, y: o.colLabelH - 8,
+        transform: 'rotate(-45 ' + x + ' ' + (o.colLabelH - 8) + ')',
+        'font-size': 13, fill: '#253430', 'text-anchor': 'start' });
+      t.textContent = o.colText(c, j);
+      root.appendChild(t);
+    });
+    o.rows.forEach((r, i) => {
+      const y = hy + i * o.cellH + o.cellH / 2;
+      const t = svgEl('text', { x: hx - 8, y, 'font-size': 13, fill: '#253430',
+        'text-anchor': 'end', 'dominant-baseline': 'middle' });
+      t.textContent = o.rowText(r, i);
+      root.appendChild(t);
+    });
+    const cells = svgEl('g');
+    root.appendChild(cells);
+    for (let i = 0; i < R; i++) {
+      for (let j = 0; j < C; j++) {
+        const v = o.matrix[i][j];
+        const rect = svgEl('rect', { x: hx + j * o.cellW, y: hy + i * o.cellH,
+          width: o.cellW - 1, height: o.cellH - 1, rx: 2, fill: MDB.accentRamp(v) });
+        const title = svgEl('title');
+        title.textContent = o.tip(i, j);
+        rect.appendChild(title);
+        cells.appendChild(rect);
+      }
+    }
+  }
 
-/* -------- co-occurrence (compound × compound) -------- */
-jget('data/cluster/cooccurrence.json').then(d=>{
-  const L=d.labels,cell=Math.max(11,Math.min(16,720/L.length));
-  renderHeatmap(document.getElementById('co-svg'),{
-    rows:L,cols:L,matrix:d.matrix,rowDendro:null,colDendro:d.dendro,symmetric:true,
-    cellW:cell,cellH:cell,rowLabelW:168,colLabelH:150,rowDendroW:8,colDendroH:56,
-    tipHtml:(i,j)=>`<b>${esc(L[i].name)}</b> ↔ <b>${esc(L[j].name)}</b><br>
-      Jaccard <b style="color:#7fe6c8">${d.matrix[i][j].toFixed(2)}</b>`});
-});
+  function drawClustergram(index) {
+    const v = CG.views[index];
+    const denominator = v.cols.reduce((a, c) => a + (c.n || 0), 0);
+    const cellW = Math.max(34, Math.min(70, 780 / v.cols.length));
+    heatmap($('cg-svg'), {
+      rows: v.rows, cols: v.cols, matrix: v.matrix,
+      rowDendro: v.row_dendro, colDendro: v.col_dendro,
+      cellW, cellH: 17, rowLabelW: 220, colLabelH: 210, rowDendroW: 70, colDendroH: 56,
+      colText: (c) => shortLabel(c, 24) + ' (n=' + fmt(c.n) + ')',
+      rowText: (r) => shortLabel(r, 26),
+      tip: (i, j) => label(v.rows[i]) + ' [' + v.rows[i].exchange + '] is in ' +
+        Math.round(v.matrix[i][j] * (v.cols[j].n || 0)) + ' of ' + fmt(v.cols[j].n) +
+        ' ' + label(v.cols[j]) + ' media (' + (v.matrix[i][j] * 100).toFixed(1) + '%)'
+    });
+    $('cg-note').textContent = 'Showing the ' + fmt(v.rows.length) + ' most ' +
+      'group-discriminating compounds of ' + fmt(CAT.n_exchanges) +
+      ' exchanges in the library, across ' + fmt(v.cols.length) + ' groups covering ' +
+      MDB.withDenominator(denominator, CAT.count, 'media') +
+      '. Row labels are the BiGG dictionary names of the metabolites, with the ' +
+      'exchange id in the tooltip; some of those names carry the compartment or ' +
+      'formula suffix of the model they were first seen in.';
+    $('cg-svg').setAttribute('aria-label',
+      'Clustered heatmap: ' + fmt(v.rows.length) + ' compounds by ' +
+      fmt(v.cols.length) + ' ' + v.label.toLowerCase() + ' groups. Each cell is the ' +
+      'share of that group’s media containing the compound.');
+  }
+
+  Promise.all([MDB.loadSummary(), MDB.getJSON('data/cluster/clustergram.json')])
+    .then(([cat, cg]) => {
+      CAT = cat; CG = cg;
+      const derived = cat.evidence_classes.find((c) => c.id === 'derived');
+      $('claim').textContent = 'Ward-linkage hierarchical clustering over all ' +
+        fmt(cat.count) + ' media and ' + fmt(cat.n_exchanges) +
+        ' distinct exchange reactions, computed once by tools/build_cluster_data.py ' +
+        'and published as data rather than recomputed in your browser.';
+      $('derived-warning').textContent =
+        MDB.withDenominator(derived.n, derived.of, 'component records') +
+        ' in this library were supplied by the pipeline rather than by a source, and the ' +
+        'mineral and oxygen base it injects is by construction present in almost every ' +
+        'medium. Blocks that look like a universal biochemical core are partly that ' +
+        'convention.';
+      $('derived-warning').appendChild(document.createTextNode(' '));
+      $('derived-warning').appendChild(el('a', { href: 'methods.html#derived',
+        text: 'What the pipeline supplies, and why' }));
+
+      const sel = $('cg-group');
+      cg.views.forEach((v, i) => sel.appendChild(
+        el('option', { value: String(i), text: v.label })));
+      sel.addEventListener('change', (e) => drawClustergram(Number(e.target.value)));
+      $('cg-caption').textContent = 'Each cell is the share of a group’s media that ' +
+        'contain a compound. Both axes are clustered, so compounds with similar ' +
+        'distributions sit together and so do groups with similar profiles.';
+      drawClustergram(0);
+    })
+    .catch((err) => {
+      $('cg-caption').textContent = '';
+      $('cg-wrap').replaceChildren(el('div', { class: 'state error' }, [
+        el('h3', { text: 'The clustering could not be loaded' }),
+        el('p', { text: 'data/cluster/clustergram.json did not load (' +
+          (err.message || err.kind) + '). No pattern is shown rather than a partial one.' })
+      ]));
+    });
+
+  MDB.getJSON('data/cluster/cooccurrence.json').then((d) => {
+    const L = d.labels;
+    const cell = Math.max(13, Math.min(18, 760 / L.length));
+    heatmap($('co-svg'), {
+      rows: L, cols: L, matrix: d.matrix, rowDendro: null, colDendro: d.dendro,
+      cellW: cell, cellH: cell, rowLabelW: 210, colLabelH: 200,
+      rowDendroW: 10, colDendroH: 58,
+      colText: (c) => shortLabel(c, 22),
+      rowText: (r) => shortLabel(r, 24),
+      tip: (i, j) => label(L[i]) + ' and ' + label(L[j]) + ': Jaccard ' +
+        d.matrix[i][j].toFixed(2)
+    });
+    const denominator = CAT ? CAT.n_exchanges : null;
+    $('co-caption').textContent = 'How often two compounds appear in the same medium, ' +
+      'as a Jaccard index, for the ' + fmt(L.length) + ' most widespread compounds' +
+      (denominator ? ' of ' + fmt(denominator) + ' in the library.' : '.');
+    $('co-note').textContent = 'Showing ' + fmt(L.length) + ' compounds' +
+      (denominator ? ' of ' + fmt(denominator) : '') +
+      '; the matrix is symmetric, so the upper and lower triangles carry the same values.';
+  }).catch((err) => {
+    $('co-caption').textContent = '';
+    $('co-wrap').replaceChildren(el('div', { class: 'state error' }, [
+      el('h3', { text: 'The co-occurrence matrix could not be loaded' }),
+      el('p', { text: 'data/cluster/cooccurrence.json did not load (' +
+        (err.message || err.kind) + ').' })
+    ]));
+  });
+})();
 </script>
 </body>
 </html>

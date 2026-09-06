@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediaDB: methods, limits and the records we withdrew</title>
+<meta name="description" content="What a MediaDB record is and is not: how component identity is decided, what coverage means, which components the pipeline supplied rather than the source, what the bounds are and are not, the per-source licence schedule, and the media that were assessed and withdrawn.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/media.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the methods</a>
+
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
+  <div class="navlinks">
+    <a href="index.html">Explore</a>
+    <a href="families.html">Families</a>
+    <a href="compare.html">Compare</a>
+    <a href="patterns.html">Patterns</a>
+    <a href="methods.html" aria-current="page">Methods &amp; limits</a>
+    <a href="API.md">API</a>
+    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<main id="main">
+
+<header class="masthead"><div class="wrap">
+  <p class="kicker">Methods and limitations</p>
+  <h1>What a record here is, and what it is not.</h1>
+  <p class="lead">This resource is a compilation. Every medium is somebody else's
+    formulation, re-encoded against a standard set of exchange reactions so a
+    genome-scale model can use it. That re-encoding introduces assumptions, and this
+    page states them, with counts, so you can decide what to trust.</p>
+  <p class="chip-line" style="margin-top:var(--s4)">
+    <a class="btn" href="#identity">Component identity</a>
+    <a class="btn" href="#coverage">Coverage</a>
+    <a class="btn" href="#derived">Derived components</a>
+    <a class="btn" href="#bounds">Bounds and concentrations</a>
+    <a class="btn" href="#oxygen">Oxygen</a>
+    <a class="btn" href="#families-method">Families</a>
+    <a class="btn" href="#licensing">Licensing</a>
+    <a class="btn" href="#reproducibility">Reproducibility</a>
+    <a class="btn" href="#withdrawn">Withdrawn records</a>
+    <a class="btn" href="#limits">The limits, in one list</a>
+  </p>
+</div></header>
+
+<section class="section"><div class="wrap" style="max-width:900px">
+
+  <div class="card card-p" id="summary">
+    <h2>This release</h2>
+    <div id="release-figures" class="figures" style="margin-top:var(--s3)"></div>
+    <p class="muted" style="font-size:var(--t-cap);margin-top:var(--s3)" id="release-stamp"></p>
+  </div>
+
+  <h2 id="identity" style="margin-top:var(--s7)">How a component's identity was decided</h2>
+  <p style="margin-top:var(--s3)">Every component in this library is a claim that a
+    named ingredient is a particular molecule with a particular BiGG exchange reaction.
+    The pipeline records how each of those claims was reached, and groups the twelve
+    recorded evidence tiers into six classes. The classes are ordered by the strength of
+    the evidence.</p>
+  <div class="note caution" style="margin-top:var(--s3)">
+    <b>The most important thing on this page.</b>
+    <p style="margin-top:var(--s1)">An earlier release of this resource labelled 42% of
+      components <code>exact</code> and rendered that word in bold green as its trust
+      signal. Almost all of those were a hard-coded English-label lookup, not a chemical
+      identity check. The word has been withdrawn. What is published now is what actually
+      decided the identity, and for most components that is a name string.</p>
+  </div>
+  <div class="card card-p" style="margin-top:var(--s4)">
+    <div id="ev-bar"></div>
+    <div id="ev-legend"></div>
+  </div>
+  <div class="tablewrap" style="margin-top:var(--s4)">
+    <table class="grid">
+      <thead><tr><th>Recorded tier</th><th>Class</th><th>Components</th></tr></thead>
+      <tbody id="tier-table"></tbody>
+    </table>
+  </div>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
+    A name match is a fallback, not a confirmation. It cannot detect that a source's
+    "Cystine" is a different molecule from L-cysteine, that a "MUFA 18:1" measurement
+    pooled every 18:1 isomer, or that "Vitamin B-6" is a vitamer group rather than
+    pyridoxine. Where the pipeline collapsed a class onto one representative molecule it
+    says so, in the <b>class or assertion</b> tier, rather than presenting the assumption
+    as a measurement.
+  </p>
+
+  <h2 id="coverage" style="margin-top:var(--s7)">What coverage means, and what it used to mean</h2>
+  <p style="margin-top:var(--s3)">Three different fractions can be called "coverage" and
+    they do not agree. This resource publishes all three and names each one.</p>
+  <div class="tablewrap" style="margin-top:var(--s3)">
+    <table class="grid">
+      <thead><tr><th>Field</th><th>What it divides by</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>pct_covered_source</code></td>
+          <td>The ingredients the cited source itself states. Pipeline-derived components
+            are excluded from both the numerator and the denominator.</td>
+          <td>The number this site displays.</td>
+        </tr>
+        <tr>
+          <td><code>pct_covered_observed</code></td>
+          <td>The mapped share of the components the source actually stated.</td>
+          <td>Published on each record. Null for the records that state nothing.</td>
+        </tr>
+        <tr>
+          <td><code>pct_covered</code></td>
+          <td>Every component the record ended up with, including the ones the pipeline
+            invented. That ratio is necessarily near 100% and carries no information.</td>
+          <td><b>Deprecated.</b> Kept in the data because it was published, never rendered
+            here as a quality signal.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note caution" style="margin-top:var(--s3)">
+    <b>Source coverage is sometimes a ceiling, not a point estimate.</b>
+    <p style="margin-top:var(--s1)"><span id="upper-bound-count">Some</span> records
+      count the source ingredients that were replaced by derived components as a floor,
+      so the true denominator is at least that large and the percentage is at most the
+      one shown. Those records say "at most" beside the number.</p>
+  </div>
+  <div class="barlist" id="coverage-bands" style="margin-top:var(--s4)"></div>
+
+  <h2 id="derived" style="margin-top:var(--s7)">Components the source never stated</h2>
+  <p style="margin-top:var(--s3)">A large minority of the component records in this
+    library were supplied by the pipeline rather than read from a source. There are three
+    reasons this happens, and none of them is a measurement:</p>
+  <ul style="margin-top:var(--s3)">
+    <li><b>Complex-ingredient decomposition.</b> A recipe says "beef extract"; a standard
+      composition reference is used to expand that into amino acids, nucleotides, vitamins
+      and minerals. The recipe never listed those molecules.</li>
+    <li><b>Hydrolysate approximation.</b> The same idea for peptones, tryptone, yeast
+      extract and casein hydrolysates, which are undefined mixtures by construction.</li>
+    <li><b>Injected mineral and oxygen base.</b> Water, protons, phosphate, sulfate,
+      ammonium and trace metals are added so a model is not starved of an element the
+      source took for granted. This is a modelling convention, not the recipe.</li>
+  </ul>
+  <div class="note derived" style="margin-top:var(--s3)">
+    <b>They are kept, never deleted.</b>
+    <p style="margin-top:var(--s1)">Removing them would make thousands of media infeasible
+      in flux balance analysis, and that failure would be blamed on the model. So they
+      ship, they carry a dashed marker everywhere they appear, they are excluded from
+      every source-coverage number, and the copy-to-COBRApy block puts them in their own
+      commented section so you can delete them yourself.</p>
+  </div>
+  <div class="figures" id="derived-figures" style="margin-top:var(--s4)"></div>
+
+  <h2 id="bounds" style="margin-top:var(--s7)">Bounds are not measured uptake rates</h2>
+  <p style="margin-top:var(--s3)">Almost every lower bound in this library is a presence
+    placeholder: it encodes "this is in the medium", not "this is taken up at this rate".
+    Treat a bound as a switch, and set your own numbers before interpreting a flux.</p>
+  <div class="figures" id="quant-figures" style="margin-top:var(--s3)"></div>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
+    Where an amount exists it is published verbatim with its basis: a mass per 100 g of
+    food is not a concentration, and converting one into the other requires a volume of
+    medium that nobody measured. This resource does not perform that conversion, and it
+    does not present a mass fraction in the same column as a molar concentration.
+  </p>
+
+  <h2 id="oxygen" style="margin-top:var(--s7)">Oxygen regime</h2>
+  <p style="margin-top:var(--s3)">The oxygen regime decides whether you open or close
+    <code>EX_o2_e</code>, which is the single most consequential bound in an FBA medium.
+    It has four states here, and one of them is "we do not know".</p>
+  <div class="barlist" id="oxygen-bands" style="margin-top:var(--s3)"></div>
+  <div class="note caution" style="margin-top:var(--s3)">
+    <b>An earlier release displayed the unknowns as "anaerobic".</b>
+    <p style="margin-top:var(--s1)">A missing value fell through a boolean test into the
+      anaerobic branch, and the oxygen filter returned those records as confirmed
+      anaerobes. Unknown is now its own state, in the table, in the filter and on the
+      record. A facultative regime is also shown as facultative and is not evidence that
+      the organism is an aerobe.</p>
+  </div>
+
+  <h2 id="families-method" style="margin-top:var(--s7)">Base-medium families</h2>
+  <p style="margin-top:var(--s3)">A family groups the variants of one base medium so that
+    "LB" is one thing with variants rather than dozens of unrelated rows. How each family
+    was decided is recorded on the record and shown in the browser.</p>
+  <div class="note caution" style="margin-top:var(--s3)">
+    <b>A family is a naming grouping. It is not a claim that the variants are interchangeable.</b>
+    <p style="margin-top:var(--s1)">Most assignments are made from the medium's name.
+      Where the pipeline could also check the record's composition against the family's
+      canonical scaffold it publishes that corroboration score, and where it could not it
+      publishes the reason instead of a guess. Two records in one family can differ by a
+      carbon source, by strength, by pH, or by being broth against agar. The families view
+      shows what differs rather than averaging it away.</p>
+  </div>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)" id="family-coverage"></p>
+
+  <h2 id="licensing" style="margin-top:var(--s7)">Licensing is per source, not per repository</h2>
+  <p style="margin-top:var(--s3)">There is no blanket data licence here. Each record
+    carries the terms of the source it came from. An earlier release placed the whole of
+    <code>data/</code> under CC BY 4.0, which grants commercial use; a substantial minority
+    of the upstream sources grant no such right. Nothing was removed to fix that. Every
+    record ships, labelled, and the browser can filter for the commercially usable subset.</p>
+  <div class="tablewrap" style="margin-top:var(--s3)">
+    <table class="grid">
+      <thead><tr><th>Licence</th><th>Media</th><th>Commercial use</th><th>Sources</th></tr></thead>
+      <tbody id="licence-table"></tbody>
+    </table>
+  </div>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
+    The full schedule, with the verbatim terms and the date each was read, is in
+    <a href="LICENSE">LICENSE</a>; the attribution notices are in <a href="NOTICE">NOTICE</a>.
+    Code in this repository is MIT. Whatever the licence, cite the primary publication in
+    each record's <code>provenance.citation</code>: this compilation is not the source of
+    the formulation.
+  </p>
+
+  <h2 id="reproducibility" style="margin-top:var(--s7)">Reproducibility, stated honestly</h2>
+  <div class="note stop" style="margin-top:var(--s3)">
+    <b>The original builders cannot be re-run.</b>
+    <p style="margin-top:var(--s1)">Nineteen generator scripts hard-coded a temporary
+      scratchpad directory that has since been deleted, and the raw upstream payloads were
+      never committed. For most of this library <code>data/media/*.json</code> is the only
+      surviving copy. That is a limitation of this resource and it is not recoverable by
+      re-running anything.</p>
+  </div>
+  <p style="margin-top:var(--s3)">Corrections are therefore made as transform stages: a
+    stage reads the corpus and writes a corrected corpus, and the chain of stages, run in a
+    recorded order, is the pipeline. No correction is hand-edited into the data. The stage
+    that builds everything this browser reads is
+    <code>tools/stages/52_web_payload.py</code>, and it asserts its own numbers against the
+    corpus before the payload is written.</p>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
+    Public upstream sources (USDA, MediaDive, BiGG, MetaNetX) have been re-acquired and
+    checksummed into <code>data/_sources/</code>, so they can be compared against. The
+    literature-derived records came from extraction batches that no longer exist; re-running
+    that miner would file different compositions under the same citations, so it is not run.
+  </p>
+
+  <h2 id="withdrawn" style="margin-top:var(--s7)">Records that were assessed and withdrawn</h2>
+  <p style="margin-top:var(--s3)">A verification pass read source publications and rejected
+    media it could not support. Those records are not served, and until now nothing on the
+    site said so. They are listed here with the reason, because a rejection is a result.</p>
+  <div class="note" style="margin-top:var(--s3)">
+    <b>This count has no denominator.</b>
+    <p style="margin-top:var(--s1)" id="withdrawn-denominator">The verification pass
+      recorded what it rejected but not how many records it assessed, so the number below
+      is a count and cannot honestly be turned into a rate.</p>
+  </div>
+  <div class="field" style="margin-top:var(--s4);max-width:420px">
+    <label for="withdrawn-q">Filter the withdrawn records</label>
+    <input id="withdrawn-q" class="input" type="search" placeholder="An identifier or a name">
+  </div>
+  <p class="resultline" id="withdrawn-count" role="status" aria-live="polite"
+     style="margin-top:var(--s3)"></p>
+  <div id="withdrawn-list" style="margin-top:var(--s3)"></div>
+
+  <h2 id="limits" style="margin-top:var(--s7)">The limits, in one list</h2>
+  <ol style="margin-top:var(--s3)" class="stack">
+    <li>Most component identities rest on a name string, not on chemistry. A name match
+      cannot distinguish a vitamer group from a vitamer, or a fatty-acid class from an
+      isomer.</li>
+    <li>About a third of all component records were supplied by this pipeline and are not
+      in the cited source. They are an approximation of an undefined mixture, or a
+      modelling convention.</li>
+    <li>Bounds are presence placeholders, with a small minority of source-stated
+      concentrations. No bound in this library is a measured uptake rate.</li>
+    <li>Food records are built from a population-average nutrient analysis, not from a
+      laboratory formulation. Their amounts are per 100 g of food; they are not a
+      concentration and this resource does not convert them into one.</li>
+    <li>Cross-references shown against a component describe the BiGG metabolite that was
+      chosen. They were not used to choose it, so they cannot contradict it and they are
+      not independent evidence.</li>
+    <li>The corpus is a frozen snapshot whose original generators are gone, so it cannot be
+      rebuilt from its raw inputs. Corrections are made forward, as stages.</li>
+    <li>Records are not deduplicated by composition. Some media are compositionally
+      identical to others; where that is known the record says so.</li>
+    <li>A family assignment is usually a name match. It does not assert that the variants
+      in a family are interchangeable.</li>
+    <li>The oxygen regime is unknown for some records. Unknown is not anaerobic.</li>
+    <li>The licence is per source. A substantial minority of records may not be used
+      commercially, and this resource cannot grant rights it does not hold.</li>
+  </ol>
+
+  <h2 id="cite" style="margin-top:var(--s7)">How to cite</h2>
+  <p style="margin-top:var(--s3)">Cite the primary publication recorded in the record's
+    <code>provenance.citation</code>, and, if the compilation itself was load-bearing for
+    your result, name this resource and the release stamp shown at the top of this page.
+    A record here is an encoding of somebody else's formulation, and the encoding is where
+    the assumptions live.</p>
+
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <div class="footgrid">
+    <div>
+      <h4>Attribution</h4>
+      <ul>
+        <li><b>USDA FoodData Central</b>: U.S. Department of Agriculture, public domain (CC0 1.0).</li>
+        <li><b>DSMZ MediaDive</b>: MediaDive (c) 2022 by DSMZ, licensed under CC BY 4.0.</li>
+        <li><b>FooDB</b>: FooDB version 1.0, licensed CC BY-NC 4.0.</li>
+        <li><b>MediaDB (ISB defined media)</b>: Institute for Systems Biology, all rights reserved upstream.</li>
+        <li><b>Human Metabolome Database (HMDB 5.0)</b>: licensed CC BY-NC 4.0.</li>
+        <li><b>BiGG Models</b>: University of California San Diego.</li>
+        <li><b>MetaNetX</b>: licensed CC BY 4.0.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="index.html">Explore the library</a></li>
+        <li><a href="families.html">Base-medium families</a></li>
+        <li><a href="API.md">Programmatic API</a></li>
+        <li><a href="LICENSE">Licence schedule</a> · <a href="NOTICE">Notices</a></li>
+      </ul>
+    </div>
+  </div>
+</div></footer>
+
+<script src="assets/media.js"></script>
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const el = MDB.el, fmt = MDB.fmt;
+
+  function figure(value, key, detail) {
+    return el('div', { class: 'figure' }, [
+      el('div', { class: 'v', text: value }),
+      el('div', { class: 'k', text: key }),
+      detail ? el('div', { class: 'd', text: detail }) : el('span')
+    ]);
+  }
+
+  function bars(node, spec, denominator) {
+    const top = Math.max.apply(null, spec.map((s) => s[1]));
+    spec.forEach(([label, n, note]) => {
+      node.appendChild(el('div', { class: 'barrow' }, [
+        el('span', { class: 'lbl', title: label, text: label }),
+        el('span', { class: 'track' }, [
+          el('span', { class: 'fill', style: 'width:' + (top ? 100 * n / top : 0) + '%' })
+        ]),
+        el('span', {
+          class: 'val',
+          text: MDB.withDenominator(n, denominator) + (note ? ' · ' + note : '')
+        })
+      ]));
+    });
+  }
+
+  Promise.all([MDB.loadSummary(), MDB.loadTombstones()]).then(([cat, tomb]) => {
+    const totals = cat.component_totals;
+    const media = cat.media_totals;
+
+    $('release-figures').replaceChildren(
+      figure(fmt(cat.count), 'media', 'counted from the records on disk'),
+      figure(fmt(totals.n_components), 'component records',
+        'each mapped to a BiGG exchange'),
+      figure(fmt(totals.n_sourced), 'stated by the source',
+        MDB.share(totals.n_sourced, totals.n_components) + ' of components'),
+      figure(fmt(totals.n_derived), 'supplied by the pipeline',
+        MDB.share(totals.n_derived, totals.n_components) + ' of components'));
+    $('release-stamp').textContent = 'Built ' + cat.built_utc +
+      (cat.git_head ? ' from commit ' + cat.git_head.slice(0, 10) : '') +
+      ' by tools/build_web_payload.py, reading ' + cat.corpus + '. ' +
+      cat.count_authority + '.';
+
+    const counts = cat.evidence_classes.map((c) => c.n);
+    $('ev-bar').appendChild(MDB.evidenceBar(counts));
+    $('ev-legend').appendChild(MDB.evidenceLegend(counts, totals.n_components));
+
+    const tierRows = [];
+    cat.evidence_classes.forEach((c) => c.tiers.forEach((t) => tierRows.push([t, c])));
+    const tbody = $('tier-table');
+    tierRows.forEach(([tier, c]) => {
+      tbody.appendChild(el('tr', {}, [
+        el('td', {}, [el('code', { text: tier })]),
+        el('td', {}, [el('span', { class: 'chip ev-' + c.id, text: c.label })]),
+        el('td', { class: 'tnum', text: 'grouped into a class of ' +
+          MDB.withDenominator(c.n, c.of) })
+      ]));
+    });
+
+    $('upper-bound-count').textContent = MDB.withDenominator(
+      media.n_media_source_coverage_is_upper_bound, cat.count, 'media');
+
+    const cb = cat.coverage_bands_source;
+    bars($('coverage-bands'), [
+      ['Source coverage at or above 90%', cb.high_ge_90],
+      ['Source coverage 60% to 90%', cb.mid_60_90],
+      ['Source coverage below 60%', cb.review_lt_60],
+      ['Not computed: the source states no ingredient list', cb.not_computed]
+    ], cat.count);
+
+    $('derived-figures').replaceChildren(
+      figure(fmt(media.n_media_with_any_derived_component),
+        'media contain at least one derived component',
+        'of ' + fmt(cat.count) + ' (' +
+        MDB.share(media.n_media_with_any_derived_component, cat.count) + ')'),
+      figure(fmt(media.n_media_entirely_derived),
+        'media are entirely derived',
+        'no component in them is stated by the cited source'),
+      figure(MDB.share(totals.n_derived, totals.n_components),
+        'of all component records were supplied by the pipeline',
+        fmt(totals.n_derived) + ' of ' + fmt(totals.n_components)));
+
+    $('quant-figures').replaceChildren(
+      figure(fmt(totals.n_with_concentration_mM),
+        'components carry a concentration in mM',
+        'of ' + fmt(totals.n_components) + ' (' +
+        MDB.share(totals.n_with_concentration_mM, totals.n_components) + ')'),
+      figure(fmt(totals.n_with_source_amount),
+        'components carry a verbatim source amount',
+        'published with its basis, never converted'),
+      figure(fmt(totals.n_components - totals.n_with_concentration_mM),
+        'components have no derivable concentration',
+        'each carries a recorded reason'));
+
+    const ox = cat.by_oxygen;
+    const oxN = (k) => (Object.prototype.hasOwnProperty.call(ox, k) ? ox[k] : null);
+    bars($('oxygen-bands'), [
+      ['Facultative: used with or without oxygen', oxN('facultative')],
+      ['Anaerobic', oxN('anaerobic')],
+      ['Aerobic', oxN('aerobic')],
+      ['Unknown: the record does not say', oxN('None')]
+    ], cat.count);
+
+    $('family-coverage').textContent =
+      MDB.withDenominator(media.n_media_in_a_family, cat.count, 'media') +
+      ' are assigned to a base-medium family; the remaining ' +
+      fmt(media.n_media_without_a_family) +
+      ' are shown as ungrouped rather than filed under a guessed family.';
+
+    const lic = $('licence-table');
+    cat.licences.forEach((l) => {
+      lic.appendChild(el('tr', {}, [
+        el('td', {}, [
+          el('span', { text: l.license }),
+          l.license_url
+            ? el('span', {}, [document.createTextNode(' '),
+                el('a', { href: l.license_url, target: '_blank', rel: 'noopener', text: 'terms ↗' })])
+            : el('span', { class: 'cellnote', text: 'no terms URL recorded' })
+        ]),
+        el('td', { class: 'tnum', text: MDB.withDenominator(l.n_media, cat.count) }),
+        el('td', {}, [MDB.licenceChip(l.license, l.commercial_use_ok),
+          el('span', { class: 'cellnote', text: l.commercial_use || 'not recorded' })]),
+        el('td', { text: l.sources.join(', ') })
+      ]));
+    });
+
+    /* --- withdrawn records ------------------------------------------------ */
+    const ids = Object.keys(tomb.records || {}).sort();
+    $('withdrawn-denominator').textContent = tomb.why_no_denominator +
+      ' ' + fmt(tomb.n_with_prose) + ' of ' + fmt(tomb.n_withdrawn) +
+      ' carry a written reason; the rest carry only a workflow code.';
+
+    function drawWithdrawn(filter) {
+      const needle = (filter || '').trim().toLowerCase();
+      const shown = ids.filter((id) => {
+        if (!needle) return true;
+        const r = tomb.records[id];
+        return (id + ' ' + (r.name || '') + ' ' + (r.note || ''))
+          .toLowerCase().indexOf(needle) >= 0;
+      });
+      $('withdrawn-count').textContent = 'Showing ' + fmt(shown.length) + ' of ' +
+        fmt(ids.length) + ' withdrawn records.';
+      const box = $('withdrawn-list');
+      box.replaceChildren();
+      if (!shown.length) {
+        box.appendChild(el('div', { class: 'state', text:
+          'None of the ' + fmt(ids.length) + ' withdrawn records matches that text.' }));
+        return;
+      }
+      shown.forEach((id) => {
+        const r = tomb.records[id];
+        const d = el('details', { class: 'disclosure', style: 'margin-top:var(--s2)' });
+        d.appendChild(el('summary', { text: r.name || id }));
+        const inner = el('div');
+        inner.appendChild(el('p', { class: 'muted', style: 'font-size:var(--t-cap)' }, [
+          el('code', { text: id }),
+          document.createTextNode(' · workflow code: ' + (r.code || 'not recorded'))
+        ]));
+        inner.appendChild(el('p', {
+          style: 'margin-top:var(--s2)',
+          text: r.note || 'No written reason was recorded for this record, only the ' +
+            'workflow code above.'
+        }));
+        if (r.evidence) {
+          inner.appendChild(el('div', { class: 'note caution', style: 'margin-top:var(--s3)' }, [
+            el('b', { text: 'The passage it was extracted from' }),
+            el('p', { style: 'margin-top:var(--s1)', text: r.evidence })
+          ]));
+        }
+        d.appendChild(inner);
+        box.appendChild(d);
+      });
+    }
+    drawWithdrawn('');
+    $('withdrawn-q').addEventListener('input', (e) => drawWithdrawn(e.target.value));
+  }).catch((err) => {
+    $('release-figures').replaceChildren(el('div', { class: 'state error' }, [
+      el('h3', { text: 'The release figures could not be loaded' }),
+      el('p', { text: 'data/web/summary.json did not load (' +
+        (err.message || err.kind) + '). The prose on this page is unaffected; the ' +
+        'counts are simply absent rather than guessed.' })
+    ]));
+  });
+})();
+</script>
+</body>
+</html>

@@ -175,11 +175,11 @@
    "removes_keys": [],
    "enabled": true,
    "confirmed_by": "licensing agent 2026-09-06: adds_keys and findings confirmed against the implementation",
-   "notes": "Rewrites provenance.citation for the 1,248 MediaDive media that belong to JCM or CCAP, preserving the original in provenance.citation_original. Does NOT rename records: the display-name conflict and a suggested name go to provenance.attribution_conflict for the naming stage (50-59). Deletes nothing — the 1,189 non-commercial/all-rights-reserved records and the 229,486 pipeline-derived components are labelled, per the operator's segregate-and-label decision."
+   "notes": "Rewrites provenance.citation for the 1,248 MediaDive media that belong to JCM or CCAP, preserving the original in provenance.citation_original. Does NOT rename records: the display-name conflict and a suggested name go to provenance.attribution_conflict for the naming stage (50-59). Deletes nothing \u2014 the 1,189 non-commercial/all-rights-reserved records and the 229,486 pipeline-derived components are labelled, per the operator's segregate-and-label decision."
   },
   {
    "id": "39_recompute_coverage",
-   "title": "Stage 39 — coverage recomputed with its denominator, and derived composition excluded.",
+   "title": "Stage 39 \u2014 coverage recomputed with its denominator, and derived composition excluded.",
    "owner": "components",
    "findings": [
     "COV-02",
@@ -330,6 +330,46 @@
    "removes_keys": [],
    "enabled": true,
    "registered_by": "pipeline harness --register-missing; the owning agent must confirm findings, adds_keys and ordering"
+  },
+  {
+   "id": "52_web_payload",
+   "title": "Build and verify the browser payload from the corrected corpus (copy-through)",
+   "owner": "naming-web",
+   "findings": [
+    "MEDIA-WEB-01",
+    "MEDIA-WEB-02",
+    "MEDIA-WEB-04",
+    "MEDIA-WEB-05",
+    "MEDIA-WEB-06",
+    "MEDIA-WEB-07",
+    "MEDIA-WEB-10",
+    "MEDIA-WEB-11",
+    "MEDIA-WEB-14",
+    "MEDIA-WEB-16",
+    "MEDIA-WEB-17",
+    "MEDIA-WEB-20",
+    "UX-01",
+    "COV-02",
+    "COV-05",
+    "NM-05"
+   ],
+   "reads": [
+    "corpus",
+    "data/_quarantine.json"
+   ],
+   "writes": [
+    "corpus",
+    "artifact:<work>/web/{catalog,compounds,families,tombstones}.json"
+   ],
+   "after": [
+    "51_normalize_names"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [],
+   "removes_keys": [],
+   "enabled": true,
+   "note": "Copy-through: it edits no record and stamps none. It exists so the browser's honesty numbers are asserted inside the chain, against the corrected corpus, before promotion. The shipping path is `make derived` -> tools/build_web_payload.py."
   }
  ]
 }

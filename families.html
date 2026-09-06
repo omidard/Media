@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediaDB: base media and their variants</title>
+<meta name="description" content="Browse growth media by base medium. Pick LB, M9, MRS or BHI and see every variant of it in the library, with exactly what differs between them: carbon source, supplement, strength, pH, preparation, oxygen regime and composition.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/media.css">
+</head>
+<body>
+<a class="skip" href="#families">Skip to the base media</a>
+
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
+  <div class="navlinks">
+    <a href="index.html">Explore</a>
+    <a href="families.html" aria-current="page">Families</a>
+    <a href="compare.html">Compare</a>
+    <a href="patterns.html">Patterns</a>
+    <a href="methods.html">Methods &amp; limits</a>
+    <a href="API.md">API</a>
+    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<main id="main">
+
+<header class="masthead"><div class="wrap">
+  <p class="kicker">Base media and their variants</p>
+  <h1>One base medium, and everything done to it.</h1>
+  <p class="lead" id="claim">Loading the family index.</p>
+  <div class="note caution" style="margin-top:var(--s4);max-width:76ch">
+    <b>A family is a naming grouping, not a claim of equivalence.</b>
+    <p style="margin-top:var(--s1)">Most assignments are made from the medium's name. Two
+      records in one family can differ by a carbon source, by strength, by pH, or by being
+      broth rather than agar. This page shows what differs; it does not average them
+      together. <a href="methods.html#families-method">How a family is decided</a>.</p>
+  </div>
+</div></header>
+
+<section class="section" id="families"><div class="wrap">
+  <div style="display:grid;gap:var(--s5);grid-template-columns:minmax(0,1fr)" id="layout">
+    <div>
+      <div class="field" style="max-width:420px">
+        <label for="fam-q">Find a base medium</label>
+        <input id="fam-q" class="input" type="search" placeholder="LB, M9, MRS, BHI, TSB">
+      </div>
+      <p class="resultline" id="fam-count" role="status" aria-live="polite"
+         style="margin:var(--s3) 0"></p>
+      <div class="tablewrap">
+        <table class="grid">
+          <thead><tr>
+            <th>Base medium</th>
+            <th class="opt">Variants</th>
+            <th class="opt">Distinct compositions</th>
+          </tr></thead>
+          <tbody id="fam-list"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="fam-detail">
+      <div class="state">
+        <h3>Pick a base medium</h3>
+        <p>Choose one on the left to see its variants and exactly what differs between them.</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p>Base-medium families are written onto each record by the naming stage and published in
+    <code>data/web/families.json</code>. Records with no family are shown as ungrouped on the
+    <a href="index.html">explore page</a> rather than filed under a guessed family.
+    Attribution and licence terms for every source are on the
+    <a href="methods.html#licensing">methods page</a>.</p>
+</div></footer>
+
+<script src="assets/media.js"></script>
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const el = MDB.el, fmt = MDB.fmt;
+  let FAM = null, current = null;
+
+  MDB.delegateMediumLinks();
+
+  const KIND_LABEL = {
+    carbon_source: 'Carbon source', nitrogen_source: 'Nitrogen source',
+    supplement: 'Supplement', antibiotic: 'Antibiotic', buffer: 'Buffer',
+    salt: 'Salt', ph: 'pH', strength: 'Strength', preparation: 'Preparation',
+    nutrient_ion: 'Nutrient ion', salt_supplement: 'Salt supplement',
+    additive: 'Additive', matrix: 'Matrix', modified: 'Modification',
+    vitamin: 'Vitamin', other: 'Other'
+  };
+  const kindLabel = (k) => KIND_LABEL[k] ||
+    String(k || 'other').replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase());
+
+  function modifierText(m) {
+    const amount = (m.amount !== null && m.amount !== undefined)
+      ? ' ' + m.amount + (m.unit ? ' ' + m.unit : '') : '';
+    const polarity = m.polarity === 'absent' ? 'without ' : '';
+    return polarity + (m.agent || 'unnamed') + amount;
+  }
+
+  function drawList(filter) {
+    const needle = (filter || '').trim().toLowerCase();
+    const shown = FAM.families.filter((f) => !needle ||
+      (f.id + ' ' + (f.label || '')).toLowerCase().indexOf(needle) >= 0);
+    $('fam-count').textContent = 'Showing ' + fmt(shown.length) + ' of ' +
+      fmt(FAM.n_families) + ' base media, covering ' +
+      MDB.withDenominator(FAM.n_media_in_a_family, FAM.n_media, 'media') +
+      '. ' + fmt(FAM.n_media_without_a_family) + ' media are not in any family.';
+    const body = $('fam-list');
+    body.replaceChildren();
+    if (!shown.length) {
+      body.appendChild(el('tr', {}, [el('td', {
+        colspan: 3, class: 'state',
+        text: 'None of the ' + fmt(FAM.n_families) + ' base media matches that text.'
+      })]));
+      return;
+    }
+    shown.forEach((f) => {
+      const link = el('a', {
+        class: 'medlink', href: 'families.html?family=' + encodeURIComponent(f.id),
+        'data-family': f.id, text: f.label || f.id
+      });
+      body.appendChild(el('tr', {}, [
+        el('td', {}, [link, el('div', { class: 'rowmeta',
+          text: fmt(f.n_members) + ' variants, ' +
+            (f.n_distinct_compositions === null
+              ? 'compositions not compared'
+              : fmt(f.n_distinct_compositions) + ' distinct compositions') })]),
+        el('td', { class: 'opt tnum', text: fmt(f.n_members) }),
+        el('td', {
+          class: 'opt tnum',
+          text: f.n_distinct_compositions === null
+            ? 'not compared' : fmt(f.n_distinct_compositions)
+        })
+      ]));
+    });
+    body.querySelectorAll('a[data-family]').forEach((a) =>
+      a.addEventListener('click', (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        select(a.dataset.family, true);
+      }));
+  }
+
+  function drawDetail(f) {
+    const box = $('fam-detail');
+    box.replaceChildren();
+
+    const head = el('div', { class: 'card card-p' });
+    head.appendChild(el('h2', { text: f.label || f.id }));
+    head.appendChild(el('p', {
+      style: 'margin-top:var(--s2)',
+      text: fmt(f.n_members) + ' variants of this base medium, out of ' +
+        fmt(f.n_members_of) + ' media in the library' +
+        (f.n_distinct_compositions === null ? '.' :
+          ', holding ' + fmt(f.n_distinct_compositions) +
+          ' distinct component compositions between them.')
+    }));
+    head.appendChild(el('p', {
+      class: 'muted', style: 'font-size:var(--t-sm);margin-top:var(--s2)',
+      text: 'Family assigned by: ' + (f.method || 'not recorded') + '.'
+    }));
+
+    const axes = Object.entries(f.modifier_axes || {});
+    if (axes.length) {
+      head.appendChild(el('h4', { style: 'margin-top:var(--s4)', text: 'What varies in this family' }));
+      const list = el('div', { style: 'margin-top:var(--s2)' });
+      axes.forEach(([kind, agents]) => {
+        const shownAgents = agents.slice(0, 12);
+        const row = el('div', { style: 'margin-top:var(--s3)' });
+        row.appendChild(el('div', {
+          style: 'font-size:var(--t-cap);font-weight:650;color:var(--muted)',
+          text: kindLabel(kind) + (agents.length > shownAgents.length
+            ? ': showing ' + shownAgents.length + ' of ' + agents.length
+            : ': ' + agents.length)
+        }));
+        const chips = el('div', { class: 'chip-line', style: 'margin-top:var(--s1)' });
+        shownAgents.forEach((a) => chips.appendChild(
+          el('span', { class: 'chip plain', text: a })));
+        row.appendChild(chips);
+        list.appendChild(row);
+      });
+      head.appendChild(list);
+    } else {
+      head.appendChild(el('p', {
+        class: 'muted', style: 'font-size:var(--t-sm);margin-top:var(--s3)',
+        text: 'No modifier was parsed from any variant name in this family, so what ' +
+          'differs between these records is not recorded in their names. Compare their ' +
+          'compositions directly.'
+      }));
+    }
+    const ids = f.members.map((m) => m.id).slice(0, 8);
+    head.appendChild(el('p', { class: 'chip-line', style: 'margin-top:var(--s4)' }, [
+      el('a', {
+        class: 'btn btn-primary',
+        href: 'compare.html?ids=' + encodeURIComponent(ids.join(',')),
+        text: ids.length < f.n_members
+          ? 'Compare ' + ids.length + ' of these ' + f.n_members + ' side by side'
+          : 'Compare all ' + ids.length + ' side by side'
+      })
+    ]));
+    box.appendChild(head);
+
+    // which variants are compositionally identical to each other
+    const bySig = {};
+    f.members.forEach((m) => {
+      const k = m.composition_signature || '__none';
+      (bySig[k] = bySig[k] || []).push(m);
+    });
+    const shared = Object.values(bySig).filter((g) => g.length > 1);
+    if (shared.length) {
+      const groups = el('div', { class: 'note caution', style: 'margin-top:var(--s4)' });
+      groups.appendChild(el('b', {
+        text: 'Some of these variants are compositionally identical.'
+      }));
+      groups.appendChild(el('p', {
+        style: 'margin-top:var(--s1)',
+        text: shared.length + ' group(s) of variants in this family carry the same ' +
+          'components, bounds and quantities as each other, so the difference their ' +
+          'names promise is not present in the data:'
+      }));
+      const ul = el('ul', { style: 'margin-top:var(--s2)' });
+      shared.forEach((g) => ul.appendChild(el('li', {
+        text: g.map((m) => m.name).join('  =  ')
+      })));
+      groups.appendChild(ul);
+      box.appendChild(groups);
+    }
+
+    const tbody = el('tbody');
+    f.members.forEach((m) => {
+      const nameCell = el('td', {}, [
+        el('a', { class: 'medlink', href: MDB.permalink(m.id), 'data-medium': m.id, text: m.name })
+      ]);
+      const mods = (m.modifiers || []).map(modifierText);
+      const modCell = el('td', { class: 'opt' });
+      if (mods.length) {
+        (m.modifiers || []).forEach((mod) => modCell.appendChild(el('div', {}, [
+          el('span', {
+            class: 'chip ' + (mod.reflected_in_composition === false ? 'warn' : 'plain'),
+            title: mod.reflected_in_composition === false
+              ? 'The name promises this, and the record’s composition does not contain it.'
+              : kindLabel(mod.kind),
+            text: modifierText(mod)
+          })
+        ])));
+      } else {
+        modCell.appendChild(el('span', { class: 'muted', text: 'nothing parsed from the name' }));
+      }
+      if (m.strength) modCell.appendChild(el('div', { class: 'cellnote', text: 'strength: ' + m.strength }));
+      if (m.preparation) modCell.appendChild(el('div', { class: 'cellnote', text: m.preparation }));
+      if (m.ph_declared) modCell.appendChild(el('div', { class: 'cellnote', text: 'pH ' + m.ph_declared }));
+
+      tbody.appendChild(el('tr', {}, [
+        nameCell,
+        modCell,
+        el('td', { class: 'opt tnum' }, [
+          el('span', { text: fmt(m.n_components) }),
+          el('span', {
+            class: 'cellnote',
+            text: fmt(m.n_sourced) + ' from source, ' + fmt(m.n_derived) + ' derived'
+          })
+        ]),
+        el('td', { class: 'opt tnum' }, [
+          el('span', { text: MDB.pctOrAbsent(m.pct_covered_source) }),
+          (m.pct_covered_source_is_upper_bound && m.pct_covered_source > 0)
+            ? el('span', { class: 'cellnote', text: 'at most' }) : el('span')
+        ]),
+        el('td', { class: 'opt' }, [MDB.o2Chip(m.oxygen)]),
+        el('td', { class: 'opt' }, [MDB.licenceChip(m.license, m.commercial_use_ok)])
+      ]));
+    });
+
+    box.appendChild(el('div', { style: 'margin-top:var(--s4)' }, [
+      el('h3', { text: 'The ' + fmt(f.n_members) + ' variants' }),
+      el('p', {
+        class: 'muted', style: 'font-size:var(--t-sm);margin:var(--s2) 0',
+        text: 'Each row shows only what the record itself records as different. ' +
+          'A modifier in amber is promised by the name and absent from the composition.'
+      }),
+      el('div', { class: 'tablewrap' }, [
+        el('table', { class: 'grid' }, [
+          el('thead', {}, [el('tr', {}, [
+            el('th', { text: 'Variant' }),
+            el('th', { class: 'opt', text: 'What its name declares' }),
+            el('th', { class: 'opt', text: 'Components' }),
+            el('th', { class: 'opt', text: 'From source' }),
+            el('th', { class: 'opt', text: 'O₂' }),
+            el('th', { class: 'opt', text: 'Licence' })
+          ])]),
+          tbody
+        ])
+      ])
+    ]));
+  }
+
+  function select(id, push) {
+    const f = FAM.families.find((x) => x.id === id);
+    if (!f) {
+      $('fam-detail').replaceChildren(el('div', { class: 'state error' }, [
+        el('h3', { text: 'No base medium is published under that name' }),
+        el('p', {
+          text: '“' + id + '” is not one of the ' + fmt(FAM.n_families) +
+            ' families in this release. Search the list on the left.'
+        })
+      ]));
+      return;
+    }
+    current = id;
+    drawDetail(f);
+    const url = new URL(location.href);
+    url.searchParams.set('family', id);
+    if (push) history.pushState({ family: id }, '', url);
+    document.getElementById('fam-detail').scrollIntoView({ block: 'start' });
+  }
+
+  MDB.loadFamilies().then((data) => {
+    FAM = data;
+    document.getElementById('claim').textContent =
+      fmt(FAM.n_families) + ' base media are resolved across ' +
+      MDB.withDenominator(FAM.n_media_in_a_family, FAM.n_media, 'media') +
+      '. The remaining ' + fmt(FAM.n_media_without_a_family) +
+      ' carry no family and are listed on the explore page instead.';
+    drawList('');
+    $('fam-q').addEventListener('input', (e) => drawList(e.target.value));
+    const wanted = new URLSearchParams(location.search).get('family');
+    if (wanted) select(wanted, false);
+    if (window.matchMedia('(min-width:1080px)').matches) {
+      $('layout').style.gridTemplateColumns = 'minmax(0,.8fr) minmax(0,1.2fr)';
+    }
+  }).catch((err) => {
+    document.getElementById('claim').textContent =
+      'The family index could not be loaded, so this page states no numbers.';
+    $('fam-detail').replaceChildren(el('div', { class: 'state error' }, [
+      el('h3', { text: 'data/web/families.json did not load' }),
+      el('p', { text: (err.message || err.kind) + '. Reload, or browse the library on ' +
+        'the explore page.' })
+    ]));
+  });
+
+  window.addEventListener('popstate', () => {
+    const id = new URLSearchParams(location.search).get('family');
+    if (FAM && id && id !== current) select(id, false);
+  });
+})();
+</script>
+</body>
+</html>

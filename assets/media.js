@@ -1,465 +1,1249 @@
 /* ===========================================================================
-   Media — shared client utilities: palette, detail modal, tooltip, SVG +
-   heatmap/dendrogram helpers, hero animation, and a small JS clustering routine.
+   Media / MediaDB: shared browser runtime.
+
+   Everything the pages render comes from data/web/*.json, which is written by
+   tools/build_web_payload.py from the corpus. Nothing here restates a number
+   that lives in the payload, and nothing here invents one:
+
+     * an absent measurement renders as "not computed", never as 0 and never
+       as 100%;
+     * every count is printed with the denominator it was measured against;
+     * every capped list prints both the shown count and the true total;
+     * the six evidence classes, their labels and their definitions are read
+       from the payload, so the site cannot drift from the pipeline's own
+       vocabulary. An unrecognised class is rendered loudly, never silently in
+       the calmest style available.
+
+   No inline event handlers, no click handler on a non-focusable element, no
+   third-party script. Every control is a real <button> or <a href>.
    =========================================================================== */
-const CAT_COLORS={minimal:'#1f8a70',defined:'#2c6fbb',rich:'#7a3fb8',dietary:'#c77800',
-  biospecimen:'#d0563b',niche:'#6b7684',food:'#37b393',laboratory:'#2c6fbb'};
-const DB_COLORS={'USDA FoodData Central':'#37c39a','DSMZ MediaDive':'#2c6fbb','FooDB':'#0e8f70',
-  'Literature (GEM papers)':'#c77800','Literature (GrowthDB)':'#b5651d','literature':'#d99a3d',
-  'HMDB':'#d0563b','BMDB':'#7a3fb8','Published (HMDB-derived)':'#e0895b','standard':'#6b7684'};
-const FG_PALETTE=['#0e8f70','#2c6fbb','#c77800','#7a3fb8','#d0563b','#37c39a','#5b8def','#e0a54a',
-  '#9b5bd0','#e07a5f','#3aa17e','#6b7684','#d4a017','#4f9d9d','#c0587a','#7ea63f'];
+'use strict';
 
-const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-/* escape text, then turn any DOI / PMID / bare URL inside it into a clickable link.
-   trims trailing punctuation from captured tokens so a citation-ending '.' isn't part of the link */
-const _trim=t=>t.replace(/[.,;:)\]]+$/,'');
-function linkifyRef(s){
-  let h=esc(s==null?'':s);
-  h=h.replace(/(https?:\/\/[^\s<)\]]+)/g,(m,u)=>{u=_trim(u);return `<a href="${u}" target="_blank" rel="noopener">${u} ↗</a>`;});
-  h=h.replace(/\bdoi:\s*(10\.[^\s<)\];,]+)/gi,(m,d)=>{d=_trim(d);return `<a href="https://doi.org/${d}" target="_blank" rel="noopener">doi:${d} ↗</a>`;});
-  h=h.replace(/(?<!org\/)(?<!doi\.org\/)\b(10\.\d{4,9}\/[^\s<)\];,]+)/g,(m,d)=>{d=_trim(d);return `<a href="https://doi.org/${d}" target="_blank" rel="noopener">${d} ↗</a>`;});
-  h=h.replace(/\b(?:PMID|pubmed)[:\s]\s*(\d{5,9})\b/gi,'<a href="https://pubmed.ncbi.nlm.nih.gov/$1/" target="_blank" rel="noopener">PMID:$1 ↗</a>');
-  return h;}
-/* does a citation/provenance already yield at least one clickable reference link? */
-function hasRefLink(p){
-  if(!p) return false;
-  if(p.url||p.doi||p.pmid||p.pmcid||(p.references&&p.references.length)) return true;
-  const txt=(p.citation||'')+' '+(p.wellknown_reference||'')+' '+(p.notes||'');
-  return /(https?:\/\/|\bdoi:|\b10\.\d{4,9}\/|\bPMID\b|\bpubmed\b|\bPMC\d)/i.test(txt);}
-/* render a citation as a link to the EXACT publication: prefer the resolved
-   provenance.doi/url, else a DOI/URL embedded in the text; plain text if neither */
-function refLink(text,p){
-  const t=esc(text||'');
-  const url=(p&&p.doi)?('https://doi.org/'+String(p.doi).replace(/^https?:\/\/doi\.org\//,'')):((p&&p.url)?p.url:null);
-  if(url) return `<a href="${esc(url)}" target="_blank" rel="noopener">${t}</a>`;
-  return linkifyRef(text||'');}
-const fmt=n=>Number(n).toLocaleString();
-const jget=p=>fetch(p).then(r=>r.json());
+const MDB = (function () {
 
-/* ===================== usage analytics (GoatCounter) =======================
-   Privacy-friendly page-view + download counting, same setup as EcopanGEM/panGEMs.
-   GC_CODE is the GoatCounter site code — register it at https://<GC_CODE>.goatcounter.com
-   and enable "Allow adding visitor counts on your website" for the live counters. */
-const GC_CODE='mediadb';                 // <-- the only value to change; must be registered
-const GC_DOWNLOAD_EVENT='download';       // unified event path counted as a "download"
-(function loadGoatCounter(){if(!GC_CODE)return;
-  const s=document.createElement('script');s.async=true;s.src='//gc.zgo.at/count.js';
-  s.setAttribute('data-goatcounter','https://'+GC_CODE+'.goatcounter.com/count');
-  document.head.appendChild(s);})();
-function gcEvent(path,title){try{if(window.goatcounter&&typeof window.goatcounter.count==='function')
-  window.goatcounter.count({path:path,title:title||path,event:true});}catch(e){}}
-function gcDownload(what){gcEvent(GC_DOWNLOAD_EVENT,what||'download');}
-async function gcShowCount(elId,counterPath){const el=document.getElementById(elId);if(!el||!GC_CODE)return;
-  const url='https://'+GC_CODE+'.goatcounter.com/counter/'+counterPath+'.json';
-  try{const r=await fetch(url,{cache:'no-store'});if(r.ok){const j=await r.json();el.textContent=(j&&j.count!=null)?j.count:'0';}else el.textContent='0';}
-  catch(e){el.textContent='—';}}
-function loadUsageCounts(){gcShowCount('stat-views','TOTAL');gcShowCount('stat-downloads',encodeURIComponent(GC_DOWNLOAD_EVENT));}
-window.addEventListener('DOMContentLoaded',loadUsageCounts);
+  /* ---------------------------------------------------------------- text -- */
+  const esc = (s) => String(s === null || s === undefined ? '' : s)
+    .replace(/[&<>"']/g, (m) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[m]));
 
-/* ---- exchange-source identity (where an EX_ id comes from) ---- */
-const SRC_META={
-  biggr:{label:'BiGGr',col:'#0e8f70'}, bigg:{label:'BiGG',col:'#2c6fbb'},
-  modelseed:{label:'ModelSEED',col:'#7a3fb8'}, kegg:{label:'KEGG',col:'#c77800'},
-  metanetx:{label:'MetaNetX',col:'#6b7684'}};
-function srcBadge(s){const m=SRC_META[s]||{label:s||'—',col:'#889'};
-  return `<span class="badge" style="background:${m.col}18;color:${m.col};border:1px solid ${m.col}44;font-size:.68rem">${m.label}</span>`;}
+  const fmt = (n) => (n === null || n === undefined || Number.isNaN(n))
+    ? 'not recorded' : Number(n).toLocaleString('en-GB');
 
-/* ---- oxygen-regime chip ---- */
-const O2_META={aerobic:{t:'aerobic',c:'#0e8f70'},anaerobic:{t:'anaerobic',c:'#7a3fb8'},facultative:{t:'facultative (O₂ optional)',c:'#6b7684'}};
-function o2Chip(med){const o=med.oxygen||(med.aerobic?'aerobic':'anaerobic');const m=O2_META[o]||O2_META.facultative;
-  const note=med.oxygen_note?` — ${esc(med.oxygen_note)}`:'';
-  return `<span title="O₂ regime${note}" style="color:${m.c};font-weight:600">${m.t}</span>`;}
+  /** A share, always rendered with its denominator. */
+  const share = (n, of) => {
+    if (n === null || n === undefined || !of) return 'not computed';
+    const p = 100 * n / of;
+    const shown = p > 0 && p < 0.1 ? '<0.1' : p.toFixed(p < 10 ? 1 : 0);
+    return shown + '%';
+  };
 
-/* ---- link a cross-reference id to its exact database page ---- */
-function xrefUrl(key,val){const v=String(val);
-  switch(key){
-    case 'hmdb': {const n=v.replace(/^HMDB/i,'').replace(/^0+/,'')||'0';return 'https://hmdb.ca/metabolites/HMDB'+n.padStart(7,'0');}
-    case 'kegg': return 'https://www.kegg.jp/entry/'+v;
-    case 'kegg_drug': return 'https://www.kegg.jp/entry/'+v;
-    case 'chebi': return 'https://www.ebi.ac.uk/chebi/searchId.do?chebiId='+(v.startsWith('CHEBI:')?v:'CHEBI:'+v);
-    case 'inchikey': return 'https://www.ebi.ac.uk/unichem/compoundsources?type=inchikey&compound='+v;
-    case 'seed': return 'https://modelseed.org/biochem/compounds/'+v;
-    case 'biocyc': return 'https://biocyc.org/compound?id='+v.replace(/^META:/,'');
-    case 'metacyc': return 'https://metacyc.org/compound?id='+v;
-    case 'reactome': return 'https://reactome.org/content/detail/'+v;
-    default: return null;}}
-function xrefLinks(xr,keys){
-  return (keys||['hmdb','kegg','chebi','seed','inchikey']).filter(k=>xr&&xr[k]).map(k=>{
-    const u=xrefUrl(k,xr[k]);const t=`${k}:${esc(xr[k])}`;
-    return u?`<a href="${u}" target="_blank" rel="noopener" title="open ${k} page">${t}↗</a>`:t;}).join(' · ');}
+  /** "12,353 of 13,515 (91%)": the only sanctioned way to state a count. */
+  const withDenominator = (n, of, unit) => {
+    if (n === null || n === undefined) return 'not computed';
+    return fmt(n) + ' of ' + fmt(of) + (unit ? ' ' + unit : '') +
+      ' (' + share(n, of) + ')';
+  };
 
-/* ---- category badge ---- */
-function catBadge(c){const col=CAT_COLORS[c]||'#889';
-  return `<span class="badge" style="background:${col}1c;color:${col};border:1px solid ${col}40">${esc(c)}</span>`;}
+  /** A percentage that may legitimately be absent. Absent is never 100. */
+  const pctOrAbsent = (p) => (p === null || p === undefined)
+    ? 'not computed' : (Math.round(p * 10) / 10) + '%';
 
-/* ---- curation-tier badge (0 curated · 1 expert · 2 verified · 3 database · 4 auto) ---- */
-const CURATION_META={curated:{icon:'★',label:'Curated reference',col:'#0a7d54'},
-  expert:{icon:'★',label:'Expert-curated',col:'#279268'},
-  verified:{icon:'✓',label:'Paper-verified',col:'#3a9a86'},
-  database:{icon:'●',label:'Database source',col:'#6a7ba0'},
-  auto:{icon:'⚠',label:'Auto-extracted',col:'#c08a1e'}};
-function curationBadge(cur){const m=CURATION_META[cur]||CURATION_META.database;
-  return `<span class="badge" title="${m.label}" style="background:${m.col}18;color:${m.col};border:1px solid ${m.col}44;white-space:nowrap;font-size:.7rem">${m.icon} ${m.label}</span>`;}
-
-/* ---- sequential teal color scale (0..1) ---- */
-function tealRamp(t){t=Math.max(0,Math.min(1,t));
-  const stops=[[247,250,249],[200,235,224],[120,205,178],[38,160,124],[10,92,73]];
-  const x=t*(stops.length-1),i=Math.floor(x),f=x-i,a=stops[i],b=stops[Math.min(i+1,stops.length-1)];
-  return `rgb(${Math.round(a[0]+(b[0]-a[0])*f)},${Math.round(a[1]+(b[1]-a[1])*f)},${Math.round(a[2]+(b[2]-a[2])*f)})`;}
-
-/* ---- shared tooltip ---- */
-let _tip;
-function tipShow(html,ev){if(!_tip){_tip=document.createElement('div');_tip.className='tip';document.body.appendChild(_tip);}
-  _tip.innerHTML=html;_tip.style.opacity=1;
-  const x=ev.clientX+14,y=ev.clientY+14;
-  _tip.style.left=Math.min(x,window.innerWidth-_tip.offsetWidth-12)+'px';
-  _tip.style.top=Math.min(y,window.innerHeight-_tip.offsetHeight-12)+'px';}
-function tipHide(){if(_tip)_tip.style.opacity=0;}
-
-/* ---- SVG helper ---- */
-const SVGNS='http://www.w3.org/2000/svg';
-function svgEl(tag,attrs){const e=document.createElementNS(SVGNS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
-
-/* Draw a scipy dendrogram (icoord/dcoord) into an <svg> group.
-   orient 'left'  -> leaves along Y (rows), distance grows leftward (x=0..w).
-   orient 'top'   -> leaves along X (cols), distance grows upward (y=h..0). */
-function drawDendro(g,dendro,orient,leafPx,leafStep,leafOffset,depthPx,color){
-  const ic=dendro.icoord,dc=dendro.dcoord;if(!ic||!ic.length)return;
-  let maxd=0;dc.forEach(seg=>seg.forEach(v=>{if(v>maxd)maxd=v;}));if(maxd<=0)maxd=1;
-  const leafAt=v=>leafOffset+((v-5)/10)*leafStep;          // scipy leaf coord -> px
-  const depthAt=v=>(v/maxd)*depthPx;
-  for(let k=0;k<ic.length;k++){
-    const xs=ic[k],ys=dc[k];let d='';
-    for(let p=0;p<4;p++){
-      const leaf=leafAt(xs[p]),dep=depthAt(ys[p]);
-      let X,Y;
-      if(orient==='left'){X=depthPx-dep;Y=leaf;}
-      else{X=leaf;Y=depthPx-dep;}
-      d+=(p===0?'M':'L')+X.toFixed(1)+' '+Y.toFixed(1)+' ';
+  const el = (tag, attrs, children) => {
+    const node = document.createElement(tag);
+    for (const k in (attrs || {})) {
+      const v = attrs[k];
+      if (v === null || v === undefined || v === false) continue;
+      if (k === 'class') node.className = v;
+      else if (k === 'text') node.textContent = v;
+      else if (k === 'html') node.innerHTML = v;
+      else node.setAttribute(k, v === true ? '' : String(v));
     }
-    g.appendChild(svgEl('path',{d,fill:'none',stroke:color||'#b9c8c2','stroke-width':1}));
+    (children || []).forEach((c) => node.appendChild(
+      typeof c === 'string' ? document.createTextNode(c) : c));
+    return node;
+  };
+
+  /* ------------------------------------------------------------ fetching -- */
+  /** Typed fetch. A 404 and an unreachable server are different states and the
+   *  UI must be able to tell them apart. Collapsing them is how a flaky
+   *  network gets reported to a user as "this medium was removed". */
+  async function getJSON(path) {
+    let response;
+    try {
+      response = await fetch(path);
+    } catch (networkError) {
+      const e = new Error('could not reach ' + path);
+      e.kind = 'unreachable';
+      throw e;
+    }
+    if (response.status === 404) {
+      const e = new Error(path + ' is not on this server');
+      e.kind = 'not_found';
+      throw e;
+    }
+    if (!response.ok) {
+      const e = new Error(path + ' returned HTTP ' + response.status);
+      e.kind = 'http_' + response.status;
+      throw e;
+    }
+    return response.json();
   }
-}
 
-/* ---- tiny average-linkage clustering (JS) for the Compare presence grid ----
-   items: array of binary vectors (arrays of 0/1). Returns leaf order (indices). */
-function clusterOrder(vectors){
-  const n=vectors.length;if(n<3)return vectors.map((_,i)=>i);
-  const dist=(a,b)=>{let inter=0,uni=0;for(let k=0;k<a.length;k++){const x=a[k],y=b[k];if(x||y){uni++;if(x&&y)inter++;}}return uni?1-inter/uni:0;};
-  const clusters=vectors.map((v,i)=>({members:[i],vec:v.slice()}));
-  const active=clusters.map((c,i)=>i);
-  while(active.length>1){
-    let bi=0,bj=1,bd=Infinity;
-    for(let a=0;a<active.length;a++)for(let b=a+1;b<active.length;b++){
-      const d=dist(clusters[active[a]].vec,clusters[active[b]].vec);
-      if(d<bd){bd=d;bi=a;bj=b;}}
-    const ci=active[bi],cj=active[bj],A=clusters[ci],B=clusters[cj];
-    const merged={members:A.members.concat(B.members),
-      vec:A.vec.map((v,k)=>(v*A.members.length+B.vec[k]*B.members.length)/(A.members.length+B.members.length))};
-    clusters.push(merged);active.splice(bj,1);active.splice(bi,1);active.push(clusters.length-1);
+  /** Fold case and punctuation so "BG-11", "BG 11" and "bg11" are one query. */
+  const flatten = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+
+  const BASE = location.pathname.replace(/[^/]*$/, '');
+  const permalink = (id) => BASE + '?medium=' + encodeURIComponent(id);
+
+  /* ------------------------------------------------------------- payload -- */
+  let catalog = null;      // decoded catalog.json
+  let compounds = null;    // compounds.json, lazily
+  let families = null;     // families.json, lazily
+  let tombstones = null;   // tombstones.json, lazily
+
+  /** Decode the dictionary-encoded rows into objects keyed by `columns`. */
+  function decode(payload) {
+    const cols = payload.columns;
+    const dicts = payload.dicts || {};
+    const enums = new Set(payload.enum_columns || []);
+    const rows = payload.rows.map((row, i) => {
+      const o = { _i: i };
+      for (let c = 0; c < cols.length; c++) {
+        const key = cols[c];
+        let v = row[c];
+        if (enums.has(key) && v !== null && v !== undefined) v = dicts[key][v];
+        o[key] = v === undefined ? null : v;
+      }
+      o.evidence = payload.evidence_classes.map((k) => o['ev_' + k.id]);
+      // Searchable text, and the same text with punctuation and case removed. The
+      // audit measured BG11 and BG-11 as two mutually invisible buckets, 29 records
+      // and 24, with no overlap; folding punctuation is what joins them, and the
+      // base-medium family id is in the haystack so a family name finds its variants.
+      o._hay = [o.name, o.family, o.source_db, o.organism_scope, o.id]
+        .filter(Boolean).join(' ').toLowerCase();
+      o._flat = o._hay.replace(/[^a-z0-9]+/g, '');
+      // How many compounds the source stated in total. If the uncovered count was
+      // never computed this is UNKNOWN, not equal to the mapped count: coercing the
+      // absent value to 0 would silently claim the record captured everything.
+      o.n_measured = (o.n_uncovered === null || o.n_uncovered === undefined)
+        ? null : o.n_components + o.n_uncovered;
+      return o;
+    });
+    payload.media = rows;
+    return payload;
   }
-  return clusters[clusters.length-1].members;
-}
 
-/* ---- build a pre-filled GitHub issue URL for community curation ---- */
-const REPO_URL='https://github.com/omidard/Media';
-function issueUrl(med){
-  const title=`[curation] ${med.name||med.id}`;
-  const ver=(med.provenance||{}).verification||'—';
-  const body=
-`**Medium:** \`${med.id}\`
-**Name:** ${med.name||''}
-**Source:** ${(med.provenance||{}).citation||''}
-**Verification status:** ${ver}
-**Live record:** ${location.origin}${location.pathname.replace(/[^/]*$/,'')}?medium=${med.id}
+  async function loadCatalog() {
+    if (!catalog || !catalog.media) {
+      catalog = decode(await getJSON('data/web/catalog.json'));
+    }
+    return catalog;
+  }
+  /** The same numbers without the 13,515 rows, for pages that render none of them. */
+  async function loadSummary() {
+    if (!catalog) catalog = await getJSON('data/web/summary.json');
+    return catalog;
+  }
+  async function loadCompounds() {
+    if (!compounds) {
+      const raw = await getJSON('data/web/compounds.json');
+      const expanded = {};
+      for (const ex in raw.postings) {
+        const out = [];
+        let prev = 0;
+        for (const d of raw.postings[ex]) { prev += d; out.push(prev); }
+        expanded[ex] = out;
+      }
+      raw.media_of = raw.postings;
+      raw.postings = expanded;
+      compounds = raw;
+    }
+    return compounds;
+  }
+  async function loadFamilies() {
+    if (!families) families = await getJSON('data/web/families.json');
+    return families;
+  }
+  async function loadTombstones() {
+    if (!tombstones) {
+      try { tombstones = await getJSON('data/web/tombstones.json'); }
+      catch (e) { tombstones = { records: {}, n_withdrawn: null, _error: e.kind }; }
+    }
+    return tombstones;
+  }
 
-### What's the issue?
-<!-- e.g. wrong/missing component, wrong concentration, wrong oxygen regime, bad citation, a compound that should map to a BiGG exchange, a duplicate, etc. -->
+  /* ------------------------------------------------------- the vocabulary -- */
+  /** Evidence classes come from the payload. `meta(id)` never invents one. */
+  function evidenceClasses() { return catalog.evidence_classes; }
+  function evidenceMeta(id) {
+    const found = catalog.evidence_classes.find((c) => c.id === id);
+    if (found) return found;
+    // An unknown class is rendered as the loudest style, not the calmest.
+    return {
+      id: 'unresolved', label: 'Unrecognised evidence class (' + id + ')',
+      definition: 'This class is not defined in the payload. Treat it as unverified.'
+    };
+  }
 
-### Suggested correction (if known)
-<!-- component name(s), amounts, the paper/table it comes from -->
-`;
-  return `${REPO_URL}/issues/new?labels=curation&title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
-}
+  function evidenceChip(id, count) {
+    const m = evidenceMeta(id);
+    const label = count === undefined ? m.label : m.label + ' ' + fmt(count);
+    return el('span', { class: 'chip ev-' + m.id, title: m.definition, text: label });
+  }
 
-/* ===================== medium detail modal (the click-through view) ========= */
-let _ALIASES=null;
-async function resolveId(id){
-  try{const r=await fetch('data/media/'+id+'.json',{method:'HEAD'});if(r.ok)return id;}catch(e){}
-  if(_ALIASES===null){try{_ALIASES=await jget('data/aliases.json');}catch(e){_ALIASES={};}}
-  return _ALIASES[id]||id;   // merged-away id -> canonical
-}
-async function openMed(id){
-  id=await resolveId(id);
-  const med=await jget('data/media/'+id+'.json');
-  const p=med.provenance||{};
-  const comps=med.components.slice().sort((a,b)=>
-    (a.mapping_method==='mineral_base')-(b.mapping_method==='mineral_base')||a.exchange.localeCompare(b.exchange));
-  const rows=comps.map(c=>{
-    const xr=c.xref||{};const xs=xrefLinks(xr,['hmdb','kegg','chebi','seed','inchikey']);
-    const cc=c.mapping_confidence||'';const cl=cc==='exact'?'conf-exact':cc==='inferred'?'conf-inferred':'conf-convention';
-    const content=c.foodb_content!=null?`${c.foodb_content} ${esc(c.foodb_unit||'')}`:(c.concentration_mM!=null?c.concentration_mM+' mM':(c.mg_per_g_source!=null?`<span title="quantitative composition of ${esc(c.derived_from||'the ingredient')} (mg per g), from the referenced composition paper">${c.mg_per_g_source} mg/g</span>`:''));
-    const src=c.exchange_source||(c.in_biggr?'biggr':'bigg');
-    const approx=c.mapping_method==='complex_decomposition'?` <span title="in-silico approximation from ${esc(c.derived_from||'')} — ${esc(c.decomposition_ref||'standard bionutrient composition')}" style="font-size:.66rem;color:#c77800">≈ ${esc(c.derived_from||'complex')}</span>`:'';
-    return `<tr><td>${esc(c.name)}${approx}</td><td><code>${esc(c.exchange)}</code></td><td>${srcBadge(src)}</td><td>${c.lower_bound}</td>
-      <td>${esc(content)}</td><td style="font-size:.72rem;color:#667">${xs}</td><td class="${cl}">${esc(cc)}</td></tr>`;
-  }).join('');
-  // COBRApy: set exchange LOWER bounds to NEGATIVE values (a negative lower bound = uptake).
-  const upt=comps.filter(c=>c.lower_bound<0);
-  const cobra=`# Apply this medium: a NEGATIVE lower bound on an exchange means uptake.\n`
-    +`uptake = {\n`+upt.map(c=>`    "${c.exchange}": ${c.lower_bound},`).join('\n')
-    +`\n}\nfor ex_id, lb in uptake.items():\n`
-    +`    if ex_id in model.reactions:\n`
-    +`        rxn = model.reactions.get_by_id(ex_id)\n`
-    +`        rxn.lower_bound = lb      # uptake (negative)\n`
-    +`        rxn.upper_bound = 1000.0  # allow secretion`;
+  /** The six-class bar. Widths are proportional; the numbers live in the
+   *  legend, so a 0.4% class is never inflated to make its label fit. */
+  function evidenceBar(counts, opts) {
+    const classes = evidenceClasses();
+    const total = counts.reduce((a, b) => a + b, 0);
+    const bar = el('div', {
+      class: 'evbar' + (opts && opts.mini ? ' mini' : ''),
+      role: 'img',
+      'aria-label': 'Evidence for ' + fmt(total) + ' components: ' +
+        classes.map((c, i) => fmt(counts[i]) + ' ' + c.label.toLowerCase() +
+          ' (' + share(counts[i], total) + ')').join(', ')
+    });
+    classes.forEach((c, i) => {
+      if (!counts[i]) return;
+      bar.appendChild(el('span', {
+        class: 's-' + c.id,
+        style: 'width:' + (100 * counts[i] / total) + '%',
+        title: c.label + ': ' + withDenominator(counts[i], total, 'components')
+      }));
+    });
+    return bar;
+  }
 
-  // ---- coverage summary + source breakdown ----
-  const cov=med.coverage||{n_covered:comps.length,n_uncovered:(med.uncovered||[]).length,
-    n_compounds:comps.length+(med.uncovered||[]).length,pct_covered:100,by_source:{}};
-  const bs=cov.by_source||{};
-  const srcBar=Object.entries(bs).sort((a,b)=>b[1]-a[1]).map(([s,n])=>{
-    const m=SRC_META[s]||{col:'#889'};return `<span title="${(SRC_META[s]||{}).label||s}: ${n}" style="display:inline-block;height:10px;width:${Math.max(2,100*n/cov.n_compounds)}%;background:${m.col}"></span>`;}).join('');
-  const uncPct=cov.n_compounds?100*cov.n_uncovered/cov.n_compounds:0;
-  const coverageBlock=`
-    <div style="display:flex;justify-content:space-between;align-items:baseline;margin:2px 0 6px">
-      <div style="font-weight:700;font-size:.9rem">Coverage
-        <span style="font-weight:600;color:${cov.pct_covered>=90?'#0f8a4e':cov.pct_covered>=60?'#c77800':'#d0563b'}"> ${cov.pct_covered}%</span>
-        <span class="muted" style="font-weight:400;font-size:.82rem">— ${fmt(cov.n_covered)} of ${fmt(cov.n_compounds)} compounds have an exchange${cov.n_uncovered?`, ${fmt(cov.n_uncovered)} uncovered`:''}</span></div>
-    </div>
-    <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;background:#eef3f1;margin-bottom:4px">
-      ${srcBar}${uncPct>0?`<span title="uncovered: ${cov.n_uncovered}" style="display:inline-block;height:10px;width:${uncPct}%;background:repeating-linear-gradient(45deg,#e2e8e5,#e2e8e5 4px,#f4f8f6 4px,#f4f8f6 8px)"></span>`:''}
-    </div>
-    <div style="font-size:.72rem;color:#8a978f;margin-bottom:10px">Exchange source: ${Object.entries(bs).sort((a,b)=>b[1]-a[1]).map(([s,n])=>`${srcBadge(s)}&nbsp;${n}`).join('&nbsp; ')}${uncPct>0?' · <span style="opacity:.7">▨ uncovered</span>':''}</div>`;
+  /** A one-line key: every class, its count and its denominator, as chips.
+   *  The full definitions live next to it in an open disclosure, never hidden. */
+  function evidenceKey(counts, total) {
+    const key = el('div', { class: 'evkey' });
+    evidenceClasses().forEach((c, i) => {
+      const chip = el('span', { class: 'chip ev-' + c.id, title: c.definition });
+      chip.appendChild(el('b', { text: c.label }));
+      chip.appendChild(document.createTextNode(' ' +
+        fmt(counts[i]) + ' of ' + fmt(total) + ' (' + share(counts[i], total) + ')'));
+      key.appendChild(chip);
+    });
+    return key;
+  }
 
-  // ---- uncovered compounds section ----
-  const unc=med.uncovered||[];
-  const REASON={undefined_complex:'undefined / complex ingredient',non_nutrient:'not a metabolite (buffer / indicator / chelator)',not_in_bigg:'no BiGG/BiGGr id; needs external mapping',unmatched:'unmatched — needs manual curation'};
-  const uncRows=unc.map(u=>{const xr=u.xref||{};
-    const inchi=xr.inchi?`<span title="${esc(xr.inchi)}" style="opacity:.7">InChI</span>`:'';
-    const xs=(xrefLinks(xr,['kegg','chebi','inchikey','seed'])+(inchi?(' · '+inchi):''))||'<span style="opacity:.5">no external id</span>';
-    const flux=u.proposed_lower_bound!=null?`<code>${u.proposed_lower_bound}</code> <span style="opacity:.6">(proposed)</span>`:'—';
-    return `<tr><td>${esc(u.name)}</td><td style="font-size:.74rem;color:#66756f">${esc(REASON[u.reason]||u.reason||'')}</td><td style="font-size:.72rem;color:#667">${xs}</td><td>${flux}</td></tr>`;}).join('');
-  const uncoveredBlock=unc.length?`
-    <details style="margin-top:14px" ${unc.length<=12?'open':''}>
-      <summary style="cursor:pointer;font-weight:700;font-size:.9rem;color:#40524c">Uncovered compounds (${unc.length}) <span class="muted" style="font-weight:400">— kept with their reason and any external IDs</span></summary>
-      <div class="viz-wrap" style="max-height:280px;margin-top:8px;padding:0 4px">
-        <table class="tbl-plain"><thead><tr><th>Compound</th><th>Why uncovered</th><th>External IDs</th><th>Proposed flux</th></tr></thead>
-        <tbody>${uncRows}</tbody></table></div>
-    </details>`:'';
-  const div=document.createElement('div');div.className='ov';div.id='med-ov';
-  div.innerHTML=`<div class="modal-card">
-    <div class="modal-head"><div>
-        <div class="eyebrow" style="margin-bottom:6px">${esc(med.source_db||p.source_type||'medium')}</div>
-        <h3 style="font-size:1.4rem">${esc(med.name)}</h3>
-        <div style="font-size:.85rem;color:#66756f;margin-top:7px">${catBadge(med.category)} · ${esc(med.organism_scope||'')} · ${o2Chip(med)} · ${fmt(med.n_components)} components (${fmt(med.n_in_biggr)} in BiGGr)</div>
-      </div>
-      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('med-ov').remove()">Close ✕</button></div>
-    <div class="modal-body">
-      ${med.category==='food'?`<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef6ff;border:1px solid #cfe0f5;color:#2c5f9e;font-size:.82rem">🍎 <b>Food-derived medium (approximate)</b> — a growth substrate built from the <b>measured composition of this food</b> (population-average nutrient data), not a defined laboratory medium. Component presence is real; use bounds and the mineral base as a starting point, not exact experimental conditions.</div>`:''}
-      ${(()=>{const v=p.verification||'';
-        if(v.startsWith('expert-curated'))
-          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #bfe0d4;color:#0a5c49;font-size:.82rem">★ <b>Expert-curated</b> — canonical formulation with reviewed component bounds.${p.wellknown_reference?`<br><span style="color:#4c6b60">Reference: ${refLink(p.wellknown_reference,p)}</span>`:''}</div>`;
-        if(v.startsWith('paper-verified'))
-          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef7f3;border:1px solid #cfe7dd;color:#0a5c49;font-size:.82rem">✓ <b>Paper-verified</b> — this formulation was ${v.includes('corrected')?'corrected against':'confirmed against'} the source paper.${p.verification_evidence?`<br><span style="color:#4c6b60;font-style:italic">"${esc(p.verification_evidence)}"</span>`:''}</div>`;
-        if(v.startsWith('reference-database'))
-          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#eef2f9;border:1px solid #cfd8ea;color:#3a4d75;font-size:.82rem">● <b>Reference database</b> — a defined formulation curated by <a href="https://mediadb.systemsbiology.net/" target="_blank" rel="noopener">MediaDB (ISB)</a> with explicit concentrations, linked to its original publication below.</div>`;
-        if(v.startsWith('auto-extracted'))
-          return `<div style="margin-bottom:12px;padding:10px 13px;border-radius:9px;background:#fff8ec;border:1px solid #f0dcae;color:#8a6414;font-size:.82rem">⚠ <b>Auto-extracted from literature</b> — mined from the paper by an automated pipeline; ${v.includes('external reference')?'the base recipe is cited from an external reference and needs manual review':'not manually verified against the source'}. Check the citation before relying on it.</div>`;
-        return '';})()}
-      <div class="cite" style="margin-bottom:14px"><b>Source:</b> ${linkifyRef(p.citation||'')} ${p.url?`· <a href="${esc(p.url)}" target="_blank" rel="noopener">link ↗</a>`:''}${p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi ↗</a>`:''}${p.pmid?` · <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(p.pmid)}/" target="_blank" rel="noopener">PubMed ↗</a>`:''}<br><span style="color:#8a978f">${linkifyRef(p.notes||'')}</span>${(p.references&&p.references.length)?`<div style="margin-top:8px;font-size:.8rem">${p.references.map(r=>`<div style="margin-top:2px">📄 ${r.url?`<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.citation)} ↗</a>`:linkifyRef(r.citation)}</div>`).join('')}</div>`:''}${p.decomposition_refs?`<div style="margin-top:8px;padding-top:8px;border-top:1px solid #e6ecea;font-size:.78rem;color:#66756f"><b style="color:#c77800">Complex-ingredient composition references:</b> ${Object.entries(p.decomposition_refs).map(([ing,ref])=>{const c=(ref&&ref.citation)?ref.citation:ref;const u=(ref&&ref.url)?ref.url:null;const lk=linkifyRef(c);const body=(lk!==esc(c))?lk:(u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(c)} ↗</a>`:esc(c));return `<div style="margin-top:3px">• <b>${esc(ing)}</b> — ${body}${(u&&lk!==esc(c)&&c.indexOf(u.replace('https://doi.org/',''))<0)?` · <a href="${esc(u)}" target="_blank" rel="noopener">source ↗</a>`:''}</div>`;}).join('')}</div>`:''}</div>
-      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
-        <button class="btn btn-primary btn-sm" onclick='navigator.clipboard.writeText(${JSON.stringify(cobra)}).then(()=>{this.innerHTML="✓ Copied";setTimeout(()=>this.innerHTML="⧉ Copy as COBRApy medium",1500)});gcDownload("copy_cobrapy")'>⧉ Copy as COBRApy medium</button>
-        <a class="btn btn-ghost btn-sm" href="data/media/${id}.json" download onclick='gcDownload("medium_json")'>↓ JSON</a>
-        <button class="btn btn-ghost btn-sm" onclick='dlCsv(${JSON.stringify(id)})'>↓ CSV</button>
-        <a class="btn btn-ghost btn-sm" style="margin-left:auto;color:#c0587a;border-color:#eccdd8" target="_blank" rel="noopener"
-           href="${issueUrl(med)}" onclick='gcEvent("report_issue","${id}")'>⚑ Report an issue</a>
-      </div>
-      <code class="cobra">${esc(cobra)}</code>
-      ${coverageBlock}
-      <div class="viz-wrap" style="max-height:360px;margin-top:6px;padding:0 4px">
-        <table class="tbl-plain"><thead><tr><th>Component</th><th>Exchange</th><th>Source</th><th>Lower bound</th><th>Content</th><th>Cross-refs</th><th>Confidence</th></tr></thead>
-        <tbody>${rows}</tbody></table></div>
-      ${uncoveredBlock}
-    </div></div>`;
-  div.addEventListener('click',e=>{if(e.target===div)div.remove();});
-  document.addEventListener('keydown',function esc_(e){if(e.key==='Escape'){div.remove();document.removeEventListener('keydown',esc_);}});
-  document.body.appendChild(div);
-}
-async function dlCsv(id){
-  gcDownload('medium_csv');
-  const med=await jget('data/media/'+id+'.json');
-  let csv='name,exchange,lower_bound,upper_bound,foodb_content,foodb_unit,inchikey,kegg,chebi,hmdb,in_biggr,mapping_method,mapping_confidence\n';
-  med.components.forEach(c=>{const x=c.xref||{};csv+=[c.name,c.exchange,c.lower_bound,c.upper_bound,c.foodb_content??'',c.foodb_unit??'',x.inchikey??'',x.kegg??'',x.chebi??'',x.hmdb??'',c.in_biggr,c.mapping_method,c.mapping_confidence].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')+'\n';});
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=id+'.csv';a.click();
-}
+  function evidenceLegend(counts, total) {
+    const wrap = el('div', { class: 'evlegend' });
+    evidenceClasses().forEach((c, i) => {
+      wrap.appendChild(el('div', { class: 'evrow' }, [
+        el('span', { class: 'sw s-' + c.id, style: 'background:var(--ev-' + c.id + ')' }),
+        el('div', {}, [
+          el('b', { text: c.label }), document.createTextNode(' '),
+          el('span', {
+            class: 'n',
+            text: withDenominator(counts[i], total, 'components')
+          }),
+          el('div', { class: 'muted', text: c.definition })
+        ])
+      ]));
+    });
+    // the hatched fill cannot come from a single custom property
+    wrap.querySelectorAll('.sw.s-derived').forEach((s) => { s.style.background = ''; });
+    return wrap;
+  }
 
-/* ===================== coverage scatter + marginal densities ===============
-   data: [{id,name,category,pct_covered,n_uncovered}]; x = coverage %, y = # uncovered.
-   Canvas-rendered (12k pts) with hit-testing so every dot is clickable. */
-/* Coverage distribution — a gradient histogram of how completely each medium is mapped, with the
-   reliability bands (review / moderate / high-confidence) and a segmented spectrum summary below.
-   A distribution reads honestly for this right-skewed data (almost every medium is near-complete),
-   where a scatter just clumps in one corner. */
-function coverageScatter(canvas, data, onClick){
-  const ctx=canvas.getContext('2d');let W,H,dpr,bins=[],hover=-1,anim=0,raf;
-  const N=data.length;
-  const sorted=data.map(d=>d.pct_covered).sort((a,b)=>a-b);
-  const median=sorted[Math.floor(N/2)]||0;
-  const cHigh=data.filter(d=>d.pct_covered>=90).length, cMod=data.filter(d=>d.pct_covered>=60&&d.pct_covered<90).length, cLow=data.filter(d=>d.pct_covered<60).length;
-  const NB=25, bw=100/NB;
-  function buildBins(){bins=Array.from({length:NB},(_,k)=>({lo:k*bw,hi:(k+1)*bw,n:0}));
-    data.forEach(d=>{let k=Math.floor(d.pct_covered/bw);if(k<0)k=0;if(k>=NB)k=NB-1;bins[k].n++;});}
-  const bandOf=p=>p>=90?2:p>=60?1:0;
-  const BAND=[{c:'#d0563b',c2:'#e08466',lab:'Review',key:'<60%'},{c:'#c6893f',c2:'#dcab6e',lab:'Moderate',key:'60–90%'},{c:'#12a37e',c2:'#37c39a',lab:'High confidence',key:'≥90%'}];
-  const MT=64,MB=118,ML=52,MR=26;let pw,ph;
-  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=canvas.offsetWidth;H=canvas.offsetHeight;
-    canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);pw=W-ML-MR;ph=H-MT-MB;}
-  const xOf=p=>ML+(p/100)*pw;
-  const maxN=()=>Math.max(1,...bins.map(b=>b.n));
-  const hOf=n=>Math.sqrt(n/maxN())*ph;   // sqrt scale so the long tail stays visible under the tall peak
-  function roundTop(x,y,w,h,r){r=Math.min(r,w/2,h);ctx.beginPath();ctx.moveTo(x,y+h);ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);ctx.lineTo(x+w,y+h);ctx.closePath();}
-  function statChip(x,num,lab,col){ctx.textAlign='left';ctx.fillStyle=col;ctx.font='800 21px Inter,sans-serif';ctx.fillText(num,x,22);
-    const w=ctx.measureText(num).width;ctx.fillStyle='#8a978f';ctx.font='700 9.5px Inter,sans-serif';ctx.fillText(lab.toUpperCase(),x,36);
-    return x+Math.max(w,ctx.measureText(lab.toUpperCase()).width)+30;}
-  function draw(){ctx.clearRect(0,0,W,H);
-    // stats strip
-    let sx=ML;sx=statChip(sx,fmt(N),'Media','#0c231e');sx=statChip(sx,median+'%','Median coverage','#0a5c49');
-    sx=statChip(sx,Math.round(100*cHigh/N)+'%','High-confidence','#12a37e');sx=statChip(sx,Math.round(100*cLow/N)+'%','Needs review',cLow?'#d0563b':'#8a978f');
-    // reliability band backgrounds
-    [[0,60],[60,90],[90,100]].forEach((z,i)=>{ctx.fillStyle=BAND[i].c+'0e';ctx.fillRect(xOf(z[0]),MT,xOf(z[1])-xOf(z[0]),ph);});
-    // y gridlines (sqrt-referenced, light)
-    ctx.strokeStyle='#eef3f1';ctx.lineWidth=1;ctx.setLineDash([]);
-    ctx.beginPath();ctx.moveTo(ML,MT+ph);ctx.lineTo(ML+pw,MT+ph);ctx.stroke();
-    // bars
-    const g=Math.min(1,anim);
-    bins.forEach((b,k)=>{if(!b.n)return;const x=xOf(b.lo)+2,w=xOf(b.hi)-xOf(b.lo)-4,h=hOf(b.n)*g,y=MT+ph-h;
-      const bd=BAND[bandOf((b.lo+b.hi)/2)];const grd=ctx.createLinearGradient(0,y,0,MT+ph);grd.addColorStop(0,bd.c2);grd.addColorStop(1,bd.c);
-      ctx.fillStyle=grd;if(k===hover){ctx.shadowColor=bd.c+'66';ctx.shadowBlur=14;}roundTop(x,y,w,h,4);ctx.fill();ctx.shadowBlur=0;});
-    // smooth density line over the bars
-    ctx.strokeStyle='rgba(12,35,30,.28)';ctx.lineWidth=1.5;ctx.beginPath();
-    bins.forEach((b,k)=>{const x=(xOf(b.lo)+xOf(b.hi))/2,y=MT+ph-hOf(b.n)*g;k?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.stroke();
-    // median marker
-    const mx=xOf(median);ctx.strokeStyle='#0c231e';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(mx,MT-6);ctx.lineTo(mx,MT+ph);ctx.stroke();ctx.setLineDash([]);
-    ctx.fillStyle='#0c231e';ctx.font='700 10.5px Inter,sans-serif';ctx.textAlign='center';ctx.fillText('median '+median+'%',mx,MT-11);
-    // x axis
-    ctx.fillStyle='#8a978f';ctx.font='600 11px Inter,sans-serif';ctx.textAlign='center';
-    [0,20,40,60,80,100].forEach(p=>ctx.fillText(p+'%',xOf(p),MT+ph+18));
-    ctx.fillStyle='#5b6b66';ctx.font='700 11px Inter,sans-serif';ctx.fillText('Coverage — % of a medium’s compounds with a BiGG exchange',ML+pw/2,MT+ph+36);
-    // ---- segmented reliability spectrum bar ----
-    const by=H-46,bh=26,segs=[[cLow,0],[cMod,1],[cHigh,2]];let cx=ML;const tot=N;
-    segs.forEach(([cnt,i],si)=>{if(!cnt)return;const w=(cnt/tot)*(pw);const bd=BAND[i];
-      const grd=ctx.createLinearGradient(cx,0,cx+w,0);grd.addColorStop(0,bd.c);grd.addColorStop(1,bd.c2);ctx.fillStyle=grd;
-      const r=6;ctx.beginPath();
-      const left=si===0||segs.slice(0,si).every(s=>!s[0]);const right=si===2||segs.slice(si+1).every(s=>!s[0]);
-      ctx.roundRect?ctx.roundRect(cx,by,w,bh,[left?r:0,right?r:0,right?r:0,left?r:0]):ctx.rect(cx,by,w,bh);ctx.fill();
-      if(w>64){ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='800 12px Inter,sans-serif';ctx.fillText(fmt(cnt),cx+w/2,by+13);
-        ctx.font='700 9px Inter,sans-serif';ctx.fillText(bd.key.toUpperCase()+' · '+Math.round(100*cnt/tot)+'%',cx+w/2,by+22);}
-      cx+=w;});
-    ctx.textAlign='left';
-    raf=requestAnimationFrame(()=>{if(anim<1){anim+=0.06;draw();}});}
-  function pick(mx,my){if(my<MT||my>MT+ph)return -1;for(let k=0;k<NB;k++){if(mx>=xOf(bins[k].lo)&&mx<xOf(bins[k].hi))return k;}return -1;}
-  canvas.onmousemove=e=>{const r=canvas.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;const k=pick(mx,my);
-    if(k!==hover){hover=k;anim=1;draw();}
-    if(k>=0&&bins[k].n){const b=bins[k];tipShow(`<b>${fmt(b.n)}</b> media<br><span style="color:#9fbdb2">${Math.round(b.lo)}–${Math.round(b.hi)}% mapped · ${BAND[bandOf((b.lo+b.hi)/2)].lab}</span>`,e);canvas.style.cursor='pointer';}else{tipHide();canvas.style.cursor='default';}};
-  canvas.onmouseleave=()=>{hover=-1;tipHide();anim=1;draw();};
-  canvas.onclick=e=>{const el=document.getElementById('explore');if(el)el.scrollIntoView({behavior:'smooth'});};
-  buildBins();size();anim=0;draw();
-  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);size();anim=1;draw();});
-}
+  /** The dominant evidence class of a record, named rather than colour-coded. */
+  function dominantEvidence(counts) {
+    const classes = evidenceClasses();
+    let best = 0;
+    counts.forEach((n, i) => { if (n > counts[best]) best = i; });
+    return { cls: classes[best], n: counts[best] };
+  }
 
-/* ===================== hero constellation animation ======================== */
-/* Hero animation — the lab-to-model story. A COMPUTER sits at the centre; FOUR sources encircle it —
-   Laboratory (flask), Food, Biospecimen (human body) and Papers. Each emits chemical structures that
-   travel inward, morph into a binary stream at the mid-point, and converge into the computer. */
-function heroNetwork(canvas){
-  const ctx=canvas.getContext('2d');let W,H,dpr,raf,t=0,parts=[],src=[],C={x:0,y:0},comp={pulse:0};
-  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const MOL=[
-    {a:[[1,0],[.5,.87],[-.5,.87],[-1,0],[-.5,-.87],[.5,-.87]],b:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0]],ring:1},
-    {a:[[1,0],[.5,.87],[-.5,.87],[-1,0],[-.5,-.87],[.5,-.87],[2,0]],b:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,6]],ring:1},
-    {a:[[-1.6,.2],[-.6,.7],[.5,-.2],[1.5,.5],[.5,-1.3]],b:[[0,1],[1,2],[2,3],[2,4]]}];
-  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=canvas.offsetWidth;H=canvas.offsetHeight;
-    canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
-    C.x=W*0.5;C.y=H*0.5;const R=Math.min(W,H)*0.40;
-    const d=[[-1,-1],[1,-1],[1,1],[-1,1]],ty=['lab','food','body','paper'],lb=['Laboratory','Food','Biospecimen','Literature'];
-    src=d.map((v,i)=>({type:ty[i],label:lb[i],x:C.x+v[0]*R*0.94,y:C.y+v[1]*R*0.80,lx:v[0],ly:v[1]}));}
-  function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
-  const MINT=(a)=>`rgba(166,245,218,${a})`,CY=(a)=>`rgba(160,236,255,${a})`,GRN=(a)=>`rgba(95,224,182,${a})`;
-  function label(s,g){ctx.font='700 10.5px Inter,system-ui,sans-serif';ctx.textBaseline='middle';
-    ctx.textAlign=s.lx<0?'end':'start';ctx.fillStyle=`rgba(205,238,227,${.5+.35*g})`;
-    ctx.fillText(s.label,s.x+(s.lx<0?-16:16),s.y+ (s.ly<0?-2:2));ctx.textAlign='start';}
-  function drawFlask(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineJoin='round';ctx.lineWidth=1.7;ctx.strokeStyle=MINT(.6+.3*g);
-    ctx.beginPath();ctx.moveTo(-3,-14);ctx.lineTo(-3,-3);ctx.lineTo(-11,11);ctx.quadraticCurveTo(-12,15,-7,15);ctx.lineTo(7,15);ctx.quadraticCurveTo(12,15,11,11);ctx.lineTo(3,-3);ctx.lineTo(3,-14);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(-6,-14);ctx.lineTo(6,-14);ctx.stroke();
-    ctx.fillStyle=GRN(.22+.22*g);ctx.beginPath();ctx.moveTo(-8,5);ctx.lineTo(8,5);ctx.lineTo(8,11);ctx.quadraticCurveTo(9,15,5,15);ctx.lineTo(-5,15);ctx.quadraticCurveTo(-9,15,-8,11);ctx.closePath();ctx.fill();ctx.restore();}
-  function drawFood(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineWidth=1.7;ctx.strokeStyle=MINT(.6+.3*g);
-    ctx.beginPath();ctx.arc(-3,3,7,0,7);ctx.arc(3,3,7,0,7);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(0,-4);ctx.lineTo(1,-11);ctx.stroke();ctx.beginPath();ctx.ellipse(5,-10,4,2,-.6,0,7);ctx.stroke();
-    ctx.fillStyle=`rgba(198,137,63,${.14+.14*g})`;ctx.beginPath();ctx.arc(0,3,7.5,0,7);ctx.fill();ctx.restore();}
-  function drawBody(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineWidth=1.7;ctx.strokeStyle=MINT(.6+.3*g);ctx.lineJoin='round';
-    ctx.beginPath();ctx.arc(0,-7,5,0,7);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(-10,15);ctx.quadraticCurveTo(-10,1,0,1);ctx.quadraticCurveTo(10,1,10,15);ctx.stroke();
-    ctx.fillStyle=CY(.12+.15*g);ctx.beginPath();ctx.arc(0,-7,4,0,7);ctx.fill();ctx.restore();}
-  function drawPaper(x,y,g){ctx.save();ctx.translate(x,y);ctx.lineWidth=1.6;ctx.strokeStyle=MINT(.6+.3*g);ctx.lineJoin='round';
-    ctx.beginPath();ctx.moveTo(-8,-13);ctx.lineTo(4,-13);ctx.lineTo(9,-8);ctx.lineTo(9,14);ctx.lineTo(-8,14);ctx.closePath();ctx.stroke();
-    ctx.beginPath();ctx.moveTo(4,-13);ctx.lineTo(4,-8);ctx.lineTo(9,-8);ctx.stroke();
-    ctx.strokeStyle=MINT(.35+.25*g);ctx.beginPath();for(let i=0;i<4;i++){ctx.moveTo(-5,-4+i*5);ctx.lineTo(6,-4+i*5);}ctx.stroke();ctx.restore();}
-  function drawSource(s,g){({lab:drawFlask,food:drawFood,body:drawBody,paper:drawPaper})[s.type](s.x,s.y,g);label(s,g);}
-  function drawComputer(x,y,p){ctx.save();ctx.translate(x,y);ctx.lineJoin='round';ctx.lineWidth=2;
-    const gl=0.4+0.6*(0.5+0.5*Math.sin(t*0.022))+p*0.6;
-    ctx.shadowColor='rgba(127,230,200,'+Math.min(.9,.3+gl*.5)+')';ctx.shadowBlur=14+22*p;
-    ctx.strokeStyle=MINT(.72+.25*p);rr(-30,-23,60,40,7);ctx.stroke();ctx.shadowBlur=0;
-    ctx.fillStyle=`rgba(14,90,73,${.35+.3*p})`;rr(-26,-19,52,32,4);ctx.fill();
-    ctx.beginPath();ctx.moveTo(-9,17);ctx.lineTo(-12,26);ctx.lineTo(12,26);ctx.lineTo(9,17);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(-17,28);ctx.lineTo(17,28);ctx.stroke();
-    // on-screen: a little metabolic network + bars, lit by incoming data
-    const a=.5+.4*p+.1*Math.sin(t*0.1);
-    ctx.strokeStyle=CY(a*.8);ctx.lineWidth=1.2;const nd=[[-16,-8],[-6,-13],[2,-4],[13,-10],[8,4],[-9,6]];
-    ctx.beginPath();ctx.moveTo(nd[0][0],nd[0][1]);for(let i=1;i<nd.length;i++)ctx.lineTo(nd[i][0],nd[i][1]);ctx.stroke();
-    ctx.fillStyle=MINT(a);for(const n of nd){ctx.beginPath();ctx.arc(n[0],n[1],1.6,0,7);ctx.fill();}
-    ctx.restore();}
-  function drawMol(p){const S=MOL[p.mol],c=Math.cos(p.rot),s=Math.sin(p.rot),sc=p.scale,a=p.alpha;
-    const P=S.a.map(([ax,ay])=>[p.x+(ax*c-ay*s)*sc,p.y+(ax*s+ay*c)*sc]);
-    ctx.lineWidth=1.5;ctx.strokeStyle=MINT(.8*a);ctx.beginPath();
-    for(const[i,j]of S.b){ctx.moveTo(P[i][0],P[i][1]);ctx.lineTo(P[j][0],P[j][1]);}ctx.stroke();
-    if(S.ring){ctx.strokeStyle=CY(.38*a);ctx.beginPath();ctx.arc(p.x,p.y,sc*.55,0,7);ctx.stroke();}
-    ctx.fillStyle=`rgba(180,248,222,${.92*a})`;for(const[px,py]of P){ctx.beginPath();ctx.arc(px,py,1.7,0,7);ctx.fill();}}
-  function drawBits(p){ctx.font='700 13px "JetBrains Mono",ui-monospace,monospace';ctx.textBaseline='middle';ctx.textAlign='center';
-    const dx=(C.x-p.sx),dy=(C.y-p.sy),L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;   // trail points back toward the source
-    for(let k=0;k<p.bits.length;k++){const a=p.alpha*(1-k*0.14);if(a<=0)continue;
-      ctx.fillStyle=CY(Math.min(1,a));ctx.fillText(p.bits[k],p.x-ux*k*10,p.y-uy*k*10);}ctx.textAlign='start';}
-  function spawn(){const s=src[(Math.random()*src.length)|0];
-    parts.push({s,sx:s.x,sy:s.y,x:s.x,y:s.y,prog:0,sp:0.0024+Math.random()*0.0016,phase:'mol',
-      rot:Math.random()*6.28,vr:(Math.random()-.5)*0.012,scale:6.5+Math.random()*4,mol:(Math.random()*3)|0,
-      alpha:0,bits:null,jit:(Math.random()-.5)*22,jf:Math.random()*6.28});}
-  function updateDraw(){
-    const gg=0.4+0.6*(0.5+0.5*Math.sin(t*0.014));
-    // spokes
-    ctx.setLineDash([2,6]);ctx.lineDashOffset=-t*0.22;ctx.lineWidth=1;
-    for(const s of src){const grd=ctx.createLinearGradient(s.x,s.y,C.x,C.y);grd.addColorStop(0,MINT(.10));grd.addColorStop(1,CY(.18));
-      ctx.strokeStyle=grd;ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(C.x,C.y);ctx.stroke();}
-    ctx.setLineDash([]);
-    for(const s of src)drawSource(s,gg);
-    for(let i=parts.length-1;i>=0;i--){const p=parts[i];
-      if(!reduce){p.prog+=p.sp;p.rot+=p.vr;}
-      const px=p.sx+(C.x-p.sx)*p.prog,py=p.sy+(C.y-p.sy)*p.prog;
-      const dx=C.x-p.sx,dy=C.y-p.sy,L=Math.hypot(dx,dy)||1;const nx=-dy/L,ny=dx/L;   // perpendicular for a gentle arc
-      const bow=Math.sin(p.prog*Math.PI)*p.jit;
-      p.x=px+nx*bow;p.y=py+ny*bow;
-      p.alpha=Math.min(1,p.alpha+0.022);
-      if(p.phase==='mol'&&p.prog>0.48){p.phase='bin';p.bits=Array.from({length:4+((Math.random()*4)|0)},()=>Math.random()<.5?'0':'1');}
-      if(p.phase==='mol')drawMol(p);
-      else{if(p.prog>0.9)p.alpha=Math.max(0,1-(p.prog-0.9)/0.1);drawBits(p);if(Math.random()<0.018)p.bits[(Math.random()*p.bits.length)|0]=Math.random()<.5?'0':'1';}
-      if(p.prog>=0.99){parts.splice(i,1);comp.pulse=Math.min(1,comp.pulse+0.4);}}
-    comp.pulse*=0.90;drawComputer(C.x,C.y,comp.pulse);}
-  function frame(){t++;ctx.clearRect(0,0,W,H);
-    if(!reduce&&Math.random()<0.022&&parts.length<16)spawn();
-    updateDraw();raf=requestAnimationFrame(frame);}
-  size();
-  if(reduce){for(let i=0;i<12;i++){spawn();const p=parts[i];p.prog=Math.random()*0.9;p.alpha=1;const px=p.sx+(C.x-p.sx)*p.prog,py=p.sy+(C.y-p.sy)*p.prog;p.x=px;p.y=py;if(p.prog>0.48){p.phase='bin';p.bits=Array.from({length:5},()=>Math.random()<.5?'0':'1');}}
-    ctx.clearRect(0,0,W,H);updateDraw();return;}
-  frame();
-  window.addEventListener('resize',()=>{cancelAnimationFrame(raf);size();frame();});
-}
+  /* ------------------------------------------------------------- chips ----- */
+  const O2_LABEL = {
+    aerobic: 'aerobic', anaerobic: 'anaerobic', facultative: 'facultative'
+  };
+  const O2_TITLE = {
+    aerobic: 'The source states an aerobic regime.',
+    anaerobic: 'The source states an anaerobic regime.',
+    facultative: 'Recorded as facultative: the medium is used with or without oxygen. ' +
+      'It is not evidence that the organism is an aerobe.',
+    unknown: 'The oxygen regime is NOT recorded for this medium. It is unknown, ' +
+      'not anaerobic. Set EX_o2_e yourself.'
+  };
+  function o2Chip(oxygen) {
+    const known = oxygen && O2_LABEL[oxygen];
+    return el('span', {
+      class: 'chip ' + (known ? 'plain' : 'warn'),
+      title: O2_TITLE[known ? oxygen : 'unknown'],
+      text: known ? O2_LABEL[oxygen] : 'O₂ unknown'
+    });
+  }
+
+  const LICENCE_SHORT = {
+    'CC0-1.0': 'CC0', 'CC-BY-4.0': 'CC BY', 'CC-BY-NC-4.0': 'CC BY-NC',
+    'all-rights-reserved': 'All rights reserved',
+    'custom-permission-required': 'Permission required'
+  };
+  function licenceChip(license, commercialOk) {
+    if (!license) {
+      return el('span', {
+        class: 'chip stop', text: 'no licence recorded',
+        title: 'This record carries no licence. Do not redistribute it.'
+      });
+    }
+    const ok = commercialOk === true;
+    return el('span', {
+      class: 'chip ' + (ok ? 'plain' : 'stop'),
+      text: LICENCE_SHORT[license] || license,
+      title: license + (ok
+        ? '. Commercial use is permitted by the upstream terms.'
+        : '. The upstream terms do NOT permit commercial use. ' +
+          'The record ships so you can find it, labelled so you do not misuse it.')
+    });
+  }
+
+  function verificationChip(status) {
+    const stop = status === 'rejected-by-verification-pass';
+    const weak = !status || status === 'unverified' || status === 'other';
+    return el('span', {
+      class: 'chip ' + (stop ? 'stop' : (weak ? 'warn' : 'ok')),
+      text: status || 'unverified',
+      title: weak
+        ? 'No verification of this formulation against its source is recorded.'
+        : 'Verification status recorded on the record itself.'
+    });
+  }
+
+  /* --------------------------------------------------------- announcing ---- */
+  function announce(node, message) {
+    if (node) node.textContent = message;
+  }
+
+  /* ============================== the sortable, searchable table =========== */
+  /**
+   * A small table component. It exists instead of a table plugin so that every
+   * control is a real button, every count carries its denominator, and the
+   * result region announces to a screen reader when a search finishes.
+   */
+  function makeTable(opts) {
+    const perPage = opts.perPage || 50;
+    const body = opts.tbody;
+    const resultLine = opts.resultLine;
+    const live = opts.live;
+    const pager = opts.pager;
+    let rows = [];
+    let sortKey = opts.sortKey;
+    let sortDir = opts.sortDir || 1;
+    let page = 0;
+
+    function compare(a, b) {
+      const x = a[sortKey], y = b[sortKey];
+      if (x === null || x === undefined) return 1;
+      if (y === null || y === undefined) return -1;
+      if (typeof x === 'number' && typeof y === 'number') return (x - y) * sortDir;
+      return String(x).localeCompare(String(y), 'en') * sortDir;
+    }
+
+    function render() {
+      rows.sort(compare);
+      const total = rows.length;
+      const start = Math.min(page * perPage, Math.max(0, total - 1));
+      const slice = rows.slice(start, start + perPage);
+      body.replaceChildren();
+      if (!total) {
+        const tr = el('tr');
+        tr.appendChild(el('td', {
+          colspan: opts.columnCount,
+          class: 'state',
+          text: opts.emptyMessage
+        }));
+        body.appendChild(tr);
+      } else {
+        slice.forEach((r) => body.appendChild(opts.renderRow(r)));
+      }
+      const shownFrom = total ? start + 1 : 0;
+      const shownTo = Math.min(start + perPage, total);
+      const line = total === opts.universe
+        ? 'Showing ' + fmt(shownFrom) + ' to ' + fmt(shownTo) + ' of ' +
+          fmt(total) + ' ' + opts.noun
+        : 'Showing ' + fmt(shownFrom) + ' to ' + fmt(shownTo) + ' of ' +
+          fmt(total) + ' matching ' + opts.noun + ', filtered from ' +
+          fmt(opts.universe) + ' in the library';
+      resultLine.textContent = line;
+      announce(live, line);
+      renderPager(total);
+    }
+
+    function renderPager(total) {
+      pager.replaceChildren();
+      const pages = Math.max(1, Math.ceil(total / perPage));
+      if (pages < 2) return;
+      const mk = (label, target, disabled, current) => el('button', {
+        class: 'btn btn-sm', type: 'button', disabled: disabled || null,
+        'aria-current': current ? 'true' : null, text: label,
+        'data-page': target
+      });
+      pager.appendChild(mk('‹ Previous', page - 1, page === 0));
+      pager.appendChild(el('span', {
+        class: 'muted', style: 'font-size:var(--t-cap)',
+        text: 'Page ' + fmt(page + 1) + ' of ' + fmt(pages)
+      }));
+      pager.appendChild(mk('Next ›', page + 1, page >= pages - 1));
+      pager.querySelectorAll('button[data-page]').forEach((b) => {
+        b.addEventListener('click', () => {
+          page = Math.max(0, Math.min(pages - 1, Number(b.dataset.page)));
+          render();
+          body.closest('table').scrollIntoView({ block: 'start' });
+        });
+      });
+    }
+
+    return {
+      setRows(next) { rows = next.slice(); page = 0; render(); },
+      sortBy(key) {
+        sortDir = key === sortKey ? -sortDir : 1;
+        sortKey = key;
+        page = 0;
+        render();
+        return { key: sortKey, dir: sortDir };
+      },
+      get sortState() { return { key: sortKey, dir: sortDir }; },
+      redraw: render
+    };
+  }
+
+  /* ============================== the medium detail sheet ================== */
+  let lastFocused = null;
+
+  function closeSheet(pushHistory) {
+    const open = document.getElementById('medium-sheet');
+    if (!open) return;
+    open.remove();
+    document.body.style.overflow = '';
+    if (pushHistory !== false) {
+      const url = new URL(location.href);
+      url.searchParams.delete('medium');
+      history.pushState({}, '', url);
+    }
+    if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
+  }
+
+  function mountSheet(node) {
+    closeSheet(false);
+    lastFocused = document.activeElement;
+    const overlay = el('div', {
+      class: 'overlay', id: 'medium-sheet', role: 'dialog',
+      'aria-modal': 'true', 'aria-labelledby': 'sheet-title'
+    }, [node]);
+    overlay.addEventListener('mousedown', (e) => {
+      if (e.target === overlay) closeSheet();
+    });
+    overlay.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeSheet(); return; }
+      if (e.key !== 'Tab') return;
+      const f = overlay.querySelectorAll(
+        'a[href],button:not([disabled]),input,select,textarea,summary,[tabindex]:not([tabindex="-1"])');
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+    const focusTarget = overlay.querySelector('.sheet-close');
+    if (focusTarget) focusTarget.focus();
+    return overlay;
+  }
+
+  const BLOCK_REASON = {
+    food_amount_no_volume_basis:
+      'the source gives a mass per 100 g of food, and no volume of medium to divide it by',
+    invented_component: 'the component is pipeline-derived, so no source amount exists',
+    no_source_amount: 'the source states the ingredient but never states how much',
+    parent_salt_identity_lost:
+      'the ion was recorded without the salt it came from, so its molar amount cannot be recovered',
+    unrecognised_unit: 'the amount carries a unit this pipeline does not convert'
+  };
+  const BASIS_LABEL = {
+    per_100g_food: 'per 100 g of food',
+    per_litre_medium: 'per litre of medium',
+    per_g_source_ingredient: 'per g of the complex ingredient it was derived from'
+  };
+
+  function componentRow(c) {
+    const sourceName = c.source_name;
+    const biggName = c.target_name || c.name;
+    const nameCell = el('td');
+    nameCell.appendChild(el('span', {
+      style: 'font-weight:600;color:var(--ink)',
+      text: sourceName || biggName
+    }));
+    if (sourceName && biggName && sourceName !== biggName) {
+      nameCell.appendChild(el('span', {
+        class: 'cellnote',
+        text: 'mapped to BiGG "' + biggName + '"'
+      }));
+    } else if (!sourceName) {
+      nameCell.appendChild(el('span', {
+        class: 'cellnote',
+        title: 'The source label was not preserved for this component; the name ' +
+          'shown is the BiGG dictionary name of the metabolite it was mapped to.',
+        text: 'source label not preserved'
+      }));
+    }
+    if (c.derived_not_sourced) {
+      nameCell.appendChild(el('div', {}, [el('span', {
+        class: 'chip ev-derived',
+        title: (c.mapping_note || 'supplied by this pipeline') +
+          (c.derived_from ? ' (from "' + c.derived_from + '")' : ''),
+        text: c.derived_from ? 'derived from ' + c.derived_from : 'pipeline-derived'
+      })]));
+    }
+
+    const q = c.quantity;
+    const amountCell = el('td');
+    if (q && q.value !== null && q.value !== undefined) {
+      const basis = q.basis || c.quantity_basis;
+      amountCell.appendChild(el('span', {
+        class: 'tnum', text: q.value + ' ' + (q.unit || '')
+      }));
+      amountCell.appendChild(el('span', {
+        class: 'cellnote',
+        text: BASIS_LABEL[basis] || basis || 'basis not recorded'
+      }));
+    } else {
+      amountCell.appendChild(el('span', { class: 'muted', text: 'not reported' }));
+    }
+
+    const concCell = el('td');
+    if (c.concentration_mM !== null && c.concentration_mM !== undefined) {
+      concCell.appendChild(el('span', { class: 'tnum', text: c.concentration_mM + ' mM' }));
+      concCell.appendChild(el('span', {
+        class: 'cellnote',
+        text: c.concentration_status === 'source_stated'
+          ? 'stated by the source' : 'derived (' + (c.concentration_source || 'unrecorded') + ')'
+      }));
+    } else {
+      concCell.appendChild(el('span', { class: 'muted', text: 'not derivable' }));
+      const why = BLOCK_REASON[c.concentration_block_reason];
+      if (why) concCell.appendChild(el('span', { class: 'cellnote', text: why }));
+    }
+
+    const tier = c.evidence_tier;
+    const cls = tier ? classOfTier(tier) : null;
+    const evCell = el('td');
+    evCell.appendChild(cls
+      ? el('span', {
+          class: 'chip ev-' + cls.id, text: cls.label,
+          title: cls.definition + '\n\nrecorded tier: ' + tier +
+            (c.mapping_note ? '\nnote: ' + c.mapping_note : '')
+        })
+      : el('span', {
+          class: 'chip stop', text: 'no evidence recorded',
+          title: 'This component carries no evidence tier. Treat its identity as unverified.'
+        }));
+
+    const xrefCell = el('td', { class: 'opt' });
+    const xr = c.xref || {};
+    const keys = ['inchikey', 'kegg', 'chebi', 'hmdb', 'seed'].filter((k) => xr[k]);
+    if (keys.length) {
+      keys.forEach((k, i) => {
+        const url = xrefUrl(k, xr[k]);
+        if (i) xrefCell.appendChild(document.createTextNode(' · '));
+        xrefCell.appendChild(url
+          ? el('a', { href: url, target: '_blank', rel: 'noopener', text: k })
+          : el('span', { text: k }));
+      });
+      if (c.target_xref_note) {
+        xrefCell.appendChild(el('span', {
+          class: 'cellnote', title: c.target_xref_note,
+          text: 'describes the BiGG target'
+        }));
+      }
+    } else {
+      xrefCell.appendChild(el('span', { class: 'muted', text: 'none' }));
+    }
+
+    return el('tr', {}, [
+      nameCell,
+      el('td', {}, [el('code', { text: c.exchange || 'no exchange recorded' })]),
+      amountCell,
+      concCell,
+      el('td', { class: 'opt tnum', text: String(c.lower_bound) }),
+      evCell,
+      xrefCell
+    ]);
+  }
+
+  let TIER_INDEX = null;
+  function classOfTier(tier) {
+    if (!TIER_INDEX) {
+      TIER_INDEX = {};
+      evidenceClasses().forEach((c) => c.tiers.forEach((t) => { TIER_INDEX[t] = c; }));
+    }
+    return TIER_INDEX[tier] || null;
+  }
+
+  function xrefUrl(key, value) {
+    const v = String(value);
+    switch (key) {
+      case 'hmdb': return 'https://hmdb.ca/metabolites/' + v;
+      case 'kegg': return 'https://www.kegg.jp/entry/' + v;
+      case 'chebi': return 'https://www.ebi.ac.uk/chebi/searchId.do?chebiId=' +
+        (v.startsWith('CHEBI:') ? v : 'CHEBI:' + v);
+      case 'inchikey':
+        return 'https://www.ebi.ac.uk/unichem/compoundsources?type=inchikey&compound=' + v;
+      case 'seed': return 'https://modelseed.org/biochem/compounds/' + v;
+      default: return null;
+    }
+  }
+
+  function linkifyCitation(text, prov) {
+    const wrap = el('span');
+    wrap.appendChild(document.createTextNode(text || 'no citation recorded'));
+    const p = prov || {};
+    if (p.doi) {
+      wrap.appendChild(document.createTextNode(' '));
+      wrap.appendChild(el('a', {
+        href: 'https://doi.org/' + String(p.doi).replace(/^https?:\/\/doi\.org\//, ''),
+        target: '_blank', rel: 'noopener', text: 'doi ↗'
+      }));
+    }
+    if (p.url) {
+      wrap.appendChild(document.createTextNode(' '));
+      wrap.appendChild(el('a', {
+        href: p.url, target: '_blank', rel: 'noopener', text: 'source ↗'
+      }));
+    }
+    if (p.pmid) {
+      wrap.appendChild(document.createTextNode(' '));
+      wrap.appendChild(el('a', {
+        href: 'https://pubmed.ncbi.nlm.nih.gov/' + p.pmid + '/',
+        target: '_blank', rel: 'noopener', text: 'PubMed ↗'
+      }));
+    }
+    return wrap;
+  }
+
+  /** The COBRApy snippet, sectioned by where each bound came from. */
+  function cobraSnippet(med) {
+    const groups = { sourced: [], derived: [] };
+    med.components.forEach((c) => {
+      if (!(c.lower_bound < 0) || !c.exchange) return;
+      (c.derived_not_sourced ? groups.derived : groups.sourced).push(c);
+    });
+    const stated = med.components.filter(
+      (c) => c.concentration_status === 'source_stated').length;
+    const lines = [];
+    lines.push('# ' + med.id + ': ' + (med.name_display || med.name));
+    lines.push('# WARNING: a bound below is NOT a measured uptake rate.');
+    lines.push('#   ' + groups.sourced.length + ' of ' + med.components.length +
+      ' components are stated by the cited source.');
+    lines.push('#   ' + groups.derived.length + ' of ' + med.components.length +
+      ' were supplied by the MediaDB pipeline and are NOT in the source. ' +
+      'Edit or delete them.');
+    lines.push('#   ' + stated + ' of ' + med.components.length +
+      ' carry a source-stated concentration; the rest are presence placeholders.');
+    lines.push('uptake = {');
+    lines.push('    # --- stated by the cited source ---');
+    groups.sourced.forEach((c) => {
+      lines.push('    "' + c.exchange + '": ' + c.lower_bound + ',');
+    });
+    if (groups.derived.length) {
+      lines.push('    # --- supplied by the pipeline, not by the source ---');
+      groups.derived.forEach((c) => {
+        lines.push('    "' + c.exchange + '": ' + c.lower_bound + ',   # ' +
+          (c.derived_from ? 'from ' + c.derived_from : 'in-silico addition'));
+      });
+    }
+    lines.push('}');
+    lines.push('for ex_id, lb in uptake.items():');
+    lines.push('    if ex_id not in model.reactions:');
+    lines.push('        continue   # this model has no exchange for it');
+    lines.push('    rxn = model.reactions.get_by_id(ex_id)');
+    lines.push('    rxn.lower_bound = lb');
+    lines.push('    rxn.upper_bound = 1000.0');
+    return lines.join('\n');
+  }
+
+  function csvFor(med) {
+    const head = ['medium_id', 'source_name', 'bigg_name', 'bigg_metabolite',
+      'exchange', 'lower_bound', 'upper_bound', 'evidence_tier',
+      'evidence_class', 'derived_not_sourced', 'derived_from',
+      'quantity_value', 'quantity_unit', 'quantity_basis',
+      'concentration_mM', 'concentration_status', 'concentration_block_reason',
+      'inchikey', 'kegg', 'chebi', 'hmdb', 'seed', 'license'];
+    const cell = (v) => '"' + String(v === null || v === undefined ? '' : v)
+      .replace(/"/g, '""') + '"';
+    const prov = med.provenance || {};
+    const body = med.components.map((c) => {
+      const q = c.quantity || {};
+      const xr = c.xref || {};
+      const cls = c.evidence_tier ? classOfTier(c.evidence_tier) : null;
+      return [med.id, c.source_name, c.target_name || c.name, c.bigg_metabolite,
+        c.exchange, c.lower_bound, c.upper_bound, c.evidence_tier,
+        cls ? cls.id : '', c.derived_not_sourced === true, c.derived_from,
+        q.value, q.unit, q.basis || c.quantity_basis,
+        c.concentration_mM, c.concentration_status, c.concentration_block_reason,
+        xr.inchikey, xr.kegg, xr.chebi, xr.hmdb, xr.seed, prov.license]
+        .map(cell).join(',');
+    });
+    return head.join(',') + '\n' + body.join('\n') + '\n';
+  }
+
+  function downloadText(filename, text, mime) {
+    const blob = new Blob([text], { type: mime || 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = el('a', { href: url, download: filename });
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+
+  async function openMedium(id, opts) {
+    const push = !(opts && opts.replace === true);
+    try {
+      const med = await getJSON('data/media/' + id + '.json');
+      renderMedium(med);
+      const url = new URL(location.href);
+      url.searchParams.set('medium', id);
+      if (push) history.pushState({ medium: id }, '', url);
+      else history.replaceState({ medium: id }, '', url);
+    } catch (e) {
+      if (e.kind === 'not_found') await renderMissing(id);
+      else renderUnreachable(id, e);
+    }
+  }
+
+  async function renderMissing(id) {
+    const tomb = await loadTombstones();
+    const record = tomb.records ? tomb.records[id] : null;
+    const card = el('div', { class: 'sheet' });
+    const head = el('div', { class: 'sheet-head' }, [
+      el('div', {}, [
+        el('div', { class: 'kicker', text: record ? 'Withdrawn record' : 'Unknown identifier' }),
+        el('h3', { id: 'sheet-title', text: record ? (record.name || id) : id })
+      ]),
+      el('button', { class: 'btn sheet-close', type: 'button', text: 'Close' })
+    ]);
+    const body = el('div', { class: 'sheet-body' });
+    if (record) {
+      const isWorkflowCode = /^workflow:/.test(record.code || '');
+      body.appendChild(el('div', { class: 'note stop' }, [
+        el('b', { text: 'This medium was assessed and withdrawn.' }),
+        document.createTextNode(' It is not served, and no other record is a ' +
+          'substitute for it. ' + (isWorkflowCode
+            ? 'The verification pass recorded the workflow code "' + record.code + '".'
+            : 'Recorded reason: ' + (record.code || 'not recorded') + '.'))
+      ]));
+      if (record.note) {
+        body.appendChild(el('div', { class: 'note' }, [
+          el('b', { text: 'What the reviewer wrote' }),
+          el('p', { style: 'margin-top:var(--s2)', text: record.note })
+        ]));
+      } else if (isWorkflowCode) {
+        body.appendChild(el('p', {
+          class: 'muted',
+          text: 'No written reason was recorded for this record, only the workflow code ' +
+            'above. ' + fmt(tomb.n_without_prose) + ' of ' + fmt(tomb.n_withdrawn) +
+            ' withdrawn records are in that position.'
+        }));
+      }
+      if (record.evidence) {
+        body.appendChild(el('div', { class: 'note caution' }, [
+          el('b', { text: 'The passage this record was extracted from' }),
+          el('p', { style: 'margin-top:var(--s2)', text: record.evidence })
+        ]));
+      }
+    } else {
+      body.appendChild(el('div', { class: 'note stop' }, [
+        el('b', { text: 'No medium is served under this identifier.' }),
+        document.createTextNode(' It is not in the library of ' +
+          (catalog ? fmt(catalog.count) : 'this release') +
+          ' media and it is not in the list of withdrawn records, so it was ' +
+          'either mistyped or never published.')
+      ]));
+    }
+    body.appendChild(el('div', { class: 'chip-line' }, [
+      el('a', { class: 'btn', href: 'index.html#explore', text: 'Search the library' }),
+      el('a', { class: 'btn', href: 'methods.html#withdrawn', text: 'Every withdrawn record' })
+    ]));
+    if (catalog && catalog.media) {
+      const near = nearestIds(id, 5);
+      if (near.length) {
+        const list = el('ul');
+        near.forEach((r) => {
+          list.appendChild(el('li', {}, [
+            el('a', { class: 'medlink', href: permalink(r.id), 'data-medium': r.id, text: r.name })
+          ]));
+        });
+        body.appendChild(el('div', {}, [
+          el('h4', { text: 'Closest identifiers in the library' }), list
+        ]));
+      }
+    }
+    card.appendChild(head);
+    card.appendChild(body);
+    wireSheet(mountSheet(card));
+  }
+
+  function renderUnreachable(id, error) {
+    const card = el('div', { class: 'sheet' }, [
+      el('div', { class: 'sheet-head' }, [
+        el('div', {}, [
+          el('div', { class: 'kicker', text: 'Could not load' }),
+          el('h3', { id: 'sheet-title', text: id })
+        ]),
+        el('button', { class: 'btn sheet-close', type: 'button', text: 'Close' })
+      ]),
+      el('div', { class: 'sheet-body' }, [
+        el('div', { class: 'note caution' }, [
+          el('b', { text: 'The library could not be reached.' }),
+          document.createTextNode(' This is a network or server problem, not a ' +
+            'statement about the medium: ' + (error && error.message ? error.message : '') +
+            '. Reload the page and try again.')
+        ])
+      ])
+    ]);
+    wireSheet(mountSheet(card));
+  }
+
+  function nearestIds(id, n) {
+    const target = String(id).toLowerCase();
+    const scored = catalog.media.map((r) => {
+      const cand = r.id.toLowerCase();
+      let shared = 0;
+      while (shared < cand.length && shared < target.length &&
+             cand[shared] === target[shared]) shared++;
+      return { id: r.id, name: r.name, score: shared };
+    }).filter((r) => r.score > 3);
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, n);
+  }
+
+  function wireSheet(overlay) {
+    overlay.querySelectorAll('.sheet-close').forEach((b) =>
+      b.addEventListener('click', () => closeSheet()));
+    overlay.querySelectorAll('a[data-medium]').forEach((a) =>
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        openMedium(a.dataset.medium);
+      }));
+  }
+
+  function renderMedium(med) {
+    const prov = med.provenance || {};
+    const covs = med.coverage_source || {};
+    const quant = med.quantitation || {};
+    const fam = med.family || {};
+    const counts = evidenceClasses().map((c) => {
+      let n = 0;
+      c.tiers.forEach((t) => { n += (med.tier_counts || {})[t] || 0; });
+      return n;
+    });
+    const total = med.n_components;
+    const nSourced = covs.n_sourced;
+    const nDerived = med.n_derived;
+
+    const card = el('div', { class: 'sheet' });
+
+    /* head ---------------------------------------------------------------- */
+    const chips = el('div', { class: 'chip-line', style: 'margin-top:var(--s2)' }, [
+      el('span', { class: 'chip', text: med.category }),
+      o2Chip(med.oxygen),
+      licenceChip(prov.license, prov.commercial_use_ok),
+      verificationChip(prov.verification_status)
+    ]);
+    if (fam.id) {
+      chips.appendChild(el('a', {
+        class: 'chip', href: 'families.html?family=' + encodeURIComponent(fam.id),
+        text: 'family: ' + (fam.label || fam.id),
+        title: 'How the family was decided: ' + (fam.method || 'not recorded') +
+          (fam.evidence ? ' (' + fam.evidence + ')' : '')
+      }));
+    }
+    card.appendChild(el('div', { class: 'sheet-head' }, [
+      el('div', { style: 'min-width:0' }, [
+        el('div', { class: 'kicker', text: prov.source_name || prov.source_type || 'medium' }),
+        el('h3', { id: 'sheet-title', text: med.name_display || med.name }),
+        chips
+      ]),
+      el('button', { class: 'btn sheet-close', type: 'button', text: 'Close' })
+    ]));
+
+    const body = el('div', { class: 'sheet-body' });
+
+    /* the evidence answer, first ------------------------------------------ */
+    const answer = el('div', { class: 'card card-p' });
+    answer.appendChild(el('h4', { text: 'Where this formulation comes from' }));
+    answer.appendChild(el('p', {
+      style: 'margin-top:var(--s2)',
+      text: withDenominator(nSourced, total, 'components') +
+        ' are stated by the cited source. ' +
+        withDenominator(nDerived, total, 'components') +
+        ' were supplied by this pipeline and appear nowhere in the source.'
+    }));
+    answer.appendChild(el('div', { style: 'margin-top:var(--s3)' }, [evidenceBar(counts)]));
+    answer.appendChild(evidenceLegend(counts, total));
+    body.appendChild(answer);
+
+    /* coverage, both numbers ---------------------------------------------- */
+    const covCard = el('div', { class: 'card card-p' });
+    covCard.appendChild(el('h4', { text: 'Coverage of the source’s own ingredient list' }));
+    const pcs = covs.pct_covered_source;
+    covCard.appendChild(el('p', {
+      style: 'margin-top:var(--s2)',
+      text: pcs === null || pcs === undefined
+        ? 'Not computed: the source states no ingredient list this record could be ' +
+          'measured against. It is not 100%.'
+        : pctOrAbsent(pcs) + '. ' +
+          withDenominator(covs.n_sourced, covs.pct_covered_source_denominator,
+            'ingredients the source states') + ' reached a BiGG exchange.'
+    }));
+    if (covs.pct_covered_source_is_upper_bound) {
+      covCard.appendChild(el('div', { class: 'note caution' }, [
+        el('b', { text: 'That percentage is a ceiling.' }),
+        document.createTextNode(' The number of source ingredients replaced by ' +
+          'pipeline-derived components is a floor, so the true denominator is at ' +
+          'least this large and the coverage is at most this high.')
+      ]));
+    }
+    if (med.uncovered && med.uncovered.length) {
+      covCard.appendChild(el('p', {
+        class: 'muted', style: 'margin-top:var(--s2)',
+        text: fmt(med.uncovered.length) + ' ingredient(s) the source states got no ' +
+          'exchange at all and are listed below. They are not counted in the ' +
+          fmt(total) + ' components.'
+      }));
+    }
+    body.appendChild(covCard);
+
+    /* limitations ---------------------------------------------------------- */
+    const limits = [];
+    if (nDerived) {
+      limits.push(['derived',
+        'This record contains components the source never stated.',
+        fmt(nDerived) + ' of ' + fmt(total) + ' components are in-silico: a ' +
+        'decomposition of a complex ingredient, a hydrolysate approximation, or ' +
+        'an injected mineral or oxygen base. They are kept because a model needs ' +
+        'them to grow, and excluded from every source-coverage number above.']);
+    }
+    if (counts[2] + counts[3] > 0) {
+      limits.push(['caution',
+        'Most identities here were decided by a name string, not by chemistry.',
+        withDenominator(counts[2] + counts[3], total, 'components') +
+        ' were resolved by a name match or by collapsing a class onto one ' +
+        'representative molecule. Check any component you intend to constrain.']);
+    }
+    if (!quant.n_with_concentration_mM) {
+      limits.push(['caution', 'No concentration in this record is source-stated.',
+        'Every lower bound below is a presence placeholder, not a measured ' +
+        'uptake rate. Set your own bounds before you interpret a flux.']);
+    }
+    if (med.oxygen === null || med.oxygen === undefined) {
+      limits.push(['caution', 'The oxygen regime is unknown.',
+        'This record does not record whether the medium is used aerobically. ' +
+        'It is unknown, not anaerobic. Decide EX_o2_e yourself.']);
+    }
+    if (prov.commercial_use_ok !== true) {
+      limits.push(['stop', 'The upstream licence does not permit commercial use.',
+        'Terms: ' + (prov.license || 'not recorded') + '. ' +
+        (prov.license_source ? 'Read from ' + prov.license_source + '. ' : '') +
+        'The record is published so you can find and cite it.']);
+    }
+    if (med.composition_limitation) {
+      limits.push(['caution', 'Composition is not unique to this record.',
+        med.composition_limitation]);
+    }
+    if (med.category === 'food') {
+      limits.push(['caution', 'A food is not a laboratory medium.',
+        'This record is built from a population-average nutrient analysis of a ' +
+        'food, with a standard mineral base added by this pipeline. Component ' +
+        'presence is real; the amounts are per 100 g of food, not per litre of medium.']);
+    }
+    if (limits.length) {
+      const box = el('div', { class: 'card card-p' });
+      box.appendChild(el('h4', { text: 'What this record cannot tell you' }));
+      limits.forEach(([kind, title, text]) => {
+        box.appendChild(el('div', { class: 'note ' + kind, style: 'margin-top:var(--s3)' }, [
+          el('b', { text: title }),
+          el('p', { style: 'margin-top:var(--s1)', text: text })
+        ]));
+      });
+      body.appendChild(box);
+    }
+
+    /* provenance ----------------------------------------------------------- */
+    const provCard = el('div', { class: 'card card-p' });
+    provCard.appendChild(el('h4', { text: 'Provenance' }));
+    provCard.appendChild(el('p', { style: 'margin-top:var(--s2)' }, [
+      el('b', { text: 'Cited source: ' }),
+      linkifyCitation(prov.citation, prov)
+    ]));
+    if (prov.notes) {
+      provCard.appendChild(el('p', { class: 'muted', style: 'margin-top:var(--s2)', text: prov.notes }));
+    }
+    if (prov.wellknown_reference) {
+      provCard.appendChild(el('p', { style: 'margin-top:var(--s2)' }, [
+        el('b', { text: 'Formulation reference: ' }),
+        document.createTextNode(prov.wellknown_reference)
+      ]));
+    }
+    if (prov.decomposition_refs) {
+      const list = el('ul');
+      Object.entries(prov.decomposition_refs).forEach(([ing, ref]) => {
+        const cite = (ref && ref.citation) ? ref.citation : ref;
+        list.appendChild(el('li', {}, [el('b', { text: ing + ': ' }),
+          document.createTextNode(String(cite))]));
+      });
+      provCard.appendChild(el('div', { class: 'note derived', style: 'margin-top:var(--s3)' }, [
+        el('b', { text: 'Where the derived composition came from' }), list
+      ]));
+    }
+    provCard.appendChild(el('p', { class: 'muted', style: 'margin-top:var(--s3)' }, [
+      el('b', { text: 'Licence: ' }),
+      document.createTextNode((prov.license || 'not recorded') +
+        (prov.attribution_required ? ' · attribution required' : '') + ' · '),
+      prov.license_url
+        ? el('a', { href: prov.license_url, target: '_blank', rel: 'noopener', text: 'terms ↗' })
+        : el('span', { text: 'no terms URL recorded' })
+    ]));
+    body.appendChild(provCard);
+
+    /* actions -------------------------------------------------------------- */
+    const cobra = cobraSnippet(med);
+    const actions = el('div', { class: 'chip-line' });
+    const copyBtn = el('button', {
+      class: 'btn btn-primary', type: 'button',
+      text: 'Copy the annotated COBRApy medium'
+    });
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(cobra).then(() => {
+        copyBtn.textContent = 'Copied, with its warnings';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy the annotated COBRApy medium';
+        }, 2000);
+      });
+    });
+    actions.appendChild(copyBtn);
+    actions.appendChild(el('a', {
+      class: 'btn', href: 'data/media/' + med.id + '.json',
+      download: med.id + '.json', text: 'Download JSON'
+    }));
+    const csvBtn = el('button', { class: 'btn', type: 'button', text: 'Download CSV' });
+    csvBtn.addEventListener('click', () =>
+      downloadText(med.id + '.csv', csvFor(med), 'text/csv'));
+    actions.appendChild(csvBtn);
+    const linkBtn = el('button', { class: 'btn', type: 'button', text: 'Copy permalink' });
+    linkBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(location.origin + permalink(med.id)).then(() => {
+        linkBtn.textContent = 'Permalink copied';
+        setTimeout(() => { linkBtn.textContent = 'Copy permalink'; }, 2000);
+      });
+    });
+    actions.appendChild(linkBtn);
+    actions.appendChild(el('a', {
+      class: 'btn',
+      href: 'https://github.com/omidard/Media/issues/new?labels=curation&title=' +
+        encodeURIComponent('[curation] ' + (med.name_display || med.name)) +
+        '&body=' + encodeURIComponent('Medium: `' + med.id + '`\nLink: ' +
+          location.origin + permalink(med.id) + '\n\nWhat is wrong:\n'),
+      target: '_blank', rel: 'noopener', text: 'Report a problem ↗'
+    }));
+    body.appendChild(actions);
+
+    const pre = el('pre', { class: 'cobra' });
+    pre.textContent = cobra;
+    body.appendChild(pre);
+
+    /* components ----------------------------------------------------------- */
+    const sorted = med.components.slice().sort((a, b) => {
+      const da = a.derived_not_sourced ? 1 : 0, db = b.derived_not_sourced ? 1 : 0;
+      if (da !== db) return da - db;
+      return String(a.exchange).localeCompare(String(b.exchange));
+    });
+    const tbody = el('tbody');
+    sorted.forEach((c) => tbody.appendChild(componentRow(c)));
+    body.appendChild(el('div', {}, [
+      el('h4', { text: (med.uncovered || []).length
+        ? 'Components: ' + fmt(total) + ' of ' +
+          fmt(total + (med.uncovered || []).length) + ' compounds the record holds'
+        : 'Components: all ' + fmt(total) + ' compounds the record holds' }),
+      el('p', {
+        class: 'muted', style: 'margin:var(--s2) 0',
+        text: 'Source-stated components are listed first; pipeline-derived ones follow ' +
+          'and carry a dashed chip. Every row states how its identity was decided.'
+      }),
+      el('div', { class: 'tablewrap scroll-y' }, [
+        el('table', { class: 'grid' }, [
+          el('thead', {}, [el('tr', {}, [
+            el('th', { text: 'Component' }), el('th', { text: 'Exchange' }),
+            el('th', { text: 'Amount' }), el('th', { text: 'Concentration' }),
+            el('th', { class: 'opt', text: 'Lower bound' }),
+            el('th', { text: 'How the identity was decided' }),
+            el('th', { class: 'opt', text: 'Cross-refs' })
+          ])]),
+          tbody
+        ])
+      ])
+    ]));
+
+    /* uncovered ------------------------------------------------------------ */
+    const unc = med.uncovered || [];
+    if (unc.length) {
+      const rows = el('tbody');
+      const REASON = {
+        undefined_complex: 'undefined or complex ingredient',
+        non_nutrient: 'not a metabolite (buffer, indicator, chelator)',
+        not_in_bigg: 'no BiGG identifier; needs external mapping',
+        unmatched: 'unmatched, needs manual curation'
+      };
+      unc.forEach((u) => rows.appendChild(el('tr', {}, [
+        el('td', { text: u.name }),
+        el('td', { text: REASON[u.reason] || u.reason || 'reason not recorded' })
+      ])));
+      const details = el('details', { class: 'disclosure' }, [
+        el('summary', {
+          text: 'Ingredients the source states that reached no exchange (' +
+            fmt(unc.length) + ' of ' + fmt(total + unc.length) + ' compounds)'
+        }),
+        el('div', {}, [el('div', { class: 'tablewrap' }, [
+          el('table', { class: 'grid' }, [
+            el('thead', {}, [el('tr', {}, [
+              el('th', { text: 'Ingredient' }), el('th', { text: 'Why it is not a component' })
+            ])]),
+            rows
+          ])
+        ])])
+      ]);
+      body.appendChild(details);
+    }
+
+    card.appendChild(body);
+    wireSheet(mountSheet(card));
+  }
+
+  /* ============================== small SVG + tooltip helpers ============== */
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  function svgEl(tag, attrs) {
+    const node = document.createElementNS(SVGNS, tag);
+    for (const k in (attrs || {})) {
+      if (attrs[k] === null || attrs[k] === undefined) continue;
+      node.setAttribute(k, String(attrs[k]));
+    }
+    return node;
+  }
+
+  /** Sequential scale in the single accent hue. Used for similarity heatmaps. */
+  function accentRamp(t) {
+    t = Math.max(0, Math.min(1, t));
+    const stops = [[246, 249, 247], [214, 233, 226], [151, 200, 183],
+                   [58, 148, 121], [11, 106, 84]];
+    const x = t * (stops.length - 1), i = Math.floor(x), f = x - i;
+    const a = stops[i], b = stops[Math.min(i + 1, stops.length - 1)];
+    return 'rgb(' + Math.round(a[0] + (b[0] - a[0]) * f) + ',' +
+      Math.round(a[1] + (b[1] - a[1]) * f) + ',' +
+      Math.round(a[2] + (b[2] - a[2]) * f) + ')';
+  }
+
+  let tipNode = null;
+  function tipShow(text, ev) {
+    if (!tipNode) {
+      tipNode = el('div', { class: 'tip', role: 'status', 'aria-live': 'polite' });
+      document.body.appendChild(tipNode);
+    }
+    tipNode.textContent = text;
+    tipNode.style.opacity = '1';
+    const x = Math.min(ev.clientX + 14, window.innerWidth - tipNode.offsetWidth - 12);
+    const y = Math.min(ev.clientY + 14, window.innerHeight - tipNode.offsetHeight - 12);
+    tipNode.style.left = Math.max(8, x) + 'px';
+    tipNode.style.top = Math.max(8, y) + 'px';
+  }
+  function tipHide() { if (tipNode) tipNode.style.opacity = '0'; }
+
+  /** Draw a scipy dendrogram (icoord/dcoord) into an <svg> group. */
+  function drawDendro(g, dendro, orient, leafStep, leafOffset, depthPx, colour) {
+    const ic = dendro.icoord, dc = dendro.dcoord;
+    if (!ic || !ic.length) return;
+    let maxd = 0;
+    dc.forEach((seg) => seg.forEach((v) => { if (v > maxd) maxd = v; }));
+    if (maxd <= 0) maxd = 1;
+    const leafAt = (v) => leafOffset + ((v - 5) / 10) * leafStep;
+    for (let k = 0; k < ic.length; k++) {
+      const xs = ic[k], ys = dc[k];
+      let d = '';
+      for (let p = 0; p < 4; p++) {
+        const leaf = leafAt(xs[p]), dep = (ys[p] / maxd) * depthPx;
+        const X = orient === 'left' ? depthPx - dep : leaf;
+        const Y = orient === 'left' ? leaf : depthPx - dep;
+        d += (p === 0 ? 'M' : 'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';
+      }
+      g.appendChild(svgEl('path', { d, fill: 'none', stroke: colour || '#c7d4cf',
+                                    'stroke-width': 1 }));
+    }
+  }
+
+  /** Average-linkage ordering of binary vectors, for the compare grid. */
+  function clusterOrder(vectors) {
+    const n = vectors.length;
+    if (n < 3) return vectors.map((_, i) => i);
+    const dist = (a, b) => {
+      let inter = 0, uni = 0;
+      for (let k = 0; k < a.length; k++) {
+        const x = a[k], y = b[k];
+        if (x || y) { uni++; if (x && y) inter++; }
+      }
+      return uni ? 1 - inter / uni : 0;
+    };
+    const clusters = vectors.map((v, i) => ({ members: [i], vec: v.slice() }));
+    const active = clusters.map((_, i) => i);
+    while (active.length > 1) {
+      let bi = 0, bj = 1, bd = Infinity;
+      for (let a = 0; a < active.length; a++) {
+        for (let b = a + 1; b < active.length; b++) {
+          const d = dist(clusters[active[a]].vec, clusters[active[b]].vec);
+          if (d < bd) { bd = d; bi = a; bj = b; }
+        }
+      }
+      const A = clusters[active[bi]], B = clusters[active[bj]];
+      clusters.push({
+        members: A.members.concat(B.members),
+        vec: A.vec.map((v, k) => (v * A.members.length + B.vec[k] * B.members.length) /
+          (A.members.length + B.members.length))
+      });
+      active.splice(bj, 1); active.splice(bi, 1);
+      active.push(clusters.length - 1);
+    }
+    return clusters[clusters.length - 1].members;
+  }
+
+  /* ------------------------------------------------------- page plumbing --- */
+  window.addEventListener('popstate', () => {
+    const id = new URLSearchParams(location.search).get('medium');
+    if (id) openMedium(id, { replace: true });
+    else closeSheet(false);
+  });
+
+  /** Delegate medium links: real hrefs, opened in place, still middle-clickable. */
+  function delegateMediumLinks(root) {
+    (root || document).addEventListener('click', (e) => {
+      const a = e.target.closest ? e.target.closest('a[data-medium]') : null;
+      if (!a) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      openMedium(a.dataset.medium);
+    });
+  }
+
+  return {
+    esc, fmt, share, withDenominator, pctOrAbsent, el, getJSON, permalink, flatten,
+    loadCatalog, loadSummary, loadCompounds, loadFamilies, loadTombstones,
+    evidenceClasses, evidenceMeta, evidenceChip, evidenceBar, evidenceKey,
+    evidenceLegend,
+    dominantEvidence, classOfTier, o2Chip, licenceChip, verificationChip,
+    announce, makeTable, openMedium, closeSheet, delegateMediumLinks,
+    downloadText, xrefUrl, svgEl, accentRamp, tipShow, tipHide, drawDendro,
+    clusterOrder,
+    get catalog() { return catalog; }
+  };
+})();

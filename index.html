@@ -2,298 +2,586 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Media — a library of GEM-ready growth &amp; simulation media</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230a5c49%27/%3E%3Cpath d=%27M13 5h6v6l5 11a2 2 0 0 1-2 3H10a2 2 0 0 1-2-3l5-11z%27 fill=%27none%27 stroke=%27%237fe6c8%27 stroke-width=%272%27/%3E%3Ccircle cx=%2716%27 cy=%2721%27 r=%272%27 fill=%27%237fe6c8%27/%3E%3C/svg%3E">
-<meta name="description" content="A semi-curated, citation-backed library of growth & simulation media for genome-scale metabolic models — every component mapped to a standard BiGG exchange reaction.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediaDB: growth media for genome-scale models, with their evidence</title>
+<meta name="description" content="A library of growth and simulation media for genome-scale metabolic models. Every component is mapped to a BiGG exchange and labelled with how its identity was actually decided: by structure, by an identifier, by a name string, by a class assumption, or supplied by the pipeline.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/media.css">
 </head>
 <body>
+<a class="skip" href="#explore">Skip to the library</a>
 
 <nav class="nav"><div class="wrap">
-  <a class="brand" href="index.html"><span class="dot"></span> Media</a>
-  <div class="links">
-    <a href="#explore" class="active">Explore</a>
+  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
+  <div class="navlinks">
+    <a href="index.html" aria-current="page">Explore</a>
+    <a href="families.html">Families</a>
     <a href="compare.html">Compare</a>
     <a href="patterns.html">Patterns</a>
-    <a href="API.md" class="ext hide-sm">API</a>
-    <a href="https://github.com/omidard/Media" class="ext hide-sm" target="_blank">GitHub ↗</a>
+    <a href="methods.html">Methods &amp; limits</a>
+    <a href="API.md">API</a>
+    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
   </div>
 </div></nav>
 
-<header class="hero">
-  <div class="hero-grid wrap">
-    <div class="hero-copy">
-      <div class="eyebrow"><span class="eb-dot"></span>Genome-scale metabolic modelling · validation-data suite</div>
-      <h1>The <span class="grad">growth media</span> library for metabolic models.</h1>
-      <p class="lead">The world's lab benches, food matrices, biospecimens and literature — distilled into
-        thousands of citation-backed media, every component mapped to a standard <b>BiGG exchange reaction</b>,
-        so any genome-scale model can adopt a medium in one line.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="#explore">Explore the library <span class="btn-arrow">→</span></a>
-        <a class="btn btn-ghost" href="API.md">Use the data API</a>
-      </div>
-      <div class="hero-tags">
-        <span class="htag">★ curated reference collection</span>
-        <span class="htag">BiGG-mapped exchanges</span>
-        <span class="htag">one-line COBRApy import</span>
-      </div>
-    </div>
-    <div class="hero-viz">
-      <div class="viz-frame">
-        <canvas id="hero-net"></canvas>
-        <div class="viz-cap"><span class="mono">experiment → data → model</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-fade"></div>
-</header>
+<main id="main">
 
-<div class="wrap">
-  <div class="stats" id="stats">
-    <div class="stat"><div class="n" id="s-total">—</div><div class="l">Semi-curated media</div></div>
-    <div class="stat"><div class="n" id="s-rec">—</div><div class="l">Component records</div></div>
-    <div class="stat"><div class="n" id="s-cmp">—</div><div class="l">Distinct compounds</div></div>
-    <div class="stat"><div class="n" id="s-db">—</div><div class="l">Source databases</div></div>
-  </div>
-  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:16px">
-    <div class="stat" style="flex:0 1 250px;text-align:center"><div class="n" id="stat-views">—</div><div class="l"><svg class="l-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Page views</div></div>
-    <div class="stat" style="flex:0 1 250px;text-align:center"><div class="n" id="stat-downloads">—</div><div class="l"><svg class="l-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>Downloads</div></div>
-  </div>
-  <div class="muted" style="text-align:center;font-size:.78rem;margin-top:8px">Live usage since launch · privacy-friendly analytics (GoatCounter)</div>
-</div>
-
-<section class="section feature"><div class="wrap">
-  <div class="feat-grid">
-    <div class="feat-copy" data-rise>
-      <div class="eyebrow">From library to model</div>
-      <h2>Adopt any medium<br>in <span class="grad-ink">one line.</span></h2>
-      <p>Every medium is already resolved to standard <b>BiGG exchange reactions</b> with bounds — no manual
-        mapping, no unit wrangling. Pull it straight into COBRApy and constrain your model.</p>
-      <ul class="feat-list">
-        <li><span class="fl-ic"></span>Components pre-mapped to exchange ids</li>
-        <li><span class="fl-ic"></span>Bounds ready — presence, or measured rates</li>
-        <li><span class="fl-ic"></span>Every medium keeps its original citation</li>
-      </ul>
-      <a class="btn btn-ghost btn-sm feat-cta" href="API.md">Read the data API →</a>
+<header class="masthead"><div class="wrap">
+  <div class="cols">
+    <div>
+      <p class="kicker">Growth media for genome-scale metabolic models</p>
+      <h1>A media library that shows its evidence.</h1>
+      <p class="lead" id="claim">
+        <span class="skeleton" style="display:inline-block;width:34ch;vertical-align:middle"></span>
+      </p>
+      <p style="margin-top:var(--s4)" class="chip-line">
+        <a class="btn btn-primary" href="#explore">Browse the library</a>
+        <a class="btn" href="families.html">Base media</a>
+        <a class="btn" href="methods.html">Methods</a>
+      </p>
     </div>
-    <div class="code-card" data-rise>
-      <div class="cc-bar"><span class="cc-dot"></span><span class="cc-dot"></span><span class="cc-dot"></span>
-        <span class="cc-file mono">adopt_medium.py</span>
-        <button class="cc-copy" id="cc-copy" title="Copy"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy</span></button></div>
-      <pre class="cc-body"><code id="cc-code"></code></pre>
-      <div class="cc-out"><span class="cc-prompt">→</span> objective <b>0.874&nbsp;h⁻¹</b> <span class="cc-ok">✓ matches the measured growth rate</span></div>
+    <div class="card card-p">
+      <h2 style="font-size:var(--t-lg)">How every component identity was decided</h2>
+      <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s1)" id="ev-caption">
+        Reading the corpus.
+      </p>
+      <div style="margin-top:var(--s3)" id="ev-bar"></div>
+      <div id="ev-key"></div>
+      <details class="disclosure" style="margin-top:var(--s3);border:0">
+        <summary style="padding-left:0;padding-right:0">
+          What each of these six classes means, in full
+        </summary>
+        <div style="padding:0"><div id="ev-legend"></div></div>
+      </details>
     </div>
   </div>
-</div></section>
+</div></header>
 
-<section class="section"><div class="wrap">
-  <div class="portals">
-    <a class="portal" data-rise href="#explore">
-      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
-      <h3>Explore</h3><p>Search and filter every medium by category, source, food group and oxygen. Click any one to inspect its full component list, cross-references and citation — then copy it into COBRApy.</p>
-      <span class="go">Browse all media →</span></a>
-    <a class="portal" data-rise href="compare.html">
-      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></div>
-      <h3>Compare</h3><p>Put two to eight media side by side. See a Jaccard similarity matrix, an UpSet intersection plot, and a clustered grid of exactly which compounds they share and where they diverge.</p>
-      <span class="go">Compare formulations →</span></a>
-    <a class="portal" data-rise href="patterns.html">
-      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
-      <h3>Patterns</h3><p>A hierarchically clustered view of the whole collection — which compounds co-occur, and how media groups separate by composition. Row- and column-clustered heatmaps with dendrograms.</p>
-      <span class="go">See the clustering →</span></a>
+<section class="section" id="explore"><div class="wrap">
+  <div class="section-head">
+    <h2>Browse the library</h2>
+    <p>Search by medium name, base-medium family, source database or organism scope, or
+      switch the search to a compound and find every medium that contains it. Every row
+      opens a record with its full component list, its provenance and its licence.</p>
   </div>
-</div></section>
-
-<section class="section" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><div class="eyebrow">At a glance</div><h2>What's in the library</h2></div>
-  <div class="bento">
-    <div class="card card-p bento-cat" data-rise><div class="ch-head"><h4>Media by category</h4><span class="ch-sub">3 classes</span></div><div class="ch-box" style="height:236px"><canvas id="ch-cat"></canvas></div></div>
-    <div class="card card-p bento-db" data-rise><div class="ch-head"><h4>Media by source database</h4><span class="ch-sub">provenance</span></div><div class="ch-box" style="height:236px"><canvas id="ch-db"></canvas></div></div>
-    <div class="card card-p bento-cmp" data-rise><div class="ch-head"><h4>Most common components</h4><span class="ch-sub">across all media</span></div><div class="ch-box" style="height:300px"><canvas id="ch-cmp"></canvas></div></div>
-    <div class="card card-p bento-metric" data-rise>
-      <div class="metric-row"><div class="metric"><div class="mv" id="m-med">50</div><div class="ml">components in the median medium</div></div></div>
-      <div class="metric-row"><div class="metric"><div class="mv" id="m-max">—</div><div class="ml">in the richest formulation</div></div></div>
-      <div class="complexity-bar"><span class="cb-min">1</span><div class="cb-track"><div class="cb-fill" id="cb-fill"></div><div class="cb-median" id="cb-median"></div></div><span class="cb-max" id="cb-maxlbl">—</span></div>
-      <div class="ch-sub" style="margin-top:2px">Formulation complexity — from single-substrate defined media to full-spectrum food matrices.</div>
-    </div>
-  </div>
-</div></section>
-
-<section class="section" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><div class="eyebrow">Mapping coverage</div><h2>How completely is each medium mapped?</h2>
-    <p>The distribution of coverage across the whole library — the share of each medium's compounds that
-      resolve to a standard BiGG exchange. The library is near-complete: almost every medium sits in the
-      <b style="color:#12a37e">high-confidence</b> band. The spectrum bar below splits the collection by
-      reliability. Hover a bar for its count.</p></div>
-  <div class="card card-p" data-rise>
-    <canvas id="cov-scatter" style="width:100%;height:440px;display:block"></canvas>
-  </div>
-</div></section>
-
-<section class="section" id="explore" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><div class="eyebrow">Explorer</div><h2>Browse every medium</h2>
-    <p>Sorted by curation tier — our <b>★ curated reference collection</b> leads the frontier, then expert-curated ★, paper-verified ✓, database-sourced ●, and auto-extracted ⚠. Every medium is cited and mapped through the same pipeline. Click a row to open its full detail view.</p></div>
-
-  <div class="card card-p" style="margin-bottom:16px"><div style="display:grid;grid-template-columns:repeat(5,1fr) auto;gap:14px;align-items:end" class="filters">
-    <div><label class="lbl">Curation</label><select id="f-cur" class="input"><option value="">All</option><option value="curated">★ Curated reference</option><option value="expert">★ Expert-curated</option><option value="verified">✓ Paper-verified</option><option value="database">● Database source</option><option value="auto">⚠ Auto-extracted</option></select></div>
-    <div><label class="lbl">Category</label><select id="f-cat" class="input"><option value="">All</option></select></div>
-    <div><label class="lbl">Database</label><select id="f-src" class="input"><option value="">All</option></select></div>
-    <div><label class="lbl">Food group</label><select id="f-grp" class="input"><option value="">All</option></select></div>
-    <div><label class="lbl">Oxygen</label><select id="f-o2" class="input"><option value="">All</option><option value="1">Aerobic</option><option value="0">Anaerobic</option></select></div>
-    <button class="btn btn-ghost btn-sm" onclick="clearF()">Clear</button>
-  </div></div>
 
   <div class="card card-p">
-    <div id="loading" style="text-align:center;color:var(--muted);padding:40px"><div class="mono">Loading media…</div></div>
-    <div class="viz-wrap" style="border:0">
-      <table id="tbl" class="stripe hover" style="width:100%;display:none">
-        <thead><tr><th>Medium</th><th>Curation</th><th>Category</th><th>Organism scope</th><th>O₂</th><th>Components</th><th>Coverage</th><th>In BiGGr</th><th>Database</th><th>Citation</th></tr></thead>
-        <tbody></tbody></table>
+    <div style="display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(190px,1fr))">
+      <div class="field" style="grid-column:1/-1">
+        <label for="q">Search</label>
+        <input id="q" class="input" type="search"
+               placeholder="A medium name, family, source or organism">
+        <p class="muted" style="font-size:var(--t-cap)" id="q-scope">
+          Searches medium name, base-medium family, source database and organism scope,
+          ignoring case and punctuation, so "BG-11" and "BG11" return the same 53 media.
+          It does not search inside citations; open a record for its full citation.
+        </p>
+      </div>
+      <div class="field">
+        <label for="f-compound">Contains the compound</label>
+        <input id="f-compound" class="input" type="search" list="compound-list"
+               placeholder="glucose, EX_glc__D_e, C00031">
+        <datalist id="compound-list"></datalist>
+        <p class="muted" style="font-size:var(--t-cap)" id="compound-note">
+          A BiGG exchange, a metabolite name, a KEGG or ChEBI id, or an InChIKey.
+        </p>
+      </div>
+      <div class="field">
+        <label for="f-evidence">Strongest evidence at least</label>
+        <select id="f-evidence" class="input"><option value="">Any</option></select>
+      </div>
+      <div class="field">
+        <label for="f-source">Source database</label>
+        <select id="f-source" class="input"><option value="">All sources</option></select>
+      </div>
+      <div class="field">
+        <label for="f-category">Category</label>
+        <select id="f-category" class="input"><option value="">All categories</option></select>
+      </div>
+      <div class="field">
+        <label for="f-oxygen">Oxygen regime</label>
+        <select id="f-oxygen" class="input">
+          <option value="">Any regime</option>
+          <option value="aerobic">Aerobic</option>
+          <option value="anaerobic">Anaerobic</option>
+          <option value="facultative">Facultative</option>
+          <option value="__unknown">Unknown (not recorded)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-licence">Licence</label>
+        <select id="f-licence" class="input">
+          <option value="">Any licence</option>
+          <option value="__commercial">Commercial use permitted</option>
+          <option value="__noncommercial">Commercial use NOT permitted</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-derived">Pipeline-derived components</label>
+        <select id="f-derived" class="input">
+          <option value="">Any amount</option>
+          <option value="none">None: every component is from the source</option>
+          <option value="some">Some</option>
+          <option value="half">More than half</option>
+          <option value="all">All of them</option>
+        </select>
+      </div>
+      <div class="field" style="justify-content:flex-end">
+        <button class="btn" type="button" id="clear">Clear every filter</button>
+      </div>
     </div>
   </div>
-  <p class="muted" style="font-size:.85rem;margin-top:12px">Data &amp; schema: <a href="DESIGN.md">provenance rules</a> · <a href="API.md">programmatic API</a> · every medium retains its original citation.</p>
+
+  <div class="tablebar">
+    <p class="resultline" id="resultline" role="status" aria-live="polite">Loading the catalogue.</p>
+    <div class="pager" id="pager"></div>
+  </div>
+  <div class="tablewrap">
+    <table class="grid" id="table">
+      <thead><tr>
+        <th class="sortable"><button type="button" data-sort="name">Medium <span class="arrow" data-arrow="name"></span></button></th>
+        <th class="sortable opt"><button type="button" data-sort="n_components">Components <span class="arrow" data-arrow="n_components"></span></button></th>
+        <th class="opt">Evidence</th>
+        <th class="sortable opt"><button type="button" data-sort="pct_covered_source">From source <span class="arrow" data-arrow="pct_covered_source"></span></button></th>
+        <th class="opt">O₂</th>
+        <th class="sortable opt"><button type="button" data-sort="source_db">Source <span class="arrow" data-arrow="source_db"></span></button></th>
+        <th class="opt">Licence</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="tablebar">
+    <p class="muted" style="font-size:var(--t-cap)">
+      The library is a frozen snapshot. Numbers on this page are read from
+      <code>data/web/catalog.json</code>, which is written from the records themselves by
+      <code>tools/build_web_payload.py</code>.
+      <a href="methods.html">Read the methods and the limits</a>.
+    </p>
+  </div>
 </div></section>
 
-<footer class="ft"><div class="wrap">
-  <div><b style="color:var(--body)">Media</b> · a GEM validation-data resource · data CC-BY-4.0 (cite each medium's original source)</div>
-  <div><a href="https://github.com/omidard/Media" target="_blank">github.com/omidard/Media</a> · <a href="API.md">API</a> · <a href="compare.html">Compare</a> · <a href="patterns.html">Patterns</a></div>
+<section class="section" style="padding-top:0"><div class="wrap">
+  <div style="display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+    <div class="card card-p">
+      <h3>Where the media come from</h3>
+      <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)">
+        Every source database, with its share of the library and the licence its records carry.
+      </p>
+      <div class="barlist" id="chart-sources"></div>
+    </div>
+    <div class="card card-p">
+      <h3>How much of each source recipe was captured</h3>
+      <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)" id="cov-caption">
+        The share of a medium's own stated ingredient list that reached a BiGG exchange.
+        Pipeline-derived components are excluded from both sides of this fraction, which is
+        why it is lower, and more honest, than the coverage number this project used to publish.
+      </p>
+      <div class="hist" id="chart-coverage" role="img" aria-label="Distribution of source coverage"></div>
+      <div class="axis"><span>0%</span><span>50%</span><span>100%</span></div>
+      <div class="barlist" id="chart-coverage-bands" style="margin-top:var(--s3)"></div>
+    </div>
+  </div>
+</div></section>
+
+</main>
+
+<footer class="foot"><div class="wrap">
+  <div class="footgrid">
+    <div>
+      <h4>Attribution</h4>
+      <p style="margin-top:var(--s2)">This resource redistributes data from other people's
+        databases. Each medium record carries the licence of the source it came from, and
+        the full schedule is in <a href="LICENSE">LICENSE</a> and <a href="NOTICE">NOTICE</a>.</p>
+      <ul>
+        <li><b>USDA FoodData Central</b>: U.S. Department of Agriculture, Agricultural
+          Research Service. Public domain (CC0 1.0).</li>
+        <li><b>DSMZ MediaDive</b>: MediaDive (c) 2022 by DSMZ, licensed under CC BY 4.0.
+          Includes media aggregated from JCM (RIKEN) and CCAP.</li>
+        <li><b>FooDB</b>: FooDB version 1.0, licensed CC BY-NC 4.0. Not for commercial use.</li>
+        <li><b>MediaDB (ISB defined media)</b>: Institute for Systems Biology. All rights
+          reserved by the upstream provider; republished here for reference only.</li>
+        <li><b>Human Metabolome Database (HMDB 5.0)</b>: licensed CC BY-NC 4.0.</li>
+        <li><b>BiGG Models</b>: University of California San Diego; the exchange-reaction
+          namespace every component is mapped into.</li>
+        <li><b>MetaNetX</b>: licensed CC BY 4.0; the cross-reference tables behind
+          structural identity checks.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Use it</h4>
+      <ul>
+        <li><a href="API.md">Programmatic API and bulk exports</a></li>
+        <li><a href="methods.html">Methods, limits and the withdrawn records</a></li>
+        <li><a href="DESIGN.md">Record schema</a> and <a href="PROVENANCE.md">provenance rules</a></li>
+        <li><a href="https://github.com/omidard/Media" rel="noopener">Source code on GitHub</a></li>
+      </ul>
+      <p style="margin-top:var(--s3)">Code is MIT. Data is <b>not</b> under a single licence:
+        it is per source, and 1,189 of the 13,515 records may not be used commercially.
+        Filter for them above rather than assuming.</p>
+    </div>
+    <div>
+      <h4>Cite</h4>
+      <p style="margin-top:var(--s2)">Cite the primary publication recorded in each medium's
+        <code>provenance.citation</code>, not this compilation alone. A record here is an
+        encoding of somebody else's formulation.</p>
+      <p style="margin-top:var(--s3)" id="build-stamp">Build stamp loading.</p>
+    </div>
+  </div>
 </div></footer>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="assets/media.js"></script>
 <script>
-let DATA=[],table;
-// premium micro-interactions: number count-up + scroll reveal
-function countUp(el,to,suffix){if(!el)return;const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  if(reduce||to<50){el.textContent=fmt(to)+(suffix||'');return;}
-  const dur=1100,t0=performance.now();function step(now){const p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3);
-    el.textContent=fmt(Math.round(to*e))+(suffix||'');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
-const _revObs=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');_revObs.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-function initReveal(){document.querySelectorAll('[data-rise]').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,6)*55)+'ms';_revObs.observe(el);});}
-function clearF(){['f-cur','f-cat','f-src','f-grp','f-o2'].forEach(id=>document.getElementById(id).value='');table.columns().search('').draw();}
-function popF(id,vals){const s=document.getElementById(id);[...new Set(vals)].filter(Boolean).sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});}
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const el = MDB.el, fmt = MDB.fmt;
+  const live = null;   // the result line is itself the live region
+  let ALL = [], table = null, compoundHits = null;
 
-heroNetwork(document.getElementById('hero-net'));
+  MDB.delegateMediumLinks();
 
-// ---- one-line code showcase ----
-(function(){
-  const raw=`import cobra, requests
+  function rowNode(r) {
+    const name = el('td');
+    name.appendChild(el('a', {
+      class: 'medlink', href: MDB.permalink(r.id), 'data-medium': r.id, text: r.name
+    }));
+    const meta = el('div', { class: 'rowmeta' });
+    const dom = MDB.dominantEvidence(r.evidence);
+    meta.textContent = [
+      fmt(r.n_components) + ' components, ' + fmt(r.n_derived) + ' pipeline-derived',
+      'mostly ' + dom.cls.label.toLowerCase(),
+      r.oxygen || 'O₂ unknown',
+      r.source_db
+    ].join(' · ');
+    name.appendChild(meta);
+    if (r.family) {
+      name.appendChild(el('div', {}, [el('a', {
+        class: 'chip', href: 'families.html?family=' + encodeURIComponent(r.family),
+        text: 'family: ' + r.family
+      })]));
+    }
 
-model = cobra.io.load_model("iML1515")
+    const comps = el('td', { class: 'opt tnum' }, [
+      el('span', {
+        text: r.n_measured === null
+          ? fmt(r.n_components) + ' mapped'
+          : fmt(r.n_components) + ' of ' + fmt(r.n_measured)
+      }),
+      el('span', {
+        class: 'cellnote',
+        text: (r.n_measured === null
+          ? 'the compounds this medium states were not counted; '
+          : '') +
+          fmt(r.n_sourced) + ' from source, ' + fmt(r.n_derived) + ' derived'
+      })
+    ]);
 
-# pull a medium straight from the Media library
-base = "https://omidard.github.io/Media/data/media/"
-med  = requests.get(base + "glucose_m9.json").json()
+    const ev = el('td', { class: 'opt' }, [MDB.evidenceBar(r.evidence, { mini: true })]);
+    const dominant = MDB.dominantEvidence(r.evidence);
+    ev.appendChild(el('span', {
+      class: 'cellnote',
+      text: 'mostly ' + dominant.cls.label.toLowerCase() + ' (' +
+        MDB.share(dominant.n, r.n_components) + ')'
+    }));
 
-# already BiGG-mapped exchanges with bounds → drop it in
-model.medium = {c["exchange"]: -c["lower_bound"]
-                for c in med["components"]}
+    const cov = el('td', { class: 'opt tnum' });
+    cov.appendChild(el('span', { text: MDB.pctOrAbsent(r.pct_covered_source) }));
+    if (r.pct_covered_source_is_upper_bound && r.pct_covered_source > 0) {
+      cov.appendChild(el('span', {
+        class: 'cellnote', title: 'The denominator is a floor, so this share is a ceiling.',
+        text: 'at most'
+      }));
+    }
 
-model.slim_optimize()`;
-  // tokenise: pull comments + strings out first (placeholders) so keyword/attr regexes can't corrupt them
-  const store=[];const keep=(cls,txt)=>{store.push('<span class="'+cls+'">'+txt+'</span>');return '@@'+(store.length-1)+'@@';};
-  let hl=raw.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))
-    .replace(/(#[^\n]*)/g,m=>keep('c',m))
-    .replace(/("[^"]*")/g,m=>keep('s',m))
-    .replace(/\b(import|for|in|return|from|as)\b/g,'<span class="k">$1</span>')
-    .replace(/\.(load_model|get|json|slim_optimize)\b/g,'.<span class="f">$1</span>')
-    .replace(/\b(cobra|requests|model|med|base)\b/g,'<span class="v">$1</span>')
-    .replace(/@@(\d+)@@/g,(m,i)=>store[+i]);
-  document.getElementById('cc-code').innerHTML=hl;
-  const btn=document.getElementById('cc-copy');
-  btn.addEventListener('click',()=>{navigator.clipboard.writeText(raw).then(()=>{
-    btn.classList.add('ok');btn.querySelector('span').textContent='Copied';
-    setTimeout(()=>{btn.classList.remove('ok');btn.querySelector('span').textContent='Copy';},1600);});});
+    return el('tr', {}, [
+      name, comps, ev, cov,
+      el('td', { class: 'opt' }, [MDB.o2Chip(r.oxygen)]),
+      el('td', { class: 'opt', text: r.source_db }),
+      el('td', { class: 'opt' }, [MDB.licenceChip(r.license, r.commercial_use_ok)])
+    ]);
+  }
+
+  function currentFilters() {
+    return {
+      q: $('q').value.trim().toLowerCase(),
+      evidence: $('f-evidence').value,
+      source: $('f-source').value,
+      category: $('f-category').value,
+      oxygen: $('f-oxygen').value,
+      licence: $('f-licence').value,
+      derived: $('f-derived').value
+    };
+  }
+
+  const EV_ORDER = () => MDB.evidenceClasses().map((c) => c.id);
+
+  function apply() {
+    const f = currentFilters();
+    const order = EV_ORDER();
+    const wanted = f.evidence ? order.indexOf(f.evidence) : -1;
+    const rows = ALL.filter((r) => {
+      if (compoundHits && !compoundHits.has(r._i)) return false;
+      if (f.source && r.source_db !== f.source) return false;
+      if (f.category && r.category !== f.category) return false;
+      if (f.oxygen === '__unknown' && r.oxygen !== null) return false;
+      if (f.oxygen && f.oxygen !== '__unknown' && r.oxygen !== f.oxygen) return false;
+      if (f.licence === '__commercial' && r.commercial_use_ok !== true) return false;
+      if (f.licence === '__noncommercial' && r.commercial_use_ok === true) return false;
+      if (f.derived === 'none' && r.n_derived !== 0) return false;
+      if (f.derived === 'some' && !r.n_derived) return false;
+      if (f.derived === 'half' && !(r.n_derived * 2 > r.n_components)) return false;
+      if (f.derived === 'all' && r.n_derived !== r.n_components) return false;
+      if (wanted >= 0) {
+        let best = order.length;
+        r.evidence.forEach((n, i) => { if (n > 0 && i < best) best = i; });
+        if (best > wanted) return false;
+      }
+      if (f.q) {
+        const flat = MDB.flatten(f.q);
+        if (r._hay.indexOf(f.q) < 0 && (!flat || r._flat.indexOf(flat) < 0)) return false;
+      }
+      return true;
+    });
+    table.setRows(rows);
+  }
+
+  function fillSelect(node, values, labeller) {
+    const seen = [...new Set(values.filter((v) => v !== null && v !== undefined))].sort();
+    seen.forEach((v) => node.appendChild(
+      el('option', { value: v, text: labeller ? labeller(v) : v })));
+  }
+
+  function drawSources(cat) {
+    const box = $('chart-sources');
+    const entries = Object.entries(cat.by_source_db)
+      .filter(([k]) => k !== '_of')
+      .sort((a, b) => b[1] - a[1]);
+    const top = entries[0][1];
+    const licenceOf = {};
+    cat.licences.forEach((l) => l.sources.forEach((s) => { licenceOf[s] = l; }));
+    entries.forEach(([label, n]) => {
+      const lic = licenceOf[label];
+      box.appendChild(el('div', { class: 'barrow' }, [
+        el('span', { class: 'lbl', title: label, text: label }),
+        el('span', { class: 'track' }, [
+          el('span', { class: 'fill', style: 'width:' + (100 * n / top) + '%' })
+        ]),
+        el('span', {
+          class: 'val',
+          text: MDB.withDenominator(n, cat.count) +
+            (lic ? ' · ' + (lic.commercial_use_ok ? lic.license : lic.license + ' ⚠') : '')
+        })
+      ]));
+    });
+  }
+
+  function drawCoverage(cat, rows) {
+    const bins = new Array(20).fill(0);
+    let notComputed = 0;
+    rows.forEach((r) => {
+      const p = r.pct_covered_source;
+      if (p === null || p === undefined) { notComputed += 1; return; }
+      let k = Math.floor(p / 5);
+      if (k > 19) k = 19;
+      if (k < 0) k = 0;
+      bins[k] += 1;
+    });
+    const tallest = Math.max.apply(null, bins);
+    const box = $('chart-coverage');
+    bins.forEach((n, k) => {
+      box.appendChild(el('span', {
+        class: 'b',
+        style: 'height:' + (tallest ? Math.max(2, 100 * n / tallest) : 0) + '%',
+        title: fmt(n) + ' of ' + fmt(rows.length) + ' media between ' +
+          (k * 5) + '% and ' + ((k + 1) * 5) + '% source coverage'
+      }));
+    });
+    box.setAttribute('aria-label',
+      'Distribution of source coverage over ' + fmt(rows.length) + ' media, in 5% bins. ' +
+      'The tallest bin holds ' + fmt(tallest) + ' media.');
+
+    const bands = cat.coverage_bands_source;
+    const bandBox = $('chart-coverage-bands');
+    const spec = [
+      ['At or above 90%', bands.high_ge_90],
+      ['60% to 90%', bands.mid_60_90],
+      ['Below 60%', bands.review_lt_60],
+      ['Not computed', bands.not_computed, 'the source states no ingredient list']
+    ];
+    const top = Math.max.apply(null, spec.map((s) => s[1]));
+    spec.forEach(([label, n, note]) => {
+      const lbl = el('span', { class: 'lbl' }, [el('span', { text: label })]);
+      if (note) lbl.appendChild(el('span', { class: 'sub', text: note }));
+      bandBox.appendChild(el('div', { class: 'barrow' }, [
+        lbl,
+        el('span', { class: 'track' }, [
+          el('span', { class: 'fill', style: 'width:' + (top ? 100 * n / top : 0) + '%' })
+        ]),
+        el('span', { class: 'val', text: MDB.withDenominator(n, cat.count) })
+      ]));
+    });
+    if (notComputed !== bands.not_computed) {
+      bandBox.appendChild(el('p', {
+        class: 'muted', style: 'font-size:var(--t-cap)',
+        text: 'Rendered from ' + fmt(rows.length) + ' rows; ' + fmt(notComputed) +
+          ' had no computed source coverage.'
+      }));
+    }
+  }
+
+  async function compoundFilter(query) {
+    const note = $('compound-note');
+    const term = query.trim();
+    if (!term) {
+      compoundHits = null;
+      note.textContent = 'A BiGG exchange, a metabolite name, a KEGG or ChEBI id, ' +
+        'or an InChIKey.';
+      apply();
+      return;
+    }
+    note.textContent = 'Loading the compound index.';
+    const idx = await MDB.loadCompounds();
+    const needle = term.toLowerCase();
+    const matches = Object.keys(idx.meta).filter((ex) => {
+      const m = idx.meta[ex];
+      return ex.toLowerCase() === needle ||
+        ex.toLowerCase().indexOf(needle) >= 0 ||
+        (m.bigg && m.bigg.toLowerCase() === needle) ||
+        (m.name && m.name.toLowerCase().indexOf(needle) >= 0) ||
+        (m.kegg && m.kegg.toLowerCase() === needle) ||
+        (m.chebi && m.chebi.toLowerCase() === needle) ||
+        (m.inchikey && m.inchikey.toLowerCase().indexOf(needle) >= 0);
+    });
+    if (!matches.length) {
+      compoundHits = new Set();
+      note.textContent = 'The compound index holds ' + fmt(idx.n_exchanges) +
+        ' exchanges across ' + fmt(idx.n_media) + ' media, and none of them matches “' +
+        term + '”. Try a BiGG id such as EX_glc__D_e.';
+      apply();
+      return;
+    }
+    compoundHits = new Set();
+    matches.forEach((ex) => idx.postings[ex].forEach((i) => compoundHits.add(i)));
+    const shownMatches = matches.slice(0, 6);
+    note.textContent = 'Matched ' + fmt(matches.length) + ' of ' + fmt(idx.n_exchanges) +
+      ' indexed exchanges (' + shownMatches.map((ex) => idx.meta[ex].name || ex).join(', ') +
+      (matches.length > shownMatches.length
+        ? ', showing ' + shownMatches.length + ' of ' + matches.length : '') +
+      '), present in ' + MDB.withDenominator(compoundHits.size, idx.n_media, 'media') + '.';
+    apply();
+  }
+
+  function debounce(fn, ms) {
+    let t = null;
+    return function () {
+      const args = arguments;
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(null, args), ms);
+    };
+  }
+
+  MDB.loadCatalog().then((cat) => {
+    ALL = cat.media;
+
+    const totals = cat.component_totals;
+    const derived = cat.evidence_classes.find((c) => c.id === 'derived');
+    const nameCls = cat.evidence_classes.find((c) => c.id === 'name');
+    $('claim').textContent =
+      fmt(cat.count) + ' media, ' + fmt(totals.n_components) +
+      ' components, every one mapped to a BiGG exchange. But ' +
+      MDB.withDenominator(derived.n, derived.of) +
+      ' were supplied by this pipeline rather than by the cited source, and ' +
+      MDB.withDenominator(nameCls.n, nameCls.of) +
+      ' were identified by a name string rather than by chemistry. ' +
+      'Every row here says which is which.';
+
+    $('ev-caption').textContent =
+      'Across ' + fmt(totals.n_components) + ' component records in ' + fmt(cat.count) +
+      ' media. The classes are ordered by the strength of the evidence, strongest first. ' +
+      'Widths are proportional, so the smallest class is a sliver: read the counts.';
+    $('ev-bar').appendChild(MDB.evidenceBar(
+      cat.evidence_classes.map((c) => c.n)));
+    $('ev-key').appendChild(MDB.evidenceKey(
+      cat.evidence_classes.map((c) => c.n), totals.n_components));
+    $('ev-legend').appendChild(MDB.evidenceLegend(
+      cat.evidence_classes.map((c) => c.n), totals.n_components));
+
+    const stamp = $('build-stamp');
+    stamp.textContent = 'Release built ' + cat.built_utc +
+      (cat.git_head ? ' from commit ' + cat.git_head.slice(0, 10) : '') +
+      ' over ' + fmt(cat.count) + ' records.';
+
+    fillSelect($('f-source'), ALL.map((r) => r.source_db));
+    fillSelect($('f-category'), ALL.map((r) => r.category));
+    cat.evidence_classes.forEach((c) => $('f-evidence').appendChild(
+      el('option', { value: c.id, text: c.label + ' or stronger' })));
+
+    table = MDB.makeTable({
+      tbody: $('tbody'),
+      resultLine: $('resultline'),
+      live: null,
+      pager: $('pager'),
+      renderRow: rowNode,
+      columnCount: 7,
+      universe: cat.count,
+      noun: 'media',
+      sortKey: 'name',
+      emptyMessage: 'Nothing in the library matches every filter at once. ' +
+        'Widen one of them, or clear them all.'
+    });
+    table.setRows(ALL);
+    const initial = document.querySelector('[data-arrow="' + table.sortState.key + '"]');
+    if (initial) initial.textContent = table.sortState.dir === 1 ? '▲' : '▼';
+
+    document.querySelectorAll('th.sortable button').forEach((b) => {
+      b.addEventListener('click', () => {
+        const state = table.sortBy(b.dataset.sort);
+        document.querySelectorAll('[data-arrow]').forEach((a) => { a.textContent = ''; });
+        const arrow = document.querySelector('[data-arrow="' + state.key + '"]');
+        if (arrow) arrow.textContent = state.dir === 1 ? '▲' : '▼';
+      });
+    });
+
+    ['q', 'f-evidence', 'f-source', 'f-category', 'f-oxygen', 'f-licence', 'f-derived']
+      .forEach((id) => {
+        const node = $(id);
+        node.addEventListener(node.tagName === 'SELECT' ? 'change' : 'input',
+          debounce(apply, node.tagName === 'SELECT' ? 0 : 180));
+      });
+    $('f-compound').addEventListener('input',
+      debounce((e) => compoundFilter(e.target.value), 260));
+    $('clear').addEventListener('click', () => {
+      ['q', 'f-compound', 'f-evidence', 'f-source', 'f-category', 'f-oxygen',
+        'f-licence', 'f-derived'].forEach((id) => { $(id).value = ''; });
+      compoundHits = null;
+      $('compound-note').textContent = 'A BiGG exchange, a metabolite name, a KEGG ' +
+        'or ChEBI id, or an InChIKey.';
+      apply();
+      $('q').focus();
+    });
+
+    drawSources(cat);
+    drawCoverage(cat, ALL);
+
+    const wanted = new URLSearchParams(location.search).get('medium');
+    if (wanted) MDB.openMedium(wanted, { replace: true });
+  }).catch((err) => {
+    $('resultline').textContent = '';
+    const box = $('table').closest('.tablewrap');
+    box.replaceChildren(el('div', { class: 'state error' }, [
+      el('h3', { text: 'The catalogue could not be loaded' }),
+      el('p', {
+        text: 'data/web/catalog.json did not load (' + (err.message || err.kind) +
+          '). Nothing below is missing data: the page has none to show. ' +
+          'Reload, or read the records directly from data/media/.'
+      })
+    ]));
+    $('claim').textContent = 'The catalogue could not be loaded, so this page states no numbers.';
+  });
 })();
-
-Promise.all([jget('data/index.json'),jget('data/media_stats.json'),jget('data/api/manifest.json').catch(()=>({}))]).then(([idx,st,mf])=>{
-  DATA=idx.media;
-  countUp(document.getElementById('s-total'),idx.count);
-  document.getElementById('s-rec').innerHTML=mf.component_records?Math.round(mf.component_records/1000)+'<span class="u">k</span>':'—';
-  countUp(document.getElementById('s-cmp'),mf.distinct_compounds||Object.keys(st.top_exchanges||{}).length);
-  document.getElementById('s-db').textContent=Object.keys(idx.by_source_db||{}).length;
-  initReveal();
-
-  document.getElementById('loading').style.display='none';
-  document.getElementById('tbl').style.display='table';
-  popF('f-cat',DATA.map(d=>d.category));popF('f-src',DATA.map(d=>d.source_db));popF('f-grp',DATA.map(d=>d.food_group));
-  table=$('#tbl').DataTable({data:DATA,pageLength:25,deferRender:true,order:[[1,'asc'],[0,'asc']],
-    columns:[
-      {data:'name',render:(d,t,r)=>`<a class="med-link" onclick="openMed('${r.id}')">${esc(d)}</a>`},
-      {data:'tier',render:(d,t,r)=>t==='display'?curationBadge(r.curation):(d==null?9:d),
-        type:'num',className:'col-curation'},
-      {data:'category',render:catBadge},
-      {data:'organism_scope',render:d=>esc((d||'').slice(0,26))},
-      {data:'aerobic',render:d=>d?'aerobic':'anaerobic'},
-      {data:'n_components',render:d=>fmt(d)},
-      {data:'pct_covered',render:(d,t,r)=>{const p=d==null?100:d;const col=p>=90?'#0f8a4e':p>=60?'#c77800':'#d0563b';
-        if(t!=='display')return p;
-        return `<div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:6px;background:#eef3f1;border-radius:3px;overflow:hidden;min-width:34px"><div style="height:6px;width:${p}%;background:${col}"></div></div><span style="font-size:.74rem;color:${col};font-weight:600">${p}%</span></div>`;}},
-      {data:'n_in_biggr',render:d=>fmt(d)},
-      {data:'source_db'},
-      {data:'citation',render:d=>`<span title="${esc(d)}">${esc((d||'').slice(0,54))}${(d||'').length>54?'…':''}</span>`},
-      {data:'food_group',visible:false},
-      {data:'curation',visible:false}
-    ],
-    language:{search:'',searchPlaceholder:'Search media…',info:'_START_–_END_ of _TOTAL_ media',lengthMenu:'_MENU_ per page'}});
-  // column indices: 0 name·1 curation(tier)·2 category·3 scope·4 O₂·5 comps·6 coverage·7 inBiGGr·8 database·9 citation·10 food_group(hidden)·11 curation-str(hidden)
-  const fm={'f-cur':11,'f-cat':2,'f-src':8,'f-grp':10,'f-o2':4};
-  Object.entries(fm).forEach(([id,col])=>document.getElementById(id).addEventListener('change',function(){
-    let v=this.value;if(id==='f-o2')v=v===''?'':(v==='1'?'aerobic':'anaerobic');
-    table.column(col).search(v?'^'+$.fn.dataTable.util.escapeRegex(v)+'$':'',true,false).draw();}));
-
-  Chart.defaults.font.family="Inter";Chart.defaults.color="#5b6b66";Chart.defaults.font.weight=500;
-  const TT={backgroundColor:'#0c231e',titleColor:'#eafaf5',bodyColor:'#cdeee3',padding:10,cornerRadius:9,
-    boxPadding:5,titleFont:{weight:'700'},displayColors:true,borderColor:'rgba(127,230,200,.25)',borderWidth:1};
-  const vgrad=(cv,c0,c1,h)=>{const g=cv.getContext('2d').createLinearGradient(0,0,0,h||236);g.addColorStop(0,c0);g.addColorStop(1,c1);return g;};
-  const hgrad=(cv,c0,c1,w)=>{const g=cv.getContext('2d').createLinearGradient(0,0,w||300,0);g.addColorStop(0,c0);g.addColorStop(1,c1);return g;};
-  const shade=(hex,f)=>{const n=parseInt(hex.slice(1),16),r=(n>>16)&255,gg=(n>>8)&255,b=n&255;const m=x=>Math.round(x+(f>0?(255-x)*f:x*f));return `rgb(${m(r)},${m(gg)},${m(b)})`;};
-
-  new Chart(document.getElementById('ch-cat'),{type:'doughnut',data:{labels:Object.keys(st.by_category),
-    datasets:[{data:Object.values(st.by_category),backgroundColor:Object.keys(st.by_category).map(c=>CAT_COLORS[c]||'#889'),
-      borderWidth:3,borderColor:'#fff',hoverOffset:8,borderRadius:4,spacing:2}]},
-    options:{cutout:'66%',responsive:true,maintainAspectRatio:false,animation:{animateRotate:true,duration:900,easing:'easeOutQuart'},
-      plugins:{legend:{position:'right',labels:{font:{size:12,weight:'600'},boxWidth:11,boxHeight:11,padding:13,usePointStyle:true,pointStyle:'circle'}},
-      tooltip:{...TT,callbacks:{label:c=>` ${c.label}: ${fmt(c.parsed)} (${Math.round(c.parsed/st.total*100)}%)`}}}}});
-
-  const dbe=Object.entries(idx.by_source_db||{}).sort((a,b)=>b[1]-a[1]);const dbcv=document.getElementById('ch-db');
-  new Chart(dbcv,{type:'bar',data:{labels:dbe.map(e=>e[0]),
-    datasets:[{data:dbe.map(e=>e[1]),backgroundColor:dbe.map(e=>{const c=DB_COLORS[e[0]]||'#0e8f70';return hgrad(dbcv,shade(c,-.12),shade(c,.28),dbcv.offsetWidth);}),
-      borderRadius:6,borderSkipped:false,barThickness:'flex',maxBarThickness:26}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,animation:{duration:800,easing:'easeOutQuart'},
-      plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` ${fmt(c.parsed.x)} media`}}},
-      scales:{x:{grid:{color:'#eef3f1',drawTicks:false},border:{display:false},ticks:{font:{size:11},callback:v=>v>=1000?(v/1000)+'k':v}},
-        y:{grid:{display:false},border:{display:false},ticks:{font:{size:11.5,weight:'600'}}}}}});
-
-  // NEW plot — most common components across the whole library
-  const cleanNm=s=>String(s||'').replace(/\s+C\d[A-Za-z0-9]*$/,'').replace(/\s*\(.*$/,'').slice(0,22);
-  const tx=(st.top_exchanges||[]).slice(0,12);const cmpcv=document.getElementById('ch-cmp');
-  new Chart(cmpcv,{type:'bar',data:{labels:tx.map(e=>cleanNm(e.name)||e.exchange.replace(/^EX_|_e$/g,'')),
-    datasets:[{data:tx.map(e=>e.n_media),backgroundColor:tx.map((e,i)=>hgrad(cmpcv,'#0a5c49',shade('#14b892',.15+.5*(1-i/tx.length)),cmpcv.offsetWidth)),
-      borderRadius:6,borderSkipped:false,barThickness:'flex',maxBarThickness:20}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,animation:{duration:900,easing:'easeOutQuart'},
-      plugins:{legend:{display:false},tooltip:{...TT,callbacks:{title:c=>c[0].label,label:c=>` in ${fmt(c.parsed.x)} media (${Math.round(c.parsed.x/st.total*100)}%)`}}},
-      scales:{x:{grid:{color:'#eef3f1',drawTicks:false},border:{display:false},ticks:{font:{size:10.5},callback:v=>v>=1000?(v/1000)+'k':v}},
-        y:{grid:{display:false},border:{display:false},ticks:{font:{size:11,weight:'600'},autoSkip:false}}}}});
-
-  // complexity metric
-  const md=st.ncomp_median||48,mx=st.ncomp_max||696;
-  document.getElementById('m-med').textContent=fmt(md);document.getElementById('m-max').textContent=fmt(mx);
-  document.getElementById('cb-maxlbl').textContent=fmt(mx);
-  setTimeout(()=>{document.getElementById('cb-fill').style.width='100%';document.getElementById('cb-median').style.left=(md/mx*100)+'%';},250);
-
-  // ---- coverage distribution ----
-  const covData=DATA.map(d=>({id:d.id,name:d.name,category:d.category,
-    pct_covered:(d.pct_covered==null?100:d.pct_covered),n_uncovered:(d.n_uncovered||0)}));
-  coverageScatter(document.getElementById('cov-scatter'),covData,openMed);
-
-  const mp=new URLSearchParams(location.search).get('medium');if(mp)setTimeout(()=>openMed(mp),200);
-});
 </script>
 </body>
 </html>

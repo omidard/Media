@@ -24,7 +24,7 @@ BACKUPS ?= $(REPO)/../media_curate_backups
 STAMP   := $(shell date +%Y%m%d-%H%M%S)
 
 .PHONY: help all check sample stages-sample stages test test-fast test-strict \
-        derived coverage coverage-index index api cluster stats presence manifest \
+        derived coverage coverage-index index api cluster stats presence web manifest \
         verify promote fetch fixtures clean-rebuild
 
 help:
@@ -35,7 +35,8 @@ help:
 	@echo "  stages        run the stage chain over all media -> data/_rebuild/media"
 	@echo "  test          pytest: schema, invariants, defect ledger, harness, tools"
 	@echo "  test-strict   same, but xfail-ledger entries must PASS (CI gate, later)"
-	@echo "  derived       rebuild index/stats/coverage/api/cluster/presence + MANIFEST"
+	@echo "  derived       rebuild index/stats/coverage/api/cluster/presence/web + MANIFEST"
+	@echo "  web           rebuild data/web/* (the browser payload) only"
 	@echo "  manifest      rebuild data/MANIFEST.json only"
 	@echo "  verify        rebuild derived into a temp dir and report differences"
 	@echo "  fetch         re-acquire the public upstream sources (network)"
@@ -83,7 +84,7 @@ test-strict:
 # data/coverage.json lost its generator entirely when stage 39 took authorship —
 # tools/build_coverage_index.py projects it from the corpus instead.
 
-derived: coverage-index index api cluster stats presence manifest
+derived: coverage-index index api cluster stats presence web manifest
 
 # `coverage` is NO LONGER part of `derived`, and that is a correctness fix, not a
 # convenience. Stage 39_recompute_coverage owns the coverage numbers once the chain
@@ -109,6 +110,14 @@ cluster:
 
 stats:
 	$(PY) tools/build_media_stats.py
+
+# The browser payload. It is built LAST of the data steps and BEFORE the manifest,
+# because it is projected straight from data/media and the manifest hashes it.
+# The same projection runs inside the chain as tools/stages/52_web_payload.py, so a
+# correction that makes the browser's honesty numbers unbuildable fails `make stages`
+# rather than surfacing on the deployed site.
+web:
+	$(PY) tools/build_web_payload.py
 
 presence:
 	$(PY) tools/build_presence_matrix.py

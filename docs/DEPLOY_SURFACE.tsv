@@ -1,0 +1,45 @@
+#
+# DEPLOY_SURFACE.tsv: the declaration Gate 4 reads before it renders this artifact.
+#
+# The deployed artifact is the repository root, served by GitHub Pages at
+# https://omidard.github.io/Media/. Five HTML pages, one stylesheet, one script, and
+# the data under data/. Nothing here is a claim about the page; every row is a thing
+# the gate must go and check for itself.
+#
+# Columns: row_kind	id	selector	detail	source	notes
+#
+row_kind	id	selector	detail	source	notes
+entry	explore		index.html		The library, its evidence composition, and the table.
+entry	families		families.html		Base media and their variants.
+entry	compare		compare.html		Two to eight media side by side.
+entry	patterns		patterns.html		Clustered composition patterns.
+entry	methods		methods.html		Methods, limits, licence schedule, withdrawn records.
+primary_control	search	#q	Free-text search over the library		Must be operable at 390px; the table below it is the result region.
+primary_control	compound	#f-compound	Find media containing a compound		Lazily loads the complete exchange index on first use.
+primary_control	evidence	#f-evidence	Filter by strongest evidence class		The six classes come from the payload, not from this page.
+primary_control	source	#f-source	Filter by source database		Options are built from the catalogue at load.
+primary_control	oxygen	#f-oxygen	Filter by oxygen regime		Four states including "unknown"; unknown is never folded into anaerobic.
+primary_control	licence	#f-licence	Filter to commercially usable records		1,189 of 13,515 records may not be used commercially.
+primary_control	derived	#f-derived	Filter by how much of a medium the pipeline supplied
+primary_control	clear	#clear	Clear every filter
+primary_control	results	#tbody	The result table		The result region for the search above it.
+headline_claim	library-claim	#claim	Media, component records, and how their identities were decided	data/web/catalog.json count=13,515 and component_totals.n_components=665,582; every number in the sentence is printed as "N of M (x%)"	Rendered by index.html from the payload; no number is typed into the markup.
+headline_claim	evidence-key	#ev-key	Component count in each of the six evidence classes	data/web/catalog.json evidence_classes[].of = 665,582 component records	Each chip prints its own denominator.
+headline_claim	coverage-bands	#chart-coverage-bands	Media per source-coverage band	data/web/catalog.json coverage_bands_source._of = 13,515 media	The bands are asserted to partition the library by tools/stages/52_web_payload.py.
+capped_list	compound-matches	#compound-note	6 compound names named inline	matches.length, printed beside the shown count as "showing N of M"	Only the names are capped; the media count is the full match set.
+capped_list	compare-picker	#matches	12 rows	hits.length, printed as "Showing N of M matching media"	compare.html
+capped_list	upset	#upset-note	14 intersections	all.length plus the compounds the hidden intersections hold	compare.html; both numbers and the hidden compound count are printed.
+capped_list	difference-grid	#grid-note	44 compounds	items.length before the slice, printed as "the N most differentiating of M"	compare.html
+capped_list	family-axes	#fam-detail	12 modifier agents per axis	agents.length, printed as "showing N of M"	families.html
+external_data	USDA FoodData Central		LICENSE	USDA FoodData Central	7,424 media, CC0 1.0 public domain. Attribution requested, not required.
+external_data	DSMZ MediaDive		LICENSE	DSMZ MediaDive	3,148 media, CC BY 4.0. Includes JCM (RIKEN) and CCAP media that MediaDive aggregates.
+external_data	FooDB		LICENSE	FooDB	701 media, CC BY-NC 4.0. Commercial use is not permitted and the browser can filter them out.
+external_data	MediaDB (ISB defined media)		LICENSE	MediaDB (ISB defined media)	471 media, all rights reserved by the upstream provider.
+external_data	HMDB		LICENSE	Human Metabolome Database (HMDB 5.0)	9 media plus 3 republished tables, CC BY-NC 4.0.
+external_data	BiGG Models		LICENSE	BiGG Models	The exchange-reaction namespace every component is mapped into.
+external_data	MetaNetX		LICENSE	MetaNetX	CC BY 4.0; the cross-reference tables behind structural identity checks.
+budget_cap	MAX_ARTIFACT_BYTES		tools/build_api_exports.py:272	oversize	Not a search budget: a publishability limit. GitHub refuses a file over 100 MiB, so the bulk export is sharded under 90 MiB and the builder RAISES on any oversize artifact rather than shipping one. The list of offenders is named in the failure.
+budget_cap	MAX_UNCOVERED		tools/build_food_media_v2.py:36	truncated	Caps the uncovered-ingredient list at 250 per food record. The builder sets `truncated` and writes "(capped at 250)" into the record's own note, so a capped list is never presented as a complete one.
+methods_surface	methods	#	methods.html		Linked from the nav of every page and from the masthead of index.html.
+async_flow	search-results		yes		#resultline carries role=status aria-live=polite and states both counts.
+transfer_budget_kb	initial-load		2200		Measured on the entry page: 2,084 KB uncompressed over 5 requests on a local server, of which data/web/catalog.json is 1,989 KB. GitHub Pages serves it gzipped, where the same load is about 360 KB. The budget is set against the uncompressed figure because that is what a local Gate 4 probe measures; patterns.html and methods.html read data/web/summary.json instead and load 182 KB and 206 KB.

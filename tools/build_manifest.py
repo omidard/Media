@@ -93,6 +93,19 @@ ARTIFACTS = [
     ("data/cluster/cooccurrence.json", "tools/build_cluster_data.py",
      ["data/api/media.parquet", "data/api/components.parquet"], None),
     ("data/_quarantine.json", "tools/apply_verification.py", ["data/media/*.json"], None),
+    # The browser payload. Projected straight from the corpus so the site can never
+    # render a number that the records do not support; the same projection is asserted
+    # inside the stage chain by tools/stages/52_web_payload.py.
+    ("data/web/catalog.json", "tools/build_web_payload.py",
+     ["data/media/*.json", "data/_quarantine.json"], "json:rows"),
+    ("data/web/summary.json", "tools/build_web_payload.py",
+     ["data/media/*.json"], "json:count"),
+    ("data/web/compounds.json", "tools/build_web_payload.py",
+     ["data/media/*.json"], "json:n_exchanges"),
+    ("data/web/families.json", "tools/build_web_payload.py",
+     ["data/media/*.json"], "json:n_families"),
+    ("data/web/tombstones.json", "tools/build_web_payload.py",
+     ["data/_quarantine.json"], "json:n_withdrawn"),
 ]
 
 PROVENANCE = {

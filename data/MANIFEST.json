@@ -1,7 +1,7 @@
 {
  "schema": "mediadb-artifact-manifest/1",
- "built_utc": "2026-09-06T08:21:38Z",
- "git_head": "d99db0d0a9e4cc95049c0ccf863a6636ef5a35b4",
+ "built_utc": "2026-09-06T09:38:21Z",
+ "git_head": "e920e0995b6ce009262eeae69e2436c04566024d",
  "provenance": {
   "corpus_status": "frozen snapshot",
   "why": "The raw inputs are gone. 19 generator scripts hardcoded a session scratchpad that was deleted, none of the upstream payloads was ever committed, and the shipped data/media/*.json is the only surviving copy of the corpus (audit finding PIPE-01).",
@@ -189,6 +189,62 @@
    "sha256": "e17ba0f3cfe6f02224301d5f6f0a402434563ce646e1a23695322d5520c4d375",
    "rows": null,
    "mtime_utc": "2026-07-16T17:27:28Z"
+  },
+  "data/web/catalog.json": {
+   "generator": "tools/build_web_payload.py",
+   "inputs": [
+    "data/media/*.json",
+    "data/_quarantine.json"
+   ],
+   "present": true,
+   "bytes": 2036596,
+   "sha256": "62ba87f128e9cadedcc7d45e6576aea832b5d03ae551470110de211a9da2841f",
+   "rows": 13515,
+   "mtime_utc": "2026-09-06T09:22:27Z"
+  },
+  "data/web/summary.json": {
+   "generator": "tools/build_web_payload.py",
+   "inputs": [
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 7404,
+   "sha256": "f66edb84ce06615061871b2988ee307a2f30b6d80b55ac9d06bb4a927c85f35f",
+   "rows": 13515,
+   "mtime_utc": "2026-09-06T09:22:27Z"
+  },
+  "data/web/compounds.json": {
+   "generator": "tools/build_web_payload.py",
+   "inputs": [
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 1683290,
+   "sha256": "c7bd5ade7d0560b1cd84d8c942d7ef7276674871ac4bdcf922d06e9039806809",
+   "rows": 1793,
+   "mtime_utc": "2026-09-06T09:22:28Z"
+  },
+  "data/web/families.json": {
+   "generator": "tools/build_web_payload.py",
+   "inputs": [
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 1138746,
+   "sha256": "bfb953901d1868a364edec5663b643e30ba938f4e23239bfb3bf0b86f9d9dabe",
+   "rows": 253,
+   "mtime_utc": "2026-09-06T09:22:28Z"
+  },
+  "data/web/tombstones.json": {
+   "generator": "tools/build_web_payload.py",
+   "inputs": [
+    "data/_quarantine.json"
+   ],
+   "present": true,
+   "bytes": 103593,
+   "sha256": "ccb4282c1ff469319ca1d33d381c81716eaa93c85a9513504f4153762cb00469",
+   "rows": 77,
+   "mtime_utc": "2026-09-06T09:22:28Z"
   }
  },
  "catalog_count_identity": {
