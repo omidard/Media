@@ -105,6 +105,20 @@
      "preparation",
      "strength"
     ]
+   },
+   {
+    "stage": "60_dedupe_references",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "components[].mapping_note -> mapping_note_id",
+     "components[].quantity_basis -> quantity.basis",
+     "components[].target_xref -> xref_id",
+     "components[].target_xref_note -> xref_note_id",
+     "components[].usda_amount -> quantity.value",
+     "components[].usda_unit -> quantity.unit",
+     "components[].xref (deprecated alias) -> xref_id"
+    ]
    }
   ],
   "source_id": "bmdb",
@@ -150,32 +164,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "kegg": "C01235",
-    "chebi": "CHEBI:11203",
-    "kegg_glycan": "G10488",
-    "hmdb": "HMDB05826",
-    "biocyc": "META:CPD-458",
-    "mnx": "MNXM878",
-    "inchikey": "VCWMRQDBPZKXKG-DXNLKLAMSA-N",
-    "seed": "cpd00910"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C01235",
-    "chebi": "CHEBI:11203",
-    "kegg_glycan": "G10488",
-    "hmdb": "HMDB05826",
-    "biocyc": "META:CPD-458",
-    "mnx": "MNXM878",
-    "inchikey": "VCWMRQDBPZKXKG-DXNLKLAMSA-N",
-    "seed": "cpd00910"
-   },
    "source_xref": {
     "kegg": "C01235"
    },
@@ -185,13 +179,13 @@
    "target_name": "1 alpha D Galactosyl myo inositol C12H22O11",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "1Dgali~7049",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "2-Propanol",
@@ -201,32 +195,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.002,
    "hmdb_orig": "2.0 uM",
-   "xref": {
-    "kegg": "C01845",
-    "chebi": "CHEBI:14897",
-    "kegg_drug": "D00137",
-    "hmdb": "HMDB00863",
-    "inchikey": "KFZMGEQAYNKOFK-UHFFFAOYSA-N",
-    "biocyc": "META:ISO-PROPANOL",
-    "mnx": "MNXM3085",
-    "seed": "cpd01269"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C01845",
-    "chebi": "CHEBI:14897",
-    "kegg_drug": "D00137",
-    "hmdb": "HMDB00863",
-    "inchikey": "KFZMGEQAYNKOFK-UHFFFAOYSA-N",
-    "biocyc": "META:ISO-PROPANOL",
-    "mnx": "MNXM3085",
-    "seed": "cpd01269"
-   },
    "source_xref": {
     "inchikey": "KFZMGEQAYNKOFK-UHFFFAOYSA-N"
    },
@@ -236,13 +210,13 @@
    "target_name": "2-Propanol",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "2ppoh~0b53",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "3-hydroxyhexadecanoylcarnitine",
@@ -252,40 +226,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.008 uM",
-   "xref": {
-    "chebi": "CHEBI:73070",
-    "hmdb": "HMDB13336",
-    "mnx": "MNXM36524",
-    "inchikey": "XKAZIAFZAQAHHG-UHFFFAOYSA-N"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "chebi": "CHEBI:73070",
-    "hmdb": "HMDB13336",
-    "mnx": "MNXM36524",
-    "inchikey": "XKAZIAFZAQAHHG-UHFFFAOYSA-N"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "3-hydroxyhexadecanoylcarnitine",
    "target_name": "3-hydroxyhexadecanoylcarnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "3hexdcrn~26a9",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "3-Methyl-2-oxobutanoate",
@@ -295,32 +257,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "kegg": "C00141",
-    "chebi": "CHEBI:11851",
-    "hmdb": "HMDB00019",
-    "lipidmaps": "LMFA01020274",
-    "biocyc": "META:2-KETO-ISOVALERATE",
-    "mnx": "MNXM238",
-    "inchikey": "QHKABHOOEWYVLI-UHFFFAOYSA-M",
-    "seed": "cpd00123"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00141",
-    "chebi": "CHEBI:11851",
-    "hmdb": "HMDB00019",
-    "lipidmaps": "LMFA01020274",
-    "biocyc": "META:2-KETO-ISOVALERATE",
-    "mnx": "MNXM238",
-    "inchikey": "QHKABHOOEWYVLI-UHFFFAOYSA-M",
-    "seed": "cpd00123"
-   },
    "source_xref": {
     "kegg": "C00141"
    },
@@ -330,13 +272,13 @@
    "target_name": "3-Methyl-2-oxobutanoate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "3mob~4faa",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Trans 4 Hydroxy L proline C5H9NO3",
@@ -346,30 +288,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0242,
    "hmdb_orig": "23.4 uM",
-   "xref": {
-    "kegg": "C01157",
-    "chebi": "CHEBI:10713",
-    "hmdb": "HMDB00725",
-    "biocyc": "META:4-HYDROXY-L-PROLINE",
-    "mnx": "MNXM87584",
-    "inchikey": "PMMYEEVYMWASQN-DMTCNVIQSA-N",
-    "seed": "cpd00851"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C01157",
-    "chebi": "CHEBI:10713",
-    "hmdb": "HMDB00725",
-    "biocyc": "META:4-HYDROXY-L-PROLINE",
-    "mnx": "MNXM87584",
-    "inchikey": "PMMYEEVYMWASQN-DMTCNVIQSA-N",
-    "seed": "cpd00851"
-   },
    "source_xref": {
     "inchikey": "PMMYEEVYMWASQN-DMTCNVIQSA-N"
    },
@@ -379,13 +303,13 @@
    "target_name": "Trans 4 Hydroxy L proline C5H9NO3",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "4hpro_LT~f506",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "5-Oxoproline",
@@ -395,32 +319,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-1247942",
-    "kegg": "C01879",
-    "chebi": "CHEBI:12153",
-    "hmdb": "HMDB00267",
-    "biocyc": "META:5-OXOPROLINE",
-    "mnx": "MNXM722719",
-    "inchikey": "ODHCTXKNWHHXJC-VKHMYHEASA-M",
-    "seed": "cpd01293"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-1247942",
-    "kegg": "C01879",
-    "chebi": "CHEBI:12153",
-    "hmdb": "HMDB00267",
-    "biocyc": "META:5-OXOPROLINE",
-    "mnx": "MNXM722719",
-    "inchikey": "ODHCTXKNWHHXJC-VKHMYHEASA-M",
-    "seed": "cpd01293"
-   },
    "source_xref": {
     "kegg": "C01879"
    },
@@ -430,13 +334,13 @@
    "target_name": "5-Oxoproline",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "5oxpro~2477",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "(S)-2-Aminobutanoate",
@@ -446,32 +350,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "kegg": "C02356",
-    "chebi": "CHEBI:18733",
-    "hmdb": "HMDB00452",
-    "lipidmaps": "LMFA01100034",
-    "biocyc": "META:CPD0-1942",
-    "mnx": "MNXM17054",
-    "inchikey": "QWCKQJZIFLGMSD-VKHMYHEASA-N",
-    "seed": "cpd01573"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C02356",
-    "chebi": "CHEBI:18733",
-    "hmdb": "HMDB00452",
-    "lipidmaps": "LMFA01100034",
-    "biocyc": "META:CPD0-1942",
-    "mnx": "MNXM17054",
-    "inchikey": "QWCKQJZIFLGMSD-VKHMYHEASA-N",
-    "seed": "cpd01573"
-   },
    "source_xref": {
     "inchikey": "QWCKQJZIFLGMSD-VKHMYHEASA-N"
    },
@@ -481,13 +365,13 @@
    "target_name": "(S)-2-Aminobutanoate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "C02356~1e08",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Thyrotropin releasing hormone",
@@ -497,30 +381,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.000736 uM",
-   "xref": {
-    "kegg": "C03958",
-    "chebi": "CHEBI:35940",
-    "kegg_drug": "D00176",
-    "hmdb": "HMDB60080",
-    "mnx": "MNXM21371",
-    "inchikey": "XNSAINXGIQZQOO-SRVKXCTJSA-N",
-    "seed": "cpd02457"
-   },
    "in_biggr": true,
    "mapping_method": "chebi",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C03958",
-    "chebi": "CHEBI:35940",
-    "kegg_drug": "D00176",
-    "hmdb": "HMDB60080",
-    "mnx": "MNXM21371",
-    "inchikey": "XNSAINXGIQZQOO-SRVKXCTJSA-N",
-    "seed": "cpd02457"
-   },
    "source_xref": {
     "chebi": "CHEBI:35940"
    },
@@ -530,13 +396,13 @@
    "target_name": "Thyrotropin releasing hormone",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source ChEBI resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "C03958",
+   "mapping_note_id": "n3f5d21"
   },
   {
    "name": "2-Hydroxyestrone",
@@ -546,30 +412,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.000243 uM",
-   "xref": {
-    "kegg": "C05298",
-    "chebi": "CHEBI:1156",
-    "hmdb": "HMDB00343",
-    "lipidmaps": "LMST02010032",
-    "mnx": "MNXM3813",
-    "inchikey": "SWINWPBPEKHUOD-JPVZDGGYSA-N",
-    "seed": "cpd03143"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C05298",
-    "chebi": "CHEBI:1156",
-    "hmdb": "HMDB00343",
-    "lipidmaps": "LMST02010032",
-    "mnx": "MNXM3813",
-    "inchikey": "SWINWPBPEKHUOD-JPVZDGGYSA-N",
-    "seed": "cpd03143"
-   },
    "source_xref": {
     "inchikey": "SWINWPBPEKHUOD-JPVZDGGYSA-N"
    },
@@ -579,13 +427,13 @@
    "target_name": "2-Hydroxyestrone",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "C05298~75cd",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "2-Methoxyestrone",
@@ -595,30 +443,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.00167 uM",
-   "xref": {
-    "kegg": "C05299",
-    "chebi": "CHEBI:1189",
-    "hmdb": "HMDB00010",
-    "lipidmaps": "LMST02010033",
-    "mnx": "MNXM4971",
-    "inchikey": "WHEUWNKSCXYKBU-QPWUGHHJSA-N",
-    "seed": "cpd03144"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C05299",
-    "chebi": "CHEBI:1189",
-    "hmdb": "HMDB00010",
-    "lipidmaps": "LMST02010033",
-    "mnx": "MNXM4971",
-    "inchikey": "WHEUWNKSCXYKBU-QPWUGHHJSA-N",
-    "seed": "cpd03144"
-   },
    "source_xref": {
     "inchikey": "WHEUWNKSCXYKBU-QPWUGHHJSA-N"
    },
@@ -628,13 +458,13 @@
    "target_name": "2-Methoxyestrone",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "C05299~2916",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "16alpha-Hydroxyestrone",
@@ -644,30 +474,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.00151 uM",
-   "xref": {
-    "kegg": "C05300",
-    "chebi": "CHEBI:60497",
-    "hmdb": "HMDB00335",
-    "lipidmaps": "LMST02010041",
-    "mnx": "MNXM3794",
-    "inchikey": "WPOCIZJTELRQMF-QFXBJFAPSA-N",
-    "seed": "cpd03145"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C05300",
-    "chebi": "CHEBI:60497",
-    "hmdb": "HMDB00335",
-    "lipidmaps": "LMST02010041",
-    "mnx": "MNXM3794",
-    "inchikey": "WPOCIZJTELRQMF-QFXBJFAPSA-N",
-    "seed": "cpd03145"
-   },
    "source_xref": {
     "inchikey": "WPOCIZJTELRQMF-QFXBJFAPSA-N"
    },
@@ -677,13 +489,13 @@
    "target_name": "16alpha-Hydroxyestrone",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "C05300~abfa",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L 2 Aminoadipate C6H10NO4",
@@ -693,30 +505,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0043,
    "hmdb_orig": "1.28 uM",
-   "xref": {
-    "reactome": "R-ALL-35181",
-    "kegg": "C00956",
-    "chebi": "CHEBI:13051",
-    "biocyc": "META:CPD-468",
-    "mnx": "MNXM268",
-    "inchikey": "OYIFNHCXNCRBQI-BYPYZUCNSA-M",
-    "seed": "cpd00705"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-35181",
-    "kegg": "C00956",
-    "chebi": "CHEBI:13051",
-    "biocyc": "META:CPD-468",
-    "mnx": "MNXM268",
-    "inchikey": "OYIFNHCXNCRBQI-BYPYZUCNSA-M",
-    "seed": "cpd00705"
-   },
    "source_xref": {
     "kegg": "C00956"
    },
@@ -726,13 +520,13 @@
    "target_name": "L 2 Aminoadipate C6H10NO4",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "L2aadp~5a92",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "L Kynurenine C10H12N2O3",
@@ -742,32 +536,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0039,
    "hmdb_orig": "0.5 uM",
-   "xref": {
-    "reactome": "R-ALL-29970",
-    "kegg": "C00328",
-    "chebi": "CHEBI:13129",
-    "hmdb": "HMDB00183",
-    "biocyc": "META:CPD-14736",
-    "mnx": "MNXM260",
-    "inchikey": "YGPSJZOEDVAXAB-QMMMGPOBSA-N",
-    "seed": "cpd00275"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29970",
-    "kegg": "C00328",
-    "chebi": "CHEBI:13129",
-    "hmdb": "HMDB00183",
-    "biocyc": "META:CPD-14736",
-    "mnx": "MNXM260",
-    "inchikey": "YGPSJZOEDVAXAB-QMMMGPOBSA-N",
-    "seed": "cpd00275"
-   },
    "source_xref": {
     "inchikey": "YGPSJZOEDVAXAB-QMMMGPOBSA-N"
    },
@@ -777,13 +551,13 @@
    "target_name": "L Kynurenine C10H12N2O3",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "Lkynr~293c",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Acetate",
@@ -793,36 +567,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.92,
    "hmdb_orig": "403.0 uM",
-   "xref": {
-    "reactome": "R-ALL-113539",
-    "kegg": "C00033",
-    "chebi": "CHEBI:13704",
-    "kegg_drug": "D00010",
-    "hmdb": "HMDB00042",
-    "lipidmaps": "LMFA01010002",
-    "biocyc": "META:ACET",
-    "mnx": "MNXM26",
-    "inchikey": "QTBSBXVTEAMEQO-UHFFFAOYSA-M",
-    "seed": "cpd00029"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113539",
-    "kegg": "C00033",
-    "chebi": "CHEBI:13704",
-    "kegg_drug": "D00010",
-    "hmdb": "HMDB00042",
-    "lipidmaps": "LMFA01010002",
-    "biocyc": "META:ACET",
-    "mnx": "MNXM26",
-    "inchikey": "QTBSBXVTEAMEQO-UHFFFAOYSA-M",
-    "seed": "cpd00029"
-   },
    "source_xref": {
     "kegg": "C00033"
    },
@@ -832,13 +582,13 @@
    "target_name": "Acetate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "ac~8b26",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Acetoacetate",
@@ -848,34 +598,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-29666",
-    "kegg": "C00164",
-    "chebi": "CHEBI:131367",
-    "hmdb": "HMDB00060",
-    "lipidmaps": "LMFA01060003",
-    "biocyc": "META:3-KETOBUTYRATE",
-    "mnx": "MNXM154",
-    "inchikey": "WDJHALXBUFZDSR-UHFFFAOYSA-M",
-    "seed": "cpd00142"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29666",
-    "kegg": "C00164",
-    "chebi": "CHEBI:131367",
-    "hmdb": "HMDB00060",
-    "lipidmaps": "LMFA01060003",
-    "biocyc": "META:3-KETOBUTYRATE",
-    "mnx": "MNXM154",
-    "inchikey": "WDJHALXBUFZDSR-UHFFFAOYSA-M",
-    "seed": "cpd00142"
-   },
    "source_xref": {
     "kegg": "C00164"
    },
@@ -885,13 +613,13 @@
    "target_name": "Acetoacetate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "acac~35f1",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Acetone",
@@ -901,34 +629,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.075,
    "hmdb_orig": "70.0 uM",
-   "xref": {
-    "kegg": "C00207",
-    "chebi": "CHEBI:13708",
-    "inchikey": "CSCPPACGZOOCGX-UHFFFAOYSA-N",
-    "kegg_drug": "D02311",
-    "hmdb": "HMDB01659",
-    "lipidmaps": "LMFA12000057",
-    "biocyc": "META:ACETONE",
-    "mnx": "MNXM398",
-    "seed": "cpd00178"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00207",
-    "chebi": "CHEBI:13708",
-    "inchikey": "CSCPPACGZOOCGX-UHFFFAOYSA-N",
-    "kegg_drug": "D02311",
-    "hmdb": "HMDB01659",
-    "lipidmaps": "LMFA12000057",
-    "biocyc": "META:ACETONE",
-    "mnx": "MNXM398",
-    "seed": "cpd00178"
-   },
    "source_xref": {
     "inchikey": "CSCPPACGZOOCGX-UHFFFAOYSA-N"
    },
@@ -938,13 +644,13 @@
    "target_name": "Acetone",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "acetone~3db4",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "N2-Acetyl-L-ornithine",
@@ -954,30 +660,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.003,
    "hmdb_orig": "3.0 uM",
-   "xref": {
-    "kegg": "C00437",
-    "chebi": "CHEBI:12634",
-    "hmdb": "HMDB03357",
-    "inchikey": "JRLGPAXAGHMNOL-LURJTMIESA-N",
-    "biocyc": "META:N-ALPHA-ACETYLORNITHINE",
-    "mnx": "MNXM817",
-    "seed": "cpd00342"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00437",
-    "chebi": "CHEBI:12634",
-    "hmdb": "HMDB03357",
-    "inchikey": "JRLGPAXAGHMNOL-LURJTMIESA-N",
-    "biocyc": "META:N-ALPHA-ACETYLORNITHINE",
-    "mnx": "MNXM817",
-    "seed": "cpd00342"
-   },
    "source_xref": {
     "inchikey": "JRLGPAXAGHMNOL-LURJTMIESA-N"
    },
@@ -987,13 +675,13 @@
    "target_name": "N2-Acetyl-L-ornithine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "acorn~733e",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "O Acetylcarnitine C9H17NO4",
@@ -1003,34 +691,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.001,
    "hmdb_orig": "2.0 uM",
-   "xref": {
-    "reactome": "R-ALL-390287",
-    "kegg": "C02571",
-    "chebi": "CHEBI:12711",
-    "hmdb": "HMDB00201",
-    "lipidmaps": "LMFA07070050",
-    "biocyc": "META:O-ACETYLCARNITINE",
-    "mnx": "MNXM1028",
-    "inchikey": "RDHQFKQIGNGIED-MRVPVSSYSA-N",
-    "seed": "cpd01682"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-390287",
-    "kegg": "C02571",
-    "chebi": "CHEBI:12711",
-    "hmdb": "HMDB00201",
-    "lipidmaps": "LMFA07070050",
-    "biocyc": "META:O-ACETYLCARNITINE",
-    "mnx": "MNXM1028",
-    "inchikey": "RDHQFKQIGNGIED-MRVPVSSYSA-N",
-    "seed": "cpd01682"
-   },
    "source_xref": {
     "inchikey": "RDHQFKQIGNGIED-MRVPVSSYSA-N"
    },
@@ -1040,13 +706,13 @@
    "target_name": "O Acetylcarnitine C9H17NO4",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "acrn~c36f",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Beta-Alanine",
@@ -1056,34 +722,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0084,
    "hmdb_orig": "8.0 uM",
-   "xref": {
-    "reactome": "R-ALL-73590",
-    "kegg": "C00099",
-    "chebi": "CHEBI:10343",
-    "kegg_drug": "D07561",
-    "hmdb": "HMDB00056",
-    "biocyc": "META:B-ALANINE",
-    "mnx": "MNXM144",
-    "inchikey": "UCMIRNVEIXFBKS-UHFFFAOYSA-N",
-    "seed": "cpd00085"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-73590",
-    "kegg": "C00099",
-    "chebi": "CHEBI:10343",
-    "kegg_drug": "D07561",
-    "hmdb": "HMDB00056",
-    "biocyc": "META:B-ALANINE",
-    "mnx": "MNXM144",
-    "inchikey": "UCMIRNVEIXFBKS-UHFFFAOYSA-N",
-    "seed": "cpd00085"
-   },
    "source_xref": {
     "inchikey": "UCMIRNVEIXFBKS-UHFFFAOYSA-N"
    },
@@ -1093,13 +737,13 @@
    "target_name": "Beta-Alanine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "ala_B~f7c0",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Alanine",
@@ -1109,34 +753,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.1745,
    "hmdb_orig": "188.9 uM",
-   "xref": {
-    "reactome": "R-ALL-29432",
-    "kegg": "C00041",
-    "chebi": "CHEBI:13069",
-    "kegg_drug": "D00012",
-    "hmdb": "HMDB00161",
-    "biocyc": "META:L-ALPHA-ALANINE",
-    "mnx": "MNXM32",
-    "inchikey": "QNAYBMKLOCPYGJ-REOHCLBHSA-N",
-    "seed": "cpd00035"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29432",
-    "kegg": "C00041",
-    "chebi": "CHEBI:13069",
-    "kegg_drug": "D00012",
-    "hmdb": "HMDB00161",
-    "biocyc": "META:L-ALPHA-ALANINE",
-    "mnx": "MNXM32",
-    "inchikey": "QNAYBMKLOCPYGJ-REOHCLBHSA-N",
-    "seed": "cpd00035"
-   },
    "source_xref": {
     "inchikey": "QNAYBMKLOCPYGJ-REOHCLBHSA-N"
    },
@@ -1146,13 +768,13 @@
    "target_name": "L-Alanine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "ala__L~f2ff",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Allantoin",
@@ -1162,32 +784,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "kegg": "C01551",
-    "chebi": "CHEBI:13761",
-    "kegg_drug": "D00121",
-    "hmdb": "HMDB00462",
-    "biocyc": "META:ALLANTOIN",
-    "mnx": "MNXM612",
-    "inchikey": "POJWUDADGALRAB-UHFFFAOYSA-N",
-    "seed": "cpd01092"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C01551",
-    "chebi": "CHEBI:13761",
-    "kegg_drug": "D00121",
-    "hmdb": "HMDB00462",
-    "biocyc": "META:ALLANTOIN",
-    "mnx": "MNXM612",
-    "inchikey": "POJWUDADGALRAB-UHFFFAOYSA-N",
-    "seed": "cpd01092"
-   },
    "source_xref": {
     "inchikey": "POJWUDADGALRAB-UHFFFAOYSA-N"
    },
@@ -1197,13 +799,13 @@
    "target_name": "Allantoin",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "alltn~1c84",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Arginine",
@@ -1213,34 +815,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.073,
    "hmdb_orig": "218.0 uM",
-   "xref": {
-    "reactome": "R-ALL-113530",
-    "kegg": "C00062",
-    "chebi": "CHEBI:13077",
-    "kegg_drug": "D02982",
-    "hmdb": "HMDB00517",
-    "biocyc": "META:ARG",
-    "mnx": "MNXM70",
-    "inchikey": "ODKSFYDXXFIFQN-BYPYZUCNSA-O",
-    "seed": "cpd00051"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113530",
-    "kegg": "C00062",
-    "chebi": "CHEBI:13077",
-    "kegg_drug": "D02982",
-    "hmdb": "HMDB00517",
-    "biocyc": "META:ARG",
-    "mnx": "MNXM70",
-    "inchikey": "ODKSFYDXXFIFQN-BYPYZUCNSA-O",
-    "seed": "cpd00051"
-   },
    "source_xref": {
     "kegg": "C00062"
    },
@@ -1250,13 +830,13 @@
    "target_name": "L-Arginine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "arg__L~0965",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "L-Ascorbate",
@@ -1266,34 +846,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0095,
    "hmdb_orig": "8.0 uM",
-   "xref": {
-    "reactome": "R-ALL-198816",
-    "kegg": "C00072",
-    "chebi": "CHEBI:13082",
-    "inchikey": "CIWBSHSKHKDKBQ-JLAZNSOCSA-M",
-    "kegg_drug": "D00018",
-    "hmdb": "HMDB00044",
-    "biocyc": "META:ASCORBATE",
-    "mnx": "MNXM129",
-    "seed": "cpd00059"
-   },
    "in_biggr": true,
    "mapping_method": "hmdb",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-198816",
-    "kegg": "C00072",
-    "chebi": "CHEBI:13082",
-    "inchikey": "CIWBSHSKHKDKBQ-JLAZNSOCSA-M",
-    "kegg_drug": "D00018",
-    "hmdb": "HMDB00044",
-    "biocyc": "META:ASCORBATE",
-    "mnx": "MNXM129",
-    "seed": "cpd00059"
-   },
    "source_xref": {
     "hmdb": "HMDB00044"
    },
@@ -1303,13 +861,13 @@
    "target_name": "L-Ascorbate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source HMDB accession resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "hmdb",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "ascb__L~a98a",
+   "mapping_note_id": "n6bb478"
   },
   {
    "name": "L-Asparagine",
@@ -1319,32 +877,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0253,
    "hmdb_orig": "27.4 uM",
-   "xref": {
-    "reactome": "R-ALL-29642",
-    "kegg": "C00152",
-    "chebi": "CHEBI:13083",
-    "inchikey": "DCXYFEDJOCDNAF-REOHCLBHSA-N",
-    "hmdb": "HMDB00168",
-    "biocyc": "META:ASN",
-    "mnx": "MNXM147",
-    "seed": "cpd00132"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29642",
-    "kegg": "C00152",
-    "chebi": "CHEBI:13083",
-    "inchikey": "DCXYFEDJOCDNAF-REOHCLBHSA-N",
-    "hmdb": "HMDB00168",
-    "biocyc": "META:ASN",
-    "mnx": "MNXM147",
-    "seed": "cpd00132"
-   },
    "source_xref": {
     "inchikey": "DCXYFEDJOCDNAF-REOHCLBHSA-N"
    },
@@ -1354,13 +892,13 @@
    "target_name": "L-Asparagine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "asn__L~cea9",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "D-Aspartate",
@@ -1370,30 +908,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0032,
    "hmdb_orig": "3.23 uM",
-   "xref": {
-    "kegg": "C00402",
-    "chebi": "CHEBI:12918",
-    "inchikey": "CKLJMWTZIZZHCS-UWTATZPHSA-M",
-    "hmdb": "HMDB06483",
-    "biocyc": "META:CPD-302",
-    "mnx": "MNXM974",
-    "seed": "cpd00320"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00402",
-    "chebi": "CHEBI:12918",
-    "inchikey": "CKLJMWTZIZZHCS-UWTATZPHSA-M",
-    "hmdb": "HMDB06483",
-    "biocyc": "META:CPD-302",
-    "mnx": "MNXM974",
-    "seed": "cpd00320"
-   },
    "source_xref": {
     "kegg": "C00402"
    },
@@ -1403,13 +923,13 @@
    "target_name": "D-Aspartate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "asp__D~a0c4",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "L-Aspartate",
@@ -1419,34 +939,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.024,
    "hmdb_orig": "14.5 uM",
-   "xref": {
-    "reactome": "R-ALL-113553",
-    "kegg": "C00049",
-    "chebi": "CHEBI:13085",
-    "inchikey": "CKLJMWTZIZZHCS-REOHCLBHSA-M",
-    "kegg_drug": "D00013",
-    "hmdb": "HMDB00191",
-    "biocyc": "META:L-ASPARTATE",
-    "mnx": "MNXM42",
-    "seed": "cpd00041"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113553",
-    "kegg": "C00049",
-    "chebi": "CHEBI:13085",
-    "inchikey": "CKLJMWTZIZZHCS-REOHCLBHSA-M",
-    "kegg_drug": "D00013",
-    "hmdb": "HMDB00191",
-    "biocyc": "META:L-ASPARTATE",
-    "mnx": "MNXM42",
-    "seed": "cpd00041"
-   },
    "source_xref": {
     "kegg": "C00049"
    },
@@ -1456,13 +954,13 @@
    "target_name": "L-Aspartate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "asp__L~a8bc",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "N-Benzoylglycine",
@@ -1472,30 +970,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-159564",
-    "kegg": "C01586",
-    "chebi": "CHEBI:12492",
-    "hmdb": "HMDB00714",
-    "biocyc": "META:CPD-425",
-    "mnx": "MNXM1577",
-    "inchikey": "QIAFMBKCNZACKA-UHFFFAOYSA-M"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-159564",
-    "kegg": "C01586",
-    "chebi": "CHEBI:12492",
-    "hmdb": "HMDB00714",
-    "biocyc": "META:CPD-425",
-    "mnx": "MNXM1577",
-    "inchikey": "QIAFMBKCNZACKA-UHFFFAOYSA-M"
-   },
    "source_xref": {
     "kegg": "C01586"
    },
@@ -1505,13 +985,13 @@
    "target_name": "N-Benzoylglycine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "bgly~d8b2",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "(R)-3-Hydroxybutanoate",
@@ -1521,34 +1001,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.55,
    "hmdb_orig": "500.0 uM",
-   "xref": {
-    "reactome": "R-ALL-5696461",
-    "kegg": "C01089",
-    "chebi": "CHEBI:10983",
-    "hmdb": "HMDB00011",
-    "lipidmaps": "LMFA01050243",
-    "biocyc": "META:CPD-335",
-    "mnx": "MNXM663",
-    "inchikey": "WHBMMWSBFZVSSR-GSVOUGTGSA-M",
-    "seed": "cpd00797"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-5696461",
-    "kegg": "C01089",
-    "chebi": "CHEBI:10983",
-    "hmdb": "HMDB00011",
-    "lipidmaps": "LMFA01050243",
-    "biocyc": "META:CPD-335",
-    "mnx": "MNXM663",
-    "inchikey": "WHBMMWSBFZVSSR-GSVOUGTGSA-M",
-    "seed": "cpd00797"
-   },
    "source_xref": {
     "kegg": "C01089"
    },
@@ -1558,13 +1016,13 @@
    "target_name": "(R)-3-Hydroxybutanoate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "bhb~5ebc",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Bilirubin cytosol",
@@ -1574,32 +1032,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0025,
    "hmdb_orig": "2.52 uM",
-   "xref": {
-    "reactome": "R-ALL-159151",
-    "inchikey": "BPYKTIZUTYGOLE-IFADSCNNSA-L",
-    "kegg": "C00486",
-    "chebi": "CHEBI:13898",
-    "hmdb": "HMDB00054",
-    "biocyc": "META:BILIRUBIN",
-    "mnx": "MNXM534",
-    "seed": "cpd00376"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-159151",
-    "inchikey": "BPYKTIZUTYGOLE-IFADSCNNSA-L",
-    "kegg": "C00486",
-    "chebi": "CHEBI:13898",
-    "hmdb": "HMDB00054",
-    "biocyc": "META:BILIRUBIN",
-    "mnx": "MNXM534",
-    "seed": "cpd00376"
-   },
    "source_xref": {
     "kegg": "C00486"
    },
@@ -1609,13 +1047,13 @@
    "target_name": "Bilirubin cytosol",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "bilirub~ce2f",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Decanoyl Carnitine",
@@ -1625,14 +1063,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0002,
    "hmdb_orig": "0.18 uM",
-   "xref": {},
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
@@ -1641,13 +1077,12 @@
    "target_name": "Decanoyl Carnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "name",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "Dodecanedioyl Carnitine",
@@ -1657,14 +1092,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.018 uM",
-   "xref": {},
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
@@ -1673,13 +1106,12 @@
    "target_name": "Dodecanedioyl Carnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "Butyryl carnitine",
@@ -1689,30 +1121,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0002,
    "hmdb_orig": "0.2 uM",
-   "xref": {
-    "kegg": "C02862",
-    "chebi": "CHEBI:21949",
-    "hmdb": "HMDB02013",
-    "lipidmaps": "LMFA07070003",
-    "mnx": "MNXM65151",
-    "inchikey": "QWYFHHGCZUCMBN-SECBINFHSA-N",
-    "seed": "cpd01840"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C02862",
-    "chebi": "CHEBI:21949",
-    "hmdb": "HMDB02013",
-    "lipidmaps": "LMFA07070003",
-    "mnx": "MNXM65151",
-    "inchikey": "QWYFHHGCZUCMBN-SECBINFHSA-N",
-    "seed": "cpd01840"
-   },
    "source_xref": {
     "inchikey": "QWYFHHGCZUCMBN-SECBINFHSA-N"
    },
@@ -1722,13 +1136,13 @@
    "target_name": "Butyryl carnitine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "c4crn~3912",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Glutaryl Carnitine",
@@ -1738,14 +1152,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.03 uM",
-   "xref": {},
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
@@ -1754,13 +1166,12 @@
    "target_name": "Glutaryl Carnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "Hexanoyl Carnitine",
@@ -1770,14 +1181,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0001,
    "hmdb_orig": "0.05 uM",
-   "xref": {},
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
@@ -1786,13 +1195,12 @@
    "target_name": "Hexanoyl Carnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "name",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "Octanoyl carnitine",
@@ -1802,40 +1210,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.02 uM",
-   "xref": {
-    "chebi": "CHEBI:73039",
-    "inchikey": "CXTATJFJDMJMIY-UHFFFAOYSA-N",
-    "lipidmaps": "LMFA07070095",
-    "mnx": "MNXM162768"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "chebi": "CHEBI:73039",
-    "inchikey": "CXTATJFJDMJMIY-UHFFFAOYSA-N",
-    "lipidmaps": "LMFA07070095",
-    "mnx": "MNXM162768"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Octanoyl carnitine",
    "target_name": "Octanoyl carnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "c8crn~c953",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "Calcium",
@@ -1845,32 +1241,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 2.49,
    "hmdb_orig": "880.0 uM",
-   "xref": {
-    "reactome": "R-ALL-111875",
-    "inchikey": "BHPQYMZQTOCNFJ-UHFFFAOYSA-N",
-    "kegg": "C00076",
-    "chebi": "CHEBI:22988",
-    "hmdb": "HMDB00464",
-    "biocyc": "META:CA+2",
-    "mnx": "MNXM128",
-    "seed": "cpd00063"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-111875",
-    "inchikey": "BHPQYMZQTOCNFJ-UHFFFAOYSA-N",
-    "kegg": "C00076",
-    "chebi": "CHEBI:22988",
-    "hmdb": "HMDB00464",
-    "biocyc": "META:CA+2",
-    "mnx": "MNXM128",
-    "seed": "cpd00063"
-   },
    "source_xref": {
     "inchikey": "BHPQYMZQTOCNFJ-UHFFFAOYSA-N"
    },
@@ -1880,13 +1256,13 @@
    "target_name": "Calcium",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "ca2~0afa",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Carnosine",
@@ -1896,24 +1272,15 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0225,
    "hmdb_orig": "30.0 uM",
-   "xref": {
-    "mnx": "MNXM114412",
-    "seed": "cpd15836"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM114412",
-    "seed": "cpd15836"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "L-Carnosine",
    "target_name": "L-Carnosine",
@@ -1921,10 +1288,11 @@
    "source_observed": true,
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "name",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "carn~44e4",
+   "xref_note_id": "n6d132e"
   },
   {
    "name": "Choline C5H14NO",
@@ -1934,34 +1302,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0119,
    "hmdb_orig": "3.75 uM",
-   "xref": {
-    "reactome": "R-ALL-264618",
-    "kegg": "C00114",
-    "chebi": "CHEBI:13985",
-    "kegg_drug": "D07690",
-    "hmdb": "HMDB00097",
-    "biocyc": "META:CHOLINE",
-    "mnx": "MNXM90",
-    "inchikey": "OEYIOHPDSNJKLS-UHFFFAOYSA-N",
-    "seed": "cpd00098"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-264618",
-    "kegg": "C00114",
-    "chebi": "CHEBI:13985",
-    "kegg_drug": "D07690",
-    "hmdb": "HMDB00097",
-    "biocyc": "META:CHOLINE",
-    "mnx": "MNXM90",
-    "inchikey": "OEYIOHPDSNJKLS-UHFFFAOYSA-N",
-    "seed": "cpd00098"
-   },
    "source_xref": {
     "inchikey": "OEYIOHPDSNJKLS-UHFFFAOYSA-N"
    },
@@ -1971,13 +1317,13 @@
    "target_name": "Choline C5H14NO",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "chol~8e63",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Chsterol c",
@@ -1987,36 +1333,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 4138.0,
    "hmdb_orig": "3341.493 uM",
-   "xref": {
-    "reactome": "R-ALL-163586",
-    "kegg": "C00187",
-    "chebi": "CHEBI:13982",
-    "kegg_drug": "D00040",
-    "hmdb": "HMDB00067",
-    "inchikey": "HVYWMOMLDIMFJA-DPAQBDIFSA-N",
-    "lipidmaps": "LMST01010001",
-    "biocyc": "META:CHOLESTEROL",
-    "mnx": "MNXM103",
-    "seed": "cpd00160"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-163586",
-    "kegg": "C00187",
-    "chebi": "CHEBI:13982",
-    "kegg_drug": "D00040",
-    "hmdb": "HMDB00067",
-    "inchikey": "HVYWMOMLDIMFJA-DPAQBDIFSA-N",
-    "lipidmaps": "LMST01010001",
-    "biocyc": "META:CHOLESTEROL",
-    "mnx": "MNXM103",
-    "seed": "cpd00160"
-   },
    "source_xref": {
     "inchikey": "HVYWMOMLDIMFJA-DPAQBDIFSA-N"
    },
@@ -2026,14 +1348,14 @@
    "target_name": "Chsterol c",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
    "concentration_block_reason": null,
-   "concentration_plausibility": "above_1M_review"
+   "concentration_plausibility": "above_1M_review",
+   "xref_id": "chsterol~705a",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Citrate",
@@ -2043,34 +1365,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-29654",
-    "kegg": "C00158",
-    "chebi": "CHEBI:132362",
-    "kegg_drug": "D00037",
-    "hmdb": "HMDB00094",
-    "inchikey": "KRKNYBCHXYNGOX-UHFFFAOYSA-K",
-    "biocyc": "META:CIT",
-    "mnx": "MNXM131",
-    "seed": "cpd00137"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29654",
-    "kegg": "C00158",
-    "chebi": "CHEBI:132362",
-    "kegg_drug": "D00037",
-    "hmdb": "HMDB00094",
-    "inchikey": "KRKNYBCHXYNGOX-UHFFFAOYSA-K",
-    "biocyc": "META:CIT",
-    "mnx": "MNXM131",
-    "seed": "cpd00137"
-   },
    "source_xref": {
     "kegg": "C00158"
    },
@@ -2080,13 +1380,13 @@
    "target_name": "Citrate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "cit~51c6",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "L-Citrulline",
@@ -2096,34 +1396,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.071,
    "hmdb_orig": "59.5 uM",
-   "xref": {
-    "reactome": "R-ALL-113567",
-    "kegg": "C00327",
-    "chebi": "CHEBI:13092",
-    "kegg_drug": "D07706",
-    "hmdb": "HMDB00904",
-    "biocyc": "META:L-CITRULLINE",
-    "mnx": "MNXM211",
-    "inchikey": "RHGKLRLOHDJJDR-BYPYZUCNSA-N",
-    "seed": "cpd00274"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113567",
-    "kegg": "C00327",
-    "chebi": "CHEBI:13092",
-    "kegg_drug": "D07706",
-    "hmdb": "HMDB00904",
-    "biocyc": "META:L-CITRULLINE",
-    "mnx": "MNXM211",
-    "inchikey": "RHGKLRLOHDJJDR-BYPYZUCNSA-N",
-    "seed": "cpd00274"
-   },
    "source_xref": {
     "inchikey": "RHGKLRLOHDJJDR-BYPYZUCNSA-N"
    },
@@ -2133,13 +1411,13 @@
    "target_name": "L-Citrulline",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "citr__L~466d",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Chloride",
@@ -2149,34 +1427,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 102.8,
    "hmdb_orig": "98400.0 uM",
-   "xref": {
-    "reactome": "R-ALL-188972",
-    "kegg": "C00698",
-    "chebi": "CHEBI:13291",
-    "kegg_drug": "D02057",
-    "hmdb": "HMDB00492",
-    "biocyc": "META:CL-",
-    "mnx": "MNXM43",
-    "inchikey": "VEXZGXHMUGYJMC-UHFFFAOYSA-M",
-    "seed": "cpd00099"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-188972",
-    "kegg": "C00698",
-    "chebi": "CHEBI:13291",
-    "kegg_drug": "D02057",
-    "hmdb": "HMDB00492",
-    "biocyc": "META:CL-",
-    "mnx": "MNXM43",
-    "inchikey": "VEXZGXHMUGYJMC-UHFFFAOYSA-M",
-    "seed": "cpd00099"
-   },
    "source_xref": {
     "inchikey": "VEXZGXHMUGYJMC-UHFFFAOYSA-M"
    },
@@ -2186,13 +1442,13 @@
    "target_name": "Chloride",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "cl~d3c8",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Co2+",
@@ -2201,45 +1457,27 @@
    "lower_bound": -1000,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "kegg": "C00175",
-    "chebi": "CHEBI:23337",
-    "hmdb": "HMDB00608",
-    "biocyc": "META:CO+2",
-    "mnx": "MNXM90960",
-    "inchikey": "XLJKHNWPARRRJB-UHFFFAOYSA-N",
-    "seed": "cpd00149"
-   },
    "in_biggr": true,
    "mapping_method": "mineral_base",
    "mapping_confidence": "convention",
    "exchange_source": "biggr",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {
-    "kegg": "C00175",
-    "chebi": "CHEBI:23337",
-    "hmdb": "HMDB00608",
-    "biocyc": "META:CO+2",
-    "mnx": "MNXM90960",
-    "inchikey": "XLJKHNWPARRRJB-UHFFFAOYSA-N",
-    "seed": "cpd00149"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "target_name": "Co2+",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "injected mineral base",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "xref_id": "cobalt2~7d23",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n7b5006"
   },
   {
    "name": "Creatine cytosol",
@@ -2249,34 +1487,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.109,
    "hmdb_orig": "97.9 uM",
-   "xref": {
-    "reactome": "R-ALL-30733",
-    "kegg": "C00791",
-    "chebi": "CHEBI:14029",
-    "kegg_drug": "D03600",
-    "inchikey": "DDRJAANPRJIHGJ-UHFFFAOYSA-N",
-    "hmdb": "HMDB00562",
-    "biocyc": "META:CREATININE",
-    "mnx": "MNXM1470",
-    "seed": "cpd00585"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-30733",
-    "kegg": "C00791",
-    "chebi": "CHEBI:14029",
-    "kegg_drug": "D03600",
-    "inchikey": "DDRJAANPRJIHGJ-UHFFFAOYSA-N",
-    "hmdb": "HMDB00562",
-    "biocyc": "META:CREATININE",
-    "mnx": "MNXM1470",
-    "seed": "cpd00585"
-   },
    "source_xref": {
     "inchikey": "DDRJAANPRJIHGJ-UHFFFAOYSA-N"
    },
@@ -2286,13 +1502,13 @@
    "target_name": "Creatine cytosol",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "creat~a52f",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Carnitine",
@@ -2302,34 +1518,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0031,
    "hmdb_orig": "1.29 uM",
-   "xref": {
-    "reactome": "R-ALL-164988",
-    "kegg": "C00318",
-    "chebi": "CHEBI:11817",
-    "kegg_drug": "D02176",
-    "hmdb": "HMDB00062",
-    "biocyc": "META:CARNITINE",
-    "mnx": "MNXM173",
-    "inchikey": "PHIQHXFUZVPYII-ZCFIWIBFSA-N",
-    "seed": "cpd00266"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-164988",
-    "kegg": "C00318",
-    "chebi": "CHEBI:11817",
-    "kegg_drug": "D02176",
-    "hmdb": "HMDB00062",
-    "biocyc": "META:CARNITINE",
-    "mnx": "MNXM173",
-    "inchikey": "PHIQHXFUZVPYII-ZCFIWIBFSA-N",
-    "seed": "cpd00266"
-   },
    "source_xref": {
     "inchikey": "PHIQHXFUZVPYII-ZCFIWIBFSA-N"
    },
@@ -2339,13 +1533,13 @@
    "target_name": "L-Carnitine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "crn~32a1",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Copper",
@@ -2355,32 +1549,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.012,
    "hmdb_orig": "14.95 uM",
-   "xref": {
-    "reactome": "R-ALL-209799",
-    "kegg": "C00070",
-    "chebi": "CHEBI:20882",
-    "hmdb": "HMDB00657",
-    "inchikey": "JPVYNHNXODAKFH-UHFFFAOYSA-N",
-    "biocyc": "META:CU+2",
-    "mnx": "MNXM632",
-    "seed": "cpd00058"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-209799",
-    "kegg": "C00070",
-    "chebi": "CHEBI:20882",
-    "hmdb": "HMDB00657",
-    "inchikey": "JPVYNHNXODAKFH-UHFFFAOYSA-N",
-    "biocyc": "META:CU+2",
-    "mnx": "MNXM632",
-    "seed": "cpd00058"
-   },
    "source_xref": {
     "inchikey": "JPVYNHNXODAKFH-UHFFFAOYSA-N"
    },
@@ -2390,13 +1564,13 @@
    "target_name": "Copper",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "cu2~c1e3",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Dehydroepiandrosterone",
@@ -2406,36 +1580,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.000884 uM",
-   "xref": {
-    "reactome": "R-ALL-1609650",
-    "kegg": "C01227",
-    "chebi": "CHEBI:11911",
-    "kegg_drug": "D08409",
-    "inchikey": "FMGSKLZLMKYGDP-USOAJAOKSA-N",
-    "hmdb": "HMDB00077",
-    "lipidmaps": "LMST02020021",
-    "biocyc": "META:3-BETA-HYDROXYANDROST-5-EN-17-ONE",
-    "mnx": "MNXM375",
-    "seed": "cpd00904"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-1609650",
-    "kegg": "C01227",
-    "chebi": "CHEBI:11911",
-    "kegg_drug": "D08409",
-    "inchikey": "FMGSKLZLMKYGDP-USOAJAOKSA-N",
-    "hmdb": "HMDB00077",
-    "lipidmaps": "LMST02020021",
-    "biocyc": "META:3-BETA-HYDROXYANDROST-5-EN-17-ONE",
-    "mnx": "MNXM375",
-    "seed": "cpd00904"
-   },
    "source_xref": {
     "inchikey": "FMGSKLZLMKYGDP-USOAJAOKSA-N"
    },
@@ -2445,13 +1595,13 @@
    "target_name": "Dehydroepiandrosterone",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "dhea~fb76",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Dimethylamine",
@@ -2461,32 +1611,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-5693410",
-    "kegg": "C00543",
-    "chebi": "CHEBI:14170",
-    "hmdb": "HMDB00087",
-    "biocyc": "META:DIMETHYLAMINE",
-    "mnx": "MNXM796",
-    "inchikey": "ROSDSFDQCJNGOL-UHFFFAOYSA-O",
-    "seed": "cpd00425"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-5693410",
-    "kegg": "C00543",
-    "chebi": "CHEBI:14170",
-    "hmdb": "HMDB00087",
-    "biocyc": "META:DIMETHYLAMINE",
-    "mnx": "MNXM796",
-    "inchikey": "ROSDSFDQCJNGOL-UHFFFAOYSA-O",
-    "seed": "cpd00425"
-   },
    "source_xref": {
     "kegg": "C00543"
    },
@@ -2496,13 +1626,13 @@
    "target_name": "Dimethylamine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "dma~b3a5",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "N,N-Dimethylglycine",
@@ -2512,32 +1642,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-1614585",
-    "kegg": "C01026",
-    "chebi": "CHEBI:12426",
-    "inchikey": "FFDGPVCHZBVARC-UHFFFAOYSA-N",
-    "hmdb": "HMDB00092",
-    "biocyc": "META:DIMETHYL-GLYCINE",
-    "mnx": "MNXM464",
-    "seed": "cpd00756"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-1614585",
-    "kegg": "C01026",
-    "chebi": "CHEBI:12426",
-    "inchikey": "FFDGPVCHZBVARC-UHFFFAOYSA-N",
-    "hmdb": "HMDB00092",
-    "biocyc": "META:DIMETHYL-GLYCINE",
-    "mnx": "MNXM464",
-    "seed": "cpd00756"
-   },
    "source_xref": {
     "inchikey": "FFDGPVCHZBVARC-UHFFFAOYSA-N"
    },
@@ -2547,13 +1657,13 @@
    "target_name": "N,N-Dimethylglycine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "dmgly~8bf6",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "DTDPglucose",
@@ -2563,30 +1673,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0016,
    "hmdb_orig": "1.6 uM",
-   "xref": {
-    "kegg": "C00842",
-    "chebi": "CHEBI:10526",
-    "hmdb": "HMDB62805",
-    "biocyc": "META:DTDP-D-GLUCOSE",
-    "mnx": "MNXM1376",
-    "inchikey": "YSYKRGRSMLTJNL-URARBOGNSA-L",
-    "seed": "cpd00626"
-   },
    "in_biggr": true,
    "mapping_method": "hmdb",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00842",
-    "chebi": "CHEBI:10526",
-    "hmdb": "HMDB62805",
-    "biocyc": "META:DTDP-D-GLUCOSE",
-    "mnx": "MNXM1376",
-    "inchikey": "YSYKRGRSMLTJNL-URARBOGNSA-L",
-    "seed": "cpd00626"
-   },
    "source_xref": {
     "hmdb": "HMDB62805"
    },
@@ -2596,13 +1688,13 @@
    "target_name": "DTDPglucose",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source HMDB accession resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "hmdb",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "dtdpglu",
+   "mapping_note_id": "n6bb478"
   },
   {
    "name": "Estrone cytosol",
@@ -2612,36 +1704,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.000269 uM",
-   "xref": {
-    "reactome": "R-ALL-176575",
-    "kegg": "C00468",
-    "chebi": "CHEBI:14220",
-    "kegg_drug": "D00067",
-    "inchikey": "DNXHEGUUPJUMQT-CBZIJGRNSA-N",
-    "hmdb": "HMDB00145",
-    "lipidmaps": "LMST02010004",
-    "biocyc": "META:ESTRONE",
-    "mnx": "MNXM327",
-    "seed": "cpd00362"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-176575",
-    "kegg": "C00468",
-    "chebi": "CHEBI:14220",
-    "kegg_drug": "D00067",
-    "inchikey": "DNXHEGUUPJUMQT-CBZIJGRNSA-N",
-    "hmdb": "HMDB00145",
-    "lipidmaps": "LMST02010004",
-    "biocyc": "META:ESTRONE",
-    "mnx": "MNXM327",
-    "seed": "cpd00362"
-   },
    "source_xref": {
     "inchikey": "DNXHEGUUPJUMQT-CBZIJGRNSA-N"
    },
@@ -2651,13 +1719,13 @@
    "target_name": "Estrone cytosol",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "estrone~9e2b",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Ethanol",
@@ -2667,34 +1735,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0055,
    "hmdb_orig": "8.0 uM",
-   "xref": {
-    "reactome": "R-ALL-113748",
-    "kegg": "C00469",
-    "chebi": "CHEBI:14222",
-    "kegg_drug": "D00068",
-    "hmdb": "HMDB00108",
-    "inchikey": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N",
-    "biocyc": "META:ETOH",
-    "mnx": "MNXM303",
-    "seed": "cpd00363"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113748",
-    "kegg": "C00469",
-    "chebi": "CHEBI:14222",
-    "kegg_drug": "D00068",
-    "hmdb": "HMDB00108",
-    "inchikey": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N",
-    "biocyc": "META:ETOH",
-    "mnx": "MNXM303",
-    "seed": "cpd00363"
-   },
    "source_xref": {
     "inchikey": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
    },
@@ -2704,13 +1750,13 @@
    "target_name": "Ethanol",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "etoh~7b5e",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Fe2+ mitochondria",
@@ -2720,30 +1766,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.052,
    "hmdb_orig": "52.0 uM",
-   "xref": {
-    "kegg": "C14818",
-    "chebi": "CHEBI:13319",
-    "inchikey": "CWYNVVGOOAEACU-UHFFFAOYSA-N",
-    "hmdb": "HMDB00692",
-    "biocyc": "META:FE+2",
-    "mnx": "MNXM111",
-    "seed": "cpd10515"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C14818",
-    "chebi": "CHEBI:13319",
-    "inchikey": "CWYNVVGOOAEACU-UHFFFAOYSA-N",
-    "hmdb": "HMDB00692",
-    "biocyc": "META:FE+2",
-    "mnx": "MNXM111",
-    "seed": "cpd10515"
-   },
    "source_xref": {
     "inchikey": "CWYNVVGOOAEACU-UHFFFAOYSA-N"
    },
@@ -2753,13 +1781,13 @@
    "target_name": "Fe2+ mitochondria",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "fe2~009b",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Iron (Fe3+)",
@@ -2768,47 +1796,27 @@
    "lower_bound": -1000,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "reactome": "R-ALL-111736",
-    "kegg": "C14819",
-    "chebi": "CHEBI:13320",
-    "hmdb": "HMDB12943",
-    "biocyc": "META:FE+3",
-    "mnx": "MNXM196",
-    "inchikey": "VTLYFUHAOXGGBS-UHFFFAOYSA-N",
-    "seed": "cpd10516"
-   },
    "in_biggr": true,
    "mapping_method": "mineral_base",
    "mapping_confidence": "convention",
    "exchange_source": "biggr",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {
-    "reactome": "R-ALL-111736",
-    "kegg": "C14819",
-    "chebi": "CHEBI:13320",
-    "hmdb": "HMDB12943",
-    "biocyc": "META:FE+3",
-    "mnx": "MNXM196",
-    "inchikey": "VTLYFUHAOXGGBS-UHFFFAOYSA-N",
-    "seed": "cpd10516"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "target_name": "Iron (Fe3+)",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "injected mineral base",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "xref_id": "fe3~4d95",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n7b5006"
   },
   {
    "name": "Formate",
@@ -2818,32 +1826,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.078,
    "hmdb_orig": "78.0 uM",
-   "xref": {
-    "reactome": "R-ALL-194712",
-    "inchikey": "BDAGIHXWWSANSR-UHFFFAOYSA-M",
-    "kegg": "C00058",
-    "chebi": "CHEBI:14276",
-    "hmdb": "HMDB00142",
-    "biocyc": "META:CARBOXYL-GROUP",
-    "mnx": "MNXM39",
-    "seed": "cpd00047"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-194712",
-    "inchikey": "BDAGIHXWWSANSR-UHFFFAOYSA-M",
-    "kegg": "C00058",
-    "chebi": "CHEBI:14276",
-    "hmdb": "HMDB00142",
-    "biocyc": "META:CARBOXYL-GROUP",
-    "mnx": "MNXM39",
-    "seed": "cpd00047"
-   },
    "source_xref": {
     "kegg": "C00058"
    },
@@ -2853,13 +1841,13 @@
    "target_name": "Formate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "for~790e",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Fumarate",
@@ -2869,34 +1857,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0012,
    "hmdb_orig": "1.2 uM",
-   "xref": {
-    "reactome": "R-ALL-113588",
-    "kegg": "C00122",
-    "chebi": "CHEBI:14284",
-    "kegg_drug": "D02308",
-    "hmdb": "HMDB00134",
-    "biocyc": "META:FUM",
-    "mnx": "MNXM93",
-    "inchikey": "VZCYOOQTPOCHFL-OWOJBTEDSA-L",
-    "seed": "cpd00106"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113588",
-    "kegg": "C00122",
-    "chebi": "CHEBI:14284",
-    "kegg_drug": "D02308",
-    "hmdb": "HMDB00134",
-    "biocyc": "META:FUM",
-    "mnx": "MNXM93",
-    "inchikey": "VZCYOOQTPOCHFL-OWOJBTEDSA-L",
-    "seed": "cpd00106"
-   },
    "source_xref": {
     "kegg": "C00122"
    },
@@ -2906,13 +1872,13 @@
    "target_name": "Fumarate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "fum~b63f",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "D-Galactose",
@@ -2922,32 +1888,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "kegg": "C00124",
-    "chebi": "CHEBI:10231",
-    "kegg_drug": "D04291",
-    "hmdb": "HMDB00143",
-    "biocyc": "META:ALPHA-D-GALACTOSE",
-    "mnx": "MNXM390",
-    "inchikey": "WQZGKKKJIJFFOK-PHYPRBDBSA-N",
-    "seed": "cpd00108"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00124",
-    "chebi": "CHEBI:10231",
-    "kegg_drug": "D04291",
-    "hmdb": "HMDB00143",
-    "biocyc": "META:ALPHA-D-GALACTOSE",
-    "mnx": "MNXM390",
-    "inchikey": "WQZGKKKJIJFFOK-PHYPRBDBSA-N",
-    "seed": "cpd00108"
-   },
    "source_xref": {
     "inchikey": "WQZGKKKJIJFFOK-PHYPRBDBSA-N"
    },
@@ -2957,13 +1903,13 @@
    "target_name": "D-Galactose",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "gal~ac21",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "D-Glucose",
@@ -2973,32 +1919,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 3.808,
    "hmdb_orig": "2941.896 uM",
-   "xref": {
-    "kegg": "C00031",
-    "chebi": "CHEBI:12965",
-    "kegg_drug": "D00009",
-    "hmdb": "HMDB00122",
-    "biocyc": "META:Glucopyranose",
-    "mnx": "MNXM41",
-    "inchikey": "WQZGKKKJIJFFOK-GASJEMHNSA-N",
-    "seed": "cpd00027"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00031",
-    "chebi": "CHEBI:12965",
-    "kegg_drug": "D00009",
-    "hmdb": "HMDB00122",
-    "biocyc": "META:Glucopyranose",
-    "mnx": "MNXM41",
-    "inchikey": "WQZGKKKJIJFFOK-GASJEMHNSA-N",
-    "seed": "cpd00027"
-   },
    "source_xref": {
     "inchikey": "WQZGKKKJIJFFOK-GASJEMHNSA-N"
    },
@@ -3008,13 +1934,13 @@
    "target_name": "D-Glucose",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "glc__D~cfb4",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Alpha D-glucose",
@@ -3024,32 +1950,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-113780",
-    "kegg": "C00267",
-    "chebi": "CHEBI:10242",
-    "hmdb": "HMDB03345",
-    "biocyc": "META:ALPHA-GLUCOSE",
-    "mnx": "MNXM99",
-    "inchikey": "WQZGKKKJIJFFOK-DVKNGEFBSA-N",
-    "seed": "cpd19001"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113780",
-    "kegg": "C00267",
-    "chebi": "CHEBI:10242",
-    "hmdb": "HMDB03345",
-    "biocyc": "META:ALPHA-GLUCOSE",
-    "mnx": "MNXM99",
-    "inchikey": "WQZGKKKJIJFFOK-DVKNGEFBSA-N",
-    "seed": "cpd19001"
-   },
    "source_xref": {
     "inchikey": "WQZGKKKJIJFFOK-DVKNGEFBSA-N"
    },
@@ -3059,13 +1965,13 @@
    "target_name": "Alpha D-glucose",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "glc__aD~d483",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Glutamine",
@@ -3075,34 +1981,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.1705,
    "hmdb_orig": "95.0 uM",
-   "xref": {
-    "reactome": "R-ALL-113522",
-    "kegg": "C00064",
-    "chebi": "CHEBI:13110",
-    "kegg_drug": "D00015",
-    "hmdb": "HMDB00641",
-    "biocyc": "META:GLN",
-    "mnx": "MNXM37",
-    "inchikey": "ZDXPYRJPNDTMRX-VKHMYHEASA-N",
-    "seed": "cpd00053"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113522",
-    "kegg": "C00064",
-    "chebi": "CHEBI:13110",
-    "kegg_drug": "D00015",
-    "hmdb": "HMDB00641",
-    "biocyc": "META:GLN",
-    "mnx": "MNXM37",
-    "inchikey": "ZDXPYRJPNDTMRX-VKHMYHEASA-N",
-    "seed": "cpd00053"
-   },
    "source_xref": {
     "inchikey": "ZDXPYRJPNDTMRX-VKHMYHEASA-N"
    },
@@ -3112,13 +1996,13 @@
    "target_name": "L-Glutamine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "gln__L~b704",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Glutamate",
@@ -3128,34 +2012,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.174,
    "hmdb_orig": "85.1 uM",
-   "xref": {
-    "reactome": "R-ALL-113552",
-    "kegg": "C00025",
-    "chebi": "CHEBI:13107",
-    "kegg_drug": "D00007",
-    "hmdb": "HMDB00148",
-    "biocyc": "META:GLT",
-    "mnx": "MNXM89557",
-    "inchikey": "WHUUTDBJXJRKMK-VKHMYHEASA-M",
-    "seed": "cpd00023"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113552",
-    "kegg": "C00025",
-    "chebi": "CHEBI:13107",
-    "kegg_drug": "D00007",
-    "hmdb": "HMDB00148",
-    "biocyc": "META:GLT",
-    "mnx": "MNXM89557",
-    "inchikey": "WHUUTDBJXJRKMK-VKHMYHEASA-M",
-    "seed": "cpd00023"
-   },
    "source_xref": {
     "kegg": "C00025"
    },
@@ -3165,13 +2027,13 @@
    "target_name": "L-Glutamate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "glu__L~400c",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Glycine",
@@ -3181,34 +2043,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.3623,
    "hmdb_orig": "287.0 uM",
-   "xref": {
-    "reactome": "R-ALL-113545",
-    "kegg": "C00037",
-    "chebi": "CHEBI:10792",
-    "kegg_drug": "D00011",
-    "inchikey": "DHMQDGOQFOQNFH-UHFFFAOYSA-N",
-    "hmdb": "HMDB00123",
-    "biocyc": "META:GLY",
-    "mnx": "MNXM29",
-    "seed": "cpd00033"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113545",
-    "kegg": "C00037",
-    "chebi": "CHEBI:10792",
-    "kegg_drug": "D00011",
-    "inchikey": "DHMQDGOQFOQNFH-UHFFFAOYSA-N",
-    "hmdb": "HMDB00123",
-    "biocyc": "META:GLY",
-    "mnx": "MNXM29",
-    "seed": "cpd00033"
-   },
    "source_xref": {
     "inchikey": "DHMQDGOQFOQNFH-UHFFFAOYSA-N"
    },
@@ -3218,13 +2058,13 @@
    "target_name": "Glycine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "gly~bd24",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Glycine betaine",
@@ -3234,34 +2074,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0914,
    "hmdb_orig": "13.7 uM",
-   "xref": {
-    "reactome": "R-ALL-352015",
-    "kegg": "C00719",
-    "chebi": "CHEBI:12531",
-    "kegg_drug": "D07523",
-    "hmdb": "HMDB00043",
-    "inchikey": "KWIUHFFTVRNATP-UHFFFAOYSA-N",
-    "biocyc": "META:BETAINE",
-    "mnx": "MNXM289",
-    "seed": "cpd00540"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-352015",
-    "kegg": "C00719",
-    "chebi": "CHEBI:12531",
-    "kegg_drug": "D07523",
-    "hmdb": "HMDB00043",
-    "inchikey": "KWIUHFFTVRNATP-UHFFFAOYSA-N",
-    "biocyc": "META:BETAINE",
-    "mnx": "MNXM289",
-    "seed": "cpd00540"
-   },
    "source_xref": {
     "inchikey": "KWIUHFFTVRNATP-UHFFFAOYSA-N"
    },
@@ -3271,13 +2089,13 @@
    "target_name": "Glycine betaine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "glyb~0cee",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Glycerol",
@@ -3287,34 +2105,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.314,
    "hmdb_orig": "314.0 uM",
-   "xref": {
-    "reactome": "R-ALL-192438",
-    "kegg": "C00116",
-    "chebi": "CHEBI:131422",
-    "kegg_drug": "D00028",
-    "hmdb": "HMDB00131",
-    "biocyc": "META:GLYCEROL",
-    "mnx": "MNXM89612",
-    "inchikey": "PEDCQBHIVMGVHV-UHFFFAOYSA-N",
-    "seed": "cpd00100"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-192438",
-    "kegg": "C00116",
-    "chebi": "CHEBI:131422",
-    "kegg_drug": "D00028",
-    "hmdb": "HMDB00131",
-    "biocyc": "META:GLYCEROL",
-    "mnx": "MNXM89612",
-    "inchikey": "PEDCQBHIVMGVHV-UHFFFAOYSA-N",
-    "seed": "cpd00100"
-   },
    "source_xref": {
     "inchikey": "PEDCQBHIVMGVHV-UHFFFAOYSA-N"
    },
@@ -3324,13 +2120,13 @@
    "target_name": "Glycerol",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "glyc~84f2",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "H2O H2O",
@@ -3339,49 +2135,27 @@
    "lower_bound": -1000,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "reactome": "R-ALL-109276",
-    "kegg": "C00001",
-    "chebi": "CHEBI:10743",
-    "kegg_drug": "D00001",
-    "hmdb": "HMDB01039",
-    "biocyc": "META:CPD-15815",
-    "mnx": "MNXM2",
-    "inchikey": "XLYOFNOQVPJJNP-UHFFFAOYSA-N",
-    "seed": "cpd00001"
-   },
    "in_biggr": true,
    "mapping_method": "mineral_base",
    "mapping_confidence": "convention",
    "exchange_source": "biggr",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {
-    "reactome": "R-ALL-109276",
-    "kegg": "C00001",
-    "chebi": "CHEBI:10743",
-    "kegg_drug": "D00001",
-    "hmdb": "HMDB01039",
-    "biocyc": "META:CPD-15815",
-    "mnx": "MNXM2",
-    "inchikey": "XLYOFNOQVPJJNP-UHFFFAOYSA-N",
-    "seed": "cpd00001"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "target_name": "H2O H2O",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "injected mineral base",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "xref_id": "h2o~753d",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n7b5006"
   },
   {
    "name": "H+",
@@ -3390,47 +2164,27 @@
    "lower_bound": -1000,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "reactome": "R-ALL-1132304",
-    "kegg": "C00080",
-    "chebi": "CHEBI:10744",
-    "inchikey": "GPRLSGONYQIRFK-UHFFFAOYSA-N",
-    "hmdb": "HMDB59597",
-    "biocyc": "META:PROTON",
-    "mnx": "MNXM1",
-    "seed": "cpd00067"
-   },
    "in_biggr": true,
    "mapping_method": "mineral_base",
    "mapping_confidence": "convention",
    "exchange_source": "biggr",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {
-    "reactome": "R-ALL-1132304",
-    "kegg": "C00080",
-    "chebi": "CHEBI:10744",
-    "inchikey": "GPRLSGONYQIRFK-UHFFFAOYSA-N",
-    "hmdb": "HMDB59597",
-    "biocyc": "META:PROTON",
-    "mnx": "MNXM1",
-    "seed": "cpd00067"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "target_name": "H+",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "injected mineral base",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "xref_id": "h~ca10",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n7b5006"
   },
   {
    "name": "Hexadecanoate (n-C16:0)",
@@ -3440,36 +2194,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-2453691",
-    "kegg": "C00249",
-    "chebi": "CHEBI:14730",
-    "kegg_drug": "D05341",
-    "hmdb": "HMDB00220",
-    "inchikey": "IPCSVZSSVZVIGE-UHFFFAOYSA-M",
-    "lipidmaps": "LMFA01010001",
-    "biocyc": "META:PALMITATE",
-    "mnx": "MNXM108",
-    "seed": "cpd00214"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-2453691",
-    "kegg": "C00249",
-    "chebi": "CHEBI:14730",
-    "kegg_drug": "D05341",
-    "hmdb": "HMDB00220",
-    "inchikey": "IPCSVZSSVZVIGE-UHFFFAOYSA-M",
-    "lipidmaps": "LMFA01010001",
-    "biocyc": "META:PALMITATE",
-    "mnx": "MNXM108",
-    "seed": "cpd00214"
-   },
    "source_xref": {
     "kegg": "C00249"
    },
@@ -3479,13 +2209,13 @@
    "target_name": "Hexadecanoate (n-C16:0)",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "hdca~1e4a",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Trans-Hexadec-2-enoyl carnitine",
@@ -3495,34 +2225,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.029 uM",
-   "xref": {
-    "mnx": "MNXM9167"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM9167"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Trans-Hexadec-2-enoyl carnitine",
    "target_name": "Trans-Hexadec-2-enoyl carnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "hdd2crn~a350",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "L-Histidine",
@@ -3532,34 +2256,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.076,
    "hmdb_orig": "74.0 uM",
-   "xref": {
-    "reactome": "R-ALL-29612",
-    "kegg": "C00135",
-    "chebi": "CHEBI:13117",
-    "kegg_drug": "D00032",
-    "hmdb": "HMDB00177",
-    "inchikey": "HNDVDQJCIGZPNO-YFKPBYRVSA-N",
-    "biocyc": "META:HIS",
-    "mnx": "MNXM134",
-    "seed": "cpd00119"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29612",
-    "kegg": "C00135",
-    "chebi": "CHEBI:13117",
-    "kegg_drug": "D00032",
-    "hmdb": "HMDB00177",
-    "inchikey": "HNDVDQJCIGZPNO-YFKPBYRVSA-N",
-    "biocyc": "META:HIS",
-    "mnx": "MNXM134",
-    "seed": "cpd00119"
-   },
    "source_xref": {
     "inchikey": "HNDVDQJCIGZPNO-YFKPBYRVSA-N"
    },
@@ -3569,13 +2271,13 @@
    "target_name": "L-Histidine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "his__L~6b8f",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Isoleucine",
@@ -3585,36 +2287,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.076,
    "hmdb_orig": "71.5 uM",
-   "xref": {
-    "reactome": "R-ALL-113537",
-    "inchikey": "AGPKZVBTJJNPAG-WHFBIAKZSA-N",
-    "kegg": "C00407",
-    "chebi": "CHEBI:13127",
-    "kegg_drug": "D00065",
-    "hmdb": "HMDB00172",
-    "lipidmaps": "LMFA01100047",
-    "biocyc": "META:ILE",
-    "mnx": "MNXM231",
-    "seed": "cpd00322"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113537",
-    "inchikey": "AGPKZVBTJJNPAG-WHFBIAKZSA-N",
-    "kegg": "C00407",
-    "chebi": "CHEBI:13127",
-    "kegg_drug": "D00065",
-    "hmdb": "HMDB00172",
-    "lipidmaps": "LMFA01100047",
-    "biocyc": "META:ILE",
-    "mnx": "MNXM231",
-    "seed": "cpd00322"
-   },
    "source_xref": {
     "inchikey": "AGPKZVBTJJNPAG-WHFBIAKZSA-N"
    },
@@ -3624,13 +2302,13 @@
    "target_name": "L-Isoleucine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "ile__L~9338",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Myo-Inositol",
@@ -3640,34 +2318,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.045,
    "hmdb_orig": "45.0 uM",
-   "xref": {
-    "reactome": "R-ALL-426910",
-    "kegg": "C00137",
-    "inchikey": "CDAISMWEOUEBRE-GPIVLXJGSA-N",
-    "chebi": "CHEBI:10601",
-    "kegg_drug": "D08079",
-    "hmdb": "HMDB00211",
-    "biocyc": "META:CPD-8052",
-    "mnx": "MNXM127",
-    "seed": "cpd00121"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-426910",
-    "kegg": "C00137",
-    "inchikey": "CDAISMWEOUEBRE-GPIVLXJGSA-N",
-    "chebi": "CHEBI:10601",
-    "kegg_drug": "D08079",
-    "hmdb": "HMDB00211",
-    "biocyc": "META:CPD-8052",
-    "mnx": "MNXM127",
-    "seed": "cpd00121"
-   },
    "source_xref": {
     "inchikey": "CDAISMWEOUEBRE-GPIVLXJGSA-N"
    },
@@ -3677,13 +2333,13 @@
    "target_name": "Myo-Inositol",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "inost~d2df",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Potassium",
@@ -3693,34 +2349,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 4.098,
    "hmdb_orig": "4710.0 uM",
-   "xref": {
-    "reactome": "R-ALL-29804",
-    "kegg": "C00238",
-    "chebi": "CHEBI:26219",
-    "kegg_drug": "D08403",
-    "hmdb": "HMDB00586",
-    "biocyc": "META:K+",
-    "mnx": "MNXM95",
-    "inchikey": "NPYPAHLBTDXSSS-UHFFFAOYSA-N",
-    "seed": "cpd00205"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29804",
-    "kegg": "C00238",
-    "chebi": "CHEBI:26219",
-    "kegg_drug": "D08403",
-    "hmdb": "HMDB00586",
-    "biocyc": "META:K+",
-    "mnx": "MNXM95",
-    "inchikey": "NPYPAHLBTDXSSS-UHFFFAOYSA-N",
-    "seed": "cpd00205"
-   },
    "source_xref": {
     "inchikey": "NPYPAHLBTDXSSS-UHFFFAOYSA-N"
    },
@@ -3730,13 +2364,13 @@
    "target_name": "Potassium",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "k~4d61",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Lactate",
@@ -3746,32 +2380,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.579,
    "hmdb_orig": "500.0 uM",
-   "xref": {
-    "reactome": "R-ALL-29708",
-    "kegg": "C00186",
-    "chebi": "CHEBI:11065",
-    "hmdb": "HMDB00190",
-    "inchikey": "JVTAAEKCZFNVCJ-REOHCLBHSA-M",
-    "biocyc": "META:L-LACTATE",
-    "mnx": "MNXM179",
-    "seed": "cpd00159"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29708",
-    "kegg": "C00186",
-    "chebi": "CHEBI:11065",
-    "hmdb": "HMDB00190",
-    "inchikey": "JVTAAEKCZFNVCJ-REOHCLBHSA-M",
-    "biocyc": "META:L-LACTATE",
-    "mnx": "MNXM179",
-    "seed": "cpd00159"
-   },
    "source_xref": {
     "kegg": "C00186"
    },
@@ -3781,13 +2395,13 @@
    "target_name": "L-Lactate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "lac__L~5bfa",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "L-Leucine",
@@ -3797,36 +2411,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.1326,
    "hmdb_orig": "107.2 uM",
-   "xref": {
-    "reactome": "R-ALL-113580",
-    "kegg": "C00123",
-    "chebi": "CHEBI:10866",
-    "kegg_drug": "D00030",
-    "hmdb": "HMDB00687",
-    "lipidmaps": "LMFA01100048",
-    "biocyc": "META:LEU",
-    "mnx": "MNXM140",
-    "inchikey": "ROHFNLRQFUQHCH-YFKPBYRVSA-N",
-    "seed": "cpd00107"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113580",
-    "kegg": "C00123",
-    "chebi": "CHEBI:10866",
-    "kegg_drug": "D00030",
-    "hmdb": "HMDB00687",
-    "lipidmaps": "LMFA01100048",
-    "biocyc": "META:LEU",
-    "mnx": "MNXM140",
-    "inchikey": "ROHFNLRQFUQHCH-YFKPBYRVSA-N",
-    "seed": "cpd00107"
-   },
    "source_xref": {
     "inchikey": "ROHFNLRQFUQHCH-YFKPBYRVSA-N"
    },
@@ -3836,13 +2426,13 @@
    "target_name": "L-Leucine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "leu__L~c86f",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Linoleyl carnitine",
@@ -3852,34 +2442,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.007 uM",
-   "xref": {
-    "mnx": "MNXM8847"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM8847"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Linoleyl carnitine",
    "target_name": "Linoleyl carnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "lnlccrn~b6af",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "L-Lysine",
@@ -3889,34 +2473,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0637,
    "hmdb_orig": "63.7 uM",
-   "xref": {
-    "reactome": "R-ALL-29444",
-    "kegg": "C00047",
-    "chebi": "CHEBI:13135",
-    "kegg_drug": "D02304",
-    "hmdb": "HMDB00182",
-    "inchikey": "KDXKERNSBIXSRK-YFKPBYRVSA-O",
-    "biocyc": "META:LYS",
-    "mnx": "MNXM78",
-    "seed": "cpd00039"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29444",
-    "kegg": "C00047",
-    "chebi": "CHEBI:13135",
-    "kegg_drug": "D02304",
-    "hmdb": "HMDB00182",
-    "inchikey": "KDXKERNSBIXSRK-YFKPBYRVSA-O",
-    "biocyc": "META:LYS",
-    "mnx": "MNXM78",
-    "seed": "cpd00039"
-   },
    "source_xref": {
     "kegg": "C00047"
    },
@@ -3926,13 +2488,13 @@
    "target_name": "L-Lysine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "lys__L~683b",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "D-Mannose",
@@ -3942,32 +2504,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-429579",
-    "kegg": "C00159",
-    "chebi": "CHEBI:12999",
-    "hmdb": "HMDB00169",
-    "biocyc": "META:D-mannopyranose",
-    "mnx": "MNXM182",
-    "inchikey": "WQZGKKKJIJFFOK-QTVWNMPRSA-N",
-    "seed": "cpd00138"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-429579",
-    "kegg": "C00159",
-    "chebi": "CHEBI:12999",
-    "hmdb": "HMDB00169",
-    "biocyc": "META:D-mannopyranose",
-    "mnx": "MNXM182",
-    "inchikey": "WQZGKKKJIJFFOK-QTVWNMPRSA-N",
-    "seed": "cpd00138"
-   },
    "source_xref": {
     "inchikey": "WQZGKKKJIJFFOK-QTVWNMPRSA-N"
    },
@@ -3977,13 +2519,13 @@
    "target_name": "D-Mannose",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "man~ca0c",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Methanol",
@@ -3993,34 +2535,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.032,
    "hmdb_orig": "32.0 uM",
-   "xref": {
-    "reactome": "R-ALL-5359061",
-    "kegg": "C00132",
-    "chebi": "CHEBI:14588",
-    "kegg_drug": "D02309",
-    "hmdb": "HMDB01875",
-    "biocyc": "META:ALCOHOL-GROUP",
-    "mnx": "MNXM157",
-    "inchikey": "OKKJLVBELUTLKV-UHFFFAOYSA-N",
-    "seed": "cpd00116"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-5359061",
-    "kegg": "C00132",
-    "chebi": "CHEBI:14588",
-    "kegg_drug": "D02309",
-    "hmdb": "HMDB01875",
-    "biocyc": "META:ALCOHOL-GROUP",
-    "mnx": "MNXM157",
-    "inchikey": "OKKJLVBELUTLKV-UHFFFAOYSA-N",
-    "seed": "cpd00116"
-   },
    "source_xref": {
     "inchikey": "OKKJLVBELUTLKV-UHFFFAOYSA-N"
    },
@@ -4030,13 +2550,13 @@
    "target_name": "Methanol",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "meoh~adb5",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Methionine",
@@ -4046,34 +2566,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0249,
    "hmdb_orig": "20.8 uM",
-   "xref": {
-    "reactome": "R-ALL-1130765",
-    "kegg": "C00073",
-    "chebi": "CHEBI:13141",
-    "kegg_drug": "D00019",
-    "inchikey": "FFEARJCKVFRZRR-BYPYZUCNSA-N",
-    "hmdb": "HMDB00696",
-    "biocyc": "META:MET",
-    "mnx": "MNXM61",
-    "seed": "cpd00060"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-1130765",
-    "kegg": "C00073",
-    "chebi": "CHEBI:13141",
-    "kegg_drug": "D00019",
-    "inchikey": "FFEARJCKVFRZRR-BYPYZUCNSA-N",
-    "hmdb": "HMDB00696",
-    "biocyc": "META:MET",
-    "mnx": "MNXM61",
-    "seed": "cpd00060"
-   },
    "source_xref": {
     "inchikey": "FFEARJCKVFRZRR-BYPYZUCNSA-N"
    },
@@ -4083,13 +2581,13 @@
    "target_name": "L-Methionine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "met__L~8960",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Methionine Sulfoxide",
@@ -4099,30 +2597,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0012,
    "hmdb_orig": "1.2 uM",
-   "xref": {
-    "reactome": "R-ALL-5676943",
-    "kegg": "C02989",
-    "chebi": "CHEBI:13142",
-    "biocyc": "META:L-Methionine-sulfoxides",
-    "mnx": "MNXM2246",
-    "inchikey": "QEFRNWWLZKMPFJ-YGVKFDHGSA-N",
-    "seed": "cpd01914"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-5676943",
-    "kegg": "C02989",
-    "chebi": "CHEBI:13142",
-    "biocyc": "META:L-Methionine-sulfoxides",
-    "mnx": "MNXM2246",
-    "inchikey": "QEFRNWWLZKMPFJ-YGVKFDHGSA-N",
-    "seed": "cpd01914"
-   },
    "source_xref": {
     "inchikey": "QEFRNWWLZKMPFJ-YGVKFDHGSA-N"
    },
@@ -4132,13 +2612,13 @@
    "target_name": "L-Methionine Sulfoxide",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "metsox_S__L~eae3",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Magnesium",
@@ -4148,32 +2628,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.934,
    "hmdb_orig": "1980.0 uM",
-   "xref": {
-    "reactome": "R-ALL-109496",
-    "kegg": "C00305",
-    "chebi": "CHEBI:13379",
-    "hmdb": "HMDB00547",
-    "inchikey": "JLVVSXFLKOJNIY-UHFFFAOYSA-N",
-    "biocyc": "META:MG+2",
-    "mnx": "MNXM653",
-    "seed": "cpd00254"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-109496",
-    "kegg": "C00305",
-    "chebi": "CHEBI:13379",
-    "hmdb": "HMDB00547",
-    "inchikey": "JLVVSXFLKOJNIY-UHFFFAOYSA-N",
-    "biocyc": "META:MG+2",
-    "mnx": "MNXM653",
-    "seed": "cpd00254"
-   },
    "source_xref": {
     "inchikey": "JLVVSXFLKOJNIY-UHFFFAOYSA-N"
    },
@@ -4183,13 +2643,13 @@
    "target_name": "Magnesium",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "mg2~e940",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Methylamine",
@@ -4199,32 +2659,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-2161177",
-    "inchikey": "BAVYZALUXZFZLV-UHFFFAOYSA-O",
-    "kegg": "C00218",
-    "chebi": "CHEBI:14595",
-    "hmdb": "HMDB00164",
-    "biocyc": "META:METHYLAMINE",
-    "mnx": "MNXM255",
-    "seed": "cpd00187"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-2161177",
-    "inchikey": "BAVYZALUXZFZLV-UHFFFAOYSA-O",
-    "kegg": "C00218",
-    "chebi": "CHEBI:14595",
-    "hmdb": "HMDB00164",
-    "biocyc": "META:METHYLAMINE",
-    "mnx": "MNXM255",
-    "seed": "cpd00187"
-   },
    "source_xref": {
     "kegg": "C00218"
    },
@@ -4234,13 +2674,13 @@
    "target_name": "Methylamine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "mma~b149",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Manganese",
@@ -4249,47 +2689,27 @@
    "lower_bound": -1000,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "reactome": "R-ALL-1981162",
-    "kegg": "C19610",
-    "chebi": "CHEBI:21435",
-    "hmdb": "HMDB01333",
-    "biocyc": "META:MN+2",
-    "mnx": "MNXM2255",
-    "inchikey": "WAEMQWOKJMHJLA-UHFFFAOYSA-N",
-    "seed": "cpd00030"
-   },
    "in_biggr": true,
    "mapping_method": "mineral_base",
    "mapping_confidence": "convention",
    "exchange_source": "biggr",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {
-    "reactome": "R-ALL-1981162",
-    "kegg": "C19610",
-    "chebi": "CHEBI:21435",
-    "hmdb": "HMDB01333",
-    "biocyc": "META:MN+2",
-    "mnx": "MNXM2255",
-    "inchikey": "WAEMQWOKJMHJLA-UHFFFAOYSA-N",
-    "seed": "cpd00030"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "target_name": "Manganese",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "injected mineral base",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "xref_id": "mn2~98d2",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n7b5006"
   },
   {
    "name": "Sodium",
@@ -4299,32 +2719,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 142.8,
    "hmdb_orig": "143000.0 uM",
-   "xref": {
-    "reactome": "R-ALL-2872443",
-    "kegg": "C01330",
-    "chebi": "CHEBI:26717",
-    "inchikey": "FKNQFGJONOIPTF-UHFFFAOYSA-N",
-    "hmdb": "HMDB00588",
-    "biocyc": "META:NA+",
-    "mnx": "MNXM27",
-    "seed": "cpd00971"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-2872443",
-    "kegg": "C01330",
-    "chebi": "CHEBI:26717",
-    "inchikey": "FKNQFGJONOIPTF-UHFFFAOYSA-N",
-    "hmdb": "HMDB00588",
-    "biocyc": "META:NA+",
-    "mnx": "MNXM27",
-    "seed": "cpd00971"
-   },
    "source_xref": {
     "inchikey": "FKNQFGJONOIPTF-UHFFFAOYSA-N"
    },
@@ -4334,13 +2734,13 @@
    "target_name": "Sodium",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "na1~f742",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Ammonium",
@@ -4349,49 +2749,27 @@
    "lower_bound": -1000,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "reactome": "R-ALL-1132163",
-    "kegg": "C00014",
-    "chebi": "CHEBI:13405",
-    "kegg_drug": "D02915",
-    "hmdb": "HMDB00051",
-    "biocyc": "META:AMMONIA",
-    "mnx": "MNXM15",
-    "inchikey": "QGZKDVFQNNGYKY-UHFFFAOYSA-O",
-    "seed": "cpd00013"
-   },
    "in_biggr": true,
    "mapping_method": "mineral_base",
    "mapping_confidence": "convention",
    "exchange_source": "biggr",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {
-    "reactome": "R-ALL-1132163",
-    "kegg": "C00014",
-    "chebi": "CHEBI:13405",
-    "kegg_drug": "D02915",
-    "hmdb": "HMDB00051",
-    "biocyc": "META:AMMONIA",
-    "mnx": "MNXM15",
-    "inchikey": "QGZKDVFQNNGYKY-UHFFFAOYSA-O",
-    "seed": "cpd00013"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "target_name": "Ammonium",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "injected mineral base",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "xref_id": "nh4~f48e",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n7b5006"
   },
   {
    "name": "O2 O2",
@@ -4400,49 +2778,27 @@
    "lower_bound": -10,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "reactome": "R-ALL-1131511",
-    "kegg": "C00007",
-    "chebi": "CHEBI:10745",
-    "kegg_drug": "D00003",
-    "hmdb": "HMDB01377",
-    "biocyc": "META:OXYGEN-MOLECULE",
-    "mnx": "MNXM4",
-    "inchikey": "MYMOFIZGZYHOMD-UHFFFAOYSA-N",
-    "seed": "cpd00007"
-   },
    "in_biggr": true,
    "mapping_method": "mineral_base",
    "mapping_confidence": "convention",
    "exchange_source": "biggr",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {
-    "reactome": "R-ALL-1131511",
-    "kegg": "C00007",
-    "chebi": "CHEBI:10745",
-    "kegg_drug": "D00003",
-    "hmdb": "HMDB01377",
-    "biocyc": "META:OXYGEN-MOLECULE",
-    "mnx": "MNXM4",
-    "inchikey": "MYMOFIZGZYHOMD-UHFFFAOYSA-N",
-    "seed": "cpd00007"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "target_name": "O2 O2",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "injected mineral base",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "xref_id": "o2~b449",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n7b5006"
   },
   {
    "name": "Octadecanoate (n-C18:0)",
@@ -4452,36 +2808,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.021 uM",
-   "xref": {
-    "reactome": "R-ALL-428198",
-    "kegg": "C01530",
-    "chebi": "CHEBI:231588",
-    "kegg_drug": "D00119",
-    "hmdb": "HMDB00827",
-    "lipidmaps": "LMFA01010018",
-    "biocyc": "META:STEARIC_ACID",
-    "mnx": "MNXM236",
-    "inchikey": "QIQXTHQIDYTFRH-UHFFFAOYSA-M",
-    "seed": "cpd01080"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-428198",
-    "kegg": "C01530",
-    "chebi": "CHEBI:231588",
-    "kegg_drug": "D00119",
-    "hmdb": "HMDB00827",
-    "lipidmaps": "LMFA01010018",
-    "biocyc": "META:STEARIC_ACID",
-    "mnx": "MNXM236",
-    "inchikey": "QIQXTHQIDYTFRH-UHFFFAOYSA-M",
-    "seed": "cpd01080"
-   },
    "source_xref": {
     "kegg": "C01530"
    },
@@ -4491,13 +2823,13 @@
    "target_name": "Octadecanoate (n-C18:0)",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "ocdca~9023",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Octanoate (n-C8:0)",
@@ -4507,34 +2839,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "kegg": "C06423",
-    "chebi": "CHEBI:25646",
-    "kegg_drug": "D05220",
-    "hmdb": "HMDB00482",
-    "lipidmaps": "LMFA01010008",
-    "biocyc": "META:CPD-195",
-    "mnx": "MNXM750",
-    "inchikey": "WWZKQHOCKIZLMA-UHFFFAOYSA-M",
-    "seed": "cpd03846"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C06423",
-    "chebi": "CHEBI:25646",
-    "kegg_drug": "D05220",
-    "hmdb": "HMDB00482",
-    "lipidmaps": "LMFA01010008",
-    "biocyc": "META:CPD-195",
-    "mnx": "MNXM750",
-    "inchikey": "WWZKQHOCKIZLMA-UHFFFAOYSA-M",
-    "seed": "cpd03846"
-   },
    "source_xref": {
     "kegg": "C06423"
    },
@@ -4544,13 +2854,13 @@
    "target_name": "Octanoate (n-C8:0)",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "octa~8ea0",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Phenylacetaldehyde",
@@ -4560,32 +2870,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-500607",
-    "kegg": "C00601",
-    "chebi": "CHEBI:14778",
-    "inchikey": "DTUQWGWMVIHBKE-UHFFFAOYSA-N",
-    "hmdb": "HMDB06236",
-    "biocyc": "META:PHENYLACETALDEHYDE",
-    "mnx": "MNXM473",
-    "seed": "cpd00464"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-500607",
-    "kegg": "C00601",
-    "chebi": "CHEBI:14778",
-    "inchikey": "DTUQWGWMVIHBKE-UHFFFAOYSA-N",
-    "hmdb": "HMDB06236",
-    "biocyc": "META:PHENYLACETALDEHYDE",
-    "mnx": "MNXM473",
-    "seed": "cpd00464"
-   },
    "source_xref": {
     "inchikey": "DTUQWGWMVIHBKE-UHFFFAOYSA-N"
    },
@@ -4595,13 +2885,13 @@
    "target_name": "Phenylacetaldehyde",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "pacald~80a7",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Phosphocreatine",
@@ -4611,34 +2901,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "mnx": "MNXM91273"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM91273"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Phosphocreatine",
    "target_name": "Phosphocreatine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "pcreat~359c",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "Propionyl-carnitine",
@@ -4648,34 +2932,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0001,
    "hmdb_orig": "0.06 uM",
-   "xref": {
-    "mnx": "MNXM6397"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM6397"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Propionyl-carnitine",
    "target_name": "Propionyl-carnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "name",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "pcrn~bfed",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "L-Phenylalanine",
@@ -4685,34 +2963,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.049,
    "hmdb_orig": "47.3 uM",
-   "xref": {
-    "reactome": "R-ALL-29502",
-    "kegg": "C00079",
-    "chebi": "CHEBI:13151",
-    "inchikey": "COLNVLDHVKWLRT-QMMMGPOBSA-N",
-    "kegg_drug": "D00021",
-    "hmdb": "HMDB00159",
-    "biocyc": "META:PHE",
-    "mnx": "MNXM97",
-    "seed": "cpd00066"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29502",
-    "kegg": "C00079",
-    "chebi": "CHEBI:13151",
-    "inchikey": "COLNVLDHVKWLRT-QMMMGPOBSA-N",
-    "kegg_drug": "D00021",
-    "hmdb": "HMDB00159",
-    "biocyc": "META:PHE",
-    "mnx": "MNXM97",
-    "seed": "cpd00066"
-   },
    "source_xref": {
     "inchikey": "COLNVLDHVKWLRT-QMMMGPOBSA-N"
    },
@@ -4722,13 +2978,13 @@
    "target_name": "L-Phenylalanine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "phe__L~90aa",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Phytanic acid",
@@ -4738,34 +2994,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "mnx": "MNXM91275"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM91275"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Phytanic acid",
    "target_name": "Phytanic acid",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "phyt~dfca",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "Phosphate",
@@ -4775,34 +3025,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.5138,
    "hmdb_orig": "513.839 uM",
-   "xref": {
-    "reactome": "R-ALL-109277",
-    "kegg": "C00009",
-    "chebi": "CHEBI:14791",
-    "kegg_drug": "D05467",
-    "hmdb": "HMDB00973",
-    "biocyc": "META:CPD-16459",
-    "mnx": "MNXM9",
-    "inchikey": "NBIIXXVUZAFLBC-UHFFFAOYSA-L",
-    "seed": "cpd00009"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-109277",
-    "kegg": "C00009",
-    "chebi": "CHEBI:14791",
-    "kegg_drug": "D05467",
-    "hmdb": "HMDB00973",
-    "biocyc": "META:CPD-16459",
-    "mnx": "MNXM9",
-    "inchikey": "NBIIXXVUZAFLBC-UHFFFAOYSA-L",
-    "seed": "cpd00009"
-   },
    "source_xref": {
     "kegg": "C00009"
    },
@@ -4812,13 +3040,13 @@
    "target_name": "Phosphate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "pi~6112",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "L-Palmitoylcarnitine",
@@ -4828,22 +3056,15 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.02 uM",
-   "xref": {
-    "mnx": "MNXM162587"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM162587"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "L-Palmitoylcarnitine",
    "target_name": "L-Palmitoylcarnitine",
@@ -4854,7 +3075,8 @@
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "pmtcrn~5d15",
+   "xref_note_id": "n6d132e"
   },
   {
    "name": "Prgnlone c",
@@ -4864,36 +3086,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.000345 uM",
-   "xref": {
-    "reactome": "R-ALL-193103",
-    "kegg": "C01953",
-    "chebi": "CHEBI:14881",
-    "kegg_drug": "D00143",
-    "hmdb": "HMDB00253",
-    "lipidmaps": "LMST02030088",
-    "biocyc": "META:PREGNENOLONE",
-    "mnx": "MNXM385",
-    "inchikey": "ORNBQBCIOKFOEO-QGVNFLHTSA-N",
-    "seed": "cpd01342"
-   },
    "in_biggr": true,
    "mapping_method": "hmdb",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-193103",
-    "kegg": "C01953",
-    "chebi": "CHEBI:14881",
-    "kegg_drug": "D00143",
-    "hmdb": "HMDB00253",
-    "lipidmaps": "LMST02030088",
-    "biocyc": "META:PREGNENOLONE",
-    "mnx": "MNXM385",
-    "inchikey": "ORNBQBCIOKFOEO-QGVNFLHTSA-N",
-    "seed": "cpd01342"
-   },
    "source_xref": {
     "hmdb": "HMDB00253"
    },
@@ -4903,13 +3101,13 @@
    "target_name": "Prgnlone c",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source HMDB accession resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "prgnlone~db0f",
+   "mapping_note_id": "n6bb478"
   },
   {
    "name": "L-Proline",
@@ -4919,34 +3117,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.072,
    "hmdb_orig": "45.7 uM",
-   "xref": {
-    "reactome": "R-ALL-113538",
-    "kegg": "C00148",
-    "chebi": "CHEBI:13154",
-    "kegg_drug": "D00035",
-    "hmdb": "HMDB00162",
-    "biocyc": "META:PRO",
-    "mnx": "MNXM114",
-    "inchikey": "ONIBWKKTOPOVIA-BYPYZUCNSA-N",
-    "seed": "cpd00129"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113538",
-    "kegg": "C00148",
-    "chebi": "CHEBI:13154",
-    "kegg_drug": "D00035",
-    "hmdb": "HMDB00162",
-    "biocyc": "META:PRO",
-    "mnx": "MNXM114",
-    "inchikey": "ONIBWKKTOPOVIA-BYPYZUCNSA-N",
-    "seed": "cpd00129"
-   },
    "source_xref": {
     "inchikey": "ONIBWKKTOPOVIA-BYPYZUCNSA-N"
    },
@@ -4956,13 +3132,13 @@
    "target_name": "L-Proline",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "pro__L~f997",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Putrescine",
@@ -4972,32 +3148,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.04 uM",
-   "xref": {
-    "reactome": "R-ALL-141350",
-    "kegg": "C00134",
-    "chebi": "CHEBI:14972",
-    "hmdb": "HMDB01414",
-    "inchikey": "KIDHWZJUCRJVML-UHFFFAOYSA-P",
-    "biocyc": "META:PUTRESCINE",
-    "mnx": "MNXM118",
-    "seed": "cpd00118"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-141350",
-    "kegg": "C00134",
-    "chebi": "CHEBI:14972",
-    "hmdb": "HMDB01414",
-    "inchikey": "KIDHWZJUCRJVML-UHFFFAOYSA-P",
-    "biocyc": "META:PUTRESCINE",
-    "mnx": "MNXM118",
-    "seed": "cpd00118"
-   },
    "source_xref": {
     "kegg": "C00134"
    },
@@ -5007,13 +3163,13 @@
    "target_name": "Putrescine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "ptrc~1079",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Pyridoxine",
@@ -5023,34 +3179,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-965053",
-    "kegg": "C00314",
-    "chebi": "CHEBI:14981",
-    "kegg_drug": "D08454",
-    "hmdb": "HMDB00239",
-    "inchikey": "LXNHXLLTXMVWPM-UHFFFAOYSA-N",
-    "biocyc": "META:PYRIDOXINE",
-    "mnx": "MNXM419",
-    "seed": "cpd00263"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-965053",
-    "kegg": "C00314",
-    "chebi": "CHEBI:14981",
-    "kegg_drug": "D08454",
-    "hmdb": "HMDB00239",
-    "inchikey": "LXNHXLLTXMVWPM-UHFFFAOYSA-N",
-    "biocyc": "META:PYRIDOXINE",
-    "mnx": "MNXM419",
-    "seed": "cpd00263"
-   },
    "source_xref": {
     "inchikey": "LXNHXLLTXMVWPM-UHFFFAOYSA-N"
    },
@@ -5060,13 +3194,13 @@
    "target_name": "Pyridoxine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "pydxn~c66e",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Pyruvate",
@@ -5076,34 +3210,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.15,
    "hmdb_orig": "150.0 uM",
-   "xref": {
-    "reactome": "R-ALL-1130930",
-    "kegg": "C00022",
-    "chebi": "CHEBI:14987",
-    "hmdb": "HMDB00243",
-    "inchikey": "LCTONWCANYUPML-UHFFFAOYSA-M",
-    "lipidmaps": "LMFA01060077",
-    "biocyc": "META:PYRUVATE",
-    "mnx": "MNXM23",
-    "seed": "cpd00020"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-1130930",
-    "kegg": "C00022",
-    "chebi": "CHEBI:14987",
-    "hmdb": "HMDB00243",
-    "inchikey": "LCTONWCANYUPML-UHFFFAOYSA-M",
-    "lipidmaps": "LMFA01060077",
-    "biocyc": "META:PYRUVATE",
-    "mnx": "MNXM23",
-    "seed": "cpd00020"
-   },
    "source_xref": {
     "kegg": "C00022"
    },
@@ -5113,13 +3225,13 @@
    "target_name": "Pyruvate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "pyr~ac45",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Sarcosine C3H7NO2",
@@ -5129,32 +3241,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0065,
    "hmdb_orig": "3.0 uM",
-   "xref": {
-    "reactome": "R-ALL-5359017",
-    "kegg": "C00213",
-    "chebi": "CHEBI:10876",
-    "inchikey": "FSYKKLYZXJSNPZ-UHFFFAOYSA-N",
-    "hmdb": "HMDB00271",
-    "biocyc": "META:SARCOSINE",
-    "mnx": "MNXM300",
-    "seed": "cpd00183"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-5359017",
-    "kegg": "C00213",
-    "chebi": "CHEBI:10876",
-    "inchikey": "FSYKKLYZXJSNPZ-UHFFFAOYSA-N",
-    "hmdb": "HMDB00271",
-    "biocyc": "META:SARCOSINE",
-    "mnx": "MNXM300",
-    "seed": "cpd00183"
-   },
    "source_xref": {
     "inchikey": "FSYKKLYZXJSNPZ-UHFFFAOYSA-N"
    },
@@ -5164,13 +3256,13 @@
    "target_name": "Sarcosine C3H7NO2",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "sarcs~929b",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Selenide",
@@ -5180,32 +3272,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0014,
    "hmdb_orig": "1.4 uM",
-   "xref": {
-    "reactome": "R-ALL-5357660",
-    "kegg": "C01528",
-    "chebi": "CHEBI:15076",
-    "hmdb": "HMDB11110",
-    "biocyc": "META:CPD-678",
-    "mnx": "MNXM92652",
-    "inchikey": "SPVXKVOXSXTJOY-UHFFFAOYSA-M",
-    "seed": "cpd01078"
-   },
    "in_biggr": true,
    "mapping_method": "chebi",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-5357660",
-    "kegg": "C01528",
-    "chebi": "CHEBI:15076",
-    "hmdb": "HMDB11110",
-    "biocyc": "META:CPD-678",
-    "mnx": "MNXM92652",
-    "inchikey": "SPVXKVOXSXTJOY-UHFFFAOYSA-M",
-    "seed": "cpd01078"
-   },
    "source_xref": {
     "chebi": "CHEBI:15076"
    },
@@ -5215,13 +3287,13 @@
    "target_name": "Selenide",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source ChEBI resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "chebi",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "seln",
+   "mapping_note_id": "n3f5d21"
   },
   {
    "name": "L-Serine",
@@ -5231,36 +3303,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0756,
    "hmdb_orig": "58.4 uM",
-   "xref": {
-    "reactome": "R-ALL-200736",
-    "kegg": "C00065",
-    "chebi": "CHEBI:13167",
-    "kegg_drug": "D00016",
-    "hmdb": "HMDB00187",
-    "lipidmaps": "LMFA01100045",
-    "biocyc": "META:SER",
-    "mnx": "MNXM53",
-    "inchikey": "MTCFGRXMJLQNBG-REOHCLBHSA-N",
-    "seed": "cpd00054"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-200736",
-    "kegg": "C00065",
-    "chebi": "CHEBI:13167",
-    "kegg_drug": "D00016",
-    "hmdb": "HMDB00187",
-    "lipidmaps": "LMFA01100045",
-    "biocyc": "META:SER",
-    "mnx": "MNXM53",
-    "inchikey": "MTCFGRXMJLQNBG-REOHCLBHSA-N",
-    "seed": "cpd00054"
-   },
    "source_xref": {
     "inchikey": "MTCFGRXMJLQNBG-REOHCLBHSA-N"
    },
@@ -5270,13 +3318,13 @@
    "target_name": "L-Serine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "ser__L~8c55",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Sulfite",
@@ -5286,30 +3334,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.05,
    "hmdb_orig": "50.0 uM",
-   "xref": {
-    "kegg": "C00094",
-    "chebi": "CHEBI:13367",
-    "hmdb": "HMDB00240",
-    "inchikey": "LSNNMFCWUKXFEE-UHFFFAOYSA-L",
-    "biocyc": "META:H2SO3",
-    "mnx": "MNXM105630",
-    "seed": "cpd00081"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00094",
-    "chebi": "CHEBI:13367",
-    "hmdb": "HMDB00240",
-    "inchikey": "LSNNMFCWUKXFEE-UHFFFAOYSA-L",
-    "biocyc": "META:H2SO3",
-    "mnx": "MNXM105630",
-    "seed": "cpd00081"
-   },
    "source_xref": {
     "kegg": "C00094"
    },
@@ -5319,13 +3349,13 @@
    "target_name": "Sulfite",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "so3~2568",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Sulfate",
@@ -5334,49 +3364,27 @@
    "lower_bound": -1000,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "reactome": "R-ALL-1606845",
-    "kegg": "C00059",
-    "chebi": "CHEBI:15135",
-    "kegg_drug": "D05963",
-    "hmdb": "HMDB01448",
-    "biocyc": "META:HSO4",
-    "mnx": "MNXM58",
-    "inchikey": "QAOWNCQODCNURD-UHFFFAOYSA-L",
-    "seed": "cpd00048"
-   },
    "in_biggr": true,
    "mapping_method": "mineral_base",
    "mapping_confidence": "convention",
    "exchange_source": "biggr",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {
-    "reactome": "R-ALL-1606845",
-    "kegg": "C00059",
-    "chebi": "CHEBI:15135",
-    "kegg_drug": "D05963",
-    "hmdb": "HMDB01448",
-    "biocyc": "META:HSO4",
-    "mnx": "MNXM58",
-    "inchikey": "QAOWNCQODCNURD-UHFFFAOYSA-L",
-    "seed": "cpd00048"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "target_name": "Sulfate",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "injected mineral base",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "xref_id": "so4~5f31",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n7b5006"
   },
   {
    "name": "Spermidine",
@@ -5386,32 +3394,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0002,
    "hmdb_orig": "0.2 uM",
-   "xref": {
-    "reactome": "R-ALL-141324",
-    "inchikey": "ATHGHQPFGPMSJY-UHFFFAOYSA-Q",
-    "kegg": "C00315",
-    "chebi": "CHEBI:15095",
-    "hmdb": "HMDB01257",
-    "biocyc": "META:SPERMIDINE",
-    "mnx": "MNXM124",
-    "seed": "cpd00264"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-141324",
-    "inchikey": "ATHGHQPFGPMSJY-UHFFFAOYSA-Q",
-    "kegg": "C00315",
-    "chebi": "CHEBI:15095",
-    "hmdb": "HMDB01257",
-    "biocyc": "META:SPERMIDINE",
-    "mnx": "MNXM124",
-    "seed": "cpd00264"
-   },
    "source_xref": {
     "kegg": "C00315"
    },
@@ -5421,13 +3409,13 @@
    "target_name": "Spermidine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "spmd~336f",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Spermine C10H30N4",
@@ -5437,32 +3425,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0002,
    "hmdb_orig": "0.2 uM",
-   "xref": {
-    "reactome": "R-ALL-141342",
-    "kegg": "C00750",
-    "chebi": "CHEBI:15098",
-    "hmdb": "HMDB01256",
-    "biocyc": "META:SPERMINE",
-    "mnx": "MNXM408",
-    "inchikey": "PFNFFQXMRSDOHW-UHFFFAOYSA-R",
-    "seed": "cpd00558"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-141342",
-    "kegg": "C00750",
-    "chebi": "CHEBI:15098",
-    "hmdb": "HMDB01256",
-    "biocyc": "META:SPERMINE",
-    "mnx": "MNXM408",
-    "inchikey": "PFNFFQXMRSDOHW-UHFFFAOYSA-R",
-    "seed": "cpd00558"
-   },
    "source_xref": {
     "kegg": "C00750"
    },
@@ -5472,13 +3440,13 @@
    "target_name": "Spermine C10H30N4",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "sprm~1cf0",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Serotonin",
@@ -5488,32 +3456,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0065,
    "hmdb_orig": "9.0 uM",
-   "xref": {
-    "reactome": "R-ALL-114523",
-    "kegg": "C00780",
-    "chebi": "CHEBI:1420",
-    "hmdb": "HMDB00259",
-    "biocyc": "META:SEROTONIN",
-    "mnx": "MNXM357",
-    "inchikey": "QZAYGJVTTNCVMB-UHFFFAOYSA-O",
-    "seed": "cpd00579"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-114523",
-    "kegg": "C00780",
-    "chebi": "CHEBI:1420",
-    "hmdb": "HMDB00259",
-    "biocyc": "META:SEROTONIN",
-    "mnx": "MNXM357",
-    "inchikey": "QZAYGJVTTNCVMB-UHFFFAOYSA-O",
-    "seed": "cpd00579"
-   },
    "source_xref": {
     "kegg": "C00780"
    },
@@ -5523,13 +3471,13 @@
    "target_name": "Serotonin",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "srtn~ce5d",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Stearoylcarnitine",
@@ -5539,34 +3487,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.021 uM",
-   "xref": {
-    "mnx": "MNXM9119"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM9119"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Stearoylcarnitine",
    "target_name": "Stearoylcarnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "stcrn~90fd",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "Succinate",
@@ -5576,34 +3518,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 1.717,
    "hmdb_orig": "1717.0 uM",
-   "xref": {
-    "reactome": "R-ALL-113536",
-    "kegg": "C00042",
-    "chebi": "CHEBI:132287",
-    "hmdb": "HMDB00254",
-    "inchikey": "KDYFGRWQOYBRFD-UHFFFAOYSA-L",
-    "lipidmaps": "LMFA01170043",
-    "biocyc": "META:SUC",
-    "mnx": "MNXM25",
-    "seed": "cpd00036"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113536",
-    "kegg": "C00042",
-    "chebi": "CHEBI:132287",
-    "hmdb": "HMDB00254",
-    "inchikey": "KDYFGRWQOYBRFD-UHFFFAOYSA-L",
-    "lipidmaps": "LMFA01170043",
-    "biocyc": "META:SUC",
-    "mnx": "MNXM25",
-    "seed": "cpd00036"
-   },
    "source_xref": {
     "kegg": "C00042"
    },
@@ -5613,13 +3533,13 @@
    "target_name": "Succinate",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "succ~e1f2",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Succinic semialdehyde",
@@ -5629,34 +3549,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "reactome": "R-ALL-880046",
-    "kegg": "C00232",
-    "chebi": "CHEBI:15126",
-    "hmdb": "HMDB01259",
-    "lipidmaps": "LMFA06000118",
-    "biocyc": "META:SUCC-S-ALD",
-    "mnx": "MNXM172",
-    "inchikey": "UIUJIQZEACWQSV-UHFFFAOYSA-M",
-    "seed": "cpd00199"
-   },
    "in_biggr": true,
    "mapping_method": "kegg",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-880046",
-    "kegg": "C00232",
-    "chebi": "CHEBI:15126",
-    "hmdb": "HMDB01259",
-    "lipidmaps": "LMFA06000118",
-    "biocyc": "META:SUCC-S-ALD",
-    "mnx": "MNXM172",
-    "inchikey": "UIUJIQZEACWQSV-UHFFFAOYSA-M",
-    "seed": "cpd00199"
-   },
    "source_xref": {
     "kegg": "C00232"
    },
@@ -5666,13 +3564,13 @@
    "target_name": "Succinic semialdehyde",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "sucsal~d23e",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Taurine C2H7NO3S",
@@ -5682,34 +3580,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.033,
    "hmdb_orig": "80.0 uM",
-   "xref": {
-    "reactome": "R-ALL-159420",
-    "kegg": "C00245",
-    "chebi": "CHEBI:15195",
-    "kegg_drug": "D00047",
-    "hmdb": "HMDB00251",
-    "biocyc": "META:TAURINE",
-    "mnx": "MNXM282",
-    "inchikey": "XOAAWQZATWQOTB-UHFFFAOYSA-N",
-    "seed": "cpd00210"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-159420",
-    "kegg": "C00245",
-    "chebi": "CHEBI:15195",
-    "kegg_drug": "D00047",
-    "hmdb": "HMDB00251",
-    "biocyc": "META:TAURINE",
-    "mnx": "MNXM282",
-    "inchikey": "XOAAWQZATWQOTB-UHFFFAOYSA-N",
-    "seed": "cpd00210"
-   },
    "source_xref": {
     "inchikey": "XOAAWQZATWQOTB-UHFFFAOYSA-N"
    },
@@ -5719,13 +3595,13 @@
    "target_name": "Taurine C2H7NO3S",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "taur~b11f",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Threonine",
@@ -5735,34 +3611,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0715,
    "hmdb_orig": "51.9 uM",
-   "xref": {
-    "reactome": "R-ALL-351990",
-    "inchikey": "AYFVYJQAPQTCCC-GBXIJSLDSA-N",
-    "kegg": "C00188",
-    "chebi": "CHEBI:13175",
-    "kegg_drug": "D00041",
-    "hmdb": "HMDB00167",
-    "biocyc": "META:THR",
-    "mnx": "MNXM142",
-    "seed": "cpd00161"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-351990",
-    "inchikey": "AYFVYJQAPQTCCC-GBXIJSLDSA-N",
-    "kegg": "C00188",
-    "chebi": "CHEBI:13175",
-    "kegg_drug": "D00041",
-    "hmdb": "HMDB00167",
-    "biocyc": "META:THR",
-    "mnx": "MNXM142",
-    "seed": "cpd00161"
-   },
    "source_xref": {
     "inchikey": "AYFVYJQAPQTCCC-GBXIJSLDSA-N"
    },
@@ -5772,13 +3626,13 @@
    "target_name": "L-Threonine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "thr__L~aa45",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Trimethylamine N-oxide",
@@ -5788,32 +3642,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.006,
    "hmdb_orig": "6.0 uM",
-   "xref": {
-    "reactome": "R-ALL-140963",
-    "kegg": "C01104",
-    "chebi": "CHEBI:15262",
-    "hmdb": "HMDB00925",
-    "biocyc": "META:TRIMETHYLAMINE-N-O",
-    "mnx": "MNXM437",
-    "inchikey": "UYPYRKYUKCHHIB-UHFFFAOYSA-N",
-    "seed": "cpd00811"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-140963",
-    "kegg": "C01104",
-    "chebi": "CHEBI:15262",
-    "hmdb": "HMDB00925",
-    "biocyc": "META:TRIMETHYLAMINE-N-O",
-    "mnx": "MNXM437",
-    "inchikey": "UYPYRKYUKCHHIB-UHFFFAOYSA-N",
-    "seed": "cpd00811"
-   },
    "source_xref": {
     "inchikey": "UYPYRKYUKCHHIB-UHFFFAOYSA-N"
    },
@@ -5823,13 +3657,13 @@
    "target_name": "Trimethylamine N-oxide",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "tmao~d865",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Tryptophan",
@@ -5839,34 +3673,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.037,
    "hmdb_orig": "37.0 uM",
-   "xref": {
-    "reactome": "R-ALL-29500",
-    "kegg": "C00078",
-    "chebi": "CHEBI:13178",
-    "kegg_drug": "D00020",
-    "hmdb": "HMDB00929",
-    "biocyc": "META:TRP",
-    "mnx": "MNXM94",
-    "inchikey": "QIVBCDIJIAJPQS-VIFPVBQESA-N",
-    "seed": "cpd00065"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29500",
-    "kegg": "C00078",
-    "chebi": "CHEBI:13178",
-    "kegg_drug": "D00020",
-    "hmdb": "HMDB00929",
-    "biocyc": "META:TRP",
-    "mnx": "MNXM94",
-    "inchikey": "QIVBCDIJIAJPQS-VIFPVBQESA-N",
-    "seed": "cpd00065"
-   },
    "source_xref": {
     "inchikey": "QIVBCDIJIAJPQS-VIFPVBQESA-N"
    },
@@ -5876,13 +3688,13 @@
    "target_name": "L-Tryptophan",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "trp__L~f3ee",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Tetradecanoyl carnitine",
@@ -5892,26 +3704,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.011 uM",
-   "xref": {
-    "chebi": "CHEBI:84634",
-    "hmdb": "HMDB05066",
-    "lipidmaps": "LMFA07070107",
-    "mnx": "MNXM83844",
-    "inchikey": "PSHXNVGSVNEJBD-LJQANCHMSA-N"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "chebi": "CHEBI:84634",
-    "hmdb": "HMDB05066",
-    "lipidmaps": "LMFA07070107",
-    "mnx": "MNXM83844",
-    "inchikey": "PSHXNVGSVNEJBD-LJQANCHMSA-N"
-   },
    "source_xref": {
     "inchikey": "PSHXNVGSVNEJBD-LJQANCHMSA-N"
    },
@@ -5921,13 +3719,13 @@
    "target_name": "Tetradecanoyl carnitine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "ttdcrn~c386",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "L-Tyrosine",
@@ -5937,34 +3735,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.0479,
    "hmdb_orig": "47.9 uM",
-   "xref": {
-    "reactome": "R-ALL-29506",
-    "kegg": "C00082",
-    "chebi": "CHEBI:13181",
-    "kegg_drug": "D00022",
-    "hmdb": "HMDB00158",
-    "biocyc": "META:TYR",
-    "mnx": "MNXM76",
-    "inchikey": "OUYCCCASQSFEME-QMMMGPOBSA-N",
-    "seed": "cpd00069"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29506",
-    "kegg": "C00082",
-    "chebi": "CHEBI:13181",
-    "kegg_drug": "D00022",
-    "hmdb": "HMDB00158",
-    "biocyc": "META:TYR",
-    "mnx": "MNXM76",
-    "inchikey": "OUYCCCASQSFEME-QMMMGPOBSA-N",
-    "seed": "cpd00069"
-   },
    "source_xref": {
     "inchikey": "OUYCCCASQSFEME-QMMMGPOBSA-N"
    },
@@ -5974,13 +3750,13 @@
    "target_name": "L-Tyrosine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "tyr__L~ebce",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Urate C5H4N4O3",
@@ -5990,32 +3766,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.091,
    "hmdb_orig": "91.0117 uM",
-   "xref": {
-    "reactome": "R-ALL-30034",
-    "kegg": "C00366",
-    "chebi": "CHEBI:15290",
-    "hmdb": "HMDB00289",
-    "inchikey": "LEHOTFFKMJEONL-UHFFFAOYSA-N",
-    "biocyc": "META:CPD-15041",
-    "mnx": "MNXM441",
-    "seed": "cpd00300"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-30034",
-    "kegg": "C00366",
-    "chebi": "CHEBI:15290",
-    "hmdb": "HMDB00289",
-    "inchikey": "LEHOTFFKMJEONL-UHFFFAOYSA-N",
-    "biocyc": "META:CPD-15041",
-    "mnx": "MNXM441",
-    "seed": "cpd00300"
-   },
    "source_xref": {
     "inchikey": "LEHOTFFKMJEONL-UHFFFAOYSA-N"
    },
@@ -6025,13 +3781,13 @@
    "target_name": "Urate C5H4N4O3",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "urate~a80f",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Urea CH4N2O",
@@ -6041,34 +3797,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 2.19,
    "hmdb_orig": "1321.0 uM",
-   "xref": {
-    "reactome": "R-ALL-29514",
-    "kegg": "C00086",
-    "chebi": "CHEBI:134711",
-    "kegg_drug": "D00023",
-    "hmdb": "HMDB00294",
-    "biocyc": "META:UREA",
-    "mnx": "MNXM117",
-    "inchikey": "XSQUKJJJFZCRTK-UHFFFAOYSA-N",
-    "seed": "cpd00073"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-29514",
-    "kegg": "C00086",
-    "chebi": "CHEBI:134711",
-    "kegg_drug": "D00023",
-    "hmdb": "HMDB00294",
-    "biocyc": "META:UREA",
-    "mnx": "MNXM117",
-    "inchikey": "XSQUKJJJFZCRTK-UHFFFAOYSA-N",
-    "seed": "cpd00073"
-   },
    "source_xref": {
     "inchikey": "XSQUKJJJFZCRTK-UHFFFAOYSA-N"
    },
@@ -6078,13 +3812,13 @@
    "target_name": "Urea CH4N2O",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "urea~ebf7",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Uridine",
@@ -6094,30 +3828,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.003,
    "hmdb_orig": "3.0 uM",
-   "xref": {
-    "kegg": "C00299",
-    "chebi": "CHEBI:15296",
-    "inchikey": "DRTQHJPVMGBUCF-XVFCMESISA-N",
-    "hmdb": "HMDB00296",
-    "biocyc": "META:URIDINE",
-    "mnx": "MNXM288",
-    "seed": "cpd00249"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00299",
-    "chebi": "CHEBI:15296",
-    "inchikey": "DRTQHJPVMGBUCF-XVFCMESISA-N",
-    "hmdb": "HMDB00296",
-    "biocyc": "META:URIDINE",
-    "mnx": "MNXM288",
-    "seed": "cpd00249"
-   },
    "source_xref": {
     "inchikey": "DRTQHJPVMGBUCF-XVFCMESISA-N"
    },
@@ -6127,13 +3843,13 @@
    "target_name": "Uridine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "uri~2a0c",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Vaccenic acid",
@@ -6143,34 +3859,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": null,
-   "xref": {
-    "mnx": "MNXM92713"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM92713"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Vaccenic acid",
    "target_name": "Vaccenic acid",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "vacc~3999",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "Vaccenyl carnitine",
@@ -6180,34 +3890,28 @@
    "upper_bound": 1000.0,
    "concentration_mM": null,
    "hmdb_orig": "0.0147 uM",
-   "xref": {
-    "mnx": "MNXM9222"
-   },
    "in_biggr": true,
    "mapping_method": "name",
    "mapping_confidence": "inferred",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM9222"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Vaccenyl carnitine",
    "target_name": "Vaccenyl carnitine",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "no_source_amount",
    "quantity": null,
-   "quantity_basis": null
+   "xref_id": "vacccrn",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "L-Valine",
@@ -6217,36 +3921,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.226,
    "hmdb_orig": "169.3 uM",
-   "xref": {
-    "reactome": "R-ALL-113540",
-    "kegg": "C00183",
-    "chebi": "CHEBI:13186",
-    "kegg_drug": "D00039",
-    "hmdb": "HMDB00883",
-    "inchikey": "KZSNJWFQEVHDMF-BYPYZUCNSA-N",
-    "lipidmaps": "LMFA01100046",
-    "biocyc": "META:VAL",
-    "mnx": "MNXM199",
-    "seed": "cpd00156"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-113540",
-    "kegg": "C00183",
-    "chebi": "CHEBI:13186",
-    "kegg_drug": "D00039",
-    "hmdb": "HMDB00883",
-    "inchikey": "KZSNJWFQEVHDMF-BYPYZUCNSA-N",
-    "lipidmaps": "LMFA01100046",
-    "biocyc": "META:VAL",
-    "mnx": "MNXM199",
-    "seed": "cpd00156"
-   },
    "source_xref": {
     "inchikey": "KZSNJWFQEVHDMF-BYPYZUCNSA-N"
    },
@@ -6256,13 +3936,13 @@
    "target_name": "L-Valine",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "val__L~432b",
+   "mapping_note_id": "n9dc7ba"
   },
   {
    "name": "Zinc",
@@ -6272,32 +3952,12 @@
    "upper_bound": 1000.0,
    "concentration_mM": 0.012,
    "hmdb_orig": "12.0 uM",
-   "xref": {
-    "reactome": "R-ALL-158417",
-    "kegg": "C00038",
-    "chebi": "CHEBI:10113",
-    "hmdb": "HMDB01303",
-    "biocyc": "META:ZN+2",
-    "mnx": "MNXM149",
-    "inchikey": "PTFCDOFLOPIGGS-UHFFFAOYSA-N",
-    "seed": "cpd00034"
-   },
    "in_biggr": true,
    "mapping_method": "inchikey",
    "mapping_confidence": "exact",
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-158417",
-    "kegg": "C00038",
-    "chebi": "CHEBI:10113",
-    "hmdb": "HMDB01303",
-    "biocyc": "META:ZN+2",
-    "mnx": "MNXM149",
-    "inchikey": "PTFCDOFLOPIGGS-UHFFFAOYSA-N",
-    "seed": "cpd00034"
-   },
    "source_xref": {
     "inchikey": "PTFCDOFLOPIGGS-UHFFFAOYSA-N"
    },
@@ -6307,13 +3967,13 @@
    "target_name": "Zinc",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source InChIKey resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "inchikey",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "zn2~8fcc",
+   "mapping_note_id": "n9dc7ba"
   }
  ],
  "n_components": 124,

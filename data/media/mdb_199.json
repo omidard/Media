@@ -22,8 +22,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -31,13 +29,12 @@
    "target_name": "Calcium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Magnesium chloride",
@@ -52,8 +49,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -61,13 +56,12 @@
    "target_name": "Chloride",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Cobaltous sulfate",
@@ -82,8 +76,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -91,13 +83,12 @@
    "target_name": "Co2+",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Cupric chloride",
@@ -112,8 +103,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -121,13 +110,12 @@
    "target_name": "Copper",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Ethyl octanoate",
@@ -136,22 +124,15 @@
    "lower_bound": -10.0,
    "upper_bound": 1000.0,
    "concentration_mM": 10.0,
-   "xref": {
-    "mnx": "MNXM1092964"
-   },
    "in_biggr": false,
    "exchange_source": "bigg",
    "mapping_method": "name_remap",
    "mapping_confidence": "inferred",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "mnx": "MNXM1092964"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "Ethyl octanoate",
    "target_name": "Ethyl octanoate",
@@ -159,10 +140,11 @@
    "source_observed": true,
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "name_remap",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "ethoc",
+   "xref_note_id": "n6d132e"
   },
   {
    "name": "Ferrous sulfate",
@@ -177,8 +159,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -186,13 +166,12 @@
    "target_name": "Fe2+ mitochondria",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Potassium dibasic phosphate",
@@ -207,8 +186,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -216,13 +193,12 @@
    "target_name": "Potassium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Magnesium chloride",
@@ -237,8 +213,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -246,13 +220,12 @@
    "target_name": "Magnesium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Sodium ammonium phosphate",
@@ -267,8 +240,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -276,13 +247,12 @@
    "target_name": "Sodium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Sodium ammonium phosphate",
@@ -297,8 +267,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -306,13 +274,12 @@
    "target_name": "Ammonium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Potassium dibasic phosphate",
@@ -327,8 +294,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -336,13 +301,12 @@
    "target_name": "Phosphate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Cobaltous sulfate",
@@ -357,8 +321,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -366,13 +328,12 @@
    "target_name": "Sulfate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Zinc sulfate",
@@ -387,8 +348,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -396,13 +355,12 @@
    "target_name": "Zinc",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   }
  ],
  "uncovered": [],
@@ -516,6 +474,20 @@
      "ph_declared",
      "preparation",
      "strength"
+    ]
+   },
+   {
+    "stage": "60_dedupe_references",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "components[].mapping_note -> mapping_note_id",
+     "components[].quantity_basis -> quantity.basis",
+     "components[].target_xref -> xref_id",
+     "components[].target_xref_note -> xref_note_id",
+     "components[].usda_amount -> quantity.value",
+     "components[].usda_unit -> quantity.unit",
+     "components[].xref (deprecated alias) -> xref_id"
     ]
    }
   ],

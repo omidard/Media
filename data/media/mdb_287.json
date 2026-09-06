@@ -22,8 +22,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -31,13 +29,12 @@
    "target_name": "Biotin",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "Citrate",
@@ -52,8 +49,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -61,13 +56,12 @@
    "target_name": "Citrate",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "Cl-",
@@ -82,8 +76,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -91,13 +83,12 @@
    "target_name": "Chloride",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "Fe2+",
@@ -106,40 +97,12 @@
    "lower_bound": -1000.0,
    "upper_bound": 1000.0,
    "concentration_mM": 0.01791,
-   "xref": {
-    "kegg": "C14818",
-    "chebi": "CHEBI:13319",
-    "inchikey": "CWYNVVGOOAEACU-UHFFFAOYSA-N",
-    "hmdb": "HMDB00692",
-    "biocyc": "META:FE+2",
-    "mnx": "MNXM1370983",
-    "seed": "cpd10515",
-    "metacyc": "FE+2",
-    "reactome": "R-ALL-111793",
-    "sabiork": "1275",
-    "inchi": "InChI=1S/Fe/q+2",
-    "formula": "Fe"
-   },
    "in_biggr": true,
    "exchange_source": "biggr",
    "mapping_method": "kegg_remap",
    "mapping_confidence": "exact",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C14818",
-    "chebi": "CHEBI:13319",
-    "inchikey": "CWYNVVGOOAEACU-UHFFFAOYSA-N",
-    "hmdb": "HMDB00692",
-    "biocyc": "META:FE+2",
-    "mnx": "MNXM1370983",
-    "seed": "cpd10515",
-    "metacyc": "FE+2",
-    "reactome": "R-ALL-111793",
-    "sabiork": "1275",
-    "inchi": "InChI=1S/Fe/q+2",
-    "formula": "Fe"
-   },
    "source_xref": {
     "kegg": "C14818"
    },
@@ -149,13 +112,13 @@
    "target_name": "Fe2+ mitochondria",
    "evidence_tier": "structural_xref",
    "source_observed": true,
-   "mapping_note": "source KEGG compound resolved",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "kegg_remap",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "fe2~8b5a",
+   "mapping_note_id": "nac790b"
   },
   {
    "name": "Potassium",
@@ -170,8 +133,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -179,14 +140,13 @@
    "target_name": "Potassium",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
    "concentration_block_reason": null,
-   "concentration_plausibility": "above_1M_review"
+   "concentration_plausibility": "above_1M_review",
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "Magnesium",
@@ -201,8 +161,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -210,13 +168,12 @@
    "target_name": "Magnesium",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "Sodium",
@@ -231,8 +188,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -240,14 +195,13 @@
    "target_name": "Sodium",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
    "concentration_block_reason": null,
-   "concentration_plausibility": "above_1M_review"
+   "concentration_plausibility": "above_1M_review",
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "NH4+",
@@ -262,8 +216,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -271,14 +223,13 @@
    "target_name": "Ammonium",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
    "concentration_block_reason": null,
-   "concentration_plausibility": "above_1M_review"
+   "concentration_plausibility": "above_1M_review",
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "Nitrate",
@@ -293,8 +244,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -302,14 +251,13 @@
    "target_name": "Nitrate",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
    "concentration_block_reason": null,
-   "concentration_plausibility": "above_1M_review"
+   "concentration_plausibility": "above_1M_review",
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "Orthophosphate",
@@ -324,8 +272,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -333,14 +279,13 @@
    "target_name": "Phosphate",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
    "concentration_block_reason": null,
-   "concentration_plausibility": "above_1M_review"
+   "concentration_plausibility": "above_1M_review",
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "Sulfate",
@@ -355,8 +300,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -364,13 +307,12 @@
    "target_name": "Sulfate",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "ncefd06"
   },
   {
    "name": "Sucrose",
@@ -385,8 +327,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -394,13 +334,12 @@
    "target_name": "Sucrose C12H22O11",
    "evidence_tier": "source_bigg_id",
    "source_observed": true,
-   "mapping_note": "MediaDB (ISB) supplied a BiGG id",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_bigg",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "ncefd06"
   }
  ],
  "uncovered": [],
@@ -514,6 +453,20 @@
      "ph_declared",
      "preparation",
      "strength"
+    ]
+   },
+   {
+    "stage": "60_dedupe_references",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "components[].mapping_note -> mapping_note_id",
+     "components[].quantity_basis -> quantity.basis",
+     "components[].target_xref -> xref_id",
+     "components[].target_xref_note -> xref_note_id",
+     "components[].usda_amount -> quantity.value",
+     "components[].usda_unit -> quantity.unit",
+     "components[].xref (deprecated alias) -> xref_id"
     ]
    }
   ],

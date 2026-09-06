@@ -22,8 +22,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -31,13 +29,12 @@
    "target_name": "Calcium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Calcium chloride anhydrous",
@@ -52,8 +49,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -61,13 +56,12 @@
    "target_name": "Chloride",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Glucose",
@@ -76,44 +70,15 @@
    "lower_bound": -10.0,
    "upper_bound": 1000.0,
    "concentration_mM": 11.0,
-   "xref": {
-    "kegg": "C00031",
-    "chebi": "CHEBI:12965",
-    "kegg_drug": "D00009",
-    "hmdb": "HMDB00122",
-    "biocyc": "META:Glucopyranose",
-    "mnx": "MNXM1364061",
-    "inchikey": "WQZGKKKJIJFFOK-GASJEMHNSA-N",
-    "seed": "cpd00027",
-    "metacyc": "Glucopyranose",
-    "sabiork": "1407",
-    "inchi": "InChI=1S/C6H12O6/c7-1-2-3(8)4(9)5(10)6(11)12-2/h2-11H,1H2/t2-,3-,4+,5-,6?/m1/s1",
-    "formula": "C6H12O6"
-   },
    "in_biggr": true,
    "exchange_source": "biggr",
    "mapping_method": "name_remap",
    "mapping_confidence": "inferred",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "kegg": "C00031",
-    "chebi": "CHEBI:12965",
-    "kegg_drug": "D00009",
-    "hmdb": "HMDB00122",
-    "biocyc": "META:Glucopyranose",
-    "mnx": "MNXM1364061",
-    "inchikey": "WQZGKKKJIJFFOK-GASJEMHNSA-N",
-    "seed": "cpd00027",
-    "metacyc": "Glucopyranose",
-    "sabiork": "1407",
-    "inchi": "InChI=1S/C6H12O6/c7-1-2-3(8)4(9)5(10)6(11)12-2/h2-11H,1H2/t2-,3-,4+,5-,6?/m1/s1",
-    "formula": "C6H12O6"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": "Glucose",
    "matched_name": "Glucose",
    "target_name": "D-Glucose",
@@ -121,10 +86,11 @@
    "source_observed": true,
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "name_remap",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "glc__D~7c4b",
+   "xref_note_id": "n6d132e"
   },
   {
    "name": "Potassium dihydrogen phosphate",
@@ -139,8 +105,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -148,13 +112,12 @@
    "target_name": "Potassium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Magnesium sulfate",
@@ -169,8 +132,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -178,13 +139,12 @@
    "target_name": "Magnesium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Dibasic sodium phosphate",
@@ -199,8 +159,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -208,13 +166,12 @@
    "target_name": "Sodium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Ammonium chloride",
@@ -229,8 +186,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -238,13 +193,12 @@
    "target_name": "Ammonium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Dibasic sodium phosphate",
@@ -259,8 +213,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -268,13 +220,12 @@
    "target_name": "Phosphate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "Magnesium sulfate",
@@ -289,8 +240,6 @@
    "exchange_source": "biggr",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -298,13 +247,12 @@
    "target_name": "Sulfate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   }
  ],
  "uncovered": [],
@@ -418,6 +366,20 @@
      "ph_declared",
      "preparation",
      "strength"
+    ]
+   },
+   {
+    "stage": "60_dedupe_references",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "components[].mapping_note -> mapping_note_id",
+     "components[].quantity_basis -> quantity.basis",
+     "components[].target_xref -> xref_id",
+     "components[].target_xref_note -> xref_note_id",
+     "components[].usda_amount -> quantity.value",
+     "components[].usda_unit -> quantity.unit",
+     "components[].xref (deprecated alias) -> xref_id"
     ]
    }
   ],

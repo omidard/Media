@@ -141,6 +141,20 @@
      "preparation",
      "strength"
     ]
+   },
+   {
+    "stage": "60_dedupe_references",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "components[].mapping_note -> mapping_note_id",
+     "components[].quantity_basis -> quantity.basis",
+     "components[].target_xref -> xref_id",
+     "components[].target_xref_note -> xref_note_id",
+     "components[].usda_amount -> quantity.value",
+     "components[].usda_unit -> quantity.unit",
+     "components[].xref (deprecated alias) -> xref_id"
+    ]
    }
   ],
   "source_id": "growthdb_literature",
@@ -188,21 +202,6 @@
    "lower_bound": -10.0,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "reactome": "R-ALL-6806891",
-    "kegg": "C05377",
-    "chebi": "CHEBI:27304",
-    "kegg_drug": "D02335",
-    "hmdb": "HMDB01892",
-    "biocyc": "META:CPD-3766",
-    "inchikey": "MJVAVZPDRWSRRC-UHFFFAOYSA-N",
-    "mnx": "MNXM2397",
-    "seed": "cpd03185",
-    "metacyc": "CPD-3766",
-    "sabiork": "7880",
-    "inchi": "InChI=1S/C11H8O2/c1-7-6-10(12)8-4-2-3-5-9(8)11(7)13/h2-6H,1H3",
-    "formula": "C11H8O2"
-   },
    "in_biggr": true,
    "exchange_source": "biggr",
    "mapping_method": "name_remap",
@@ -210,37 +209,22 @@
    "role": "vitamin (vitamin K3 / naphthoquinone growth factor)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-6806891",
-    "kegg": "C05377",
-    "chebi": "CHEBI:27304",
-    "kegg_drug": "D02335",
-    "hmdb": "HMDB01892",
-    "biocyc": "META:CPD-3766",
-    "inchikey": "MJVAVZPDRWSRRC-UHFFFAOYSA-N",
-    "mnx": "MNXM2397",
-    "seed": "cpd03185",
-    "metacyc": "CPD-3766",
-    "sabiork": "7880",
-    "inchi": "InChI=1S/C11H8O2/c1-7-6-10(12)8-4-2-3-5-9(8)11(7)13/h2-6H,1H3",
-    "formula": "C11H8O2"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "bigg_name",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": null,
    "matched_name": "menadione",
    "target_name": "Menadione",
    "evidence_tier": "exact_name",
    "source_observed": true,
-   "mapping_note": "tier re-derived from the source name by the corrected mapper (fuzzy_name -> exact_name)",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "mndn~f029",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n5a246b"
   },
   {
    "name": "hemin",
@@ -256,8 +240,6 @@
    "role": "iron/heme source (cofactor)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -265,13 +247,12 @@
    "target_name": "Protoheme C34H30FeN4O4",
    "evidence_tier": "author_asserted",
    "source_observed": true,
-   "mapping_note": "MediaDB alias table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "mapping_note_id": "ne128a9"
   }
  ],
  "n_components": 2,

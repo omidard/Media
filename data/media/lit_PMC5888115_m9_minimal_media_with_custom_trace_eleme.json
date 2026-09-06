@@ -150,6 +150,20 @@
      "preparation",
      "strength"
     ]
+   },
+   {
+    "stage": "60_dedupe_references",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "components[].mapping_note -> mapping_note_id",
+     "components[].quantity_basis -> quantity.basis",
+     "components[].target_xref -> xref_id",
+     "components[].target_xref_note -> xref_note_id",
+     "components[].usda_amount -> quantity.value",
+     "components[].usda_unit -> quantity.unit",
+     "components[].xref (deprecated alias) -> xref_id"
+    ]
    }
   ],
   "source_id": "primary_literature",
@@ -205,8 +219,6 @@
    "evidence_source": "main_text",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -214,13 +226,12 @@
    "target_name": "Sodium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "sodium acetate",
@@ -237,8 +248,6 @@
    "evidence_source": "main_text",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -246,13 +255,12 @@
    "target_name": "Acetate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "potassium dihydrogen phosphate",
@@ -269,8 +277,6 @@
    "evidence_source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -278,13 +284,12 @@
    "target_name": "Potassium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "potassium dihydrogen phosphate",
@@ -301,8 +306,6 @@
    "evidence_source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -310,13 +313,12 @@
    "target_name": "Phosphate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "sodium chloride",
@@ -333,8 +335,6 @@
    "evidence_source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -342,13 +342,12 @@
    "target_name": "Chloride",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "ammonium chloride",
@@ -365,8 +364,6 @@
    "evidence_source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -374,13 +371,12 @@
    "target_name": "Ammonium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "magnesium sulfate",
@@ -397,8 +393,6 @@
    "evidence_source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -406,13 +400,12 @@
    "target_name": "Magnesium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "magnesium sulfate",
@@ -429,8 +422,6 @@
    "evidence_source": "cited:standard M9 minimal medium (canonical CSH/Sambrook composition)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -438,13 +429,12 @@
    "target_name": "Sulfate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "zinc sulfate heptahydrate",
@@ -461,8 +451,6 @@
    "evidence_source": "main_text",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -470,13 +458,12 @@
    "target_name": "Zinc",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "manganese chloride tetrahydrate",
@@ -493,8 +480,6 @@
    "evidence_source": "main_text",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -502,13 +487,12 @@
    "target_name": "Manganese",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "cobalt chloride hexahydrate",
@@ -525,8 +509,6 @@
    "evidence_source": "main_text",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -534,13 +516,12 @@
    "target_name": "Co2+",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "copper chloride",
@@ -557,8 +538,6 @@
    "evidence_source": "main_text",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -566,13 +545,12 @@
    "target_name": "Copper",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "O2",
@@ -587,8 +565,6 @@
    "exchange_source": "bigg",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -597,13 +573,12 @@
    "target_name": "O2 O2",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "pipeline-assigned oxygen regime",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "mapping_note_id": "n2339c2"
   },
   {
    "name": "calcium chloride - M9 base",
@@ -612,55 +587,27 @@
    "lower_bound": -1.0,
    "upper_bound": 1000.0,
    "concentration_mM": null,
-   "xref": {
-    "reactome": "R-ALL-111875",
-    "inchikey": "BHPQYMZQTOCNFJ-UHFFFAOYSA-N",
-    "kegg": "C00076",
-    "chebi": "CHEBI:22988",
-    "hmdb": "HMDB00464",
-    "biocyc": "META:CA+2",
-    "mnx": "MNXM128",
-    "seed": "cpd00063",
-    "metacyc": "CA+2",
-    "sabiork": "1289",
-    "inchi": "InChI=1S/Ca/q+2",
-    "formula": "Ca"
-   },
    "in_biggr": true,
    "exchange_source": "biggr",
    "mapping_method": "salt_parse_remap",
    "mapping_confidence": "inferred",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-111875",
-    "inchikey": "BHPQYMZQTOCNFJ-UHFFFAOYSA-N",
-    "kegg": "C00076",
-    "chebi": "CHEBI:22988",
-    "hmdb": "HMDB00464",
-    "biocyc": "META:CA+2",
-    "mnx": "MNXM128",
-    "seed": "cpd00063",
-    "metacyc": "CA+2",
-    "sabiork": "1289",
-    "inchi": "InChI=1S/Ca/q+2",
-    "formula": "Ca"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": "calcium chloride - M9 base",
    "target_name": "Calcium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "salt name parse",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "no_source_amount"
+   "concentration_block_reason": "no_source_amount",
+   "xref_id": "ca2~f8ac",
+   "xref_note_id": "n6d132e",
+   "mapping_note_id": "n0c9c1e"
   }
  ],
  "n_components": 14,

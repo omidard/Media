@@ -113,6 +113,20 @@
      "preparation",
      "strength"
     ]
+   },
+   {
+    "stage": "60_dedupe_references",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "components[].mapping_note -> mapping_note_id",
+     "components[].quantity_basis -> quantity.basis",
+     "components[].target_xref -> xref_id",
+     "components[].target_xref_note -> xref_note_id",
+     "components[].usda_amount -> quantity.value",
+     "components[].usda_unit -> quantity.unit",
+     "components[].xref (deprecated alias) -> xref_id"
+    ]
    }
   ],
   "source_id": "growthdb_literature",
@@ -173,8 +187,6 @@
    "role": "mineral",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -182,13 +194,12 @@
    "target_name": "Calcium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "ammonium chloride",
@@ -204,8 +215,6 @@
    "role": "nitrogen",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -213,13 +222,12 @@
    "target_name": "Chloride",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "cobalt chloride",
@@ -235,8 +243,6 @@
    "role": "trace (trace-elements soln, 3 mL/L)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -244,13 +250,12 @@
    "target_name": "Co2+",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "copper sulfate",
@@ -266,8 +271,6 @@
    "role": "trace (trace-elements soln, 3 mL/L)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -275,13 +278,12 @@
    "target_name": "Copper",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "ferrous sulfate",
@@ -297,8 +299,6 @@
    "role": "iron (Fe-EDTA, 3 mL/L)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -306,13 +306,12 @@
    "target_name": "Fe2+ mitochondria",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "formic acid",
@@ -321,20 +320,6 @@
    "lower_bound": -10.0,
    "upper_bound": 1000.0,
    "concentration_mM": 12.4,
-   "xref": {
-    "reactome": "R-ALL-194712",
-    "inchikey": "BDAGIHXWWSANSR-UHFFFAOYSA-M",
-    "kegg": "C00058",
-    "chebi": "CHEBI:14276",
-    "hmdb": "HMDB00142",
-    "biocyc": "META:CARBOXYL-GROUP",
-    "mnx": "MNXM39",
-    "seed": "cpd00047",
-    "metacyc": "CARBOXYL-GROUP",
-    "sabiork": "1285",
-    "inchi": "InChI=1S/CH2O2/c2-1-3/h1H,(H,2,3)/p-1",
-    "formula": "CHO2"
-   },
    "in_biggr": true,
    "exchange_source": "biggr",
    "mapping_method": "name_alias_remap",
@@ -342,24 +327,9 @@
    "role": "carbon/energy source",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {
-    "reactome": "R-ALL-194712",
-    "inchikey": "BDAGIHXWWSANSR-UHFFFAOYSA-M",
-    "kegg": "C00058",
-    "chebi": "CHEBI:14276",
-    "hmdb": "HMDB00142",
-    "biocyc": "META:CARBOXYL-GROUP",
-    "mnx": "MNXM39",
-    "seed": "cpd00047",
-    "metacyc": "CARBOXYL-GROUP",
-    "sabiork": "1285",
-    "inchi": "InChI=1S/CH2O2/c2-1-3/h1H,(H,2,3)/p-1",
-    "formula": "CHO2"
-   },
    "source_xref": null,
    "match_key": null,
    "match_field": "alias_table",
-   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
    "source_name": "formic acid",
    "matched_name": "formicacid",
    "target_name": "Formate",
@@ -367,10 +337,11 @@
    "source_observed": true,
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "name_alias_remap",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "xref_id": "for~3d58",
+   "xref_note_id": "n6d132e"
   },
   {
    "name": "potassium dihydrogen phosphate",
@@ -386,8 +357,6 @@
    "role": "phosphate/mineral",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -395,13 +364,12 @@
    "target_name": "Potassium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "magnesium sulfate",
@@ -417,8 +385,6 @@
    "role": "mineral",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -426,13 +392,12 @@
    "target_name": "Magnesium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "manganese chloride",
@@ -448,8 +413,6 @@
    "role": "trace (trace-elements soln, 3 mL/L)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -457,13 +420,12 @@
    "target_name": "Manganese",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "sodium molybdate",
@@ -479,8 +441,6 @@
    "role": "trace (trace-elements soln, 3 mL/L)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -488,13 +448,12 @@
    "target_name": "Molybdate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "sodium molybdate",
@@ -510,8 +469,6 @@
    "role": "trace (trace-elements soln, 3 mL/L)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -519,13 +476,12 @@
    "target_name": "Sodium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "ammonium chloride",
@@ -541,8 +497,6 @@
    "role": "nitrogen",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -550,13 +504,12 @@
    "target_name": "Ammonium",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "nickel chloride",
@@ -572,8 +525,6 @@
    "role": "trace metals (1 mL/L)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -581,13 +532,12 @@
    "target_name": "Nickel",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "O2 (aerobic)",
@@ -602,8 +552,6 @@
    "exchange_source": "biggr",
    "evidence_class": "derived",
    "derived_class": "injected_convention",
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -611,13 +559,12 @@
    "target_name": "O2 O2",
    "evidence_tier": "derived_component",
    "source_observed": false,
-   "mapping_note": "pipeline-assigned regime",
    "derived_not_sourced": true,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "not_derivable",
    "concentration_source": null,
-   "concentration_block_reason": "invented_component"
+   "concentration_block_reason": "invented_component",
+   "mapping_note_id": "n6001bf"
   },
   {
    "name": "potassium dihydrogen phosphate",
@@ -633,8 +580,6 @@
    "role": "phosphate/mineral",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -642,13 +587,12 @@
    "target_name": "Phosphate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "sodium selenite",
@@ -664,8 +608,6 @@
    "role": "trace metals (1 mL/L)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -673,13 +615,12 @@
    "target_name": "Selenite",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "magnesium sulfate",
@@ -695,8 +636,6 @@
    "role": "mineral",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -704,13 +643,12 @@
    "target_name": "Sulfate",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   },
   {
    "name": "zinc sulfate",
@@ -726,8 +664,6 @@
    "role": "trace (trace-elements soln, 3 mL/L)",
    "evidence_class": "sourced",
    "derived_class": null,
-   "target_xref": {},
-   "xref": {},
    "source_xref": null,
    "match_key": null,
    "match_field": null,
@@ -735,13 +671,12 @@
    "target_name": "Zinc",
    "evidence_tier": "name_table",
    "source_observed": true,
-   "mapping_note": "MediaDB salt dissociation table",
    "derived_not_sourced": false,
    "quantity": null,
-   "quantity_basis": null,
    "concentration_status": "source_stated",
    "concentration_source": "mediadb_salt_dissociation",
-   "concentration_block_reason": null
+   "concentration_block_reason": null,
+   "mapping_note_id": "n89a08c"
   }
  ],
  "n_components": 18,

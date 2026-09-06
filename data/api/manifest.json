@@ -21,6 +21,35 @@
   "media_with_no_source_coverage_measurement": 0,
   "definition": "pct_covered is the legacy metric and counts pipeline-derived components as covered; pct_covered_source counts only composition the cited source states. Null means not measurable, never 100."
  },
+ "exchange_resolution": {
+  "n_bigg_exchange": 664000,
+  "n_nonbigg_fallback": 1364,
+  "n_no_exchange": 218,
+  "of": 665582,
+  "definition": "Where each component's exchange id landed, over the whole library. n_bigg_exchange is a real BiGG EX_<met>_e reaction; n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG id in exchange position that no BiGG model will accept (the component's own mapping_note says so); n_no_exchange has none at all. The three partition n_components."
+ },
+ "model_input_degeneracy": {
+  "n_media": 13515,
+  "n_media_sharing_a_model_input": 6827,
+  "n_media_with_a_unique_model_input": 6688,
+  "n_groups": 1623,
+  "largest_group": 93,
+  "n_distinct_model_inputs": 8311,
+  "of": 13515,
+  "definition": "Two records share a model input when the set of (exchange reaction, lower bound, upper bound) triples they hand a model is identical. That set is everything the documented COBRApy adoption path reads; the name, the source, the citation and the licence are not part of it. Records sharing one are indistinguishable to a solver, not merely similar.",
+  "n_media_sharing_a_model_input_with_concentrations": 6328,
+  "n_groups_with_concentrations": 1530,
+  "with_concentrations_definition": "The same comparison with each component's source-stated concentration added to the tuple. It is the stricter test: a pair that still collides here is identical even to a reader who inspects the amounts, not only the bounds."
+ },
+ "field_renames": [
+  {
+   "old": "pct_covered_observed",
+   "new": "pct_sourced_components_with_bigg_id",
+   "changed": "2026-09-06",
+   "why": "The old name read as coverage of the medium, but its denominator is the components the record already carries rather than the ingredients the source listed, so it is a near-constant (measured below). It answers one question only: of the components the source states, the share that reached a BiGG id rather than a non-BiGG fallback or nothing. The coverage question is answered by pct_covered_source.",
+   "measured": null
+  }
+ ],
  "components": {
   "n_records": 665582,
   "n_sourced": 436096,
@@ -73,14 +102,12 @@
  "endpoints": {
   "catalog": "/data/index.json",
   "medium": "/data/media/{id}.json",
+  "reference_tables": "/data/refs.json",
   "component_stats": "/data/media_stats.json",
   "presence_matrix": "/data/presence_matrix.json",
   "bulk": {
    "media.parquet": "/data/api/media.parquet",
-   "components.parquet": "/data/api/components.parquet",
-   "media.sqlite.gz": "/data/api/media.sqlite.gz",
-   "media.jsonl.part01.gz": "/data/api/media.jsonl.part01.gz",
-   "media.jsonl.part02.gz": "/data/api/media.jsonl.part02.gz"
+   "components.parquet": "/data/api/components.parquet"
   },
   "manifest": "/data/api/manifest.json"
  },
@@ -121,12 +148,16 @@
     "n_unmappable",
     "pct_covered_source",
     "pct_covered_source_is_upper_bound",
-    "pct_covered_observed",
+    "pct_sourced_components_with_bigg_id",
     "name_display",
     "family",
-    "n_with_concentration_mM"
+    "n_with_concentration_mM",
+    "n_nonbigg_fallback",
+    "n_no_exchange",
+    "model_input_signature",
+    "n_media_with_identical_model_input"
    ],
-   "size": "757.1 KB"
+   "size": "859.4 KB"
   },
   "components.parquet": {
    "rows": 665582,
@@ -167,33 +198,50 @@
     "xref_biocyc"
    ],
    "size": "4.7 MB"
-  },
-  "media.sqlite.gz": {
-   "tables": [
-    "media",
-    "components"
-   ],
-   "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "23.0 MB"
-  },
-  "media.jsonl.part01.gz": {
-   "grain": "one full medium record per line",
-   "shard": 1,
-   "of_shards": 2,
-   "note": "streamable; same schema as data/media/<id>.json. Sharded because the single file would exceed GitHub's 100 MiB per-file limit; concatenate the parts in name order to reconstitute it.",
-   "size": "80.0 MB"
-  },
-  "media.jsonl.part02.gz": {
-   "grain": "one full medium record per line",
-   "shard": 2,
-   "of_shards": 2,
-   "note": "streamable; same schema as data/media/<id>.json. Sharded because the single file would exceed GitHub's 100 MiB per-file limit; concatenate the parts in name order to reconstitute it.",
-   "size": "61.8 MB"
   }
+ },
+ "bulk_download": {
+  "where": "GitHub Release data-v1",
+  "url_prefix": "https://github.com/omidard/Media/releases/download/data-v1",
+  "files": [
+   "media.jsonl.part01.gz",
+   "media.sqlite.gz"
+  ],
+  "one_command": "gh release download data-v1 --repo omidard/Media --pattern '*'",
+  "without_gh": "https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz",
+  "why_not_in_the_repository": "GitHub Pages publishes this repository's root and refuses a site over 1 GiB. These files are a re-encoding of data/media, which is published and stays published because the browser fetches data/media/{id}.json at runtime. Nothing here is unavailable: every full record is fetchable one at a time from the medium endpoint, the parquet pair is in the repository and queryable over HTTP with DuckDB, and pymediadb.iter_full_records() streams the release when it is present and falls back to the medium endpoint when it is not.",
+  "rebuild": "make release-assets",
+  "manifest": {
+   "media.sqlite.gz": {
+    "tables": [
+     "media",
+     "components"
+    ],
+    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
+    "size": "23.2 MB"
+   },
+   "media.jsonl.part01.gz": {
+    "grain": "one full medium record per line",
+    "shard": 1,
+    "of_shards": 1,
+    "note": "streamable; byte-for-byte the same schema as data/media/<id>.json, so cross-references and notes are keyed (xref_id / mapping_note_id / xref_note_id) and join on data/refs.json, which stays in the repository. Sharded because the single file would exceed GitHub's 100 MiB per-file limit; concatenate the parts in name order to reconstitute it.",
+    "size": "61.2 MB"
+   }
+  }
+ },
+ "reference_tables": {
+  "url": "/data/refs.json",
+  "joins": {
+   "components[].xref_id": "refs.xrefs[id] -> the cross-reference block",
+   "components[].mapping_note_id": "refs.notes[id] -> the verbatim note",
+   "components[].xref_note_id": "refs.notes[id] -> the verbatim note"
+  },
+  "why": "2,287 distinct cross-reference blocks were written out 665,582 times and 113 distinct notes 621,274 times. They are held once. An absent xref_id means the component has no cross-references. The parquet and SQLite columns are unchanged: xref_inchikey, xref_kegg and the rest are still first-class fields there."
  },
  "notes": [
   "Read-only static API served by GitHub Pages with permissive CORS.",
   "Parquet files are queryable in place over HTTP with DuckDB.",
-  "Bounds convention: lower_bound < 0 is uptake (mmol/gDW/h)."
+  "Bounds convention: lower_bound < 0 is uptake (mmol/gDW/h).",
+  "Cross-references and prose notes are keyed; join /data/refs.json."
  ]
 }
