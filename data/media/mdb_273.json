@@ -420,7 +420,7 @@
      "n_derived",
      "n_observed",
      "n_unmappable",
-     "pct_covered_observed",
+     "pct_sourced_components_with_bigg_id",
      "tier_counts"
     ]
    },
@@ -538,7 +538,7 @@
  "n_observed": 12,
  "n_derived": 0,
  "n_unmappable": 0,
- "pct_covered_observed": 83.33,
+ "pct_sourced_components_with_bigg_id": 83.33,
  "tier_counts": {
   "non_bigg_fallback": 2,
   "source_bigg_id": 1,

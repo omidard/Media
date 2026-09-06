@@ -201,17 +201,32 @@
   }
  },
  "bulk_download": {
-  "where": "GitHub Release data-v1",
+  "status": "planned",
+  "where": "GitHub Release data-v1 \u2014 PLANNED, NOT YET CREATED. Nothing is served from the URL below yet; build the files locally instead (see how_to_get_them_now).",
   "url_prefix": "https://github.com/omidard/Media/releases/download/data-v1",
+  "url_prefix_is": "where the assets WILL be served from; requests to it answer 404 today",
   "files": [
    "media.sqlite.gz",
    "media.jsonl.part01.gz"
   ],
-  "one_command": "gh release download data-v1 --repo omidard/Media --pattern '*'",
-  "without_gh": "https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz",
-  "why_not_in_the_repository": "GitHub Pages publishes this repository's root and refuses a site over 1 GiB. These files are a re-encoding of data/media, which is published and stays published because the browser fetches data/media/{id}.json at runtime. Nothing here is unavailable: every full record is fetchable one at a time from the medium endpoint, the parquet pair is in the repository and queryable over HTTP with DuckDB, and pymediadb.iter_full_records() streams the release when it is present and falls back to the medium endpoint when it is not.",
+  "how_to_get_them_now": {
+   "build_from_a_clone": [
+    "git clone https://github.com/omidard/Media",
+    "cd Media",
+    "make release-assets"
+   ],
+   "writes": "dist/api/ (untracked): media.sqlite.gz, media.jsonl.part01.gz",
+   "inputs": "data/media/*.json + data/refs.json, both committed",
+   "needs": "python3 + pyarrow; no network"
+  },
+  "when_published": {
+   "one_command": "gh release download data-v1 --repo omidard/Media --pattern '*'",
+   "without_gh": "https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz",
+   "status_flips_where": "RELEASE_STATUS in tools/build_api_exports.py, after the upload is verified"
+  },
+  "why_not_in_the_repository": "GitHub Pages publishes this repository's root and refuses a site over 1 GiB. These files are a re-encoding of data/media, which is published and stays published because the browser fetches data/media/{id}.json at runtime. Nothing here is unavailable: every full record is fetchable one at a time from the medium endpoint, the parquet pair is in the repository and queryable over HTTP with DuckDB, `make release-assets` rebuilds both files from the committed corpus, and pymediadb.iter_full_records() walks the medium endpoint whenever the release is unpublished or unreachable.",
   "rebuild": "make release-assets",
-  "inventory": "dist/api/manifest.json, uploaded with the assets"
+  "inventory": "dist/api/manifest.json, written beside the assets by `make release-assets`"
  },
  "reference_tables": {
   "url": "/data/refs.json",
