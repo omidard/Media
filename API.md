@@ -78,10 +78,19 @@ GET /data/api/manifest.json        # version, totals, file inventory, column sch
 GET /data/api/media.parquet        # one row per medium (summary + provenance)
 GET /data/api/components.parquet    # one row per (medium, component), tidy/long form
 GET /data/api/media.sqlite.gz       # SQLite: media + components tables, indexed (gunzip first)
-GET /data/api/media.jsonl.gz        # one full medium record per line, gzipped (streamable)
+GET /data/api/media.jsonl.part01.gz # one full medium record per line, gzipped (streamable)
+GET /data/api/media.jsonl.part02.gz # ... sharded: see the note below
 ```
 
 Parquet is queryable **in place over HTTP** — no download step.
+
+The JSON Lines export is **sharded**. The single file is 141 MB against the
+corrected corpus, past GitHub's 100 MiB per-file hard limit, so it ships as
+`media.jsonl.partNN.gz`. Concatenating the parts in name order reproduces the
+original stream byte for byte, so `cat media.jsonl.part*.gz | gunzip` is a drop-in
+replacement for the old endpoint. The parts and their row counts are listed in
+`data/api/manifest.json`; `tools/build_api_exports.py` asserts that no artifact
+exceeds the budget, so this cannot silently regress into an unpushable file again.
 
 ---
 

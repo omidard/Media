@@ -102,13 +102,28 @@ paths:
           content:
             application/gzip:
               schema: { type: string, format: binary }
-  /data/api/media.jsonl.gz:
+  /data/api/media.jsonl.part01.gz:
     get:
-      summary: All full medium records, one JSON per line (gzipped)
-      operationId: getJsonl
+      summary: All full medium records, one JSON per line (gzipped) — shard 1 of 2
+      operationId: getJsonlPart01
       responses:
         "200":
-          description: gzip-compressed JSON Lines; same schema as /data/media/{id}.json.
+          description: >
+            gzip-compressed JSON Lines; same schema as /data/media/{id}.json. Sharded
+            because the single file exceeds GitHub's 100 MiB per-file limit against the
+            corrected corpus; concatenating the parts in name order reproduces the
+            original stream byte for byte. Row counts per shard are in
+            /data/api/manifest.json.
+          content:
+            application/gzip:
+              schema: { type: string, format: binary }
+  /data/api/media.jsonl.part02.gz:
+    get:
+      summary: All full medium records, one JSON per line (gzipped) — shard 2 of 2
+      operationId: getJsonlPart02
+      responses:
+        "200":
+          description: gzip-compressed JSON Lines; see part01 for the sharding note.
           content:
             application/gzip:
               schema: { type: string, format: binary }

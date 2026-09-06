@@ -117,27 +117,34 @@ workflow calls the same targets, so the docs and CI cannot drift apart.
 
 Counted from `data/media/*.json`, which is the authority: every other total in the
 repository is generated from it (`make derived`) and checked against it
-(`python3 tools/verify_counts.py`). Grouping below is by the source database the
-record's id prefix implies; that attribution is itself being replaced by evidence
-read from each record, because 1,248 records filed under DSMZ are in fact JCM or CCAP
-formulations redistributed through MediaDive.
+(`python3 tools/verify_counts.py`). Grouping below is now by the source identity
+**read from each record** (`provenance.source_name`, resolved by the
+`20_stamp_provenance` stage), not by what the id prefix implies — the prefix filed
+1,248 JCM and CCAP formulations under DSMZ. The table is `by_source_db` in
+`data/index.json`, so it cannot drift from the catalogue.
 
-| Source | Media | What it contributes |
-|---|---:|---|
-| **USDA FoodData Central** | 7,424 | food media from analytically-measured composition (Foundation + SR Legacy) |
-| **DSMZ MediaDive** | 3,148 | culture-media recipes (Koblitz *et al.*, NAR 2023) — defined exact, complex as labelled approximations |
-| **Literature (GrowthDB)** | 1,036 | formulations mined from growth-rate papers |
-| **FooDB** | 701 | one medium per food (measured food composition) |
-| **MediaDB (ISB)** | 471 | defined media from the ISB MediaDB |
-| **Literature (complex)** | 333 | complex/peptone-based paper media, honestly labelled |
-| **Standard / classic** | 297 | LB, TSB, BHI, blood agar, M9 / MOPS / M63 / Davis and the canonical reference set |
-| **Literature (GEM papers)** | 87 | formulations mined from primary GEM papers |
-| **HMDB / published biofluids** | 17 | host biofluids (blood, urine, feces, saliva, CSF, sweat, milk, bile) and bovine BMDB fluids |
-| **Published (GEM paper)** | 1 | a single paper-sourced medium |
-| **total** | **13,515** | |
+| Source | Media | Licence | What it contributes |
+|---|---:|---|---|
+| **USDA FoodData Central** | 7,424 | CC0-1.0 | food media from analytically-measured composition (Foundation + SR Legacy) |
+| **DSMZ MediaDive** | 3,148 | CC BY 4.0 | culture-media recipes (Koblitz *et al.*, NAR 2023). MediaDive redistributes other collections: 1,900 are DSMZ's own, 1,143 are JCM (RIKEN) and 105 are CCAP, recorded per record in `provenance.collection` |
+| **Primary literature via GrowthDB** | 1,369 | CC BY 4.0 | formulations mined from growth-rate papers (defined and complex) |
+| **FooDB** | 701 | CC BY-NC 4.0 | one medium per food (measured food composition) — **non-commercial** |
+| **MediaDB (ISB defined media)** | 471 | all rights reserved | defined media from the ISB MediaDB — **non-commercial, redistributed by permission** |
+| **Classic and standard formulations (project-curated)** | 297 | CC BY 4.0 | LB, TSB, BHI, blood agar, M9 / MOPS / M63 / Davis and the canonical reference set |
+| **Primary literature (GEM papers)** | 88 | CC BY 4.0 | formulations mined from primary GEM papers |
+| **Human Metabolome Database (HMDB 5.0)** | 9 | CC BY-NC 4.0 | host biofluids — **non-commercial** |
+| **Bovine Metabolome Database (BMDB)** | 5 | permission required | bovine biofluids |
+| **HMDB tables republished in an open-access paper** | 3 | CC BY-NC 4.0 | host biofluids — **non-commercial** |
+| **total** | **13,515** | | |
 
-Categories: **laboratory** 4,930, **food** 8,125, **growth_medium** 443 (a second-generation
-label for laboratory media, merged by the schema stage), **biospecimen** 17.
+1,189 of these records (8.8%) may not be used commercially; every record states its own
+licence in `provenance.license` and the catalogue carries `commercial_use_ok`, so a
+commercially usable subset is one filter away. See `LICENSE` and `NOTICE` for the
+per-source schedule.
+
+Categories: **laboratory** 5,373, **food** 8,125, **biospecimen** 17. (`growth_medium`,
+a second-generation label carried by 443 laboratory records, is merged into
+`laboratory` by the schema stage.)
 
 Defined media map every compound to a BiGG exchange (salts dissociated to their ion
 exchanges); complex media map their defined portion and render undefined hydrolysates

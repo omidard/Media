@@ -13,11 +13,37 @@ import os
 import pytest
 
 
-def test_exchange_identity_is_universal(summary, baseline, is_full_corpus):
-    """664,218 of 664,218 components: exchange == EX_<bigg_metabolite>_e."""
+def test_exchange_identity_is_universal(summary, baseline, is_full_corpus, stream):
+    """Every mapped component's exchange is EX_<bigg_metabolite>_e, and no component
+    loses its mapping except through a curated correction that says why.
+
+    The audit measured 664,218 of 665,582 components carrying a BiGG id. The corrected
+    corpus carries fewer, and that is the point: 40_remap_components applies reviewed
+    corrections that REMOVE an id where none is defensible — chromium, and the
+    mark_mixture verdicts on yeast extract, peptone and "trace element solution". A
+    plain equality against the audit number would either forbid that correction or, if
+    the number were simply updated, would stop noticing a silent loss.
+
+    So the delta is asserted against the evidence in the data: it must equal exactly the
+    number of components the chain tiered `unmapped` or `unmappable_mixture`. On a corpus
+    the chain has not processed there are none, and this reduces to the original
+    equality.
+    """
     assert summary["exchange_identity_bad"] == [], summary["exchange_identity_bad"][:5]
-    if is_full_corpus:
-        assert summary["components_with_bigg"] == baseline["components_with_bigg"]
+    if not is_full_corpus:
+        return
+    refused = 0
+    for _mid, rec in stream():
+        for c in rec.get("components") or []:
+            if c.get("evidence_tier") in ("unmapped", "unmappable_mixture"):
+                assert not c.get("bigg_metabolite"), (
+                    "a component tiered %r still carries a BiGG id" % c["evidence_tier"])
+                refused += 1
+    assert summary["components_with_bigg"] + refused == baseline["components_with_bigg"], (
+        "components with a BiGG id: %d now, %d at the audit, %d refused by a curated "
+        "correction. The difference must be exactly the refusals — anything else is a "
+        "mapping lost without a reason."
+        % (summary["components_with_bigg"], baseline["components_with_bigg"], refused))
 
 
 def test_n_in_biggr_is_honest(summary):
