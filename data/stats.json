@@ -1,20 +1,19 @@
 {
  "count": 13515,
+ "count_authority": "data/media/*.json on disk, counted by build_index.py",
  "by_category": {
-  "laboratory": 4930,
-  "growth_medium": 443,
+  "laboratory": 5373,
   "biospecimen": 17,
   "food": 8125
  },
  "by_source_db": {
-  "standard": 297,
-  "Published (HMDB-derived)": 8,
-  "HMDB": 9,
-  "Published (GEM paper)": 1,
-  "literature": 333,
+  "Classic and standard formulations (project-curated)": 297,
+  "Bovine Metabolome Database (BMDB)": 5,
+  "HMDB tables republished in an open-access paper": 3,
+  "Human Metabolome Database (HMDB 5.0)": 9,
+  "Primary literature (GEM papers)": 88,
+  "Primary literature via GrowthDB": 1369,
   "FooDB": 701,
-  "Literature (GrowthDB)": 1036,
-  "Literature (GEM papers)": 87,
   "MediaDB (ISB defined media)": 471,
   "DSMZ MediaDive": 3148,
   "USDA FoodData Central": 7424
@@ -27,7 +26,68 @@
   "curated": 262
  },
  "by_namespace": {
-  "bigg": 13515
+  "bigg": 13240,
+  "mixed": 275
+ },
+ "by_license": {
+  "CC-BY-4.0": 4902,
+  "custom-permission-required": 5,
+  "CC-BY-NC-4.0": 713,
+  "all-rights-reserved": 471,
+  "CC0-1.0": 7424
+ },
+ "by_commercial_use_ok": {
+  "True": 12326,
+  "False": 1189
+ },
+ "by_verification_status": {
+  "unverified": 11604,
+  "expert-curated": 455,
+  "paper-verified": 974,
+  "other": 1,
+  "reconstructed-from-cited-references": 9,
+  "rejected-by-verification-pass": 1,
+  "reference-database": 471
+ },
+ "coverage_bands_legacy": {
+  "high_ge_90": 12353,
+  "mid_60_90": 1117,
+  "review_lt_60": 45
+ },
+ "coverage_bands_source": {
+  "high_ge_90": 8710,
+  "mid_60_90": 3937,
+  "review_lt_60": 868
+ },
+ "component_totals": {
+  "n_components": 665582,
+  "n_observed": 436096,
+  "n_derived": 229486,
+  "n_sourced": 436096,
+  "n_with_concentration_mM": 14055
+ },
+ "component_evidence_tiers": {
+  "source_bigg_id": 2928,
+  "derived_component": 229486,
+  "author_asserted": 8041,
+  "structural_xref": 2756,
+  "exact_name": 14073,
+  "fuzzy_name": 56911,
+  "non_bigg_fallback": 1364,
+  "name_table": 256234,
+  "curated_mapping": 682,
+  "class_proxy": 92889,
+  "unmappable_mixture": 20,
+  "unmapped": 198
+ },
+ "definitions": {
+  "pct_covered": "DEPRECATED legacy metric: components / (components + unresolved ingredients). Counts pipeline-derived components as covered. Kept because it is a published column.",
+  "pct_covered_source": "source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). An upper bound where the flag says so. null means the denominator was zero, NOT 100.",
+  "pct_covered_observed": "mapped share of the components the source actually stated; pipeline-derived components are excluded from both numerator and denominator.",
+  "n_derived": "components the pipeline supplied that the cited source does not state (hydrolysate approximations, complex decompositions, injected mineral/oxygen bases, expanded base media). Kept and labelled, never deleted.",
+  "commercial_use_ok": "false for records whose upstream licence forbids commercial use (FooDB CC BY-NC, MediaDB-ISB all rights reserved, HMDB-derived). They ship, labelled.",
+  "source_identity_evidence": "how source_db was decided: 20_stamp_provenance (from record evidence) or id_prefix_heuristic.",
+  "component_evidence_tiers": "how each component's identity was actually decided; see tools/evidence_tiers.py. A name match is a fallback tier, not 'exact'."
  },
  "api": {
   "catalog": "data/index.json",

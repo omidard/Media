@@ -3,7 +3,7 @@
  "base_url": "https://omidard.github.io/Media",
  "catalog_count": 13515,
  "component_records": 665582,
- "distinct_compounds": 1814,
+ "distinct_compounds": 1793,
  "coverage": {
   "by_exchange_source": {
    "biggr": 647513,
@@ -15,23 +15,57 @@
    "growthdb_formulation": 2737
   },
   "total_uncovered": 31515,
-  "media_below_100pct": 8815
+  "media_below_100pct_legacy": 8815,
+  "media_with_no_legacy_coverage_measurement": 0,
+  "media_below_100pct_source_stated": 9333,
+  "media_with_no_source_coverage_measurement": 0,
+  "definition": "pct_covered is the legacy metric and counts pipeline-derived components as covered; pct_covered_source counts only composition the cited source states. Null means not measurable, never 100."
+ },
+ "components": {
+  "n_records": 665582,
+  "n_sourced": 436096,
+  "n_derived_not_sourced": 229486,
+  "by_evidence_tier": {
+   "source_bigg_id": 2928,
+   "derived_component": 229486,
+   "author_asserted": 8041,
+   "structural_xref": 2756,
+   "exact_name": 14073,
+   "fuzzy_name": 56911,
+   "non_bigg_fallback": 1364,
+   "name_table": 256234,
+   "curated_mapping": 682,
+   "class_proxy": 92889,
+   "unmappable_mixture": 20,
+   "unmapped": 198
+  },
+  "n_with_concentration_mM": 14055
+ },
+ "licensing": {
+  "by_license": {
+   "CC-BY-4.0": 4902,
+   "custom-permission-required": 5,
+   "CC-BY-NC-4.0": 713,
+   "all-rights-reserved": 471,
+   "CC0-1.0": 7424
+  },
+  "n_commercial_use_ok": 12326,
+  "n_commercial_use_restricted": 1189,
+  "note": "records whose upstream licence forbids commercial use ship and are labelled; see LICENSE and NOTICE for the per-source schedule."
  },
  "by_category": {
-  "laboratory": 4930,
-  "growth_medium": 443,
+  "laboratory": 5373,
   "biospecimen": 17,
   "food": 8125
  },
  "by_source_db": {
-  "standard": 297,
-  "Published (HMDB-derived)": 8,
-  "HMDB": 9,
-  "Published (GEM paper)": 1,
-  "literature": 333,
+  "Classic and standard formulations (project-curated)": 297,
+  "Bovine Metabolome Database (BMDB)": 5,
+  "HMDB tables republished in an open-access paper": 3,
+  "Human Metabolome Database (HMDB 5.0)": 9,
+  "Primary literature (GEM papers)": 88,
+  "Primary literature via GrowthDB": 1369,
   "FooDB": 701,
-  "Literature (GrowthDB)": 1036,
-  "Literature (GEM papers)": 87,
   "MediaDB (ISB defined media)": 471,
   "DSMZ MediaDive": 3148,
   "USDA FoodData Central": 7424
@@ -45,7 +79,8 @@
    "media.parquet": "/data/api/media.parquet",
    "components.parquet": "/data/api/components.parquet",
    "media.sqlite.gz": "/data/api/media.sqlite.gz",
-   "media.jsonl.gz": "/data/api/media.jsonl.gz"
+   "media.jsonl.part01.gz": "/data/api/media.jsonl.part01.gz",
+   "media.jsonl.part02.gz": "/data/api/media.jsonl.part02.gz"
   },
   "manifest": "/data/api/manifest.json"
  },
@@ -72,9 +107,26 @@
     "citation",
     "doi",
     "url",
-    "food_group"
+    "food_group",
+    "source_id",
+    "source_identity_evidence",
+    "collection",
+    "license",
+    "commercial_use_ok",
+    "attribution_required",
+    "verification_status",
+    "n_sourced",
+    "n_derived",
+    "n_observed",
+    "n_unmappable",
+    "pct_covered_source",
+    "pct_covered_source_is_upper_bound",
+    "pct_covered_observed",
+    "name_display",
+    "family",
+    "n_with_concentration_mM"
    ],
-   "size": "495.7 KB"
+   "size": "757.1 KB"
   },
   "components.parquet": {
    "rows": 665582,
@@ -91,6 +143,21 @@
     "in_biggr",
     "mapping_method",
     "mapping_confidence",
+    "evidence_tier",
+    "evidence_class",
+    "derived_class",
+    "source_observed",
+    "source_name",
+    "target_name",
+    "match_field",
+    "match_key",
+    "concentration_status",
+    "concentration_source",
+    "quantity_value",
+    "quantity_value_verbatim",
+    "quantity_unit",
+    "quantity_basis",
+    "derived_not_sourced",
     "xref_inchikey",
     "xref_kegg",
     "xref_chebi",
@@ -99,7 +166,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "3.1 MB"
+   "size": "4.7 MB"
   },
   "media.sqlite.gz": {
    "tables": [
@@ -107,13 +174,21 @@
     "components"
    ],
    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-   "size": "16.4 MB"
+   "size": "23.0 MB"
   },
-  "media.jsonl.gz": {
-   "rows": 13515,
+  "media.jsonl.part01.gz": {
    "grain": "one full medium record per line",
-   "note": "streamable; same schema as data/media/<id>.json",
-   "size": "51.2 MB"
+   "shard": 1,
+   "of_shards": 2,
+   "note": "streamable; same schema as data/media/<id>.json. Sharded because the single file would exceed GitHub's 100 MiB per-file limit; concatenate the parts in name order to reconstitute it.",
+   "size": "80.0 MB"
+  },
+  "media.jsonl.part02.gz": {
+   "grain": "one full medium record per line",
+   "shard": 2,
+   "of_shards": 2,
+   "note": "streamable; same schema as data/media/<id>.json. Sharded because the single file would exceed GitHub's 100 MiB per-file limit; concatenate the parts in name order to reconstitute it.",
+   "size": "61.8 MB"
   }
  },
  "notes": [

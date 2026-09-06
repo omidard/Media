@@ -2,9 +2,9 @@
 "schema": "mediadb-media-stats/2",
 "built_at": "2026-09-06",
 "total": 13515,
+"n_components_without_exchange": 218,
 "by_category": {
-"laboratory": 4930,
-"growth_medium": 443,
+"laboratory": 5373,
 "biospecimen": 17,
 "food": 8125
 },
@@ -14,6 +14,18 @@
 "literature": 1459,
 "Published (GEM paper)": 1,
 "MediaDB (ISB defined media)": 471
+},
+"by_verified_source": {
+"Classic and standard formulations (project-curated)": 297,
+"Bovine Metabolome Database (BMDB)": 5,
+"HMDB tables republished in an open-access paper": 3,
+"Human Metabolome Database (HMDB 5.0)": 9,
+"Primary literature (GEM papers)": 88,
+"Primary literature via GrowthDB": 1369,
+"FooDB": 701,
+"MediaDB (ISB defined media)": 471,
+"DSMZ MediaDive": 3148,
+"USDA FoodData Central": 7424
 },
 "by_food_group": {
 "Beef Products": 954,
@@ -134,7 +146,7 @@
 {
 "exchange": "EX_cobalt2_e",
 "name": "Co2+",
-"n_media": 12071
+"n_media": 12011
 },
 {
 "exchange": "EX_o2_e",
@@ -164,47 +176,52 @@
 {
 "exchange": "EX_pydxn_e",
 "name": "Pyridoxine",
-"n_media": 11352
+"n_media": 11351
 },
 {
 "exchange": "EX_co2_e",
 "name": "CO2 CO2",
-"n_media": 11230
+"n_media": 11292
 },
 {
 "exchange": "EX_fol_e",
 "name": "Folate",
-"n_media": 10552
+"n_media": 10551
 },
 {
 "exchange": "EX_pnto__R_e",
 "name": "(R)-Pantothenate",
-"n_media": 10497
+"n_media": 10498
 },
 {
 "exchange": "EX_met__L_e",
 "name": "L-Methionine",
-"n_media": 9339
+"n_media": 9340
 },
 {
 "exchange": "EX_leu__L_e",
 "name": "L-Leucine",
-"n_media": 9320
+"n_media": 9321
 },
 {
 "exchange": "EX_ile__L_e",
 "name": "L-Isoleucine",
-"n_media": 9311
+"n_media": 9312
 },
 {
 "exchange": "EX_lys__L_e",
 "name": "L-Lysine",
-"n_media": 9306
+"n_media": 9307
+},
+{
+"exchange": "EX_glu__L_e",
+"name": "L-Glutamate",
+"n_media": 9298
 },
 {
 "exchange": "EX_arg__L_e",
 "name": "L-Arginine",
-"n_media": 9293
+"n_media": 9294
 },
 {
 "exchange": "EX_thr__L_e",
@@ -214,12 +231,12 @@
 {
 "exchange": "EX_his__L_e",
 "name": "L-Histidine",
-"n_media": 9273
+"n_media": 9274
 },
 {
 "exchange": "EX_tyr__L_e",
 "name": "L-Tyrosine",
-"n_media": 9251
+"n_media": 9252
 },
 {
 "exchange": "EX_fe3_e",
@@ -229,17 +246,17 @@
 {
 "exchange": "EX_gly_e",
 "name": "Glycine",
-"n_media": 9245
+"n_media": 9244
 },
 {
 "exchange": "EX_trp__L_e",
 "name": "L-Tryptophan",
-"n_media": 9234
+"n_media": 9235
 },
 {
 "exchange": "EX_pro__L_e",
 "name": "L-Proline",
-"n_media": 9232
+"n_media": 9233
 },
 {
 "exchange": "EX_ala__L_e",
@@ -247,24 +264,19 @@
 "n_media": 9230
 },
 {
-"exchange": "EX_glu__L_e",
-"name": "L-Glutamate",
-"n_media": 9167
-},
-{
 "exchange": "EX_asp__L_e",
 "name": "L-Aspartate",
-"n_media": 9048
+"n_media": 9049
 },
 {
 "exchange": "EX_phe__L_e",
 "name": "L-Phenylalanine",
-"n_media": 8860
+"n_media": 8861
 },
 {
 "exchange": "EX_val__L_e",
 "name": "L-Valine",
-"n_media": 8853
+"n_media": 8854
 }
 ],
 "top_exchanges_filter": "none \u2014 every component row",
@@ -307,7 +319,7 @@
 {
 "exchange": "EX_pydxn_e",
 "name": "Pyridoxine",
-"n_media": 11352
+"n_media": 11351
 },
 {
 "exchange": "EX_ca2_e",
@@ -332,12 +344,12 @@
 {
 "exchange": "EX_fol_e",
 "name": "Folate",
-"n_media": 10552
+"n_media": 10551
 },
 {
 "exchange": "EX_pnto__R_e",
 "name": "(R)-Pantothenate",
-"n_media": 10497
+"n_media": 10498
 },
 {
 "exchange": "EX_mn2_e",
@@ -347,27 +359,32 @@
 {
 "exchange": "EX_met__L_e",
 "name": "L-Methionine",
-"n_media": 9339
+"n_media": 9340
 },
 {
 "exchange": "EX_leu__L_e",
 "name": "L-Leucine",
-"n_media": 9320
+"n_media": 9321
 },
 {
 "exchange": "EX_ile__L_e",
 "name": "L-Isoleucine",
-"n_media": 9311
+"n_media": 9312
 },
 {
 "exchange": "EX_lys__L_e",
 "name": "L-Lysine",
-"n_media": 9306
+"n_media": 9307
+},
+{
+"exchange": "EX_glu__L_e",
+"name": "L-Glutamate",
+"n_media": 9298
 },
 {
 "exchange": "EX_arg__L_e",
 "name": "L-Arginine",
-"n_media": 9293
+"n_media": 9294
 },
 {
 "exchange": "EX_thr__L_e",
@@ -377,27 +394,27 @@
 {
 "exchange": "EX_his__L_e",
 "name": "L-Histidine",
-"n_media": 9273
+"n_media": 9274
 },
 {
 "exchange": "EX_tyr__L_e",
 "name": "L-Tyrosine",
-"n_media": 9251
+"n_media": 9252
 },
 {
 "exchange": "EX_gly_e",
 "name": "Glycine",
-"n_media": 9245
+"n_media": 9244
 },
 {
 "exchange": "EX_trp__L_e",
 "name": "L-Tryptophan",
-"n_media": 9234
+"n_media": 9235
 },
 {
 "exchange": "EX_pro__L_e",
 "name": "L-Proline",
-"n_media": 9232
+"n_media": 9233
 },
 {
 "exchange": "EX_ala__L_e",
@@ -405,39 +422,29 @@
 "n_media": 9230
 },
 {
-"exchange": "EX_glu__L_e",
-"name": "L-Glutamate",
-"n_media": 9167
-},
-{
 "exchange": "EX_asp__L_e",
 "name": "L-Aspartate",
-"n_media": 9048
+"n_media": 9049
 },
 {
 "exchange": "EX_phe__L_e",
 "name": "L-Phenylalanine",
-"n_media": 8860
+"n_media": 8861
 },
 {
 "exchange": "EX_val__L_e",
 "name": "L-Valine",
-"n_media": 8853
-},
-{
-"exchange": "EX_cys__L_e",
-"name": "L-Cysteine",
-"n_media": 8651
+"n_media": 8854
 },
 {
 "exchange": "EX_ser__L_e",
 "name": "L-Serine",
-"n_media": 8605
+"n_media": 8762
 },
 {
-"exchange": "EX_cbl1_e",
-"name": "Cob(I)alamin",
-"n_media": 8145
+"exchange": "EX_cys__L_e",
+"name": "L-Cysteine",
+"n_media": 8652
 },
 {
 "exchange": "EX_slnt_e",
@@ -462,12 +469,17 @@
 {
 "exchange": "EX_lnlnca_e",
 "name": "Alpha-Linolenic acid, C18:3, n-3",
-"n_media": 6730
+"n_media": 6700
 },
 {
 "exchange": "EX_ocdca_e",
 "name": "Octadecanoate (n-C18:0)",
 "n_media": 6627
+},
+{
+"exchange": "EX_avite1_e",
+"name": "Alpha-Tocopherol",
+"n_media": 5750
 }
 ],
 "top_exchanges_excluding_mineral_base_filter": "components with mapping_method == 'mineral_base' excluded (the injected mineral base, not part of the cited recipe)",

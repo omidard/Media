@@ -1,7 +1,7 @@
 {
  "schema": "mediadb-artifact-manifest/1",
- "built_utc": "2026-09-06T07:01:20Z",
- "git_head": "16b5c485950c969b349d2fec127ad419d046c16f",
+ "built_utc": "2026-09-06T08:21:38Z",
+ "git_head": "d99db0d0a9e4cc95049c0ccf863a6636ef5a35b4",
  "provenance": {
   "corpus_status": "frozen snapshot",
   "why": "The raw inputs are gone. 19 generator scripts hardcoded a session scratchpad that was deleted, none of the upstream payloads was ever committed, and the shipped data/media/*.json is the only surviving copy of the corpus (audit finding PIPE-01).",
@@ -25,7 +25,7 @@
    ],
    "present": true,
    "rows": 13515,
-   "bytes": 443060763
+   "bytes": 1449442458
   },
   "data/index.json": {
    "generator": "build_index.py",
@@ -33,10 +33,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 8916725,
-   "sha256": "bcdf3fed66c76b70c5fcf378d3f05524783a5327364fe138a4c0a4e7c4247537",
+   "bytes": 16703468,
+   "sha256": "b3281edfe619eeca39a93ee296a6701f9c79cb79f26afa8d23ae398219be90dd",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T07:01:09Z"
+   "mtime_utc": "2026-09-06T08:08:31Z"
   },
   "data/stats.json": {
    "generator": "build_index.py",
@@ -44,10 +44,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 839,
-   "sha256": "da02908ab2cea7891e6fd96acb715e0913e29a8ef85014da29d63daadfe76491",
+   "bytes": 3429,
+   "sha256": "d79e521ea35e666c8c6130db785b24f2f06c6badd3f99aca017c965feb0eb111",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T07:01:09Z"
+   "mtime_utc": "2026-09-06T08:08:31Z"
   },
   "data/coverage.json": {
    "generator": "tools/enrich_coverage.py",
@@ -55,10 +55,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 1899409,
-   "sha256": "8cbc62b1190c87c6db404b409538bfc46957084e68d63ed7ea21425c720d4ee4",
+   "bytes": 3605699,
+   "sha256": "5af758b2ad670ddeaa8453ec2a23c6526b0bbe5315c7fdd2e8cc5ec3123c721c",
    "rows": 13515,
-   "mtime_utc": "2026-07-21T21:38:39Z"
+   "mtime_utc": "2026-09-06T08:17:39Z"
   },
   "data/media_stats.json": {
    "generator": "tools/build_media_stats.py",
@@ -67,10 +67,10 @@
     "tools/bigg_metabolite_dict.json"
    ],
    "present": true,
-   "bytes": 7407,
-   "sha256": "35cfcf4bf661743d0e957620b9cd7497fd73ff838cb50957ae7f0d5387690a5a",
+   "bytes": 7837,
+   "sha256": "98b935a101503f26061efe8c967c0bcfa6b45ff613e26148e17f408c1e840890",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T07:01:13Z"
+   "mtime_utc": "2026-09-06T08:15:53Z"
   },
   "data/presence_matrix.json": {
    "generator": "tools/build_presence_matrix.py",
@@ -79,10 +79,10 @@
     "tools/bigg_metabolite_dict.json"
    ],
    "present": true,
-   "bytes": 2781271,
-   "sha256": "65e728e304536f0cf4bf5a11956d557aff5d5ba5d01f65c1f59b73c700db0d80",
+   "bytes": 2920464,
+   "sha256": "41aa4cfd899fdb21a2a9ff019842e6ef5fd038c747d6b3caa6475f7233d1a7fc",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T07:01:17Z"
+   "mtime_utc": "2026-09-06T08:16:03Z"
   },
   "data/api/manifest.json": {
    "generator": "tools/build_api_exports.py",
@@ -90,10 +90,10 @@
     "data/index.json"
    ],
    "present": true,
-   "bytes": 2814,
-   "sha256": "b48108ec3d23b8274587b9bc6b2aa6e58d843f908d1ca2443828cbe16e6e6359",
+   "bytes": 5430,
+   "sha256": "2541ddf9ca4dfabbcaffc17776352ff71fe44efc3d4b8b5cc2e8fd2586ec0b68",
    "rows": 13515,
-   "mtime_utc": "2026-09-05T21:47:20Z"
+   "mtime_utc": "2026-09-06T08:14:19Z"
   },
   "data/api/media.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -102,10 +102,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 507647,
-   "sha256": "468198334823c6830a568e14aafea5fda76beacd4fe16b1ae54611ab7a846d5d",
+   "bytes": 775306,
+   "sha256": "5d2247691b21c5c12f33e7b71e3b2d463c0b0993c162b0573edf95e866ac70fc",
    "rows": 13515,
-   "mtime_utc": "2026-09-05T21:47:21Z"
+   "mtime_utc": "2026-09-06T08:12:44Z"
   },
   "data/api/components.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -114,22 +114,34 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 3279547,
-   "sha256": "18e957e731f0078083389f658b728dc7a470b55050a51b312bc062756982d982",
+   "bytes": 4971879,
+   "sha256": "33bfe6139fe92fc85a438a6307dbad030683d05a4d3441fe93abcd3e6790092b",
    "rows": 665582,
-   "mtime_utc": "2026-09-05T21:47:20Z"
+   "mtime_utc": "2026-09-06T08:12:51Z"
   },
-  "data/api/media.jsonl.gz": {
+  "data/api/media.jsonl.part01.gz": {
    "generator": "tools/build_api_exports.py",
    "inputs": [
     "data/index.json",
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 53676297,
-   "sha256": "0534ff16a4ab4e292d271dc963b28e91a6c0f45ab97181d287d094ffb4281e33",
-   "rows": 13515,
-   "mtime_utc": "2026-09-05T21:47:21Z"
+   "bytes": 83896416,
+   "sha256": "04370cf3e9b6a63cce2608d68850e8b691cc2da4db2cc09095d6e093d5ccd9c6",
+   "rows": 8885,
+   "mtime_utc": "2026-09-06T08:13:53Z"
+  },
+  "data/api/media.jsonl.part02.gz": {
+   "generator": "tools/build_api_exports.py",
+   "inputs": [
+    "data/index.json",
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 64769901,
+   "sha256": "8ba36f1965c52e233394d1e9cf1a94337f5b1908e358512f49c5cac1de855333",
+   "rows": 4630,
+   "mtime_utc": "2026-09-06T08:14:17Z"
   },
   "data/api/media.sqlite.gz": {
    "generator": "tools/build_api_exports.py",
@@ -138,10 +150,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 17206619,
-   "sha256": "c7bc6cf0fbddb58c10cf27b6019e47fbe2ba2a715d1e80bbdd4e093ec78a9b01",
+   "bytes": 24142223,
+   "sha256": "f9821d2d01e39883564c3890575755c7d5293e184fce79fabab23a811df61b12",
    "rows": null,
-   "mtime_utc": "2026-09-05T21:47:21Z"
+   "mtime_utc": "2026-09-06T08:13:18Z"
   },
   "data/cluster/clustergram.json": {
    "generator": "tools/build_cluster_data.py",
@@ -150,10 +162,10 @@
     "data/api/components.parquet"
    ],
    "present": true,
-   "bytes": 42839,
-   "sha256": "6e2993b23a0304583109aa7d614c58e519333924d000e1f91619dd81aea49cbe",
+   "bytes": 42026,
+   "sha256": "282638848a2288b6443a210909bc16aa518a4347f782e2da6695ab01406d9a17",
    "rows": null,
-   "mtime_utc": "2026-07-21T21:38:39Z"
+   "mtime_utc": "2026-09-06T08:15:42Z"
   },
   "data/cluster/cooccurrence.json": {
    "generator": "tools/build_cluster_data.py",
@@ -162,10 +174,10 @@
     "data/api/components.parquet"
    ],
    "present": true,
-   "bytes": 50398,
-   "sha256": "e60d6c72740cccbbb70d30296fa8eca983b44b31f16e4c5657515d83a4e6133f",
+   "bytes": 50333,
+   "sha256": "79587cea181e3f51806cca8d083ed626feb622c18357ce9524404da07b4b31c2",
    "rows": null,
-   "mtime_utc": "2026-07-21T21:38:39Z"
+   "mtime_utc": "2026-09-06T08:15:43Z"
   },
   "data/_quarantine.json": {
    "generator": "tools/apply_verification.py",
@@ -187,8 +199,7 @@
    "data/media_stats.json": 13515,
    "data/presence_matrix.json": 13515,
    "data/api/manifest.json": 13515,
-   "data/api/media.parquet": 13515,
-   "data/api/media.jsonl.gz": 13515
+   "data/api/media.parquet": 13515
   },
   "agree": true,
   "assertion": "every catalogue-shaped artifact must report the same number of media; a disagreement means an artifact was not rebuilt (STALE-01: two endpoints were 1,128 media stale)"

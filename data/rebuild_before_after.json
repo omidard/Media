@@ -1,0 +1,1304 @@
+{
+ "before_dir": "data/media at commit dd249ed (the frozen snapshot), restored from /data/media_curate_backups/pre_rebuild_20260906-072148/corpus_and_derived.tar.zst and verified byte-identical",
+ "before_dir_path": "/tmp/claude-1000/-data-Brilliant-genomics-department/7c387943-5e1f-4534-aed2-177a06d531ec/scratchpad/restore_test_072538/data/media",
+ "after_dir": "data/media",
+ "totals": {
+  "n_media": {
+   "before": 13515,
+   "after": 13515
+  },
+  "n_components": {
+   "before": 665582,
+   "after": 665582
+  }
+ },
+ "mapping_confidence": [
+  {
+   "key": "inferred",
+   "before": 143594,
+   "after": 339551,
+   "delta": 195957
+  },
+  {
+   "key": "convention",
+   "before": 202378,
+   "after": 229486,
+   "delta": 27108
+  },
+  {
+   "key": "exact",
+   "before": 282316,
+   "after": 2756,
+   "delta": -279560
+  },
+  {
+   "key": "approximation",
+   "before": 26684,
+   "after": 93107,
+   "delta": 66423
+  },
+  {
+   "key": "curated",
+   "before": 10133,
+   "after": 682,
+   "delta": -9451
+  },
+  {
+   "key": "standard_formulation",
+   "before": 387,
+   "after": 0,
+   "delta": -387
+  },
+  {
+   "key": "high",
+   "before": 90,
+   "after": 0,
+   "delta": -90
+  }
+ ],
+ "evidence_tier": [
+  {
+   "key": "name_table",
+   "before": 0,
+   "after": 256234,
+   "delta": 256234
+  },
+  {
+   "key": "derived_component",
+   "before": 0,
+   "after": 229486,
+   "delta": 229486
+  },
+  {
+   "key": "class_proxy",
+   "before": 0,
+   "after": 92889,
+   "delta": 92889
+  },
+  {
+   "key": "fuzzy_name",
+   "before": 0,
+   "after": 56911,
+   "delta": 56911
+  },
+  {
+   "key": "exact_name",
+   "before": 0,
+   "after": 14073,
+   "delta": 14073
+  },
+  {
+   "key": "author_asserted",
+   "before": 0,
+   "after": 8041,
+   "delta": 8041
+  },
+  {
+   "key": "source_bigg_id",
+   "before": 0,
+   "after": 2928,
+   "delta": 2928
+  },
+  {
+   "key": "structural_xref",
+   "before": 0,
+   "after": 2756,
+   "delta": 2756
+  },
+  {
+   "key": "non_bigg_fallback",
+   "before": 0,
+   "after": 1364,
+   "delta": 1364
+  },
+  {
+   "key": "curated_mapping",
+   "before": 0,
+   "after": 682,
+   "delta": 682
+  },
+  {
+   "key": "unmapped",
+   "before": 0,
+   "after": 198,
+   "delta": 198
+  },
+  {
+   "key": "unmappable_mixture",
+   "before": 0,
+   "after": 20,
+   "delta": 20
+  }
+ ],
+ "evidence_class": [
+  {
+   "key": "sourced",
+   "before": 0,
+   "after": 436096,
+   "delta": 436096
+  },
+  {
+   "key": "derived",
+   "before": 0,
+   "after": 229486,
+   "delta": 229486
+  }
+ ],
+ "derived_class": [
+  {
+   "key": "inferred_from_listed_ingredient",
+   "before": 0,
+   "after": 127303,
+   "delta": 127303
+  },
+  {
+   "key": "injected_convention",
+   "before": 0,
+   "after": 101796,
+   "delta": 101796
+  },
+  {
+   "key": "canonical_base_expansion",
+   "before": 0,
+   "after": 387,
+   "delta": 387
+  }
+ ],
+ "license": [
+  {
+   "key": "None",
+   "before": 13515,
+   "after": 0,
+   "delta": -13515
+  },
+  {
+   "key": "CC0-1.0",
+   "before": 0,
+   "after": 7424,
+   "delta": 7424
+  },
+  {
+   "key": "CC-BY-4.0",
+   "before": 0,
+   "after": 4902,
+   "delta": 4902
+  },
+  {
+   "key": "CC-BY-NC-4.0",
+   "before": 0,
+   "after": 713,
+   "delta": 713
+  },
+  {
+   "key": "all-rights-reserved",
+   "before": 0,
+   "after": 471,
+   "delta": 471
+  },
+  {
+   "key": "custom-permission-required",
+   "before": 0,
+   "after": 5,
+   "delta": 5
+  }
+ ],
+ "commercial_use_ok": [
+  {
+   "key": "None",
+   "before": 13515,
+   "after": 0,
+   "delta": -13515
+  },
+  {
+   "key": "True",
+   "before": 0,
+   "after": 12326,
+   "delta": 12326
+  },
+  {
+   "key": "False",
+   "before": 0,
+   "after": 1189,
+   "delta": 1189
+  }
+ ],
+ "source_name": [
+  {
+   "key": "(unlabelled: database)",
+   "before": 11287,
+   "after": 0,
+   "delta": -11287
+  },
+  {
+   "key": "USDA FoodData Central",
+   "before": 0,
+   "after": 7424,
+   "delta": 7424
+  },
+  {
+   "key": "DSMZ MediaDive",
+   "before": 0,
+   "after": 3148,
+   "delta": 3148
+  },
+  {
+   "key": "(unlabelled: literature)",
+   "before": 1459,
+   "after": 0,
+   "delta": -1459
+  },
+  {
+   "key": "Primary literature via GrowthDB",
+   "before": 0,
+   "after": 1369,
+   "delta": 1369
+  },
+  {
+   "key": "FooDB",
+   "before": 0,
+   "after": 701,
+   "delta": 701
+  },
+  {
+   "key": "(unlabelled: MediaDB (ISB defined media))",
+   "before": 471,
+   "after": 0,
+   "delta": -471
+  },
+  {
+   "key": "MediaDB (ISB defined media)",
+   "before": 0,
+   "after": 471,
+   "delta": 471
+  },
+  {
+   "key": "(unlabelled: standard)",
+   "before": 297,
+   "after": 0,
+   "delta": -297
+  },
+  {
+   "key": "Classic and standard formulations (project-curated)",
+   "before": 0,
+   "after": 297,
+   "delta": 297
+  },
+  {
+   "key": "Primary literature (GEM papers)",
+   "before": 0,
+   "after": 88,
+   "delta": 88
+  },
+  {
+   "key": "Human Metabolome Database (HMDB 5.0)",
+   "before": 0,
+   "after": 9,
+   "delta": 9
+  },
+  {
+   "key": "Bovine Metabolome Database (BMDB)",
+   "before": 0,
+   "after": 5,
+   "delta": 5
+  },
+  {
+   "key": "HMDB tables republished in an open-access paper",
+   "before": 0,
+   "after": 3,
+   "delta": 3
+  },
+  {
+   "key": "(unlabelled: Published (GEM paper))",
+   "before": 1,
+   "after": 0,
+   "delta": -1
+  }
+ ],
+ "license_by_source_after": [
+  {
+   "source": "USDA FoodData Central",
+   "license": "CC0-1.0",
+   "n": 7424
+  },
+  {
+   "source": "DSMZ MediaDive",
+   "license": "CC-BY-4.0",
+   "n": 3148
+  },
+  {
+   "source": "Primary literature via GrowthDB",
+   "license": "CC-BY-4.0",
+   "n": 1369
+  },
+  {
+   "source": "FooDB",
+   "license": "CC-BY-NC-4.0",
+   "n": 701
+  },
+  {
+   "source": "MediaDB (ISB defined media)",
+   "license": "all-rights-reserved",
+   "n": 471
+  },
+  {
+   "source": "Classic and standard formulations (project-curated)",
+   "license": "CC-BY-4.0",
+   "n": 297
+  },
+  {
+   "source": "Primary literature (GEM papers)",
+   "license": "CC-BY-4.0",
+   "n": 88
+  },
+  {
+   "source": "Human Metabolome Database (HMDB 5.0)",
+   "license": "CC-BY-NC-4.0",
+   "n": 9
+  },
+  {
+   "source": "Bovine Metabolome Database (BMDB)",
+   "license": "custom-permission-required",
+   "n": 5
+  },
+  {
+   "source": "HMDB tables republished in an open-access paper",
+   "license": "CC-BY-NC-4.0",
+   "n": 3
+  }
+ ],
+ "collection": [
+  {
+   "key": "DSMZ",
+   "before": 0,
+   "after": 1900,
+   "delta": 1900
+  },
+  {
+   "key": "JCM",
+   "before": 0,
+   "after": 1143,
+   "delta": 1143
+  },
+  {
+   "key": "CCAP",
+   "before": 0,
+   "after": 105,
+   "delta": 105
+  }
+ ],
+ "verification_status": [
+  {
+   "key": "None",
+   "before": 13515,
+   "after": 0,
+   "delta": -13515
+  },
+  {
+   "key": "unverified",
+   "before": 0,
+   "after": 11604,
+   "delta": 11604
+  },
+  {
+   "key": "paper-verified",
+   "before": 0,
+   "after": 974,
+   "delta": 974
+  },
+  {
+   "key": "reference-database",
+   "before": 0,
+   "after": 471,
+   "delta": 471
+  },
+  {
+   "key": "expert-curated",
+   "before": 0,
+   "after": 455,
+   "delta": 455
+  },
+  {
+   "key": "reconstructed-from-cited-references",
+   "before": 0,
+   "after": 9,
+   "delta": 9
+  },
+  {
+   "key": "other",
+   "before": 0,
+   "after": 1,
+   "delta": 1
+  },
+  {
+   "key": "rejected-by-verification-pass",
+   "before": 0,
+   "after": 1,
+   "delta": 1
+  }
+ ],
+ "family": [
+  {
+   "key": "None",
+   "before": 13515,
+   "after": 12345,
+   "delta": -1170
+  },
+  {
+   "key": "m9",
+   "before": 0,
+   "after": 246,
+   "delta": 246
+  },
+  {
+   "key": "bg11",
+   "before": 0,
+   "after": 47,
+   "delta": 47
+  },
+  {
+   "key": "m63",
+   "before": 0,
+   "after": 39,
+   "delta": 39
+  },
+  {
+   "key": "nutrient",
+   "before": 0,
+   "after": 36,
+   "delta": 36
+  },
+  {
+   "key": "lb",
+   "before": 0,
+   "after": 33,
+   "delta": 33
+  },
+  {
+   "key": "r2a",
+   "before": 0,
+   "after": 29,
+   "delta": 29
+  },
+  {
+   "key": "mrs",
+   "before": 0,
+   "after": 29,
+   "delta": 29
+  },
+  {
+   "key": "cgxii",
+   "before": 0,
+   "after": 28,
+   "delta": 28
+  },
+  {
+   "key": "marine2216",
+   "before": 0,
+   "after": 27,
+   "delta": 27
+  },
+  {
+   "key": "bhi",
+   "before": 0,
+   "after": 27,
+   "delta": 27
+  },
+  {
+   "key": "tsb",
+   "before": 0,
+   "after": 23,
+   "delta": 23
+  },
+  {
+   "key": "castenholz",
+   "before": 0,
+   "after": 18,
+   "delta": 18
+  },
+  {
+   "key": "pyg",
+   "before": 0,
+   "after": 17,
+   "delta": 17
+  },
+  {
+   "key": "spizizen",
+   "before": 0,
+   "after": 14,
+   "delta": 14
+  },
+  {
+   "key": "middlebrook7h9",
+   "before": 0,
+   "after": 13,
+   "delta": 13
+  },
+  {
+   "key": "rcm",
+   "before": 0,
+   "after": 12,
+   "delta": 12
+  },
+  {
+   "key": "m17",
+   "before": 0,
+   "after": 12,
+   "delta": 12
+  },
+  {
+   "key": "halobacterium",
+   "before": 0,
+   "after": 12,
+   "delta": 12
+  },
+  {
+   "key": "gam",
+   "before": 0,
+   "after": 11,
+   "delta": 11
+  },
+  {
+   "key": "mops",
+   "before": 0,
+   "after": 10,
+   "delta": 10
+  },
+  {
+   "key": "brock",
+   "before": 0,
+   "after": 10,
+   "delta": 10
+  },
+  {
+   "key": "czapek",
+   "before": 0,
+   "after": 10,
+   "delta": 10
+  },
+  {
+   "key": "mhmed",
+   "before": 0,
+   "after": 10,
+   "delta": 10
+  },
+  {
+   "key": "methanobacterium",
+   "before": 0,
+   "after": 9,
+   "delta": 9
+  },
+  {
+   "key": "f2",
+   "before": 0,
+   "after": 9,
+   "delta": 9
+  },
+  {
+   "key": "cookedmeat",
+   "before": 0,
+   "after": 9,
+   "delta": 9
+  },
+  {
+   "key": "yem",
+   "before": 0,
+   "after": 8,
+   "delta": 8
+  },
+  {
+   "key": "postgate",
+   "before": 0,
+   "after": 8,
+   "delta": 8
+  },
+  {
+   "key": "ycfa",
+   "before": 0,
+   "after": 8,
+   "delta": 8
+  }
+ ],
+ "base_medium": [
+  {
+   "key": "None",
+   "before": 12938,
+   "after": 12938,
+   "delta": 0
+  },
+  {
+   "key": "M9",
+   "before": 182,
+   "after": 182,
+   "delta": 0
+  },
+  {
+   "key": "LB",
+   "before": 44,
+   "after": 44,
+   "delta": 0
+  },
+  {
+   "key": "MRS",
+   "before": 25,
+   "after": 25,
+   "delta": 0
+  },
+  {
+   "key": "MOPS",
+   "before": 19,
+   "after": 19,
+   "delta": 0
+  },
+  {
+   "key": "M63",
+   "before": 15,
+   "after": 15,
+   "delta": 0
+  },
+  {
+   "key": "TSB",
+   "before": 11,
+   "after": 11,
+   "delta": 0
+  },
+  {
+   "key": "BHI",
+   "before": 10,
+   "after": 10,
+   "delta": 0
+  },
+  {
+   "key": "Davis",
+   "before": 7,
+   "after": 7,
+   "delta": 0
+  },
+  {
+   "key": "Widdel",
+   "before": 3,
+   "after": 3,
+   "delta": 0
+  },
+  {
+   "key": "RPMI",
+   "before": 3,
+   "after": 3,
+   "delta": 0
+  },
+  {
+   "key": "nutrient",
+   "before": 2,
+   "after": 2,
+   "delta": 0
+  },
+  {
+   "key": "Columbia",
+   "before": 2,
+   "after": 2,
+   "delta": 0
+  },
+  {
+   "key": "Nutrient",
+   "before": 2,
+   "after": 2,
+   "delta": 0
+  },
+  {
+   "key": "RCM",
+   "before": 1,
+   "after": 1,
+   "delta": 0
+  }
+ ],
+ "coverage_band_legacy": [
+  {
+   "key": "high_ge_90",
+   "before": 12353,
+   "after": 12353,
+   "delta": 0
+  },
+  {
+   "key": "mid_60_90",
+   "before": 1117,
+   "after": 1117,
+   "delta": 0
+  },
+  {
+   "key": "review_lt_60",
+   "before": 45,
+   "after": 45,
+   "delta": 0
+  }
+ ],
+ "coverage_band_source": [
+  {
+   "key": "not_computed",
+   "before": 13515,
+   "after": 0,
+   "delta": -13515
+  },
+  {
+   "key": "high_ge_90",
+   "before": 0,
+   "after": 8710,
+   "delta": 8710
+  },
+  {
+   "key": "mid_60_90",
+   "before": 0,
+   "after": 3937,
+   "delta": 3937
+  },
+  {
+   "key": "review_lt_60",
+   "before": 0,
+   "after": 868,
+   "delta": 868
+  }
+ ],
+ "coverage_band_observed": [
+  {
+   "key": "not_computed",
+   "before": 13515,
+   "after": 164,
+   "delta": -13351
+  },
+  {
+   "key": "high_ge_90",
+   "before": 0,
+   "after": 13255,
+   "delta": 13255
+  },
+  {
+   "key": "mid_60_90",
+   "before": 0,
+   "after": 96,
+   "delta": 96
+  }
+ ],
+ "concentration": {
+  "n_components_with_concentration_mM": {
+   "before": 14341,
+   "after": 14055,
+   "of": 665582,
+   "pct_before": 2.15,
+   "pct_after": 2.11
+  },
+  "n_components_with_a_verbatim_source_amount": {
+   "before": 0,
+   "after": 353581,
+   "of": 665582
+  },
+  "status": [
+   {
+    "key": "not_derivable",
+    "before": 0,
+    "after": 651527,
+    "delta": 651527
+   },
+   {
+    "key": "source_stated",
+    "before": 0,
+    "after": 14045,
+    "delta": 14045
+   },
+   {
+    "key": "derived",
+    "before": 0,
+    "after": 10,
+    "delta": 10
+   }
+  ]
+ },
+ "provenance_fields": {
+  "components_keeping_the_source_string": {
+   "before": 0,
+   "after": 352516,
+   "of": 665582
+  },
+  "components_with_a_source_supplied_xref": {
+   "before": 0,
+   "after": 2756,
+   "of": 665582,
+   "note": "before: the field did not exist; the single `xref` block was copied from the mapping target (MAP-04)"
+  },
+  "components_with_any_xref_block": {
+   "before": 656823,
+   "after": 656625,
+   "of": 665582
+  },
+  "components_with_no_bigg_id": {
+   "before": 1364,
+   "after": 1582,
+   "of": 665582
+  },
+  "components_with_no_exchange": {
+   "before": 0,
+   "after": 218,
+   "of": 665582,
+   "note": "null exchange = the curated verdict that no single exchange is defensible (yeast extract, peptone, trace-element solution)"
+  }
+ },
+ "named_fixes": {
+  "MAP-01_co2_mapped_to_cobalt": {
+   "co2_named_components": {
+    "before": 11283,
+    "after": 11283
+   },
+   "mapped_to_cobalt2": {
+    "before": 57,
+    "after": 0
+   },
+   "mapped_to_co2": {
+    "before": 11225,
+    "after": 11282
+   },
+   "genuine_cobalt2_components_total": {
+    "before": 12071,
+    "after": 12011
+   },
+   "bg11_media_affected_before": [
+    "complexlit_PMC11126159_bg_11_with_2_mm_nitrate_high_n",
+    "complexlit_PMC11126159_bg_11_with_2_mm_sodium_nitrate_high_n",
+    "complexlit_PMC11126159_bg_11_with_50_um_nitrate_low_n",
+    "complexlit_PMC11126159_bg_11_with_protein_as_sole_n_source_50_um_n",
+    "complexlit_PMC12435244_bg11_medium_supplemented_with_antibiotics_an",
+    "complexlit_PMC12435244_bg11_supplemented_with_10_mm_sodium_bicarbon",
+    "complexlit_PMC12596568_bg11_1_mm_nahco3_air_bubbled_liquid",
+    "complexlit_PMC12596568_bg11_air_bubbled_liquid_ambient_co2_no_added",
+    "complexlit_PMC6449453_modified_bg_11_p_limited_10_um_k2hpo4_4_3_p_"
+   ],
+   "n_component_rows_affected": {
+    "before": 57,
+    "after": 0
+   },
+   "n_media_affected": {
+    "before": 57,
+    "after": 0
+   },
+   "media_affected_before_sample": [
+    "complexlit_PMC10543971_modified_dsm_879_medium_nahco3_omitted_50_mm",
+    "complexlit_PMC11126159_bg_11_with_2_mm_nitrate_high_n",
+    "complexlit_PMC11126159_bg_11_with_2_mm_sodium_nitrate_high_n",
+    "complexlit_PMC11126159_bg_11_with_50_um_nitrate_low_n",
+    "complexlit_PMC11126159_bg_11_with_protein_as_sole_n_source_50_um_n",
+    "complexlit_PMC12435244_bg11_medium_supplemented_with_antibiotics_an",
+    "complexlit_PMC12435244_bg11_supplemented_with_10_mm_sodium_bicarbon",
+    "complexlit_PMC12529827_modified_petc_mes_medium_1_5_g_l_yeast_extra",
+    "complexlit_PMC12596568_bg11_1_mm_nahco3_air_bubbled_liquid",
+    "complexlit_PMC12596568_bg11_air_bubbled_liquid_ambient_co2_no_added",
+    "complexlit_PMC3585446_mccas_medium_with_formate",
+    "complexlit_PMC3585446_mccas_medium_with_formate_co_no_h2",
+    "complexlit_PMC5955973_z8xs_p_phosphorus_free_z8xs_medium_supplemen",
+    "complexlit_PMC6449453_modified_bg_11_p_limited_10_um_k2hpo4_4_3_p_",
+    "complexlit_PMC6776001_modified_dsm_282_medium_chemostat",
+    "complexlit_PMC7242416_complex_medium_20_mm_fructose_100_mm_formate",
+    "complexlit_PMC9003020_mineral_growth_medium_per_picone_et_al_2020_",
+    "complexlit_PMC9003020_mineral_medium_per_picone_et_al_2020_methano",
+    "complexlit_PMC9191640_mccas_rich_undefined_medium",
+    "complexlit_PMC9191640_mcna_ala_minimal_defined_medium_with_l_alani",
+    "complexlit_PMC9191640_mcna_minimal_defined_medium_with_10_mm_ammon",
+    "complexlit_PMC9805005_enriched_artificial_seawater_f_2_type_nutrie",
+    "food_FOOD00038",
+    "growthlit_PMC10579436_mineral_medium_with_355_mm_sodium_format",
+    "growthlit_PMC11346949_dsmz_medium_1718_medium_ii",
+    "growthlit_PMC11637423_defined_saltwater_liquid_medium_10_mm_d_",
+    "growthlit_PMC11882453_tissue_mimicking_chemostat_medium",
+    "growthlit_PMC11882453_tissue_mimicking_spleen_mimicking_chemos",
+    "growthlit_PMC11972089_dban_db_bicarbonate_based_mineral_medium",
+    "growthlit_PMC11972089_dban_db_bicarbonate_mineral_medium_aceta",
+    "growthlit_PMC12286921_defined_dnra_chemostat_medium_1_mm_aceta",
+    "growthlit_PMC12286921_defined_dnra_medium_whole_cell_h2_oxidat",
+    "growthlit_PMC12350162_dsmz_medium_141_h2_co2_modified",
+    "growthlit_PMC12350162_standard_synthetic_methanogen_medium_nic",
+    "growthlit_PMC12403587_jd_high_salt_minimal_medium_co2_bicarbon",
+    "growthlit_PMC12403587_simplified_mcn_jd_high_salt_minimal_medi",
+    "growthlit_PMC12616864_mes_phosphate_buffered_mineral_medium_tr",
+    "growthlit_PMC13079737_mineral_medium_20_mm_hepes_no_nitrate_co",
+    "growthlit_PMC3585446_mccas_derived_chemostat_medium_with_form",
+    "growthlit_PMC4324148_modified_sn_medium_75_filtered_seawater_",
+    "growthlit_PMC4324148_modified_sn_medium_n_p_input_441",
+    "growthlit_PMC5322298_nb_minimal_medium_acetate_fumarate",
+    "growthlit_PMC5344373_widdel_based_defined_medium_n2_only_cond",
+    "growthlit_PMC5344373_widdel_based_defined_medium_no3_only_con",
+    "growthlit_PMC6904909_m9_minimal_medium_30_mm_sodium_formate",
+    "growthlit_PMC7191041_kim_medium_with_feso4_7h2o_co2_as_carbon",
+    "growthlit_PMC7470985_defined_minimal_medium_0_05_glucose_0_5_",
+    "growthlit_PMC7470985_defined_minimal_medium_0_05_glucose_10_m",
+    "growthlit_PMC7470985_defined_minimal_medium_0_5_mm_sodium_ace",
+    "growthlit_PMC7744600_modified_ct_medium_watanabe_and_ichimura",
+    "growthlit_PMC8115276_aob_medium_with_50_mm_urea_instead_of_nh",
+    "growthlit_PMC8863071_modified_low_carbon_lc_medium",
+    "growthlit_PMC8941145_13c_bicarbonate_thiosulfate_amended_hain",
+    "growthlit_PMC9727139_dsmz_141a",
+    "growthlit_PMC9948710_mmjs_liquid_medium_basal_medium_mmj_thio",
+    "lit_PMC10356935_sme_medium_chemolithotrophic_enrichment",
+    "lit_PMC6138749_in_silico_m9_glucose_minimal_medium_exch"
+   ],
+   "media_still_affected_after": [],
+   "cobalt_named_components": {
+    "before": 12041,
+    "after": 12041
+   },
+   "cobalt_named_still_mapped_to_cobalt2": {
+    "before": 11984,
+    "after": 11984,
+    "note": "the regression guard: the fix must not convert genuine cobalt rows into carbon dioxide (MAP-01 risk_if_fixed_naively)"
+   }
+  },
+  "MAP-03_stereochemistry": {
+   "note": "counts of every stereo-suffixed BiGG id in use; the ledger row count for action=stereo_correction is the authoritative fix count",
+   "top_changes": [
+    {
+     "key": "pnto__R",
+     "before": 10497,
+     "after": 10498,
+     "delta": 1
+    },
+    {
+     "key": "met__L",
+     "before": 9339,
+     "after": 9340,
+     "delta": 1
+    },
+    {
+     "key": "leu__L",
+     "before": 9320,
+     "after": 9321,
+     "delta": 1
+    },
+    {
+     "key": "ile__L",
+     "before": 9311,
+     "after": 9312,
+     "delta": 1
+    },
+    {
+     "key": "lys__L",
+     "before": 9306,
+     "after": 9307,
+     "delta": 1
+    },
+    {
+     "key": "arg__L",
+     "before": 9293,
+     "after": 9294,
+     "delta": 1
+    },
+    {
+     "key": "his__L",
+     "before": 9273,
+     "after": 9274,
+     "delta": 1
+    },
+    {
+     "key": "tyr__L",
+     "before": 9251,
+     "after": 9252,
+     "delta": 1
+    },
+    {
+     "key": "trp__L",
+     "before": 9234,
+     "after": 9235,
+     "delta": 1
+    },
+    {
+     "key": "glu__L",
+     "before": 9167,
+     "after": 9298,
+     "delta": 131
+    },
+    {
+     "key": "pro__L",
+     "before": 9232,
+     "after": 9233,
+     "delta": 1
+    },
+    {
+     "key": "asp__L",
+     "before": 9048,
+     "after": 9049,
+     "delta": 1
+    },
+    {
+     "key": "phe__L",
+     "before": 8860,
+     "after": 8861,
+     "delta": 1
+    },
+    {
+     "key": "val__L",
+     "before": 8853,
+     "after": 8854,
+     "delta": 1
+    },
+    {
+     "key": "ser__L",
+     "before": 8605,
+     "after": 8762,
+     "delta": 157
+    },
+    {
+     "key": "cys__L",
+     "before": 8651,
+     "after": 8652,
+     "delta": 1
+    },
+    {
+     "key": "ascb__L",
+     "before": 4016,
+     "after": 4017,
+     "delta": 1
+    },
+    {
+     "key": "asn__L",
+     "before": 3739,
+     "after": 3738,
+     "delta": -1
+    },
+    {
+     "key": "gln__L",
+     "before": 3714,
+     "after": 3712,
+     "delta": -2
+    },
+    {
+     "key": "glc__D",
+     "before": 3425,
+     "after": 3426,
+     "delta": 1
+    },
+    {
+     "key": "ser__D",
+     "before": 620,
+     "after": 464,
+     "delta": -156
+    },
+    {
+     "key": "cysi__L",
+     "before": 8,
+     "after": 535,
+     "delta": 527
+    },
+    {
+     "key": "cystine__L",
+     "before": 527,
+     "after": 0,
+     "delta": -527
+    },
+    {
+     "key": "mal__L",
+     "before": 125,
+     "after": 136,
+     "delta": 11
+    },
+    {
+     "key": "lac__L",
+     "before": 65,
+     "after": 89,
+     "delta": 24
+    },
+    {
+     "key": "glu__D",
+     "before": 142,
+     "after": 12,
+     "delta": -130
+    },
+    {
+     "key": "lac__D",
+     "before": 55,
+     "after": 31,
+     "delta": -24
+    },
+    {
+     "key": "mal__D",
+     "before": 19,
+     "after": 8,
+     "delta": -11
+    },
+    {
+     "key": "orn__D",
+     "before": 11,
+     "after": 10,
+     "delta": -1
+    },
+    {
+     "key": "ala__D",
+     "before": 7,
+     "after": 8,
+     "delta": 1
+    },
+    {
+     "key": "orn__L",
+     "before": 0,
+     "after": 1,
+     "delta": 1
+    }
+   ]
+  },
+  "MAP-05_usda_name_table": {
+   "usda_rows_targeting_cys__L": {
+    "before": 4834,
+    "after": 4834
+   },
+   "usda_rows_targeting_cysi__L": {
+    "before": 0,
+    "after": 0
+   },
+   "all_rows_targeting_cys__L": {
+    "before": 8651,
+    "after": 8652
+   },
+   "all_rows_targeting_cysi__L": {
+    "before": 8,
+    "after": 535,
+    "note": "the 527 non-USDA rows that kept their source name were retargeted to cystine; the 4,834 USDA rows cannot be, because the builder overwrote the source string"
+   }
+  },
+  "NM-01_hamburger_usda_170772": {
+   "before": {
+    "id": "usda_170772",
+    "name": "WENDY'S, DAVE'S Hot 'N Juicy 1/4 LB, single (USDA food medium)",
+    "category": "food",
+    "base_medium": "LB",
+    "family": null,
+    "family_method": null,
+    "verification": "expert-curated (canonical formulation)",
+    "verification_status": null,
+    "n_components": 62,
+    "n_derived": 0,
+    "n_sourced": 0,
+    "pct_covered_legacy": 83.8,
+    "pct_covered_source": null,
+    "component_methods": {
+     "('complex_decomposition', 'yeast extract')": 36,
+     "('wellknown_curation', None)": 14,
+     "('name_alias_remap', None)": 7,
+     "('usda_nutrient', None)": 4,
+     "('mineral_base', None)": 1
+    }
+   },
+   "after": {
+    "id": "usda_170772",
+    "name": "WENDY'S, DAVE'S Hot 'N Juicy 1/4 LB, single (USDA food medium)",
+    "category": "food",
+    "base_medium": "LB",
+    "family": null,
+    "family_method": null,
+    "verification": "expert-curated (canonical formulation)",
+    "verification_status": "expert-curated",
+    "n_components": 62,
+    "n_derived": 37,
+    "n_sourced": 25,
+    "pct_covered_legacy": 83.8,
+    "pct_covered_source": 65.8,
+    "component_methods": {
+     "('complex_decomposition', 'yeast extract')": 36,
+     "('wellknown_curation', None)": 14,
+     "('name_alias_remap', None)": 7,
+     "('usda_nutrient', None)": 4,
+     "('mineral_base', None)": 1
+    }
+   }
+  },
+  "NM-03_dsmz_attribution": {
+   "media_named_DSMZ": {
+    "before": 3168,
+    "after": 3168
+   },
+   "citations_mentioning_DSMZ": {
+    "before": 3152,
+    "after": 1904
+   },
+   "collections_after": {
+    "DSMZ": 1900,
+    "CCAP": 105,
+    "JCM": 1143
+   }
+  },
+  "PROV-03_false_paper_verification": {
+   "verification_status": [
+    {
+     "key": "None",
+     "before": 13515,
+     "after": 0,
+     "delta": -13515
+    },
+    {
+     "key": "unverified",
+     "before": 0,
+     "after": 11604,
+     "delta": 11604
+    },
+    {
+     "key": "paper-verified",
+     "before": 0,
+     "after": 974,
+     "delta": 974
+    },
+    {
+     "key": "reference-database",
+     "before": 0,
+     "after": 471,
+     "delta": 471
+    },
+    {
+     "key": "expert-curated",
+     "before": 0,
+     "after": 455,
+     "delta": 455
+    },
+    {
+     "key": "reconstructed-from-cited-references",
+     "before": 0,
+     "after": 9,
+     "delta": 9
+    },
+    {
+     "key": "other",
+     "before": 0,
+     "after": 1,
+     "delta": 1
+    },
+    {
+     "key": "rejected-by-verification-pass",
+     "before": 0,
+     "after": 1,
+     "delta": 1
+    }
+   ],
+   "verification_strings_before_top": {
+    "None": 11605,
+    "paper-verified (corrected via workflow)": 843,
+    "reference-database (MediaDB, ISB)": 471,
+    "expert-curated (canonical formulation)": 355,
+    "expert-curated (multi-source food composition; growth-releva": 100,
+    "paper-verified (complete recipe; cited + supplementary sourc": 98,
+    "paper-verified (confirmed)": 28,
+    "paper-verified (recipe recovered from primary literature)": 14,
+    "recuration attempted — recipe not confidently re-mappable (s": 1
+   }
+  },
+  "COV-03_media_100pct_covered_but_entirely_derived": {
+   "before": 10,
+   "after": 10,
+   "measured_by": "mapping_method, which exists in both corpora",
+   "media_entirely_pipeline_derived": {
+    "before": 164,
+    "after": 164
+   },
+   "derived_components_by_method": {
+    "before": 229486,
+    "after": 229486
+   },
+   "of": 13515,
+   "note": "the legacy pct_covered is deliberately preserved unchanged; what changes is that the same records now also publish pct_covered_source, which is 0 for them"
+  }
+ },
+ "media_with_derived_components": {
+  "before": 0,
+  "after": 12327,
+  "of": 13515
+ }
+}

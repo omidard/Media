@@ -1,1 +1,337 @@
-{"id": "growthlit_PMC8235229_chemically_defined_medium_cdm_with_sucrose_as_carbon_source_", "name": "Chemically defined medium (CDM) with sucrose as carbon source; preculture in M17 (lactose)", "category": "growth_medium", "organism_scope": "prokaryote", "aerobic": null, "namespace": "bigg", "description": "Chemically defined medium (CDM) with sucrose as carbon source; preculture in M17 — formulated for GrowthDB (composition) and mapped to BiGG exchanges.", "provenance": {"source_type": "literature", "citation": "Medium from PMC8235229 (GrowthDB).", "doi": "", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8235229/", "notes": "Formulation status: defined. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation."}, "components": [{"name": "Sucrose C12H22O11", "bigg_metabolite": "sucr", "exchange": "EX_sucr_e", "lower_bound": -10.0, "upper_bound": 1000.0, "concentration_mM": null, "xref": {"reactome": "R-ALL-188980", "kegg": "C00089", "chebi": "CHEBI:15128", "inchikey": "CZMRCDWAGMRECN-UGDNZRGBSA-N", "kegg_drug": "D00025", "kegg_glycan": "G00370", "hmdb": "HMDB00258", "biocyc": "META:SUCROSE", "mnx": "MNXM1104180", "seed": "cpd00076", "metacyc": "SUCROSE", "sabiork": "1294", "inchi": "InChI=1S/C12H22O11/c13-1-4-6(16)8(18)9(19)11(21-4)23-12(3-15)10(20)7(17)5(2-14)22-12/h4-11,13-20H,1-3H2/t4-,5-,6-,7-,8+,9-,10+,11-,12+/m1/s1", "formula": "C12H22O11"}, "in_biggr": true, "exchange_source": "growthdb_formulation", "mapping_method": "growthdb_curation", "mapping_confidence": "curated"}], "n_components": 1, "n_mapped": 1, "n_in_biggr": 1, "version": 1, "coverage": {"n_compounds": 1, "n_covered": 1, "n_uncovered": 0, "pct_covered": 100.0, "by_source": {"growthdb_formulation": 1}}, "oxygen": null, "curation": "defined", "uncovered": []}
+{
+ "id": "growthlit_PMC8235229_chemically_defined_medium_cdm_with_sucrose_as_carbon_source_",
+ "name": "Chemically defined medium (CDM) with sucrose as carbon source; preculture in M17 (lactose)",
+ "category": "laboratory",
+ "organism_scope": "prokaryote",
+ "aerobic": null,
+ "namespace": "bigg",
+ "description": "Chemically defined medium (CDM) with sucrose as carbon source; preculture in M17 — formulated for GrowthDB (composition) and mapped to BiGG exchanges.",
+ "provenance": {
+  "source_type": "literature",
+  "citation": "Medium from PMC8235229 (GrowthDB).",
+  "doi": "",
+  "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8235229/",
+  "notes": "Formulation status: defined. Bounds presence-based (minerals unlimited, organic C -10). Added via GrowthDB curation.",
+  "transforms": [
+   {
+    "stage": "10_normalize_schema",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "category:growth_medium->laboratory",
+     "curation->formulation_class",
+     "defined:absent->null",
+     "n_nonbigg_fallback:added",
+     "schema_version:mediadb-record/2",
+     "version:int->str"
+    ]
+   },
+   {
+    "stage": "20_stamp_provenance",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "components[].derived_class",
+     "components[].evidence_class",
+     "provenance.attribution_required",
+     "provenance.citation_resolved",
+     "provenance.citation_type",
+     "provenance.commercial_use",
+     "provenance.commercial_use_ok",
+     "provenance.composition_provenance",
+     "provenance.has_primary_citation",
+     "provenance.license",
+     "provenance.license_indication_required",
+     "provenance.license_name",
+     "provenance.license_review_reason",
+     "provenance.license_review_required",
+     "provenance.license_source",
+     "provenance.license_terms_retrieved",
+     "provenance.license_terms_url",
+     "provenance.license_terms_verification",
+     "provenance.license_url",
+     "provenance.primary_identifier",
+     "provenance.source_id",
+     "provenance.source_identity_confidence",
+     "provenance.source_identity_evidence",
+     "provenance.source_name",
+     "provenance.verification_downgrade_reason",
+     "provenance.verification_status"
+    ]
+   },
+   {
+    "stage": "39_recompute_coverage",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "coverage_source"
+    ]
+   },
+   {
+    "stage": "40_remap_components",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "mapping_schema_version",
+     "n_derived",
+     "n_observed",
+     "n_unmappable",
+     "pct_covered_observed",
+     "tier_counts"
+    ]
+   },
+   {
+    "stage": "50_load_concentrations",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "components.concentration_status",
+     "components.derived_not_sourced",
+     "components.quantity",
+     "quantitation"
+    ]
+   },
+   {
+    "stage": "51_normalize_names",
+    "version": "1.0.0",
+    "date": "2026-09-06",
+    "changes": [
+     "collection",
+     "composition_identical_to",
+     "composition_signature",
+     "family",
+     "modifiers",
+     "name_core",
+     "name_display",
+     "name_provenance_tail",
+     "ph_declared",
+     "preparation",
+     "strength"
+    ]
+   }
+  ],
+  "source_id": "growthdb_literature",
+  "source_name": "Primary literature via GrowthDB",
+  "source_identity_evidence": "provenance.citation names 'GrowthDB'",
+  "source_identity_confidence": "verified",
+  "license": "CC-BY-4.0",
+  "license_name": "Creative Commons Attribution 4.0 International (project compilation)",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_source": "Primary literature via GrowthDB",
+  "license_terms_url": null,
+  "license_terms_retrieved": "2026-09-06",
+  "license_terms_verification": "project_assertion",
+  "commercial_use": "yes",
+  "commercial_use_ok": true,
+  "attribution_required": true,
+  "license_indication_required": true,
+  "license_review_required": false,
+  "license_review_reason": null,
+  "citation_type": "primary_paper",
+  "has_primary_citation": true,
+  "citation_resolved": true,
+  "primary_identifier": {
+   "type": "pmcid",
+   "value": "PMC8235229"
+  },
+  "verification_status": "unverified",
+  "verification_downgrade_reason": null,
+  "composition_provenance": {
+   "n_components": 1,
+   "n_sourced": 1,
+   "n_derived": 0,
+   "n_derived_inferred_from_listed_ingredient": 0,
+   "n_derived_injected_convention": 0,
+   "n_derived_canonical_base_expansion": 0,
+   "pct_sourced_of_components": 100.0,
+   "definition": "sourced = the cited source states this component; derived = the pipeline supplied it. Classification table: tools/component_evidence_classes.tsv."
+  }
+ },
+ "components": [
+  {
+   "name": "Sucrose C12H22O11",
+   "bigg_metabolite": "sucr",
+   "exchange": "EX_sucr_e",
+   "lower_bound": -10.0,
+   "upper_bound": 1000.0,
+   "concentration_mM": null,
+   "xref": {
+    "reactome": "R-ALL-188980",
+    "kegg": "C00089",
+    "chebi": "CHEBI:15128",
+    "inchikey": "CZMRCDWAGMRECN-UGDNZRGBSA-N",
+    "kegg_drug": "D00025",
+    "kegg_glycan": "G00370",
+    "hmdb": "HMDB00258",
+    "biocyc": "META:SUCROSE",
+    "mnx": "MNXM1104180",
+    "seed": "cpd00076",
+    "metacyc": "SUCROSE",
+    "sabiork": "1294",
+    "inchi": "InChI=1S/C12H22O11/c13-1-4-6(16)8(18)9(19)11(21-4)23-12(3-15)10(20)7(17)5(2-14)22-12/h4-11,13-20H,1-3H2/t4-,5-,6-,7-,8+,9-,10+,11-,12+/m1/s1",
+    "formula": "C12H22O11"
+   },
+   "in_biggr": true,
+   "exchange_source": "growthdb_formulation",
+   "mapping_method": "growthdb_curation",
+   "mapping_confidence": "inferred",
+   "evidence_class": "sourced",
+   "derived_class": null,
+   "target_xref": {
+    "reactome": "R-ALL-188980",
+    "kegg": "C00089",
+    "chebi": "CHEBI:15128",
+    "inchikey": "CZMRCDWAGMRECN-UGDNZRGBSA-N",
+    "kegg_drug": "D00025",
+    "kegg_glycan": "G00370",
+    "hmdb": "HMDB00258",
+    "biocyc": "META:SUCROSE",
+    "mnx": "MNXM1104180",
+    "seed": "cpd00076",
+    "metacyc": "SUCROSE",
+    "sabiork": "1294",
+    "inchi": "InChI=1S/C12H22O11/c13-1-4-6(16)8(18)9(19)11(21-4)23-12(3-15)10(20)7(17)5(2-14)22-12/h4-11,13-20H,1-3H2/t4-,5-,6-,7-,8+,9-,10+,11-,12+/m1/s1",
+    "formula": "C12H22O11"
+   },
+   "source_xref": null,
+   "match_key": null,
+   "match_field": null,
+   "target_xref_note": "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it",
+   "source_name": null,
+   "target_name": "Sucrose C12H22O11",
+   "evidence_tier": "author_asserted",
+   "source_observed": true,
+   "mapping_note": "GrowthDB curation pass",
+   "derived_not_sourced": false,
+   "quantity": null,
+   "quantity_basis": null,
+   "concentration_status": "not_derivable",
+   "concentration_source": null,
+   "concentration_block_reason": "no_source_amount"
+  }
+ ],
+ "n_components": 1,
+ "n_mapped": 1,
+ "n_in_biggr": 1,
+ "version": "1",
+ "coverage": {
+  "n_compounds": 1,
+  "n_covered": 1,
+  "n_uncovered": 0,
+  "pct_covered": 100.0,
+  "by_source": {
+   "growthdb_formulation": 1
+  }
+ },
+ "oxygen": null,
+ "uncovered": [],
+ "n_nonbigg_fallback": 0,
+ "category_original": "growth_medium",
+ "formulation_class": "defined",
+ "defined": null,
+ "schema_version": "mediadb-record/2",
+ "coverage_source": {
+  "n_components": 1,
+  "n_sourced": 1,
+  "n_derived": 0,
+  "n_derived_inferred_from_listed_ingredient": 0,
+  "n_derived_injected_convention": 0,
+  "n_derived_canonical_base_expansion": 0,
+  "n_uncovered_ingredients": 0,
+  "n_source_ingredients_replaced_by_derived_components": 0,
+  "replaced_ingredient_count_is_lower_bound": false,
+  "replaced_ingredient_names_unavailable": false,
+  "pct_covered_all": 100.0,
+  "pct_covered_all_denominator": 1,
+  "pct_covered_source": 100.0,
+  "pct_covered_source_denominator": 1,
+  "pct_covered_source_is_upper_bound": false,
+  "pct_sourced_of_components": 100.0,
+  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+ },
+ "n_observed": 1,
+ "n_derived": 0,
+ "n_unmappable": 0,
+ "pct_covered_observed": 100.0,
+ "tier_counts": {
+  "author_asserted": 1
+ },
+ "mapping_schema_version": "2.0-evidence-tiers",
+ "quantitation": {
+  "n_components": 1,
+  "n_components_sourced": 1,
+  "n_components_pipeline_derived": 0,
+  "n_with_source_amount": 0,
+  "n_with_concentration_mM": 0,
+  "pct_with_concentration_mM": 0.0,
+  "quantitative_signature": "d20567b7dd6d2f83",
+  "stage": "50_load_concentrations",
+  "stage_version": "1.0.0"
+ },
+ "name_display": "Chemically defined medium (CDM) with sucrose as carbon source; preculture in M17 (lactose)",
+ "name_core": "Chemically defined medium (CDM) with sucrose as carbon source; preculture in M17 (lactose)",
+ "name_provenance_tail": null,
+ "name_verbatim": "Chemically defined medium (CDM) with sucrose as carbon source; preculture in M17 (lactose)",
+ "family": {
+  "id": "m17",
+  "label": "M17 medium (standard)",
+  "method": "name_only",
+  "evidence": "name_regex:m17",
+  "candidates": [
+   "m17"
+  ],
+  "composition_corroborated": 0.0,
+  "corroboration_blocked_reason": "below_corroboration_threshold",
+  "parent": null,
+  "refused_reason": null
+ },
+ "modifiers": [
+  {
+   "kind": "carbon_source",
+   "agent": "sucrose",
+   "amount": null,
+   "unit": null,
+   "verbatim": "sucrose",
+   "declared_in_name": true,
+   "polarity": "present",
+   "reflected_in_composition": true
+  },
+  {
+   "kind": "carbon_source",
+   "agent": "lactose",
+   "amount": null,
+   "unit": null,
+   "verbatim": "lactose",
+   "declared_in_name": true,
+   "polarity": "present",
+   "reflected_in_composition": false
+  },
+  {
+   "kind": "nutrient_ion",
+   "agent": "carbon",
+   "amount": null,
+   "unit": null,
+   "verbatim": "carbon",
+   "declared_in_name": true,
+   "polarity": "present",
+   "reflected_in_composition": false
+  }
+ ],
+ "modifiers_unparsed": null,
+ "preparation": null,
+ "strength": null,
+ "ph_declared": null,
+ "modifier_parse": "laboratory_grammar_v1",
+ "composition_signature": "d20567b7dd6d2f83",
+ "composition_identical_to": [
+  "growthlit_PMC10689506_minimal_lc300_growth_medium_mlgm_with_sucrose",
+  "growthlit_PMC13197064_nutrient_broth",
+  "growthlit_PMC3148577_sucrose_minimal_medium",
+  "growthlit_PMC4964529_sucrose_medium",
+  "growthlit_PMC5315487_sucrose_mineral_n_free_n2_fixing_medium",
+  "growthlit_PMC7049565_modified_burk_s_medium_sucrose_c_source_non_n_fixing",
+  "growthlit_PMC7049565_modified_burk_s_medium_sucrose_c_source_non_n_fixing_fixed_n"
+ ],
+ "composition_distinguishes_modifiers": false,
+ "composition_limitation": "This record's composition, bounds and quantities are identical to 7 other record(s). The modifier(s) its name declares are not represented in the chemistry and must not be read as a compositional difference."
+}
