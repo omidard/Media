@@ -20,7 +20,8 @@ WHAT IT WRITES
       media[id] = {category, n_compounds, n_covered, n_uncovered, pct_covered,
                    by_source,                      <- unchanged legacy shape
                    n_sourced, n_derived, pct_covered_source,
-                   pct_covered_source_is_upper_bound, pct_covered_observed}
+                   pct_covered_source_is_upper_bound,
+                   pct_sourced_components_with_bigg_id}
       totals    = {exchange_sources, n_uncovered,  <- unchanged legacy shape
                    n_components, n_sourced_components, n_derived_components,
                    media_by_legacy_band, media_by_source_band, definitions}
@@ -47,8 +48,16 @@ DEFINITIONS = {
     "pct_covered_source": "source-stated components / (those + unresolved ingredients "
                           "+ ingredients replaced by derived components). An upper "
                           "bound where pct_covered_source_is_upper_bound is true.",
-    "pct_covered_observed": "mapped share of the components the source actually "
-                            "stated; derived components excluded from both terms.",
+    "pct_sourced_components_with_bigg_id":
+        "of the components the cited source states, the share that reached a BiGG "
+        "metabolite id rather than a non-BiGG fallback or nothing. Its denominator "
+        "is components, NOT the source's ingredient list, so it is 100.0 on 12,861 "
+        "of 13,515 records and is not a coverage measure. Named pct_covered_observed "
+        "until 2026-09-06; see field_renames in data/index.json.",
+    "exchange_resolution":
+        "where each component's exchange id landed: a BiGG EX_<met>_e reaction, a "
+        "ModelSEED/MetaNetX/KEGG fallback no BiGG model will accept, or nothing at "
+        "all. The three partition n_components.",
     "null": "a null percentage means the denominator was zero. It does not mean 100.",
 }
 
@@ -71,6 +80,7 @@ def build(media_dir: str, out_path: str) -> dict:
     legacy_band = collections.Counter()
     source_band = collections.Counter()
     tot_unc = tot_comp = tot_sourced = tot_derived = 0
+    exch = collections.Counter()
 
     for fp in files:
         with open(fp, encoding="utf-8") as fh:
@@ -79,11 +89,21 @@ def build(media_dir: str, out_path: str) -> dict:
         cs = d.get("coverage_source") or {}
         comps = d.get("components") or []
         by_source = collections.Counter()
+        n_bigg = n_fallback = n_none = 0
         for c in comps:
             src = c.get("exchange_source")
             if src:
                 by_source[src] += 1
                 ex_sources[src] += 1
+            if not c.get("exchange"):
+                n_none += 1
+            elif c.get("evidence_tier") == "non_bigg_fallback":
+                n_fallback += 1
+            else:
+                n_bigg += 1
+        exch["n_bigg_exchange"] += n_bigg
+        exch["n_nonbigg_fallback"] += n_fallback
+        exch["n_no_exchange"] += n_none
         n_unc = cov.get("n_uncovered")
         tot_unc += n_unc or 0
         tot_comp += len(comps)
@@ -103,13 +123,19 @@ def build(media_dir: str, out_path: str) -> dict:
             "pct_covered_source": cs.get("pct_covered_source"),
             "pct_covered_source_is_upper_bound":
                 cs.get("pct_covered_source_is_upper_bound"),
-            "pct_covered_observed": d.get("pct_covered_observed"),
+            "pct_sourced_components_with_bigg_id":
+                d.get("pct_sourced_components_with_bigg_id",
+                      d.get("pct_covered_observed")),
+            "n_bigg_exchange": n_bigg,
+            "n_nonbigg_fallback": n_fallback,
+            "n_no_exchange": n_none,
         }
 
     out = {
         "media": media,
         "totals": {
             "exchange_sources": dict(ex_sources),
+            "exchange_resolution": dict(exch, of=tot_comp),
             "n_uncovered": tot_unc,
             "n_media": len(media),
             "n_components": tot_comp,
@@ -127,6 +153,7 @@ def build(media_dir: str, out_path: str) -> dict:
           % (tot_comp, tot_sourced, tot_derived))
     print("  legacy bands %s" % dict(legacy_band))
     print("  source bands %s" % dict(source_band))
+    print("  exchange resolution %s" % dict(exch))
     return out
 
 

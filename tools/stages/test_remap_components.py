@@ -232,9 +232,9 @@ def main():
     check(out["n_observed"] == 7 and out["n_derived"] == 1,
           "coverage arithmetic separates observed from derived",
           (out["n_observed"], out["n_derived"]))
-    check(out["pct_covered_observed"] == round(100 * 6 / 7, 2),
-          "pct_covered_observed excludes the mixture that has no exchange",
-          out["pct_covered_observed"])
+    check(out["pct_sourced_components_with_bigg_id"] == round(100 * 6 / 7, 2),
+          "pct_sourced_components_with_bigg_id excludes the mixture that has no "
+          "exchange", out["pct_sourced_components_with_bigg_id"])
 
     print("\n[stage] assertions actually fire")
     bad = {"id": "bad", "components": [

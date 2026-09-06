@@ -10,7 +10,7 @@ WHAT THIS IS
 `data/media/*.json` is the sole surviving copy of the corpus and it is large:
 1.4 GB across 13,515 records, and `data/index.json` (the documented API catalog)
 is 16.7 MB. Neither is a thing to hand a browser. This module projects the
-corpus into four small artifacts under `data/web/`, each of which carries the
+corpus into five small artifacts under `data/web/`, each of which carries the
 denominator of every count it states:
 
   catalog.json     one row per medium, dictionary-encoded, plus the library-wide
@@ -27,6 +27,10 @@ denominator of every count it states:
   tombstones.json  the 77 media the verification pass assessed and withdrew,
                    with the reason, so a rotted `?medium=` permalink says what
                    happened instead of rendering an ordinary landing page.
+  twins.json       the groups of media that hand a model the identical constraint
+                   set. Half this library is degenerate as a model input, and a
+                   reader choosing between two media is entitled to know when the
+                   choice makes no difference to a solver.
 
 WHAT IT REFUSES TO DO
 ---------------------
@@ -46,8 +50,13 @@ import gzip
 import json
 import os
 import subprocess
+import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from model_input import Degeneracy   # noqa: E402
+import refs as R                     # noqa: E402
 
 SCHEMA = "mediadb-web-payload/1"
 
@@ -139,13 +148,31 @@ COLUMNS = [
     "n_components", "n_sourced", "n_derived", "n_uncovered",
     "pct_covered_source", "pct_covered_source_is_upper_bound", "family",
     "n_with_concentration_mM", "food_group", "defined",
+    # The two ways a component can fail to reach a BiGG exchange, per record. The
+    # library-wide claim was "every component mapped to a BiGG exchange"; it is true
+    # of 664,000 of 665,582 components and the exceptions were invisible per record.
+    "n_nonbigg_fallback", "n_no_exchange",
+    # How many OTHER records hand a model the identical constraint set (0 = unique).
+    "model_input_twins",
 ] + ["ev_" + c for c in CLASS_ORDER]
 
 ENUM_COLUMNS = ("category", "source_db", "license", "verification_status",
                 "oxygen", "organism_scope", "family", "food_group")
 
 COLUMN_NOTES = {
-    "n_components": "components in the record; every one has a BiGG exchange",
+    "n_components": "components in the record. Most carry a BiGG exchange; "
+                    "n_nonbigg_fallback and n_no_exchange say how many do not",
+    "n_nonbigg_fallback": "of n_components, the number whose exchange id is a "
+                           "ModelSEED/MetaNetX/KEGG fallback, not a BiGG id. No "
+                           "BiGG model will accept it. 1,364 of 665,582 "
+                           "components library-wide",
+    "n_no_exchange": "of n_components, the number with no exchange reaction at "
+                     "all: identity was never established, or the ingredient is "
+                     "an undefined mixture. 218 of 665,582 library-wide",
+    "model_input_twins": "how many OTHER records hand a model the identical set "
+                         "of (exchange, lower bound, upper bound) triples. 0 "
+                         "means this record's model input is unique in the "
+                         "library; see model_input_degeneracy",
     "n_sourced": "of those, the number the cited source actually states",
     "n_derived": "of those, the number this pipeline supplied (see the "
                  "pipeline-derived evidence class)",
@@ -161,6 +188,28 @@ COLUMN_NOTES = {
               "means unknown and is rendered as unknown, never as anaerobic",
     "defined": "true | false | null; null means no source asserted it",
 }
+
+
+# A rename is only honest if the consumer is told. This block ships in
+# catalog.json, summary.json and data/index.json so a script reading the old key
+# finds out what happened instead of finding the key missing.
+FIELD_RENAMES = [
+    {
+        "old": "pct_covered_observed",
+        "new": "pct_sourced_components_with_bigg_id",
+        "changed": "2026-09-06",
+        "why": ("The old name read as coverage of the medium, but its denominator "
+                "is the components the record already carries rather than the "
+                "ingredients the source listed, so it is a near-constant "
+                "(measured below). It answers one question only: of the "
+                "components the source states, the share that reached a BiGG id "
+                "rather than a non-BiGG fallback or nothing. The coverage "
+                "question is answered by pct_covered_source."),
+        # filled by build_payload from the corpus, so the claim that the field was
+        # near-constant carries its own denominator rather than an adjective
+        "measured": None,
+    },
+]
 
 
 def git_head(repo: str) -> str | None:
@@ -235,6 +284,14 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
                   quarantine: str | None = None) -> dict:
     """Read the corpus, write data/web/*.json, return a machine-readable report."""
     files = sorted(glob.glob(os.path.join(media_dir, "*.json")))
+    # Cross-references live once in data/refs.json (stage 60), keyed off
+    # components[].xref_id. refs.component_xref() also handles a corpus that has
+    # not been through that stage and still carries them inline, so this builder
+    # works on either shape.
+    try:
+        refs = R.load_refs(repo)
+    except FileNotFoundError:
+        refs = {"xrefs": {}, "notes": {}}
     if not files:
         raise SystemExit(
             "FATAL: no media under %s. The browser payload is never legitimately "
@@ -255,6 +312,25 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     totals = {"n_components": 0, "n_sourced": 0, "n_derived": 0,
               "n_uncovered": 0, "n_with_concentration_mM": 0,
               "n_with_source_amount": 0}
+    # Where every component's exchange id actually landed. Counted from the
+    # components themselves, not from the record's declared counters, and then
+    # asserted against them: the site's opening sentence used to be "every one
+    # mapped to a BiGG exchange", which was true of 664,000 of 665,582.
+    exch = {"n_bigg_exchange": 0, "n_nonbigg_fallback": 0, "n_no_exchange": 0}
+    # Components actually iterated. The exchange and cross-reference accountings are
+    # asserted against THIS, not against the records' declared n_components: they
+    # count what they walked, and a declared counter that disagrees is a separate
+    # defect with its own check.
+    n_components_seen = 0
+    # How near-constant the renamed field actually is, measured here rather than
+    # asserted in prose (blocker g: the old name read as coverage).
+    n_bigg_id_pct_is_100 = 0
+    n_bigg_id_pct_null = 0
+    # README claimed every component "carries cross-references". Measured here.
+    xrefs = {"n_components_with_a_cross_reference": 0,
+             "n_components_with_none": 0}
+    degeneracy = Degeneracy()
+    row_of_id: dict[str, int] = {}
     bands_source = {"high_ge_90": 0, "mid_60_90": 0, "review_lt_60": 0,
                     "not_computed": 0}
     n_upper_bound = 0
@@ -277,6 +353,36 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         ev = _evidence_counts(rec)
         for cls, n in zip(CLASS_ORDER, ev):
             class_totals[cls] += n
+
+        rec_bigg = rec_fallback = rec_none = 0
+        n_components_seen += len(rec["components"])
+        for comp in rec["components"]:
+            # `xref_id` is the reference-table form of the same fact: stage 60
+            # moves repeated cross-reference blocks into data/refs.json and leaves
+            # an id behind, and an ABSENT id means no cross-references at all. Both
+            # shapes are counted so this number survives that migration.
+            if (comp.get("xref") or comp.get("target_xref")
+                    or comp.get("source_xref") or comp.get("xref_id")):
+                xrefs["n_components_with_a_cross_reference"] += 1
+            else:
+                xrefs["n_components_with_none"] += 1
+            if not comp.get("exchange"):
+                rec_none += 1
+            elif comp.get("evidence_tier") == "non_bigg_fallback":
+                rec_fallback += 1
+            else:
+                rec_bigg += 1
+        exch["n_bigg_exchange"] += rec_bigg
+        exch["n_nonbigg_fallback"] += rec_fallback
+        exch["n_no_exchange"] += rec_none
+        row_of_id[rec["id"]] = i
+        degeneracy.add(rec)
+        pct_bigg = rec.get("pct_sourced_components_with_bigg_id",
+                           rec.get("pct_covered_observed"))
+        if pct_bigg is None:
+            n_bigg_id_pct_null += 1
+        elif pct_bigg == 100.0:
+            n_bigg_id_pct_is_100 += 1
 
         n_components = rec.get("n_components")
         n_sourced = covs.get("n_sourced")
@@ -350,6 +456,8 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
             quant.get("n_with_concentration_mM"),
             enc("food_group", rec.get("food_group")),
             rec.get("defined"),
+            rec_fallback, rec_none,
+            None,   # model_input_twins: patched below, once the whole corpus is read
         ] + ev)
 
         seen = set()
@@ -360,7 +468,7 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
             seen.add(ex)
             postings.setdefault(ex, []).append(i)
             if ex not in compound_meta:
-                xr = comp.get("xref") or {}
+                xr = R.component_xref(comp, refs)
                 compound_meta[ex] = {
                     "bigg": comp.get("bigg_metabolite"),
                     "name": comp.get("target_name") or comp.get("name"),
@@ -407,7 +515,35 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
 
     n = len(rows)
 
+    # --- the model-input twins, now that the whole corpus has been read -------
+    # A per-record answer to "is anything else identical to this?" cannot be given
+    # in one pass, so the column is filled here rather than guessed above.
+    twin_col = COLUMNS.index("model_input_twins")
+    for mid, ri in row_of_id.items():
+        rows[ri][twin_col] = degeneracy.n_twins(mid)
+    degen = degeneracy.report()
+    twin_groups = degeneracy.groups()
+    field_renames = [
+        dict(FIELD_RENAMES[0], measured={
+            "n_records_where_the_value_is_100.0": n_bigg_id_pct_is_100,
+            "n_records_where_it_is_null": n_bigg_id_pct_null,
+            "of": n,
+        })
+    ]
+
     # --- consistency: the payload's totals must be the corpus's totals --------
+    if sum(xrefs.values()) != n_components_seen:
+        raise ValueError(
+            "cross-reference accounting covers %d of the %d components walked"
+            % (sum(xrefs.values()), n_components_seen))
+    if sum(exch.values()) != n_components_seen:
+        raise ValueError(
+            "exchange resolution accounts for %d of the %d components walked. "
+            "Every component is BiGG-mapped, carries a non-BiGG fallback, or has "
+            "no exchange; a fourth state would let the site state a mapping claim "
+            "it cannot support." % (sum(exch.values()), n_components_seen))
+    if sum(len(g) for g in twin_groups) != degen["n_media_sharing_a_model_input"]:
+        raise ValueError("model-input groups and the degeneracy total disagree")
     if sum(class_totals.values()) != totals["n_components"]:
         raise ValueError(
             "evidence classes cover %d components but the records declare %d. "
@@ -468,6 +604,25 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
              "of": totals["n_components"]}
             for c in EVIDENCE_CLASSES],
         "component_totals": dict(totals, of=totals["n_components"]),
+        "exchange_resolution": dict(
+            exch, of=n_components_seen,
+            definition=(
+                "Where each component's exchange id landed. n_bigg_exchange is a "
+                "real BiGG EX_<met>_e reaction. n_nonbigg_fallback is a "
+                "ModelSEED/MetaNetX/KEGG id in exchange position: the component's "
+                "own mapping_note says no BiGG model will accept it. "
+                "n_no_exchange has none at all. The three partition "
+                "n_components, and the site states all three rather than "
+                "claiming every component is BiGG-mapped.")),
+        "cross_references": dict(
+            xrefs, of=n_components_seen,
+            definition=(
+                "A component counts as carrying a cross-reference when it has any "
+                "of xref, target_xref or source_xref. Those describe the BiGG "
+                "metabolite that was chosen and, for source_xref, the identifier "
+                "the source supplied; only source_xref is independent evidence.")),
+        "model_input_degeneracy": degen,
+        "field_renames": field_renames,
         "media_totals": {
             "n_media": n,
             "n_media_with_any_derived_component": n_any_derived,
@@ -520,6 +675,21 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     tomb.update(_tombstones(quarantine or os.path.join(repo, "data",
                                                        "_quarantine.json")))
 
+    # The twin groups, named. The catalog column says HOW MANY other records share
+    # a record's model input; this file says WHICH, so the record sheet can list
+    # them instead of leaving the reader to guess. Ids appear once: the reverse
+    # map is built by the client on load rather than shipped twice.
+    twins = dict(stamp)
+    twins.update({
+        "doc": ("Groups of media that hand a genome-scale model the identical "
+                "constraint set. Membership is transitive and complete: every id "
+                "in a group produces the same model input as every other id in "
+                "it. A medium absent from every group has a model input unique "
+                "in this library."),
+        "groups": twin_groups,
+        **degen,
+    })
+
     # summary.json is catalog.json without the 13,515 rows: the pages that need only
     # the library-wide numbers (methods, patterns) transfer 100 KB instead of 2 MB.
     summary = {k: v for k, v in catalog.items()
@@ -532,7 +702,8 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     for name, obj in (("catalog.json", catalog), ("summary.json", summary),
                       ("compounds.json", compounds),
                       ("families.json", fam_payload),
-                      ("tombstones.json", tomb)):
+                      ("tombstones.json", tomb),
+                      ("twins.json", twins)):
         path = os.path.join(out_dir, name)
         blob = json.dumps(obj, separators=(",", ":"), ensure_ascii=False)
         with open(path, "w", encoding="utf-8") as fh:
@@ -547,6 +718,10 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         "written": written,
         "component_totals": totals,
         "evidence_class_totals": class_totals,
+        "exchange_resolution": exch,
+        "cross_references": xrefs,
+        "model_input_degeneracy": degen,
+        "field_renames": field_renames,
         "coverage_bands_source": bands_source,
         "n_families": len(fam_list),
         "n_media_in_a_family": n_in_family,

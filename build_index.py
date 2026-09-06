@@ -30,9 +30,14 @@ import argparse
 import glob
 import json
 import os
+import sys
 from collections import Counter
 
 REPO = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(REPO, "tools"))
+
+from model_input import Degeneracy   # noqa: E402
+from web_payload import FIELD_RENAMES   # noqa: E402
 
 
 def source_identity(d):
@@ -101,6 +106,12 @@ def build(media_dir, out_dir):
     prefix_sourced = 0
     tier_totals = Counter()
     comp_totals = Counter()
+    # Where every component's exchange id landed, counted from the components
+    # rather than trusted from the record's counters, then asserted against them.
+    exch = Counter()
+    xrefs = Counter()
+    n_components_seen = 0
+    degeneracy = Degeneracy()
     for fp in files:
         with open(fp, encoding="utf-8") as fh:
             d = json.load(fh)
@@ -126,6 +137,26 @@ def build(media_dir, out_dir):
         comp_totals["n_derived"] += d.get("n_derived") or 0
         comp_totals["n_sourced"] += covs.get("n_sourced") or 0
         comp_totals["n_with_concentration_mM"] += quant.get("n_with_concentration_mM") or 0
+        n_bigg = n_fallback = n_none = 0
+        n_components_seen += len(d.get("components") or [])
+        for c in d.get("components") or []:
+            # xref_id is the reference-table form of the same fact (stage 60);
+            # an absent id means no cross-references at all.
+            if (c.get("xref") or c.get("target_xref") or c.get("source_xref")
+                    or c.get("xref_id")):
+                xrefs["n_components_with_a_cross_reference"] += 1
+            else:
+                xrefs["n_components_with_none"] += 1
+            if not c.get("exchange"):
+                n_none += 1
+            elif c.get("evidence_tier") == "non_bigg_fallback":
+                n_fallback += 1
+            else:
+                n_bigg += 1
+        exch["n_bigg_exchange"] += n_bigg
+        exch["n_nonbigg_fallback"] += n_fallback
+        exch["n_no_exchange"] += n_none
+        degeneracy.add(d)
         rows.append(
             {k: d.get(k) for k in ("id", "name", "category", "organism_scope", "aerobic",
                                    "oxygen", "n_components", "n_mapped", "n_in_biggr",
@@ -145,7 +176,14 @@ def build(media_dir, out_dir):
                "n_observed": d.get("n_observed"),
                "n_derived": d.get("n_derived"),
                "n_unmappable": d.get("n_unmappable"),
-               "pct_covered_observed": d.get("pct_covered_observed"),
+               # Renamed from pct_covered_observed: the old name read as coverage
+               # of the medium and was 100.0 on 12,861 of 13,515 records, because
+               # its denominator is the components the record already carries.
+               # See index["field_renames"]. The read falls back to the old key so
+               # the catalog builds against a corpus written before the rename.
+               "pct_sourced_components_with_bigg_id":
+                   d.get("pct_sourced_components_with_bigg_id",
+                         d.get("pct_covered_observed")),
                "n_sourced": covs.get("n_sourced"),
                "pct_covered_source": covs.get("pct_covered_source"),
                "pct_covered_source_is_upper_bound":
@@ -169,10 +207,35 @@ def build(media_dir, out_dir):
                # the record's own composition descriptor (443 records), which used
                # to be overwritten by the trust tier under the same key (SCHEMA-05)
                "formulation_class": d.get("formulation_class"),
-               "n_nonbigg_fallback": d.get("n_nonbigg_fallback"),
+               "n_nonbigg_fallback": n_fallback,
+               # the third state: no exchange reaction at all. Published rather
+               # than left to be derived, because the claim it corrects ("every
+               # component mapped to a BiGG exchange") was the site's headline.
+               "n_no_exchange": n_none,
+               # which OTHER records hand a model the identical constraint set;
+               # filled after the whole corpus is read (see below)
+               "model_input_signature": None,
+               "n_media_with_identical_model_input": None,
                # absent measurement is null, never a fabricated 100% (SCHEMA-07)
                "n_uncovered": cov.get("n_uncovered"),
                "pct_covered": cov.get("pct_covered")})
+
+    # Model-input degeneracy is a corpus-wide fact, so it is filled once every
+    # record has been read. A one-pass answer would report a prefix's degeneracy
+    # as the library's.
+    degen = degeneracy.report()
+    for r in rows:
+        r["model_input_signature"] = degeneracy.signature_of(r["id"])
+        r["n_media_with_identical_model_input"] = degeneracy.n_twins(r["id"])
+
+    # Asserted against the components actually walked, never against a declared
+    # counter: the three states must partition them or the catalog would state a
+    # mapping claim it cannot support.
+    if sum(exch.values()) != n_components_seen or sum(xrefs.values()) != n_components_seen:
+        raise SystemExit(
+            "FATAL: exchange resolution accounts for %d and cross-references for "
+            "%d of the %d components walked."
+            % (sum(exch.values()), sum(xrefs.values()), n_components_seen))
 
     cat = Counter(r["category"] for r in rows)
     sdb = Counter(r["source_db"] for r in rows)
@@ -208,6 +271,23 @@ def build(media_dir, out_dir):
         "coverage_bands_legacy": dict(bands_legacy),
         "coverage_bands_source": dict(bands_source),
         "component_totals": dict(comp_totals),
+        "exchange_resolution": dict(
+            exch, of=n_components_seen,
+            definition=(
+                "Where each component's exchange id landed, over the whole "
+                "library. n_bigg_exchange is a real BiGG EX_<met>_e reaction; "
+                "n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG id in exchange "
+                "position that no BiGG model will accept (the component's own "
+                "mapping_note says so); n_no_exchange has none at all. The three "
+                "partition n_components.")),
+        "cross_references": dict(
+            xrefs, of=n_components_seen,
+            definition=(
+                "A component counts as carrying a cross-reference when it has any of "
+                "xref, target_xref or source_xref. The README claimed every component "
+                "carried one; 8,957 of 665,582 carry none.")),
+        "model_input_degeneracy": degen,
+        "field_renames": FIELD_RENAMES,
         "component_evidence_tiers": dict(tier_totals),
         "n_missing_coverage": missing_coverage,
         "n_missing_coverage_source": missing_coverage_source,
@@ -220,9 +300,22 @@ def build(media_dir, out_dir):
                                   "ingredients + ingredients replaced by derived "
                                   "components). An upper bound where the flag says so. "
                                   "null means the denominator was zero, NOT 100.",
-            "pct_covered_observed": "mapped share of the components the source actually "
-                                    "stated; pipeline-derived components are excluded "
-                                    "from both numerator and denominator.",
+            "pct_sourced_components_with_bigg_id":
+                "of the components the cited source states, the share that reached a "
+                "BiGG metabolite id rather than a non-BiGG fallback or nothing. Its "
+                "denominator is components, not the source's ingredient list, so it is "
+                "100.0 on 12,861 of 13,515 records and is NOT a coverage measure. It "
+                "was named pct_covered_observed until 2026-09-06; see field_renames.",
+            "n_no_exchange": "components with no exchange reaction at all: identity was "
+                             "never established, or the ingredient is an undefined "
+                             "mixture. 218 of 665,582 components library-wide.",
+            "n_nonbigg_fallback": "components whose exchange id is a ModelSEED/MetaNetX/"
+                                  "KEGG fallback rather than a BiGG id; no BiGG model "
+                                  "will accept it. 1,364 of 665,582 library-wide.",
+            "n_media_with_identical_model_input":
+                "how many OTHER media hand a genome-scale model the identical set of "
+                "(exchange, lower bound, upper bound) triples. 0 means this record's "
+                "model input is unique in the library. See model_input_degeneracy.",
             "n_derived": "components the pipeline supplied that the cited source does not "
                          "state (hydrolysate approximations, complex decompositions, "
                          "injected mineral/oxygen bases, expanded base media). Kept and "
@@ -258,6 +351,10 @@ def build(media_dir, out_dir):
         "coverage_bands_legacy": index["coverage_bands_legacy"],
         "coverage_bands_source": index["coverage_bands_source"],
         "component_totals": index["component_totals"],
+        "exchange_resolution": index["exchange_resolution"],
+        "cross_references": index["cross_references"],
+        "model_input_degeneracy": index["model_input_degeneracy"],
+        "field_renames": index["field_renames"],
         "component_evidence_tiers": index["component_evidence_tiers"],
         "definitions": index["definitions"],
         "api": {"catalog": "data/index.json", "medium": "data/media/{id}.json",
@@ -279,6 +376,13 @@ def build(media_dir, out_dir):
                                 prefix_sourced, len(rows)))
     print("by licence:", dict(lic))
     print("component totals:", dict(comp_totals))
+    print("exchange resolution: %d BiGG + %d non-BiGG fallback + %d no exchange "
+          "= %d components" % (exch["n_bigg_exchange"], exch["n_nonbigg_fallback"],
+                               exch["n_no_exchange"], comp_totals["n_components"]))
+    print("model-input degeneracy: %d of %d media share their model input with "
+          "another record (%d groups, largest %d)"
+          % (degen["n_media_sharing_a_model_input"], len(rows),
+             degen["n_groups"], degen["largest_group"]))
     print("component evidence tiers:", dict(tier_totals))
     print("coverage bands  legacy:", dict(bands_legacy))
     print("coverage bands  source:", dict(bands_source))

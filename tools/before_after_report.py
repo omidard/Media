@@ -77,7 +77,7 @@ def scan(corpus):
         "category": collections.Counter(),
         "coverage_band_legacy": collections.Counter(),
         "coverage_band_source": collections.Counter(),
-        "coverage_band_observed": collections.Counter(),
+        "sourced_components_with_bigg_id_band": collections.Counter(),
         "n_with_concentration": 0,
         "concentration_status": collections.Counter(),
         "n_with_quantity": 0,
@@ -133,7 +133,11 @@ def scan(corpus):
         covs = rec.get("coverage_source") or {}
         s["coverage_band_legacy"][_band(cov.get("pct_covered"))] += 1
         s["coverage_band_source"][_band(covs.get("pct_covered_source"))] += 1
-        s["coverage_band_observed"][_band(rec.get("pct_covered_observed"))] += 1
+        # renamed 2026-09-06; the old key is still read so a before/after run can
+        # compare a pre-rename corpus against a post-rename one
+        s["sourced_components_with_bigg_id_band"][_band(
+            rec.get("pct_sourced_components_with_bigg_id",
+                    rec.get("pct_covered_observed")))] += 1
 
         name = rec.get("name") or ""
         if "DSMZ" in name:
@@ -286,8 +290,9 @@ def main():
         "base_medium": diff_counter(b["base_medium"], f["base_medium"], top=15),
         "coverage_band_legacy": diff_counter(b["coverage_band_legacy"], f["coverage_band_legacy"]),
         "coverage_band_source": diff_counter(b["coverage_band_source"], f["coverage_band_source"]),
-        "coverage_band_observed": diff_counter(b["coverage_band_observed"],
-                                               f["coverage_band_observed"]),
+        "sourced_components_with_bigg_id_band": diff_counter(
+            b["sourced_components_with_bigg_id_band"],
+            f["sourced_components_with_bigg_id_band"]),
         "concentration": {
             "n_components_with_concentration_mM": {
                 "before": b["n_with_concentration"], "after": f["n_with_concentration"],
@@ -441,7 +446,7 @@ def markdown(rep):
             ("Verification status", "verification_status"),
             ("Coverage band — legacy metric", "coverage_band_legacy"),
             ("Coverage band — source-stated composition only", "coverage_band_source"),
-            ("Coverage band — observed components only", "coverage_band_observed"),
+            ("Sourced components that reached a BiGG id", "sourced_components_with_bigg_id_band"),
     ]:
         out.append("## %s\n" % title)
         _table(out, rep[key])

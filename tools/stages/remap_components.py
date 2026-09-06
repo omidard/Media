@@ -35,8 +35,14 @@ WHAT IT DOES, in order, per component
               (ser__D -> ser__L). Anything else is written to review_queue.tsv and
               NOT applied.
   5. COUNTS -- recompute n_mapped / n_in_biggr honestly and add
-              n_observed / n_derived / pct_covered_observed, so coverage arithmetic
-              stops counting pipeline-invented rows as covered.
+              n_observed / n_derived / pct_sourced_components_with_bigg_id, so
+              coverage arithmetic stops counting pipeline-invented rows as covered.
+              That last field was called pct_covered_observed until 2026-09-06. The
+              old name read as coverage of the medium and was 100.0 on 12,861 of
+              13,515 records, because its denominator is the components the record
+              already carries, not the ingredient list the source published. It is
+              renamed to what it measures; data/index.json carries a field_renames
+              block so a consumer of the old key finds out what happened.
 
 WHAT IT DELIBERATELY DOES NOT DO
   * It does not blanket re-run the mapper over every component. 87.6% of components
@@ -513,7 +519,7 @@ class Stage:
         med["n_unmappable"] = sum(1 for c in new
                                   if c.get("evidence_tier") in ("unmappable_mixture", "unmapped"))
         obs = med["n_observed"]
-        med["pct_covered_observed"] = (
+        med["pct_sourced_components_with_bigg_id"] = (
             round(100.0 * sum(1 for c in new
                               if c.get("source_observed") and c.get("bigg_metabolite")) / obs, 2)
             if obs else None)
