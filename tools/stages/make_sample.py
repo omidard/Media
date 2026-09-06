@@ -12,10 +12,16 @@ biolog_, m9_, and the classic singles) take the first N ids in sorted order, plu
 every record in a small hand-picked list of known-pathological media named by the
 audit, plus at least one record per category and per mapping_confidence value.
 
-Output: data/_rebuild/sample/media/<id>.json  (copies, never symlinks: a stage must
-be able to read them without touching data/media)
+Input: the chain's committed input, data/_baseline expanded to
+data/_rebuild/baseline/media — NOT data/media. data/media is what the chain
+PRODUCES once `make promote` has run, so sampling it fed the stages their own
+output and stage 10 failed its first assertion (906 non-BiGG fallbacks against 913
+unmapped components). `--from DIR` overrides the input.
 
-Usage: python3 tools/stages/make_sample.py [--per-prefix 12] [--out DIR]
+Output: data/_rebuild/sample/media/<id>.json  (copies, never symlinks: a stage must
+be able to read them without touching the input corpus)
+
+Usage: python3 tools/stages/make_sample.py [--per-prefix 12] [--from DIR] [--out DIR]
 """
 from __future__ import annotations
 
@@ -30,7 +36,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from stagelib import REPO, corpus_ids, read_record  # noqa: E402
 
-FROZEN = os.path.join(REPO, "data", "media")
+sys.path.insert(0, os.path.dirname(HERE))            # tools/
+import baseline                                      # noqa: E402
 
 # Records the audit names explicitly; a sample that misses them cannot exercise the
 # defects the stages exist to fix.
@@ -55,8 +62,8 @@ PREFIXES = ["usda_", "mediadive_", "food_", "growthlit_", "complexlit_", "lit_",
             "mdb_", "biospecimen_", "std_", "biolog_", "m9_"]
 
 
-def build(out_dir: str, per_prefix: int) -> dict:
-    ids = corpus_ids(FROZEN)
+def build(out_dir: str, per_prefix: int, src: str) -> dict:
+    ids = corpus_ids(src)
     chosen: list[str] = []
     for pre in PREFIXES:
         fam = [i for i in ids if i.startswith(pre)]
@@ -71,7 +78,7 @@ def build(out_dir: str, per_prefix: int) -> dict:
     have_cat, have_conf = set(), set()
     chosen_set = set(chosen)
     for mid in chosen:
-        rec = read_record(os.path.join(FROZEN, mid + ".json"))
+        rec = read_record(os.path.join(src, mid + ".json"))
         have_cat.add(rec.get("category"))
         for c in rec.get("components") or []:
             have_conf.add(c.get("mapping_confidence"))
@@ -82,7 +89,7 @@ def build(out_dir: str, per_prefix: int) -> dict:
             break
         if mid in chosen_set:
             continue
-        rec = read_record(os.path.join(FROZEN, mid + ".json"))
+        rec = read_record(os.path.join(src, mid + ".json"))
         confs = {c.get("mapping_confidence") for c in rec.get("components") or []}
         if confs & (want_conf - have_conf):
             chosen.append(mid)
@@ -95,11 +102,11 @@ def build(out_dir: str, per_prefix: int) -> dict:
         shutil.rmtree(out_dir)                 # regenerated artifact, not source data
     os.makedirs(out_dir, exist_ok=True)
     for mid in chosen:
-        shutil.copy2(os.path.join(FROZEN, mid + ".json"),
+        shutil.copy2(os.path.join(src, mid + ".json"),
                      os.path.join(out_dir, mid + ".json"))
 
     meta = {
-        "built_from": "data/media",
+        "built_from": os.path.relpath(src, REPO),
         "n_records": len(chosen),
         "per_prefix": per_prefix,
         "categories": sorted(x for x in have_cat if x),
@@ -116,11 +123,17 @@ def build(out_dir: str, per_prefix: int) -> dict:
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--per-prefix", type=int, default=12)
+    ap.add_argument("--from", dest="src", default=None,
+                    help="corpus to sample (default: the committed chain input, "
+                         "data/_baseline expanded by tools/baseline.py)")
     ap.add_argument("--out", default=os.path.join(REPO, "data", "_rebuild", "sample", "media"))
     a = ap.parse_args()
-    m = build(os.path.abspath(a.out), a.per_prefix)
-    print("sample corpus: %d records -> %s" % (m["n_records"], os.path.relpath(a.out, REPO)))
+    src = os.path.abspath(a.src) if a.src else baseline.ensure()
+    m = build(os.path.abspath(a.out), a.per_prefix, src)
+    print("sample corpus: %d records from %s -> %s"
+          % (m["n_records"], m["built_from"], os.path.relpath(a.out, REPO)))
     print("categories:", m["categories"])
     print("mapping_confidence covered:", m["mapping_confidence_covered"])
     if m["pinned_missing"]:
-        print("WARNING pinned ids not found in data/media:", m["pinned_missing"])
+        print("WARNING pinned ids not found in %s: %s"
+              % (m["built_from"], m["pinned_missing"]))

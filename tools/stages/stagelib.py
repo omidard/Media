@@ -39,8 +39,9 @@ REPO = os.path.dirname(TOOLS)
 FROZEN_CORPUS = os.path.join(REPO, "data", "media")
 
 __all__ = [
-    "Report", "StageError", "run_stage", "stamp", "read_record", "write_record",
-    "iter_corpus", "corpus_ids", "load_registry", "REPO", "TOOLS", "FROZEN_CORPUS",
+    "Report", "StageError", "run_stage", "stamp", "stamp_date", "read_record",
+    "write_record", "iter_corpus", "corpus_ids", "load_registry",
+    "REPO", "TOOLS", "FROZEN_CORPUS",
 ]
 
 
@@ -50,6 +51,25 @@ class StageError(RuntimeError):
 
 def _utc() -> str:
     return _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def stamp_date() -> str:
+    """The date written into provenance.transforms[].date.
+
+    Defaults to today. $MEDIADB_STAMP_DATE (YYYY-MM-DD) overrides it, which is what
+    makes a chain re-run byte-comparable against the corpus that ships: without it
+    the only difference between a reproduction and the shipped corpus is the day it
+    was produced, and a reproduction check that has to ignore a field is a weaker
+    check than one that does not. `make reproduce` sets it from the shipped corpus.
+    """
+    override = os.environ.get("MEDIADB_STAMP_DATE")
+    if not override:
+        return _dt.date.today().isoformat()
+    try:
+        return _dt.date.fromisoformat(override).isoformat()
+    except ValueError as exc:
+        raise StageError("MEDIADB_STAMP_DATE=%r is not an ISO date (YYYY-MM-DD): %s"
+                         % (override, exc)) from exc
 
 
 # --------------------------------------------------------------------------- IO
@@ -196,7 +216,7 @@ def stamp(rec: dict, stage: str, version: str, changes) -> None:
     tr.append({
         "stage": stage,
         "version": version,
-        "date": _dt.date.today().isoformat(),
+        "date": stamp_date(),
         "changes": sorted(set(changes)) if not isinstance(changes, str) else [changes],
     })
 

@@ -1,0 +1,19 @@
+{
+ "schema": "mediadb-chain-baseline/1",
+ "what": "The pre-remediation corpus: the exact input the transform-stage chain consumed. `make stages` reads it after `make baseline` expands it to data/_rebuild/baseline/media.",
+ "why_committed": "Before this archive existed the chain's only input was an untracked machine-local backup, so `make stages` and `make stages-sample` both failed from a fresh clone \u2014 finding PIPE-01 recreated one level up.",
+ "archive": "data/_baseline/media_corpus_2026-09-06.tar.xz",
+ "archive_sha256": "003667c6dbc85bfa4ccb17a50ec5e23af2df07d6867d26eb8025e7265ef997df",
+ "archive_bytes": 3863276,
+ "built_from": "git tree b8d38bbf:data/media",
+ "built_utc": "2026-09-06T10:39:31Z",
+ "build_command": "python3 tools/baseline.py --build --from-git b8d38bbf:data/media",
+ "deterministic": "members sorted, mtime 0, mode 0644, uid/gid 0, PAX, single-threaded lzma preset 6 \u2014 rebuilding from the same input reproduces these bytes",
+ "n_records": 13515,
+ "uncompressed_bytes": 443060763,
+ "corpus_sha256": "71b51bf0baac928bea6e26c392749b453447e34b30480447e4e5ff914f2cd7b3",
+ "corpus_sha256_definition": "sha256 over sorted '<filename> <sha256>' lines, one per record \u2014 identifies the corpus independently of how it is packaged",
+ "also_in_history_at": "b8d38bbf:data/media",
+ "history_cross_check": "python3 tools/baseline.py --check-history \u2014 the same bytes are origin/main:data/media at the commit before the corrected corpus was promoted",
+ "extract_to": "data/_rebuild/baseline/media"
+}

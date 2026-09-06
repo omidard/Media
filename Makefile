@@ -11,8 +11,18 @@
 # tools/stages/, composed by `make stages`, and promoted deliberately by
 # `make promote`. No target here ever writes data/media as a side effect.
 #
+# The chain's INPUT ships with the repository. It used to be an untracked archive on
+# one machine (../media_curate_backups/data_media_20260906.tar.zst), so `make stages`
+# and `make stages-sample` both failed from a fresh clone — PIPE-01 recreated one
+# level up, in the very targets that exist to fix it. The pre-remediation corpus is
+# now committed at data/_baseline/ (3.7 MB, expands to 13,515 records) and expanded
+# by `make baseline`. `make reproduce` runs the whole chain from it and compares the
+# result to the corpus that ships.
+#
 #   make help          list the targets
 #   make all           check -> stages -> test -> derived   (never promotes)
+#   make reproduce     baseline -> stages -> compare against data/media
+#   make preflight     everything CI checks, before you push
 
 PY      ?= python3
 REPO    := $(shell pwd)
@@ -20,25 +30,35 @@ MEDIA   ?= $(REPO)/data/media
 REBUILD := $(REPO)/data/_rebuild
 STAGED  := $(REBUILD)/media
 SAMPLE  := $(REBUILD)/sample/media
+BASELINE:= $(REBUILD)/baseline/media
 BACKUPS ?= $(REPO)/../media_curate_backups
 STAMP   := $(shell date +%Y%m%d-%H%M%S)
 
-.PHONY: help all check sample stages-sample stages test test-fast test-strict \
+.PHONY: help all check baseline sample stages-sample stages test test-fast test-strict \
         derived coverage coverage-index index api cluster stats presence web manifest \
-        verify promote fetch fixtures clean-rebuild
+        verify reproduce preflight ci-paths ci-paths-check manifest-check \
+        refs-verify release-assets size \
+        promote fetch fixtures clean-rebuild
 
 help:
 	@echo "MediaDB build targets"
 	@echo "  check         registry <-> filesystem consistency for tools/stages/"
+	@echo "  baseline      expand + verify the committed chain input (data/_baseline)"
 	@echo "  sample        build the deterministic 165-record sample corpus"
 	@echo "  stages-sample run the stage chain over the sample (fast; checks idempotence)"
 	@echo "  stages        run the stage chain over all media -> data/_rebuild/media"
+	@echo "  reproduce     stages, then compare the result to the shipped data/media"
 	@echo "  test          pytest: schema, invariants, defect ledger, harness, tools"
 	@echo "  test-strict   same, but xfail-ledger entries must PASS (CI gate, later)"
 	@echo "  derived       rebuild index/stats/coverage/api/cluster/presence/web + MANIFEST"
 	@echo "  web           rebuild data/web/* (the browser payload) only"
 	@echo "  manifest      rebuild data/MANIFEST.json only"
 	@echo "  verify        rebuild derived into a temp dir and report differences"
+	@echo "  refs-verify   data/refs.json and data/media resolve each other"
+	@echo "  release-assets  build dist/api/{media.sqlite.gz,media.jsonl.part*.gz}"
+	@echo "  size          what the published site weighs vs the 1 GiB Pages limit"
+	@echo "  preflight     every check CI runs, in CI's order — run before pushing"
+	@echo "  ci-paths      regenerate the workflow trigger list from this Makefile"
 	@echo "  fetch         re-acquire the public upstream sources (network)"
 	@echo "  fixtures      vendor frozen test fixtures from the source cache"
 	@echo "  promote       back up data/media, then promote data/_rebuild/media over it"
@@ -51,14 +71,35 @@ all: check stages test derived
 check:
 	$(PY) tools/stages/run_stages.py --check
 
-sample:
-	$(PY) tools/stages/make_sample.py
+# The chain's input, shipped in the repository. Idempotent: a tree that already
+# matches the archive's digest is left alone, so `make stages` does not re-expand
+# 443 MB on every run.
+baseline:
+	$(PY) tools/baseline.py --out "$(BASELINE)"
+
+# The sample is drawn from the chain INPUT, not from data/media. Sampling data/media
+# fed the stages their own output: stage 10 counted 906 non-BiGG fallbacks against
+# 913 unmapped components and `make stages-sample` failed on a clean checkout.
+sample: baseline
+	$(PY) tools/stages/make_sample.py --from "$(BASELINE)"
 
 stages-sample: sample
 	$(PY) tools/stages/run_stages.py --sample
 
-stages: check
-	$(PY) tools/stages/run_stages.py
+stages: check baseline
+	$(PY) tools/stages/run_stages.py --in "$(BASELINE)"
+
+# The reproduction claim, executed rather than asserted: run every stage from the
+# committed input and compare the result to the corpus that ships. The chain stamps
+# provenance.transforms[].date with the day it runs, so the date the shipped corpus
+# carries is fed back in — otherwise the only difference between a reproduction and
+# the published corpus would be today's date, and a check that has to ignore a field
+# is weaker than one that does not.
+reproduce: check baseline
+	MEDIADB_STAMP_DATE=$$($(PY) tools/compare_corpora.py --stamp-date "$(MEDIA)") \
+	  $(PY) tools/stages/run_stages.py --in "$(BASELINE)"
+	$(PY) tools/compare_corpora.py "$(STAGED)" "$(MEDIA)" \
+	  --json "$(REBUILD)/reproduce_report.json"
 
 # ---------------------------------------------------------------------- tests
 
@@ -84,7 +125,15 @@ test-strict:
 # data/coverage.json lost its generator entirely when stage 39 took authorship —
 # tools/build_coverage_index.py projects it from the corpus instead.
 
-derived: coverage-index index api cluster stats presence web manifest
+derived: refs-verify coverage-index index api cluster stats presence web manifest
+
+# data/refs.json holds each cross-reference block and each prose note ONCE, and the
+# 665,582 components refer to them by key (stage 60_dedupe_references). Every builder
+# below joins that table, so a corpus and a table that disagree would produce blank
+# cross-reference columns in the parquet and a blank cell on the site, with no error
+# anywhere. This runs FIRST and refuses.
+refs-verify:
+	$(PY) tools/verify_reference_tables.py
 
 # `coverage` is NO LONGER part of `derived`, and that is a correctness fix, not a
 # convenience. Stage 39_recompute_coverage owns the coverage numbers once the chain
@@ -128,6 +177,46 @@ manifest:
 verify:
 	$(PY) tools/verify_derived.py
 
+# ------------------------------------------------------------ release assets
+# GitHub Pages publishes this repository's ROOT and refuses a published site over
+# 1 GiB. media.sqlite.gz and the two media.jsonl shards are a second and third
+# encoding of data/media — which is itself published, and must stay published,
+# because assets/media.js fetches data/media/<id>.json at runtime — and they
+# measured 24.1 + 83.9 + 64.8 = 172.8 MiB. They are built here, into an untracked
+# dist/, and distributed as assets on the `data-v1` release instead.
+#
+# `make derived` does NOT rebuild them. Run this when the corpus changes:
+#   make release-assets
+#   gh release upload data-v1 dist/api/* --clobber --repo omidard/Media
+# A consumer gets them back with one command:
+#   gh release download data-v1 --repo omidard/Media --pattern '*'
+release-assets:
+	$(PY) tools/build_api_exports.py --bulk
+
+# What the published site weighs, measured the way it is published: the bytes of
+# every TRACKED file, because GitHub Pages serves the repository root.
+size:
+	$(PY) tools/report_site_size.py
+
+manifest-check:
+	$(PY) tools/build_manifest.py --check
+	$(PY) tools/build_manifest.py --check-tree
+
+# The workflow's `paths:` trigger list is generated from this Makefile and from
+# data/MANIFEST.json, because maintaining it by hand is how it came to name a script
+# `make derived` no longer runs while omitting two it does.
+ci-paths:
+	$(PY) tools/build_ci_paths.py
+
+ci-paths-check:
+	$(PY) tools/build_ci_paths.py --check
+
+# Everything CI checks, in CI's order. Run this before pushing: a red check here is
+# a red check there, and the artifacts CI commits are the ones this verifies.
+preflight: check ci-paths-check stages-sample test derived manifest-check
+	@echo "preflight OK — registry, trigger paths, sample chain, tests, derived"
+	@echo "artifacts and the manifest/committed-tree agreement all pass."
+
 # ------------------------------------------------------------------- sources
 
 fetch:
@@ -146,7 +235,15 @@ promote:
 	@echo "backing up data/media -> $(BACKUPS)/data_media_$(STAMP).tar.zst"
 	@tar -cf - data/media | zstd -q -3 -o "$(BACKUPS)/data_media_$(STAMP).tar.zst"
 	@$(PY) tools/promote_corpus.py --from "$(STAGED)" --to "$(MEDIA)"
-	@echo "promoted. Now run: make derived && make test"
+	@# The reference table is part of the corpus, not a derived artifact: it holds the
+	@# cross-references and notes the records no longer carry inline. Promoting one
+	@# without the other leaves the site with keys nothing resolves, so they move
+	@# together and `make refs-verify` proves it afterwards.
+	@if [ -f "$(REBUILD)/refs.json" ]; then \
+		cp "$(REBUILD)/refs.json" "$(REPO)/data/refs.json"; \
+		echo "promoted data/refs.json alongside the corpus"; \
+	fi
+	@echo "promoted. Now run: make refs-verify && make derived && make test"
 
 clean-rebuild:
 	@echo "removing regenerated staging trees under data/_rebuild (never source data)"

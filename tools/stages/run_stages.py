@@ -4,11 +4,11 @@ run_stages — the stage-chain runner.
 
 Composes the registered transform stages in their fixed, documented order over the
 corpus and enforces the contract in tools/stages/README.md. This is the program
-that makes the resource reproducible again: the frozen snapshot in data/media is
-the sole surviving copy of the inputs (PIPE-01), so the chain of stages *is* the
-build.
+that makes the resource reproducible again: the raw inputs are gone (PIPE-01), so
+the chain of stages *is* the build, and its input is the pre-remediation corpus
+committed at data/_baseline/ and expanded by tools/baseline.py.
 
-    data/media (read-only)
+    data/_baseline/*.tar.xz  ->  data/_rebuild/baseline/media   (read-only)
       -> data/_rebuild/stages/00_baseline/media
       -> data/_rebuild/stages/10_normalize_schema/media
       -> ...
@@ -49,6 +49,9 @@ sys.path.insert(0, HERE)
 
 from invariants import check_all, summarize          # noqa: E402
 from stagelib import REPO, load_registry             # noqa: E402
+
+sys.path.insert(0, os.path.dirname(HERE))            # tools/
+import baseline                                      # noqa: E402
 
 STAGE_FILE_RE = re.compile(r"^(\d{2}_[a-z0-9_]+)\.py$")
 NON_STAGE_FILES = {"stagelib.py", "run_stages.py", "invariants.py", "make_sample.py"}
@@ -440,8 +443,21 @@ def main(argv=None) -> int:
                   % os.path.relpath(args.in_dir, REPO))
             return 2
     else:
-        args.in_dir = args.in_dir or FROZEN
         args.work = args.work or os.path.join(REPO, "data", "_rebuild")
+        if args.in_dir is None:
+            # The chain's input is the committed pre-remediation corpus, expanded
+            # from data/_baseline. It is NOT data/media: data/media is the chain's
+            # OUTPUT once `make promote` has run, and feeding a stage its own output
+            # is not a build, it is a re-run whose first assertion fails (stage 10
+            # measured 906 non-BiGG fallbacks against 913 unmapped components on the
+            # promoted corpus). Pass --in explicitly to chain over any other corpus.
+            try:
+                args.in_dir = baseline.ensure(verbose=True)
+            except baseline.BaselineError as exc:
+                print("BASELINE ERROR: %s" % exc)
+                print("the chain has no input. See data/_baseline/BASELINE.json and "
+                      "`make baseline`.")
+                return 2
     return run_chain(args)
 
 

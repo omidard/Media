@@ -1,19 +1,28 @@
 # Media
 
 **A semi-curated, citation-backed library of growth & simulation media for genome-scale
-metabolic models — every component mapped to a standard BiGG exchange reaction.**
+metabolic models — 664,000 of 665,582 components (99.8%) mapped to a standard BiGG
+exchange reaction.**
 
 Reusing a published medium in a genome-scale metabolic model (GEM) usually means
 re-reading the paper and re-mapping every compound into your model's namespace by hand.
-`Media` does that once, transparently: each medium is a machine-readable record where
-every component is mapped to a BiGG exchange (`EX_<met>_e`), carries cross-references
+`Media` does that once, transparently: each medium is a machine-readable record whose
+components carry a BiGG exchange (`EX_<met>_e`) and, for most of them, cross-references
 (InChIKey / ChEBI / KEGG / HMDB / MetaNetX / SEED), and the whole medium carries a
 **citation**.
 
+Two numbers, stated here because they are the ones a reader would otherwise assume away:
+
+| | |
+|---|---|
+| Components reaching a BiGG exchange | **664,000 of 665,582 (99.8%)**. 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id that **no BiGG model will accept** — their own `mapping_note` says so — and 218 carry no exchange at all. |
+| Components carrying a cross-reference | **656,625 of 665,582 (98.7%)**. 8,957 (1.3%) carry none. |
+
 > **13,515 media** and counting — laboratory culture media, food-derived media, host
 > biofluids, and formulations mined from the primary literature — assembled from **DSMZ
-> MediaDive, FooDB, USDA FoodData Central, HMDB, BMDB**, and **571 GEM papers**, all in one
-> consistent, cited, BiGG-mapped format.
+> MediaDive, FooDB, USDA FoodData Central, HMDB, BMDB**, and **1,457 records mined from
+> primary publications** (916 distinct citation strings; 73 distinct DOIs are recorded),
+> all in one consistent, cited, BiGG-mapped format.
 
 ## Explore it online
 
@@ -54,11 +63,32 @@ Media/
 └── README.md
 ```
 
-Each record: see **[DESIGN.md](DESIGN.md)**. Every component records **how** it was mapped
-(`mapping_method`) and **how confident** that mapping is (`exact` via cross-reference,
-`inferred` via name). Compounds that can't be mapped are listed in `uncovered`,
-never dropped silently. Note that `exact` currently marks a name-table lookup as well as
-a cross-referenced match; separating those tiers is in progress.
+Each record: see **[DESIGN.md](DESIGN.md)**. Every component records **how** its identity
+was decided, in `evidence_tier` — one of twelve recorded tiers, grouped into six classes
+ordered by the strength of the evidence. The word `exact` has been withdrawn: it used to
+mark a hard-coded English-name lookup as well as a cross-referenced match, and 42% of
+components carried it. What the library actually rests on, measured:
+
+| Evidence class | Components |
+|---|---:|
+| Structure-verified (a structural cross-reference decided it) | 2,756 of 665,582 (0.4%) |
+| Identifier-verified (a database id or a reviewed curation table) | 3,610 of 665,582 (0.5%) |
+| Name-matched (a name string, no structure and no identifier checked) | 327,218 of 665,582 (49%) |
+| Class or assertion (a class collapsed onto one molecule, or asserted) | 102,294 of 665,582 (15%) |
+| Pipeline-derived (the cited source never states it) | 229,486 of 665,582 (34%) |
+| Unresolved | 218 of 665,582 (<0.1%) |
+
+Compounds that can't be mapped are listed in `uncovered`, never dropped silently.
+
+**Half this library is degenerate as a model input.** 6,827 of 13,515 records (50.5%) hand a
+model the identical set of `(exchange, lower_bound, upper_bound)` triples as at least one
+other record — 1,623 groups, the largest holding 93 media. Adding each component's
+source-stated concentration, a stricter test than any solver applies, still leaves 6,328
+(46.8%). Most bounds here are presence placeholders rather than measured rates, so recipes
+differing in amount, pH, agar or preparation collapse onto one constraint set. Nothing was
+merged and nothing deleted: every record keeps its own provenance, each carries
+`n_media_with_identical_model_input` and `model_input_signature`, and the complete groups
+are published at `data/web/twins.json`.
 
 ## Use a medium (COBRApy)
 
@@ -84,7 +114,8 @@ GET  data/media/{id}.json          # full record for one medium
 GET  data/api/media.parquet        # bulk: one row per medium
 GET  data/api/components.parquet    # bulk: one row per (medium, component)
 GET  data/api/media.sqlite.gz       # SQLite (media + components, indexed)
-GET  data/api/media.jsonl.gz        # all full records, one JSON per line
+GET  data/api/media.jsonl.part01.gz # all full records, one JSON per line
+GET  data/api/media.jsonl.part02.gz # ... sharded; concatenate in name order
 GET  data/api/manifest.json         # version, totals, file inventory, schemas
 ```
 
@@ -129,7 +160,7 @@ repository is generated from it (`make derived`) and checked against it
 | **DSMZ MediaDive** | 3,148 | CC BY 4.0 | culture-media recipes (Koblitz *et al.*, NAR 2023). MediaDive redistributes other collections: 1,900 are DSMZ's own, 1,143 are JCM (RIKEN) and 105 are CCAP, recorded per record in `provenance.collection` |
 | **Primary literature via GrowthDB** | 1,369 | CC BY 4.0 | formulations mined from growth-rate papers (defined and complex) |
 | **FooDB** | 701 | CC BY-NC 4.0 | one medium per food (measured food composition) — **non-commercial** |
-| **MediaDB (ISB defined media)** | 471 | all rights reserved | defined media from the ISB MediaDB — **non-commercial, redistributed by permission** |
+| **MediaDB (ISB defined media)** | 471 | all rights reserved | defined media from the ISB MediaDB. **No reuse grant is stated upstream and redistribution permission has not been obtained** (see below) |
 | **Classic and standard formulations (project-curated)** | 297 | CC BY 4.0 | LB, TSB, BHI, blood agar, M9 / MOPS / M63 / Davis and the canonical reference set |
 | **Primary literature (GEM papers)** | 88 | CC BY 4.0 | formulations mined from primary GEM papers |
 | **Human Metabolome Database (HMDB 5.0)** | 9 | CC BY-NC 4.0 | host biofluids — **non-commercial** |
@@ -137,19 +168,41 @@ repository is generated from it (`make derived`) and checked against it
 | **HMDB tables republished in an open-access paper** | 3 | CC BY-NC 4.0 | host biofluids — **non-commercial** |
 | **total** | **13,515** | | |
 
+Where a row says **CC BY 4.0** for a project-compiled set (GrowthDB literature, GEM
+papers, classic formulations), that licence is asserted by this project over **its own
+compilation, mapping and encoding** — not over the cited publications, which are not
+redistributed here. `tools/licenses.tsv` records that as `terms_verification:
+project_assertion`, and 8 records carry `license_review_required: true` because their
+provenance points at a source whose terms have not been resolved.
+
 1,189 of these records (8.8%) may not be used commercially; every record states its own
 licence in `provenance.license` and the catalogue carries `commercial_use_ok`, so a
 commercially usable subset is one filter away. See `LICENSE` and `NOTICE` for the
 per-source schedule.
 
+**On the 471 MediaDB (ISB) records, stated plainly.** The only statement on
+`mediadb.systemsbiology.net/defined_media/` (read 2026-09-06, first-party) is
+"(c) 2014, Institute for Systems Biology, All Rights Reserved". **No reuse grant of any
+kind is offered upstream, and redistribution permission has not been obtained.** This
+project has not been given permission and does not claim it. The operator's decision was
+to keep the records rather than delete them — deleting them would break every `mdb_*`
+deep link and remove the single largest seam of quantitative data in the library
+(8,397 of 14,341 non-null concentration values, 58.6%) — and instead to label them
+`all-rights-reserved`, set `commercial_use_ok: false`, exclude them from the commercially
+usable subset, and render them all-rights-reserved on the site. Permission is being
+sought (contact: mediadb@systemsbiology.org). If you need a subset you can redistribute,
+filter them out. This paragraph, `LICENSE`, `NOTICE` and `tools/licenses.tsv` say the
+same thing, and the machine-readable table is the authority.
+
 Categories: **laboratory** 5,373, **food** 8,125, **biospecimen** 17. (`growth_medium`,
 a second-generation label carried by 443 laboratory records, is merged into
 `laboratory` by the schema stage.)
 
-Defined media map every compound to a BiGG exchange (salts dissociated to their ion
+Defined media map their compounds to BiGG exchanges (salts dissociated to their ion
 exchanges); complex media map their defined portion and render undefined hydrolysates
 (peptone, extracts) as a clearly-labelled in-silico approximation, with the real ingredients
-listed in `uncovered`.
+listed in `uncovered`. Where a compound reached no BiGG id the record says so per component
+(`n_nonbigg_fallback`, `n_no_exchange`) rather than leaving the headline to imply otherwise.
 
 ## How this is built
 
@@ -173,17 +226,44 @@ That has two consequences, and they shape everything:
 
 ```bash
 make check          # the stage registry and tools/stages/ agree
-make sample         # deterministic 165-record sample corpus
+make baseline       # expand + verify the chain's input (data/_baseline, 3.7 MB)
+make sample         # deterministic 165-record sample corpus, drawn from that input
 make stages-sample  # run the chain over the sample (fast; checks idempotence)
 make stages         # run the chain over all 13,515 media -> data/_rebuild/media
+make reproduce      # run the chain and compare the result to the shipped corpus
 make test           # schema, invariants, defect ledger, harness, build tools
-make derived        # rebuild index/stats/coverage/api/cluster/presence + MANIFEST
+make derived        # rebuild index/stats/coverage/api/cluster/presence/web + MANIFEST
 make verify         # rebuild the catalogue into a temp dir and compare totals
+make preflight      # every check CI runs, in CI's order — run this before pushing
 make promote        # back up data/media, then promote the corrected corpus over it
 ```
 
 `make promote` is the only command that writes `data/media/`, and it backs the corpus up
 first, refuses a corpus the runner did not produce, and never deletes a record.
+
+### What a fresh clone can and cannot reproduce
+
+The chain's **input ships with the repository**: `data/_baseline/media_corpus_2026-09-06.tar.xz`,
+3.7 MB, expanding to the 13,515 pre-remediation records (443 MB) that the correction
+stages were written against. `make baseline` expands and digest-verifies it;
+`tools/baseline.py --check-history` cross-checks it against the same corpus in this
+repository's own history. Until it was committed, `make stages` and `make stages-sample`
+were documented here as runnable and both failed: the only input was an untracked archive
+on one machine, which is finding PIPE-01 — builders pointing at a path that is not in the
+repository — recreated one level up, in the targets that exist to fix PIPE-01.
+
+So, precisely:
+
+| From a clone alone | Reproducible? |
+|---|---|
+| every correction the remediation applied, over all 13,515 records (`make reproduce`) | **yes** — byte for byte against the shipped `data/media` |
+| every derived artifact: index, stats, coverage, API exports, clustergram, browser payload, manifest (`make derived`) | **yes** |
+| the corpus from its upstream sources | **no** — the raw inputs are gone (PIPE-01); ~87% is re-fetchable as a *source-version delta*, not a reproduction, and 1,456 literature-derived records are permanently unreproducible |
+
+`make reproduce` sets `MEDIADB_STAMP_DATE` to the date the shipped corpus carries, because
+the chain stamps each record with the day it ran. Without it the only difference between a
+reproduction and the published corpus would be today's date — and a check that has to
+ignore a field is weaker than one that does not.
 
 ### Re-acquiring the sources
 
@@ -212,5 +292,16 @@ source of any medium you use (given in each record's `provenance`).
 
 ## License
 
-Data: **CC-BY-4.0** (cite each medium's original source, given in its `provenance`).
-Code (`tools/`, `index.html`): **MIT**. See [LICENSE](LICENSE).
+**There is no blanket data licence here, and this repository does not assert one.**
+
+* **Code** (`tools/`, `client/`, `build_index.py`, the site's HTML/CSS/JS): **MIT**.
+* **Data**: per upstream source. The schedule is [`LICENSE`](LICENSE), the machine-readable
+  table is [`tools/licenses.tsv`](tools/licenses.tsv) (each row carries the verbatim terms,
+  the URL they were read from and the date), and the attributions owed upstream are in
+  [`NOTICE`](NOTICE). Every record carries its own `provenance.license`,
+  `commercial_use` and `commercial_use_ok`.
+* 12,326 of 13,515 records (91.2%) permit commercial use; **1,189 (8.8%) do not**, and this
+  project cannot grant rights it does not hold. Filter on `commercial_use_ok == true`.
+
+Cite each medium's original source, given in its `provenance.citation`. A record here is an
+encoding of somebody else's formulation.
