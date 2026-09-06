@@ -2,14 +2,33 @@
 """Build one medium per MediaDive/DSMZ recipe. Defined compounds mapped exactly (g/L->mM via
 molar mass); salts dissociated to ion exchanges; undefined hydrolysates/extracts rendered as a
 labeled in-silico approximation (AA + nucleosides + vitamins). Each cited to DSMZ MediaDive."""
-import json, os, re, glob
-REPO="/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo"
-MD="/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/mediadive"
-OUT=os.path.join(REPO,"data","media")
-DICT=json.load(open(os.path.join(REPO,"tools","bigg_metabolite_dict.json")))
-imap=json.load(open(os.path.join(MD,"ingredient_to_bigg.json")))
-complx=json.load(open(os.path.join(MD,"complex_ingredients.json")))
-medialist={str(x["id"]):x for x in (json.load(open(os.path.join(MD,"mdive.json"))).get("data"))}
+import json, os, re, glob, sys
+
+_TOOLS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from mediapaths import (REPO, OUT_ROOT, repo_file, source_dir, source_file,  # noqa: E402
+                        source_path, out_media_dir)
+
+MD=source_path("mediadive")
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
+DICT=json.load(open(repo_file("tools","bigg_metabolite_dict.json")))
+
+def _mdive_input(name, what):
+    """Ingredient tables are produced by map_ingredients2.py into $MEDIA_OUT, and
+    may also be shipped in the source cache. Prefer the freshly built one; fail
+    loudly (naming both places) when neither exists."""
+    built = os.path.join(OUT_ROOT, "mediadive", name)
+    if os.path.exists(built):
+        return built
+    return source_file("mediadive", name, what=what)
+
+imap=json.load(open(_mdive_input("ingredient_to_bigg.json",
+                                 "MediaDive ingredient -> BiGG map")))
+complx=json.load(open(_mdive_input("complex_ingredients.json",
+                                   "MediaDive complex-ingredient table")))
+medialist={str(x["id"]):x for x in (json.load(open(source_file(
+    "mediadive","mdive.json", what="MediaDive medium list"))).get("data"))}
 
 AA20=["ala__L","arg__L","asn__L","asp__L","cys__L","gln__L","glu__L","gly","his__L","ile__L","leu__L","lys__L","met__L","phe__L","pro__L","ser__L","thr__L","trp__L","tyr__L","val__L"]
 NUC=["adn","gsn","cytd","uri","thymd","ins"]; VIT=["btn","fol","pnto__R","ribflv","thm","nac","pydxn","cbl1","4abz"]
@@ -27,7 +46,10 @@ def comp(ex, lb, method, conf, gl=None, mM=None):
     return c
 
 written=0; index_rows=[]
-for fp in glob.glob(os.path.join(MD,"details","*.json")):
+_DETAILS = source_dir("mediadive", "details",
+                      what="per-medium MediaDive REST responses "
+                           "(fetch with tools/mediadive/fetch_media.py)")
+for fp in glob.glob(os.path.join(_DETAILS,"*.json")):
     mid=os.path.basename(fp)[:-5]
     try: det=json.load(open(fp))
     except: continue
@@ -89,7 +111,8 @@ for fp in glob.glob(os.path.join(MD,"details","*.json")):
     json.dump(rec, open(os.path.join(OUT, rec["id"]+".json"),"w"))
     written+=1
     index_rows.append({"id":rec["id"],"defined":rec["defined"],"n_components":rec["n_components"],"n_defined":n_defined_real})
-json.dump(index_rows, open(os.path.join(MD,"md_index.json"),"w"))
+os.makedirs(os.path.join(OUT_ROOT,"mediadive"), exist_ok=True)
+json.dump(index_rows, open(os.path.join(OUT_ROOT,"mediadive","md_index.json"),"w"))
 print(f"MediaDive media written: {written}")
 dfn=sum(1 for r in index_rows if r["defined"]); print(f"  defined: {dfn} | complex: {written-dfn}")
 import statistics

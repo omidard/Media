@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 """Map MediaDive ingredients -> BiGG exchange(s). Organic compounds map 1:1;
 salts are dissociated into their ion exchanges; hydrolysates/extracts are marked complex."""
-import json, sys, re
-sys.path.insert(0,"/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
-from map_metabolite import Mapper
+import json, sys, os, re
+
+_TOOLS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from map_metabolite import Mapper  # noqa: E402
+from mediapaths import OUT_ROOT, repo_file, source_file  # noqa: E402
 m=Mapper()
-DICT=json.load(open("/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools/bigg_metabolite_dict.json"))
+DICT=json.load(open(repo_file("tools","bigg_metabolite_dict.json")))
 def valid(bid): return bid in DICT and DICT[bid]["in_biggr"]
 
-ings=json.load(open("ingredients.json")); ings=ings.get("data",ings) if isinstance(ings,dict) else ings
+ings=json.load(open(source_file("mediadive","ingredients.json",
+    what="MediaDive ingredient list (REST /rest/ingredients)"))); ings=ings.get("data",ings) if isinstance(ings,dict) else ings
 COMPLEX=re.compile(r"(peptone|tryptone|extract|hydrolysate|hydrolysat|digest|infusion|bacto|lab-lemco|casein|casamino|casitone|proteose|beef|yeast|meat|liver|brain|heart|milk|whey|molasses|rumen|gelatin|soyt?one|blood|serum|agar|broth|water|tween|resazurin|indicator|buffer\b)",re.I)
 
 CATION=[("ammonium|\\(nh4\\)|nh4","nh4"),("ferric|fe\\(iii\\)|iron\\(iii\\)","fe3"),
@@ -81,7 +86,10 @@ for ig in ings:
         imap[iid]={"name":name,"exchanges":sorted(ex),"kind":"salt","method":"dissociation","conf":"inferred","mass":ig.get("mass")}
         n_salt+=1; continue
     complx[iid]={"name":name,"reason":"unmapped"}
-json.dump(imap,open("ingredient_to_bigg.json","w")); json.dump(complx,open("complex_ingredients.json","w"))
+_OUT=os.path.join(OUT_ROOT,"mediadive"); os.makedirs(_OUT,exist_ok=True)
+json.dump(imap,open(os.path.join(_OUT,"ingredient_to_bigg.json"),"w"))
+json.dump(complx,open(os.path.join(_OUT,"complex_ingredients.json"),"w"))
+print("wrote", _OUT)
 print(f"ingredients {len(ings)} | defined-organic {n_def} | salts-dissociated {n_salt} | complex/unmapped {len(complx)}")
 tot_ex=set(e for v in imap.values() for e in v["exchanges"]); print("distinct exchanges reachable:",len(tot_ex))
 import itertools

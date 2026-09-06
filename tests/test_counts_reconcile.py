@@ -44,7 +44,8 @@ def test_the_authoritative_count_is_computed_from_the_corpus(results):
     "data/media_stats.json total",
     "data/media_stats.json by_category keys",
     "data/presence_matrix.json n_media",
-    "data/stats.json is not a hand-maintained orphan",
+    "data/stats.json count",
+    "data/stats.json by_category",
     "README media totals",
 ])
 def test_every_shipped_total_agrees_with_the_corpus(results, name):

@@ -4,7 +4,7 @@ template, cite them, add to Media, so GrowthDB base-medium records link exactly.
 import json, os, sys
 sys.path.insert(0,"repo/tools"); from map_metabolite import Mapper
 m=Mapper(); MED="repo/data/media"
-IDX={x["id"] for x in json.load(open("repo/data/index.json"))["media"]}
+IDX={x["id"] for x in json.load(open(repo_file("data","index.json")))["media"]}
 # carbon labels aligned with curate.py's carbon_of()
 CARBON=[("glucose|dextrose","glucose"),("glycerol","glycerol"),("acetate|acetic","acetate"),("succinate|succinic","succinate"),
  ("lactate|lactic","lactate"),("pyruvate","pyruvate"),("fructose","fructose"),("xylose","xylose"),("galactose","galactose"),

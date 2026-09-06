@@ -3,12 +3,23 @@
 BiGG (deterministic, via our mapper), build cited media JSONs. Requires a proving snippet;
 components mapped by name -> BiGG exchange; paper-provided exchange bounds used directly."""
 import json, os, re, glob, sys
-sys.path.insert(0,"/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
-from map_metabolite import Mapper
-REPO="/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo"
-LIT="/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/lit/extractions"
-OUT=os.path.join(REPO,"data","media")
-DICT=json.load(open(os.path.join(REPO,"tools","bigg_metabolite_dict.json")))
+
+_TOOLS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from map_metabolite import Mapper  # noqa: E402
+from mediapaths import REPO, repo_file, source_dir, out_media_dir  # noqa: E402
+
+# The extraction batches are PERMANENTLY LOST (they were LLM-agent output written
+# into the deleted scratchpad). Re-running the miner produces different extractions
+# that would carry the same PMCIDs and "verbatim proving snippet" fields as the
+# shipped records. See tools/mediapaths.py SOURCE_INFO["lit"].
+# source_dir() raises if the directory is absent, so a missing input can never be
+# mistaken for "0 extractions found" -- the silent-success this builder used to have.
+LIT=source_dir("lit","extractions",
+               what="LLM extraction batches batch_*.json (PERMANENTLY LOST)")
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
+DICT=json.load(open(repo_file("tools","bigg_metabolite_dict.json")))
 m=Mapper()
 def valid(b): return b in DICT and DICT[b]["in_biggr"]
 def nm(b): return DICT.get(b,{}).get("name",b)

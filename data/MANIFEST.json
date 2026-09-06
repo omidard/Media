@@ -1,0 +1,196 @@
+{
+ "schema": "mediadb-artifact-manifest/1",
+ "built_utc": "2026-09-06T07:01:20Z",
+ "git_head": "16b5c485950c969b349d2fec127ad419d046c16f",
+ "provenance": {
+  "corpus_status": "frozen snapshot",
+  "why": "The raw inputs are gone. 19 generator scripts hardcoded a session scratchpad that was deleted, none of the upstream payloads was ever committed, and the shipped data/media/*.json is the only surviving copy of the corpus (audit finding PIPE-01).",
+  "measured_2026_09_06": {
+   "media_total": 13515,
+   "media_with_a_dead_generator": 13248,
+   "media_with_a_live_generator": 267,
+   "media_permanently_unreproducible": 1456,
+   "media_permanently_unreproducible_why": "lit_ 87 + growthlit_ 1,036 + complexlit_ 333 came from LLM extraction batches that no longer exist; re-running the miner would file DIFFERENT compositions under the SAME citations.",
+   "media_recoverable_in_principle": 11792,
+   "media_recoverable_in_principle_why": "usda_/mediadive_/food_/mdb_/biospecimen_ sources are public and re-fetchable (see data/_sources/MANIFEST.json), though upstream has moved since the original snapshot, so a rebuild is a source-version delta, not a reproduction."
+  },
+  "how_corrections_are_made": "As transform stages under tools/stages/, composed by tools/stages/run_stages.py in the order recorded in tools/stages/stages.json. Corrections are never hand-patched into data/media/*.json.",
+  "source_ledger": "data/_sources/MANIFEST.json"
+ },
+ "artifacts": {
+  "data/media/": {
+   "generator": "frozen snapshot \u2014 generators are dead (PIPE-01)",
+   "inputs": [
+    "(none surviving)"
+   ],
+   "present": true,
+   "rows": 13515,
+   "bytes": 443060763
+  },
+  "data/index.json": {
+   "generator": "build_index.py",
+   "inputs": [
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 8916725,
+   "sha256": "bcdf3fed66c76b70c5fcf378d3f05524783a5327364fe138a4c0a4e7c4247537",
+   "rows": 13515,
+   "mtime_utc": "2026-09-06T07:01:09Z"
+  },
+  "data/stats.json": {
+   "generator": "build_index.py",
+   "inputs": [
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 839,
+   "sha256": "da02908ab2cea7891e6fd96acb715e0913e29a8ef85014da29d63daadfe76491",
+   "rows": 13515,
+   "mtime_utc": "2026-09-06T07:01:09Z"
+  },
+  "data/coverage.json": {
+   "generator": "tools/enrich_coverage.py",
+   "inputs": [
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 1899409,
+   "sha256": "8cbc62b1190c87c6db404b409538bfc46957084e68d63ed7ea21425c720d4ee4",
+   "rows": 13515,
+   "mtime_utc": "2026-07-21T21:38:39Z"
+  },
+  "data/media_stats.json": {
+   "generator": "tools/build_media_stats.py",
+   "inputs": [
+    "data/media/*.json",
+    "tools/bigg_metabolite_dict.json"
+   ],
+   "present": true,
+   "bytes": 7407,
+   "sha256": "35cfcf4bf661743d0e957620b9cd7497fd73ff838cb50957ae7f0d5387690a5a",
+   "rows": 13515,
+   "mtime_utc": "2026-09-06T07:01:13Z"
+  },
+  "data/presence_matrix.json": {
+   "generator": "tools/build_presence_matrix.py",
+   "inputs": [
+    "data/media/*.json",
+    "tools/bigg_metabolite_dict.json"
+   ],
+   "present": true,
+   "bytes": 2781271,
+   "sha256": "65e728e304536f0cf4bf5a11956d557aff5d5ba5d01f65c1f59b73c700db0d80",
+   "rows": 13515,
+   "mtime_utc": "2026-09-06T07:01:17Z"
+  },
+  "data/api/manifest.json": {
+   "generator": "tools/build_api_exports.py",
+   "inputs": [
+    "data/index.json"
+   ],
+   "present": true,
+   "bytes": 2814,
+   "sha256": "b48108ec3d23b8274587b9bc6b2aa6e58d843f908d1ca2443828cbe16e6e6359",
+   "rows": 13515,
+   "mtime_utc": "2026-09-05T21:47:20Z"
+  },
+  "data/api/media.parquet": {
+   "generator": "tools/build_api_exports.py",
+   "inputs": [
+    "data/index.json",
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 507647,
+   "sha256": "468198334823c6830a568e14aafea5fda76beacd4fe16b1ae54611ab7a846d5d",
+   "rows": 13515,
+   "mtime_utc": "2026-09-05T21:47:21Z"
+  },
+  "data/api/components.parquet": {
+   "generator": "tools/build_api_exports.py",
+   "inputs": [
+    "data/index.json",
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 3279547,
+   "sha256": "18e957e731f0078083389f658b728dc7a470b55050a51b312bc062756982d982",
+   "rows": 665582,
+   "mtime_utc": "2026-09-05T21:47:20Z"
+  },
+  "data/api/media.jsonl.gz": {
+   "generator": "tools/build_api_exports.py",
+   "inputs": [
+    "data/index.json",
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 53676297,
+   "sha256": "0534ff16a4ab4e292d271dc963b28e91a6c0f45ab97181d287d094ffb4281e33",
+   "rows": 13515,
+   "mtime_utc": "2026-09-05T21:47:21Z"
+  },
+  "data/api/media.sqlite.gz": {
+   "generator": "tools/build_api_exports.py",
+   "inputs": [
+    "data/index.json",
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 17206619,
+   "sha256": "c7bc6cf0fbddb58c10cf27b6019e47fbe2ba2a715d1e80bbdd4e093ec78a9b01",
+   "rows": null,
+   "mtime_utc": "2026-09-05T21:47:21Z"
+  },
+  "data/cluster/clustergram.json": {
+   "generator": "tools/build_cluster_data.py",
+   "inputs": [
+    "data/api/media.parquet",
+    "data/api/components.parquet"
+   ],
+   "present": true,
+   "bytes": 42839,
+   "sha256": "6e2993b23a0304583109aa7d614c58e519333924d000e1f91619dd81aea49cbe",
+   "rows": null,
+   "mtime_utc": "2026-07-21T21:38:39Z"
+  },
+  "data/cluster/cooccurrence.json": {
+   "generator": "tools/build_cluster_data.py",
+   "inputs": [
+    "data/api/media.parquet",
+    "data/api/components.parquet"
+   ],
+   "present": true,
+   "bytes": 50398,
+   "sha256": "e60d6c72740cccbbb70d30296fa8eca983b44b31f16e4c5657515d83a4e6133f",
+   "rows": null,
+   "mtime_utc": "2026-07-21T21:38:39Z"
+  },
+  "data/_quarantine.json": {
+   "generator": "tools/apply_verification.py",
+   "inputs": [
+    "data/media/*.json"
+   ],
+   "present": true,
+   "bytes": 105272,
+   "sha256": "e17ba0f3cfe6f02224301d5f6f0a402434563ce646e1a23695322d5520c4d375",
+   "rows": null,
+   "mtime_utc": "2026-07-16T17:27:28Z"
+  }
+ },
+ "catalog_count_identity": {
+  "counts": {
+   "data/media/": 13515,
+   "data/index.json": 13515,
+   "data/stats.json": 13515,
+   "data/media_stats.json": 13515,
+   "data/presence_matrix.json": 13515,
+   "data/api/manifest.json": 13515,
+   "data/api/media.parquet": 13515,
+   "data/api/media.jsonl.gz": 13515
+  },
+  "agree": true,
+  "assertion": "every catalogue-shaped artifact must report the same number of media; a disagreement means an artifact was not rebuilt (STALE-01: two endpoints were 1,128 media stale)"
+ }
+}

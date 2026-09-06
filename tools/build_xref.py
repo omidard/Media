@@ -3,10 +3,19 @@
 chem_prop): KEGG, ChEBI, SEED(ModelSEED), HMDB, MetaCyc, LipidMaps, InChIKey, InChI. Also emit a
 ChEBI/KEGG -> MNXM -> SEED/KEGG fallback so substrates with no BiGG exchange still get a valid
 exchange id (EX_cpd#####_e ModelSEED, or EX_C#####_kegg)."""
-import json, os
+import json, os, sys
 from collections import defaultdict
-MX="/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/metanetx"
-TOOLS="repo/tools"
+
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from mediapaths import OUT_ROOT, repo_file, source_file  # noqa: E402
+
+# Inputs come from $MEDIA_SOURCES/metanetx; the enriched dictionary is written to
+# the staging root, never over the committed tools/bigg_metabolite_dict.json --
+# promoting a rebuilt mapping backbone is a deliberate, reviewed act.
+TOOLS = os.path.join(OUT_ROOT, "tools")
+os.makedirs(TOOLS, exist_ok=True)
 SRC={"bigg.metabolite":"bigg","kegg.compound":"kegg","keggC":"kegg","chebi":"chebi","CHEBI":"chebi",
      "seed.compound":"seed","seedM":"seed","hmdb":"hmdb","metacyc.compound":"metacyc","metacycM":"metacyc",
      "lipidmaps":"lipidmaps","lipidmapsM":"lipidmaps","reactome":"reactome","reactomeM":"reactome","sabiork.compound":"sabiork"}
@@ -16,7 +25,8 @@ def norm_id(key,idv):
     return idv
 mnx2x=defaultdict(dict); bigg2mnx={}; chebi2mnx={}; kegg2mnx={}
 n=0
-for line in open(os.path.join(MX,"chem_xref.tsv")):
+for line in open(source_file("metanetx", "chem_xref.tsv",
+                             what="MetaNetX cross-reference table")):
     if line[0]=="#": continue
     p=line.rstrip("\n").split("\t")
     if len(p)<2 or ":" not in p[0]: continue
@@ -30,7 +40,8 @@ for line in open(os.path.join(MX,"chem_xref.tsv")):
     n+=1
 print("chem_xref lines used:",n,"| MNXM with xrefs:",len(mnx2x),"| bigg->mnx:",len(bigg2mnx))
 # InChIKey/InChI/formula from chem_prop
-for line in open(os.path.join(MX,"chem_prop.tsv")):
+for line in open(source_file("metanetx", "chem_prop.tsv",
+                             what="MetaNetX compound property table")):
     if line[0]=="#": continue
     p=line.rstrip("\n").split("\t")
     if len(p)<8: continue
@@ -40,7 +51,7 @@ for line in open(os.path.join(MX,"chem_prop.tsv")):
         if len(p)>6 and p[6] and p[6]!="InChI=": mnx2x[mnx]["inchi"]=p[6]
         if len(p)>3 and p[3]: mnx2x[mnx].setdefault("formula",p[3])
 # enrich the dict
-DICT=json.load(open(os.path.join(TOOLS,"bigg_metabolite_dict.json")))
+DICT=json.load(open(repo_file("tools","bigg_metabolite_dict.json")))
 filled=defaultdict(int)
 for bid,rec in DICT.items():
     x=dict(rec.get("xrefs") or {})

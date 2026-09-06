@@ -3,12 +3,14 @@
 concentrations. Maps each metabolite to BiGG (own bigg_id -> InChIKey -> KEGG -> name),
 converts concentrations to mM where possible, keeps PubMed citations."""
 import zipfile, xml.etree.ElementTree as ET, json, os, re, sys, statistics
-sys.path.insert(0, "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
-from map_metabolite import Mapper
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from map_metabolite import Mapper  # noqa: E402
+from mediapaths import REPO, repo_file, source_file, out_media_dir  # noqa: E402
 
-REPO = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo"
-OUT = os.path.join(REPO, "data", "media")
-DICT = json.load(open(os.path.join(REPO, "tools", "bigg_metabolite_dict.json")))
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
+DICT = json.load(open(repo_file("tools", "bigg_metabolite_dict.json")))
 mp = Mapper()
 lt = lambda t: t.split('}')[-1]
 def txt(el, tag):
@@ -50,7 +52,8 @@ MINERALS = {"EX_pi_e":-1000,"EX_so4_e":-1000,"EX_nh4_e":-1000,"EX_k_e":-1000,"EX
 
 # biospecimen -> exchange -> {concs:[mM], name, xref, method, conf, orig:[(val,units)], pmids:set}
 bio = {}
-z = zipfile.ZipFile('/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/bmdb/bmdb_metabolites.zip')
+z = zipfile.ZipFile(os.environ.get("BMDB_ZIP") or source_file(
+    "bmdb", "bmdb_metabolites.zip", what="BMDB metabolite export"))
 xmlname = [i.filename for i in z.infolist() if i.filename.endswith('.xml')][0]
 ctx = ET.iterparse(z.open(xmlname), events=('end',))
 n=0; nmapped=0

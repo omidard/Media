@@ -10,7 +10,7 @@ every component is mapped to a BiGG exchange (`EX_<met>_e`), carries cross-refer
 (InChIKey / ChEBI / KEGG / HMDB / MetaNetX / SEED), and the whole medium carries a
 **citation**.
 
-> **11,367 media** and counting — laboratory culture media, food-derived media, host
+> **13,515 media** and counting — laboratory culture media, food-derived media, host
 > biofluids, and formulations mined from the primary literature — assembled from **DSMZ
 > MediaDive, FooDB, USDA FoodData Central, HMDB, BMDB**, and **571 GEM papers**, all in one
 > consistent, cited, BiGG-mapped format.
@@ -108,27 +108,87 @@ db.list_media(category="laboratory", defined=True)
 db.to_cobra_medium(db.get_medium("m9_glucose_aerobic"))
 ```
 
-Rebuild the bulk artifacts after new media land: `python3 tools/build_api_exports.py`.
+Rebuild the derived artifacts after new media land: `make derived`. See
+[How this is built](#how-this-is-built) — the build has one entrypoint, and the
+workflow calls the same targets, so the docs and CI cannot drift apart.
 
-## Current contents — 11,367 media
+## Current contents — 13,515 media
 
-Each medium is cited and mapped through the same pipeline. By source database:
+Counted from `data/media/*.json`, which is the authority: every other total in the
+repository is generated from it (`make derived`) and checked against it
+(`python3 tools/verify_counts.py`). Grouping below is by the source database the
+record's id prefix implies; that attribution is itself being replaced by evidence
+read from each record, because 1,248 records filed under DSMZ are in fact JCM or CCAP
+formulations redistributed through MediaDive.
 
 | Source | Media | What it contributes |
 |---|---:|---|
-| **USDA FoodData Central** | 7,479 | food media from analytically-measured composition (Foundation + SR Legacy) |
-| **DSMZ MediaDive** | 3,148 | real culture-media recipes (Koblitz *et al.*, NAR 2023) — defined exact, complex as labelled approximations |
-| **FooDB** | 616 | one medium per food (measured food composition) |
-| **Literature (GEM papers)** | 93 | formulations mined from 571 primary papers, each snippet-verified & cited |
-| **HMDB 5.0** | 9 | host biofluids (blood, urine, feces, saliva, CSF, sweat, milk, bile, amniotic) |
-| **BMDB** | 5 | bovine biofluids incl. **rumen fluid** |
-| **Classic + published** | 22 | LB, TSB, BHI, blood agar, M9 / MOPS / M63 / Davis + serum/urine/faeces (PLOS Pathog 2025) |
+| **USDA FoodData Central** | 7,424 | food media from analytically-measured composition (Foundation + SR Legacy) |
+| **DSMZ MediaDive** | 3,148 | culture-media recipes (Koblitz *et al.*, NAR 2023) — defined exact, complex as labelled approximations |
+| **Literature (GrowthDB)** | 1,036 | formulations mined from growth-rate papers |
+| **FooDB** | 701 | one medium per food (measured food composition) |
+| **MediaDB (ISB)** | 471 | defined media from the ISB MediaDB |
+| **Literature (complex)** | 333 | complex/peptone-based paper media, honestly labelled |
+| **Standard / classic** | 297 | LB, TSB, BHI, blood agar, M9 / MOPS / M63 / Davis and the canonical reference set |
+| **Literature (GEM papers)** | 87 | formulations mined from primary GEM papers |
+| **HMDB / published biofluids** | 17 | host biofluids (blood, urine, feces, saliva, CSF, sweat, milk, bile) and bovine BMDB fluids |
+| **Published (GEM paper)** | 1 | a single paper-sourced medium |
+| **total** | **13,515** | |
 
-Grouped into three **categories** — **laboratory** (3,255), **food** (8,095), **biospecimen** (17).
-Defined media map every compound to a BiGG exchange with concentrations (salts dissociated to
-their ion exchanges); complex media map their defined portion and render undefined hydrolysates
+Categories: **laboratory** 4,930, **food** 8,125, **growth_medium** 443 (a second-generation
+label for laboratory media, merged by the schema stage), **biospecimen** 17.
+
+Defined media map every compound to a BiGG exchange (salts dissociated to their ion
+exchanges); complex media map their defined portion and render undefined hydrolysates
 (peptone, extracts) as a clearly-labelled in-silico approximation, with the real ingredients
-listed in `unmapped`.
+listed in `uncovered`.
+
+## How this is built
+
+The raw inputs this catalogue was built from are **gone**: nineteen generator scripts
+pointed at a session scratchpad that was deleted, and none of the upstream payloads was
+ever committed. `data/media/*.json` is the only surviving copy of the corpus, and 1,456
+literature-derived records (`lit_`, `growthlit_`, `complexlit_`) came from LLM extractions
+whose batch files no longer exist — re-running that miner would file *different*
+compositions under the *same* citations, so it must not be run.
+
+That has two consequences, and they shape everything:
+
+1. **`data/media/` is a frozen snapshot.** It is not regenerable from its sources.
+   `data/MANIFEST.json` records that explicitly, with the measured split between what is
+   recoverable in principle (~87%, public upstreams) and what is not (1,456 records).
+2. **Corrections are transform stages, never edits.** A correction is a program under
+   `tools/stages/` that reads a corpus directory and writes a corrected corpus directory;
+   `tools/stages/run_stages.py` composes them in a fixed, registered order and enforces the
+   universal invariants after every stage. See
+   [tools/stages/README.md](tools/stages/README.md) for the contract.
+
+```bash
+make check          # the stage registry and tools/stages/ agree
+make sample         # deterministic 165-record sample corpus
+make stages-sample  # run the chain over the sample (fast; checks idempotence)
+make stages         # run the chain over all 13,515 media -> data/_rebuild/media
+make test           # schema, invariants, defect ledger, harness, build tools
+make derived        # rebuild index/stats/coverage/api/cluster/presence + MANIFEST
+make verify         # rebuild the catalogue into a temp dir and compare totals
+make promote        # back up data/media, then promote the corrected corpus over it
+```
+
+`make promote` is the only command that writes `data/media/`, and it backs the corpus up
+first, refuses a corpus the runner did not produce, and never deletes a record.
+
+### Re-acquiring the sources
+
+```bash
+python3 tools/fetch_sources.py --list      # what each source is, and its licence
+python3 tools/fetch_sources.py --all       # re-fetch everything that is public
+```
+
+Downloads land in `data/_sources/` (gitignored). What *is* committed is
+`data/_sources/MANIFEST.json`: per source, the URL, the HTTP status actually observed, the
+retrieval date, the sha256 and the licence — and, for the sources that cannot be
+re-acquired, an explicit `"status": "lost"` with the reason. Absence is recorded, not
+implied.
 
 ## Contributing a medium
 

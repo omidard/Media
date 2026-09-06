@@ -3,13 +3,27 @@
 Parses BiGG's namespace file into a universal-metabolite dictionary with xrefs,
 flags which are present in the local BiGGr universal reactome, and builds reverse
 indexes (by normalized name and by each xref) for mapping external sources -> EX_<id>_e."""
-import json, re, os
+import json, re, os, sys
 from collections import defaultdict
 
-WORK = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work"
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from mediapaths import OUT_ROOT, source_file  # noqa: E402
+
+# The rebuilt dictionary goes to the staging root. tools/bigg_metabolite_dict.json
+# is the committed mapping backbone and is only replaced by a reviewed promotion.
+WORK = os.path.join(OUT_ROOT, "tools")
+os.makedirs(WORK, exist_ok=True)
 
 # ---- BiGGr universal (our reactome) metabolite ids ----
-bg = json.load(open("/data/biggr/raw/universal_metabolites.json"))
+_BIGGR = os.environ.get("BIGGR_UNIVERSAL", "/data/biggr/raw/universal_metabolites.json")
+if not os.path.exists(_BIGGR):
+    raise FileNotFoundError(
+        "BiGGr universal metabolites not found: %s\n"
+        "  what: the reactome membership flag (in_biggr) for every BiGG metabolite\n"
+        "  fix:  set $BIGGR_UNIVERSAL to BiGGr's universal_metabolites.json" % _BIGGR)
+bg = json.load(open(_BIGGR))
 biggr_ids = set()
 biggr_name = {}
 for row in bg["data"]:
@@ -44,7 +58,8 @@ def parse_links(s):
     return xr
 
 univ = {}  # univ_id -> {name, synonyms:set, xrefs:{}}
-with open(os.path.join(WORK, "bigg_models_metabolites.txt")) as f:
+with open(source_file("bigg", "bigg_models_metabolites.txt",
+                      what="BiGG namespace file (the mapping backbone input)")) as f:
     header = f.readline()
     for line in f:
         cols = line.rstrip("\n").split("\t")

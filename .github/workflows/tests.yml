@@ -1,0 +1,48 @@
+name: Tests
+
+# The repository had no test suite at all (finding PIPE-02: 0 test files, 0 test
+# directories), which is why every defect in the audit shipped silently. This runs
+# the suite on every push and pull request.
+#
+# Scope of the gate today:
+#   * schema validation over every record
+#   * the invariants the audit proved hold (exchange == EX_<met>_e in 664,218 of
+#     664,218 components; coverage.json reproducing the records; the catalogue-count
+#     identity across every derived artifact)
+#   * the stage harness, tested against planted violations
+#   * the build tools' path handling (no dead scratchpad path may return; no tool may
+#     default its output to the frozen corpus)
+#
+# tests/test_defects.py holds one xfail test per defect class still being fixed, with
+# its finding id and the stage that owns it. A defect that gets fixed reports XPASS,
+# and the marker is then removed so it cannot come back silently. When that ledger is
+# empty this job switches to `make test-strict`.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install --quiet pytest pyarrow
+      - name: Stage registry is consistent
+        run: make check
+      - name: Stage chain over the sample corpus (fast, checks idempotence)
+        run: make stages-sample
+      - name: Test suite
+        run: make test
+      - name: Artifact manifest is current
+        run: python3 tools/build_manifest.py --check

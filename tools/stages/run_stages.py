@@ -58,13 +58,19 @@ FROZEN = os.path.join(REPO, "data", "media")
 # ----------------------------------------------------------------- registry check
 
 
-def discover_stage_files() -> tuple[list[str], list[str], list[str]]:
-    """-> (stage ids, helper modules, files that look like an unnamed stage).
+def stage_file(entry: dict) -> str:
+    """The script a registry entry points at (defaults to <id>.py)."""
+    return entry.get("file") or (entry["id"] + ".py")
+
+
+def discover_stage_files(registered_files=()) -> tuple[list[str], list[str], list[str]]:
+    """-> (stage ids from filenames, helper modules, files that look like an unnamed stage).
 
     A .py file whose name matches NN_snake_case.py is a stage. Anything else is a
-    helper module, which is fine (siblings share code that way) — unless it calls
-    stagelib.run_stage(), which means it is a stage wearing a helper's name and
-    would never be executed by the chain. That is reported as a problem.
+    helper module, which is fine (agents share code that way) — unless it looks like
+    a stage (it calls stagelib.run_stage()/main_guard(), or its docstring opens with
+    STAGE:) AND no registry entry names it via `file`. Then it is a stage wearing a
+    helper's name, which the chain would never execute, and that is a problem.
     """
     stages, helpers, suspect = [], [], []
     for f in sorted(os.listdir(HERE)):
@@ -74,9 +80,14 @@ def discover_stage_files() -> tuple[list[str], list[str], list[str]]:
         if m:
             stages.append(m.group(1))
             continue
+        if f in registered_files:
+            continue                      # registered explicitly by `file`
         with open(os.path.join(HERE, f), "r", encoding="utf-8", errors="replace") as fh:
             body = fh.read()
-        (suspect if "run_stage(" in body else helpers).append(f)
+        looks_like_a_stage = ("run_stage(" in body or "main_guard(" in body
+                              or body.lstrip().startswith('"""STAGE')
+                              or '"""STAGE:' in body[:400])
+        (suspect if looks_like_a_stage else helpers).append(f)
     return stages, helpers, suspect
 
 
@@ -85,21 +96,24 @@ def check_registry(verbose=True) -> list[str]:
     reg = load_registry()
     problems = []
     registered = [s["id"] for s in reg["stages"]]
-    on_disk, helpers, suspect = discover_stage_files()
+    registered_files = {stage_file(s) for s in reg["stages"]}
+    on_disk, helpers, suspect = discover_stage_files(registered_files)
 
     for f in suspect:
         problems.append(
-            "tools/stages/%s calls run_stage() but is not named NN_snake_case.py, so the "
-            "chain would never execute it. Rename it to its ordering prefix and register "
-            "it in stages.json." % f)
+            "tools/stages/%s looks like a stage (it calls run_stage()/main_guard() or its "
+            "docstring opens with STAGE:) but is neither named NN_snake_case.py nor "
+            "registered in stages.json with an explicit \"file\". The chain would never "
+            "execute it — a silent skip. Register it or rename it." % f)
     for f in on_disk:
         if f not in registered:
             problems.append(
                 "tools/stages/%s.py exists but is NOT registered in stages.json — an "
                 "unregistered stage would silently never run. Add a registry entry." % f)
-    for sid in registered:
-        if sid not in on_disk and next(s for s in reg["stages"] if s["id"] == sid).get("enabled", True):
-            problems.append("stages.json registers %r but tools/stages/%s.py is missing" % (sid, sid))
+    for entry in reg["stages"]:
+        if entry.get("enabled", True) and not os.path.exists(os.path.join(HERE, stage_file(entry))):
+            problems.append("stages.json registers %r but tools/stages/%s is missing"
+                            % (entry["id"], stage_file(entry)))
 
     # ordering: numeric prefix must be non-decreasing, and every `after` must precede
     seen = []
@@ -138,10 +152,87 @@ def check_registry(verbose=True) -> list[str]:
         else:
             print("registry OK: %d stage(s) registered, %d on disk, order and ranges consistent"
                   % (len(registered), len(on_disk)))
+        off = [s for s in reg["stages"] if not s.get("enabled", True)]
+        for s_ in off:
+            print("DISABLED (registered but WILL NOT RUN): %s — %s"
+                  % (s_["id"], s_.get("disabled_reason", "no reason recorded")))
     return problems
 
 
+def register_missing(verbose=True) -> int:
+    """Add a registry entry for every NN-named stage file that has none.
+
+    Four agents are writing stages concurrently, so a stage file usually appears
+    before its registry row. This fills in a minimal, honest entry — owner inferred
+    from the reserved range, findings scraped from the file's own `FINDINGS:` line —
+    and marks it `registered_by` the harness so the owning agent knows to confirm it.
+    It never enables a stage whose CLI cannot be driven by the runner.
+    """
+    reg = load_registry()
+    have = {s["id"] for s in reg["stages"]}
+    on_disk, _helpers, _suspect = discover_stage_files({stage_file(s) for s in reg["stages"]})
+    ranges = []
+    for r in reg.get("reserved_ranges", []):
+        lo, hi = r["range"].split("-")
+        ranges.append((int(lo), int(hi), r["owner"]))
+    added = []
+    for sid in on_disk:
+        if sid in have:
+            continue
+        path = os.path.join(HERE, sid + ".py")
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            body = fh.read()
+        m = re.search(r"FINDINGS?:\s*([A-Z0-9\-, /()]+)", body)
+        findings = sorted({f.strip() for f in re.findall(r"[A-Z]+-\d+", m.group(1))}) if m \
+            else sorted(set(re.findall(r"\b(?:MAP|NM|PROV|PIPE|COV|SCHEMA|STALE|UX|NAME|MEDIA-WEB)-\d+", body)))[:12]
+        num = int(sid[:2])
+        owner = next((o for lo, hi, o in ranges if lo <= num <= hi), None)
+        flags = supported_flags(path)
+        ok_cli = {"--in", "--out"} <= flags
+        title = (body.split('"""', 2)[1].strip().splitlines()[0] if '"""' in body else sid)
+        entry = {"id": sid, "title": title[:160], "owner": owner, "findings": findings,
+                 "reads": ["corpus"], "writes": ["corpus"],
+                 "after": [s["id"] for s in reg["stages"] if int(s["id"][:2]) < num][-1:],
+                 "may_change_record_count": False, "may_change_id_set": False,
+                 "adds_keys": ["provenance.transforms"], "removes_keys": [],
+                 "enabled": bool(ok_cli),
+                 "registered_by": "pipeline harness --register-missing; the owning agent "
+                                  "must confirm findings, adds_keys and ordering"}
+        if not ok_cli:
+            entry["disabled_reason"] = ("CLI does not accept --in/--out, so the runner "
+                                        "cannot drive it (tools/stages/README.md section 3)")
+        pos = next((k for k, st in enumerate(reg["stages"]) if int(st["id"][:2]) > num),
+                   len(reg["stages"]))
+        reg["stages"].insert(pos, entry)
+        added.append((sid, owner, entry["enabled"], findings))
+    if added:
+        with open(os.path.join(HERE, "stages.json"), "w", encoding="utf-8") as fh:
+            json.dump(reg, fh, indent=1)
+    if verbose:
+        for sid, owner, en, fnd in added:
+            print("registered %s (owner=%s enabled=%s findings=%s)" % (sid, owner, en, fnd))
+        if not added:
+            print("nothing to register: every stage file already has an entry")
+    return len(added)
+
+
 # --------------------------------------------------------------------- utilities
+
+
+def supported_flags(script: str) -> set:
+    """Which CLI flags a stage accepts, read from its own --help.
+
+    Stages written before the report/limit part of the contract still plug in: the
+    runner passes only what they accept and records the difference, instead of
+    failing on an unrecognised argument.
+    """
+    try:
+        out = subprocess.run([sys.executable, script, "--help"], capture_output=True,
+                             text=True, timeout=120).stdout
+    except Exception as exc:                                # noqa: BLE001 - reported
+        print("  WARN could not read --help from %s: %s" % (script, exc))
+        return {"--in", "--out", "--report"}
+    return set(re.findall(r"--[a-z][a-z0-9-]*", out))
 
 
 def dir_fingerprint(d: str, n: int = 40) -> str:
@@ -227,10 +318,23 @@ def run_chain(args) -> int:
             shutil.rmtree(out_dir)            # regenerated artifact, never source data
         os.makedirs(out_dir, exist_ok=True)
         report_path = os.path.join(stages_root, sid, "report.json")
-        script = os.path.join(HERE, sid + ".py")
-        cmd = [sys.executable, script, "--in", cur_in, "--out", out_dir,
-               "--report", report_path]
-        if args.limit:
+        script = os.path.join(HERE, stage_file(entry))
+        flags = supported_flags(script)
+        missing = {"--in", "--out"} - flags
+        if missing:
+            print("STAGE %s does not accept %s — see tools/stages/README.md section 3"
+                  % (sid, ", ".join(sorted(missing))))
+            chain["stages"].append({"stage": sid, "rc": None,
+                                    "fatal": "CLI does not accept %s" % sorted(missing)})
+            chain["ok"] = False
+            break
+        cmd = [sys.executable, script, "--in", cur_in, "--out", out_dir]
+        # A stage may predate the report/limit part of the contract; pass only what it
+        # accepts, and record that its report was synthesised rather than pretend it
+        # produced one.
+        if "--report" in flags:
+            cmd += ["--report", report_path]
+        if args.limit and "--limit" in flags:
             cmd += ["--limit", str(args.limit)]
         fp_before = dir_fingerprint(cur_in)
         print("\n>> %s" % sid)
@@ -240,6 +344,9 @@ def run_chain(args) -> int:
         if os.path.exists(report_path):
             with open(report_path) as fh:
                 rec["report"] = json.load(fh)
+        else:
+            rec["report_source"] = ("stage produced no report; the runner's invariant "
+                                    "pass is the only record of what it did")
         if rc != 0:
             rec["fatal"] = "stage exited %d" % rc
             chain["stages"].append(rec)
@@ -306,6 +413,8 @@ def main(argv=None) -> int:
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--check", action="store_true",
                    help="verify registry <-> filesystem consistency and exit")
+    p.add_argument("--register-missing", action="store_true",
+                   help="add a minimal registry entry for every unregistered stage file")
     p.add_argument("--sample", action="store_true",
                    help="run over data/_rebuild/sample/media (build it with make sample)")
     p.add_argument("--in", dest="in_dir", default=None, help="input corpus directory")
@@ -317,6 +426,9 @@ def main(argv=None) -> int:
     p.add_argument("--skip-idempotence", action="store_true")
     args = p.parse_args(argv)
 
+    if args.register_missing:
+        register_missing()
+        return 1 if check_registry() else 0
     if args.check:
         return 1 if check_registry() else 0
 

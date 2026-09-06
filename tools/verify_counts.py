@@ -53,6 +53,11 @@ def _load(path):
         return json.load(fh)
 
 
+def _by_category_from_index(data_dir):
+    idx = _load(os.path.join(data_dir, "index.json")) or {}
+    return idx.get("by_category")
+
+
 def check(data_dir, readme_path, counts_path=None):
     results = []
 
@@ -139,17 +144,29 @@ def check(data_dir, readme_path, counts_path=None):
             "a documented public API endpoint (API.md:66)",
         )
 
-    # --- stats.json: an orphan with no generator ---------------------------------------------
+    # --- stats.json: no longer an orphan -----------------------------------------------------
+    # It had no generator anywhere in tools/, which is why it shipped 442 media stale.
+    # SCHEMA-05's corrected fix says to give it one rather than delete it ("write the
+    # generator - build_index.py should emit data/stats.json in the same pass"), and
+    # build_index.py now does, so it cannot drift from index.json again. It is kept
+    # rather than removed because it is a file on a live GitHub Pages site that
+    # advertises itself as an endpoint; the check is now that it AGREES.
     stats_path = os.path.join(data_dir, "stats.json")
     if os.path.exists(stats_path):
-        st = _load(stats_path)
+        st = _load(stats_path) or {}
         add(
-            "data/stats.json is not a hand-maintained orphan",
-            False,
-            "deleted (no generator exists anywhere in tools/)",
-            "present, count=%s" % (st or {}).get("count"),
-            "grep finds no writer and no consumer; it cannot be kept honest, so it must go "
-            "rather than be wired into this gate",
+            "data/stats.json count",
+            st.get("count") == authoritative,
+            authoritative,
+            st.get("count"),
+            "written by build_index.py in the same pass as index.json",
+        )
+        add(
+            "data/stats.json by_category",
+            st.get("by_category") == _by_category_from_index(data_dir),
+            "identical to index.json by_category",
+            st.get("by_category"),
+            "the two are emitted together, so a disagreement means one was hand-edited",
         )
 
     # --- README ------------------------------------------------------------------------------

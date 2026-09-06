@@ -1,0 +1,167 @@
+{
+ "schema": "mediadb-source-manifest/1",
+ "sources": {
+  "bigg": {
+   "licence": "BiGG Models \u2014 free for academic use; see http://bigg.ucsd.edu/license",
+   "why": "bigg_models_metabolites.txt is the input to build_bigg_dict.py, which generates the mapping backbone tools/bigg_metabolite_dict.json",
+   "status": "recovered",
+   "artifacts": [
+    {
+     "file": "data/_sources/bigg/bigg_models_metabolites.txt",
+     "url": "http://bigg.ucsd.edu/static/namespace/bigg_models_metabolites.txt",
+     "http_status": 200,
+     "retrieved_utc": "2026-09-06T06:44:57Z",
+     "seconds": 2.9,
+     "ok": true,
+     "bytes": 7971568,
+     "sha256": "2b12a1871e8c92cddc06e179795aa33d1377c988a74f029a0a754339888bf725"
+    }
+   ]
+  },
+  "metanetx": {
+   "licence": "CC BY 4.0 (MetaNetX)",
+   "why": "chem_xref.tsv / chem_prop.tsv feed build_xref.py, which adds the cross-references every mapping claim should be verifiable against",
+   "status": "recovered",
+   "artifacts": [
+    {
+     "file": "data/_sources/metanetx/chem_xref.tsv",
+     "url": "https://www.metanetx.org/cgi-bin/mnxget/mnxref/chem_xref.tsv",
+     "http_status": 200,
+     "retrieved_utc": "2026-09-06T06:45:06Z",
+     "seconds": 9.0,
+     "ok": true,
+     "bytes": 678508677,
+     "sha256": "ba2451ffd9ba3342f8a64a966f8540d08ca82d9f70a28ee84a03aeb0bf6ed135"
+    },
+    {
+     "file": "data/_sources/metanetx/chem_prop.tsv",
+     "url": "https://www.metanetx.org/cgi-bin/mnxget/mnxref/chem_prop.tsv",
+     "http_status": 200,
+     "retrieved_utc": "2026-09-06T06:45:25Z",
+     "seconds": 17.9,
+     "ok": true,
+     "bytes": 809687076,
+     "sha256": "8463f8ee94a1eaec6d6820a05bf09455675a9eb41ac72230dd0d85c9d6c800d2"
+    }
+   ]
+  },
+  "usda": {
+   "licence": "US Government public domain (17 U.S.C. \u00a7105) \u2014 USDA FoodData Central",
+   "why": "7,424 usda_ media (54.9% of the corpus) are built from these zips",
+   "status": "recovered",
+   "artifacts": [
+    {
+     "file": "data/_sources/usda/ff.zip",
+     "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2024-04-18.zip",
+     "http_status": 200,
+     "retrieved_utc": "2026-09-06T06:45:28Z",
+     "seconds": 1.0,
+     "ok": true,
+     "bytes": 425494,
+     "sha256": "4884bcfc32496f514037019346fe34aa436c195bd2cc3ce41bc67d521e867be0"
+    },
+    {
+     "file": "data/_sources/usda/sr_legacy.zip",
+     "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+     "http_status": 200,
+     "retrieved_utc": "2026-09-06T06:45:29Z",
+     "seconds": 1.2,
+     "ok": true,
+     "bytes": 13456312,
+     "sha256": "0fe8ae486a2c8eb42cb96413f058deb51863a46c8fb8eeb4b1fb45006dd338ef"
+    }
+   ]
+  },
+  "foodb": {
+   "licence": "CC BY-NC 4.0 (FooDB) \u2014 non-commercial",
+   "why": "701 food_ media are built from the FooDB CSV dump",
+   "status": "unavailable",
+   "artifacts": [
+    {
+     "file": "data/_sources/foodb/foodb_csv.tar.gz",
+     "url": "https://foodb.ca/public/system/downloads/foodb_2020_04_07_csv.tar.gz",
+     "http_status": 404,
+     "retrieved_utc": "2026-09-06T06:45:30Z",
+     "seconds": 0.4,
+     "ok": false,
+     "error": "HTTP Error 404: Not Found"
+    }
+   ],
+   "manual": "FooDB's download URL changes between releases and the host often requires a browser session. If the fetch fails, download the CSV dump by hand from https://foodb.ca/downloads and unpack it to $MEDIA_SOURCES/foodb/foodb_2020_04_07_csv/."
+  },
+  "hmdb": {
+   "licence": "CC BY-NC 4.0 (HMDB) \u2014 non-commercial; terms must be accepted",
+   "why": "the 7 biospecimen_hmdb_ media",
+   "status": "manual",
+   "artifacts": [],
+   "manual": "HMDB requires accepting its terms before download. Fetch hmdb_metabolites.zip by hand from https://hmdb.ca/downloads and put it at $MEDIA_SOURCES/hmdb/hmdb_metabolites.zip."
+  },
+  "bmdb": {
+   "licence": "Bovine Metabolome Database \u2014 see https://bovinedb.ca",
+   "why": "the biospecimen_bmdb_ media (bovine rumen, colostrum, ...)",
+   "status": "manual",
+   "artifacts": [],
+   "manual": "Download the BMDB metabolite export by hand to $MEDIA_SOURCES/bmdb/bmdb_metabolites.zip."
+  },
+  "mediadb": {
+   "licence": "All Rights Reserved (MediaDB, Institute for Systems Biology) \u2014 redistribution is segregated and labelled, not relicensed",
+   "why": "471 mdb_ media; tools/mediadb/fetch_mediadb.py scrapes the public pages",
+   "status": "manual",
+   "artifacts": [],
+   "manual": "run tools/mediadb/fetch_mediadb.py (it scrapes https://mediadb.systemsbiology.net/defined_media) and put mediadb_raw.json at $MEDIA_SOURCES/mediadb/"
+  },
+  "lit": {
+   "licence": "n/a",
+   "why": "1,456 media (lit_ 87 + growthlit_ 1,036 + complexlit_ 333)",
+   "status": "lost",
+   "lost_reason": "the compositions were extracted by an LLM agent (tools/lit/lit_mining.js) into batch_*.json files that were deleted with the scratchpad. Re-running the miner produces DIFFERENT extractions that would be filed under the SAME PMCIDs, DOIs and 'verbatim proving snippet' fields \u2014 new content wearing the old citations. These records are a frozen expert-curated snapshot.",
+   "artifacts": []
+  },
+  "growthdb": {
+   "licence": "n/a",
+   "why": "the GrowthDB -> Media handoffs (media_to_add.json, media_backmap.json)",
+   "status": "lost",
+   "lost_reason": "both handoff files lived in a second deleted scratchpad, and tools/add_formulated_growthdb.py consumed its own input (it pops medium.exchanges from growth_records.json). Measured today: 0 records are still eligible, so re-running it creates zero media.",
+   "artifacts": []
+  },
+  "mediadive": {
+   "licence": "CC BY 4.0 (DSMZ MediaDive) \u2014 attribution and licence notice required by CC BY 3(a)(1)(C); currently under-attributed in the shipped records",
+   "why": "3,148 mediadive_ media (23.3%); the REST API is public and the repo's own tools/mediadive/fetch_media.py already targets it",
+   "status": "recovered",
+   "artifacts": [
+    {
+     "file": "data/_sources/mediadive/mdive.json",
+     "url": "https://mediadive.dsmz.de/rest/media",
+     "http_status": 200,
+     "retrieved_utc": "2026-09-06T06:45:47Z",
+     "seconds": 0.3,
+     "ok": true,
+     "bytes": 1204269,
+     "sha256": "92411a0ff98cccf5fb7aece1abda8af1afd8a723d85dc59180b44608284141cd"
+    },
+    {
+     "file": "data/_sources/mediadive/ingredients.json",
+     "url": "https://mediadive.dsmz.de/rest/ingredients",
+     "http_status": 200,
+     "retrieved_utc": "2026-09-06T06:45:47Z",
+     "seconds": 0.3,
+     "ok": true,
+     "bytes": 324762,
+     "sha256": "2ca4c18937c5b9fc51d0a1651ed85ed75337a4776147e2e8f5f33d85893b3cbb"
+    },
+    {
+     "file": "data/_sources/mediadive/details",
+     "url": "https://mediadive.dsmz.de/rest/medium/{id}",
+     "http_status": 200,
+     "ok": true,
+     "n_details_fetched": 3339,
+     "n_details_failed": 0,
+     "n_media_upstream": 3339,
+     "complete": true,
+     "retrieved_utc": "2026-09-06T06:55:31Z"
+    }
+   ]
+  }
+ },
+ "updated_utc": "2026-09-06T06:55:31Z"
+}

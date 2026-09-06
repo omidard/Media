@@ -11,11 +11,13 @@ Concentrations (mM) and reference links (MediaDB page + PubMed) are retained.
 """
 import os, re, sys, json
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.join(HERE, "..", "repo")
-sys.path.insert(0, os.path.join(REPO, "tools"))
-import enrich_coverage as EC   # recover(), MAP
+_TOOLS = os.path.dirname(HERE)
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+import enrich_coverage as EC   # noqa: E402  recover(), MAP
+from mediapaths import REPO, repo_file, source_file, out_media_dir  # noqa: E402
 
-DICT = json.load(open(os.path.join(REPO, "tools", "bigg_metabolite_dict.json")))
+DICT = json.load(open(repo_file("tools", "bigg_metabolite_dict.json")))
 KEYS = set(DICT.keys())
 def valid(b): return b in KEYS
 
@@ -177,9 +179,10 @@ def build_one(mid, rec, sources):
                          "pct_covered": round(100*nmap/max(ncomp,1), 1)}}
 
 def main():
-    raw = json.load(open(os.path.join(HERE, "mediadb_raw.json")))
+    raw = json.load(open(source_file("mediadb", "mediadb_raw.json",
+        what="MediaDB (ISB) scrape produced by tools/mediadb/fetch_mediadb.py")))
     sources = raw["sources"]; dry = "--dry" in sys.argv
-    out_dir = os.path.join(REPO, "data", "media")
+    out_dir = out_media_dir()   # staging tree, never data/media -- see PIPE-01
     written = tot_c = tot_map = tot_unc = 0
     import collections; unc_c = collections.Counter()
     for mid, rec in raw["media"].items():

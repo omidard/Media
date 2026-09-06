@@ -3,15 +3,25 @@
 FooDB Content) + a documented M9 mineral base. Retains FooDB content values + per-food
 content citations. Presence-based uptake bounds (physical content kept for custom scaling)."""
 import csv, json, os, re, sys
-sys.path.insert(0, "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
 from map_metabolite import Mapper
 
-CSVD = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/foodb/foodb_2020_04_07_csv"
-REPO = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo"
-OUT = os.path.join(REPO, "data", "media")
+from mediapaths import REPO, OUT_ROOT, repo_file, source_file, source_path, out_media_dir  # noqa: E402
+
+CSVD = source_path("foodb", "foodb_2020_04_07_csv")
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
 csv.field_size_limit(10**7)
-DICT = json.load(open(os.path.join(REPO, "tools", "bigg_metabolite_dict.json")))
-cmap = json.load(open(os.path.join(CSVD, "..", "compound_to_bigg.json")))   # foodb compound id -> {bigg,exchange,name,method,conf}
+DICT = json.load(open(repo_file("tools", "bigg_metabolite_dict.json")))
+_CMAP = os.path.join(OUT_ROOT, "foodb", "compound_to_bigg.json")
+if not os.path.exists(_CMAP):
+    raise FileNotFoundError(
+        "FooDB compound -> BiGG map not found: %s\n"
+        "  what: the compound mapping this builder consumes\n"
+        "  fix:  python3 tools/map_foodb_compounds.py   (it needs the FooDB CSV dump; "
+        "see tools/fetch_sources.py foodb)" % _CMAP)
+cmap = json.load(open(_CMAP))   # foodb compound id -> {bigg,exchange,name,method,conf}
 MIN_EXCH = 6
 
 # clear any stale food media from a previous run (measured-content fix)
@@ -112,7 +122,7 @@ for fid, comps in food_comp.items():
         "aerobic":True,"n_components":rec["n_components"],"n_mapped":rec["n_mapped"],"n_in_biggr":rec["n_in_biggr"],
         "namespace":"bigg","source_type":"database","citation":rec["provenance"]["citation"][:120],"doi":"","food_group":fo["group"]})
 
-json.dump(index_rows, open(os.path.join(CSVD,"..","food_index_rows.json"),"w"))
+json.dump(index_rows, open(os.path.join(OUT_ROOT,"foodb","food_index_rows.json"),"w"))
 print(f"food media written: {written} (foods with >= {MIN_EXCH} mapped organic components)")
 from collections import Counter
 grp = Counter(r["food_group"] for r in index_rows)

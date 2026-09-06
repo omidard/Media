@@ -7,11 +7,16 @@ protein, total fat, ash, carbohydrate-by-difference, fibre, total-sugars, total
 fatty-acid classes). Mapped nutrients still become components (curated table).
 Reruns overwrite usda_*.json; run the curation pipeline afterwards.
 """
-import zipfile, json, os, glob, re
-REPO = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo"
-OUT = os.path.join(REPO, "data", "media")
-USDA = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/usda"
-DICT = json.load(open(os.path.join(REPO, "tools", "bigg_metabolite_dict.json")))
+import zipfile, json, os, glob, re, sys
+
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from mediapaths import REPO, repo_file, source_file, source_path, out_media_dir  # noqa: E402
+
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
+USDA = source_path("usda")
+DICT = json.load(open(repo_file("tools", "bigg_metabolite_dict.json")))
 def valid(b): return b in DICT and DICT[b]["in_biggr"]
 def nm(b): return DICT.get(b, {}).get("name", b)
 def xr(b): return DICT.get(b, {}).get("xrefs", {})
@@ -95,7 +100,8 @@ def process(foods, dataset):
 for _f in glob.glob(os.path.join(OUT, "usda_*.json")):
     os.remove(_f)
 total = 0
-z = zipfile.ZipFile(os.path.join(USDA, "ff.zip")); n = [x for x in z.namelist() if x.endswith('.json')][0]
+z = zipfile.ZipFile(source_file("usda", "ff.zip",
+    what="USDA FoodData Central Foundation Foods JSON zip")); n = [x for x in z.namelist() if x.endswith('.json')][0]
 d = json.load(z.open(n)); total += process(d.get("FoundationFoods", d), "Foundation Foods 2024-04-18")
 for srzip in glob.glob(os.path.join(USDA, "sr_legacy*.zip")):
     z = zipfile.ZipFile(srzip); n = [x for x in z.namelist() if x.endswith('.json')][0]

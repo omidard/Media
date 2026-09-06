@@ -4,11 +4,15 @@ peptone-based media that map to few BiGG exchanges. Mapped components become exc
 biological extracts (peptone, yeast extract, casitone…) are kept in `unmapped` and the medium is
 honestly labelled. Dedup by name+composition; merge backmap so GrowthDB links resolve."""
 import json, os, re, sys
-sys.path.insert(0,"repo/tools")
-from map_metabolite import Mapper
+
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from map_metabolite import Mapper  # noqa: E402
+from mediapaths import REPO, OUT_ROOT, repo_file, source_path, out_media_dir  # noqa: E402
 m=Mapper()
-REPO="repo"; OUT=os.path.join(REPO,"data","media")
-DICT=json.load(open(os.path.join(REPO,"tools","bigg_metabolite_dict.json")))
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
+DICT=json.load(open(repo_file("tools","bigg_metabolite_dict.json")))
 def valid(b): return b in DICT and DICT[b]["in_biggr"]
 def nm(b): return DICT.get(b,{}).get("name",b)
 def xr(b): return DICT.get(b,{}).get("xrefs",{})
@@ -18,7 +22,11 @@ def slug(s): return re.sub(r"[^a-z0-9]+","_",(s or "medium").lower()).strip("_")
 def nkey(s): return re.sub(r"[^a-z0-9]","",(s or "").lower())
 
 INP=sys.argv[1]
-BMPATH="/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/growthdb_work/lit/media_backmap.json"
+# The GrowthDB back-map is a cross-session handoff that was deleted with its
+# scratchpad; it is optional here, and its absence is recorded, not defaulted away.
+_BM_IN = source_path("growthdb", "media_backmap.json")
+_BM_OUT = os.path.join(OUT_ROOT, "growthdb", "media_backmap.json")
+BMPATH = _BM_IN if os.path.exists(_BM_IN) else _BM_OUT
 add=json.load(open(INP))["pending_media_for_media_repo"]
 _bm=json.load(open(BMPATH)) if os.path.exists(BMPATH) else {}
 backmap={tuple(k.split("|",1)):v for k,v in _bm.items() if "|" in k}
@@ -61,5 +69,6 @@ for item in add:
          "components":cl,"unmapped":unmapped,"n_components":len(cl),"n_mapped":len(cl),"n_in_biggr":sum(1 for c in cl if c["in_biggr"]),
          "complex":complex_flag,"version":"1.0"}
     json.dump(rec,open(os.path.join(OUT,mid+".json"),"w")); written+=1
-json.dump({f"{k[0]}|{k[1]}":v for k,v in backmap.items()}, open(BMPATH,"w"))
+os.makedirs(os.path.dirname(_BM_OUT), exist_ok=True)
+json.dump({f"{k[0]}|{k[1]}":v for k,v in backmap.items()}, open(_BM_OUT,"w"))
 print(f"cataloged media (incl. complex): {written} | backmap entries: {len(backmap)}")

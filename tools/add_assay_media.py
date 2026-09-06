@@ -21,7 +21,7 @@ DEFS={
    "cite":"Substrate-utilisation / enzyme activity assay; medium per the original source.","comps":salts},
 }
 made=0
-idx={x["id"] for x in json.load(open("repo/data/index.json"))["media"]}
+idx={x["id"] for x in json.load(open(repo_file("data","index.json")))["media"]}
 for mid,d in DEFS.items():
     comps=[dict(c) for c in d["comps"]]
     unm=[{"name":"peptone / undefined base","reason":"complex undefined base"}] if d["complex"] and mid!="api_cho_base" else []

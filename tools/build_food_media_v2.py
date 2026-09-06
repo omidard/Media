@@ -12,15 +12,25 @@ BiGG (`if not mp: continue`) and hard-coded `unmapped:[]`. This version:
 Rebuild:  python3 build_food_media_v2.py
 """
 import csv, json, os, re, sys
-sys.path.insert(0, "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
 from map_metabolite import Mapper
 
-CSVD = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/foodb/foodb_2020_04_07_csv"
-REPO = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo"
-OUT = os.path.join(REPO, "data", "media")
+from mediapaths import REPO, OUT_ROOT, repo_file, source_file, source_path, out_media_dir  # noqa: E402
+
+CSVD = source_path("foodb", "foodb_2020_04_07_csv")
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
 csv.field_size_limit(10**7)
-DICT = json.load(open(os.path.join(REPO, "tools", "bigg_metabolite_dict.json")))
-cmap = json.load(open(os.path.join(CSVD, "..", "compound_to_bigg.json")))
+DICT = json.load(open(repo_file("tools", "bigg_metabolite_dict.json")))
+_CMAP = os.path.join(OUT_ROOT, "foodb", "compound_to_bigg.json")
+if not os.path.exists(_CMAP):
+    raise FileNotFoundError(
+        "FooDB compound -> BiGG map not found: %s\n"
+        "  what: the compound mapping this builder consumes\n"
+        "  fix:  python3 tools/map_foodb_compounds.py   (it needs the FooDB CSV dump; "
+        "see tools/fetch_sources.py foodb)" % _CMAP)
+cmap = json.load(open(_CMAP))
 MAP = Mapper()
 MIN_EXCH = 6
 MAX_UNCOVERED = 250   # cap per food for file size; note truncation

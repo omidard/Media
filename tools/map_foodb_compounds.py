@@ -3,17 +3,22 @@
 Robust to FooDB's shifted Compound.csv columns: id/public_id/name are the first 3
 fields; InChIKey is found by regex anywhere in the row."""
 import csv, re, json, sys, os
-sys.path.insert(0, "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
-from map_metabolite import Mapper
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from map_metabolite import Mapper  # noqa: E402
+from mediapaths import OUT_ROOT, source_file, source_path  # noqa: E402
 
-CSV = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/foodb/foodb_2020_04_07_csv"
+CSV = source_path("foodb", "foodb_2020_04_07_csv")
 m = Mapper()
 IK = re.compile(r"\b[A-Z]{14}-[A-Z]{10}-[A-Z]\b")
 
 compound_map = {}   # foodb compound id -> {bigg, exchange, name, method, conf, in_biggr}
 n=0; mapped=0; by_ik=0; by_name=0
 csv.field_size_limit(10**7)
-with open(os.path.join(CSV, "Compound.csv"), encoding="utf-8", errors="replace") as f:
+with open(source_file("foodb", "foodb_2020_04_07_csv", "Compound.csv",
+                      what="FooDB compound table"),
+          encoding="utf-8", errors="replace") as f:
     r = csv.reader(f); h = next(r)
     for row in r:
         if len(row) < 3: continue
@@ -31,7 +36,9 @@ with open(os.path.join(CSV, "Compound.csv"), encoding="utf-8", errors="replace")
             if hit["mapping_method"] == "inchikey": by_ik += 1
             elif hit["mapping_method"] == "name": by_name += 1
 
-json.dump(compound_map, open(os.path.join(CSV, "..", "compound_to_bigg.json"), "w"))
+_OUT = os.path.join(OUT_ROOT, "foodb")
+os.makedirs(_OUT, exist_ok=True)
+json.dump(compound_map, open(os.path.join(_OUT, "compound_to_bigg.json"), "w"))
 print(f"FooDB compounds: {n}")
 print(f"mapped to BiGGr exchanges: {mapped} (unique BiGG mets: {len(set(v['bigg'] for v in compound_map.values()))})")
 print(f"  by InChIKey (exact): {by_ik} | by name (inferred): {by_name}")

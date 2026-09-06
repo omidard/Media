@@ -3,11 +3,15 @@
 Defined minimal media are exact; complex/commercial media (LB, TSB, BHI, blood agar) are
 documented in-silico approximations (undefined hydrolysate components rendered as their
 amino-acid / nucleoside / vitamin constituents). Every medium cited. Built from validated BiGG IDs."""
-import json, os, re
+import json, os, re, sys
 
-REPO = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo"
-OUT = os.path.join(REPO, "data", "media")
-DICT = json.load(open(os.path.join(REPO, "tools", "bigg_metabolite_dict.json")))
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from mediapaths import REPO, repo_file, out_media_dir  # noqa: E402
+
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
+DICT = json.load(open(repo_file("tools", "bigg_metabolite_dict.json")))
 
 AA20 = ["ala__L","arg__L","asn__L","asp__L","cys__L","gln__L","glu__L","gly","his__L","ile__L",
         "leu__L","lys__L","met__L","phe__L","pro__L","ser__L","thr__L","trp__L","tyr__L","val__L"]

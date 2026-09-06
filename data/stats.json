@@ -1,35 +1,38 @@
 {
- "count": 13073,
+ "count": 13515,
  "by_category": {
-  "laboratory": 4931,
+  "laboratory": 4930,
+  "growth_medium": 443,
   "biospecimen": 17,
   "food": 8125
  },
  "by_source_db": {
-  "standard": 293,
+  "standard": 297,
   "Published (HMDB-derived)": 8,
   "HMDB": 9,
   "Published (GEM paper)": 1,
   "literature": 333,
   "FooDB": 701,
-  "Literature (GrowthDB)": 598,
+  "Literature (GrowthDB)": 1036,
   "Literature (GEM papers)": 87,
   "MediaDB (ISB defined media)": 471,
   "DSMZ MediaDive": 3148,
   "USDA FoodData Central": 7424
  },
- "namespace": "BiGG",
+ "by_curation": {
+  "database": 11637,
+  "expert": 193,
+  "verified": 983,
+  "auto": 440,
+  "curated": 262
+ },
+ "by_namespace": {
+  "bigg": 13515
+ },
  "api": {
   "catalog": "data/index.json",
   "medium": "data/media/{id}.json",
   "stats": "data/stats.json"
  },
- "note": "Small enough to fetch for a count without pulling the 6.5 MB catalog. Regenerate alongside index.json.",
- "by_curation": {
-  "database": 11633,
-  "expert": 193,
-  "verified": 983,
-  "auto": 2,
-  "curated": 262
- }
+ "note": "Small enough to fetch for a count without pulling the full catalog. Written by build_index.py in the same pass as index.json."
 }

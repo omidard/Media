@@ -1,14 +1,24 @@
 #!/usr/bin/env python3
 """Convert the 5 existing cited media into the Media-repo schema, enriching each
 component with BiGG name + xrefs, and write the seed data/ tree."""
-import json, os, re
+import json, os, re, sys
 
-WORK = "/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work"
-REPO = os.path.join(WORK, "repo")
-os.makedirs(os.path.join(REPO, "data", "media"), exist_ok=True)
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from mediapaths import REPO, OUT_ROOT, repo_file, out_media_dir  # noqa: E402
 
-DICT = json.load(open(os.path.join(WORK, "bigg_metabolite_dict.json")))
-presets = json.load(open("/data/EcopanGEM/docs/fba/media_presets.json"))
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
+
+DICT = json.load(open(repo_file("tools", "bigg_metabolite_dict.json")))
+_PRESETS = os.environ.get("ECOPANGEM_MEDIA_PRESETS",
+                          "/data/EcopanGEM/docs/fba/media_presets.json")
+if not os.path.exists(_PRESETS):
+    raise FileNotFoundError(
+        "media presets not found: %s\n"
+        "  what: the 5 seed media this builder converts\n"
+        "  fix:  set $ECOPANGEM_MEDIA_PRESETS to EcopanGEM's media_presets.json" % _PRESETS)
+presets = json.load(open(_PRESETS))
 
 # hand-authored provenance for the seed media (impeccable citations)
 PROV = {
@@ -75,7 +85,7 @@ for key, meta in PROV.items():
         "namespace": "bigg",
         "version": "1.0",
     })
-    with open(os.path.join(REPO, "data", "media", rec["id"] + ".json"), "w") as f:
+    with open(os.path.join(OUT, rec["id"] + ".json"), "w") as f:
         json.dump(rec, f, indent=1)
     index.append({k: rec[k] for k in ("id", "name", "category", "organism_scope", "aerobic",
                                        "n_components", "n_mapped", "n_in_biggr", "namespace")}
@@ -83,7 +93,7 @@ for key, meta in PROV.items():
                     "citation": rec["provenance"]["citation"][:120],
                     "doi": rec["provenance"].get("doi", "")})
 
-json.dump({"count": len(index), "media": index}, open(os.path.join(REPO, "data", "index.json"), "w"), indent=1)
+json.dump({"count": len(index), "media": index}, open(os.path.join(OUT_ROOT, "index.json"), "w"), indent=1)
 print("seed media written:", len(index))
 for m in index:
     print(f"  {m['id']:24s} {m['category']:12s} {m['n_components']:3d} comp | {m['n_in_biggr']:3d} in BiGGr | {m['source_type']}")

@@ -2,15 +2,16 @@
 """Add GrowthDB-mined media (from paper compositions) into the Media repo, so Media is exhaustive.
 Reuses the mapper + salt dissociation. Dedupes by composition signature. Returns id back-map."""
 import json, os, re, sys
-sys.path.insert(0,"/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo/tools")
-sys.path.insert(0,"/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/lit")
-from map_metabolite import Mapper
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from map_metabolite import Mapper  # noqa: E402
+from mediapaths import REPO, OUT_ROOT, repo_file, source_file, out_media_dir  # noqa: E402
 import importlib.util
-spec=importlib.util.spec_from_file_location("blm","/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/lit/build_lit_media.py")
+spec=importlib.util.spec_from_file_location("blm", repo_file("tools","lit","build_lit_media.py"))
 # reuse dissociate + helpers from build_lit_media without running its main (guard by importing functions)
-REPO="/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/media_work/repo"
-OUT=os.path.join(REPO,"data","media")
-DICT=json.load(open(os.path.join(REPO,"tools","bigg_metabolite_dict.json")))
+OUT = out_media_dir()   # staging tree ($MEDIA_OUT), never data/media -- see PIPE-01
+DICT=json.load(open(repo_file("tools","bigg_metabolite_dict.json")))
 m=Mapper()
 def valid(b): return b in DICT and DICT[b]["in_biggr"]
 def nm(b): return DICT.get(b,{}).get("name",b)
@@ -42,7 +43,8 @@ def dissociate(name):
     return ex
 def slug(s): return re.sub(r"[^a-z0-9]+","_",(s or "medium").lower()).strip("_")[:40] or "medium"
 
-add=json.load(open("/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/growthdb_work/lit/media_to_add.json"))["pending_media_for_media_repo"]
+add=json.load(open(source_file("growthdb", "media_to_add.json",
+    what="GrowthDB -> Media handoff (pending_media_for_media_repo)")))["pending_media_for_media_repo"]
 sig_seen={}; written=0; backmap={}  # (pmcid,medium_name)->media_id
 for item in add:
     comp=item.get("composition") or []; name=item.get("medium_name") or "medium"; pmc=item.get("pmcid","")
@@ -72,5 +74,8 @@ for item in add:
          "provenance":{"source_type":"literature","citation":f"Medium composition from {pmc} (see GrowthDB record).","doi":"","url":f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmc}/","notes":"Composition mapped to BiGG (mapper + salt dissociation); presence-based bounds; paper_amount retained. Added via GrowthDB curation."},
          "components":cl,"unmapped":[],"n_components":len(cl),"n_mapped":len(cl),"n_in_biggr":sum(1 for c in cl if c["in_biggr"]),"version":"1.0"}
     json.dump(rec,open(os.path.join(OUT,mid+".json"),"w")); written+=1
-json.dump({f"{k[0]}|{k[1]}":v for k,v in backmap.items()}, open("/tmp/claude-1000/-data-Brilliant-genomics-department/eb8d91f3-1707-45de-a10d-2de68fef6627/scratchpad/growthdb_work/lit/media_backmap.json","w"))
+_BM_OUT = os.path.join(OUT_ROOT, "growthdb", "media_backmap.json")
+os.makedirs(os.path.dirname(_BM_OUT), exist_ok=True)
+json.dump({f"{k[0]}|{k[1]}":v for k,v in backmap.items()}, open(_BM_OUT,"w"))
+print("back-map ->", _BM_OUT)
 print(f"GrowthDB media added to Media repo: {written} (deduped from {len(add)} candidates) | backmap entries: {len(backmap)}")

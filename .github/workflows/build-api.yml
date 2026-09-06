@@ -1,11 +1,22 @@
 name: Build data API exports
 
 # Rebuild the derived artifacts whenever the catalog or per-medium records change,
-# so the API bulk files (data/api/*) and the clustered Patterns data (data/cluster/*)
-# never drift from the underlying media.
+# so the API bulk files (data/api/*), the Patterns data (data/cluster/*) and the two
+# component-level endpoints never drift from the underlying media.
 #
-# Loop-safety: this job only ever writes back to data/api/** and data/cluster/**,
-# which are NOT in the trigger paths below, so its own commit cannot re-trigger it.
+# This job calls `make derived`, so the workflow and the documentation cannot
+# disagree about what the build is (finding PIPE-02: the README documented one
+# command while this workflow ran four, and two builders — build_media_stats.py and
+# build_presence_matrix.py — were called by nothing at all, which is why two
+# published endpoints shipped 1,128 media stale, finding STALE-01).
+#
+# It does NOT run the ingest builders or the stage chain. Ingest is network- and
+# licence-dependent and would rewrite data/media from upstream on every push; the
+# stage chain writes a corrected corpus that a human promotes deliberately
+# (`make stages` then `make promote`).
+#
+# Loop-safety: this job only ever writes back to derived artifacts, which are NOT in
+# the trigger paths below, so its own commit cannot re-trigger it.
 
 on:
   push:
@@ -13,8 +24,14 @@ on:
     paths:
       - "data/media/**"
       - "data/index.json"
+      - "Makefile"
+      - "build_index.py"
+      - "tools/enrich_coverage.py"
       - "tools/build_api_exports.py"
       - "tools/build_cluster_data.py"
+      - "tools/build_media_stats.py"
+      - "tools/build_presence_matrix.py"
+      - "tools/build_manifest.py"
   workflow_dispatch: {}
 
 # If several data pushes land in a row, only rebuild once against the latest.
@@ -38,16 +55,22 @@ jobs:
           python-version: "3.12"
 
       - name: Install deps
-        run: pip install --quiet pyarrow scipy numpy pandas
+        run: pip install --quiet pyarrow scipy numpy pandas pytest
+
+      - name: Stage registry is consistent
+        run: make check
 
       - name: Rebuild derived data
-        run: |
-          # enrich coverage first (writes data/media + data/coverage.json), then
-          # rebuild the catalog, bulk exports, and clustered data off the result.
-          python3 tools/enrich_coverage.py
-          python3 build_index.py
-          python3 tools/build_api_exports.py
-          python3 tools/build_cluster_data.py
+        # One command. The dependency order lives in the Makefile, where it is
+        # documented and testable, not in a comment in this file.
+        run: make derived
+
+      - name: Tests (schema, invariants, harness, tools)
+        # The defect ledger in tests/test_defects.py is xfail while the correction
+        # stages land, so this gate is green on the current data and turns red the
+        # moment a passing invariant regresses. It becomes `make test-strict` once
+        # the ledger is empty.
+        run: make test
 
       - name: Commit refreshed artifacts (if changed)
         run: |
@@ -57,10 +80,11 @@ jobs:
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data
+          git add data/index.json data/stats.json data/coverage.json data/media_stats.json \
+                  data/presence_matrix.json data/MANIFEST.json data/api data/cluster data/media
           # [skip ci] keeps this commit (which touches the data/media trigger path)
           # from re-triggering the workflow.
-          git commit -m "chore(data): enrich coverage + rebuild API/cluster exports [skip ci]"
+          git commit -m "chore(data): rebuild derived artifacts via make derived [skip ci]"
           # Rebase onto any commits that landed while we were building, then push.
           # A few retries handle races with concurrent data pushes.
           for i in 1 2 3 4 5; do
