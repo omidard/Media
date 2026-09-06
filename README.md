@@ -20,9 +20,16 @@ Two numbers, stated here because they are the ones a reader would otherwise assu
 
 > **13,515 media** and counting — laboratory culture media, food-derived media, host
 > biofluids, and formulations mined from the primary literature — assembled from **DSMZ
-> MediaDive, FooDB, USDA FoodData Central, HMDB, BMDB**, and **1,457 records mined from
-> primary publications** (916 distinct citation strings; 73 distinct DOIs are recorded),
-> all in one consistent, cited, BiGG-mapped format.
+> MediaDive, FooDB, USDA FoodData Central, HMDB, BMDB**, and **1,457 records whose source
+> is a primary publication** (GrowthDB 1,369 + 88 from genome-scale-model papers;
+> 916 distinct citation strings; 73 DOIs recorded and 834 PMC ids recovered, 907 distinct
+> works), all in one consistent, cited, BiGG-mapped format.
+>
+> That 1,457 is a *source attribution*. The permanently-unreproducible set is a different
+> 1,456 records, defined by the extraction batch a composition came from rather than by
+> who published it (below); the two differ by one record. Every population
+> this repository calls "literature" is measured with the predicate that defines it in
+> `data/index.json` → `literature_populations`.
 
 ## Explore it online
 
@@ -206,7 +213,7 @@ kind is offered upstream, and redistribution permission has not been obtained.**
 project has not been given permission and does not claim it. The operator's decision was
 to keep the records rather than delete them — deleting them would break every `mdb_*`
 deep link and remove the single largest seam of quantitative data in the library
-(8,397 of 14,341 non-null concentration values, 58.6%) — and instead to label them
+(8,397 of 14,055 non-null concentration values, 59.7%) — and instead to label them
 `all-rights-reserved`, set `commercial_use_ok: false`, exclude them from the commercially
 usable subset, and render them all-rights-reserved on the site. Permission is being
 sought (contact: mediadb@systemsbiology.org). If you need a subset you can redistribute,

@@ -204,8 +204,9 @@ const MDB = (function () {
 
   /** The cross-reference and note tables.
    *
-   *  2,287 distinct cross-reference blocks were written into 665,582 components
-   *  and 113 distinct sentences into 621,274 of them; that repetition was
+   *  2,291 distinct cross-reference blocks were written into the 656,625 of
+   *  665,582 components (98.7%) that carry one — 8,957 carry none — and 113
+   *  distinct sentences into 621,274 of them; that repetition was
    *  490 MiB of the published site, which GitHub Pages caps at 1 GiB. Each is
    *  now held once here and referenced by key from the record. One 0.6 MB fetch,
    *  once, on the first medium opened.

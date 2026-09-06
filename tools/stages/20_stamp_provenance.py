@@ -152,9 +152,12 @@ def citation_facts(prov, ident):
     a string test and false as a provenance claim — 89.2% of these citations identify a
     database record or an aggregator, not a work containing the formulation (PROV-01).
 
-    has_primary_citation is deliberately not derived from the `doi` field: 1,456 literature
-    records leave `doi` empty and carry their PMC id in the URL, which is why a doi-field
-    census reports 236 distinct works where the union is about 1,070.
+    has_primary_citation is deliberately not derived from the `doi` field: 1,371 of the
+    13,515 records leave `doi` empty and carry their PMC id in the URL, which is why a
+    doi-field census reports 236 distinct works where the union of DOIs and recovered PMC
+    ids over the 1,457 primary-literature media is 907. That 1,371 is NOT the 1,456
+    extraction-batch records: 87 lit_ records do carry a DOI and 2 std_ records do not.
+    Both are measured in data/index.json -> literature_populations.
 
     citation_resolved asks the harder question — can a machine turn this citation into a
     specific work? For the 459 author-year stubs ("Lovley dr et al, 1993" x56) the honest

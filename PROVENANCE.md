@@ -111,7 +111,7 @@ immediate source is an open-access paper. They are flagged rather than silently 
 
 **Nothing was deleted to fix the licensing.** The 1,189 non-commercial and
 all-rights-reserved records stay. Dropping the 471 MediaDB records alone would remove 8,397
-of the resource's 14,341 concentration values and break every `mdb_*` link.
+of the resource's 14,055 concentration values and break every `mdb_*` link.
 
 ---
 
@@ -128,9 +128,10 @@ provenance claim. What the citation *identifies* varies:
 | `classic_reference` | 297 | a canonical published formulation |
 
 `has_primary_citation` is true only for the first category. It is deliberately not derived
-from the `doi` field: 1,456 literature records leave `doi` empty and carry their PMC id in
-the URL, which is why a naive DOI census reports 236 distinct works where the real union is
-around a thousand. `primary_identifier` recovers that id deterministically:
+from the `doi` field: **1,371 of 13,515 records** leave `doi` empty and carry their PMC id in
+the URL, which is why a naive DOI census reports 236 distinct works where the union of DOIs
+and recovered PMC ids over the primary-literature media alone is 907. `primary_identifier`
+recovers that id deterministically:
 
 ```json
 "primary_identifier": {"type": "pmcid", "value": "PMC4594890"},

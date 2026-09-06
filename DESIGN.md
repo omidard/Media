@@ -55,8 +55,9 @@ the quality bar.
                                      // { "inchikey": "WQZ…", "chebi": "CHEBI:12965",
                                      //   "kegg": "C00031", "hmdb": "HMDB00122",
                                      //   "mnx": "MNXM41", "seed": "cpd00027" }
-                                     // 2,287 distinct blocks stood in for 665,582
-                                     // copies; absent = no cross-references at all.
+                                     // 2,291 distinct blocks stand in for the 656,625
+                                     // of 665,582 components (98.7%) that carry one;
+                                     // absent = no cross-references at all (8,957).
       "in_biggr": true,              // present in the local BiGGr prokaryote reactome
       "mapping_method": "inchikey",  // 55 values in the shipped data, not 9: the xref
                                      // routes (inchikey|chebi|kegg|hmdb|mnx|seed), the
@@ -94,10 +95,21 @@ programmatic queries.
 ## Conventions
 
 **Namespace.** The canonical namespace is **BiGG** universal metabolite IDs and their
-extracellular exchanges `EX_<id>_e`. Every component *also* carries cross-references
-(InChIKey, ChEBI, KEGG, HMDB, MetaNetX, SEED, BioCyc) so the medium is portable to any
-model — BiGGr, ModelSEED, KEGG-based, etc. `in_biggr` flags whether the metabolite exists
-in the local BiGGr prokaryote reactome that our own models use.
+extracellular exchanges `EX_<id>_e`. **664,000 of 665,582 components (99.8%)** reach a
+BiGG exchange; 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will
+accept and 218 reach none at all. **656,625 of 665,582 components (98.7%)** *also* carry
+cross-references (InChIKey, ChEBI, KEGG, HMDB, MetaNetX, SEED, BioCyc), so the medium is
+portable to any model — BiGGr, ModelSEED, KEGG-based, etc; **8,957 (1.3%) carry none**,
+and an absent `xref_id` means exactly that, never "look elsewhere". `in_biggr` flags
+whether the metabolite exists in the local BiGGr prokaryote reactome that our own models
+use.
+
+> This paragraph said "Every component *also* carries cross-references" until 2026-09-06.
+> It was the same sentence that had already been corrected in `index.html`, `methods.html`,
+> `README.md` and `openapi.yaml`; this copy was missed, because nothing swept for it. Both
+> numbers above are generated into `data/index.json` (`exchange_resolution`,
+> `cross_references`) by `build_index.py`, and `tests/test_claims.py` now fails on the
+> unqualified claim in any shipped document.
 
 **Bounds.** `lower_bound < 0` is the maximum uptake rate (mmol·gDW⁻¹·h⁻¹); `upper_bound`
 allows secretion. Water, protons and mineral ions default to open (−1000) unless a source

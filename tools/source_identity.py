@@ -130,9 +130,10 @@ def _host(url: Any) -> str:
 def _primary_identifier(prov: Dict[str, Any]) -> Optional[Dict[str, str]]:
     """Deterministically recover the primary work's identifier.
 
-    PROV-01 notes that 1,456 literature records store their identifier as a PMC id inside
-    the URL while ``doi`` is empty, which is why a naive DOI census reports 236 distinct
-    works instead of ~1,070. This reads the PMC id out of the url/citation with a regex —
+    PROV-01 notes that records store their identifier as a PMC id inside the URL while
+    ``doi`` is empty — measured over the shipped corpus, 1,371 of 13,515 do — which is why
+    a naive DOI census reports 236 distinct works instead of the 907 that the DOIs and the
+    recovered PMC ids resolve to. This reads the PMC id out of the url/citation with a regex —
     no network, no inference, no Crossref author-year matching (which the audit proves
     manufactures confidently-wrong DOIs at scale).
     """

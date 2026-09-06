@@ -124,8 +124,9 @@ paths:
       operationId: getRefs
       description: >
         The join target for components[].xref_id, components[].mapping_note_id and
-        components[].xref_note_id. 2,287 distinct cross-reference blocks stood in for
-        665,582 copies and 113 distinct sentences for 621,274; holding them once is
+        components[].xref_note_id. 2,291 distinct cross-reference blocks stand in for
+        the 656,625 of 665,582 components (98.7%) that carry one — 8,957 carry none —
+        and 113 distinct sentences for 621,274; holding them once is
         what keeps this site inside GitHub Pages' 1 GiB limit. Fetch once and cache:
         it is 0.6 MB and changes only when the corpus does.
       responses:
@@ -292,8 +293,9 @@ components:
         mapping_method: { type: string }
         mapping_confidence: { type: string }
         # Cross-references and prose notes are held ONCE in /data/refs.json and
-        # referenced by key. 2,287 distinct cross-reference blocks were written
-        # into 665,582 components and 113 distinct sentences into 621,274 of them,
+        # referenced by key. 2,291 distinct cross-reference blocks were written into
+        # the 656,625 of 665,582 components that carry one and 113 distinct sentences
+        # into 621,274 of them,
         # which was 490 MiB of a site GitHub Pages caps at 1 GiB. Join
         # refs.xrefs[xref_id] and refs.notes[<note id>]. The parquet and SQLite
         # exports are unaffected: xref_inchikey, xref_kegg and the rest are still

@@ -270,8 +270,9 @@
       Reserved". <b>No reuse grant of any kind is offered, and redistribution permission
       has not been obtained.</b> This project has not been given permission and does not
       claim it. The records are kept rather than deleted — they are the single largest
-      seam of quantitative data here, 8,397 of 14,341 non-null concentration values
-      (58.6%) — and are labelled all-rights-reserved, marked
+      seam of quantitative data here, <span id="isb-quant-share">the largest single
+      share of the non-null concentration values</span> — and are labelled
+      all-rights-reserved, marked
       <code>commercial_use_ok: false</code> and excluded from the commercially usable
       subset while permission is sought. If you need a subset you can redistribute,
       filter them out.</p>
@@ -506,6 +507,16 @@
       'each record sheet names the others.';
     $('degeneracy-conc').textContent = MDB.withDenominator(
       dg.n_media_sharing_a_model_input_with_concentrations, dg.of, 'media');
+
+    /* the largest seam of quantitative data, measured not typed ----------- */
+    // This sentence carried a typed "8,397 of 14,341 (58.6%)" that outlived the
+    // correction which nulled 296 absences encoded as 0.0. It is bound now.
+    const cp = cat.concentration_provenance;
+    if (cp && cp.largest_contributor) {
+      $('isb-quant-share').textContent = MDB.withDenominator(
+        cp.largest_contributor.n, cp.largest_contributor.of,
+        'non-null concentration values');
+    }
 
     /* the limits list, with its measurements ------------------------------ */
     $('licence-restricted').textContent = MDB.withDenominator(

@@ -21,8 +21,16 @@ CC-BY-4.0. That was wrong, and wrong in the direction that transfers risk to the
 CC BY 4.0 s.2(a)(1) grants use "for any purpose, even commercially", and 1,189 of the 13,515
 media (8.8%) come from upstream sources that grant no such right. Measured by the
 quantitative content that gives the resource its value rather than by record count, the
-exposure is larger: 10,737 of 14,341 non-null concentration values (74.9%) come from sources
+exposure is larger: 10,448 of 14,055 non-null concentration values (74.3%) come from sources
 that are non-commercial or carry no grant at all.
+
+Every count in this file is measured, not typed. They are generated into
+data/index.json (`concentration_provenance`, `by_license`, `by_commercial_use_ok`) by
+build_index.py from the corpus, and tools/verify_counts.py fails the build when a figure
+here disagrees with the corpus. An earlier revision of this paragraph read "10,737 of
+14,341 (74.9%)"; that denominator was correct until 296 concentrations which were an
+absence encoded as 0.0 were nulled and 10 were newly derived, and it then survived the
+correction in six documents because nothing checked it.
 
 Nothing has been removed to fix this. Every record stays; each is labelled with the terms it
 actually carries, and a reader who needs a commercially usable subset can select it.
@@ -71,7 +79,7 @@ NOT COMMERCIALLY REDISTRIBUTABLE  (1,189 media, 8.8%) — kept, labelled, and fi
       NO LICENCE GRANTED. "(c) 2014, Institute for Systems Biology, All Rights Reserved"
       — mediadb.systemsbiology.net/defined_media/, retrieved 2026-09-06 (first-party).
       Redistribution permission has not been obtained. This is the single largest contributor
-      of quantitative data in the resource (8,397 of 14,341 concentration values, 58.6%).
+      of quantitative data in the resource (8,397 of 14,055 concentration values, 59.7%).
       Contact: mediadb@systemsbiology.org.
 
   Human Metabolome Database (HMDB 5.0) ....... 9 media

@@ -95,8 +95,8 @@ https://mediadb.systemsbiology.net/defined_media/
   permission and does not claim it; it is being sought at the address above.
 
   MediaDB was previously absent from this project's documentation entirely — from the README
-  source table and from its headline list of sources — while supplying 8,397 of the 14,341
-  non-null concentration values in the library (58.6%), its single richest seam of
+  source table and from its headline list of sources — while supplying 8,397 of the 14,055
+  non-null concentration values in the library (59.7%), its single richest seam of
   quantitative data, under the most restrictive terms of any source. That omission is
   corrected here. The records are retained rather than deleted — deleting them would break
   every mdb_* deep link and remove the largest seam of quantitative data in the resource —
@@ -158,6 +158,14 @@ Primary literature — 1,457 media
 genome-scale-model papers. Each carries the citation of the publication whose formulation it
 encodes, and, where the publication is in PubMed Central, its PMC identifier in
 `provenance.primary_identifier`.
+
+  This count is a SOURCE ATTRIBUTION: media whose provenance.source_id resolved to a primary
+  publication. It is not the 1,456 records that are permanently unreproducible (README, "How
+  this is built"), which are defined by the extraction batch their composition came from, and
+  it is not the 1,459 whose free-text provenance.source_type reads "literature". All three
+  are measured, with the predicate that defines each, in data/index.json ->
+  literature_populations, and tools/verify_counts.py fails when a document states one of
+  these numbers without saying which population it means.
 
   The formulations are facts reported in those publications; the publications themselves are
   not redistributed here. This project asserts CC BY 4.0 over its own compilation, mapping and

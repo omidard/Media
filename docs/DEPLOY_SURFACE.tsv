@@ -37,7 +37,7 @@ external_data	DSMZ MediaDive		LICENSE	DSMZ MediaDive	3,148 media, CC BY 4.0. Inc
 external_data	FooDB		LICENSE	FooDB	701 media, CC BY-NC 4.0. Commercial use is not permitted and the browser can filter them out.
 external_data	MediaDB (ISB defined media)		LICENSE	MediaDB (ISB defined media)	471 media, all rights reserved by the upstream provider.
 external_data	HMDB		LICENSE	Human Metabolome Database (HMDB 5.0)	9 media plus 3 republished tables, CC BY-NC 4.0.
-external_data	BiGG Models		LICENSE	BiGG Models	The exchange-reaction namespace every component is mapped into.
+external_data	BiGG Models		LICENSE	BiGG Models	The exchange-reaction namespace component identities are mapped into: 664,000 of 665,582 components (99.8%) reach a BiGG exchange, 1,364 carry a fallback id no BiGG model accepts and 218 reach none.
 external_data	MetaNetX		LICENSE	MetaNetX	CC BY 4.0; the cross-reference tables behind structural identity checks.
 budget_cap	MAX_ARTIFACT_BYTES		tools/build_api_exports.py:272	oversize	Not a search budget: a publishability limit. GitHub refuses a file over 100 MiB, so the bulk export is sharded under 90 MiB and the builder RAISES on any oversize artifact rather than shipping one. The list of offenders is named in the failure.
 budget_cap	MAX_UNCOVERED		tools/build_food_media_v2.py:36	truncated	Caps the uncovered-ingredient list at 250 per food record. The builder sets `truncated` and writes "(capped at 250)" into the record's own note, so a capped list is never presented as a complete one.

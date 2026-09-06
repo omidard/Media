@@ -54,8 +54,9 @@ published, and walks the per-medium endpoint otherwise — including when the
 release is advertised but a shard fails mid-stream. It yields every record
 either way, and never raises because a download 404'd.
 
-Cross-references and prose notes are held once in ``data/refs.json`` (2,287
-distinct cross-reference blocks stood in for 665,582 copies) and joined on
+Cross-references and prose notes are held once in ``data/refs.json`` (2,291
+distinct cross-reference blocks stand in for the 656,625 of 665,582 components,
+98.7%, that carry one; 8,957 carry none) and joined on
 ``components[].xref_id`` / ``mapping_note_id`` / ``xref_note_id``.
 ``get_medium()`` and ``iter_full_records()`` perform the join by default; pass
 ``resolve=False`` for the record exactly as published.
@@ -173,8 +174,9 @@ class MediaDB:
     def refs(self) -> Dict[str, Any]:
         """The cross-reference / note tables (``data/refs.json``).
 
-        2,287 distinct cross-reference blocks were repeated across 665,582
-        components and 113 distinct notes across 621,274 of them; holding them
+        2,291 distinct cross-reference blocks were repeated across the 656,625
+        of 665,582 components (98.7%) that carry one — 8,957 carry none — and
+        113 distinct notes across 621,274 of them; holding them
         once is what keeps the published site under GitHub Pages' 1 GiB limit.
         Fetched once and cached; ``get_medium`` joins it for you.
         """
