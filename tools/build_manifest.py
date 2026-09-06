@@ -296,6 +296,8 @@ def check_attribution(man: dict) -> list[str]:
         gen = e.get("generator", "")
         if not gen.endswith(".py"):
             continue                       # 'frozen snapshot — generators are dead'
+        if not e.get("present"):
+            continue                       # nothing built here to attribute
         if not os.path.exists(os.path.join(REPO, gen)):
             problems.append("%s: generator %s does not exist" % (rel, gen))
             continue

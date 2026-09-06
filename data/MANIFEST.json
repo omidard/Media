@@ -1,7 +1,7 @@
 {
  "schema": "mediadb-artifact-manifest/1",
- "built_utc": "2026-09-06T09:38:21Z",
- "git_head": "e920e0995b6ce009262eeae69e2436c04566024d",
+ "built_utc": "2026-09-06T10:57:23Z",
+ "git_head": "34e1f4618d0f29b392f6a8fa3893afa66ce42338",
  "provenance": {
   "corpus_status": "frozen snapshot",
   "why": "The raw inputs are gone. 19 generator scripts hardcoded a session scratchpad that was deleted, none of the upstream payloads was ever committed, and the shipped data/media/*.json is the only surviving copy of the corpus (audit finding PIPE-01).",
@@ -36,7 +36,7 @@
    "bytes": 16703468,
    "sha256": "b3281edfe619eeca39a93ee296a6701f9c79cb79f26afa8d23ae398219be90dd",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T08:08:31Z"
+   "mtime_utc": "2026-09-06T10:55:19Z"
   },
   "data/stats.json": {
    "generator": "build_index.py",
@@ -47,10 +47,10 @@
    "bytes": 3429,
    "sha256": "d79e521ea35e666c8c6130db785b24f2f06c6badd3f99aca017c965feb0eb111",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T08:08:31Z"
+   "mtime_utc": "2026-09-06T10:55:23Z"
   },
   "data/coverage.json": {
-   "generator": "tools/enrich_coverage.py",
+   "generator": "tools/build_coverage_index.py",
    "inputs": [
     "data/media/*.json"
    ],
@@ -58,7 +58,7 @@
    "bytes": 3605699,
    "sha256": "5af758b2ad670ddeaa8453ec2a23c6526b0bbe5315c7fdd2e8cc5ec3123c721c",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T08:17:39Z"
+   "mtime_utc": "2026-09-06T10:55:19Z"
   },
   "data/media_stats.json": {
    "generator": "tools/build_media_stats.py",
@@ -70,7 +70,7 @@
    "bytes": 7837,
    "sha256": "98b935a101503f26061efe8c967c0bcfa6b45ff613e26148e17f408c1e840890",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T08:15:53Z"
+   "mtime_utc": "2026-09-06T10:55:22Z"
   },
   "data/presence_matrix.json": {
    "generator": "tools/build_presence_matrix.py",
@@ -82,7 +82,7 @@
    "bytes": 2920464,
    "sha256": "41aa4cfd899fdb21a2a9ff019842e6ef5fd038c747d6b3caa6475f7233d1a7fc",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T08:16:03Z"
+   "mtime_utc": "2026-09-06T10:55:23Z"
   },
   "data/api/manifest.json": {
    "generator": "tools/build_api_exports.py",
@@ -93,7 +93,7 @@
    "bytes": 5430,
    "sha256": "2541ddf9ca4dfabbcaffc17776352ff71fe44efc3d4b8b5cc2e8fd2586ec0b68",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T08:14:19Z"
+   "mtime_utc": "2026-09-06T10:55:18Z"
   },
   "data/api/media.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -105,7 +105,7 @@
    "bytes": 775306,
    "sha256": "5d2247691b21c5c12f33e7b71e3b2d463c0b0993c162b0573edf95e866ac70fc",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T08:12:44Z"
+   "mtime_utc": "2026-09-06T10:55:19Z"
   },
   "data/api/components.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -117,7 +117,7 @@
    "bytes": 4971879,
    "sha256": "33bfe6139fe92fc85a438a6307dbad030683d05a4d3441fe93abcd3e6790092b",
    "rows": 665582,
-   "mtime_utc": "2026-09-06T08:12:51Z"
+   "mtime_utc": "2026-09-06T10:55:18Z"
   },
   "data/api/media.jsonl.part01.gz": {
    "generator": "tools/build_api_exports.py",
@@ -129,7 +129,7 @@
    "bytes": 83896416,
    "sha256": "04370cf3e9b6a63cce2608d68850e8b691cc2da4db2cc09095d6e093d5ccd9c6",
    "rows": 8885,
-   "mtime_utc": "2026-09-06T08:13:53Z"
+   "mtime_utc": "2026-09-06T10:55:18Z"
   },
   "data/api/media.jsonl.part02.gz": {
    "generator": "tools/build_api_exports.py",
@@ -141,7 +141,7 @@
    "bytes": 64769901,
    "sha256": "8ba36f1965c52e233394d1e9cf1a94337f5b1908e358512f49c5cac1de855333",
    "rows": 4630,
-   "mtime_utc": "2026-09-06T08:14:17Z"
+   "mtime_utc": "2026-09-06T10:55:19Z"
   },
   "data/api/media.sqlite.gz": {
    "generator": "tools/build_api_exports.py",
@@ -153,7 +153,7 @@
    "bytes": 24142223,
    "sha256": "f9821d2d01e39883564c3890575755c7d5293e184fce79fabab23a811df61b12",
    "rows": null,
-   "mtime_utc": "2026-09-06T08:13:18Z"
+   "mtime_utc": "2026-09-06T10:55:19Z"
   },
   "data/cluster/clustergram.json": {
    "generator": "tools/build_cluster_data.py",
@@ -165,7 +165,7 @@
    "bytes": 42026,
    "sha256": "282638848a2288b6443a210909bc16aa518a4347f782e2da6695ab01406d9a17",
    "rows": null,
-   "mtime_utc": "2026-09-06T08:15:42Z"
+   "mtime_utc": "2026-09-06T10:55:19Z"
   },
   "data/cluster/cooccurrence.json": {
    "generator": "tools/build_cluster_data.py",
@@ -177,7 +177,7 @@
    "bytes": 50333,
    "sha256": "79587cea181e3f51806cca8d083ed626feb622c18357ce9524404da07b4b31c2",
    "rows": null,
-   "mtime_utc": "2026-09-06T08:15:43Z"
+   "mtime_utc": "2026-09-06T10:55:19Z"
   },
   "data/_quarantine.json": {
    "generator": "tools/apply_verification.py",
@@ -188,7 +188,7 @@
    "bytes": 105272,
    "sha256": "e17ba0f3cfe6f02224301d5f6f0a402434563ce646e1a23695322d5520c4d375",
    "rows": null,
-   "mtime_utc": "2026-07-16T17:27:28Z"
+   "mtime_utc": "2026-09-06T10:55:18Z"
   },
   "data/web/catalog.json": {
    "generator": "tools/build_web_payload.py",
@@ -200,7 +200,7 @@
    "bytes": 2036596,
    "sha256": "62ba87f128e9cadedcc7d45e6576aea832b5d03ae551470110de211a9da2841f",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T09:22:27Z"
+   "mtime_utc": "2026-09-06T10:55:23Z"
   },
   "data/web/summary.json": {
    "generator": "tools/build_web_payload.py",
@@ -211,7 +211,7 @@
    "bytes": 7404,
    "sha256": "f66edb84ce06615061871b2988ee307a2f30b6d80b55ac9d06bb4a927c85f35f",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T09:22:27Z"
+   "mtime_utc": "2026-09-06T10:55:23Z"
   },
   "data/web/compounds.json": {
    "generator": "tools/build_web_payload.py",
@@ -222,7 +222,7 @@
    "bytes": 1683290,
    "sha256": "c7bd5ade7d0560b1cd84d8c942d7ef7276674871ac4bdcf922d06e9039806809",
    "rows": 1793,
-   "mtime_utc": "2026-09-06T09:22:28Z"
+   "mtime_utc": "2026-09-06T10:55:23Z"
   },
   "data/web/families.json": {
    "generator": "tools/build_web_payload.py",
@@ -233,7 +233,7 @@
    "bytes": 1138746,
    "sha256": "bfb953901d1868a364edec5663b643e30ba938f4e23239bfb3bf0b86f9d9dabe",
    "rows": 253,
-   "mtime_utc": "2026-09-06T09:22:28Z"
+   "mtime_utc": "2026-09-06T10:55:23Z"
   },
   "data/web/tombstones.json": {
    "generator": "tools/build_web_payload.py",
@@ -244,7 +244,14 @@
    "bytes": 103593,
    "sha256": "ccb4282c1ff469319ca1d33d381c81716eaa93c85a9513504f4153762cb00469",
    "rows": 77,
-   "mtime_utc": "2026-09-06T09:22:28Z"
+   "mtime_utc": "2026-09-06T10:55:23Z"
+  },
+  "data/web/twins.json": {
+   "generator": "tools/build_web_payload.py",
+   "inputs": [
+    "data/media/*.json"
+   ],
+   "present": false
   }
  },
  "catalog_count_identity": {
