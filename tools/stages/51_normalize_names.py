@@ -127,7 +127,12 @@ def _write_tables(rep, ctx):
         for fid, ids in sorted(ctx.fam_members.items(), key=lambda x: (-len(x[1]), x[0])):
             ms = [recs[i] for i in ids if i in recs]
             surf = {(m.get("name_core") or "").lower() for m in ms}
-            exs = {tuple(sorted({c["exchange"] for c in (m.get("components") or [])}))
+            # LIB.component_key, not c["exchange"]: 40_remap_components writes a null
+            # exchange for the components it refuses to give a single target (curated
+            # mark_mixture), and a null neither sorts against a string nor should
+            # collapse two different unmapped ingredients onto one set member.
+            exs = {tuple(sorted({LIB.component_key(c)
+                                 for c in (m.get("components") or [])}))
                    for m in ms}
             qs = collections.Counter(m.get("composition_signature") for m in ms)
             nc = sum(1 for m in ms if m["family"]["method"] in

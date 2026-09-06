@@ -100,14 +100,46 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 # complex decompositions plus injected mineral bases. They stay in the corpus
 # (operator decision) but they are never a measurement, so no quantity is ever
 # derived for them and they are labelled wherever they appear.
-INVENTED_METHODS = {
-    "hydrolysate_approximation",
-    "complex_decomposition",
-    "mineral_base",
-    "base",
-    "base_medium_expansion",
-    "usda_mineral",          # injected mineral complement, not a USDA analyte
-}
+#
+# READ FROM THE SINGLE DEFINITION, never re-typed here. tools/component_evidence_
+# classes.tsv declares itself "the SINGLE definition of that split", and stage 20
+# writes components[].evidence_class from it. This module used to keep its own copy
+# of the list, and the two disagreed on two methods, which shipped as a flat
+# contradiction on the same component (measured on the full rebuilt corpus,
+# 2026-09-06):
+#
+#   usda_mineral  70,427 components carried evidence_class "sourced",
+#                 source_observed true, and a measured amount with a unit
+#                 (e.g. Calcium 338 mg per 100 g, usda_amount populated) while this
+#                 file's private list called them invented and stamped
+#                 derived_not_sourced true. The table is right and the private list
+#                 was wrong: these are USDA analytes. This module's own docstring
+#                 agreed with the table already — it describes derived_not_sourced as
+#                 marking "the 34.5% of records that were never observed in any
+#                 source", and 34.5% is 229,509, the count WITHOUT usda_mineral.
+#   regime           37 components were derived per the table (an injected O2
+#                 exchange written from a curated aerobic/anaerobic call, not from a
+#                 recipe line) but this list only named `oxygen_regime`, so they
+#                 shipped unflagged.
+#
+# Reading the table removes the whole class: a method that gains or changes a
+# classification changes in one place, and an unlisted method is a hard failure here
+# exactly as it already is in stage 20.
+def _load_invented_methods():
+    path = os.path.join(REPO, "tools", "component_evidence_classes.tsv")
+    with open(path, encoding="utf-8") as fh:
+        rows = [ln.rstrip("\n").split("\t") for ln in fh
+                if ln.strip() and not ln.startswith("#")]
+    head = rows[0]
+    i_m, i_c = head.index("mapping_method"), head.index("evidence_class")
+    out = {r[i_m] for r in rows[1:] if len(r) > i_c and r[i_c] == "derived"}
+    if not out:
+        raise SystemExit("%s declares no derived methods; refusing to run with an "
+                         "empty definition of pipeline-derived" % path)
+    return out
+
+
+INVENTED_METHODS = _load_invented_methods()
 
 # recipe_g_l on these methods is the mass of a parent salt whose identity the
 # builder discarded. See assertion A4.
@@ -454,14 +486,21 @@ class Stage:
         measured amounts away at projection time, not of the media being the same.
         """
         import hashlib
+        # Sorted by the serialised row rather than by native tuple order. `exchange`
+        # is null on the components 40_remap_components refuses to give a single
+        # target (curated mark_mixture: yeast extract, peptone, trace-element
+        # solution), and a null does not compare with a string, so the native sort
+        # raises. Serialising gives a total order over the same multiset of rows:
+        # which records share a signature is unaffected, only the hash string moves.
         key = sorted(
-            (c.get("exchange"),
-             c.get("lower_bound"), c.get("upper_bound"),
-             c.get("concentration_mM"),
-             (c.get("quantity") or {}).get("value"),
-             (c.get("quantity") or {}).get("unit"),
-             (c.get("quantity") or {}).get("basis"))
-            for c in comps)
+            ((c.get("exchange"),
+              c.get("lower_bound"), c.get("upper_bound"),
+              c.get("concentration_mM"),
+              (c.get("quantity") or {}).get("value"),
+              (c.get("quantity") or {}).get("unit"),
+              (c.get("quantity") or {}).get("basis"))
+             for c in comps),
+            key=lambda t: json.dumps(t, default=str))
         return hashlib.sha1(json.dumps(key, sort_keys=True, default=str).encode()).hexdigest()[:16]
 
     # ---- assertions -------------------------------------------------------
@@ -472,17 +511,17 @@ class Stage:
                 cm = c.get("concentration_mM")
                 st = c.get("concentration_status")
                 if cm == 0.0:
-                    f.append(("A3", d["id"], c.get("exchange") + " concentration_mM == 0.0"))
+                    f.append(("A3", d["id"], "%s concentration_mM == 0.0" % c.get("exchange")))
                 if st == "derived":
                     if c.get("mapping_method") in SALT_METHODS_PARENT_LOST:
-                        f.append(("A4", d["id"], c.get("exchange") + " derived from a parent-salt-lost component"))
+                        f.append(("A4", d["id"], "%s derived from a parent-salt-lost component" % c.get("exchange")))
                     if (c.get("quantity") or {}).get("basis") == "per_100g_food":
-                        f.append(("A5", d["id"], c.get("exchange") + " per-100g food amount written into concentration_mM"))
+                        f.append(("A5", d["id"], "%s per-100g food amount written into concentration_mM" % c.get("exchange")))
                     if c.get("derived_not_sourced"):
-                        f.append(("A6", d["id"], c.get("exchange") + " quantity derived for an invented component"))
+                        f.append(("A6", d["id"], "%s quantity derived for an invented component" % c.get("exchange")))
                     ceil = PURE_SUBSTANCE_MM.get(c.get("bigg_metabolite"))
                     if ceil and cm and cm > ceil:
-                        f.append(("A7", d["id"], c.get("exchange") + " exceeds pure-substance molarity"))
+                        f.append(("A7", d["id"], "%s exceeds pure-substance molarity" % c.get("exchange")))
                 if cm is not None and (not st or (st == "derived" and not c.get("concentration_source"))):
-                    f.append(("A8", d["id"], c.get("exchange") + " concentration without status/source"))
+                    f.append(("A8", d["id"], "%s concentration without status/source" % c.get("exchange")))
         return f

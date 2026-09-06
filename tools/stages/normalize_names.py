@@ -436,14 +436,39 @@ def sourced_exchanges(rec):
     ids the writing script explicitly skips, and their published DSMZ recipes
     are gone (NM-02 verification 5, 11).
     """
-    return {c["exchange"] for c in (rec.get("components") or [])
+    return {component_key(c) for c in (rec.get("components") or [])
             if c.get("mapping_method") not in INJECTED_METHODS}
+
+
+def component_key(c):
+    """A hashable, sortable identity for one component.
+
+    `exchange` was a non-null string on all 665,582 components of the frozen
+    snapshot, so this module took it for a string. 40_remap_components makes it
+    NULL where no single exchange is defensible (a curated `mark_mixture`: yeast
+    extract, peptone, "trace element solution"), which is the operator's absent-is-
+    null rule applied to identity. Two consequences had to be chosen deliberately
+    rather than fallen into:
+
+      * a bare None would make every unmapped ingredient the SAME set member, so
+        a medium containing yeast extract and one containing peptone would look
+        compositionally identical on that element. It is not.
+      * dropping unmapped components would make an incompletely mapped medium look
+        complete, which is the flattering direction this whole pass exists to undo.
+
+    So an unmapped component is keyed by the source's own label, explicitly marked
+    as a name and never mistakable for an exchange id.
+    """
+    ex = c.get("exchange")
+    if ex:
+        return ex
+    return "unmapped:" + (c.get("source_name") or c.get("name") or "?").strip().lower()
 
 
 def all_exchanges(rec):
     """Full component set. Used ONLY for a family's canonical reference record,
     whose entire purpose IS to be the template."""
-    return {c["exchange"] for c in (rec.get("components") or [])}
+    return {component_key(c) for c in (rec.get("components") or [])}
 
 
 def jaccard(a, b):
@@ -504,10 +529,16 @@ def quantitative_signature(rec):
     if q.get("quantitative_signature"):
         return q["quantitative_signature"]
     import hashlib
-    key = sorted((c.get("exchange"), c.get("lower_bound"), c.get("upper_bound"),
-                  c.get("concentration_mM"), c.get("recipe_g_l"),
-                  c.get("usda_amount"), c.get("usda_unit"), c.get("foodb_content"))
-                 for c in (rec.get("components") or []))
+    # Sorted by the serialised row, not by native tuple order: a component whose
+    # exchange or concentration is null (honest absence, written by
+    # 40_remap_components) is not comparable to a string or a float, and Python's
+    # tuple sort raises on the first such pair. The multiset of rows is unchanged,
+    # so which media share a signature is unchanged; only the hash string moves.
+    key = sorted(((component_key(c), c.get("lower_bound"), c.get("upper_bound"),
+                   c.get("concentration_mM"), c.get("recipe_g_l"),
+                   c.get("usda_amount"), c.get("usda_unit"), c.get("foodb_content"))
+                  for c in (rec.get("components") or [])),
+                 key=lambda t: json.dumps(t, default=str))
     return hashlib.sha1(json.dumps(key, sort_keys=True,
                                    default=str).encode()).hexdigest()[:16]
 
