@@ -31,6 +31,7 @@ import glob
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -69,7 +70,13 @@ ARTIFACTS = [
      ["(none surviving)"], "dir"),
     ("data/index.json", "build_index.py", ["data/media/*.json"], "json:media"),
     ("data/stats.json", "build_index.py", ["data/media/*.json"], "json:count"),
-    ("data/coverage.json", "tools/enrich_coverage.py", ["data/media/*.json"], "json:media"),
+    # Attribution corrected: stage 39_recompute_coverage took authorship of the
+    # per-medium coverage blocks, tools/enrich_coverage.py refuses to run over a
+    # corpus carrying that stamp, and it was removed from `make derived`. The file
+    # is projected from the corpus by tools/build_coverage_index.py. The manifest
+    # named the wrong script, which is a provenance error in the one file whose job
+    # is provenance — `check()` now asserts the attribution mechanically.
+    ("data/coverage.json", "tools/build_coverage_index.py", ["data/media/*.json"], "json:media"),
     ("data/media_stats.json", "tools/build_media_stats.py",
      ["data/media/*.json", "tools/bigg_metabolite_dict.json"], "json:total"),
     ("data/presence_matrix.json", "tools/build_presence_matrix.py",
@@ -106,7 +113,15 @@ ARTIFACTS = [
      ["data/media/*.json"], "json:n_families"),
     ("data/web/tombstones.json", "tools/build_web_payload.py",
      ["data/_quarantine.json"], "json:n_withdrawn"),
+    ("data/web/twins.json", "tools/build_web_payload.py",
+     ["data/media/*.json"], "json:n_groups"),
 ]
+
+#: Directories whose every published file must be declared above. `make derived`
+#: rewrites all of these; an artifact that appears in one without a row here is
+#: unhashed, unstaged by CI and undetectable when it goes stale — which is exactly
+#: how data/web shipped a payload the manifest described but CI never committed.
+PAYLOAD_DIRS = ["data/web", "data/api", "data/cluster"]
 
 PROVENANCE = {
     "corpus_status": "frozen snapshot",
@@ -212,6 +227,184 @@ def build() -> dict:
     return man
 
 
+# ------------------------------------------------------- generator attribution
+# The manifest recorded tools/enrich_coverage.py as the generator of
+# data/coverage.json long after `make derived` stopped running it and stage 39 took
+# authorship of the numbers. Nothing noticed, because the attribution was prose. It
+# is now checked: the named script must exist, and it (or a module it imports from
+# this repository) must actually name the artifact it is credited with writing.
+
+def _local_import_closure(script_rel: str, seen=None) -> list[str]:
+    """Repo-local modules a script imports, transitively.
+
+    Needed because entrypoints delegate: tools/build_web_payload.py credits itself
+    with data/web/catalog.json, but the string 'catalog.json' lives in the module it
+    imports, tools/web_payload.py. Following the import is the difference between a
+    check that works and one that has to be switched off for five artifacts.
+    """
+    import ast
+    seen = seen if seen is not None else set()
+    path = os.path.join(REPO, script_rel)
+    if script_rel in seen or not os.path.exists(path):
+        return []
+    seen.add(script_rel)
+    with open(path, encoding="utf-8") as fh:
+        try:
+            tree = ast.parse(fh.read(), filename=path)
+        except SyntaxError:
+            return [script_rel]
+    names = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            names |= {a.name.split(".")[0] for a in node.names}
+        elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+            names.add(node.module.split(".")[0])
+    out = [script_rel]
+    here = os.path.dirname(path)
+    for n in sorted(names):
+        for cand in (os.path.join(here, n + ".py"),
+                     os.path.join(REPO, "tools", n + ".py"),
+                     os.path.join(REPO, n + ".py")):
+            if os.path.exists(cand):
+                out += _local_import_closure(os.path.relpath(cand, REPO), seen)
+                break
+    return out
+
+
+def _artifact_tokens(rel: str) -> list[str]:
+    """Strings that would appear in the script that writes `rel`.
+
+    Sharded and templated names are matched on their stem: media.jsonl.part01.gz is
+    written by a `%02d` format string, so the literal filename is never in the
+    source. Requiring the stem is still a real check — it fails if the credited
+    script has nothing to do with the artifact.
+    """
+    base = os.path.basename(rel.rstrip("/"))
+    toks = [base]
+    m = re.match(r"^(.*?)\.?part\d+(\..*)$", base)
+    if m:
+        toks.append(m.group(1) + m.group(2))
+        toks.append(m.group(1))
+    if base.endswith(".gz"):
+        toks.append(base[:-3])
+    return toks
+
+
+def check_attribution(man: dict) -> list[str]:
+    problems = []
+    for rel, e in man["artifacts"].items():
+        gen = e.get("generator", "")
+        if not gen.endswith(".py"):
+            continue                       # 'frozen snapshot — generators are dead'
+        if not os.path.exists(os.path.join(REPO, gen)):
+            problems.append("%s: generator %s does not exist" % (rel, gen))
+            continue
+        sources = _local_import_closure(gen)
+        blob = ""
+        for s in sources:
+            with open(os.path.join(REPO, s), encoding="utf-8", errors="replace") as fh:
+                blob += fh.read()
+        if not any(tok in blob for tok in _artifact_tokens(rel)):
+            problems.append(
+                "%s: the manifest credits %s, but neither it nor anything it imports "
+                "(%s) names %s — the attribution is wrong or the generator changed"
+                % (rel, gen, ", ".join(sources), os.path.basename(rel.rstrip("/"))))
+    return problems
+
+
+# --------------------------------------------------------- manifest vs the tree
+# Finding (c): `make derived` rewrites all of data/web/*, the manifest sha256-hashes
+# those five files, and the CI commit step did not stage them — so the first CI run
+# would have committed a manifest describing a payload it did not commit, and
+# nothing would have failed. This is the check that makes that class impossible: the
+# manifest is compared against what is COMMITTED, not against the working tree.
+
+def _git(*args) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", "-C", REPO, *args], capture_output=True, text=True)
+
+
+def check_tree(man: dict, rev: str = "HEAD") -> int:
+    problems, ignored = [], []
+    for rel, e in man["artifacts"].items():
+        if not e.get("present") or "sha256" not in e:
+            continue
+        if _git("check-ignore", "-q", rel).returncode == 0:
+            ignored.append(rel)
+            continue
+        if _git("ls-files", "--error-unmatch", rel).returncode != 0:
+            problems.append(
+                "%s: the manifest describes it and it exists on disk, but it is NOT "
+                "tracked by git — the published site would serve the previous "
+                "payload while the manifest advertised this one" % rel)
+            continue
+        blob = subprocess.run(["git", "-C", REPO, "cat-file", "blob",
+                               "%s:%s" % (rev, rel)], capture_output=True)
+        if blob.returncode != 0:
+            problems.append("%s: tracked, but not present in %s" % (rel, rev))
+            continue
+        got = hashlib.sha256(blob.stdout).hexdigest()
+        if got != e["sha256"]:
+            problems.append(
+                "%s: committed blob sha256 %s but the manifest records %s — the "
+                "manifest describes a payload that was not committed (regenerate and "
+                "stage both, or the site and the manifest disagree)"
+                % (rel, got[:16], e["sha256"][:16]))
+    if ignored:
+        print("not published from the repository (gitignored), digest not compared: %s"
+              % ", ".join(sorted(ignored)))
+    for p in problems:
+        print("MANIFEST/TREE PROBLEM:", p)
+    if not problems:
+        print("manifest agrees with the committed tree at %s (%d hashed artifacts)"
+              % (rev, sum(1 for e in man["artifacts"].values() if "sha256" in e)))
+    return 1 if problems else 0
+
+
+def artifact_paths(man: dict) -> list[str]:
+    """The paths CI must stage: every artifact the manifest declares and git tracks.
+
+    Derived from the manifest instead of hand-listed in the workflow, so relocating
+    an artifact (or adding one) updates what CI commits automatically. The hand-list
+    is how data/web went unstaged.
+    """
+    out = []
+    for rel in man["artifacts"]:
+        if rel.endswith("/"):
+            # data/media/ — the corpus, an input, not something a build writes.
+            # `make promote` is the only step allowed to change it, and the workflow
+            # asserts `make derived` did not. CI must never stage it.
+            continue
+        p = rel.rstrip("/")
+        if _git("check-ignore", "-q", p).returncode == 0:
+            continue
+        if not os.path.exists(os.path.join(REPO, p)):
+            continue
+        out.append(p)
+    return sorted(set(out))
+
+
+def check_complete(man: dict) -> list[str]:
+    """Every published file in a payload directory must have a manifest row."""
+    declared = {rel.rstrip("/") for rel in man["artifacts"]}
+    problems = []
+    for d in PAYLOAD_DIRS:
+        root = os.path.join(REPO, d)
+        if not os.path.isdir(root):
+            continue
+        for f in sorted(os.listdir(root)):
+            rel = "%s/%s" % (d, f)
+            if os.path.isdir(os.path.join(root, f)) or rel in declared:
+                continue
+            if _git("check-ignore", "-q", rel).returncode == 0:
+                continue                     # deliberately not published
+            problems.append(
+                "%s is published but has no row in data/MANIFEST.json — it is "
+                "unhashed, so nothing can tell a fresh copy from a stale one, and "
+                "CI (which stages the manifest's own artifact list) will not commit "
+                "it. Add it to ARTIFACTS in tools/build_manifest.py." % rel)
+    return problems
+
+
 def check(man: dict) -> int:
     """Re-verify the recorded digests and the count identity. Non-zero on drift."""
     problems = []
@@ -228,6 +421,8 @@ def check(man: dict) -> int:
     if not man["catalog_count_identity"]["agree"]:
         problems.append("catalogue counts disagree: %s"
                         % man["catalog_count_identity"]["counts"])
+    problems += check_attribution(man)
+    problems += check_complete(man)
     for p in problems:
         print("MANIFEST PROBLEM:", p)
     return 1 if problems else 0
@@ -237,13 +432,25 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true",
                     help="verify the committed manifest against the artifacts on disk")
+    ap.add_argument("--check-tree", action="store_true",
+                    help="verify the manifest against what git has COMMITTED at --rev")
+    ap.add_argument("--rev", default="HEAD", help="revision for --check-tree")
+    ap.add_argument("--paths", action="store_true",
+                    help="print the tracked artifact paths CI must stage, one per line")
     a = ap.parse_args()
-    if a.check:
+    if a.check or a.check_tree or a.paths:
         if not os.path.exists(OUT):
             print("no manifest at %s — run `python3 tools/build_manifest.py`" % OUT)
             sys.exit(1)
         with open(OUT, encoding="utf-8") as fh:
-            sys.exit(check(json.load(fh)))
+            man = json.load(fh)
+        if a.paths:
+            print("\n".join(artifact_paths(man)))
+            sys.exit(0)
+        rc = check(man) if a.check else 0
+        if a.check_tree:
+            rc |= check_tree(man, a.rev)
+        sys.exit(rc)
     m = build()
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump(m, fh, indent=1)
