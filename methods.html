@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MediaDB: methods, limits and the records we withdrew</title>
-<meta name="description" content="What a MediaDB record is and is not: how component identity is decided, what coverage means, which components the pipeline supplied rather than the source, what the bounds are and are not, the per-source licence schedule, and the media that were assessed and withdrawn.">
+<title>MediaDB: methods and limitations</title>
+<meta name="description" content="What a MediaDB record is and is not: how each component's identity is decided and how far it can be trusted, what the coverage fractions divide by, which components the pipeline supplies, what the bounds encode, the per-source licence schedule, and the records withdrawn from the library.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,20 +60,22 @@
     <p class="muted" style="font-size:var(--t-cap);margin-top:var(--s3)" id="release-stamp"></p>
   </div>
 
-  <h2 id="identity" style="margin-top:var(--s7)">How a component's identity was decided</h2>
+  <h2 id="identity" style="margin-top:var(--s7)">How a component's identity is decided</h2>
   <p style="margin-top:var(--s3)">Each component in this library is a claim that a named
     ingredient is a particular molecule, and for
     <span id="identity-bigg">nearly all of them</span> that it is a particular BiGG
-    exchange reaction. The pipeline records how each of those claims was reached, and
-    groups the twelve recorded evidence tiers into six classes. The classes are ordered
-    by the strength of the evidence.</p>
+    exchange reaction. The record keeps the evidence behind each of those claims: twelve
+    recorded evidence tiers, grouped into six classes and ordered by the strength of the
+    evidence.</p>
   <div class="note caution" style="margin-top:var(--s3)">
-    <b>The most important thing on this page.</b>
-    <p style="margin-top:var(--s1)">An earlier release of this resource labelled 42% of
-      components <code>exact</code> and rendered that word in bold green as its trust
-      signal. Almost all of those were a hard-coded English-label lookup, not a chemical
-      identity check. The word has been withdrawn. What is published now is what actually
-      decided the identity, and for most components that is a name string.</p>
+    <b>A name match is a fallback, not a confirmation.</b>
+    <p style="margin-top:var(--s1)">For most components the deciding evidence is a name
+      string, not a chemical identity check. A name match cannot detect that a source's
+      "Cystine" is a different molecule from L-cysteine, that a "MUFA 18:1" measurement
+      pooled every 18:1 isomer, or that "Vitamin B-6" names a vitamer group rather than
+      pyridoxine. Where the pipeline collapses a class onto one representative molecule,
+      the component says so in the <b>class or assertion</b> tier rather than presenting
+      the assumption as a measurement.</p>
   </div>
   <div class="card card-p" style="margin-top:var(--s4)">
     <div id="ev-bar"></div>
@@ -86,26 +88,19 @@
     </table>
   </div>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
-    A name match is a fallback, not a confirmation. It cannot detect that a source's
-    "Cystine" is a different molecule from L-cysteine, that a "MUFA 18:1" measurement
-    pooled every 18:1 isomer, or that "Vitamin B-6" is a vitamer group rather than
-    pyridoxine. Where the pipeline collapsed a class onto one representative molecule it
-    says so, in the <b>class or assertion</b> tier, rather than presenting the assumption
-    as a measurement.
+    Read the classes as how far the identity can be trusted. Structure-verified rests on
+    a structural cross-reference and identifier-verified on a database id the source
+    itself supplied; name-matched rests on a string; class or assertion records a
+    deliberate simplification; pipeline-derived components are not in the source at all;
+    unresolved components carry no identity claim. The evidence class is on every
+    component, in the browser and in the data, so a record can be filtered by it.
   </p>
 
-  <h2 id="exchange" style="margin-top:var(--s7)">Where the exchange ids actually landed</h2>
+  <h2 id="exchange" style="margin-top:var(--s7)">Where the exchange ids land</h2>
   <p style="margin-top:var(--s3)">The point of this resource is that a component
     carries a BiGG exchange reaction a genome-scale model can accept. Nearly every one
-    does. Not all of them do, and the exceptions are named here rather than rounded
-    away.</p>
+    does; the exceptions are counted and listed rather than rounded away.</p>
   <div class="barlist" id="exchange-bands" style="margin-top:var(--s3)"></div>
-  <div class="note caution" style="margin-top:var(--s3)">
-    <b>An earlier release of this page said every component was mapped to a BiGG
-      exchange.</b>
-    <p style="margin-top:var(--s1)" id="exchange-correction">It was the loudest
-      sentence on the site and it was not true of every component.</p>
-  </div>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
     A fallback id is not a near miss. <code>EX_cpd15137_e</code> is a ModelSEED
     identifier in exchange position: it names a real compound, and no BiGG model has a
@@ -116,9 +111,10 @@
     no single molecular identity to establish; they are listed, never dropped.
   </p>
 
-  <h2 id="coverage" style="margin-top:var(--s7)">What coverage means, and what it used to mean</h2>
+  <h2 id="coverage" style="margin-top:var(--s7)">What each coverage fraction divides by</h2>
   <p style="margin-top:var(--s3)">Three different fractions can be called "coverage" and
-    they do not agree. This resource publishes all three and names each one.</p>
+    they do not agree. This resource publishes all three and names what each divides by;
+    only the first is displayed as a quality signal.</p>
   <div class="tablewrap" style="margin-top:var(--s3)">
     <table class="grid">
       <thead><tr><th>Field</th><th>What it divides by</th><th>Status</th></tr></thead>
@@ -134,18 +130,18 @@
           <td>Of the components the source states, the share that reached a BiGG
             metabolite id rather than a non-BiGG fallback or nothing. Its denominator
             is components the record already carries, <b>not</b> the source's
-            ingredient list, so it is not a coverage measure at all.</td>
-          <td>Published on each record. Null where the source states nothing.
-            <b>Renamed</b> from <code>pct_covered_observed</code> on 2026-09-06:
-            that name read as coverage while the value was
-            <span id="rename-constant">100.0 on most records</span>.</td>
+            ingredient list, so it is not a coverage measure.</td>
+          <td>Published on each record; null where the source states no ingredient
+            list. Older data exports name this field
+            <code>pct_covered_observed</code>.</td>
         </tr>
         <tr>
           <td><code>pct_covered</code></td>
-          <td>Every component the record ended up with, including the ones the pipeline
-            invented. That ratio is necessarily near 100% and carries no information.</td>
-          <td><b>Deprecated.</b> Kept in the data because it was published, never rendered
-            here as a quality signal.</td>
+          <td>Every component the record ends up with, including the ones the pipeline
+            supplies. That ratio is necessarily near 100% and carries no
+            information.</td>
+          <td><b>Deprecated.</b> Present in the data for compatibility with existing
+            consumers; never rendered here as a quality signal.</td>
         </tr>
       </tbody>
     </table>
@@ -203,7 +199,7 @@
     these media changes nothing a solver can see.</p>
   <div class="figures" id="degeneracy-figures" style="margin-top:var(--s3)"></div>
   <div class="note caution" style="margin-top:var(--s3)">
-    <b>This is disclosed, not fixed.</b>
+    <b>Duplicates are labelled, never merged.</b>
     <p style="margin-top:var(--s1)" id="degeneracy-note">Measuring the library.</p>
   </div>
   <p style="margin-top:var(--s3)">Two things drive it. Most bounds in this library are
@@ -211,34 +207,33 @@
     compounds at different amounts collapse onto the same constraint set. And many
     formulations genuinely differ only in something a medium record does not encode:
     an agar concentration, a pH, a preparation step, a sterilisation regime.</p>
-  <p style="margin-top:var(--s3)">Nothing is merged and nothing is deleted. Each record
-    keeps its own provenance and citation, because which paper a formulation came from
-    is a real difference even when the constraint set is not. The record sheet names the
-    other media that produce the identical model input, the catalog carries
+  <p style="margin-top:var(--s3)">Which paper a formulation came from is a real
+    difference even when the constraint set is not, so each record keeps its own
+    provenance and citation. The record sheet names the other media that produce the
+    identical model input, the catalog carries
     <code>n_media_with_identical_model_input</code> and
     <code>model_input_signature</code> per record, and the complete groups are published
     at <code>data/web/twins.json</code>. Adding each component's source-stated
-    concentration to the comparison — a stricter test than any solver applies — leaves
+    concentration to the comparison, a stricter test than any solver applies, leaves
     <span id="degeneracy-conc">most of them</span> still indistinguishable.</p>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
     This is a different measurement from <code>composition_identical_to</code>, which
-    the naming stage writes for records whose <em>quantitative signature</em> matches
-    inside one base-medium family. That field covers 1,497 records. The comparison here
-    is library-wide and ignores family, name and source entirely.
+    is written for records whose <em>quantitative signature</em> matches inside one
+    base-medium family. That field covers 1,497 records. The comparison here is
+    library-wide and ignores family, name and source entirely.
   </p>
 
   <h2 id="oxygen" style="margin-top:var(--s7)">Oxygen regime</h2>
   <p style="margin-top:var(--s3)">The oxygen regime decides whether you open or close
     <code>EX_o2_e</code>, which is the single most consequential bound in an FBA medium.
-    It has four states here, and one of them is "we do not know".</p>
+    It has four states here, and one of them is "unknown".</p>
   <div class="barlist" id="oxygen-bands" style="margin-top:var(--s3)"></div>
   <div class="note caution" style="margin-top:var(--s3)">
-    <b>An earlier release displayed the unknowns as "anaerobic".</b>
-    <p style="margin-top:var(--s1)">A missing value fell through a boolean test into the
-      anaerobic branch, and the oxygen filter returned those records as confirmed
-      anaerobes. Unknown is now its own state, in the table, in the filter and on the
-      record. A facultative regime is also shown as facultative and is not evidence that
-      the organism is an aerobe.</p>
+    <b>Unknown is its own state.</b>
+    <p style="margin-top:var(--s1)">A record whose source does not state an oxygen regime
+      is counted as unknown, in the table, in the filter and on the record; it is never
+      folded into anaerobic. A facultative regime is shown as facultative and is not
+      evidence that the organism is an aerobe.</p>
   </div>
 
   <h2 id="families-method" style="margin-top:var(--s7)">Base-medium families</h2>
@@ -258,24 +253,21 @@
 
   <h2 id="licensing" style="margin-top:var(--s7)">Licensing is per source, not per repository</h2>
   <p style="margin-top:var(--s3)">There is no blanket data licence here. Each record
-    carries the terms of the source it came from. An earlier release placed the whole of
-    <code>data/</code> under CC BY 4.0, which grants commercial use;
+    carries the terms of the source it came from, and
     <span id="licence-restricted">some records</span> come from sources that grant no
-    such right. Nothing was removed to fix that. Every record ships, labelled, and the
-    browser can filter for the commercially usable subset.</p>
+    commercial use. Every record ships, labelled, and the browser can filter for the
+    commercially usable subset.</p>
   <div class="note stop" style="margin-top:var(--s3)">
-    <b>On the 471 MediaDB (ISB) records, stated plainly.</b>
+    <b>The 471 MediaDB (ISB) records.</b>
     <p style="margin-top:var(--s1)">The only statement on the upstream page (read
       2026-09-06, first-party) is "(c) 2014, Institute for Systems Biology, All Rights
       Reserved". <b>No reuse grant of any kind is offered, and redistribution permission
-      has not been obtained.</b> This project has not been given permission and does not
-      claim it. The records are kept rather than deleted — they are the single largest
-      seam of quantitative data here, <span id="isb-quant-share">the largest single
-      share of the non-null concentration values</span> — and are labelled
-      all-rights-reserved, marked
+      has not been obtained.</b> The records are kept rather than deleted: they are the
+      single largest seam of quantitative data here, holding
+      <span id="isb-quant-share">the largest single share of the non-null concentration
+      values</span>. They are labelled all-rights-reserved, marked
       <code>commercial_use_ok: false</code> and excluded from the commercially usable
-      subset while permission is sought. If you need a subset you can redistribute,
-      filter them out.</p>
+      subset. If you need a subset you can redistribute, filter them out.</p>
   </div>
   <div class="tablewrap" style="margin-top:var(--s3)">
     <table class="grid">
@@ -291,32 +283,35 @@
     the formulation.
   </p>
 
-  <h2 id="reproducibility" style="margin-top:var(--s7)">Reproducibility, stated honestly</h2>
+  <h2 id="reproducibility" style="margin-top:var(--s7)">Reproducibility</h2>
   <div class="note stop" style="margin-top:var(--s3)">
-    <b>The original builders cannot be re-run.</b>
-    <p style="margin-top:var(--s1)">Nineteen generator scripts hard-coded a temporary
-      scratchpad directory that has since been deleted, and the raw upstream payloads were
-      never committed. For most of this library <code>data/media/*.json</code> is the only
-      surviving copy. That is a limitation of this resource and it is not recoverable by
-      re-running anything.</p>
+    <b>The corpus is a frozen snapshot.</b>
+    <p style="margin-top:var(--s1)">The raw upstream payloads behind the
+      literature-derived records were not retained, so <code>data/media/*.json</code> is
+      the authoritative copy: the library cannot be regenerated from its original inputs.
+      Re-running the literature extraction would file different compositions under the
+      same citations, so it is not run.</p>
   </div>
-  <p style="margin-top:var(--s3)">Corrections are therefore made as transform stages: a
-    stage reads the corpus and writes a corrected corpus, and the chain of stages, run in a
-    recorded order, is the pipeline. No correction is hand-edited into the data. The stage
-    that builds everything this browser reads is
-    <code>tools/stages/52_web_payload.py</code>, and it asserts its own numbers against the
-    corpus before the payload is written.</p>
+  <p style="margin-top:var(--s3)">Corrections are applied as transform stages: a stage
+    reads the corpus and writes a corrected corpus, and the chain of stages, run in a
+    recorded order, is the pipeline. No correction is hand-edited into the data.
+    <code>make reproduce</code> runs the whole chain from the committed baseline in
+    <code>data/_baseline/</code> and compares the result to the corpus that ships. The
+    payload this page reads is built by <code>tools/build_web_payload.py</code>, which
+    asserts its own numbers against the corpus before the payload is written.</p>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
-    Public upstream sources (USDA, MediaDive, BiGG, MetaNetX) have been re-acquired and
-    checksummed into <code>data/_sources/</code>, so they can be compared against. The
-    literature-derived records came from extraction batches that no longer exist; re-running
-    that miner would file different compositions under the same citations, so it is not run.
+    Public upstream sources (USDA, MediaDive, BiGG, MetaNetX) are checksummed into
+    <code>data/_sources/</code>, so every mapping can be compared against the source it
+    came from.
   </p>
 
-  <h2 id="withdrawn" style="margin-top:var(--s7)">Records that were assessed and withdrawn</h2>
-  <p style="margin-top:var(--s3)">A verification pass read source publications and rejected
-    media it could not support. Those records are not served, and until now nothing on the
-    site said so. They are listed here with the reason, because a rejection is a result.</p>
+  <h2 id="withdrawn" style="margin-top:var(--s7)">Records withdrawn from the library</h2>
+  <p style="margin-top:var(--s3)">A record is withdrawn when a verification pass against
+    its cited source cannot support it: the composition promises ingredients the source
+    does not contain, the source cannot be found, or the entry is not a growth medium at
+    all. Withdrawn records are not served by the browser or the API. They are listed
+    here with the reason, because a withdrawn record may still be cited elsewhere and
+    its identifier deserves an answer.</p>
   <div class="note" style="margin-top:var(--s3)">
     <b>This count has no denominator.</b>
     <p style="margin-top:var(--s1)" id="withdrawn-denominator">The verification pass
@@ -347,8 +342,8 @@
     <li>Cross-references shown against a component describe the BiGG metabolite that was
       chosen. They were not used to choose it, so they cannot contradict it and they are
       not independent evidence.</li>
-    <li>The corpus is a frozen snapshot whose original generators are gone, so it cannot be
-      rebuilt from its raw inputs. Corrections are made forward, as stages.</li>
+    <li>The corpus is a frozen snapshot and cannot be regenerated from its raw upstream
+      inputs. Corrections are applied forward, as recorded transform stages.</li>
     <li id="limit-degeneracy">Records are not deduplicated by their model input, and
       a large fraction of the library is degenerate under it.</li>
     <li id="limit-exchange">Not every component reaches a BiGG exchange. A small
@@ -464,29 +459,13 @@
       ]));
     });
 
-    /* where the exchange ids landed ------------------------------------- */
+    /* where the exchange ids land ---------------------------------------- */
     const xr = cat.exchange_resolution;
     bars($('exchange-bands'), [
       ['A BiGG exchange reaction', xr.n_bigg_exchange],
       ['A non-BiGG fallback id no BiGG model accepts', xr.n_nonbigg_fallback],
       ['No exchange reaction at all', xr.n_no_exchange]
     ], xr.of);
-    $('exchange-correction').textContent =
-      'It was true of ' + MDB.withDenominator(xr.n_bigg_exchange, xr.of,
-        'components') + ', and the ' + fmt(xr.n_nonbigg_fallback + xr.n_no_exchange) +
-      ' exceptions were the ones a reader most needed told. The same sentence also ' +
-      'said every component carried cross-references: ' +
-      MDB.withDenominator(cat.cross_references.n_components_with_none,
-        cat.cross_references.of, 'components') + ' carry none.';
-
-    /* the renamed near-constant ------------------------------------------ */
-    const rn = (cat.field_renames || []).find(
-      (f) => f.old === 'pct_covered_observed');
-    if (rn && rn.measured) {
-      $('rename-constant').textContent = '100.0 on ' + MDB.withDenominator(
-        rn.measured['n_records_where_the_value_is_100.0'], rn.measured.of,
-        'records');
-    }
 
     /* two media, one model input ------------------------------------------ */
     const dg = cat.model_input_degeneracy;
@@ -500,7 +479,7 @@
       figure(fmt(dg.largest_group), 'media in the largest identical group',
         'one constraint set, that many records'));
     $('degeneracy-note').textContent =
-      'No record was merged and none was deleted. ' +
+      'No record is merged and none is deleted. ' +
       MDB.withDenominator(dg.n_media_sharing_a_model_input, dg.of, 'media') +
       ' fall into ' + fmt(dg.n_groups) + ' groups whose members hand a solver the ' +
       'identical constraint set. Each keeps its own name, source and citation, and ' +
@@ -508,9 +487,7 @@
     $('degeneracy-conc').textContent = MDB.withDenominator(
       dg.n_media_sharing_a_model_input_with_concentrations, dg.of, 'media');
 
-    /* the largest seam of quantitative data, measured not typed ----------- */
-    // This sentence carried a typed "8,397 of 14,341 (58.6%)" that outlived the
-    // correction which nulled 296 absences encoded as 0.0. It is bound now.
+    /* the largest contributor of concentration values, from the payload ---- */
     const cp = cat.concentration_provenance;
     if (cp && cp.largest_contributor) {
       $('isb-quant-share').textContent = MDB.withDenominator(
@@ -582,7 +559,7 @@
         cat.cross_references.of, 'components') + ' carry none at all.';
 
     $('upper-bound-count').textContent = MDB.withDenominator(
-      media.n_media_source_coverage_is_upper_bound, cat.count, 'media');
+      media.n_media_source_coverage_is_upper_bound, cat.count);
 
     const cb = cat.coverage_bands_source;
     bars($('coverage-bands'), [
