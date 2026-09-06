@@ -260,6 +260,11 @@ make promote        # back up data/media, then promote the corrected corpus over
 `make promote` is the only command that writes `data/media/`, and it backs the corpus up
 first, refuses a corpus the runner did not produce, and never deletes a record.
 
+[`docs/PUSH_CHECKLIST.md`](docs/PUSH_CHECKLIST.md) is the order to run these in before a
+push, and it carries the one thing still outstanding afterwards: the `data-v1` release
+that will host the bulk SQLite and JSONL exports has not been created yet, so those two
+files are built locally (`make release-assets`) and every document says so.
+
 ### What a fresh clone can and cannot reproduce
 
 The chain's **input ships with the repository**: `data/_baseline/media_corpus_2026-09-06.tar.xz`,
