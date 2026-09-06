@@ -205,10 +205,10 @@
   }
  },
  "bulk_download": {
-  "status": "planned",
-  "where": "GitHub Release data-v1 \u2014 PLANNED, NOT YET CREATED. Nothing is served from the URL below yet; build the files locally instead (see how_to_get_them_now).",
+  "status": "published",
+  "where": "GitHub Release data-v1",
   "url_prefix": "https://github.com/omidard/Media/releases/download/data-v1",
-  "url_prefix_is": "where the assets WILL be served from; requests to it answer 404 today",
+  "url_prefix_is": "the prefix each asset is served from",
   "files": [
    "media.sqlite.gz",
    "media.jsonl.part01.gz"

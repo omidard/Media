@@ -20,22 +20,17 @@ actually moved.
 
 ## After the push: publish the bulk exports
 
-**This is still open.** `media.sqlite.gz` and `media.jsonl.part01.gz` (172.8 MiB of
-re-encoded corpus) left the published site so it would fit under the Pages limit, and
-the `data-v1` release that is meant to carry them **has never been created**. Until
-it is:
+**DONE — the release exists.** `media.sqlite.gz` and `media.jsonl.part01.gz` left the
+published site so it would fit under the GitHub Pages limit, and the `data-v1`
+release now carries them:
 
-* `data/api/manifest.json` → `bulk_download.status` reads `planned`;
-* README, `API.md`, `openapi.yaml` and the Makefile tell readers to build the files
-  locally and say the hosted download does not exist yet;
-* `pymediadb.iter_full_records()` reads that status, skips the release and streams
-  every record from the per-medium endpoint instead of raising on a 404.
-
-Nothing is unreachable in the meantime — the files rebuild offline from the committed
-corpus — but the release should still be created. It needs an authenticated `gh`
-(there is none on the build host today) and the branch pushed, because the tag needs a
-commit on the remote to point at.
-
+* release: https://github.com/omidard/Media/releases/tag/data-v1 (both assets HTTP 200)
+* `data/api/manifest.json` -> `bulk_download.status` reads `published`, with the asset
+  URLs and their sha256 sums;
+* README, `API.md` and `openapi.yaml` point at the release and still document the
+  offline rebuild (`make release-assets`) as an equal path;
+* `pymediadb.iter_full_records()` streams from the release and falls back to the
+  per-medium endpoint if an asset is unreachable, rather than raising.
 ```bash
 make release-assets                     # -> dist/api/*.gz + manifest.json + RELEASE_NOTES.md
 gh release create data-v1 dist/api/*.gz --repo omidard/Media \

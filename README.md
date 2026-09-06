@@ -129,11 +129,12 @@ host**: GitHub Pages publishes the repository root and refuses a published site 
 1 GiB, and both are a re-encoding of `data/media`, which stays published because the
 browser fetches `data/media/{id}.json` at runtime.
 
-**There is no hosted download of those two files yet.** The `data-v1` release is
-planned, not created; `data/api/manifest.json` → `bulk_download.status` says
-`planned`, and `pymediadb` reads that rather than sending you to a 404. Build them
-yourself instead — the corpus they re-encode ships in this repository, so the build
-is offline and takes one command:
+**Both files are hosted on the [`data-v1` release](https://github.com/omidard/Media/releases/tag/data-v1).**
+`data/api/manifest.json` → `bulk_download.status` reads `published` and carries the
+asset URLs and their sha256 sums; `pymediadb` streams from the release and falls back
+to the per-medium endpoint if an asset is unreachable. You can also rebuild them
+yourself — the corpus they re-encode ships in this repository, so the build is
+offline and takes one command:
 
 ```bash
 git clone https://github.com/omidard/Media && cd Media

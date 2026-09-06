@@ -1,7 +1,7 @@
 {
  "schema": "mediadb-artifact-manifest/1",
- "built_utc": "2026-09-06T13:22:43Z",
- "git_head": "23f6ef625facedded72b62926ff3ede1c3d875d5",
+ "built_utc": "2026-09-06T13:46:01Z",
+ "git_head": "84a20f3e309debd692e74088361ffb803e187c54",
  "stamp_policy": "built_utc, git_head and each artifact's mtime_utc date the build that last CHANGED what is described here; a rebuild that reproduces the same bytes leaves this file untouched. `make derived` is therefore idempotent, and a git diff on a derived artifact means its CONTENT moved \u2014 which is what makes `--check-tree` a usable gate rather than one that is red on every clean tree.",
  "provenance": {
   "corpus_status": "frozen snapshot",
@@ -39,7 +39,7 @@
    "bytes": 18348224,
    "sha256": "be4b6cb1f9c252edc53de142dca35f1043e92ab2880698483a70be4f13192959",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T13:22:01Z"
+   "mtime_utc": "2026-09-06T13:45:17Z"
   },
   "data/refs.json": {
    "generator": "tools/stages/60_dedupe_references.py",
@@ -61,7 +61,7 @@
    "bytes": 6730,
    "sha256": "46efd0af58b5c8fb6cb78526aebb135b38e34196357cadd3965934fd27bc71a9",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T13:22:01Z"
+   "mtime_utc": "2026-09-06T13:45:17Z"
   },
   "data/coverage.json": {
    "generator": "tools/build_coverage_index.py",
@@ -72,7 +72,7 @@
    "bytes": 4646533,
    "sha256": "13c5d51ff7a9812d7542478ad788eadf64989c6d483dec65fcaf27a66d0c27b7",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T13:21:53Z"
+   "mtime_utc": "2026-09-06T13:45:08Z"
   },
   "data/media_stats.json": {
    "generator": "tools/build_media_stats.py",
@@ -84,7 +84,7 @@
    "bytes": 7837,
    "sha256": "98b935a101503f26061efe8c967c0bcfa6b45ff613e26148e17f408c1e840890",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T13:22:28Z"
+   "mtime_utc": "2026-09-06T13:45:45Z"
   },
   "data/presence_matrix.json": {
    "generator": "tools/build_presence_matrix.py",
@@ -96,7 +96,7 @@
    "bytes": 2920464,
    "sha256": "41aa4cfd899fdb21a2a9ff019842e6ef5fd038c747d6b3caa6475f7233d1a7fc",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T13:22:34Z"
+   "mtime_utc": "2026-09-06T13:45:52Z"
   },
   "data/api/manifest.json": {
    "generator": "tools/build_api_exports.py",
@@ -104,10 +104,10 @@
     "data/index.json"
    ],
    "present": true,
-   "bytes": 9315,
-   "sha256": "86288a13785bda581eb216026a3b64ccd358f1ad99c35925049537b0bf50207d",
+   "bytes": 9150,
+   "sha256": "d4cf1dee7182d1d9bddc22888cc2a469de5e1f85f7297079cad7eaa2471872d7",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T13:22:20Z"
+   "mtime_utc": "2026-09-06T13:45:36Z"
   },
   "data/api/media.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -119,7 +119,7 @@
    "bytes": 880062,
    "sha256": "8e0ce1c418d18f7c26be8fa0fba3973617b1f445b479b7e5580662eb2d87a14d",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T13:22:11Z"
+   "mtime_utc": "2026-09-06T13:45:27Z"
   },
   "data/api/components.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -131,7 +131,7 @@
    "bytes": 4971879,
    "sha256": "33bfe6139fe92fc85a438a6307dbad030683d05a4d3441fe93abcd3e6790092b",
    "rows": 665582,
-   "mtime_utc": "2026-09-06T13:22:18Z"
+   "mtime_utc": "2026-09-06T13:45:34Z"
   },
   "data/cluster/clustergram.json": {
    "generator": "tools/build_cluster_data.py",
@@ -143,7 +143,7 @@
    "bytes": 42026,
    "sha256": "282638848a2288b6443a210909bc16aa518a4347f782e2da6695ab01406d9a17",
    "rows": null,
-   "mtime_utc": "2026-09-06T13:22:22Z"
+   "mtime_utc": "2026-09-06T13:45:39Z"
   },
   "data/cluster/cooccurrence.json": {
    "generator": "tools/build_cluster_data.py",
@@ -155,7 +155,7 @@
    "bytes": 50333,
    "sha256": "79587cea181e3f51806cca8d083ed626feb622c18357ce9524404da07b4b31c2",
    "rows": null,
-   "mtime_utc": "2026-09-06T13:22:22Z"
+   "mtime_utc": "2026-09-06T13:45:39Z"
   },
   "data/_quarantine.json": {
    "generator": "tools/apply_verification.py",

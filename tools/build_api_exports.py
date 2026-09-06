@@ -80,7 +80,7 @@ RELEASE_FILES = ["media.sqlite.gz", "media.jsonl.part01.gz"]
 #:     gh release create data-v1 dist/api/* --repo omidard/Media --notes-file ...
 #:     curl -sSIL -o /dev/null -w '%{http_code}\n' \
 #:       https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz
-RELEASE_STATUS = "planned"
+RELEASE_STATUS = "published"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)

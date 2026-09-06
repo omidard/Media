@@ -105,10 +105,10 @@ paths:
   # one record at a time, they measured 172.8 MiB, and GitHub Pages refuses a
   # published site over 1 GiB.
   #
-  # They are NOT hosted anywhere yet: the `data-v1` release is planned and has not
-  # been created, so do not send a client to
-  # https://github.com/omidard/Media/releases/download/data-v1/... — it answers 404.
-  # Build them from a clone instead, offline, from the committed corpus:
+  # They are hosted on the `data-v1` release:
+  # https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz
+  # https://github.com/omidard/Media/releases/download/data-v1/media.jsonl.part01.gz
+  # They can also be rebuilt from a clone, offline, from the committed corpus:
   #
   #     make release-assets      # -> dist/api/
   #

@@ -155,15 +155,15 @@ make release-assets
 
 ```json
 "bulk_download": {
-  "status": "planned",
+  "status": "published",
   "url_prefix": "https://github.com/omidard/Media/releases/download/data-v1",
-  "url_prefix_is": "where the assets WILL be served from; requests to it answer 404 today",
+  "url_prefix_is": "the prefix each asset is served from",
   "how_to_get_them_now": { "build_from_a_clone": ["...", "make release-assets"] }
 }
 ```
 
-A client reads `status` instead of guessing: `pymediadb.iter_full_records()` skips
-the release while it is `planned`, uses it when it flips to `published`, and falls
+A client reads `status` instead of guessing: `pymediadb.iter_full_records()` uses the
+release now that it is `published`, would skip it were it `planned`, and falls
 back to the per-medium endpoint if an advertised asset turns out to be unreachable —
 it yields all 13,515 records on every one of those paths and raises on none of them.
 Nothing became unreachable when the files left the repository: every full record is
