@@ -123,20 +123,29 @@ schemas in the manifest.
 GET /data/api/manifest.json        # version, totals, file inventory, column schemas
 GET /data/api/media.parquet        # one row per medium (summary + provenance)
 GET /data/api/components.parquet    # one row per (medium, component), tidy/long form
-GET /data/api/media.sqlite.gz       # SQLite: media + components tables, indexed (gunzip first)
-GET /data/api/media.jsonl.part01.gz # one full medium record per line, gzipped (streamable)
-GET /data/api/media.jsonl.part02.gz # ... sharded: see the note below
+GET /data/refs.json                # cross-reference and note tables; join on xref_id
 ```
 
 Parquet is queryable **in place over HTTP** — no download step.
 
-The JSON Lines export is **sharded**. The single file is 141 MB against the
-corrected corpus, past GitHub's 100 MiB per-file hard limit, so it ships as
-`media.jsonl.partNN.gz`. Concatenating the parts in name order reproduces the
-original stream byte for byte, so `cat media.jsonl.part*.gz | gunzip` is a drop-in
-replacement for the old endpoint. The parts and their row counts are listed in
-`data/api/manifest.json`; `tools/build_api_exports.py` asserts that no artifact
-exceeds the budget, so this cannot silently regress into an unpushable file again.
+**The SQLite database and the JSON Lines shards are not served from this host.**
+GitHub Pages publishes the repository root and refuses a published site over 1 GiB,
+and those two files are a re-encoding of `data/media`, which stays published because
+the browser fetches `data/media/{id}.json` at runtime. They are distributed as assets
+on the **`data-v1` GitHub Release**:
+
+```bash
+gh release download data-v1 --repo omidard/Media --pattern '*'
+# or, without gh:
+curl -LO https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz
+```
+
+`data/api/manifest.json` -> `bulk_download` carries the URL prefix, the file list and
+that command, so a client resolves it rather than guessing. Nothing became
+unreachable: every full record is still fetchable one at a time at
+`/data/media/{id}.json`, the parquet pair is still here and queryable over HTTP, and
+`pymediadb.iter_full_records()` streams the release when it is present and falls back
+to the per-medium endpoint when it is not.
 
 ---
 

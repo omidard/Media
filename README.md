@@ -113,10 +113,17 @@ GET  data/index.json              # catalog: counts + one summary per medium
 GET  data/media/{id}.json          # full record for one medium
 GET  data/api/media.parquet        # bulk: one row per medium
 GET  data/api/components.parquet    # bulk: one row per (medium, component)
-GET  data/api/media.sqlite.gz       # SQLite (media + components, indexed)
-GET  data/api/media.jsonl.part01.gz # all full records, one JSON per line
-GET  data/api/media.jsonl.part02.gz # ... sharded; concatenate in name order
+GET  data/refs.json                # cross-reference + note tables (join on xref_id)
 GET  data/api/manifest.json         # version, totals, file inventory, schemas
+```
+
+The gzipped SQLite database and the JSON Lines shards are **not served from this
+host**: GitHub Pages publishes the repository root and refuses a published site over
+1 GiB, and both are a re-encoding of `data/media`, which stays published because the
+browser fetches `data/media/{id}.json` at runtime. They are release assets:
+
+```bash
+gh release download data-v1 --repo omidard/Media --pattern '*'
 ```
 
 Query the bulk Parquet in place, without downloading, via DuckDB:
