@@ -81,6 +81,9 @@ STATED_DOCS = [
     "openapi.yaml", "index.html", "methods.html", "compare.html", "families.html",
     "patterns.html", "tools/licenses.tsv", "client/README.md",
     "client/pymediadb/__init__.py", "assets/media.js",
+    # The deploy-surface manifest is read by /gate4 and states the denominators the
+    # headline claims are checked against; it is a claim surface like any other.
+    "docs/DEPLOY_SURFACE.tsv", "docs/PUSH_CHECKLIST.md",
 ]
 
 #: "<n> of <m> [non-null] concentration[_mM] values". m is the denominator that went stale.
