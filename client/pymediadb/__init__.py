@@ -197,14 +197,26 @@ class MediaDB:
 
     def resolve_record(self, rec: Dict[str, Any]) -> Dict[str, Any]:
         """Join the reference tables into one published record."""
-        refs = self.refs()
-        xrefs, notes = refs.get("xrefs", {}), refs.get("notes", {})
+        # Fetched only if this record actually references it. A record that
+        # carries no xref_id / note id needs no join, and requiring the table
+        # anyway makes the client fail against any host that does not serve one
+        # -- including this site's own previous deployment, where the references
+        # were still inline. A record that DOES carry a key and finds no table
+        # still raises: the missing join is reported, never skipped.
+        tables: Dict[str, Any] = {}
+
+        def _table(kind: str) -> Dict[str, Any]:
+            if not tables:
+                tables.update(self.refs())
+            return tables.get(kind) or {}
+
         out = dict(rec)
         comps = []
         for c in rec.get("components") or []:
             c = dict(c)
             xid = c.pop("xref_id", None)
             if xid is not None:
+                xrefs = _table("xrefs")
                 if xid not in xrefs:
                     raise KeyError(
                         "xref_id %r is not in data/refs.json; the record and the "
@@ -216,6 +228,7 @@ class MediaDB:
                                ("mapping_note_id", "mapping_note")):
                 nid = c.pop(key, None)
                 if nid is not None:
+                    notes = _table("notes")
                     if nid not in notes:
                         raise KeyError(
                             "%s %r is not in data/refs.json" % (key, nid))
