@@ -40,6 +40,7 @@ on:
       - "Makefile"
       - "build_index.py"
       - "data/media/**"
+      - "data/refs.json"
       - "tools/bigg_metabolite_dict.json"
       - "tools/build_api_exports.py"
       - "tools/build_ci_paths.py"
