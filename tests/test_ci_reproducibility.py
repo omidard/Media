@@ -95,6 +95,31 @@ def test_chain_does_not_default_to_the_promoted_corpus():
         "promoted corpus")
 
 
+def test_every_script_a_make_target_runs_is_committed():
+    """(f) generalised: a documented command must work from a clone.
+
+    The chain input was not the only thing a fresh clone did not have; a recipe that
+    invokes an untracked script fails there for exactly the same reason. Both are
+    'the repository does not contain what the build says to run'.
+    """
+    missing, untracked = [], []
+    for line in read(MAKEFILE).splitlines():
+        if not line.startswith("\t"):
+            continue
+        for m in re.finditer(r"\$\(PY\)\s+([^\s;]+\.py)", line):
+            rel = m.group(1)
+            if not os.path.exists(os.path.join(REPO, rel)):
+                missing.append(rel)
+            elif subprocess.run(["git", "-C", REPO, "ls-files", "--error-unmatch", rel],
+                                capture_output=True).returncode != 0:
+                untracked.append(rel)
+    assert not missing, ("a Makefile recipe runs a script that does not exist: %s"
+                         % sorted(set(missing)))
+    assert not untracked, (
+        "a Makefile recipe runs a script that is not committed, so the target fails "
+        "from a fresh clone: %s" % sorted(set(untracked)))
+
+
 def test_documented_build_commands_name_no_path_outside_the_repository():
     """(f) generalised: a recipe or CI step may not depend on a machine-local path.
 

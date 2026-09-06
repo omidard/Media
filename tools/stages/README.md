@@ -18,7 +18,9 @@ corpus directory.* The chain of stages, run in a fixed documented order, **is** 
 pipeline that regenerates the corrected resource from the frozen snapshot.
 
 ```
-data/media/            (frozen input snapshot, READ-ONLY, never written by a stage)
+data/_baseline/*.tar.xz         (the chain INPUT, committed; `make baseline`)
+   |
+   = data/_rebuild/baseline/media/   (READ-ONLY, never written by a stage)
    |
    +-> 00_baseline          -> data/_rebuild/stages/00_baseline/media/
    +-> 10_normalize_schema  -> data/_rebuild/stages/10_normalize_schema/media/
@@ -28,6 +30,15 @@ data/media/            (frozen input snapshot, READ-ONLY, never written by a sta
    |
    +-> derived artifacts (index.json, coverage.json, api/, cluster/, stats, manifest)
 ```
+
+**The chain's input is `data/_baseline`, not `data/media`.** `data/media` is what the
+chain *produces*, once `make promote` has run. Feeding it back in is not a build:
+`10_normalize_schema` counted 906 non-BiGG fallbacks against 913 unmapped components on
+the promoted corpus and the chain aborted on its first stage. The pre-remediation corpus
+— the exact bytes these stages were written against — is committed at
+`data/_baseline/media_corpus_2026-09-06.tar.xz` (3.7 MB, 13,515 records), because before
+it was, the chain's only input was an untracked archive on one machine and `make stages`
+failed from a clone. See [data/_baseline/README.md](../../data/_baseline/README.md).
 
 Promotion of `data/_rebuild/media/` over `data/media/` is a **separate, explicit,
 backed-up step** (`make promote`). No stage ever promotes itself.
@@ -285,9 +296,11 @@ rewrite the exchange in the same operation.
 
 ```
 make check          # registry ↔ filesystem consistency, no unregistered stages
-make sample         # build the sample corpus
+make baseline       # expand + verify the chain input (data/_baseline)
+make sample         # build the sample corpus, drawn from the chain input
 make stages-sample  # run the full chain over the sample (fast, ~seconds)
 make stages         # run the full chain over all 13,515 media -> data/_rebuild/media
+make reproduce      # run the chain and compare the result to the shipped corpus
 make test           # pytest: schema, invariants, regressions, harness
 make derived        # rebuild index/coverage/api/cluster/stats/presence + MANIFEST
 make verify         # re-run derived into a temp dir and diff against shipped
