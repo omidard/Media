@@ -388,6 +388,13 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     # README claimed every component "carries cross-references". Measured here.
     xrefs = {"n_components_with_a_cross_reference": 0,
              "n_components_with_none": 0}
+    # Where the quantitative content comes from and under whose terms. The licence
+    # documents and the methods page state this in prose; the numbers are measured
+    # here so the page can bind them instead of carrying a typed 14,341 that four
+    # corrections outlived.
+    conc_by_license: dict[str, int] = {}
+    conc_by_source_db: dict[str, int] = {}
+    conc_by_commercial_use_ok: dict[str, int] = {}
     degeneracy = Degeneracy()
     row_of_id: dict[str, int] = {}
     bands_source = {"high_ge_90": 0, "mid_60_90": 0, "review_lt_60": 0,
@@ -461,6 +468,14 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         totals["n_uncovered"] += n_uncovered or 0
         totals["n_with_concentration_mM"] += quant.get("n_with_concentration_mM") or 0
         totals["n_with_source_amount"] += quant.get("n_with_source_amount") or 0
+
+        n_conc = quant.get("n_with_concentration_mM") or 0
+        if n_conc:
+            for table, key in ((conc_by_license, str(prov.get("license"))),
+                               (conc_by_source_db, prov.get("source_name")),
+                               (conc_by_commercial_use_ok,
+                                str(prov.get("commercial_use_ok")))):
+                table[key] = table.get(key, 0) + n_conc
 
         if pcs is None:
             bands_source["not_computed"] += 1
@@ -590,7 +605,36 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         })
     ]
 
+    n_conc_total = totals["n_with_concentration_mM"]
+    n_conc_restricted = conc_by_commercial_use_ok.get("False", 0)
+    _top = max(conc_by_source_db.items(), key=lambda kv: kv[1]) \
+        if conc_by_source_db else None
+    concentration_provenance = {
+        "n_with_concentration_mM": n_conc_total,
+        "of": n_components_seen,
+        "by_source_db": dict(sorted(conc_by_source_db.items(),
+                                    key=lambda kv: -kv[1])),
+        "by_license": dict(sorted(conc_by_license.items(), key=lambda kv: -kv[1])),
+        "by_commercial_use_ok": conc_by_commercial_use_ok,
+        "n_from_media_that_may_not_be_used_commercially": n_conc_restricted,
+        "n_from_media_that_may": n_conc_total - n_conc_restricted,
+        "largest_contributor": None if _top is None else {
+            "source_db": _top[0], "n": _top[1], "of": n_conc_total},
+        "definition": (
+            "Where the resource's quantitative content comes from, and under whose "
+            "terms. A component counts when its concentration_mM is not null. The "
+            "methods page binds these numbers rather than stating them, because the "
+            "denominator was corrected from 14,341 and a typed copy survived the "
+            "correction on the shipped page."),
+    }
+
     # --- consistency: the payload's totals must be the corpus's totals --------
+    if sum(conc_by_license.values()) != n_conc_total:
+        raise ValueError(
+            "the licence tally covers %d of the %d components carrying a "
+            "concentration. A concentration with no licence beside it is how the "
+            "site stated a redistribution exposure nobody had measured."
+            % (sum(conc_by_license.values()), n_conc_total))
     if sum(xrefs.values()) != n_components_seen:
         raise ValueError(
             "cross-reference accounting covers %d of the %d components walked"
@@ -685,6 +729,7 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
                 "of xref, target_xref or source_xref. Those describe the BiGG "
                 "metabolite that was chosen and, for source_xref, the identifier "
                 "the source supplied; only source_xref is independent evidence.")),
+        "concentration_provenance": concentration_provenance,
         "model_input_degeneracy": degen,
         "field_renames": field_renames,
         "media_totals": {
@@ -782,6 +827,7 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         "evidence_class_totals": class_totals,
         "exchange_resolution": exch,
         "cross_references": xrefs,
+        "concentration_provenance": concentration_provenance,
         "model_input_degeneracy": degen,
         "field_renames": field_renames,
         "coverage_bands_source": bands_source,

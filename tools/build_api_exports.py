@@ -621,6 +621,10 @@ def main(argv=None):
               "to dist/api (`make release-assets`) and are distributed as release "
               "assets; delete the copies here." % (len(stale), ", ".join(sorted(stale))))
 
+    # The catalog's measured cross-reference accounting, used below so the manifest
+    # describes the reference table it actually ships rather than a typed memory of it.
+    _xr = catalog.get("cross_references") or {}
+
     manifest = {
         "api_version": API_VERSION,
         "base_url": BASE_URL,
@@ -750,11 +754,24 @@ def main(argv=None):
                 "components[].mapping_note_id": "refs.notes[id] -> the verbatim note",
                 "components[].xref_note_id": "refs.notes[id] -> the verbatim note",
             },
-            "why": "2,287 distinct cross-reference blocks were written out 665,582 "
-                   "times and 113 distinct notes 621,274 times. They are held once. "
-                   "An absent xref_id means the component has no cross-references. "
-                   "The parquet and SQLite columns are unchanged: xref_inchikey, "
-                   "xref_kegg and the rest are still first-class fields there.",
+            # Measured from data/refs.json and the catalog, never typed: this note
+            # said "2,287 blocks ... 665,582 times", which was both stale and a
+            # restatement of the withdrawn claim that every component carries a
+            # cross-reference. 8,957 components carry none.
+            "why": "{n_xrefs:,} distinct cross-reference blocks stand in for the "
+                   "{n_with:,} of {of:,} components ({pct}%) that carry one, and "
+                   "{n_notes:,} distinct notes for the rest. They are held once. An "
+                   "absent xref_id means the component has no cross-references at "
+                   "all — {n_none:,} of {of:,} — never \"look elsewhere\". The parquet "
+                   "and SQLite columns are unchanged: xref_inchikey, xref_kegg and "
+                   "the rest are still first-class fields there.".format(
+                       n_xrefs=_REFS.get("n_xrefs") or 0,
+                       n_notes=_REFS.get("n_notes") or 0,
+                       n_with=_xr.get("n_components_with_a_cross_reference") or 0,
+                       n_none=_xr.get("n_components_with_none") or 0,
+                       of=_xr.get("of") or 0,
+                       pct=round(100.0 * (_xr.get("n_components_with_a_cross_reference")
+                                          or 0) / (_xr.get("of") or 1), 1)),
         },
         "notes": [
             "Read-only static API served by GitHub Pages with permissive CORS.",

@@ -236,13 +236,44 @@ def carry_stamps_forward(man: dict, previous: dict) -> dict:
     return man
 
 
+def measured_provenance() -> dict:
+    """PROVENANCE, with the two counts a corpus can answer read from the catalog.
+
+    media_total and media_permanently_unreproducible were typed here. They are the
+    same numbers build_index.py measures (`count` and
+    `literature_populations.media_from_the_lost_extraction_batches`), and a typed
+    copy of a measured number is what put a stale 14,341 into six documents. The
+    generator-audit counts around them (dead/live generators, recoverable in
+    principle) are not derivable from the corpus, so they stay a dated snapshot.
+    """
+    prov = json.loads(json.dumps(PROVENANCE))
+    idx_path = os.path.join(DATA, "index.json")
+    if not os.path.exists(idx_path):
+        prov["measured_2026_09_06"]["source"] = (
+            "typed: data/index.json was absent when this manifest was built")
+        return prov
+    with open(idx_path, encoding="utf-8") as fh:
+        idx = json.load(fh)
+    m = prov["measured_2026_09_06"]
+    m["media_total"] = idx["count"]
+    pops = idx.get("literature_populations") or {}
+    batches = pops.get("media_from_the_lost_extraction_batches") or {}
+    if batches.get("n") is not None:
+        m["media_permanently_unreproducible"] = batches["n"]
+        m["media_permanently_unreproducible_definition"] = batches.get("definition")
+    m["source"] = ("media_total and media_permanently_unreproducible are read from "
+                   "data/index.json, which build_index.py computes from the corpus; "
+                   "the generator-audit counts beside them are a dated snapshot.")
+    return prov
+
+
 def build() -> dict:
     man = {
         "schema": "mediadb-artifact-manifest/1",
         "built_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "git_head": git_head(),
         "stamp_policy": STAMP_POLICY,
-        "provenance": PROVENANCE,
+        "provenance": measured_provenance(),
         "artifacts": {},
     }
     for rel, gen, inputs, how in ARTIFACTS:

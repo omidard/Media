@@ -47,7 +47,11 @@
    "new": "pct_sourced_components_with_bigg_id",
    "changed": "2026-09-06",
    "why": "The old name read as coverage of the medium, but its denominator is the components the record already carries rather than the ingredients the source listed, so it is a near-constant (measured below). It answers one question only: of the components the source states, the share that reached a BiGG id rather than a non-BiGG fallback or nothing. The coverage question is answered by pct_covered_source.",
-   "measured": null
+   "measured": {
+    "n_records_where_the_value_is_100.0": 12861,
+    "n_records_where_it_is_null": 164,
+    "of": 13515
+   }
   }
  ],
  "components": {
@@ -235,7 +239,7 @@
    "components[].mapping_note_id": "refs.notes[id] -> the verbatim note",
    "components[].xref_note_id": "refs.notes[id] -> the verbatim note"
   },
-  "why": "2,287 distinct cross-reference blocks were written out 665,582 times and 113 distinct notes 621,274 times. They are held once. An absent xref_id means the component has no cross-references. The parquet and SQLite columns are unchanged: xref_inchikey, xref_kegg and the rest are still first-class fields there."
+  "why": "2,291 distinct cross-reference blocks stand in for the 656,625 of 665,582 components (98.7%) that carry one, and 114 distinct notes for the rest. They are held once. An absent xref_id means the component has no cross-references at all \u2014 8,957 of 665,582 \u2014 never \"look elsewhere\". The parquet and SQLite columns are unchanged: xref_inchikey, xref_kegg and the rest are still first-class fields there."
  },
  "notes": [
   "Read-only static API served by GitHub Pages with permissive CORS.",

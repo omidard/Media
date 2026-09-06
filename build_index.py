@@ -81,6 +81,127 @@ def source_db_by_prefix(idv, prov, food_group):
 #   4 auto      : auto-extracted from literature, not manually verified
 CURATION = {0: "curated", 1: "expert", 2: "verified", 3: "database", 4: "auto"}
 
+# --------------------------------------------------------------- literature populations
+#
+# "literature records" named three different populations in the shipped prose and the
+# three had three different sizes (1,456 / 1,457 / 1,459), which is COV-02 in miniature:
+# one phrase, several denominators, none of them carrying its definition. They are not a
+# disagreement to be resolved by picking a winner — they are genuinely different sets, so
+# every one of them is measured here, published with the predicate that defines it, and
+# checked against the shipped documents by tools/verify_counts.py.
+#
+#: media whose composition came out of the LLM extraction batches that no longer exist
+EXTRACTION_BATCH_PREFIXES = ("lit_", "growthlit_", "complexlit_")
+#: media whose source identity resolved to a primary publication
+PRIMARY_LITERATURE_SOURCE_IDS = ("growthdb_literature", "primary_literature")
+
+
+def _largest(counter, denominator):
+    """The biggest contributor, with its denominator and share attached."""
+    if not counter:
+        return None
+    name, n = counter.most_common(1)[0]
+    return {"source_db": name, "n": n, "of": denominator,
+            "pct": round(100.0 * n / denominator, 1) if denominator else None}
+
+
+def literature_populations(rows_meta, n_media):
+    """Every population the documents call 'literature records', each with its predicate.
+
+    rows_meta is an iterable of (id, source_id, source_type, doi, primary_identifier,
+    source_db, citation, citation_type) tuples, collected in the single pass over the
+    corpus.
+    """
+    by_prefix = Counter()
+    by_source_db = Counter()
+    by_source_type = Counter()
+    n_batch = n_attributed = n_type = n_nodoi_pmc = n_primary_paper = 0
+    citations, dois, pmcids = set(), set(), set()
+    for mid, sid, stype, doi, pident, sdb, citation, ctype in rows_meta:
+        if ctype == "primary_paper":
+            n_primary_paper += 1
+        if mid.startswith(EXTRACTION_BATCH_PREFIXES):
+            n_batch += 1
+            by_prefix[mid.split("_", 1)[0] + "_"] += 1
+        if sid in PRIMARY_LITERATURE_SOURCE_IDS:
+            n_attributed += 1
+            by_source_db[sdb] += 1
+            if (citation or "").strip():
+                citations.add(citation.strip())
+            if (doi or "").strip():
+                dois.add(doi.strip())
+            if isinstance(pident, dict) and pident.get("type") == "pmcid":
+                pmcids.add(pident["value"])
+        if stype == "literature":
+            n_type += 1
+            by_source_type[sdb] += 1
+        if not (doi or "").strip() and isinstance(pident, dict) \
+                and pident.get("type") == "pmcid":
+            n_nodoi_pmc += 1
+    return {
+        "media_attributed_to_primary_literature": {
+            "n": n_attributed, "of": n_media,
+            "by_source_db": dict(by_source_db),
+            "definition": "provenance.source_id resolved to a primary publication "
+                          "(growthdb_literature or primary_literature). This is the "
+                          "count NOTICE and the README headline state.",
+        },
+        "media_from_the_lost_extraction_batches": {
+            "n": n_batch, "of": n_media,
+            "by_id_prefix": dict(sorted(by_prefix.items())),
+            "definition": "id prefix lit_/growthlit_/complexlit_: the media whose "
+                          "composition came from LLM extraction batches that no longer "
+                          "exist, so they are permanently unreproducible (PIPE-01). One "
+                          "record (cdm_lactobacillaceae) is attributed to primary "
+                          "literature but was NOT extracted, which is why this is one "
+                          "less than the attribution count.",
+        },
+        "media_whose_source_type_is_literature": {
+            "n": n_type, "of": n_media,
+            "definition": "the literal string provenance.source_type == 'literature'. "
+                          "It is a free-text field: it includes the 3 biospecimen_ "
+                          "records whose source is HMDB tables republished in a paper, "
+                          "and excludes cdm_lactobacillaceae, whose source_type reads "
+                          "'Published (GEM paper)'. Use source_id, not this.",
+        },
+        "media_via_growthdb": {
+            "n": by_source_db.get("Primary literature via GrowthDB", 0), "of": n_media,
+            "definition": "the GrowthDB half of the attribution count, stated on its own "
+                          "in the README source table, LICENSE, NOTICE, PROVENANCE.md "
+                          "and tools/licenses.tsv.",
+        },
+        "media_whose_citation_type_is_primary_paper": {
+            "n": n_primary_paper, "of": n_media,
+            "definition": "provenance.citation_type == 'primary_paper': the citation "
+                          "identifies a publication that states the formulation. Wider "
+                          "than the attribution count by the 3 biospecimen_ records "
+                          "whose HMDB tables were republished in a paper.",
+        },
+        "media_with_no_doi_carrying_a_pmc_id": {
+            "n": n_nodoi_pmc, "of": n_media,
+            "definition": "provenance.doi is empty and primary_identifier is a PMC id. "
+                          "This is the population a DOI-field census misses, and it is "
+                          "NOT the same set as the extraction batches: 87 lit_ records "
+                          "do carry a DOI, and 2 std_ records do not.",
+        },
+        "distinct_works_behind_the_primary_literature_media": {
+            "n_citation_strings": len(citations),
+            "n_dois": len(dois),
+            "n_pmcids": len(pmcids),
+            "n_distinct_works": len(dois | pmcids),
+            "of": n_attributed,
+            "definition": "over media_attributed_to_primary_literature only. A DOI-field "
+                          "census sees n_dois; the union with the recovered PMC ids is "
+                          "n_distinct_works.",
+        },
+        "why_these_differ": (
+            "They are different questions, not disagreeing answers to one. Attribution "
+            "asks which source a medium came from; the extraction-batch count asks which "
+            "media cannot be rebuilt; source_type is a free-text field kept for "
+            "compatibility. Every document that states one of these numbers must state "
+            "which, and tools/verify_counts.py fails when one does not."),
+    }
+
 
 def curation_tier(idv, ver):
     ver = ver or ""
@@ -111,6 +232,18 @@ def build(media_dir, out_dir):
     exch = Counter()
     xrefs = Counter()
     n_components_seen = 0
+    # Where the resource's quantitative content actually comes from. The licence
+    # documents state this as prose ("8,397 of N concentration values"); N is measured
+    # here so the prose has something to be checked against instead of being retyped.
+    conc_by_license = Counter()
+    conc_by_source_db = Counter()
+    conc_by_commercial_use_ok = Counter()
+    # How near-constant the renamed field is. It was asserted in prose and shipped as
+    # `measured: null` in this file and in data/api/manifest.json, which tells a consumer
+    # nothing while looking like an answer.
+    n_bigg_id_pct_is_100 = 0
+    n_bigg_id_pct_null = 0
+    lit_meta = []
     degeneracy = Degeneracy()
     for fp in files:
         with open(fp, encoding="utf-8") as fh:
@@ -137,6 +270,20 @@ def build(media_dir, out_dir):
         comp_totals["n_derived"] += d.get("n_derived") or 0
         comp_totals["n_sourced"] += covs.get("n_sourced") or 0
         comp_totals["n_with_concentration_mM"] += quant.get("n_with_concentration_mM") or 0
+        n_conc = quant.get("n_with_concentration_mM") or 0
+        if n_conc:
+            conc_by_license[str(prov.get("license"))] += n_conc
+            conc_by_source_db[sdb] += n_conc
+            conc_by_commercial_use_ok[str(prov.get("commercial_use_ok"))] += n_conc
+        pct_bigg = d.get("pct_sourced_components_with_bigg_id",
+                         d.get("pct_covered_observed"))
+        if pct_bigg is None:
+            n_bigg_id_pct_null += 1
+        elif pct_bigg == 100.0:
+            n_bigg_id_pct_is_100 += 1
+        lit_meta.append((d["id"], sid, prov.get("source_type"), prov.get("doi"),
+                         prov.get("primary_identifier"), sdb, prov.get("citation"),
+                         prov.get("citation_type")))
         n_bigg = n_fallback = n_none = 0
         n_components_seen += len(d.get("components") or [])
         for c in d.get("components") or []:
@@ -255,6 +402,37 @@ def build(media_dir, out_dir):
     bands_legacy = Counter(band(r["pct_covered"]) for r in rows)
     bands_source = Counter(band(r["pct_covered_source"]) for r in rows)
 
+    n_conc_total = comp_totals["n_with_concentration_mM"]
+    if sum(conc_by_license.values()) != n_conc_total:
+        raise SystemExit(
+            "FATAL: the licence tally covers %d of the %d components carrying a "
+            "concentration. A concentration value with no licence beside it is how "
+            "the resource stated a redistribution exposure it had not measured."
+            % (sum(conc_by_license.values()), n_conc_total))
+    n_conc_restricted = conc_by_commercial_use_ok.get("False", 0)
+    concentration_provenance = {
+        "n_with_concentration_mM": n_conc_total,
+        "of": n_components_seen,
+        "by_source_db": dict(conc_by_source_db.most_common()),
+        "by_license": dict(conc_by_license.most_common()),
+        "by_commercial_use_ok": dict(conc_by_commercial_use_ok),
+        "n_from_media_that_may_not_be_used_commercially": n_conc_restricted,
+        "n_from_media_that_may": n_conc_total - n_conc_restricted,
+        "pct_from_media_that_may_not_be_used_commercially":
+            round(100.0 * n_conc_restricted / n_conc_total, 1) if n_conc_total else None,
+        "largest_contributor": _largest(conc_by_source_db, n_conc_total),
+        "definition": (
+            "Where the resource's quantitative content comes from, and under whose "
+            "terms. A component counts when its concentration_mM is not null; the "
+            "licence is the one its medium's provenance carries. LICENSE, NOTICE, "
+            "README.md, PROVENANCE.md, tools/licenses.tsv and the methods page state "
+            "these numbers in prose and tools/verify_counts.py checks every one of "
+            "them against this block. The denominator moved from 14,341 to {:,} when "
+            "296 concentrations that were an absence encoded as 0.0 were nulled and "
+            "10 were newly derived; a hand-typed 14,341 outlived the correction in "
+            "six documents, which is why it is generated here.".format(n_conc_total)),
+    }
+
     index = {
         "count": len(rows),
         # ONE authoritative total, computed from the corpus on disk, carried by every
@@ -284,10 +462,25 @@ def build(media_dir, out_dir):
             xrefs, of=n_components_seen,
             definition=(
                 "A component counts as carrying a cross-reference when it has any of "
-                "xref, target_xref or source_xref. The README claimed every component "
-                "carried one; 8,957 of 665,582 carry none.")),
+                "xref, target_xref or source_xref. The README, DESIGN.md and the site "
+                "claimed every component carried one; {none:,} of {of:,} ({pct}) carry "
+                "none.".format(
+                    none=xrefs["n_components_with_none"], of=n_components_seen,
+                    pct=("%.2f%%" % (100.0 * xrefs["n_components_with_none"]
+                                     / n_components_seen)) if n_components_seen
+                        else "no components to divide by"))),
+        "concentration_provenance": concentration_provenance,
+        "literature_populations": literature_populations(lit_meta, len(rows)),
         "model_input_degeneracy": degen,
-        "field_renames": FIELD_RENAMES,
+        # measured, not null: a schema field that ships null tells a consumer nothing
+        # and invites the inference that the rename had no measurable reason.
+        "field_renames": [
+            dict(FIELD_RENAMES[0], measured={
+                "n_records_where_the_value_is_100.0": n_bigg_id_pct_is_100,
+                "n_records_where_it_is_null": n_bigg_id_pct_null,
+                "of": len(rows),
+            })
+        ],
         "component_evidence_tiers": dict(tier_totals),
         "n_missing_coverage": missing_coverage,
         "n_missing_coverage_source": missing_coverage_source,
@@ -304,14 +497,18 @@ def build(media_dir, out_dir):
                 "of the components the cited source states, the share that reached a "
                 "BiGG metabolite id rather than a non-BiGG fallback or nothing. Its "
                 "denominator is components, not the source's ingredient list, so it is "
-                "100.0 on 12,861 of 13,515 records and is NOT a coverage measure. It "
-                "was named pct_covered_observed until 2026-09-06; see field_renames.",
+                "100.0 on {n:,} of {of:,} records and is NOT a coverage measure. It "
+                "was named pct_covered_observed until 2026-09-06; see field_renames."
+                .format(n=n_bigg_id_pct_is_100, of=len(rows)),
             "n_no_exchange": "components with no exchange reaction at all: identity was "
                              "never established, or the ingredient is an undefined "
-                             "mixture. 218 of 665,582 components library-wide.",
+                             "mixture. {n:,} of {of:,} components library-wide."
+                             .format(n=exch["n_no_exchange"], of=n_components_seen),
             "n_nonbigg_fallback": "components whose exchange id is a ModelSEED/MetaNetX/"
                                   "KEGG fallback rather than a BiGG id; no BiGG model "
-                                  "will accept it. 1,364 of 665,582 library-wide.",
+                                  "will accept it. {n:,} of {of:,} library-wide."
+                                  .format(n=exch["n_nonbigg_fallback"],
+                                          of=n_components_seen),
             "n_media_with_identical_model_input":
                 "how many OTHER media hand a genome-scale model the identical set of "
                 "(exchange, lower bound, upper bound) triples. 0 means this record's "
