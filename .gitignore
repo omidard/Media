@@ -16,3 +16,17 @@ __pycache__/
 
 # pytest
 .pytest_cache/
+
+# data/api/media.jsonl.gz — the monolithic streaming export. The corrected corpus
+# makes it 141 MB, past GitHub's 100 MiB per-file hard limit, so
+# tools/build_api_exports.py writes media.jsonl.partNN.gz shards instead (proved
+# byte-identical when concatenated: sha256 370b2376... over 13,515 lines). The old
+# file was moved to the backup area, not deleted, and is ignored here so a stale
+# copy can never block a push.
+data/api/media.jsonl.gz
+
+# Local scratch: the legacy --report-only output of tools/stages/remap_components.py
+# and the working backups taken before destructive steps.
+build/
+_backups/
+_backup_naming_20260906/

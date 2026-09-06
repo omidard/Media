@@ -24,8 +24,8 @@ BACKUPS ?= $(REPO)/../media_curate_backups
 STAMP   := $(shell date +%Y%m%d-%H%M%S)
 
 .PHONY: help all check sample stages-sample stages test test-fast test-strict \
-        derived index api cluster stats presence manifest verify promote fetch \
-        fixtures clean-rebuild
+        derived coverage coverage-index index api cluster stats presence manifest \
+        verify promote fetch fixtures clean-rebuild
 
 help:
 	@echo "MediaDB build targets"
@@ -73,13 +73,27 @@ test-strict:
 
 # ------------------------------------------------------- derived artifacts
 # Order is load-bearing and is proven by data flow, not by convention:
-#   enrich_coverage writes the per-medium `coverage` block that build_index reads;
+#   the stage chain writes the per-medium `coverage` and `coverage_source` blocks
+#     that build_coverage_index and build_index read (stage 39 owns them now, which
+#     is why `coverage` is not in this list — see the note on that target);
 #   build_index writes data/index.json that build_api_exports reads;
 #   build_api_exports writes the parquet that build_cluster_data reads.
 # build_media_stats and build_presence_matrix were in no workflow at all, which is
-# why two published endpoints shipped 1,128 media stale (STALE-01).
+# why two published endpoints shipped 1,128 media stale (STALE-01), and
+# data/coverage.json lost its generator entirely when stage 39 took authorship —
+# tools/build_coverage_index.py projects it from the corpus instead.
 
-derived: coverage index api cluster stats presence manifest
+derived: coverage-index index api cluster stats presence manifest
+
+# `coverage` is NO LONGER part of `derived`, and that is a correctness fix, not a
+# convenience. Stage 39_recompute_coverage owns the coverage numbers once the chain
+# has run, and tools/enrich_coverage.py refuses (correctly) to run over a corpus
+# carrying its stamp. Leaving it in the chain of derived targets meant `make derived`
+# aborted on its first step against a promoted corpus. The legacy enricher stays
+# available for a corpus the chain has NOT processed, which is the only case where
+# it is the authority.
+coverage-index:
+	$(PY) tools/build_coverage_index.py
 
 coverage:
 	$(PY) tools/enrich_coverage.py

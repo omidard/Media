@@ -186,8 +186,17 @@ def finalize(rep) -> None:
     if rep.n_in == 13515:
         rep.assert_eq("parent_salt_components_all_blocked",
                       n("blocked:parent_salt_identity_lost"), 38363)
+        # 284,337 = the 213,910 counted when this stage was written, plus the 70,427
+        # usda_mineral components that used to be blocked one line earlier as
+        # "invented". They are USDA analytes — every one carries a measured amount
+        # with a unit — so tools/component_evidence_classes.tsv classes them sourced,
+        # and this stage now reads that table instead of a private list that
+        # disagreed with it. Their concentration outcome is unchanged (null: a
+        # per-100 g food amount has no volume basis); only the reason is now the
+        # true one. A5 above is the assertion that actually guards the honesty
+        # property here and is scale-free; this one is the corpus-size witness.
         rep.assert_eq("food_amounts_never_became_concentrations",
-                      n("blocked:food_amount_no_volume_basis"), 213910)
+                      n("blocked:food_amount_no_volume_basis"), 284337)
         rep.assert_true("usda_amounts_are_published_on_their_own_basis",
                         n("amount_mmol_per_100g_derived") > 190000,
                         n("amount_mmol_per_100g_derived"), "> 190000")

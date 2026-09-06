@@ -35,12 +35,28 @@ from collections import Counter
 REPO = os.path.dirname(os.path.abspath(__file__))
 
 
-def source_db(idv, prov, food_group):
-    # NOTE (NM-03 / PROV-06): this keys on the id prefix, which is provably wrong for
-    # 1,248 MediaDive records that are JCM/CCAP rather than DSMZ, and for the bovine
-    # BMDB records filed as HMDB-derived. Source identity is being resolved from
-    # record evidence in the 20-range provenance stage (tools/stages/source_identity.py);
-    # this function stays until that stage lands so the catalog keeps building.
+def source_identity(d):
+    """(source_db, source_id, evidence) — the record's own verified identity first.
+
+    The 20-range provenance stage resolves source identity from record evidence and
+    writes provenance.source_name / source_id / source_identity_evidence. Where it has
+    run, the catalog uses it. The id-prefix heuristic below is the fallback for a record
+    that stage never saw, and it labels itself as a heuristic so the catalog never
+    presents a guess and a determination in the same field without saying which is which
+    (NM-03 / PROV-06: the heuristic is wrong for the 1,248 MediaDive records that are
+    JCM or CCAP rather than DSMZ).
+    """
+    prov = d.get("provenance") or {}
+    name = prov.get("source_name")
+    if name:
+        return (name, prov.get("source_id"),
+                prov.get("source_identity_evidence") or "20_stamp_provenance")
+    return (source_db_by_prefix(d["id"], prov, d.get("food_group", "")),
+            None, "id_prefix_heuristic")
+
+
+def source_db_by_prefix(idv, prov, food_group):
+    # Legacy fallback only — see source_identity().
     if idv.startswith('mediadive_'): return 'DSMZ MediaDive'
     if idv.startswith('usda_'): return 'USDA FoodData Central'
     if idv.startswith('food_'): return 'FooDB'
@@ -81,6 +97,10 @@ def build(media_dir, out_dir):
 
     rows = []
     missing_coverage = 0
+    missing_coverage_source = 0
+    prefix_sourced = 0
+    tier_totals = Counter()
+    comp_totals = Counter()
     for fp in files:
         with open(fp, encoding="utf-8") as fh:
             d = json.load(fh)
@@ -88,14 +108,54 @@ def build(media_dir, out_dir):
         if not cov:
             missing_coverage += 1
             cov = {}
+        covs = d.get("coverage_source")
+        if not covs:
+            missing_coverage_source += 1
+            covs = {}
         tier = curation_tier(d["id"], (d.get("provenance") or {}).get("verification"))
         prov = d["provenance"]
+        sdb, sid, sev = source_identity(d)
+        if sev == "id_prefix_heuristic":
+            prefix_sourced += 1
+        fam = d.get("family") or {}
+        quant = d.get("quantitation") or {}
+        for t, n in (d.get("tier_counts") or {}).items():
+            tier_totals[t] += n
+        comp_totals["n_components"] += d.get("n_components") or 0
+        comp_totals["n_observed"] += d.get("n_observed") or 0
+        comp_totals["n_derived"] += d.get("n_derived") or 0
+        comp_totals["n_sourced"] += covs.get("n_sourced") or 0
+        comp_totals["n_with_concentration_mM"] += quant.get("n_with_concentration_mM") or 0
         rows.append(
             {k: d.get(k) for k in ("id", "name", "category", "organism_scope", "aerobic",
                                    "oxygen", "n_components", "n_mapped", "n_in_biggr",
                                    "namespace")}
             | {"source_type": prov["source_type"],
-               "source_db": source_db(d["id"], prov, d.get("food_group", "")),
+               "source_db": sdb,
+               "source_id": sid,
+               "source_identity_evidence": sev,
+               # --- licence, per source (operator decision: segregate and label) ---
+               "license": prov.get("license"),
+               "commercial_use_ok": prov.get("commercial_use_ok"),
+               "attribution_required": prov.get("attribution_required"),
+               # --- how the record's composition was verified, honestly ----------
+               "verification_status": prov.get("verification_status"),
+               "collection": prov.get("collection"),
+               # --- sourced vs pipeline-derived composition ----------------------
+               "n_observed": d.get("n_observed"),
+               "n_derived": d.get("n_derived"),
+               "n_unmappable": d.get("n_unmappable"),
+               "pct_covered_observed": d.get("pct_covered_observed"),
+               "n_sourced": covs.get("n_sourced"),
+               "pct_covered_source": covs.get("pct_covered_source"),
+               "pct_covered_source_is_upper_bound":
+                   covs.get("pct_covered_source_is_upper_bound"),
+               # --- naming / grouping --------------------------------------------
+               "name_display": d.get("name_display"),
+               "family": fam.get("id"),
+               "family_label": fam.get("label"),
+               # --- quantitation --------------------------------------------------
+               "n_with_concentration_mM": quant.get("n_with_concentration_mM"),
                # tri-state: True | False | None (absent is null, never "")
                "defined": d.get("defined"),
                # full text; the browser trims for display (SCHEMA-07)
@@ -118,9 +178,66 @@ def build(media_dir, out_dir):
     sdb = Counter(r["source_db"] for r in rows)
     cur = Counter(r["curation_tier"] for r in rows)
     ns = Counter(r["namespace"] for r in rows)
-    index = {"count": len(rows), "by_category": dict(cat), "by_source_db": dict(sdb),
-             "by_curation": dict(cur), "by_namespace": dict(ns),
-             "n_missing_coverage": missing_coverage, "media": rows}
+    lic = Counter(r["license"] for r in rows)
+    com = Counter(r["commercial_use_ok"] for r in rows)
+    ver = Counter(r["verification_status"] for r in rows)
+    fam = Counter(r["family"] for r in rows if r["family"])
+    col = Counter(r["collection"] for r in rows if r["collection"])
+
+    def band(p):
+        if p is None:
+            return "not_computed"
+        return "high_ge_90" if p >= 90 else ("mid_60_90" if p >= 60 else "review_lt_60")
+
+    bands_legacy = Counter(band(r["pct_covered"]) for r in rows)
+    bands_source = Counter(band(r["pct_covered_source"]) for r in rows)
+
+    index = {
+        "count": len(rows),
+        # ONE authoritative total, computed from the corpus on disk, carried by every
+        # artifact this pass writes (COV-02 / PROV-11 / NM-20). tools/verify_counts.py
+        # fails the build if any shipped artifact disagrees with it.
+        "count_authority": "data/media/*.json on disk, counted by build_index.py",
+        "by_category": dict(cat), "by_source_db": dict(sdb),
+        "by_curation": dict(cur), "by_namespace": dict(ns),
+        "by_license": {str(k): v for k, v in lic.items()},
+        "by_commercial_use_ok": {str(k): v for k, v in com.items()},
+        "by_verification_status": {str(k): v for k, v in ver.items()},
+        "by_collection": dict(col),
+        "by_family": dict(fam),
+        "coverage_bands_legacy": dict(bands_legacy),
+        "coverage_bands_source": dict(bands_source),
+        "component_totals": dict(comp_totals),
+        "component_evidence_tiers": dict(tier_totals),
+        "n_missing_coverage": missing_coverage,
+        "n_missing_coverage_source": missing_coverage_source,
+        "n_source_db_from_id_prefix_heuristic": prefix_sourced,
+        "definitions": {
+            "pct_covered": "DEPRECATED legacy metric: components / (components + "
+                           "unresolved ingredients). Counts pipeline-derived components "
+                           "as covered. Kept because it is a published column.",
+            "pct_covered_source": "source-stated components / (those + unresolved "
+                                  "ingredients + ingredients replaced by derived "
+                                  "components). An upper bound where the flag says so. "
+                                  "null means the denominator was zero, NOT 100.",
+            "pct_covered_observed": "mapped share of the components the source actually "
+                                    "stated; pipeline-derived components are excluded "
+                                    "from both numerator and denominator.",
+            "n_derived": "components the pipeline supplied that the cited source does not "
+                         "state (hydrolysate approximations, complex decompositions, "
+                         "injected mineral/oxygen bases, expanded base media). Kept and "
+                         "labelled, never deleted.",
+            "commercial_use_ok": "false for records whose upstream licence forbids "
+                                 "commercial use (FooDB CC BY-NC, MediaDB-ISB all rights "
+                                 "reserved, HMDB-derived). They ship, labelled.",
+            "source_identity_evidence": "how source_db was decided: 20_stamp_provenance "
+                                        "(from record evidence) or id_prefix_heuristic.",
+            "component_evidence_tiers": "how each component's identity was actually "
+                                        "decided; see tools/evidence_tiers.py. A name "
+                                        "match is a fallback tier, not 'exact'.",
+        },
+        "media": rows,
+    }
 
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "index.json"), "w", encoding="utf-8") as fh:
@@ -130,10 +247,19 @@ def build(media_dir, out_dir):
     # (it previously had no generator in the repo and shipped 442 media stale).
     stats = {
         "count": len(rows),
+        "count_authority": index["count_authority"],
         "by_category": dict(cat),
         "by_source_db": dict(sdb),
         "by_curation": dict(cur),
         "by_namespace": dict(ns),
+        "by_license": index["by_license"],
+        "by_commercial_use_ok": index["by_commercial_use_ok"],
+        "by_verification_status": index["by_verification_status"],
+        "coverage_bands_legacy": index["coverage_bands_legacy"],
+        "coverage_bands_source": index["coverage_bands_source"],
+        "component_totals": index["component_totals"],
+        "component_evidence_tiers": index["component_evidence_tiers"],
+        "definitions": index["definitions"],
         "api": {"catalog": "data/index.json", "medium": "data/media/{id}.json",
                 "stats": "data/stats.json"},
         "note": ("Small enough to fetch for a count without pulling the full catalog. "
@@ -148,6 +274,14 @@ def build(media_dir, out_dir):
     print("by namespace:", dict(ns))
     print("records missing a coverage block: %d/%d (reported as null, never 100%%)"
           % (missing_coverage, len(rows)))
+    print("records missing coverage_source: %d/%d | source_db from the id-prefix "
+          "heuristic: %d/%d" % (missing_coverage_source, len(rows),
+                                prefix_sourced, len(rows)))
+    print("by licence:", dict(lic))
+    print("component totals:", dict(comp_totals))
+    print("component evidence tiers:", dict(tier_totals))
+    print("coverage bands  legacy:", dict(bands_legacy))
+    print("coverage bands  source:", dict(bands_source))
     return index
 
 

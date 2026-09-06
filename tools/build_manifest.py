@@ -79,7 +79,12 @@ ARTIFACTS = [
      ["data/index.json", "data/media/*.json"], "parquet"),
     ("data/api/components.parquet", "tools/build_api_exports.py",
      ["data/index.json", "data/media/*.json"], "parquet"),
-    ("data/api/media.jsonl.gz", "tools/build_api_exports.py",
+    # Sharded: the single media.jsonl.gz is 141 MB against the corrected corpus, past
+    # GitHub's 100 MiB per-file hard limit. tools/build_api_exports.py writes parts and
+    # asserts the budget; the parts concatenate to a byte-identical stream.
+    ("data/api/media.jsonl.part01.gz", "tools/build_api_exports.py",
+     ["data/index.json", "data/media/*.json"], "gzlines"),
+    ("data/api/media.jsonl.part02.gz", "tools/build_api_exports.py",
      ["data/index.json", "data/media/*.json"], "gzlines"),
     ("data/api/media.sqlite.gz", "tools/build_api_exports.py",
      ["data/index.json", "data/media/*.json"], None),
@@ -181,8 +186,7 @@ def build() -> dict:
     counts = {rel: man["artifacts"][rel].get("rows")
               for rel in ("data/media/", "data/index.json", "data/stats.json",
                           "data/media_stats.json", "data/presence_matrix.json",
-                          "data/api/manifest.json", "data/api/media.parquet",
-                          "data/api/media.jsonl.gz")
+                          "data/api/manifest.json", "data/api/media.parquet")
               if rel in man["artifacts"]}
     present = {k: v for k, v in counts.items() if v is not None}
     man["catalog_count_identity"] = {

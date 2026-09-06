@@ -49,11 +49,30 @@ MEDIA_COLS = [
     "n_components", "n_mapped", "n_in_biggr",
     "n_covered", "n_uncovered", "pct_covered",
     "citation", "doi", "url", "food_group",
+    # --- added by the rebuild pass, so the bulk surface carries the same honest
+    # fields as the catalog instead of only the legacy ones. A consumer reading
+    # pct_covered alone was reading a number that counts invented components as
+    # covered (COV-03 / PROV-07 / MEDIA-WEB-02).
+    "source_id", "source_identity_evidence", "collection",
+    "license", "commercial_use_ok", "attribution_required",
+    "verification_status",
+    "n_sourced", "n_derived", "n_observed", "n_unmappable",
+    "pct_covered_source", "pct_covered_source_is_upper_bound", "pct_covered_observed",
+    "name_display", "family", "n_with_concentration_mM",
 ]
 COMP_COLS = [
     "medium_id", "name", "bigg_metabolite", "exchange", "exchange_source",
     "lower_bound", "upper_bound", "concentration_mM",
     "in_biggr", "mapping_method", "mapping_confidence",
+    # --- added by the rebuild pass. `mapping_confidence` alone said "exact" for a
+    # name-string lookup; `evidence_tier` says what the identity was actually
+    # decided on, `evidence_class` says whether the source stated the component at
+    # all, and `source_name` is the string the mapping can be audited against.
+    "evidence_tier", "evidence_class", "derived_class", "source_observed",
+    "source_name", "target_name", "match_field", "match_key",
+    "concentration_status", "concentration_source",
+    "quantity_value", "quantity_value_verbatim",
+    "quantity_unit", "quantity_basis", "derived_not_sourced",
 ] + ["xref_" + k for k in XREF_KEYS]
 
 
@@ -125,8 +144,40 @@ def medium_row(summary, rec):
         "doi": prov.get("doi"),
         "url": prov.get("url"),
         "food_group": summary.get("food_group"),
+        # verified source identity, licence and honest coverage — read from the
+        # record where the stage chain wrote it, from the catalog where the catalog
+        # is the authority. Absent stays null; nothing is defaulted.
+        "source_id": summary.get("source_id"),
+        "source_identity_evidence": summary.get("source_identity_evidence"),
+        "collection": prov.get("collection"),
+        "license": prov.get("license"),
+        "commercial_use_ok": prov.get("commercial_use_ok"),
+        "attribution_required": prov.get("attribution_required"),
+        "verification_status": prov.get("verification_status"),
+        "n_sourced": (rec.get("coverage_source") or {}).get("n_sourced"),
+        "n_derived": rec.get("n_derived"),
+        "n_observed": rec.get("n_observed"),
+        "n_unmappable": rec.get("n_unmappable"),
+        "pct_covered_source": (rec.get("coverage_source") or {}).get("pct_covered_source"),
+        "pct_covered_source_is_upper_bound":
+            (rec.get("coverage_source") or {}).get("pct_covered_source_is_upper_bound"),
+        "pct_covered_observed": rec.get("pct_covered_observed"),
+        "name_display": rec.get("name_display"),
+        "family": (rec.get("family") or {}).get("id"),
+        "n_with_concentration_mM": (rec.get("quantitation") or {}).get(
+            "n_with_concentration_mM"),
     }
     return row
+
+
+def _numeric_or_none(v):
+    """The value when it is genuinely a number, else null. Never a parsed guess."""
+    return v if isinstance(v, (int, float)) and not isinstance(v, bool) else None
+
+
+def _text_or_none(v):
+    """The value exactly as the source wrote it, as text."""
+    return None if v is None else str(v)
 
 
 def component_rows(mid, rec):
@@ -144,6 +195,28 @@ def component_rows(mid, rec):
             "in_biggr": c.get("in_biggr"),
             "mapping_method": c.get("mapping_method"),
             "mapping_confidence": c.get("mapping_confidence"),
+            "evidence_tier": c.get("evidence_tier"),
+            "evidence_class": c.get("evidence_class"),
+            "derived_class": c.get("derived_class"),
+            "source_observed": c.get("source_observed"),
+            "source_name": c.get("source_name"),
+            "target_name": c.get("target_name"),
+            "match_field": c.get("match_field"),
+            "match_key": c.get("match_key"),
+            "concentration_status": c.get("concentration_status"),
+            "concentration_source": c.get("concentration_source"),
+            # Two columns, deliberately. 4,936 of the 353,581 source amounts are not
+            # bare numbers -- they are the source's own string ("0.2 % (w/v)", "5 g/L",
+            # "10 mM"), because the unit was never parsed out of the value. Coercing
+            # them to a double would either invent a number or drop the measurement, so
+            # quantity_value carries the numeric ones and quantity_value_verbatim
+            # carries every one exactly as the source wrote it.
+            "quantity_value": _numeric_or_none((c.get("quantity") or {}).get("value")),
+            "quantity_value_verbatim": _text_or_none(
+                (c.get("quantity") or {}).get("value")),
+            "quantity_unit": (c.get("quantity") or {}).get("unit"),
+            "quantity_basis": (c.get("quantity") or {}).get("basis"),
+            "derived_not_sourced": c.get("derived_not_sourced"),
         }
         for k in XREF_KEYS:
             row["xref_" + k] = xref.get(k)
@@ -190,11 +263,45 @@ def build_sqlite(media_rows, comp_rows, path_gz):
     os.remove(tmp)
 
 
-def build_jsonl_gz(catalog, path_gz):
-    with gzip.open(path_gz, "wt", compresslevel=9) as fout:
-        for _summary, rec in iter_records(catalog):
-            fout.write(json.dumps(rec, separators=(",", ":")))
-            fout.write("\n")
+# GitHub rejects any file over 100 MiB on push, and GitHub Pages serves this repo,
+# so an artifact over the limit is not "large", it is unpublishable. The single
+# media.jsonl.gz was 53.7 MB before this rebuild and 141.3 MB after it (the corrected
+# corpus carries evidence tiers, licences, quantities and provenance on every record),
+# which would have failed the push with no warning from this script. It is now written
+# in shards under a declared budget, and the budget is ASSERTED rather than assumed.
+MAX_ARTIFACT_BYTES = 90 * 1024 * 1024
+SHARD_TARGET_BYTES = 80 * 1024 * 1024
+
+
+def build_jsonl_shards(catalog, out_dir, stem="media.jsonl", target=SHARD_TARGET_BYTES):
+    """Write <stem>.partNN.gz shards, none larger than `target`. Returns their names.
+
+    Sharded on a size budget rather than on a fixed record count, because record size
+    varies by two orders of magnitude across this corpus (a one-component glucose
+    medium against a 300-component food record).
+    """
+    shards, part, fout, path = [], 0, None, None
+
+    def _open():
+        nonlocal part, fout, path
+        part += 1
+        path = os.path.join(out_dir, "%s.part%02d.gz" % (stem, part))
+        fout = gzip.open(path, "wt", compresslevel=9)
+        shards.append(os.path.basename(path))
+
+    _open()
+    for _summary, rec in iter_records(catalog):
+        fout.write(json.dumps(rec, separators=(",", ":")))
+        fout.write("\n")
+        fout.flush()
+        if os.path.getsize(path) >= target:
+            fout.close()
+            _open()
+    fout.close()
+    if os.path.getsize(path) == 0:                       # never ship an empty shard
+        os.remove(path)
+        shards.pop()
+    return shards
 
 
 def human(path):
@@ -219,12 +326,11 @@ def main():
     media_pq = os.path.join(OUT, "media.parquet")
     comp_pq = os.path.join(OUT, "components.parquet")
     sqlite_gz = os.path.join(OUT, "media.sqlite.gz")
-    jsonl_gz = os.path.join(OUT, "media.jsonl.gz")
 
     write_parquet(media_rows, MEDIA_COLS, media_pq)
     write_parquet(comp_rows, COMP_COLS, comp_pq)
     build_sqlite(media_rows, comp_rows, sqlite_gz)
-    build_jsonl_gz(catalog, jsonl_gz)
+    shards = build_jsonl_shards(catalog, OUT)
 
     files = {
         "media.parquet": {
@@ -241,14 +347,34 @@ def main():
             "tables": ["media", "components"],
             "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
         },
-        "media.jsonl.gz": {
-            "rows": len(media_rows),
-            "grain": "one full medium record per line",
-            "note": "streamable; same schema as data/media/<id>.json",
-        },
     }
+    for i, sh in enumerate(shards, 1):
+        files[sh] = {
+            "grain": "one full medium record per line",
+            "shard": i,
+            "of_shards": len(shards),
+            "note": "streamable; same schema as data/media/<id>.json. Sharded because "
+                    "the single file would exceed GitHub's 100 MiB per-file limit; "
+                    "concatenate the parts in name order to reconstitute it.",
+        }
     for name, meta in files.items():
         meta["size"] = human(os.path.join(OUT, name))
+
+    # The push-blocking check, run here rather than discovered by a failing push.
+    # GitHub refuses any file over 100 MiB; this repo is also served by GitHub Pages.
+    oversize = [(n, os.path.getsize(os.path.join(OUT, n))) for n in files
+                if os.path.getsize(os.path.join(OUT, n)) > MAX_ARTIFACT_BYTES]
+    stale = [f for f in os.listdir(OUT)
+             if f not in files and f.endswith((".gz", ".parquet"))]
+    if oversize:
+        raise SystemExit(
+            "FATAL: %d artifact(s) exceed the %d MiB budget and could not be pushed:\n%s"
+            % (len(oversize), MAX_ARTIFACT_BYTES // (1024 * 1024),
+               "\n".join("  %s  %s" % (n, human(os.path.join(OUT, n)))
+                         for n, _ in oversize)))
+    if stale:
+        print("NOTE: %d file(s) in data/api are not part of this build and are left in "
+              "place, not deleted: %s" % (len(stale), ", ".join(sorted(stale))))
 
     manifest = {
         "api_version": API_VERSION,
@@ -259,8 +385,41 @@ def main():
         "coverage": {
             "by_exchange_source": _tally(r.get("exchange_source") for r in comp_rows),
             "total_uncovered": sum((m.get("n_uncovered") or 0) for m in media_rows),
-            "media_below_100pct": sum(
-                1 for m in media_rows if (m.get("pct_covered") or 100) < 100),
+            # `or 100` turned an absent measurement into a perfect score, so a medium
+            # that was never measured counted as fully covered (SCHEMA-07 /
+            # MEDIA-WEB-05). Null is now its own bucket and says so.
+            "media_below_100pct_legacy": sum(
+                1 for m in media_rows
+                if m.get("pct_covered") is not None and m["pct_covered"] < 100),
+            "media_with_no_legacy_coverage_measurement": sum(
+                1 for m in media_rows if m.get("pct_covered") is None),
+            "media_below_100pct_source_stated": sum(
+                1 for m in media_rows
+                if m.get("pct_covered_source") is not None
+                and m["pct_covered_source"] < 100),
+            "media_with_no_source_coverage_measurement": sum(
+                1 for m in media_rows if m.get("pct_covered_source") is None),
+            "definition": "pct_covered is the legacy metric and counts pipeline-derived "
+                          "components as covered; pct_covered_source counts only "
+                          "composition the cited source states. Null means not "
+                          "measurable, never 100.",
+        },
+        "components": {
+            "n_records": len(comp_rows),
+            "n_sourced": sum(1 for r in comp_rows if r.get("evidence_class") == "sourced"),
+            "n_derived_not_sourced": sum(
+                1 for r in comp_rows if r.get("evidence_class") == "derived"),
+            "by_evidence_tier": _tally(r.get("evidence_tier") for r in comp_rows),
+            "n_with_concentration_mM": sum(
+                1 for r in comp_rows if r.get("concentration_mM") is not None),
+        },
+        "licensing": {
+            "by_license": _tally(m.get("license") for m in media_rows),
+            "n_commercial_use_ok": sum(1 for m in media_rows if m.get("commercial_use_ok")),
+            "n_commercial_use_restricted": sum(
+                1 for m in media_rows if m.get("commercial_use_ok") is False),
+            "note": "records whose upstream licence forbids commercial use ship and are "
+                    "labelled; see LICENSE and NOTICE for the per-source schedule.",
         },
         "by_category": catalog.get("by_category", {}),
         "by_source_db": catalog.get("by_source_db", {}),
