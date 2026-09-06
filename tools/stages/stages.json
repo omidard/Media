@@ -33,7 +33,12 @@
    "owner": "naming-web"
   },
   {
-   "range": "60-89",
+   "range": "60-69",
+   "workstream": "published-site size: reference tables, string deduplication",
+   "owner": "pipeline"
+  },
+  {
+   "range": "70-89",
    "workstream": "unassigned",
    "owner": null
   },
@@ -175,11 +180,11 @@
    "removes_keys": [],
    "enabled": true,
    "confirmed_by": "licensing agent 2026-09-06: adds_keys and findings confirmed against the implementation",
-   "notes": "Rewrites provenance.citation for the 1,248 MediaDive media that belong to JCM or CCAP, preserving the original in provenance.citation_original. Does NOT rename records: the display-name conflict and a suggested name go to provenance.attribution_conflict for the naming stage (50-59). Deletes nothing \u2014 the 1,189 non-commercial/all-rights-reserved records and the 229,486 pipeline-derived components are labelled, per the operator's segregate-and-label decision."
+   "notes": "Rewrites provenance.citation for the 1,248 MediaDive media that belong to JCM or CCAP, preserving the original in provenance.citation_original. Does NOT rename records: the display-name conflict and a suggested name go to provenance.attribution_conflict for the naming stage (50-59). Deletes nothing — the 1,189 non-commercial/all-rights-reserved records and the 229,486 pipeline-derived components are labelled, per the operator's segregate-and-label decision."
   },
   {
    "id": "39_recompute_coverage",
-   "title": "Stage 39 \u2014 coverage recomputed with its denominator, and derived composition excluded.",
+   "title": "Stage 39 — coverage recomputed with its denominator, and derived composition excluded.",
    "owner": "components",
    "findings": [
     "COV-02",
@@ -241,7 +246,7 @@
     "n_observed",
     "n_derived",
     "n_unmappable",
-    "pct_covered_observed",
+    "pct_sourced_components_with_bigg_id",
     "tier_counts",
     "mapping_schema_version"
    ],
@@ -370,6 +375,44 @@
    "removes_keys": [],
    "enabled": true,
    "note": "Copy-through: it edits no record and stamps none. It exists so the browser's honesty numbers are asserted inside the chain, against the corrected corpus, before promotion. The shipping path is `make derived` -> tools/build_web_payload.py."
+  },
+  {
+   "id": "60_dedupe_references",
+   "title": "Hold each repeated cross-reference block and note once in data/refs.json, and refer to it by key",
+   "owner": "pipeline",
+   "findings": [
+    "SIZE-01"
+   ],
+   "reads": [
+    "corpus"
+   ],
+   "writes": [
+    "corpus",
+    "artifact:<work>/refs.json"
+   ],
+   "after": [
+    "52_web_payload"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "components[].xref_id",
+    "components[].xref_note_id",
+    "components[].mapping_note_id",
+    "provenance.transforms"
+   ],
+   "removes_keys": [
+    "components[].mapping_note",
+    "components[].quantity_basis",
+    "components[].target_xref",
+    "components[].target_xref_note",
+    "components[].usda_amount",
+    "components[].usda_unit",
+    "components[].xref"
+   ],
+   "enabled": true,
+   "notes": "Deletes no fact. Every removed value is either written once into data/refs.json and referenced by key, or was already present on the same component inside `quantity` (quantity_basis / usda_amount / usda_unit were type-exact copies of quantity.basis / .value / .unit in 665,582 and 268,697 of 268,697 components respectively; amount_basis is left in place because it labels amount_mmol_per_100g, a different measurement, and its agreement with quantity.basis is a property of this corpus rather than of the schema). The stage asserts refs.resolve_component() reproduces every component byte-for-byte, on all 665,582 of them, and exits non-zero on a single failure. Measured: data/media 1,382.3 MiB -> 744.0 MiB; the driver was that `xref` was byte-identical to `target_xref` in 100.00% of components and that 2,287 distinct cross-reference blocks were written out 665,582 times.",
+   "runs_last": "Ordered after 52_web_payload because every stage before it, and the web payload projection itself, read components[].xref / target_xref / mapping_note inline. Running it earlier would force every upstream stage to join a table for no benefit."
   }
  ]
 }

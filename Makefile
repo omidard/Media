@@ -238,10 +238,16 @@ promote:
 	@# The reference table is part of the corpus, not a derived artifact: it holds the
 	@# cross-references and notes the records no longer carry inline. Promoting one
 	@# without the other leaves the site with keys nothing resolves, so they move
-	@# together and `make refs-verify` proves it afterwards.
-	@if [ -f "$(REBUILD)/refs.json" ]; then \
-		cp "$(REBUILD)/refs.json" "$(REPO)/data/refs.json"; \
-		echo "promoted data/refs.json alongside the corpus"; \
+	@# together, and `make refs-verify` proves it afterwards. Stage 60 writes it
+	@# beside the corpus it belongs to; the symlink is resolved so this works for a
+	@# full chain run and a single-stage run alike.
+	@refs="$$(cd "$$(dirname "$$(readlink -f "$(STAGED)")")" && pwd)/refs.json"; \
+	if [ -f "$$refs" ]; then \
+		cp "$$refs" "$(REPO)/data/refs.json"; \
+		echo "promoted data/refs.json ($$refs) alongside the corpus"; \
+	else \
+		echo "NOTE: no refs.json beside $(STAGED) — data/refs.json left as it is."; \
+		echo "      Run 'make refs-verify' before 'make derived'."; \
 	fi
 	@echo "promoted. Now run: make refs-verify && make derived && make test"
 

@@ -90,6 +90,11 @@ def violations(stream):
                 bad("wrong_type:component.concentration_mM", (mid, repr(c["concentration_mM"])[:30]))
             if "xref" in c and not isinstance(c["xref"], dict):
                 bad("wrong_type:component.xref", (mid, type(c["xref"]).__name__))
+            # Post stage 60 the block lives once in data/refs.json and the record
+            # carries the key. A key that is not a string is as broken as an xref
+            # that is not a dict was.
+            if "xref_id" in c and not isinstance(c["xref_id"], str):
+                bad("wrong_type:component.xref_id", (mid, type(c["xref_id"]).__name__))
             if c.get("in_biggr") is True:
                 n_inb += 1
         if rec.get("n_in_biggr") != n_inb:
