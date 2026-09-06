@@ -1,0 +1,100 @@
+# tools/curation/usda_nutrient_table.tsv
+#
+# Reviewed replacement for the hand-typed NMAP_RAW / MINMAP dictionaries at
+# tools/build_usda_media_v2.py:19-34 (duplicated at tools/usda/usda_media.py:19-31).
+# Those two literals decide the identity of 268,697 component records -- 40.4% of
+# the corpus -- and every one of them was stamped mapping_confidence "exact" with
+# no structure consulted anywhere in either script.
+#
+# This table states, per nutrient, what the USDA measurement actually is, what BiGG
+# id it maps to, and what evidence tier that mapping can honestly claim. It is the
+# reviewed artefact the builder should read instead of a literal, so a rebuild
+# reproduces the review.
+#
+# HANDOFF: `usda_nutrient_number` is deliberately EMPTY. FoodData Central nutrient
+# numbers are the correct key (the display name is not stable and collides -- see
+# the five collision groups below), but the USDA input archives referenced at
+# build_usda_media_v2.py:11-13 point at a deleted scratchpad and are not on this
+# host, so the numbers cannot be read from the source. They must be filled in when
+# the USDA input is restored. They are left blank rather than guessed.
+#
+# COLLISIONS (five groups where two USDA nutrients resolve to one exchange and the
+# builder's `comps[ex] = {...}` assignment lets the second silently overwrite the
+# first): Cystine/Cysteine -> cys__L; MUFA 18:1 c + MUFA 18:1 -> ocdcea;
+# PUFA 18:2 n-6 c,c + PUFA 18:2 c -> lnlc; PUFA 18:3 n-3 c,c,c (ALA) + PUFA 18:3 c
+# -> lnlnca; PUFA 20:4 + PUFA 20:4c -> arachd. The builder must assert that no two
+# source nutrients resolve to one exchange within a food and record both amounts.
+#
+# BUILD GATE: tools/build_usda_media_v2.py:32,35 currently filter the table with
+# `{k: v for k, v in NMAP_RAW.items() if valid(v)}`, which DROPS any entry whose
+# target is not in_biggr with no log line. That silent drop must become a hard
+# build failure naming the entry, or a correction like "Cystine -> cystine__L"
+# deletes the nutrient instead of fixing it.
+#
+# evidence_tier vocabulary: see tools/evidence_tiers.py
+usda_nutrient_name	usda_nutrient_number	current_bigg	reviewed_bigg	evidence_tier	proxy_for	verdict	chemistry
+Tryptophan		trp__L	trp__L	name_table		ok	USDA amino-acid profiles are protein hydrolysates; the proteinogenic L-form is the correct assignment.
+Threonine		thr__L	thr__L	name_table		ok	proteinogenic L-form
+Isoleucine		ile__L	ile__L	name_table		ok	proteinogenic L-form
+Leucine		leu__L	leu__L	name_table		ok	proteinogenic L-form
+Lysine		lys__L	lys__L	name_table		ok	proteinogenic L-form
+Methionine		met__L	met__L	name_table		ok	proteinogenic L-form
+Cystine		cys__L	cysi__L	name_table		WRONG	L-cystine is the disulfide DIMER, C6H12N2O4S2, InChIKey LEVWYRKDKASIDU-IMJSIDKUSA-N, BiGG id cysi__L (in_biggr true). It was mapped to cys__L, the L-cysteine MONOMER, C3H7NO2S, XUJNEKJLAYXESH-REOHCLBHSA-N: different skeleton, 2x stoichiometry. Retarget to cysi__L, NOT to cystine__L (which is in_biggr false with no formula and no InChIKey and would be silently dropped by the valid() filter).
+Cysteine		cys__L	cys__L	name_table		ok but collides	Correct on its own, but shares the exchange key with Cystine; whichever nutrient is parsed second overwrites the first amount with no trace.
+Phenylalanine		phe__L	phe__L	name_table		ok	proteinogenic L-form
+Tyrosine		tyr__L	tyr__L	name_table		ok	proteinogenic L-form
+Valine		val__L	val__L	name_table		ok	proteinogenic L-form
+Arginine		arg__L	arg__L	name_table		ok	proteinogenic L-form
+Histidine		his__L	his__L	name_table		ok	proteinogenic L-form
+Alanine		ala__L	ala__L	name_table		ok	proteinogenic L-form
+Aspartic acid		asp__L	asp__L	name_table		ok	conjugate-base naming; asp__L is L-aspartate, the same species at physiological pH
+Glutamic acid		glu__L	glu__L	name_table		ok	conjugate-base naming; glu__L is L-glutamate
+Glycine		gly	gly	name_table		ok	achiral
+Proline		pro__L	pro__L	name_table		ok	proteinogenic L-form
+Serine		ser__L	ser__L	name_table		ok	proteinogenic L-form
+Asparagine		asn__L	asn__L	name_table		ok	proteinogenic L-form
+Glutamine		gln__L	gln__L	name_table		ok	proteinogenic L-form
+Glucose		glc__D	glc__D	name_table		ok	dietary glucose is the D-sugar
+Fructose		fru	fru	name_table		ok	fru is D-fructose in BiGG
+Sucrose		sucr	sucr	name_table		ok	unambiguous disaccharide
+Galactose		gal	gal	name_table		ok	gal is D-galactose in BiGG
+Maltose		malt	malt	name_table		ok	unambiguous disaccharide
+Lactose		lcts	lcts	name_table		ok	unambiguous disaccharide
+SFA 16:0		hdca	hdca	name_table		ok	a saturated straight-chain fatty acid of stated length is unambiguous
+SFA 18:0		ocdca	ocdca	name_table		ok	unambiguous chain length, no unsaturation
+SFA 14:0		ttdca	ttdca	name_table		ok	unambiguous
+SFA 12:0		ddca	ddca	name_table		ok	unambiguous
+SFA 10:0		dca	dca	name_table		ok	unambiguous
+SFA 8:0		octa	octa	name_table		ok	unambiguous
+SFA 6:0		hxa	hxa	name_table		ok	unambiguous
+MUFA 18:1 c		ocdcea	ocdcea	class_proxy	ocdcea|ocdce9a|elaid|vacc|M00115|M00019	CLASS	cis-C18:1 without a stated double-bond position. BiGG resolves six C18:1 species; oleate is assumed and must be declared as a proxy.
+MUFA 18:1		ocdcea	ocdcea	class_proxy	ocdcea|ocdce9a|elaid|vacc|M00115|M00019	CLASS + collides	Total C18:1 including trans isomers. Also collides with "MUFA 18:1 c" on the same exchange.
+PUFA 18:2 n-6 c,c		lnlc	lnlc	name_table		ok	position and geometry both stated; linoleate is the specific compound
+PUFA 18:2 c		lnlc	lnlc	class_proxy	lnlc	CLASS + collides	cis-C18:2 without a stated position. No isomer-unresolved C18:2 target exists (ocdcya duplicates lnlc's InChIKey), so lnlc stays as a declared proxy.
+PUFA 18:3 n-3 c,c,c (ALA)		lnlnca	lnlnca	name_table		ok	position and geometry both stated; alpha-linolenate
+PUFA 18:3 c		lnlnca	lnlnca	class_proxy	lnlnca|strdnc	CLASS + collides	cis-C18:3 without a stated position
+PUFA 20:4		arachd	arachd	class_proxy	arachd	CLASS	C20:4 without a stated position; arachidonate assumed
+PUFA 20:4c		arachd	arachd	class_proxy	arachd	CLASS + collides	as above, and collides with "PUFA 20:4"
+Thiamin		thm	thm	name_table		ok	one compound
+Riboflavin		ribflv	ribflv	name_table		ok	one compound
+Niacin		nac	nac	name_table		ok	synonym naming: nac is nicotinate. USDA "Niacin" excludes nicotinamide (reported separately), so the assignment is defensible.
+Pantothenic acid		pnto__R	pnto__R	name_table		ok	conjugate-base naming; the R enantiomer is the vitamer
+Vitamin B-6		pydxn	pydxn	class_proxy	pydxn|pydx|pydam	AGGREGATE	USDA reports total B6 across pyridoxine, pyridoxal, pyridoxamine and their 5'-phosphates. pydxn is pyridoxine alone.
+Folate, total		fol	fol	class_proxy	fol|5mthf|thf	AGGREGATE	total food folates (largely polyglutamyl 5-methyl-THF) plus added folic acid, mapped to folate monoglutamate
+Vitamin B-12		cbl1	adocbl	class_proxy	adocbl|C06453|cbl2|cbl1	WRONG	cbl1 is Cob(I)alamin, a transient reduced intracellular redox state, not a dietary species. Cyanocobalamin has no in_biggr id (b12 has no formula and no InChIKey). adocbl is a real dietary/coenzyme form present in BiGGr; declare it a proxy for the vitamer group.
+Vitamin C, total ascorbic acid		ascb__L	ascb__L	name_table		ok	conjugate-base naming; ascb__L is L-ascorbate. USDA totals ascorbic + dehydroascorbic acid, so an aggregate note is warranted but the species is right.
+Biotin		btn	btn	name_table		ok	one compound
+Vitamin E (alpha-tocopherol)		avite1	avite1	class_proxy	avite1|avite2	AGGREGATE	reported as alpha-tocopherol equivalents in many records
+Choline, total		chol	chol	class_proxy	chol	AGGREGATE	totals free choline, phosphocholine, glycerophosphocholine, phosphatidylcholine and sphingomyelin
+Retinol		retinol	retinol	name_table		ok	one compound; all-trans-retinol
+Potassium, K		k	k	name_table		ok	monatomic ion; the element assay and the BiGG species are the same entity
+Zinc, Zn		zn2	zn2	name_table		ok	monatomic cation
+Magnesium, Mg		mg2	mg2	name_table		ok	monatomic cation
+Phosphorus, P		pi	pi	class_proxy	pi	AGGREGATE	total P includes phytate, phospholipid and protein-bound P, not only free orthophosphate. Not flux-consequential: the mineral base already opens EX_pi_e at -1000.
+Calcium, Ca		ca2	ca2	name_table		ok	monatomic cation
+Copper, Cu		cu2	cu2	name_table		ok	monatomic cation
+Iron, Fe		fe2	fe2	class_proxy	fe2|fe3	OXIDATION STATE	total Fe is mixed heme/non-heme and mixed oxidation state; fe2 fixes Fe(II) and its BiGG display name is "Fe2+ mitochondria". Not flux-consequential: the mineral base already opens both EX_fe2_e and EX_fe3_e at -1000.
+Manganese, Mn		mn2	mn2	name_table		ok	monatomic cation
+Sodium, Na		na1	na1	name_table		ok	monatomic cation
+Molybdenum, Mo		mobd	mobd	class_proxy	mobd	SPECIATION	an elemental Mo assay mapped to molybdate. Flux-consequential: molybdate is not in the injected mineral base.
+Selenium, Se		slnt	slnt	class_proxy	slnt	SPECIATION	an elemental Se assay mapped to selenite. Dietary Se is predominantly selenomethionine/selenocysteine. Flux-consequential: selenite is not in the injected mineral base and is opened at lower_bound -1000.

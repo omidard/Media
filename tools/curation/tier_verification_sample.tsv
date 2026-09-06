@@ -1,0 +1,466 @@
+evidence_tier	source_name	bigg_metabolite	target_name	formula	inchikey	proxy_for	n_rows_this_decision
+name_table	Thiamin	thm	Thiamin	C12H17N4OS	MYVIATVLJGTBFV-UHFFFAOYSA-M		8069
+name_table	Calcium, Ca	ca2	Calcium	Ca	BHPQYMZQTOCNFJ-UHFFFAOYSA-N		7243
+name_table	Potassium, K	k	Potassium	K	NPYPAHLBTDXSSS-UHFFFAOYSA-N		7243
+name_table	Sodium, Na	na1	Sodium	Na	FKNQFGJONOIPTF-UHFFFAOYSA-N		7219
+name_table	Zinc, Zn	zn2	Zinc	Zn	PTFCDOFLOPIGGS-UHFFFAOYSA-N		7192
+name_table	Magnesium, Mg	mg2	Magnesium	Mg	JLVVSXFLKOJNIY-UHFFFAOYSA-N		7191
+name_table	Niacin	nac	Nicotinate	C6H4NO2	PVNIIMVLHYAWGP-UHFFFAOYSA-M		7119
+name_table	Copper, Cu	cu2	Copper	Cu	JPVYNHNXODAKFH-UHFFFAOYSA-N		7048
+name_table	Riboflavin	ribflv	Riboflavin C17H20N4O6	C17H19N4O6	AUNGANRZJHBGPY-SCRDCRAPSA-M		7048
+name_table	SFA 16:0	hdca	Hexadecanoate (n-C16:0)	C16H31O2	IPCSVZSSVZVIGE-UHFFFAOYSA-M		6701
+name_table	SFA 18:0	ocdca	Octadecanoate (n-C18:0)	C18H35O2	QIQXTHQIDYTFRH-UHFFFAOYSA-M		6573
+name_table	Manganese, Mn	mn2	Manganese	Mn	WAEMQWOKJMHJLA-UHFFFAOYSA-N		6354
+name_table	Pantothenic acid	pnto__R	(R)-Pantothenate	C9H16NO5	GHOKWGTUZJEAQD-ZETCQYMHSA-M		6135
+name_table	SFA 14:0	ttdca	Tetradecanoate (n-C14:0)	C14H27O2	TUNFSRHWOTWDNC-UHFFFAOYSA-M		5704
+name_table	Lysine	lys__L	L-Lysine	C6H15N2O2	KDXKERNSBIXSRK-YFKPBYRVSA-O		5018
+name_table	Methionine	met__L	L-Methionine	C5H11NO2S	FFEARJCKVFRZRR-BYPYZUCNSA-N		5013
+name_table	Isoleucine	ile__L	L-Isoleucine	C6H13NO2	AGPKZVBTJJNPAG-WHFBIAKZSA-N		5005
+name_table	Leucine	leu__L	L-Leucine	C6H13NO2	ROHFNLRQFUQHCH-YFKPBYRVSA-N		5005
+name_table	Valine	val__L	L-Valine	C5H11NO2	KZSNJWFQEVHDMF-BYPYZUCNSA-N		5004
+name_table	Threonine	thr__L	L-Threonine	C4H9NO3	AYFVYJQAPQTCCC-GBXIJSLDSA-N		5001
+name_table	MnSO4 x H2O	so4	Sulfate	O4S	QAOWNCQODCNURD-UHFFFAOYSA-L		1
+name_table	NiCl2 . 6 H2O	ni2	Nickel	Ni	VEQPNABPJHWNSG-UHFFFAOYSA-N		1
+name_table	manganese chloride tetrahydrate	mn2	Manganese	Mn	WAEMQWOKJMHJLA-UHFFFAOYSA-N		21
+name_table	NaNO3 (sodium nitrate)	na1	Sodium	Na	FKNQFGJONOIPTF-UHFFFAOYSA-N		7
+name_table	Na2MoO4 ∙ 2H2O	mobd	Molybdate	MoO4	MEFBJEMVZONFCJ-UHFFFAOYSA-N		1
+name_table	NiCl2.6H2O	ni2	Nickel	Ni	VEQPNABPJHWNSG-UHFFFAOYSA-N		9
+name_table	Na2MoO4*2H2O (sodium molybdate dihydrate)	mobd	Molybdate	MoO4	MEFBJEMVZONFCJ-UHFFFAOYSA-N		1
+name_table	zinc sulfate	zn2	Zinc	Zn	PTFCDOFLOPIGGS-UHFFFAOYSA-N		11
+name_table	calcium chloride dihydrate	ca2	Calcium	Ca	BHPQYMZQTOCNFJ-UHFFFAOYSA-N		22
+name_table	Na2MoO4·2H2O (sodium molybdate dihydrate)	mobd	Molybdate	MoO4	MEFBJEMVZONFCJ-UHFFFAOYSA-N		2
+name_table	sodium carbonate	hco3	Bicarbonate	CHO3	BVKZGUZCCUSVTD-UHFFFAOYSA-M		3
+name_table	Cobalt nitrate	no3	Nitrate	NO3	NHNBFGGVMKEFGY-UHFFFAOYSA-N		8
+name_table	Na2SeO3 x 5 H2O	slnt	Selenite	O3Se	MCAHWIHFGHIESP-UHFFFAOYSA-L		1
+name_table	Acetate	ac	Acetate	C2H3O2	QTBSBXVTEAMEQO-UHFFFAOYSA-M		347
+name_table	sodium thiosulfate	na1	Sodium	Na	FKNQFGJONOIPTF-UHFFFAOYSA-N		1
+name_table	Na2WO4·2H2O (Wolin mineral)	tungs	Tungstate	O4W	PBYZMCDFOULPGH-UHFFFAOYSA-N		1
+name_table	Sodium dihydrogen phosphate	pi	Phosphate	HO4P	NBIIXXVUZAFLBC-UHFFFAOYSA-L		67
+name_table	NiCl2 · 6H2O	ni2	Nickel	Ni	VEQPNABPJHWNSG-UHFFFAOYSA-N		1
+name_table	sodium succinate	succ	Succinate	C4H4O4	KDYFGRWQOYBRFD-UHFFFAOYSA-L		1
+name_table	Sodium sulfide (reductant)	h2s	Hydrogen sulfide	HS	RWSOTUBLDIXVET-UHFFFAOYSA-M		4
+name_table	Ammonium Acetate	ac	Acetate	C2H3O2	QTBSBXVTEAMEQO-UHFFFAOYSA-M		4
+name_table	ferrous sulfate	fe2	Fe2+ mitochondria	Fe	CWYNVVGOOAEACU-UHFFFAOYSA-N		10
+name_table	Ammonium sulfate	nh4	Ammonium	H4N	QGZKDVFQNNGYKY-UHFFFAOYSA-O		76
+name_table	Magnesium sulfate (MgSO4.7H2O)	so4	Sulfate	O4S	QAOWNCQODCNURD-UHFFFAOYSA-L		9
+name_table	NaCl	na1	Sodium	Na	FKNQFGJONOIPTF-UHFFFAOYSA-N		160
+derived_component	H+	h	H+	H	GPRLSGONYQIRFK-UHFFFAOYSA-N		11925
+derived_component	H2O H2O	h2o	H2O H2O	H2O	XLYOFNOQVPJJNP-UHFFFAOYSA-N		11863
+derived_component	CO2 CO2	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		11140
+derived_component	O2 O2	o2	O2 O2	O2	MYMOFIZGZYHOMD-UHFFFAOYSA-N		10776
+derived_component	Co2+	cobalt2	Co2+	Co	XLJKHNWPARRRJB-UHFFFAOYSA-N		9914
+derived_component	Sulfate	so4	Sulfate	O4S	QAOWNCQODCNURD-UHFFFAOYSA-L		9130
+derived_component	Iron (Fe3+)	fe3	Iron (Fe3+)	Fe	VTLYFUHAOXGGBS-UHFFFAOYSA-N		8805
+derived_component	Ammonium	nh4	Ammonium	H4N	QGZKDVFQNNGYKY-UHFFFAOYSA-O		8507
+derived_component	Chloride	cl	Chloride	Cl	VEXZGXHMUGYJMC-UHFFFAOYSA-M		8343
+derived_component	L-Aspartate	asp__L	L-Aspartate	C4H6NO4	CKLJMWTZIZZHCS-REOHCLBHSA-M		3628
+derived_component	L-Serine	ser__L	L-Serine	C3H7NO3	MTCFGRXMJLQNBG-REOHCLBHSA-N		3627
+derived_component	L-Glutamate	glu__L	L-Glutamate	C5H8NO4	WHUUTDBJXJRKMK-VKHMYHEASA-M		3625
+derived_component	L-Tyrosine	tyr__L	L-Tyrosine	C9H11NO3	OUYCCCASQSFEME-QMMMGPOBSA-N		3624
+derived_component	L-Valine	val__L	L-Valine	C5H11NO2	KZSNJWFQEVHDMF-BYPYZUCNSA-N		3624
+derived_component	L-Alanine	ala__L	L-Alanine	C3H7NO2	QNAYBMKLOCPYGJ-REOHCLBHSA-N		3623
+derived_component	L-Isoleucine	ile__L	L-Isoleucine	C6H13NO2	AGPKZVBTJJNPAG-WHFBIAKZSA-N		3623
+derived_component	L-Leucine	leu__L	L-Leucine	C6H13NO2	ROHFNLRQFUQHCH-YFKPBYRVSA-N		3623
+derived_component	L-Threonine	thr__L	L-Threonine	C4H9NO3	AYFVYJQAPQTCCC-GBXIJSLDSA-N		3623
+derived_component	L-Phenylalanine	phe__L	L-Phenylalanine	C9H11NO2	COLNVLDHVKWLRT-QMMMGPOBSA-N		3622
+derived_component	L-Lysine	lys__L	L-Lysine	C6H15N2O2	KDXKERNSBIXSRK-YFKPBYRVSA-O		3620
+derived_component	Biotin	btn	Biotin	C10H15N2O3S	YBJHBAHKTGYVGT-ZKWXMUAHSA-M		2488
+derived_component	(R)-Pantothenate	pnto__R	(R)-Pantothenate	C9H16NO5	GHOKWGTUZJEAQD-ZETCQYMHSA-M		2583
+derived_component	Cytidine	cytd	Cytidine	C9H13N3O5	UHDGCWIWMRVCDJ-XVFCMESISA-N		3479
+derived_component	Glycine	gly	Glycine	C2H5NO2	DHMQDGOQFOQNFH-UHFFFAOYSA-N		3609
+derived_component	Pyridoxine	pydxn	Pyridoxine	C8H11NO3	LXNHXLLTXMVWPM-UHFFFAOYSA-N		2603
+derived_component	Calcium	ca2	Calcium	Ca	BHPQYMZQTOCNFJ-UHFFFAOYSA-N		2176
+derived_component	MOPS C7H14NO4S	mops	MOPS C7H14NO4S				2
+derived_component	Magnesium	mg2	Magnesium	Mg	JLVVSXFLKOJNIY-UHFFFAOYSA-N		1795
+derived_component	L-Cysteine	cys__L	L-Cysteine	C3H7NO2S	XUJNEKJLAYXESH-REOHCLBHSA-N		3042
+derived_component	L-Arginine	arg__L	L-Arginine	C6H15N4O2	ODKSFYDXXFIFQN-BYPYZUCNSA-O		3613
+derived_component	Molybdate	mobd	Molybdate	MoO4	MEFBJEMVZONFCJ-UHFFFAOYSA-N		622
+derived_component	D-Glucose	glc__D	D-Glucose	C6H12O6	WQZGKKKJIJFFOK-GASJEMHNSA-N		87
+derived_component	Cob(I)alamin	cbl1	Cob(I)alamin	C62H87CoN13O14P	OMAOKVYASDIYQG-DSRCUDDDSA-L		2417
+derived_component	Maltotriose C18H32O16	malttr	Maltotriose C18H32O16	C18H32O16	FYGDTMLNYKFZSV-PXXRMHSHSA-N		74
+derived_component	Guanosine	gsn	Guanosine	C10H13N5O5	NYHBQMYGNKIUIF-UUOKFMHZSA-N		3479
+derived_component	L-Asparagine	asn__L	L-Asparagine	C4H8N2O3	DCXYFEDJOCDNAF-REOHCLBHSA-N		3596
+derived_component	Bicarbonate	hco3	Bicarbonate	CHO3	BVKZGUZCCUSVTD-UHFFFAOYSA-M		1
+derived_component	Potassium	k	Potassium	K	NPYPAHLBTDXSSS-UHFFFAOYSA-N		1801
+derived_component	O2 (aerobic)	o2	O2 O2	O2	MYMOFIZGZYHOMD-UHFFFAOYSA-N		6
+derived_component	Copper	cu2	Copper	Cu	JPVYNHNXODAKFH-UHFFFAOYSA-N		2861
+derived_component	Riboflavin C17H20N4O6	ribflv	Riboflavin C17H20N4O6	C17H19N4O6	AUNGANRZJHBGPY-SCRDCRAPSA-M		3599
+derived_component	L-Proline	pro__L	L-Proline	C5H9NO2	ONIBWKKTOPOVIA-BYPYZUCNSA-N		3617
+derived_component	Thiamin	thm	Thiamin	C12H17N4OS	MYVIATVLJGTBFV-UHFFFAOYSA-M		2525
+derived_component	L-Methionine	met__L	L-Methionine	C5H11NO2S	FFEARJCKVFRZRR-BYPYZUCNSA-N		3618
+derived_component	Sodium	na1	Sodium	Na	FKNQFGJONOIPTF-UHFFFAOYSA-N		1074
+class_proxy	Iron, Fe	fe2	Fe2+ mitochondria	Fe	CWYNVVGOOAEACU-UHFFFAOYSA-N	fe2|fe3	7241
+class_proxy	Phosphorus, P	pi	Phosphate	HO4P	NBIIXXVUZAFLBC-UHFFFAOYSA-L	pi	7192
+class_proxy	Vitamin B-6	pydxn	Pyridoxine	C8H11NO3	LXNHXLLTXMVWPM-UHFFFAOYSA-N	pydxn|pydx|pydam	6982
+class_proxy	MUFA 18:1 c|MUFA 18:1	ocdcea	Octadecenoate (n-C18:1)	C18H33O2	ZQPPMHVWECSIRJ-KTKRTIGZSA-M	ocdcea|ocdce9a|elaid|vacc|M00115|M00019	6703
+class_proxy	Selenium, Se	slnt	Selenite	O3Se	MCAHWIHFGHIESP-UHFFFAOYSA-L	slnt	6468
+class_proxy	Folate, total	fol	Folate	C19H17N7O6	OVBPIULPVIDEAO-LBPRGKRZSA-L	fol|5mthf|thf	6246
+class_proxy	Vitamin E (alpha-tocopherol)	avite1	Alpha-Tocopherol	C29H50O2	GVJHHUAWPYXKBD-IEOSBIPESA-N	avite1|avite2	5206
+class_proxy	MUFA 16:1	hdcea	Hexadecenoate (n-C16:1)	C16H29O2	SECPZKHBENQXJG-FPLPWBNLSA-M	hdcea	4979
+class_proxy	PUFA 18:2	lnlc	Linoleic acid (all cis C18:2) n-6	C18H31O2	OYHQOLUKZRVURQ-HZJYTTRNSA-M	lnlc	4864
+class_proxy	Choline, total	chol	Choline C5H14NO	C5H14NO	OEYIOHPDSNJKLS-UHFFFAOYSA-N	chol	4439
+class_proxy	PUFA 18:3	lnlnca	Alpha-Linolenic acid, C18:3, n-3	C18H29O2	DTOSIQBPPRVQHS-PDBXOOCHSA-M	lnlnca|strdnc	4394
+class_proxy	Vitamin B-12	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	4320
+class_proxy	MUFA 20:1	M01235	9Z-Eicosenoic Acid	C20H38O2	LQJBNNIYVWPHFW-QXMHVHEDSA-N	M01235	3819
+class_proxy	PUFA 20:4|PUFA 20:4c	arachd	Arachidonic acid	C20H31O2	YZXBAPSDXZZRGB-DOFZRALJSA-M	arachd	3512
+class_proxy	PUFA 18:3 n-3 c,c,c (ALA)|PUFA 18:3 c	lnlnca	Alpha-Linolenic acid, C18:3, n-3	C18H29O2	DTOSIQBPPRVQHS-PDBXOOCHSA-M	lnlnca|strdnc	1948
+class_proxy	PUFA 18:2 n-6 c,c|PUFA 18:2 c	lnlc	Linoleic acid (all cis C18:2) n-6	C18H31O2	OYHQOLUKZRVURQ-HZJYTTRNSA-M	lnlc	1870
+class_proxy	MUFA 14:1	ttdcea	Tetradecenoate (n-C14:1)	C14H26O2	YWWVWXASSLXJHU-AATRIKPKSA-N	ttdcea	1729
+class_proxy	SFA 22:0	behen	Docosanoate (C22:0)			behen	1665
+class_proxy	MUFA 17:1	hepedecacid	Heptadecenoic acid			hepedecacid	1547
+class_proxy	Vitamin A, IU	retinol	All-trans-Retinol	C20H30O	FPIPGXGPPPQFEQ-OVSJKPMPSA-N	retinol|caro|acaro|bcryptox	1343
+class_proxy	Vitamin D (D2 + D3), International Units	vitd3	Calciol; (+)-Vitamin D3	C27H44O	QYSXJUFSXHHAJI-YRZJJWOYSA-N	vitd3|vitd2	1150
+class_proxy	Cyanocobalamin (B12)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	3
+class_proxy	Cobalamin (vitamin B12)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2	9
+class_proxy	Cyanocobalamin (vitamin B12)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2	19
+class_proxy	MUFA 16:1 c	hdcea	Hexadecenoate (n-C16:1)	C16H29O2	SECPZKHBENQXJG-FPLPWBNLSA-M	hdcea	696
+class_proxy	vitamin B12 solution (cyanocobalamin)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	1
+class_proxy	Cobalamin / cyano-cobalamine (B12)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	1
+class_proxy	MUFA 22:1	doco13ac	13Z)-13-docosenoic acid	C22H41O2	DPUOLQHDNGRHBS-KTKRTIGZSA-M	doco13ac	760
+class_proxy	Cyanocobalamine (B12)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	1
+class_proxy	Vitamin B12	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2	82
+class_proxy	cobalamin / vitamin B12 (vitamin solution)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2	1
+class_proxy	MUFA 22:1 c	doco13ac	13Z)-13-docosenoic acid	C22H41O2	DPUOLQHDNGRHBS-KTKRTIGZSA-M	doco13ac	301
+class_proxy	Cob(1)alamin (reduced vitamin B12)	cbl1	Cob(I)alamin	C62H87CoN13O14P	OMAOKVYASDIYQG-DSRCUDDDSA-L	adocbl|C06453|cbl2|cbl1	1
+class_proxy	Cyanocobalamine	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	1
+class_proxy	Vitamin B12 / cobalamin (Thauer's vitamins)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2	2
+class_proxy	vitamin B12	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2	29
+class_proxy	MUFA 20:1 c	M01235	9Z-Eicosenoic Acid	C20H38O2	LQJBNNIYVWPHFW-QXMHVHEDSA-N	M01235	24
+class_proxy	cobalamin	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	6
+class_proxy	Vitamin B12 (cobalamin) (DMB vitamins)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2	1
+class_proxy	Vitamin D	vitd3	Calciol; (+)-Vitamin D3	C27H44O	QYSXJUFSXHHAJI-YRZJJWOYSA-N	vitd3|vitd2	163
+class_proxy	Cobalamin	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	8
+class_proxy	Cyanocobalamin (Wolfe's vitamins)	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	1
+class_proxy	cyanocobalamin	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	11
+class_proxy	Vitamin A, RAE	retinol	All-trans-Retinol	C20H30O	FPIPGXGPPPQFEQ-OVSJKPMPSA-N	retinol|caro|acaro|bcryptox	795
+class_proxy	Cyanocobalamin	adocbl	Adenosylcobalamin	C72H100CoN18O17P	ZIHHMGTYZOSFRC-QRVZQHAISA-N	adocbl|C06453|cbl2|cbl1	254
+fuzzy_name	Cholesterol	choles	Cholesterol				4419
+fuzzy_name	Vitamin K (phylloquinone)	phllqne	Phylloquinone	C31H46O2	MBWXNTAXLNYFJB-NKFFZRIASA-N		4004
+fuzzy_name	SFA 17:0	hpdca	Heptadecanoate  C170  C17H33O2	C17H33O2	KEMQGTRYUADPNZ-UHFFFAOYSA-M		2407
+fuzzy_name	SFA 20:0	arach	Arachidic acid	C20H39O2	VKOBVWXKNCXXDE-UHFFFAOYSA-M		2376
+fuzzy_name	Carotene, beta	caro	Beta-Carotene	C40H56	OENHQHLEOONYIE-JLTXGRSLSA-N		2303
+fuzzy_name	Betaine	glyb	Glycine betaine	C5H11NO2	KWIUHFFTVRNATP-UHFFFAOYSA-N		2030
+fuzzy_name	SFA 15:0	ptdca	Pentadecanoate  C150  C15H29O2	C15H29O2	WQEPLUUGTLDZJY-UHFFFAOYSA-M		1786
+fuzzy_name	PUFA 20:5 n-3 (EPA)	tmndnc	Timnodonic acid C20:5, n-3	C20H29O2	JAZBEHYOTPTENJ-JLNKQSITSA-M		1714
+fuzzy_name	PUFA 22:6 n-3 (DHA)	crvnc	Cervonic acid, C22:6 n-3	C22H31O2	MBMBGCFOFBJSGT-KUBAVDMBSA-M		1648
+fuzzy_name	PUFA 20:2 n-6 c,c	M00008	11Z,14Z-Eicosadienoic Acid	C20H35O2	XSXIVVZCUAHUJO-HZJYTTRNSA-M		1575
+fuzzy_name	SFA 24:0	lgnc	Lignoceric acid	C24H47O2	QZZGJDVWLFXDLK-UHFFFAOYSA-M		1443
+fuzzy_name	Hydroxyproline	4hpro_LT	Trans 4 Hydroxy L proline C5H9NO3	C5H9NO3	PMMYEEVYMWASQN-DMTCNVIQSA-N		1257
+fuzzy_name	SFA 4:0	but	Butyrate (n-C4:0)	C4H7O2	FERIUCNNQQJTOY-UHFFFAOYSA-M		1195
+fuzzy_name	Biotin	btn	Biotin	C10H15N2O3S	YBJHBAHKTGYVGT-ZKWXMUAHSA-M		1089
+fuzzy_name	D-Glucose	glc__D	D-Glucose	C6H12O6	WQZGKKKJIJFFOK-GASJEMHNSA-N		940
+fuzzy_name	Tocotrienol, alpha	avite2	Alpha-Tocotrienol	C29H44O2	RZFHLOLGZPDCHJ-XZXLULOTSA-N		810
+fuzzy_name	Cryptoxanthin, beta	bcryptox	Beta-Cryptoxanthin		DMASLKHVQRHNES-FKKUPVFPSA-N		791
+fuzzy_name	Vitamin D3 (cholecalciferol)	vitd3	Calciol; (+)-Vitamin D3	C27H44O	QYSXJUFSXHHAJI-YRZJJWOYSA-N		704
+fuzzy_name	Iron	fe	Iron				609
+fuzzy_name	Thiamine	thm	Thiamin	C12H17N4OS	MYVIATVLJGTBFV-UHFFFAOYSA-M		603
+fuzzy_name	Potassium (K2HPO4)	k	Potassium	K	NPYPAHLBTDXSSS-UHFFFAOYSA-N		1
+fuzzy_name	Malic acid	mal__L	L-Malate	C4H4O5	BJEPYKJPYRNKOW-REOHCLBHSA-L		13
+fuzzy_name	Glycine	gly	Glycine	C2H5NO2	DHMQDGOQFOQNFH-UHFFFAOYSA-N		459
+fuzzy_name	Ammonium (NH4+, from NH4Cl)	nh4	Ammonium	H4N	QGZKDVFQNNGYKY-UHFFFAOYSA-O		8
+fuzzy_name	Dodecanoylcarnitine	M01729	Dodecanoylcarnitine	C19H37NO4	FUJLYHJROOYKRA-QGZVFWFLSA-N		1
+fuzzy_name	Folic acid (vitamin B9)	fol	Folate	C19H17N7O6	OVBPIULPVIDEAO-LBPRGKRZSA-L		2
+fuzzy_name	Caprylic/Octanoic acid	octa	Octanoate (n-C8:0)	C8H15O2	WWZKQHOCKIZLMA-UHFFFAOYSA-M		1
+fuzzy_name	Thioctic acid (lipoic acid / lipoate)	lipoate	Lipoate	C8H13O2S2	AGBQKNBQESQNJD-SSDOTTSWSA-M		1
+fuzzy_name	Brassicasterol	brasstrl	Brassicasterol	C28H46O	OILXMJHPFNGGTO-ZAUYPBDWSA-N		1
+fuzzy_name	Sodium (from sodium citrate + NaOH pH adjustment)	na1	Sodium	Na	FKNQFGJONOIPTF-UHFFFAOYSA-N		1
+fuzzy_name	D-Glucosamine	gam	D-Glucosamine	C6H13NO5	MSWZFWKMSRAUBD-IVMDWMLBSA-O		2
+fuzzy_name	D-Mannitol	mnl	D-Mannitol	C6H14O6	FBPFZTCFMRRESA-KVTDHHQDSA-N		36
+fuzzy_name	Propionate	ppa	Propionate (n-C3:0)	C3H5O2	XBDQKXXYIPTUBI-UHFFFAOYSA-M		11
+fuzzy_name	Nickel (ni2)	ni2	Nickel	Ni	VEQPNABPJHWNSG-UHFFFAOYSA-N		3
+fuzzy_name	4-hydroxybenzoic acid	4hbz	4-Hydroxybenzoate	C7H5O3	FJKROLUGYXJWQN-UHFFFAOYSA-M		3
+fuzzy_name	Thiosulfate (Na2S2O3)	tsul	Thiosulfate	HO3S2	DHCDFWKWKRSZHF-UHFFFAOYSA-M		2
+fuzzy_name	Phenylalanine	phe__L	L-Phenylalanine	C9H11NO2	COLNVLDHVKWLRT-QMMMGPOBSA-N		25
+fuzzy_name	Ammonium sulfate ((NH4)2SO4) -> Ammonium	nh4	Ammonium	H4N	QGZKDVFQNNGYKY-UHFFFAOYSA-O		4
+fuzzy_name	Pantothenate	pnto__R	(R)-Pantothenate	C9H16NO5	GHOKWGTUZJEAQD-ZETCQYMHSA-M		5
+fuzzy_name	4-Aminobenzoic acid (pABA)	4abz	4-Aminobenzoate	C7H6NO2	ALYNCZNDIQEVRV-UHFFFAOYSA-M		1
+fuzzy_name	Acetic acid / acetate	ac	Acetate	C2H3O2	QTBSBXVTEAMEQO-UHFFFAOYSA-M		2
+fuzzy_name	Potassium (from potassium lactate + KH2PO4)	k	Potassium	K	NPYPAHLBTDXSSS-UHFFFAOYSA-N		1
+fuzzy_name	Shikimic acid	skm	Shikimate	C7H9O5	JXOHGGNKMLTUBP-HSUXUTPPSA-M		2
+fuzzy_name	Thiamin (vitamin B1)	thm	Thiamin	C12H17N4OS	MYVIATVLJGTBFV-UHFFFAOYSA-M		2
+fuzzy_name	Gadoleic acid (C20:1; genuine trace milk fatty acid)	M01235	9Z-Eicosenoic Acid	C20H38O2	LQJBNNIYVWPHFW-QXMHVHEDSA-N		1
+exact_name	Starch	starch	Starch C12H20O10	C12H20O10*2			964
+exact_name	Folate	fol	Folate	C19H17N7O6	OVBPIULPVIDEAO-LBPRGKRZSA-L		563
+exact_name	L-Ascorbate	ascb__L	L-Ascorbate	C6H7O6	CIWBSHSKHKDKBQ-JLAZNSOCSA-M		485
+exact_name	L-Glutamate	glu__L	L-Glutamate	C5H8NO4	WHUUTDBJXJRKMK-VKHMYHEASA-M		473
+exact_name	L-Aspartate	asp__L	L-Aspartate	C4H6NO4	CKLJMWTZIZZHCS-REOHCLBHSA-M		464
+exact_name	Lycopene	lycop	Lycopene		OAIJSZIZWZSQBC-GYZMGTAESA-N		423
+exact_name	Starch C12H20O10	starch	Starch C12H20O10	C12H20O10*2			348
+exact_name	D-Glucose	glc__D	D-Glucose	C6H12O6	WQZGKKKJIJFFOK-GASJEMHNSA-N		345
+exact_name	O2	o2	O2 O2	O2	MYMOFIZGZYHOMD-UHFFFAOYSA-N		284
+exact_name	Gamma-Tocopherol	gtocophe	Gamma-Tocopherol		QUEDXNHFTDJVIY-DQCZWYHMSA-N		171
+exact_name	D-glucose	glc__D	D-Glucose	C6H12O6	WQZGKKKJIJFFOK-GASJEMHNSA-N		158
+exact_name	Pyridoxine	pydxn	Pyridoxine	C8H11NO3	LXNHXLLTXMVWPM-UHFFFAOYSA-N		135
+exact_name	Beta-Cryptoxanthin	bcryptox	Beta-Cryptoxanthin		DMASLKHVQRHNES-FKKUPVFPSA-N		117
+exact_name	Quercetin C15H7O7	quc	Quercetin C15H7O7	C15H9O7	REFJWTPEDVJJIY-UHFFFAOYSA-M		114
+exact_name	Alpha-Carotene	acaro	Alpha-Carotene		ANVAOWXLWRTKGA-JLTXGRSLSA-N		108
+exact_name	riboflavin	ribflv	Riboflavin C17H20N4O6	C17H19N4O6	AUNGANRZJHBGPY-SCRDCRAPSA-M		105
+exact_name	Sucrose C12H22O11	sucr	Sucrose C12H22O11	C12H22O11	CZMRCDWAGMRECN-UGDNZRGBSA-N		104
+exact_name	Phosphate	pi	Phosphate	HO4P	NBIIXXVUZAFLBC-UHFFFAOYSA-L		99
+exact_name	Biotin	btn	Biotin	C10H15N2O3S	YBJHBAHKTGYVGT-ZKWXMUAHSA-M		98
+exact_name	L-arginine	arg__L	L-Arginine	C6H15N4O2	ODKSFYDXXFIFQN-BYPYZUCNSA-O		97
+exact_name	L-Lysine	lys__L	L-Lysine	C6H15N2O2	KDXKERNSBIXSRK-YFKPBYRVSA-O		27
+exact_name	Se-W solution: Na2WO4 (tungstate)	tungs	Tungstate	O4W	PBYZMCDFOULPGH-UHFFFAOYSA-N		1
+exact_name	L-leucine	leu__L	L-Leucine	C6H13NO2	ROHFNLRQFUQHCH-YFKPBYRVSA-N		96
+exact_name	Ethanol	etoh	Ethanol	C2H6O	LFQSCWFLJHTTHZ-UHFFFAOYSA-N		2
+exact_name	Sulfate (SO4 2-, from MgSO4 + Na2SO4)	so4	Sulfate	O4S	QAOWNCQODCNURD-UHFFFAOYSA-L		1
+exact_name	Na2MoO4·2H2O (molybdate)	mobd	Molybdate	MoO4	MEFBJEMVZONFCJ-UHFFFAOYSA-N		1
+exact_name	Water (h2o)	h2o	H2O H2O	H2O	XLYOFNOQVPJJNP-UHFFFAOYSA-N		4
+exact_name	L-Cysteine (cysteine-HCl)	cys__L	L-Cysteine	C3H7NO2S	XUJNEKJLAYXESH-REOHCLBHSA-N		3
+exact_name	Succinic acid (succinate)	succ	Succinate	C4H4O4	KDYFGRWQOYBRFD-UHFFFAOYSA-L		1
+exact_name	DCTP C9H12N3O13P3	dctp	DCTP C9H12N3O13P3	C9H12N3O13P3	RGWHQCVHVJXOKC-SHYZEUOFSA-J		1
+exact_name	Sulfate (SO4 2-, from K2SO4)	so4	Sulfate	O4S	QAOWNCQODCNURD-UHFFFAOYSA-L		1
+exact_name	Sucrose (from apple pomace hydrolysate)	sucr	Sucrose C12H22O11	C12H22O11	CZMRCDWAGMRECN-UGDNZRGBSA-N		1
+exact_name	Phenol	phenol	Phenol	C6H6O	ISWSIDIOOBJBQZ-UHFFFAOYSA-N		11
+exact_name	Linoleyl carnitine	lnlccrn	Linoleyl carnitine	C25H45NO4	MJLXQSQYKZWZCB-DQFWFXSYSA-N		5
+exact_name	O2 (dissolved oxygen; aeration 0.25 L/min)	o2	O2 O2	O2	MYMOFIZGZYHOMD-UHFFFAOYSA-N		1
+exact_name	Ergothioneine	ergoth	Ergothioneine	C9H15N3O2S	SSISHJJTAXXQAX-ZETCQYMHSA-N		14
+exact_name	Phosphate (PO4)	pi	Phosphate	HO4P	NBIIXXVUZAFLBC-UHFFFAOYSA-L		1
+exact_name	Glycine (gly)	gly	Glycine	C2H5NO2	DHMQDGOQFOQNFH-UHFFFAOYSA-N		2
+exact_name	Phosphate (from Na2HPO4 + KH2PO4)	pi	Phosphate	HO4P	NBIIXXVUZAFLBC-UHFFFAOYSA-L		2
+exact_name	Homocitrulline	hmcr	Homocitrulline	C7H15N3O3	XIGSAGMEBXLVJJ-YFKPBYRVSA-N		3
+exact_name	ammonium	nh4	Ammonium	H4N	QGZKDVFQNNGYKY-UHFFFAOYSA-O		22
+exact_name	Urea	urea	Urea CH4N2O	CH4N2O	XSQUKJJJFZCRTK-UHFFFAOYSA-N		25
+exact_name	quercetin (garlic flavonol, genuine but low; no distinct BiGG met)	quc	Quercetin C15H7O7	C15H9O7	REFJWTPEDVJJIY-UHFFFAOYSA-M		1
+exact_name	raffinose	raffin	Raffinose C18H32O16	C18H32O16	MUPFEKGTMRGPLJ-ZQSKZDJDSA-N		15
+exact_name	N2 (sparge, balance gas)	n2	Nitrogen	N2	IJGRMHOSHXDMSA-UHFFFAOYSA-N		1
+author_asserted	Sodium	na1	Sodium	Na	FKNQFGJONOIPTF-UHFFFAOYSA-N		482
+author_asserted	Phosphate	pi	Phosphate	HO4P	NBIIXXVUZAFLBC-UHFFFAOYSA-L		475
+author_asserted	Potassium	k	Potassium	K	NPYPAHLBTDXSSS-UHFFFAOYSA-N		471
+author_asserted	Magnesium	mg2	Magnesium	Mg	JLVVSXFLKOJNIY-UHFFFAOYSA-N		466
+author_asserted	Chloride	cl	Chloride	Cl	VEXZGXHMUGYJMC-UHFFFAOYSA-M		462
+author_asserted	Sulfate	so4	Sulfate	O4S	QAOWNCQODCNURD-UHFFFAOYSA-L		461
+author_asserted	Calcium	ca2	Calcium	Ca	BHPQYMZQTOCNFJ-UHFFFAOYSA-N		432
+author_asserted	Ammonium	nh4	Ammonium	H4N	QGZKDVFQNNGYKY-UHFFFAOYSA-O		430
+author_asserted	H+	h	H+	H	GPRLSGONYQIRFK-UHFFFAOYSA-N		388
+author_asserted	H2O H2O	h2o	H2O H2O	H2O	XLYOFNOQVPJJNP-UHFFFAOYSA-N		388
+author_asserted	D-Glucose	glc__D	D-Glucose	C6H12O6	WQZGKKKJIJFFOK-GASJEMHNSA-N		315
+author_asserted	O2 O2	o2	O2 O2	O2	MYMOFIZGZYHOMD-UHFFFAOYSA-N		261
+author_asserted	Fe2+ mitochondria	fe2	Fe2+ mitochondria	Fe	CWYNVVGOOAEACU-UHFFFAOYSA-N		226
+author_asserted	Manganese	mn2	Manganese	Mn	WAEMQWOKJMHJLA-UHFFFAOYSA-N		224
+author_asserted	Zinc	zn2	Zinc	Zn	PTFCDOFLOPIGGS-UHFFFAOYSA-N		197
+author_asserted	Copper	cu2	Copper	Cu	JPVYNHNXODAKFH-UHFFFAOYSA-N		196
+author_asserted	Co2+	cobalt2	Co2+	Co	XLJKHNWPARRRJB-UHFFFAOYSA-N		146
+author_asserted	Molybdate	mobd	Molybdate	MoO4	MEFBJEMVZONFCJ-UHFFFAOYSA-N		143
+author_asserted	Nickel	ni2	Nickel	Ni	VEQPNABPJHWNSG-UHFFFAOYSA-N		117
+author_asserted	Iron (Fe3+)	fe3	Iron (Fe3+)	Fe	VTLYFUHAOXGGBS-UHFFFAOYSA-N		90
+author_asserted	N-Acetyl-D-glucosamine	acgam	N-Acetyl-D-glucosamine	C8H15NO6	OVRNDRQMDRJTHS-RTRLPJTCSA-N		1
+author_asserted	o2	o2	O2 O2	O2	MYMOFIZGZYHOMD-UHFFFAOYSA-N		4
+author_asserted	5mthf	5mthf	5-Methyltetrahydrofolate	C20H23N7O6	ZNOVTXRBGFNYRX-STQMWFEESA-L		1
+author_asserted	Dextrin C12H20O10	dextrin	Dextrin C12H20O10				1
+author_asserted	Nicotinate	nac	Nicotinate	C6H4NO2	PVNIIMVLHYAWGP-UHFFFAOYSA-M		38
+author_asserted	Benzoate	bz	Benzoate	C7H5O2	WPYMKLBDIGXBTP-UHFFFAOYSA-M		1
+author_asserted	Adenine	ade	Adenine	C5H5N5	GFFGJBXGBJISGV-UHFFFAOYSA-N		2
+author_asserted	h2o	h2o	H2O H2O	H2O	XLYOFNOQVPJJNP-UHFFFAOYSA-N		5
+author_asserted	L-Phenylalanine	phe__L	L-Phenylalanine	C9H11NO2	COLNVLDHVKWLRT-QMMMGPOBSA-N		9
+author_asserted	Esculin	escul	Esculin	C15H16O9	XHCADAYNFIFUHF-TVKJYDDYSA-N		8
+author_asserted	Tungstate	tungs	Tungstate	O4W	PBYZMCDFOULPGH-UHFFFAOYSA-N		35
+author_asserted	Maltose C12H22O11	malt	Maltose C12H22O11	C12H22O11	GUBGYTABKSRVRQ-PICCSMPSSA-N		8
+author_asserted	Sulfur	s	Sulfur	S	NINIDFKCEFEMDL-UHFFFAOYSA-N		3
+author_asserted	L-Malate	mal__L	L-Malate	C4H4O5	BJEPYKJPYRNKOW-REOHCLBHSA-L		1
+author_asserted	Riboflavin	ribflv	Riboflavin C17H20N4O6	C17H19N4O6	AUNGANRZJHBGPY-SCRDCRAPSA-M		1
+author_asserted	fe2	fe2	Fe2+ mitochondria	Fe	CWYNVVGOOAEACU-UHFFFAOYSA-N		5
+author_asserted	D-Sorbitol	sbt__D	D-Sorbitol	C6H14O6	FBPFZTCFMRRESA-JGWLITMVSA-N		2
+author_asserted	Carbon monoxide	co	Carbon monoxide	CO	UGFAIRIUMAVXCW-UHFFFAOYSA-N		11
+author_asserted	Folate	fol	Folate	C19H17N7O6	OVBPIULPVIDEAO-LBPRGKRZSA-L		31
+author_asserted	Pyruvate	pyr	Pyruvate	C3H3O3	LCTONWCANYUPML-UHFFFAOYSA-M		15
+author_asserted	L-Arginine	arg__L	L-Arginine	C6H15N4O2	ODKSFYDXXFIFQN-BYPYZUCNSA-O		10
+author_asserted	Putrescine	ptrc	Putrescine	C4H14N2	KIDHWZJUCRJVML-UHFFFAOYSA-P		2
+author_asserted	Dodecanoate (n-C12:0)	ddca	Dodecanoate (n-C12:0)	C12H23O2	POULHZVOKOAJMA-UHFFFAOYSA-M		1
+author_asserted	Starch, structure 1 (1,6-{7[1,4-Glc], 4[1,4-Glc]})	strch1	Starch, structure 1 (1,6-{7[1,4-Glc], 4[1,4-Glc]})	C66H112O56	RZGVYAOTXSCCGK-UHFFFAOYSA-N		19
+author_asserted	Dimethylamine	dma	Dimethylamine	C2H8N	ROSDSFDQCJNGOL-UHFFFAOYSA-O		1
+source_bigg_id	Biotin	btn	Biotin	C10H15N2O3S	YBJHBAHKTGYVGT-ZKWXMUAHSA-M		199
+source_bigg_id	Nicotinate	nac	Nicotinate	C6H4NO2	PVNIIMVLHYAWGP-UHFFFAOYSA-M		129
+source_bigg_id	Riboflavin	ribflv	Riboflavin C17H20N4O6	C17H19N4O6	AUNGANRZJHBGPY-SCRDCRAPSA-M		119
+source_bigg_id	D-Glucose	glc__D	D-Glucose	C6H12O6	WQZGKKKJIJFFOK-GASJEMHNSA-N		94
+source_bigg_id	4-Aminobenzoate	4abz	4-Aminobenzoate	C7H6NO2	ALYNCZNDIQEVRV-UHFFFAOYSA-M		91
+source_bigg_id	Folate	fol	Folate	C19H17N7O6	OVBPIULPVIDEAO-LBPRGKRZSA-L		78
+source_bigg_id	Thiamine	thm	Thiamin	C12H17N4OS	MYVIATVLJGTBFV-UHFFFAOYSA-M		77
+source_bigg_id	Glycine	gly	Glycine	C2H5NO2	DHMQDGOQFOQNFH-UHFFFAOYSA-N		76
+source_bigg_id	L-Glutamate	glu__L	L-Glutamate	C5H8NO4	WHUUTDBJXJRKMK-VKHMYHEASA-M		76
+source_bigg_id	Lipoate	lipoate	Lipoate	C8H13O2S2	AGBQKNBQESQNJD-SSDOTTSWSA-M		72
+source_bigg_id	L-Methionine	met__L	L-Methionine	C5H11NO2S	FFEARJCKVFRZRR-BYPYZUCNSA-N		67
+source_bigg_id	Citrate	cit	Citrate	C6H5O7	KRKNYBCHXYNGOX-UHFFFAOYSA-K		64
+source_bigg_id	L-Leucine	leu__L	L-Leucine	C6H13NO2	ROHFNLRQFUQHCH-YFKPBYRVSA-N		61
+source_bigg_id	L-Proline	pro__L	L-Proline	C5H9NO2	ONIBWKKTOPOVIA-BYPYZUCNSA-N		59
+source_bigg_id	L-Isoleucine	ile__L	L-Isoleucine	C6H13NO2	AGPKZVBTJJNPAG-WHFBIAKZSA-N		53
+source_bigg_id	L-Arginine	arg__L	L-Arginine	C6H15N4O2	ODKSFYDXXFIFQN-BYPYZUCNSA-O		52
+source_bigg_id	L-Valine	val__L	L-Valine	C5H11NO2	KZSNJWFQEVHDMF-BYPYZUCNSA-N		51
+source_bigg_id	L-Phenylalanine	phe__L	L-Phenylalanine	C9H11NO2	COLNVLDHVKWLRT-QMMMGPOBSA-N		47
+source_bigg_id	L-Threonine	thr__L	L-Threonine	C4H9NO3	AYFVYJQAPQTCCC-GBXIJSLDSA-N		47
+source_bigg_id	L-Tyrosine	tyr__L	L-Tyrosine	C9H11NO3	OUYCCCASQSFEME-QMMMGPOBSA-N		47
+source_bigg_id	L-Rhamnose	rmn	L-Rhamnose	C6H12O5	PNNNRSAQSRJVSB-BXKVDMCESA-N		2
+source_bigg_id	4-Hydroxyphenylacetate	4hphac	4-Hydroxyphenylacetate	C8H7O3	HBMCQTHGYMTCOF-UHFFFAOYSA-N		2
+source_bigg_id	1-Acyl-sn-glycero-3-phosphoethanolamine (n-C16:0)	1agpe160	1-Acyl-sn-glycero-3-phosphoethanolamine (n-C16:0)	C21H44NO7P	YVYMBNSKXOXSKW-HXUWFJFHSA-N		1
+source_bigg_id	Ethanolamine	etha	Ethanolamine	C2H8NO	HZAXFHJVJLSVMW-UHFFFAOYSA-O		1
+source_bigg_id	Tungstate	tungs	Tungstate	O4W	PBYZMCDFOULPGH-UHFFFAOYSA-N		7
+source_bigg_id	Inosine	ins	Inosine	C10H12N4O5	UGQMRVRMYYASKQ-KQYNXXCUSA-N		10
+source_bigg_id	Fe3+	fe3	Iron (Fe3+)	Fe	VTLYFUHAOXGGBS-UHFFFAOYSA-N		1
+source_bigg_id	5-Dehydro-D-gluconate	5dglcn	5-Dehydro-D-gluconate	C6H9O7	IZSRJDGCGRAUAR-MROZADKFSA-M		1
+source_bigg_id	Thiocyanate	tcynt	Thiocyanate	CNS	ZMZDMBWJUHKJPS-UHFFFAOYSA-M		3
+source_bigg_id	GDP	gdp	GDP C10H12N5O11P2	C10H12N5O11P2	QGWNDRXFNXRZMB-UUOKFMHZSA-K		1
+source_bigg_id	Flavin adenine dinucleotide oxidized	fad	Flavin adenine dinucleotide oxidized	C27H33N9O15P2	IMGVNJNCCGXBHD-UYBVJOGSSA-K		1
+source_bigg_id	ATP	atp	ATP C10H12N5O13P3	C10H12N5O13P3	ZKHQWZAMYRWXGA-KQYNXXCUSA-J		26
+source_bigg_id	Tyramine	tym	Tyramine	C8H12NO	DZGWFCGJZKJUFP-UHFFFAOYSA-O		1
+source_bigg_id	Calcium	ca2	Calcium	Ca	BHPQYMZQTOCNFJ-UHFFFAOYSA-N		9
+source_bigg_id	Deoxyuridine	duri	Deoxyuridine	C9H12N2O5	MXHRCPNRJAMMIM-SHYZEUOFSA-N		3
+source_bigg_id	Thymidine C10H14N2O5	thymd	Thymidine C10H14N2O5	C10H14N2O5	IQFYYKKMVGJFEH-XLPZGREQSA-N		3
+source_bigg_id	Phenylacetaldehyde	pacald	Phenylacetaldehyde	C8H8O	DTUQWGWMVIHBKE-UHFFFAOYSA-N		1
+source_bigg_id	3-Sulfino-L-alanine	3sala	3-Sulfino-L-alanine	C3H6NO4S	ADVPTQAUNPRNPO-REOHCLBHSA-M		2
+source_bigg_id	4 Guanidinobutanoate C5H11N3O2	4gudbutn	4 Guanidinobutanoate C5H11N3O2	C5H11N3O2	TUHVEAJXIMEOSA-UHFFFAOYSA-N		3
+source_bigg_id	Maltose	malt	Maltose C12H22O11	C12H22O11	GUBGYTABKSRVRQ-PICCSMPSSA-N		5
+source_bigg_id	L-Citrulline	citr__L	L-Citrulline	C6H13N3O3	RHGKLRLOHDJJDR-BYPYZUCNSA-N		5
+source_bigg_id	N-Acetylmuramate	acmum	N-Acetylmuramate	C11H19NO8	MNLRQHMNZILYPY-MKFCKLDKSA-M		1
+source_bigg_id	Uracil	ura	Uracil	C4H4N2O2	ISAKRJDGNUQOIC-UHFFFAOYSA-N		10
+source_bigg_id	Methane	ch4	Methane	CH4	VNWKTOKETHGBQD-UHFFFAOYSA-N		3
+source_bigg_id	Orthophosphate	pi	Phosphate	HO4P	NBIIXXVUZAFLBC-UHFFFAOYSA-L		3
+structural_xref	MOPS	mops	MOPS C7H14NO4S				25
+structural_xref	Glycine	gly	Glycine	C2H5NO2	DHMQDGOQFOQNFH-UHFFFAOYSA-N		12
+structural_xref	L-Alanine	ala__L	L-Alanine	C3H7NO2	QNAYBMKLOCPYGJ-REOHCLBHSA-N		12
+structural_xref	L-Lysine	lys__L	L-Lysine	C6H15N2O2	KDXKERNSBIXSRK-YFKPBYRVSA-O		12
+structural_xref	L-Tyrosine	tyr__L	L-Tyrosine	C9H11NO3	OUYCCCASQSFEME-QMMMGPOBSA-N		12
+structural_xref	Acetate	ac	Acetate	C2H3O2	QTBSBXVTEAMEQO-UHFFFAOYSA-M		11
+structural_xref	Choline C5H14NO	chol	Choline C5H14NO	C5H14NO	OEYIOHPDSNJKLS-UHFFFAOYSA-N		11
+structural_xref	Creatine cytosol	creat	Creatine cytosol	C4H9N3O2	DDRJAANPRJIHGJ-UHFFFAOYSA-N		11
+structural_xref	Formate	for	Formate	CHO2	BDAGIHXWWSANSR-UHFFFAOYSA-M		11
+structural_xref	Fumarate	fum	Fumarate	C4H2O4	VZCYOOQTPOCHFL-OWOJBTEDSA-L		11
+structural_xref	L-Aspartate	asp__L	L-Aspartate	C4H6NO4	CKLJMWTZIZZHCS-REOHCLBHSA-M		11
+structural_xref	L-Glutamine	gln__L	L-Glutamine	C5H10N2O3	ZDXPYRJPNDTMRX-VKHMYHEASA-N		11
+structural_xref	L-Histidine	his__L	L-Histidine	C6H9N3O2	HNDVDQJCIGZPNO-YFKPBYRVSA-N		11
+structural_xref	L-Isoleucine	ile__L	L-Isoleucine	C6H13NO2	AGPKZVBTJJNPAG-WHFBIAKZSA-N		11
+structural_xref	L-Lactate	lac__L	L-Lactate	C3H5O3	JVTAAEKCZFNVCJ-REOHCLBHSA-M		11
+structural_xref	L-Leucine	leu__L	L-Leucine	C6H13NO2	ROHFNLRQFUQHCH-YFKPBYRVSA-N		11
+structural_xref	L-Phenylalanine	phe__L	L-Phenylalanine	C9H11NO2	COLNVLDHVKWLRT-QMMMGPOBSA-N		11
+structural_xref	L-Proline	pro__L	L-Proline	C5H9NO2	ONIBWKKTOPOVIA-BYPYZUCNSA-N		11
+structural_xref	L-Threonine	thr__L	L-Threonine	C4H9NO3	AYFVYJQAPQTCCC-GBXIJSLDSA-N		11
+structural_xref	L-Valine	val__L	L-Valine	C5H11NO2	KZSNJWFQEVHDMF-BYPYZUCNSA-N		11
+structural_xref	NMN C11H14N2O8P	nmn	NMN C11H14N2O8P	C11H14N2O8P	DAYLJWODMCOQEW-TURQNECASA-M		2
+structural_xref	Norepinephrine	nrpphr	Norepinephrine	C8H12NO3	SFLSHLFXELFNJZ-QMMMGPOBSA-O		4
+structural_xref	Hexanal C6H12O	hxal	Hexanal C6H12O	C6H12O	JARKCYVAAOWBJS-UHFFFAOYSA-N		6
+structural_xref	(-)-Salsolinol	C09642	(-)-Salsolinol	C10H13NO2	IBRKLUSXDYATLG-LURJTMIESA-O		4
+structural_xref	N-Carbamoyl-L-aspartate	cbasp	N-Carbamoyl-L-aspartate	C5H6N2O5	HLKXYZVTANABHZ-REOHCLBHSA-L		4
+structural_xref	Nonanoate C9H17O2	nona	Nonanoate C9H17O2	C9H17O2	FBUKVWPVBMHYJY-UHFFFAOYSA-M		5
+structural_xref	O Acetylcarnitine C9H17NO4	acrn	O Acetylcarnitine C9H17NO4	C9H17NO4	RDHQFKQIGNGIED-MRVPVSSYSA-N		9
+structural_xref	Phenylacetic acid	pac	Phenylacetic acid	C8H7O2	WLJVXDMOQOGPHL-UHFFFAOYSA-M		7
+structural_xref	Hyaluronic acid	ha	Hyaluronan		LJKKEBYAXYCTNF-GIXQJHCPSA-M		1
+structural_xref	Ebastine c	ebastine	Ebastine c	C32H39NO2	MJJALKDDGIKVBE-UHFFFAOYSA-O		2
+structural_xref	Deoxycytidine	dcyt	Deoxycytidine	C9H13N3O4	CKTSBUTUHBMZGZ-SHYZEUOFSA-N		4
+structural_xref	6-Thioinosine-5'-monophosphate	6tins5mp	6-Thioinosine-5'-monophosphate	C10H11N4O7PS	ZKRFOXLVOKTUTA-KQYNXXCUSA-L		2
+structural_xref	L-Prolinylglycine	progly	L-Prolinylglycine	C7H12N2O3	RNKSNIBMTUYWSH-YFKPBYRVSA-N		3
+structural_xref	N-methylsalsolinol	CE4890	N-methylsalsolinol	C11H15NO2	RKMGOUZXGHZLBJ-ZETCQYMHSA-O		1
+structural_xref	Deoxyuridine	duri	Deoxyuridine	C9H12N2O5	MXHRCPNRJAMMIM-SHYZEUOFSA-N		5
+structural_xref	4-Cresol	4crsol	P-Cresol	C7H8O	IWDCLRJOBJJRNH-UHFFFAOYSA-N		2
+structural_xref	beta-D-Fructose	fru_B	Beta-D-fructose		RFSUNEUAIZKAJO-ARQDHWQXSA-N		1
+structural_xref	Coproporphyrinogen III	cpppg3	Coproporphyrinogen III	C36H40N4O8	NIUVHXTXUXOFEB-UHFFFAOYSA-J		1
+structural_xref	Flavin adenine dinucleotide oxidized	fad	Flavin adenine dinucleotide oxidized	C27H33N9O15P2	IMGVNJNCCGXBHD-UYBVJOGSSA-K		2
+structural_xref	Calcium	ca2	Calcium	Ca	BHPQYMZQTOCNFJ-UHFFFAOYSA-N		7
+structural_xref	L-Arabitol	abt__L	L Arabinitol C5H12O5	C3H6O2	HEBKCHPVOIAQTA-IMJSIDKUSA-N		3
+structural_xref	Maleate	male	Maleate	C4H2O4	VZCYOOQTPOCHFL-UPHRSURJSA-L		3
+structural_xref	Sucrose C12H22O11	sucr	Sucrose C12H22O11	C12H22O11	CZMRCDWAGMRECN-UGDNZRGBSA-N		5
+structural_xref	D-Mannose	man	D-Mannose	C6H12O6	WQZGKKKJIJFFOK-QTVWNMPRSA-N		9
+structural_xref	L-Rhamnose	rmn	L-Rhamnose	C6H12O5	PNNNRSAQSRJVSB-BXKVDMCESA-N		1
+non_bigg_fallback	Boric acid						149
+non_bigg_fallback	Nitrilotriacetic acid						81
+non_bigg_fallback	HEPES						36
+non_bigg_fallback	Tromethamine						21
+non_bigg_fallback	Ethylene glycol						19
+non_bigg_fallback	EDTA						16
+non_bigg_fallback	Tricine						15
+non_bigg_fallback	Ammonium nitrate						14
+non_bigg_fallback	Tween 80						10
+non_bigg_fallback	Chromium(III) Chloride						8
+non_bigg_fallback	PIPES						8
+non_bigg_fallback	Sodium EDTA						8
+non_bigg_fallback	Sodium borate						8
+non_bigg_fallback	Resazurin						7
+non_bigg_fallback	Ammonium citrate						6
+non_bigg_fallback	Azelaic acid						6
+non_bigg_fallback	Hemin						6
+non_bigg_fallback	Sodium L-lactate						6
+non_bigg_fallback	Sodium iodide						6
+non_bigg_fallback	sodium silicate						6
+non_bigg_fallback	Lactodifucotetraose						1
+non_bigg_fallback	3-Methoxy-4-hydroxyphenylglycol glucuronide						1
+non_bigg_fallback	alpha-D-Glucose 1,6-bisphosphate						1
+non_bigg_fallback	PC(14:1(9Z)/22:0)						1
+non_bigg_fallback	D-alpha-Aminobutyric acid						2
+non_bigg_fallback	Zirconium						3
+non_bigg_fallback	Tellurium						1
+non_bigg_fallback	Prolylhydroxyproline						1
+non_bigg_fallback	Campesterol						1
+non_bigg_fallback	9-HETE						1
+non_bigg_fallback	3,4-Dihydroxyhydrocinnamic acid						2
+non_bigg_fallback	1,3-Dimethyluric acid						2
+non_bigg_fallback	PC(20:4(8Z,11Z,14Z,17Z)/P-18:0)						1
+non_bigg_fallback	PC(18:0/18:2(9Z,12Z))						1
+non_bigg_fallback	CE(16:1(9Z))						1
+non_bigg_fallback	Ganglioside GM2 (d18:1/26:0)						1
+non_bigg_fallback	IPTG						1
+non_bigg_fallback	3-Hydroxyvaleric acid						3
+non_bigg_fallback	1,11-Undecanedicarboxylic acid						1
+non_bigg_fallback	Pterin						1
+non_bigg_fallback	PC(20:5(5Z,8Z,11Z,14Z,17Z)/P-18:1(11Z))						1
+non_bigg_fallback	Cobalamin						1
+non_bigg_fallback	Silicon						1
+non_bigg_fallback	SM(d18:0/24:1(15Z)(OH))						1
+non_bigg_fallback	PC(18:2(9Z,12Z)/20:1(11Z))						1
+curated_mapping	L-cystine	cysi__L	L Cystine C6H12N2O4S2	C6H12N2O4S2	LEVWYRKDKASIDU-IMJSIDKUSA-N		512
+curated_mapping	Gamolenic acid	lnlncg	Gamma-linolenic acid	C18H29O2	VZCCETWTMQHEPK-QNEBEIHSSA-M		60
+curated_mapping	PUFA 18:3 n-6 c,c,c	lnlncg	Gamma-linolenic acid	C18H29O2	VZCCETWTMQHEPK-QNEBEIHSSA-M	lnlnca|strdnc	30
+curated_mapping	CO2	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		14
+curated_mapping	L-Cystine	cysi__L	L Cystine C6H12N2O4S2	C6H12N2O4S2	LEVWYRKDKASIDU-IMJSIDKUSA-N		13
+curated_mapping	CO2 (carbon dioxide)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		6
+curated_mapping	CO2 / bicarbonate (atmospheric)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		4
+curated_mapping	CO2 (carbon dioxide gas)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		3
+curated_mapping	CO2 (gas)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		3
+curated_mapping	Carbon dioxide / bicarbonate (CO2)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		3
+curated_mapping	CO2 (carbon dioxide / bicarbonate)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		2
+curated_mapping	CO2 (carbon dioxide, gas)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		2
+curated_mapping	CO2 (from air bubbling)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		2
+curated_mapping	CO2 (headspace gas, N2:CO2 80:20)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		2
+curated_mapping	CO2 / dissolved bicarbonate	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		2
+curated_mapping	Carbonate/CO2	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		2
+curated_mapping	CO2 (13C- or 12C-CO2)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (N2/CO2 or H2/CO2 headspace)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (N2:CO2 80:20 headspace)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (carbon dioxide / dissolved inorganic carbon)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (headspace, 20% of 80% N2/20% CO2 at 200 kPa)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	Carbonate/CO2 (Na2CO3)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (from N2:CO2 80:20 sparge)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (from continuous CO2/H2 gas mixture, 8 mL/min)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (from compressed air aeration)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (dissolved, from air)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (carbon dioxide, gas phase)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (carbon dioxide, headspace)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 (gas phase, 20%; sparge 7.5 mL/min)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	Carbonate / CO3^2- (CO2)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CO2 / NaHCO3	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	L-Cystine (dihydrochloride)	cysi__L	L Cystine C6H12N2O4S2	C6H12N2O4S2	LEVWYRKDKASIDU-IMJSIDKUSA-N		1
+curated_mapping	CoCl2 / Co (trace)	cobalt2	Co2+	Co	XLJKHNWPARRRJB-UHFFFAOYSA-N		1
+curated_mapping	Calcium carbonate (CaCO3) -> carbonate/CO2	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	CoCl2 (Co)	cobalt2	Co2+	Co	XLJKHNWPARRRJB-UHFFFAOYSA-N		1
+curated_mapping	CO2 (dissolved)	co2	CO2 CO2	CO2	CURLTUGMZLYLDI-UHFFFAOYSA-N		1
+curated_mapping	Cob(I)alamin (vitamin B12)	cbl1	Cob(I)alamin	C62H87CoN13O14P	OMAOKVYASDIYQG-DSRCUDDDSA-L	adocbl|C06453|cbl2	1
+curated_mapping	L-cystine/L-cysteine	cysi__L	L Cystine C6H12N2O4S2	C6H12N2O4S2	LEVWYRKDKASIDU-IMJSIDKUSA-N		1
+unmapped	Chromium						193
+unmapped	chromium						5
+unmappable_mixture	Wolfe's mineral/trace-element solution (nitrilotriacetic acid, MgSO4, MnSO4, NaCl, FeSO4, CoCl2, CaCl2, ZnCl2, CuSO4, AlK(SO4)2, H3BO3, Na2MoO4, NiCl2, Na2WO4, Na2SeO4)						1
+unmappable_mixture	Beta-Carotene, Lutein, Zeaxanthin, Echinenone (genuine milkfat carotenoids)						1
+unmappable_mixture	Levoglutamide (glutamine), 2-Oxopentanedioic acid (2-oxoglutarate), Propanedioic acid (malonate) -- genuine trace metabolites without clean growth-nutrient amounts						1
+unmappable_mixture	N-Methyltyramine, Dopamine, Serotonin, Histamine, Trigonelline (genuine barley biogenic amines/alkaloids at trace)						1
+unmappable_mixture	Proteose peptone (No. 3)						1
+unmappable_mixture	Synthetic amino-acid mix LACKING aspartate, asparagine (all other CAA amino acids present)						1
+unmappable_mixture	Synthetic amino-acid mix LACKING glutamate, glutamine, proline, arginine (all other CAA amino acids present)						1
+unmappable_mixture	Synthetic amino-acid mix LACKING serine, threonine, glycine (all other CAA amino acids present)						1
+unmappable_mixture	Synthetic amino-acid mix LACKING threonine, glycine, serine, tryptophan, cysteine, alanine (all other CAA amino acids present)						1
+unmappable_mixture	Vitamin solution (Wolin/DSM-141 type): biotin, folic acid, pyridoxine-HCl, thiamine-HCl, riboflavin, nicotinic acid, D-Ca-pantothenate, cyanocobalamin (B12), p-aminobenzoic acid, lipoic acid						1
+unmappable_mixture	Vitamins (nicotinate, riboflavin, thiamin, (R)-pantothenate, pyridoxine, folate, biotin, cob(I)alamin, 4-aminobenzoate)						1
+unmappable_mixture	chlorogenic/caffeoyl aspartic acid, syringic acid, vanillin, vanillate, benzoate (genuine phenolics/aroma)						1
+unmappable_mixture	flavonoids/polyphenols: rutin, quercetin, kaempferol, catechin, epicatechin, chlorogenic acid, gallic acid, caffeic/ferulic acids (genuine, no BiGG met)						1
+unmappable_mixture	gallic acid, ferulic acid, caffeic acid, p-coumaric acid, o-coumaric acid, syringic acid (genuine date phenolic acids, no BiGG met)						1
+unmappable_mixture	glycine betaine, taurine, myo-inositol, carnitine/acylcarnitines, creatine/creatinine, kynurenine (genuine minor milk metabolites)						1
+unmappable_mixture	kaempferol/quercetin/myricetin glycosides, genistein, glycitein, isoflavones (genuine flavonoids)						1
+unmappable_mixture	phenolic acids: p-coumaric, trans-sinapic, caffeic, syringic, vanillic, 4-hydroxybenzoate, ferulate, vanillate (genuine)						1
+unmappable_mixture	pipecolic acid, wyerone, p-coumaric/ferulic acid, prodelphinidin B3, geraldone, butein, astragalin (genuine phytochemicals, no BiGG met)						1
+unmappable_mixture	quercetin, kaempferol, myricetin, isorhamnetin, apigenin, luteolin (genuine cabbage flavonoids)						1
+unmappable_mixture	scopoletin, vanillin, vanillate, 4-hydroxybenzaldehyde, quercetin (genuine oat phenolics)						1
