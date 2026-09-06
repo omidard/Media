@@ -38,7 +38,9 @@
     page states them, with counts, so you can decide what to trust.</p>
   <p class="chip-line" style="margin-top:var(--s4)">
     <a class="btn" href="#identity">Component identity</a>
+    <a class="btn" href="#exchange">Exchange ids</a>
     <a class="btn" href="#coverage">Coverage</a>
+    <a class="btn" href="#degeneracy">Duplicate model inputs</a>
     <a class="btn" href="#derived">Derived components</a>
     <a class="btn" href="#bounds">Bounds and concentrations</a>
     <a class="btn" href="#oxygen">Oxygen</a>
@@ -59,11 +61,12 @@
   </div>
 
   <h2 id="identity" style="margin-top:var(--s7)">How a component's identity was decided</h2>
-  <p style="margin-top:var(--s3)">Every component in this library is a claim that a
-    named ingredient is a particular molecule with a particular BiGG exchange reaction.
-    The pipeline records how each of those claims was reached, and groups the twelve
-    recorded evidence tiers into six classes. The classes are ordered by the strength of
-    the evidence.</p>
+  <p style="margin-top:var(--s3)">Each component in this library is a claim that a named
+    ingredient is a particular molecule, and for
+    <span id="identity-bigg">nearly all of them</span> that it is a particular BiGG
+    exchange reaction. The pipeline records how each of those claims was reached, and
+    groups the twelve recorded evidence tiers into six classes. The classes are ordered
+    by the strength of the evidence.</p>
   <div class="note caution" style="margin-top:var(--s3)">
     <b>The most important thing on this page.</b>
     <p style="margin-top:var(--s1)">An earlier release of this resource labelled 42% of
@@ -91,6 +94,28 @@
     as a measurement.
   </p>
 
+  <h2 id="exchange" style="margin-top:var(--s7)">Where the exchange ids actually landed</h2>
+  <p style="margin-top:var(--s3)">The point of this resource is that a component
+    carries a BiGG exchange reaction a genome-scale model can accept. Nearly every one
+    does. Not all of them do, and the exceptions are named here rather than rounded
+    away.</p>
+  <div class="barlist" id="exchange-bands" style="margin-top:var(--s3)"></div>
+  <div class="note caution" style="margin-top:var(--s3)">
+    <b>An earlier release of this page said every component was mapped to a BiGG
+      exchange.</b>
+    <p style="margin-top:var(--s1)" id="exchange-correction">It was the loudest
+      sentence on the site and it was not true of every component.</p>
+  </div>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
+    A fallback id is not a near miss. <code>EX_cpd15137_e</code> is a ModelSEED
+    identifier in exchange position: it names a real compound, and no BiGG model has a
+    reaction by that name. The component's own <code>mapping_note</code> says so, the
+    record counts it in <code>n_nonbigg_fallback</code>, and the copy-to-COBRApy block
+    will not silently succeed with it. The components with no exchange at all are
+    ingredients whose identity was never established, or undefined mixtures that have
+    no single molecular identity to establish; they are listed, never dropped.
+  </p>
+
   <h2 id="coverage" style="margin-top:var(--s7)">What coverage means, and what it used to mean</h2>
   <p style="margin-top:var(--s3)">Three different fractions can be called "coverage" and
     they do not agree. This resource publishes all three and names each one.</p>
@@ -105,9 +130,15 @@
           <td>The number this site displays.</td>
         </tr>
         <tr>
-          <td><code>pct_covered_observed</code></td>
-          <td>The mapped share of the components the source actually stated.</td>
-          <td>Published on each record. Null for the records that state nothing.</td>
+          <td><code>pct_sourced_components_with_bigg_id</code></td>
+          <td>Of the components the source states, the share that reached a BiGG
+            metabolite id rather than a non-BiGG fallback or nothing. Its denominator
+            is components the record already carries, <b>not</b> the source's
+            ingredient list, so it is not a coverage measure at all.</td>
+          <td>Published on each record. Null where the source states nothing.
+            <b>Renamed</b> from <code>pct_covered_observed</code> on 2026-09-06:
+            that name read as coverage while the value was
+            <span id="rename-constant">100.0 on most records</span>.</td>
         </tr>
         <tr>
           <td><code>pct_covered</code></td>
@@ -164,6 +195,38 @@
     does not present a mass fraction in the same column as a molar concentration.
   </p>
 
+  <h2 id="degeneracy" style="margin-top:var(--s7)">Two media, one model input</h2>
+  <p style="margin-top:var(--s3)">A record carries a name, a source, a citation and a
+    licence. A model reads none of them. What reaches the solver is the set of
+    <code>(exchange reaction, lower bound, upper bound)</code> triples, and by that
+    measure a large fraction of this library is degenerate: choosing between two of
+    these media changes nothing a solver can see.</p>
+  <div class="figures" id="degeneracy-figures" style="margin-top:var(--s3)"></div>
+  <div class="note caution" style="margin-top:var(--s3)">
+    <b>This is disclosed, not fixed.</b>
+    <p style="margin-top:var(--s1)" id="degeneracy-note">Measuring the library.</p>
+  </div>
+  <p style="margin-top:var(--s3)">Two things drive it. Most bounds in this library are
+    presence placeholders rather than measured rates, so two recipes that list the same
+    compounds at different amounts collapse onto the same constraint set. And many
+    formulations genuinely differ only in something a medium record does not encode:
+    an agar concentration, a pH, a preparation step, a sterilisation regime.</p>
+  <p style="margin-top:var(--s3)">Nothing is merged and nothing is deleted. Each record
+    keeps its own provenance and citation, because which paper a formulation came from
+    is a real difference even when the constraint set is not. The record sheet names the
+    other media that produce the identical model input, the catalog carries
+    <code>n_media_with_identical_model_input</code> and
+    <code>model_input_signature</code> per record, and the complete groups are published
+    at <code>data/web/twins.json</code>. Adding each component's source-stated
+    concentration to the comparison — a stricter test than any solver applies — leaves
+    <span id="degeneracy-conc">most of them</span> still indistinguishable.</p>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
+    This is a different measurement from <code>composition_identical_to</code>, which
+    the naming stage writes for records whose <em>quantitative signature</em> matches
+    inside one base-medium family. That field covers 1,497 records. The comparison here
+    is library-wide and ignores family, name and source entirely.
+  </p>
+
   <h2 id="oxygen" style="margin-top:var(--s7)">Oxygen regime</h2>
   <p style="margin-top:var(--s3)">The oxygen regime decides whether you open or close
     <code>EX_o2_e</code>, which is the single most consequential bound in an FBA medium.
@@ -196,9 +259,23 @@
   <h2 id="licensing" style="margin-top:var(--s7)">Licensing is per source, not per repository</h2>
   <p style="margin-top:var(--s3)">There is no blanket data licence here. Each record
     carries the terms of the source it came from. An earlier release placed the whole of
-    <code>data/</code> under CC BY 4.0, which grants commercial use; a substantial minority
-    of the upstream sources grant no such right. Nothing was removed to fix that. Every
-    record ships, labelled, and the browser can filter for the commercially usable subset.</p>
+    <code>data/</code> under CC BY 4.0, which grants commercial use;
+    <span id="licence-restricted">some records</span> come from sources that grant no
+    such right. Nothing was removed to fix that. Every record ships, labelled, and the
+    browser can filter for the commercially usable subset.</p>
+  <div class="note stop" style="margin-top:var(--s3)">
+    <b>On the 471 MediaDB (ISB) records, stated plainly.</b>
+    <p style="margin-top:var(--s1)">The only statement on the upstream page (read
+      2026-09-06, first-party) is "(c) 2014, Institute for Systems Biology, All Rights
+      Reserved". <b>No reuse grant of any kind is offered, and redistribution permission
+      has not been obtained.</b> This project has not been given permission and does not
+      claim it. The records are kept rather than deleted — they are the single largest
+      seam of quantitative data here, 8,397 of 14,341 non-null concentration values
+      (58.6%) — and are labelled all-rights-reserved, marked
+      <code>commercial_use_ok: false</code> and excluded from the commercially usable
+      subset while permission is sought. If you need a subset you can redistribute,
+      filter them out.</p>
+  </div>
   <div class="tablewrap" style="margin-top:var(--s3)">
     <table class="grid">
       <thead><tr><th>Licence</th><th>Media</th><th>Commercial use</th><th>Sources</th></tr></thead>
@@ -255,14 +332,14 @@
 
   <h2 id="limits" style="margin-top:var(--s7)">The limits, in one list</h2>
   <ol style="margin-top:var(--s3)" class="stack">
-    <li>Most component identities rest on a name string, not on chemistry. A name match
-      cannot distinguish a vitamer group from a vitamer, or a fatty-acid class from an
-      isomer.</li>
-    <li>About a third of all component records were supplied by this pipeline and are not
-      in the cited source. They are an approximation of an undefined mixture, or a
-      modelling convention.</li>
-    <li>Bounds are presence placeholders, with a small minority of source-stated
-      concentrations. No bound in this library is a measured uptake rate.</li>
+    <li id="limit-name">Component identities mostly rest on a name string, not on
+      chemistry. A name match cannot distinguish a vitamer group from a vitamer, or a
+      fatty-acid class from an isomer.</li>
+    <li id="limit-derived">A large minority of component records were supplied by this
+      pipeline and are not in the cited source. They are an approximation of an undefined
+      mixture, or a modelling convention.</li>
+    <li id="limit-bounds">Bounds are presence placeholders. No bound in this library is a
+      measured uptake rate.</li>
     <li>Food records are built from a population-average nutrient analysis, not from a
       laboratory formulation. Their amounts are per 100 g of food; they are not a
       concentration and this resource does not convert them into one.</li>
@@ -271,13 +348,19 @@
       not independent evidence.</li>
     <li>The corpus is a frozen snapshot whose original generators are gone, so it cannot be
       rebuilt from its raw inputs. Corrections are made forward, as stages.</li>
-    <li>Records are not deduplicated by composition. Some media are compositionally
-      identical to others; where that is known the record says so.</li>
+    <li id="limit-degeneracy">Records are not deduplicated by their model input, and
+      a large fraction of the library is degenerate under it.</li>
+    <li id="limit-exchange">Not every component reaches a BiGG exchange. A small
+      number carry a fallback id no BiGG model will accept, and a smaller number carry
+      none at all.</li>
+    <li id="limit-xref">Not every component carries a cross-reference. Where none is
+      shown, none is recorded.</li>
     <li>A family assignment is usually a name match. It does not assert that the variants
       in a family are interchangeable.</li>
-    <li>The oxygen regime is unknown for some records. Unknown is not anaerobic.</li>
-    <li>The licence is per source. A substantial minority of records may not be used
-      commercially, and this resource cannot grant rights it does not hold.</li>
+    <li id="limit-oxygen">The oxygen regime is not recorded for some media. Unknown is
+      not anaerobic.</li>
+    <li id="limit-licence">The licence is per source, and some records may not be used
+      commercially. This resource cannot grant rights it does not hold.</li>
   </ol>
 
   <h2 id="cite" style="margin-top:var(--s7)">How to cite</h2>
@@ -353,7 +436,8 @@
     $('release-figures').replaceChildren(
       figure(fmt(cat.count), 'media', 'counted from the records on disk'),
       figure(fmt(totals.n_components), 'component records',
-        'each mapped to a BiGG exchange'),
+        MDB.withDenominator(cat.exchange_resolution.n_bigg_exchange,
+          cat.exchange_resolution.of) + ' reach a BiGG exchange'),
       figure(fmt(totals.n_sourced), 'stated by the source',
         MDB.share(totals.n_sourced, totals.n_components) + ' of components'),
       figure(fmt(totals.n_derived), 'supplied by the pipeline',
@@ -378,6 +462,113 @@
           MDB.withDenominator(c.n, c.of) })
       ]));
     });
+
+    /* where the exchange ids landed ------------------------------------- */
+    const xr = cat.exchange_resolution;
+    bars($('exchange-bands'), [
+      ['A BiGG exchange reaction', xr.n_bigg_exchange],
+      ['A non-BiGG fallback id no BiGG model accepts', xr.n_nonbigg_fallback],
+      ['No exchange reaction at all', xr.n_no_exchange]
+    ], xr.of);
+    $('exchange-correction').textContent =
+      'It was true of ' + MDB.withDenominator(xr.n_bigg_exchange, xr.of,
+        'components') + ', and the ' + fmt(xr.n_nonbigg_fallback + xr.n_no_exchange) +
+      ' exceptions were the ones a reader most needed told. The same sentence also ' +
+      'said every component carried cross-references: ' +
+      MDB.withDenominator(cat.cross_references.n_components_with_none,
+        cat.cross_references.of, 'components') + ' carry none.';
+
+    /* the renamed near-constant ------------------------------------------ */
+    const rn = (cat.field_renames || []).find(
+      (f) => f.old === 'pct_covered_observed');
+    if (rn && rn.measured) {
+      $('rename-constant').textContent = '100.0 on ' + MDB.withDenominator(
+        rn.measured['n_records_where_the_value_is_100.0'], rn.measured.of,
+        'records');
+    }
+
+    /* two media, one model input ------------------------------------------ */
+    const dg = cat.model_input_degeneracy;
+    $('degeneracy-figures').replaceChildren(
+      figure(fmt(dg.n_media_sharing_a_model_input),
+        'media share their model input with another record',
+        'of ' + fmt(dg.of) + ' (' +
+        MDB.share(dg.n_media_sharing_a_model_input, dg.of) + ')'),
+      figure(fmt(dg.n_distinct_model_inputs), 'distinct model inputs',
+        'the ' + fmt(dg.of) + ' records resolve to this many constraint sets'),
+      figure(fmt(dg.largest_group), 'media in the largest identical group',
+        'one constraint set, that many records'));
+    $('degeneracy-note').textContent =
+      'No record was merged and none was deleted. ' +
+      MDB.withDenominator(dg.n_media_sharing_a_model_input, dg.of, 'media') +
+      ' fall into ' + fmt(dg.n_groups) + ' groups whose members hand a solver the ' +
+      'identical constraint set. Each keeps its own name, source and citation, and ' +
+      'each record sheet names the others.';
+    $('degeneracy-conc').textContent = MDB.withDenominator(
+      dg.n_media_sharing_a_model_input_with_concentrations, dg.of, 'media');
+
+    /* the limits list, with its measurements ------------------------------ */
+    $('licence-restricted').textContent = MDB.withDenominator(
+      ('False' in (cat.by_commercial_use_ok || {}))
+        ? cat.by_commercial_use_ok['False'] : null, cat.count, 'records');
+    $('identity-bigg').textContent = MDB.withDenominator(
+      cat.exchange_resolution.n_bigg_exchange, cat.exchange_resolution.of);
+    $('limit-name').textContent =
+      'Component identities mostly rest on a name string, not on chemistry: ' +
+      MDB.withDenominator(cat.evidence_classes.find((c) => c.id === 'name').n,
+        totals.n_components, 'components') + ' were resolved by matching one, and a ' +
+      'further ' + MDB.withDenominator(
+        cat.evidence_classes.find((c) => c.id === 'class_or_assertion').n,
+        totals.n_components) + ' by collapsing a class onto one molecule or by an ' +
+      "author's assertion. A name match cannot distinguish a vitamer group from a " +
+      'vitamer, or a fatty-acid class from an isomer.';
+    $('limit-derived').textContent =
+      MDB.withDenominator(totals.n_derived, totals.n_components, 'component records') +
+      ' were supplied by this pipeline and are not in the cited source; they appear in ' +
+      MDB.withDenominator(media.n_media_with_any_derived_component, cat.count, 'media') +
+      '. They are an approximation of an undefined mixture, or a modelling convention.';
+    $('limit-bounds').textContent =
+      'Bounds are presence placeholders. Only ' +
+      MDB.withDenominator(totals.n_with_concentration_mM, totals.n_components,
+        'components') + ' carry a concentration at all, and no bound in this library ' +
+      'is a measured uptake rate.';
+    // An absent tally is unknown, not zero. by_oxygen keys the unknown regime as
+    // the string "None" (Python's None); reading it as 0 would report "the oxygen
+    // regime is recorded for every medium", which is the opposite of the truth.
+    const oxTable = cat.by_oxygen || {};
+    const nUnknownO2 = ['None', 'null', 'undefined'].reduce(
+      (acc, k) => (acc !== null ? acc : (k in oxTable ? oxTable[k] : null)), null);
+    $('limit-oxygen').textContent = nUnknownO2 === null
+      ? 'The oxygen regime is not recorded for some media, and the count could not be ' +
+        'read from this payload. Unknown is not anaerobic.'
+      : 'The oxygen regime is not recorded for ' +
+        MDB.withDenominator(nUnknownO2, cat.count, 'media') +
+        '. Unknown is not anaerobic, and the filter treats it as its own state.';
+    const comTable = cat.by_commercial_use_ok || {};
+    const nRestricted = ('False' in comTable) ? comTable['False'] : null;
+    $('limit-licence').textContent = nRestricted === null
+      ? 'The licence is per source, and this payload does not carry the count of ' +
+        'records that may not be used commercially. Read LICENSE for the schedule; ' +
+        'this resource cannot grant rights it does not hold.'
+      : 'The licence is per source. ' +
+        MDB.withDenominator(nRestricted, cat.count, 'records') +
+        ' may not be used commercially, and this resource cannot grant rights it ' +
+        'does not hold.';
+
+    $('limit-degeneracy').textContent =
+      'Records are not deduplicated by their model input. ' +
+      MDB.withDenominator(dg.n_media_sharing_a_model_input, dg.of, 'media') +
+      ' hand a solver the same constraint set as at least one other record; the ' +
+      'record sheet names them.';
+    $('limit-exchange').textContent =
+      'Not every component reaches a BiGG exchange. ' +
+      MDB.withDenominator(xr.n_nonbigg_fallback, xr.of, 'components') +
+      ' carry a fallback id no BiGG model will accept, and ' +
+      MDB.withDenominator(xr.n_no_exchange, xr.of) + ' reach none at all.';
+    $('limit-xref').textContent =
+      'Not every component carries a cross-reference. ' +
+      MDB.withDenominator(cat.cross_references.n_components_with_none,
+        cat.cross_references.of, 'components') + ' carry none at all.';
 
     $('upper-bound-count').textContent = MDB.withDenominator(
       media.n_media_source_coverage_is_upper_bound, cat.count, 'media');

@@ -1,9 +1,16 @@
 # pymediadb
 
 A tiny Python client for the [**Media** data API](https://github.com/omidard/Media) —
-a curated, citation-backed library of growth / simulation media where every component
-is mapped to a standard BiGG exchange reaction (`EX_<met>_e`), so any genome-scale
-model can adopt a medium.
+a curated, citation-backed library of growth / simulation media whose components carry
+a standard BiGG exchange reaction (`EX_<met>_e`), so a genome-scale model can adopt a
+medium. 664,000 of 665,582 component records (99.8%) reach one; 1,364 carry a
+ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will accept, and 218 carry no
+exchange at all.
+
+Two caveats the client cannot filter away for you: the data is **not** under a single
+licence — 1,189 of 13,515 records (8.8%) may not be used commercially, so filter on
+`commercial_use_ok` — and 6,827 of 13,515 media (50.5%) hand a model a constraint set
+identical to at least one other record (`n_media_with_identical_model_input`).
 
 The dataset is served as static JSON + Parquet over GitHub Pages with permissive CORS,
 so this client is just a thin, dependency-free wrapper over HTTP GETs (the analytics

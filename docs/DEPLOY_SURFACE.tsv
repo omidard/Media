@@ -23,7 +23,7 @@ primary_control	licence	#f-licence	Filter to commercially usable records		1,189 
 primary_control	derived	#f-derived	Filter by how much of a medium the pipeline supplied
 primary_control	clear	#clear	Clear every filter
 primary_control	results	#tbody	The result table		The result region for the search above it.
-headline_claim	library-claim	#claim	Media, component records, and how their identities were decided	data/web/catalog.json count=13,515 and component_totals.n_components=665,582; every number in the sentence is printed as "N of M (x%)"	Rendered by index.html from the payload; no number is typed into the markup.
+headline_claim	library-claim	#claim	Media, component records, where their exchange ids landed, and how their identities were decided	data/web/catalog.json count=13,515, component_totals.n_components=665,582 and exchange_resolution (664,000 BiGG + 1,364 non-BiGG fallback + 218 none, asserted to partition the components); every number in the sentence is printed as "N of M (x%)"	Rendered by index.html from the payload; no number is typed into the markup. The sentence read "every one mapped to a BiGG exchange" until 2026-09-06, which contradicted the Unresolved chip in the same viewport.
 headline_claim	evidence-key	#ev-key	Component count in each of the six evidence classes	data/web/catalog.json evidence_classes[].of = 665,582 component records	Each chip prints its own denominator.
 headline_claim	coverage-bands	#chart-coverage-bands	Media per source-coverage band	data/web/catalog.json coverage_bands_source._of = 13,515 media	The bands are asserted to partition the library by tools/stages/52_web_payload.py.
 capped_list	compound-matches	#compound-note	6 compound names named inline	matches.length, printed beside the shown count as "showing N of M"	Only the names are capped; the media count is the full match set.
@@ -31,6 +31,7 @@ capped_list	compare-picker	#matches	12 rows	hits.length, printed as "Showing N o
 capped_list	upset	#upset-note	14 intersections	all.length plus the compounds the hidden intersections hold	compare.html; both numbers and the hidden compound count are printed.
 capped_list	difference-grid	#grid-note	44 compounds	items.length before the slice, printed as "the N most differentiating of M"	compare.html
 capped_list	family-axes	#fam-detail	12 modifier agents per axis	agents.length, printed as "showing N of M"	families.html
+capped_list	model-input-twins	.sheet	12 twin ids per record sheet	the group size from data/web/twins.json, printed as "and N more, listed in data/web/twins.json"	The record sheet's "Media a model cannot tell this one apart from" card. An unreachable twins.json renders "this check could not be run", never "none".
 external_data	USDA FoodData Central		LICENSE	USDA FoodData Central	7,424 media, CC0 1.0 public domain. Attribution requested, not required.
 external_data	DSMZ MediaDive		LICENSE	DSMZ MediaDive	3,148 media, CC BY 4.0. Includes JCM (RIKEN) and CCAP media that MediaDive aggregates.
 external_data	FooDB		LICENSE	FooDB	701 media, CC BY-NC 4.0. Commercial use is not permitted and the browser can filter them out.

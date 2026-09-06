@@ -1,9 +1,12 @@
 # Media — design & data model
 
-A curated, citation-backed library of growth and simulation **media**, every component
-mapped to a standard **BiGG exchange reaction**, so any genome-scale metabolic model
-(GEM) can adopt a medium without re-deriving it. This document defines the schema, the
-mapping and provenance rules, and the quality bar.
+A curated, citation-backed library of growth and simulation **media** whose components
+carry a standard **BiGG exchange reaction**, so a genome-scale metabolic model (GEM) can
+adopt a medium without re-deriving it. Measured over the shipped corpus: **664,000 of
+665,582 component records (99.8%) reach a BiGG exchange**; 1,364 carry a
+ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will accept, and 218 carry no
+exchange at all. This document defines the schema, the mapping and provenance rules, and
+the quality bar.
 
 > **Why this exists.** Media formulations are scattered across thousands of papers,
 > supplementary tables, and databases, in inconsistent namespaces. Reusing a published
@@ -98,12 +101,30 @@ specifies otherwise; carbon sources and O₂ are capped. When a physical concent
 reported it is kept in `concentration_mM`, and `provenance.notes` records exactly how it
 was turned into a bound (never silently invented).
 
-**Mapping & confidence — everything is auditable.** Components are mapped by the
-`tools/` mapper: cross-reference first (InChIKey → ChEBI → KEGG → HMDB → MetaNetX → SEED,
-`confidence = exact`), then normalized name (`confidence = inferred`), then manual
-curation (`confidence = manual`). A compound that cannot be mapped is **listed in
-`uncovered` — never dropped silently**. `mapping_method` + `mapping_confidence` are stored
-on every component so a reader can trust, or re-check, each one.
+**Mapping & evidence — everything is auditable.** Each component carries an
+`evidence_tier` recording how its identity was ACTUALLY decided: one of twelve tiers,
+grouped into six classes ordered by the strength of the evidence
+(`tools/web_payload.py:EVIDENCE_CLASSES` is the single definition). Measured over the
+shipped corpus: structure-verified 2,756, identifier-verified 3,610, name-matched
+327,218, class-or-assertion 102,294, pipeline-derived 229,486, unresolved 218 — of
+665,582. `mapping_confidence` is retained but is a coarse summary of the tier, and its
+`exact` value has been withdrawn: it used to mark a hard-coded English-name lookup as
+well as a cross-referenced match. A compound that cannot be mapped is **listed in
+`uncovered` — never dropped silently**.
+
+**Record-level honesty counters.** `n_mapped` + `n_nonbigg_fallback` + `n_unmappable`
+= `n_components`, and `pct_sourced_components_with_bigg_id` (renamed from
+`pct_covered_observed` on 2026-09-06 — the old name read as coverage while its
+denominator was the components the record already carries) is the share of
+source-stated components that reached a BiGG id. Coverage of the source's own ingredient
+list is `coverage_source.pct_covered_source`, and only that.
+
+**A record is not unique as a model input.** 6,827 of 13,515 records (50.5%) hand a model
+the identical set of `(exchange, lower_bound, upper_bound)` triples as at least one other
+record. The catalog carries `model_input_signature` and
+`n_media_with_identical_model_input` per record, and `data/web/twins.json` publishes the
+complete groups. Nothing is merged: the provenance of two identical constraint sets is
+still two different facts.
 
 **Citations are mandatory.** Every medium has a `provenance.citation` (+ DOI/URL where
 one exists). Standard recipes cite the canonical reference; literature media cite the

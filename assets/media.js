@@ -30,12 +30,22 @@ const MDB = (function () {
   const fmt = (n) => (n === null || n === undefined || Number.isNaN(n))
     ? 'not recorded' : Number(n).toLocaleString('en-GB');
 
-  /** A share, always rendered with its denominator. */
+  /** A share, always rendered with its denominator.
+   *
+   *  Rounding is not allowed to erase the exception. 664,000 of 665,582 is 99.76%,
+   *  and the naive `toFixed(0)` printed it as "100%" directly beside the sentence
+   *  saying 1,364 components do NOT reach a BiGG exchange — the same defect, in the
+   *  formatter, as the claim this page exists to correct. A share below 100 never
+   *  prints as 100, and a share above 0 never prints as 0. */
   const share = (n, of) => {
     if (n === null || n === undefined || !of) return 'not computed';
     const p = 100 * n / of;
-    const shown = p > 0 && p < 0.1 ? '<0.1' : p.toFixed(p < 10 ? 1 : 0);
-    return shown + '%';
+    if (p <= 0) return '0%';
+    if (p >= 100) return '100%';
+    if (p < 0.1) return '<0.1%';
+    let d = p < 10 ? 1 : 0;
+    while (d < 4 && Number(p.toFixed(d)) >= 100) d++;
+    return p.toFixed(d) + '%';
   };
 
   /** "12,353 of 13,515 (91%)": the only sanctioned way to state a count. */
@@ -101,6 +111,8 @@ const MDB = (function () {
   let compounds = null;    // compounds.json, lazily
   let families = null;     // families.json, lazily
   let tombstones = null;   // tombstones.json, lazily
+  let twins = null;        // twins.json, lazily (model-input degeneracy)
+  let refs = null;         // refs.json, lazily (cross-reference + note tables)
 
   /** Decode the dictionary-encoded rows into objects keyed by `columns`. */
   function decode(payload) {
@@ -165,12 +177,70 @@ const MDB = (function () {
     if (!families) families = await getJSON('data/web/families.json');
     return families;
   }
+  /** Which media hand a model the identical constraint set. Half the library is
+   *  degenerate under that comparison, and a reader choosing between two media is
+   *  entitled to know the choice makes no difference to a solver. Failure to load
+   *  is reported on the record, never rendered as "no twins". */
+  async function loadTwins() {
+    if (!twins) {
+      try {
+        const raw = await getJSON('data/web/twins.json');
+        const of = {};
+        (raw.groups || []).forEach((g, gi) => g.forEach((id) => { of[id] = gi; }));
+        raw.group_of = of;
+        twins = raw;
+      } catch (e) { twins = { groups: [], group_of: {}, _error: e.kind }; }
+    }
+    return twins;
+  }
+
   async function loadTombstones() {
     if (!tombstones) {
       try { tombstones = await getJSON('data/web/tombstones.json'); }
       catch (e) { tombstones = { records: {}, n_withdrawn: null, _error: e.kind }; }
     }
     return tombstones;
+  }
+
+  /** The cross-reference and note tables.
+   *
+   *  2,287 distinct cross-reference blocks were written into 665,582 components
+   *  and 113 distinct sentences into 621,274 of them; that repetition was
+   *  490 MiB of the published site, which GitHub Pages caps at 1 GiB. Each is
+   *  now held once here and referenced by key from the record. One 0.6 MB fetch,
+   *  once, on the first medium opened.
+   *
+   *  A failed load is recorded on the object and surfaced in the cross-reference
+   *  cell as "cross-references did not load", never rendered as "no
+   *  cross-references" — a component whose identifiers failed to arrive must not
+   *  look like a component that has none. */
+  async function loadRefs() {
+    if (!refs) {
+      try {
+        refs = await getJSON('data/refs.json');
+      } catch (e) {
+        refs = { xrefs: {}, notes: {}, _error: e.kind };
+      }
+    }
+    return refs;
+  }
+  /** The block for one component: {} when it has none, null when the table
+   *  failed to load, and the inline block on a corpus predating stage 60. */
+  function xrefOf(c) {
+    if (c.xref_id === undefined || c.xref_id === null) {
+      return c.target_xref || c.xref || {};
+    }
+    if (!refs || refs._error) return null;
+    const found = refs.xrefs[c.xref_id];
+    return found === undefined ? null : found;
+  }
+  /** The verbatim text behind a note key. Null when it is not resolvable. */
+  function noteOf(c, field) {
+    const key = field === 'mapping_note' ? 'mapping_note_id' : 'xref_note_id';
+    if (c[key] === undefined || c[key] === null) return c[field] || null;
+    if (!refs || refs._error) return null;
+    const found = refs.notes[c[key]];
+    return found === undefined ? null : found;
   }
 
   /* ------------------------------------------------------- the vocabulary -- */
@@ -291,13 +361,22 @@ const MDB = (function () {
       });
     }
     const ok = commercialOk === true;
+    // For all-rights-reserved the honest statement is stronger than "not for
+    // commercial use": no reuse grant of any kind is stated upstream, and this
+    // project has not obtained redistribution permission. LICENSE, NOTICE and
+    // tools/licenses.tsv say exactly this; the chip must not say less.
+    const note = license === 'all-rights-reserved'
+      ? '. No reuse grant of any kind is stated upstream and redistribution ' +
+        'permission has not been obtained. The record ships, labelled, so you can ' +
+        'find and cite it; ask the rights-holder before reusing it.'
+      : (ok
+        ? '. Commercial use is permitted by the upstream terms.'
+        : '. The upstream terms do NOT permit commercial use. ' +
+          'The record ships so you can find it, labelled so you do not misuse it.');
     return el('span', {
       class: 'chip ' + (ok ? 'plain' : 'stop'),
       text: LICENCE_SHORT[license] || license,
-      title: license + (ok
-        ? '. Commercial use is permitted by the upstream terms.'
-        : '. The upstream terms do NOT permit commercial use. ' +
-          'The record ships so you can find it, labelled so you do not misuse it.')
+      title: license + note
     });
   }
 
@@ -493,7 +572,7 @@ const MDB = (function () {
     if (c.derived_not_sourced) {
       nameCell.appendChild(el('div', {}, [el('span', {
         class: 'chip ev-derived',
-        title: (c.mapping_note || 'supplied by this pipeline') +
+        title: (noteOf(c, 'mapping_note') || 'supplied by this pipeline') +
           (c.derived_from ? ' (from "' + c.derived_from + '")' : ''),
         text: c.derived_from ? 'derived from ' + c.derived_from : 'pipeline-derived'
       })]));
@@ -535,7 +614,7 @@ const MDB = (function () {
       ? el('span', {
           class: 'chip ev-' + cls.id, text: cls.label,
           title: cls.definition + '\n\nrecorded tier: ' + tier +
-            (c.mapping_note ? '\nnote: ' + c.mapping_note : '')
+            (noteOf(c, 'mapping_note') ? '\nnote: ' + noteOf(c, 'mapping_note') : '')
         })
       : el('span', {
           class: 'chip stop', text: 'no evidence recorded',
@@ -543,8 +622,11 @@ const MDB = (function () {
         }));
 
     const xrefCell = el('td', { class: 'opt' });
-    const xr = c.xref || {};
-    const keys = ['inchikey', 'kegg', 'chebi', 'hmdb', 'seed'].filter((k) => xr[k]);
+    // Cross-references are held once in data/refs.json and joined on xref_id.
+    // xrefOf returns null when the table did not load: that is a different state
+    // from "this component has none", and the cell says which.
+    const xr = xrefOf(c);
+    const keys = xr ? ['inchikey', 'kegg', 'chebi', 'hmdb', 'seed'].filter((k) => xr[k]) : [];
     if (keys.length) {
       keys.forEach((k, i) => {
         const url = xrefUrl(k, xr[k]);
@@ -553,12 +635,20 @@ const MDB = (function () {
           ? el('a', { href: url, target: '_blank', rel: 'noopener', text: k })
           : el('span', { text: k }));
       });
-      if (c.target_xref_note) {
+      const xnote = noteOf(c, 'target_xref_note');
+      if (xnote) {
         xrefCell.appendChild(el('span', {
-          class: 'cellnote', title: c.target_xref_note,
+          class: 'cellnote', title: xnote,
           text: 'describes the BiGG target'
         }));
       }
+    } else if (xr === null) {
+      xrefCell.appendChild(el('span', {
+        class: 'chip stop', text: 'did not load',
+        title: 'The cross-reference table (data/refs.json) could not be read, so '
+          + 'this component\'s identifiers are unknown here. It is not a claim '
+          + 'that the component has none.'
+      }));
     } else {
       xrefCell.appendChild(el('span', { class: 'muted', text: 'none' }));
     }
@@ -677,7 +767,7 @@ const MDB = (function () {
     const prov = med.provenance || {};
     const body = med.components.map((c) => {
       const q = c.quantity || {};
-      const xr = c.xref || {};
+      const xr = xrefOf(c) || {};
       const cls = c.evidence_tier ? classOfTier(c.evidence_tier) : null;
       return [med.id, c.source_name, c.target_name || c.name, c.bigg_metabolite,
         c.exchange, c.lower_bound, c.upper_bound, c.evidence_tier,
@@ -703,7 +793,8 @@ const MDB = (function () {
   async function openMedium(id, opts) {
     const push = !(opts && opts.replace === true);
     try {
-      const med = await getJSON('data/media/' + id + '.json');
+      const [med] = await Promise.all([
+        getJSON('data/media/' + id + '.json'), loadTwins(), loadRefs()]);
       renderMedium(med);
       const url = new URL(location.href);
       url.searchParams.set('medium', id);
@@ -831,6 +922,63 @@ const MDB = (function () {
       }));
   }
 
+  /** The other media whose model input is byte-identical to this one's.
+   *  Never renders silence: an unreachable payload says it could not be checked,
+   *  because "no twins shown" and "not checked" are different facts. */
+  function twinCard(id) {
+    const card = el('div', { class: 'card card-p' });
+    card.appendChild(el('h4', { text: 'Media a model cannot tell this one apart from' }));
+    if (!twins || twins._error) {
+      card.appendChild(el('p', {
+        class: 'muted', style: 'margin-top:var(--s2)',
+        text: 'This check could not be run: data/web/twins.json could not be loaded. ' +
+          'That is a loading failure, not a finding that this record is unique.'
+      }));
+      return card;
+    }
+    const gi = twins.group_of[id];
+    const group = (gi === undefined) ? [] : twins.groups[gi];
+    const others = group.filter((m) => m !== id);
+    if (!others.length) {
+      card.appendChild(el('p', {
+        style: 'margin-top:var(--s2)',
+        text: 'None. The set of exchange reactions and bounds this record hands a ' +
+          'model is unique among the ' + fmt(twins.of) + ' media in this library.'
+      }));
+      return card;
+    }
+    card.appendChild(el('p', {
+      style: 'margin-top:var(--s2)',
+      text: fmt(others.length) + ' other ' + (others.length === 1 ? 'medium hands' :
+        'media hand') + ' a model exactly the same set of (exchange, lower bound, ' +
+        'upper bound) triples as this record. Choosing between them changes nothing ' +
+        'a solver can see. They keep their own names, sources and citations, which ' +
+        'is why none of them was merged away.'
+    }));
+    const shown = others.slice(0, 12);
+    const list = el('p', { class: 'chip-line', style: 'margin-top:var(--s3)' });
+    shown.forEach((m) => list.appendChild(el('a', {
+      class: 'chip', href: permalink(m), 'data-medium': m, text: m
+    })));
+    if (others.length > shown.length) {
+      list.appendChild(el('span', {
+        class: 'muted',
+        text: 'and ' + fmt(others.length - shown.length) + ' more, listed in ' +
+          'data/web/twins.json'
+      }));
+    }
+    card.appendChild(list);
+    card.appendChild(el('p', {
+      class: 'muted', style: 'font-size:var(--t-sm);margin-top:var(--s2)',
+      text: 'Library-wide, ' + withDenominator(twins.n_media_sharing_a_model_input,
+        twins.of, 'media') + ' share a model input with at least one other record. ' +
+        'Most bounds here are presence placeholders rather than measured rates, so ' +
+        'recipes that differ in amount, pH, agar or preparation can collapse onto ' +
+        'one constraint set.'
+    }));
+    return card;
+  }
+
   function renderMedium(med) {
     const prov = med.provenance || {};
     const covs = med.coverage_source || {};
@@ -945,7 +1093,15 @@ const MDB = (function () {
         'This record does not record whether the medium is used aerobically. ' +
         'It is unknown, not anaerobic. Decide EX_o2_e yourself.']);
     }
-    if (prov.commercial_use_ok !== true) {
+    if (prov.license === 'all-rights-reserved') {
+      limits.push(['stop', 'No reuse grant of any kind is stated upstream.',
+        'Terms: all rights reserved' +
+        (prov.license_source ? ', read from ' + prov.license_source : '') +
+        '. Redistribution permission has not been obtained, and this project does ' +
+        'not claim it. The record is published, labelled and excluded from the ' +
+        'commercially usable subset so you can find and cite it; ask the ' +
+        'rights-holder before reusing it.']);
+    } else if (prov.commercial_use_ok !== true) {
       limits.push(['stop', 'The upstream licence does not permit commercial use.',
         'Terms: ' + (prov.license || 'not recorded') + '. ' +
         (prov.license_source ? 'Read from ' + prov.license_source + '. ' : '') +
@@ -954,6 +1110,42 @@ const MDB = (function () {
     if (med.composition_limitation) {
       limits.push(['caution', 'Composition is not unique to this record.',
         med.composition_limitation]);
+    }
+    // The exceptions to "mapped to a BiGG exchange", stated on the record that has
+    // them rather than only in the library-wide total.
+    //
+    // An absent counter is UNKNOWN, never 0. `|| 0` here would have this panel
+    // report "no component carries a fallback id" for a record that never counted
+    // — a measurement invented from a missing key, which is the whole defect class
+    // this panel exists to close.
+    const nFallback = med.n_nonbigg_fallback;
+    const nNoExchange = med.n_unmappable;
+    const absent = (v) => v === null || v === undefined;
+    const parts = [];
+    let anyExceptions = false;
+    if (absent(nFallback)) {
+      parts.push('This record does not state how many of its components carry a ' +
+        'non-BiGG fallback id. That number is unknown here, not zero.');
+    } else if (nFallback) {
+      anyExceptions = true;
+      parts.push(withDenominator(nFallback, total, 'components') +
+        ' carry a ModelSEED, MetaNetX or KEGG id in exchange position. No BiGG ' +
+        'model has a reaction by that name, so those uptakes will not be applied.');
+    }
+    if (absent(nNoExchange)) {
+      parts.push('This record does not state how many of its components have no ' +
+        'exchange reaction at all. That number is unknown here, not zero.');
+    } else if (nNoExchange) {
+      anyExceptions = true;
+      parts.push(withDenominator(nNoExchange, total, 'components') +
+        ' have no exchange reaction at all: the identity was never established, ' +
+        'or the ingredient is an undefined mixture.');
+    }
+    if (parts.length) {
+      limits.push(['caution', anyExceptions
+        ? 'Not every component here reaches a BiGG exchange.'
+        : 'Whether every component here reaches a BiGG exchange is not recorded.',
+        parts.join(' ')]);
     }
     if (med.category === 'food') {
       limits.push(['caution', 'A food is not a laboratory medium.',
@@ -972,6 +1164,13 @@ const MDB = (function () {
       });
       body.appendChild(box);
     }
+
+    /* media that are the same thing to a solver ---------------------------- */
+    // A record carries a name, a citation and a licence; a model reads none of
+    // them. What reaches the solver is the set of (exchange, lower bound, upper
+    // bound) triples, and half this library is degenerate under that comparison.
+    // Silence here would let a reader believe a choice was a choice.
+    body.appendChild(twinCard(med.id));
 
     /* provenance ----------------------------------------------------------- */
     const provCard = el('div', { class: 'card card-p' });
@@ -1237,7 +1436,8 @@ const MDB = (function () {
 
   return {
     esc, fmt, share, withDenominator, pctOrAbsent, el, getJSON, permalink, flatten,
-    loadCatalog, loadSummary, loadCompounds, loadFamilies, loadTombstones,
+    loadCatalog, loadSummary, loadCompounds, loadFamilies, loadTombstones, loadTwins,
+    loadRefs, xrefOf, noteOf,
     evidenceClasses, evidenceMeta, evidenceChip, evidenceBar, evidenceKey,
     evidenceLegend,
     dominantEvidence, classOfTier, o2Chip, licenceChip, verificationChip,

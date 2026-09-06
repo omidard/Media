@@ -4,11 +4,19 @@ info:
   version: "1.0.0"
   description: >
     Read-only static API for the Media dataset: a curated, citation-backed library of
-    growth / simulation media, every component mapped to a standard BiGG exchange
-    reaction (EX_<met>_e) so any genome-scale model can adopt a medium. Served over
-    GitHub Pages with permissive CORS; no authentication and no rate limiting.
+    growth / simulation media whose components carry BiGG exchange reactions
+    (EX_<met>_e) so a genome-scale model can adopt a medium. 664,000 of 665,582
+    component records (99.8%) reach a BiGG exchange; 1,364 carry a
+    ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will accept, and 218 carry
+    no exchange at all. 656,625 of 665,582 (98.7%) carry a cross-reference.
+    6,827 of 13,515 media (50.5%) hand a model a constraint set identical to at least
+    one other record; see model_input_signature. Served over GitHub Pages with
+    permissive CORS; no authentication and no rate limiting.
   license:
-    name: MIT
+    # Code is MIT. The DATA is not under a single licence: it is per upstream source,
+    # and 1,189 of 13,515 records (8.8%) may not be used commercially. This field can
+    # hold only one value, so it names the code licence and points at the schedule.
+    name: MIT (code only; data is per-source — see LICENSE and tools/licenses.tsv)
     url: https://github.com/omidard/Media/blob/main/LICENSE
 servers:
   - url: https://omidard.github.io/Media
@@ -147,6 +155,38 @@ components:
         n_components: { type: integer }
         n_mapped: { type: integer }
         n_in_biggr: { type: integer }
+        n_nonbigg_fallback:
+          type: integer
+          description: >-
+            Components whose exchange id is a ModelSEED/MetaNetX/KEGG fallback rather
+            than a BiGG id. No BiGG model will accept it. 1,364 of 665,582 components
+            library-wide.
+        n_no_exchange:
+          type: integer
+          description: >-
+            Components with no exchange reaction at all. 218 of 665,582 library-wide.
+        pct_sourced_components_with_bigg_id:
+          type: number
+          nullable: true
+          description: >-
+            Of the components the cited source states, the share that reached a BiGG
+            metabolite id. Its denominator is components the record already carries,
+            NOT the source's ingredient list, so it is 100.0 on 12,861 of 13,515
+            records and is not a coverage measure; use pct_covered_source for that.
+            RENAMED from pct_covered_observed on 2026-09-06; data/index.json carries
+            a field_renames block. null means the denominator was zero, never 100.
+        model_input_signature:
+          type: string
+          description: >-
+            Hash of the set of (exchange, lower_bound, upper_bound) triples this
+            record hands a model. Records sharing it are indistinguishable to a
+            solver. 8,311 distinct values across 13,515 media.
+        n_media_with_identical_model_input:
+          type: integer
+          description: >-
+            How many OTHER media produce the identical model input. 0 means unique.
+            6,827 of 13,515 media (50.5%) are non-zero. The complete groups are
+            published at /data/web/twins.json.
         namespace: { type: string, examples: [bigg] }
         source_type: { type: string }
         source_db: { type: string }
@@ -196,7 +236,25 @@ components:
           type: integer
           description: >-
             Components carrying a ModelSEED/MetaNetX/KEGG fallback exchange instead of a
-            BiGG one. n_mapped counts BiGG-mapped components only.
+            BiGG one. n_mapped counts BiGG-mapped components only. 1,364 of 665,582
+            components library-wide; the component's own mapping_note says no BiGG
+            model will accept the id.
+        n_unmappable:
+          type: integer
+          description: >-
+            Components with no exchange reaction at all: identity was never established
+            (evidence_tier unmapped) or the ingredient is an undefined mixture
+            (unmappable_mixture). 218 of 665,582 library-wide. n_mapped +
+            n_nonbigg_fallback + n_unmappable = n_components.
+        pct_sourced_components_with_bigg_id:
+          type: number
+          nullable: true
+          description: >-
+            Of the components the cited source states, the share that reached a BiGG
+            metabolite id. NOT a coverage measure: its denominator is components, not
+            the source's ingredient list. RENAMED from pct_covered_observed on
+            2026-09-06; records written before that carry the old key. null means the
+            denominator was zero, never 100.
         uncovered:
           type: array
           description: >-
