@@ -216,6 +216,14 @@ _MOD_CLASS = [
                 r"asparagine|nitrogen source|N source)\b", re.I), "nitrogen_source"),
     (re.compile(r"\b(trace element\w*|trace metal\w*|micronutrient\w*|SL-?\d+|"
                 r"Wolfe'?s? mineral)\b", re.I), "trace_elements"),
+    # Bare nutrient ions and elements. Present mainly so that NEGATIONS of them
+    # are captured: "Sulfate-Free Metako Medium (DSMZ J1126)", "N-free BG-11",
+    # "phosphate-limited". Without this class the negation has no agent to attach
+    # to and the record's own statement of what it LACKS is silently dropped.
+    (re.compile(r"\b(sulfate|sulphate|phosphate|chloride|carbonate|bicarbonate|"
+                r"sulfide|sulfur|sulphur|nitrogen|carbon|phosphorus|iron|"
+                r"magnesium|potassium|calcium|sodium|manganese|zinc|copper|"
+                r"cobalt|molybdenum|nickel|tungsten|selenium)\b", re.I), "nutrient_ion"),
     (re.compile(r"\b(sea ?water|artificial sea ?water|ASW|freshwater|brackish)\b", re.I), "matrix"),
 ]
 
@@ -444,329 +452,239 @@ def jaccard(a, b):
     return len(a & b) / float(len(a | b))
 
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--in", dest="inp", default=os.path.join(REPO, "data", "media"))
-    ap.add_argument("--out", required=True)
-    ap.add_argument("--vocab", default=os.path.join(REPO, "data", "vocab"))
-    ap.add_argument("--corroborate-min", type=float, default=0.30,
-                    help="minimum Jaccard against the family reference composition "
-                         "before a name match is promoted to name_and_composition")
-    ap.add_argument("--sample", type=int, default=0)
-    ap.add_argument("--ids", default=None)
-    a = ap.parse_args()
+# ---------------------------------------------------------------------------
+# Corpus context.
+#
+# Family corroboration and identical-composition detection are both GLOBAL
+# questions -- "does this record's chemistry match its family's reference?" and
+# "is any other record byte-identical to this one?" -- so the stage does one
+# read-only prepass over its input corpus before transforming any record. The
+# prepass is deterministic, touches no network and reads nothing outside the
+# input directory and the committed vocabulary.
+# ---------------------------------------------------------------------------
+class Context:
+    def __init__(self, in_dir, vocab_dir=None):
+        self.in_dir = in_dir
+        self.vocab_dir = vocab_dir or os.path.join(REPO, "data", "vocab")
+        self.voc = Vocab(self.vocab_dir)
+        self.ref_comp = {}
+        self.sig_groups = collections.defaultdict(list)
+        self.by_core = collections.defaultdict(list)
+        self.fam_members = collections.defaultdict(list)
+        self.name_matched = collections.Counter()
+        self.unnormalizable = []
+        self.n_records = 0
+        self._prepass()
 
-    voc = Vocab(a.vocab)
-    files = sorted(glob.glob(os.path.join(a.inp, "*.json")))
-    if a.ids:
-        want = set(a.ids.split(","))
-        files = [f for f in files if os.path.basename(f)[:-5] in want]
-    if a.sample:
-        files = files[:a.sample]
+    def _prepass(self):
+        by_id = {}
+        for fp in sorted(glob.glob(os.path.join(self.in_dir, "*.json"))):
+            rec = json.load(open(fp))
+            by_id[rec["id"]] = rec
+            self.n_records += 1
+            self.sig_groups[quantitative_signature(rec)].append(rec["id"])
+        for fid, _lab, _rx, ref in self.voc.families:
+            if ref and ref in by_id:
+                self.ref_comp[fid] = all_exchanges(by_id[ref])
 
-    recs = [json.load(open(f)) for f in files]
-    by_id = {r["id"]: r for r in recs}
-    ref_comp = {}          # family_id -> sourced exchange set of its reference record
-    for fid, _lab, _rx, ref in voc.families:
-        if ref and ref in by_id:
-            ref_comp[fid] = all_exchanges(by_id[ref])
+    @property
+    def inputs(self):
+        return [os.path.relpath(os.path.join(self.vocab_dir, f), REPO)
+                for f in ("media_families.tsv", "mediadive_collections.tsv")]
 
-    # quantitative signature, from the concentration stage when present
-    def qsig(r):
-        q = r.get("quantitation") or {}
-        if q.get("quantitative_signature"):
-            return q["quantitative_signature"]
-        import hashlib
-        key = sorted((c.get("exchange"), c.get("lower_bound"), c.get("upper_bound"),
-                      c.get("concentration_mM"), c.get("recipe_g_l"),
-                      c.get("usda_amount"), c.get("usda_unit"), c.get("foodb_content"))
-                     for c in (r.get("components") or []))
-        return hashlib.sha1(json.dumps(key, sort_keys=True, default=str).encode()).hexdigest()[:16]
 
-    sig_groups = collections.defaultdict(list)
-    for r in recs:
-        sig_groups[qsig(r)].append(r["id"])
+def quantitative_signature(rec):
+    """Composition fingerprint INCLUDING the verbatim source amounts.
 
-    stats = collections.Counter()
-    fails = []
-    fam_members = collections.defaultdict(list)
-    name_matched = collections.Counter()   # denominator: records whose NAME matches
-    unnorm = []
+    Prefers the signature written by 50_load_concentrations. The fallback exists
+    only so this stage can be reasoned about in isolation; in the chain the
+    concentration stage always runs first, which is the whole point of the order.
+    """
+    q = rec.get("quantitation") or {}
+    if q.get("quantitative_signature"):
+        return q["quantitative_signature"]
+    import hashlib
+    key = sorted((c.get("exchange"), c.get("lower_bound"), c.get("upper_bound"),
+                  c.get("concentration_mM"), c.get("recipe_g_l"),
+                  c.get("usda_amount"), c.get("usda_unit"), c.get("foodb_content"))
+                 for c in (rec.get("components") or []))
+    return hashlib.sha1(json.dumps(key, sort_keys=True,
+                                   default=str).encode()).hexdigest()[:16]
 
-    for r in recs:
-        original_id = r["id"]
-        original_name = r.get("name")
-        cat = r.get("category")
 
-        disp = clean_name(original_name)
-        if disp != (original_name or ""):
-            stats["name_display_differs_from_name"] += 1
-        core, tail = split_tail(disp)
-        r["name_display"] = disp
-        r.setdefault("name_verbatim", r.get("name_original") or original_name)
-        r["name_core"] = core
-        r["name_provenance_tail"] = tail
+CORROBORATE_MIN = 0.30
 
-        # --- collection, from MediaDive's own field, never from the URL host ---
-        if original_id.startswith("mediadive_"):
-            acc = original_id[len("mediadive_"):]
-            row = voc.collections.get(acc)
-            if row:
-                r["collection"] = row["collection"]
-                r["collection_accession"] = acc
-                r["aggregator"] = "MediaDive"
-                r["collection_source"] = ("MediaDive REST /rest/media `source` field, "
-                                          "checked in at data/vocab/mediadive_collections.tsv")
-                if row["collection"] != "DSMZ":
-                    stats["collection_corrected_from_DSMZ"] += 1
-                    stats["collection_" + row["collection"]] += 1
-            else:
-                r["collection"] = None
-                r["collection_accession"] = acc
-                r["aggregator"] = "MediaDive"
-                stats["collection_unknown"] += 1
 
-        # --- family -------------------------------------------------------
-        ids, cands, fam_start = ([], [], None) if cat == "food" else voc.match(core)
-        if cands:
-            for c in cands:
-                name_matched[voc.alias.get(c, c)] += 1
-        fam = {"id": None, "label": None, "method": None, "evidence": None,
-               "candidates": cands or None, "composition_corroborated": None,
-               "corroboration_blocked_reason": None, "parent": None}
-        if cat == "food":
-            fam["method"] = None
-            fam["refused_reason"] = "category_food_family_not_assigned"
-        elif len(ids) == 1:
-            fid = ids[0]
-            fam["id"] = fid
-            fam["label"] = voc.label(fid)
-            fam["parent"] = voc.parent.get(fid) or None
-            fam_members[fid].append(r["id"])
-            if voc.reference(fid) == r["id"]:
-                # this record IS the family's canonical reference formulation
-                fam["evidence"] = "canonical_reference_record"
-                fam["method"] = "canonical_reference"
-                fam["composition_corroborated"] = 1.0
-                stats["family_canonical_reference"] += 1
-            else:
-                fam["evidence"] = "name_regex:" + fid
-                ref = ref_comp.get(fid)
-                own = sourced_exchanges(r)
-                j = None
-                if not ref:
-                    fam["corroboration_blocked_reason"] = "no_reference_composition_for_family"
-                elif not own:
-                    # every component of this record was written by the pipeline,
-                    # so there is no observed chemistry left to corroborate with
-                    fam["corroboration_blocked_reason"] = "record_has_no_sourced_components"
-                    stats["corroboration_blocked_no_sourced_components"] += 1
-                else:
-                    j = jaccard(own, ref)
-                if j is not None and j >= a.corroborate_min:
-                    fam["method"] = "name_and_composition"
-                    fam["composition_corroborated"] = round(j, 3)
-                    stats["family_name_and_composition"] += 1
-                else:
-                    fam["method"] = "name_only"
-                    fam["composition_corroborated"] = (round(j, 3) if j is not None else None)
-                    if j is not None:
-                        fam["corroboration_blocked_reason"] = "below_corroboration_threshold"
-                    stats["family_name_only"] += 1
-        elif len(ids) > 1:
-            fam["method"] = None
-            fam["refused_reason"] = "ambiguous_multiple_families"
-            fam["candidates"] = ids
-            stats["family_refused_ambiguous"] += 1
-            unnorm.append((r["id"], core, "ambiguous_multiple_families", "|".join(ids)))
+def apply(rec, ctx, events):
+    """Add the naming / family / modifier layer to `rec` in place.
+
+    `events` is a Counter the caller uses for its report. Nothing is deleted,
+    no id or `name` is ever rewritten, and no record is ever merged away.
+    """
+    cat = rec.get("category")
+    disp = clean_name(rec.get("name"))
+    if disp != (rec.get("name") or ""):
+        events["name_display_differs_from_stored_name"] += 1
+    core, tail = split_tail(disp)
+    rec["name_display"] = disp
+    rec["name_core"] = core
+    rec["name_provenance_tail"] = tail
+    if "name_verbatim" not in rec:
+        rec["name_verbatim"] = rec.get("name_original") or rec.get("name")
+
+    # ---- collection: MediaDive's own field, never the URL host ----------
+    if rec["id"].startswith("mediadive_"):
+        acc = rec["id"][len("mediadive_"):]
+        row = ctx.voc.collections.get(acc)
+        if row:
+            prior = rec.get("collection")
+            if prior and prior != row["collection"]:
+                rec["collection_disagreement"] = {
+                    "previous_value": prior,
+                    "authoritative_value": row["collection"],
+                    "note": "an earlier stage inferred a different collection; the "
+                            "value from MediaDive's own catalogue wins because host "
+                            "derivation is provably wrong for the atcc.org-linked "
+                            "CCAP record and undefined for the 73 records with a "
+                            "synthesised fallback URL."}
+                events["collection_disagreement_with_earlier_stage"] += 1
+            rec["collection"] = row["collection"]
+            rec["collection_accession"] = acc
+            rec["aggregator"] = "MediaDive"
+            rec["collection_evidence"] = (
+                "MediaDive REST /rest/media `source` field, committed at "
+                "data/vocab/mediadive_collections.tsv")
+            if row["collection"] != "DSMZ":
+                events["collection_corrected_from_DSMZ"] += 1
+                events["collection_" + row["collection"]] += 1
         else:
-            fam["method"] = None
-            fam["refused_reason"] = "no_family_match"
-            stats["family_none"] += 1
-        r["family"] = fam
+            rec["collection"] = None
+            rec["collection_accession"] = acc
+            rec["aggregator"] = "MediaDive"
+            rec["collection_evidence"] = None
+            events["collection_unknown"] += 1
 
-        # --- modifiers ----------------------------------------------------
-        # The modifier taxonomy is a LABORATORY-MEDIUM grammar (base + carbon
-        # source + supplements + agar/broth + strength + pH + "modified"). Food
-        # names are a different facet problem entirely -- 7,424 USDA names carry
-        # a median of 3 comma-separated preparation facets over 830 food heads
-        # (NM-12) -- and running this grammar over them manufactures nonsense
-        # (a quarter-pound burger reading as quarter-strength medium).
-        if cat == "food":
-            r["modifiers"] = []
-            r["modifiers_unparsed"] = None
-            r["preparation"] = None
-            r["strength"] = None
-            r["ph_declared"] = None
-            r["modifier_parse"] = "not_applicable_food_facets"
-            mods = []
+    # ---- family ---------------------------------------------------------
+    ids, cands, fam_start = ([], [], None) if cat == "food" else ctx.voc.match(core)
+    for c in cands:
+        ctx.name_matched[ctx.voc.alias.get(c, c)] += 1
+    fam = {"id": None, "label": None, "method": None, "evidence": None,
+           "candidates": cands or None, "composition_corroborated": None,
+           "corroboration_blocked_reason": None, "parent": None,
+           "refused_reason": None}
+    if cat == "food":
+        fam["refused_reason"] = "category_food_family_not_assigned"
+        events["family_refused_food"] += 1
+    elif len(ids) == 1:
+        fid = ids[0]
+        fam["id"] = fid
+        fam["label"] = ctx.voc.label(fid)
+        fam["parent"] = ctx.voc.parent.get(fid) or None
+        ctx.fam_members[fid].append(rec["id"])
+        if ctx.voc.reference(fid) == rec["id"]:
+            fam["evidence"] = "canonical_reference_record"
+            fam["method"] = "canonical_reference"
+            fam["composition_corroborated"] = 1.0
+            events["family_canonical_reference"] += 1
         else:
-            strength, s_span = parse_strength(core, fam_start)
-            mods, unparsed = parse_modifiers(core, [s_span] if s_span else [])
-            r["modifier_parse"] = "laboratory_grammar_v1"
-            r["strength"] = strength
-            r["modifiers_unparsed"] = unparsed or None
-            r["preparation"] = parse_preparation(core)
-            r["ph_declared"] = parse_ph(core)
-        sourced = sourced_exchanges(r)
-        names_lower = {(c.get("name") or "").lower() for c in (r.get("components") or [])}
-        bigg_ids = {c.get("bigg_metabolite") for c in (r.get("components") or [])}
+            fam["evidence"] = "name_regex:" + fid
+            ref = ctx.ref_comp.get(fid)
+            own = sourced_exchanges(rec)
+            j = None
+            if not ref:
+                fam["corroboration_blocked_reason"] = "no_reference_composition_for_family"
+                events["corroboration_blocked_no_reference"] += 1
+            elif not own:
+                fam["corroboration_blocked_reason"] = "record_has_no_sourced_components"
+                events["corroboration_blocked_no_sourced_components"] += 1
+            else:
+                j = jaccard(own, ref)
+            if j is not None and j >= CORROBORATE_MIN:
+                fam["method"] = "name_and_composition"
+                fam["composition_corroborated"] = round(j, 3)
+                events["family_name_and_composition"] += 1
+            else:
+                fam["method"] = "name_only"
+                fam["composition_corroborated"] = round(j, 3) if j is not None else None
+                if j is not None:
+                    fam["corroboration_blocked_reason"] = "below_corroboration_threshold"
+                events["family_name_only"] += 1
+    elif len(ids) > 1:
+        fam["refused_reason"] = "ambiguous_multiple_families"
+        fam["candidates"] = ids
+        events["family_refused_ambiguous"] += 1
+        ctx.unnormalizable.append((rec["id"], core, "ambiguous_multiple_families",
+                                   "|".join(ids)))
+    else:
+        fam["refused_reason"] = "no_family_match"
+        events["family_no_match"] += 1
+    rec["family"] = fam
+
+    # ---- modifiers ------------------------------------------------------
+    # The modifier grammar is a LABORATORY-MEDIUM grammar. Food names are a
+    # different facet problem (7,424 USDA names carry a median of 3 comma-
+    # separated preparation facets over 830 food heads, NM-12) and running this
+    # grammar over them manufactures nonsense.
+    if cat == "food":
+        rec["modifiers"] = []
+        rec["modifiers_unparsed"] = None
+        rec["preparation"] = None
+        rec["strength"] = None
+        rec["ph_declared"] = None
+        rec["modifier_parse"] = "not_applicable_food_facets"
+    else:
+        strength, s_span = parse_strength(core, fam_start)
+        mods, unparsed = parse_modifiers(core, [s_span] if s_span else [])
+        names_lower = {(c.get("name") or "").lower() for c in (rec.get("components") or [])}
+        bigg_ids = {c.get("bigg_metabolite") for c in (rec.get("components") or [])}
         has_amount = any((c.get("quantity") or {}).get("value") is not None
                          or c.get("concentration_mM") is not None
-                         for c in (r.get("components") or []))
+                         for c in (rec.get("components") or []))
         for md in mods:
             if md["polarity"] == "absent":
                 md["reflected_in_composition"] = None
+                events["modifier_negated"] += 1
                 continue
             ag = md["agent"].lower()
             present = any(ag in n for n in names_lower) or ag in bigg_ids
-            # A modifier is only "reflected" if the chemistry is there AND the
-            # record can express a quantity. Otherwise the composition cannot
-            # distinguish "LB" from "LB + 5% NaCl" no matter what it contains.
             if not present:
                 md["reflected_in_composition"] = False
             elif md.get("amount") is not None and not has_amount:
                 md["reflected_in_composition"] = False
             else:
                 md["reflected_in_composition"] = True
-        if cat != "food":
-            r["modifiers"] = mods or []
+            if md["reflected_in_composition"] is False:
+                events["modifier_declared_but_absent_from_composition"] += 1
+        rec["modifiers"] = mods
+        rec["modifiers_unparsed"] = unparsed or None
+        rec["preparation"] = parse_preparation(core)
+        rec["strength"] = strength
+        rec["ph_declared"] = parse_ph(core)
+        rec["modifier_parse"] = "laboratory_grammar_v1"
 
-        # --- composition degeneracy ---------------------------------------
-        s = qsig(r)
-        sibs = [i for i in sig_groups[s] if i != r["id"]]
-        r["composition_signature"] = s
-        r["composition_identical_to"] = sibs or None
-        declared = [m for m in mods if m["polarity"] == "present"]
-        if sibs and declared:
-            r["composition_distinguishes_modifiers"] = False
-            r["composition_limitation"] = (
-                "This record's composition, bounds and quantities are identical to "
-                "%d other record(s). The modifier(s) its name declares are not "
-                "represented in the chemistry and must not be read as a "
-                "compositional difference." % len(sibs))
-            stats["modifiers_declared_but_not_representable"] += 1
-        elif sibs:
-            r["composition_distinguishes_modifiers"] = False
-            r["composition_limitation"] = (
-                "Composition, bounds and quantities are identical to %d other "
-                "record(s)." % len(sibs))
-        else:
-            r["composition_distinguishes_modifiers"] = True
-            r["composition_limitation"] = None
+    # ---- composition degeneracy -----------------------------------------
+    sig = quantitative_signature(rec)
+    sibs = [i for i in ctx.sig_groups[sig] if i != rec["id"]]
+    rec["composition_signature"] = sig
+    rec["composition_identical_to"] = sibs or None
+    declared = [m for m in rec["modifiers"] if m.get("polarity") == "present"]
+    if sibs and declared:
+        rec["composition_distinguishes_modifiers"] = False
+        rec["composition_limitation"] = (
+            "This record's composition, bounds and quantities are identical to %d "
+            "other record(s). The modifier(s) its name declares are not represented "
+            "in the chemistry and must not be read as a compositional difference."
+            % len(sibs))
+        events["modifiers_declared_but_not_representable"] += 1
+    elif sibs:
+        rec["composition_distinguishes_modifiers"] = False
+        rec["composition_limitation"] = (
+            "Composition, bounds and quantities are identical to %d other record(s)."
+            % len(sibs))
+        events["composition_identical_to_a_sibling"] += 1
+    else:
+        rec["composition_distinguishes_modifiers"] = True
+        rec["composition_limitation"] = None
 
-        r["naming_stage"] = {"stage": "normalize_names", "stage_version": "1.0"}
-
-        # --- assertions ----------------------------------------------------
-        if r["id"] != original_id:
-            fails.append(("N5", original_id, "id changed"))
-        if r.get("name") != original_name:
-            fails.append(("N6", original_id, "name overwritten"))
-        if cat == "food" and r["family"]["id"] is not None:
-            fails.append(("N1", original_id, "food record assigned a family"))
-        if _LB_QUANTITY.search(core) and r["family"]["id"] == "lb":
-            fails.append(("N8", original_id, "quantity-context LB resolved to LB family"))
-        for md in r["modifiers"]:
-            if md["polarity"] == "absent" and md["reflected_in_composition"]:
-                fails.append(("N4", original_id, "negated modifier asserted present"))
-
-    if len(recs) != len(files):
-        fails.append(("N7", "-", "record count changed"))
-
-    # ---- outputs ---------------------------------------------------------
-    os.makedirs(os.path.join(a.out, "media"), exist_ok=True)
-    os.makedirs(os.path.join(a.out, "reports"), exist_ok=True)
-    for r in recs:
-        json.dump(r, open(os.path.join(a.out, "media", r["id"] + ".json"), "w"))
-
-    # families.tsv, always with the denominator (N9)
-    with open(os.path.join(a.out, "reports", "families.tsv"), "w") as fh:
-        fh.write("family_id\tdisplay_label\tn_assigned\tn_name_matching\t"
-                 "n_surface_spellings\tn_exchange_set_compositions\t"
-                 "n_quantitative_compositions\tlargest_identical_block\tmember_ids\n")
-        for fid, ids in sorted(fam_members.items(), key=lambda x: -len(x[1])):
-            ms = [by_id[i] for i in ids]
-            surf = {(m.get("name_core") or "").lower() for m in ms}
-            exs = {tuple(sorted({c["exchange"] for c in (m.get("components") or [])})) for m in ms}
-            qs = collections.Counter(qsig(m) for m in ms)
-            fh.write("%s\t%s\t%d\t%d\t%d\t%d\t%d\t%d\t%s\n" % (
-                fid, voc.label(fid), len(ids), name_matched.get(fid, len(ids)),
-                len(surf), len(exs), len(qs),
-                max(qs.values()) if qs else 0, ",".join(sorted(ids))))
-
-    # name collisions: byte-identical core name, differing chemistry
-    by_core = collections.defaultdict(list)
-    for r in recs:
-        by_core[(r.get("category"), (r.get("name_core") or "").strip().lower())].append(r)
-    ncol = 0
-    with open(os.path.join(a.out, "reports", "name_collisions.tsv"), "w") as fh:
-        fh.write("category\tname_core\tn_records\tmin_pairwise_jaccard\tids\tn_components\n")
-        for (cat, core), rs in sorted(by_core.items()):
-            if len(rs) < 2:
-                continue
-            sets = [sourced_exchanges(x) for x in rs]
-            js = [jaccard(sets[i], sets[j]) or 0.0
-                  for i in range(len(sets)) for j in range(i + 1, len(sets))]
-            if js and min(js) < 0.999:
-                ncol += 1
-                fh.write("%s\t%s\t%d\t%.3f\t%s\t%s\n" % (
-                    cat, core, len(rs), min(js), ",".join(x["id"] for x in rs),
-                    ",".join(str(len(x.get("components") or [])) for x in rs)))
-
-    # composition duplicates: different core name, identical quantitative signature
-    ndup = 0
-    with open(os.path.join(a.out, "reports", "composition_duplicates.tsv"), "w") as fh:
-        fh.write("quantitative_signature\tn_records\tn_distinct_core_names\tids\tnames\n")
-        for s, ids in sorted(sig_groups.items(), key=lambda x: -len(x[1])):
-            if len(ids) < 2:
-                continue
-            cores = {(by_id[i].get("name_core") or "").lower() for i in ids if i in by_id}
-            if len(cores) < 2:
-                continue
-            ndup += 1
-            fh.write("%s\t%d\t%d\t%s\t%s\n" % (
-                s, len(ids), len(cores), ",".join(ids),
-                " | ".join(sorted(cores)[:8])))
-
-    with open(os.path.join(a.out, "reports", "unnormalizable.tsv"), "w") as fh:
-        fh.write("record_id\tname_core\treason\tdetail\n")
-        for row in unnorm:
-            fh.write("\t".join(row) + "\n")
-
-    assigned = sum(len(v) for v in fam_members.values())
-    rep = {
-        "stage": "normalize_names", "stage_version": "1.0",
-        "records_in": len(files), "records_out": len(recs),
-        "denominator": len(recs),
-        "families_in_vocabulary": len(voc.families),
-        "families_used": len(fam_members),
-        "records_with_family": assigned,
-        "records_with_family_pct_of_all": round(100.0 * assigned / len(recs), 2) if recs else None,
-        "records_food_family_never_assigned": sum(1 for r in recs if r.get("category") == "food"),
-        "counters": dict(stats),
-        "name_collision_groups": ncol,
-        "composition_duplicate_groups": ndup,
-        "largest_families": [
-            {"family_id": f, "label": voc.label(f), "n_assigned": len(ids),
-             "n_name_matching": name_matched.get(f, len(ids))}
-            for f, ids in sorted(fam_members.items(), key=lambda x: -len(x[1]))[:20]],
-        "assertion_failures": [{"assertion": x[0], "record": x[1], "detail": x[2]} for x in fails],
-        "assertions_passed": not fails,
-    }
-    json.dump(rep, open(os.path.join(a.out, "reports", "naming_report.json"), "w"), indent=1)
-    print(json.dumps({k: rep[k] for k in
-                      ("records_out", "families_used", "records_with_family",
-                       "records_with_family_pct_of_all", "counters",
-                       "name_collision_groups", "composition_duplicate_groups",
-                       "largest_families", "assertions_passed")}, indent=1))
-    if fails:
-        print("\nASSERTION FAILURES (%d):" % len(fails), file=sys.stderr)
-        for x in fails[:25]:
-            print("  %s %s %s" % x, file=sys.stderr)
-        return 2
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
+    ctx.by_core[(cat, (core or "").strip().lower())].append(rec["id"])
+    return rec

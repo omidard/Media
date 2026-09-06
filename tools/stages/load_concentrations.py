@@ -87,7 +87,10 @@ ASSERTIONS (the stage exits non-zero if any fails)
   A7  no derived concentration exceeds the pure-substance molarity of the species
   A8  every non-null concentration_mM carries a concentration_status and source
 """
-import argparse, json, os, re, sys, glob, collections
+import json, os, re, sys, glob, collections, copy
+
+STAGE_ID = "50_load_concentrations"
+STAGE_VERSION = "1.0.0"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
@@ -200,15 +203,24 @@ NON_MASS_UNITS = {"iu", "ne", "α-te", "a-te", "rae", "re", "dfe", "kcal", "kj",
 
 
 class Stage:
-    def __init__(self, args):
-        self.args = args
+    """Holds the molar-mass resolution tables and the per-run tallies.
+
+    Constructed with plain paths so the registered stage entrypoint
+    (50_load_concentrations.py) can build it without argparse.
+    """
+
+    def __init__(self, dict_path=None, mass_table=None):
         self.mass_table = {}
         self.mass_source = {}
-        if args.mass_table and os.path.exists(args.mass_table):
-            self._load_mass_table(args.mass_table)
+        self.inputs = []
+        if mass_table and os.path.exists(mass_table):
+            self._load_mass_table(mass_table)
+            self.inputs.append(os.path.relpath(mass_table, REPO))
         self.dict_formula = {}
-        if os.path.exists(args.dict):
-            d = json.load(open(args.dict))
+        dict_path = dict_path or os.path.join(REPO, "tools", "bigg_metabolite_dict.json")
+        if os.path.exists(dict_path):
+            self.inputs.append(os.path.relpath(dict_path, REPO))
+            d = json.load(open(dict_path))
             for bid, v in d.items():
                 fo = (v.get("xrefs") or {}).get("formula")
                 if fo:
@@ -427,8 +439,8 @@ class Stage:
             "n_with_concentration_mM": n_conc,
             "pct_with_concentration_mM": round(100.0 * n_conc / len(comps), 2) if comps else None,
             "quantitative_signature": self.quant_signature(comps),
-            "stage": "load_concentrations",
-            "stage_version": "1.0",
+            "stage": STAGE_ID,
+            "stage_version": STAGE_VERSION,
         }
         return d
 
@@ -474,92 +486,3 @@ class Stage:
                 if cm is not None and (not st or (st == "derived" and not c.get("concentration_source"))):
                     f.append(("A8", d["id"], c.get("exchange") + " concentration without status/source"))
         return f
-
-
-def main():
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--in", dest="inp", default=os.path.join(REPO, "data", "media"))
-    ap.add_argument("--out", required=True)
-    ap.add_argument("--dict", default=os.path.join(REPO, "tools", "bigg_metabolite_dict.json"))
-    ap.add_argument("--vocab", default=os.path.join(REPO, "data", "vocab"))
-    ap.add_argument("--mass-table", default=None,
-                    help="TSV from the mapping-layer stage (bigg_id/formula/molar_mass_g_per_mol/charge/mass_source)")
-    ap.add_argument("--sample", type=int, default=0,
-                    help="run on the first N records only (unit-test mode)")
-    ap.add_argument("--ids", default=None, help="comma-separated ids to run on")
-    a = ap.parse_args()
-
-    files = sorted(glob.glob(os.path.join(a.inp, "*.json")))
-    if a.ids:
-        want = set(a.ids.split(","))
-        files = [f for f in files if os.path.basename(f)[:-5] in want]
-    if a.sample:
-        files = files[:a.sample]
-
-    st = Stage(a)
-    os.makedirs(os.path.join(a.out, "media"), exist_ok=True)
-    os.makedirs(os.path.join(a.out, "reports"), exist_ok=True)
-
-    kept = []
-    for fp in files:
-        d = json.load(open(fp))
-        d = st.transform_record(d)
-        json.dump(d, open(os.path.join(a.out, "media", os.path.basename(fp)), "w"))
-        kept.append(d)
-
-    fails = st.assert_all(kept)
-
-    # signature resolution: how much duplication was an artifact of dropping amounts
-    ex_only = collections.Counter()
-    quant = collections.Counter()
-    for d in kept:
-        cs = d.get("components") or []
-        ex_only[tuple(sorted({c["exchange"] for c in cs}))] += 1
-        quant[d["quantitation"]["quantitative_signature"]] += 1
-
-    def redundancy(counter):
-        shared = [v for v in counter.values() if v > 1]
-        return {"distinct": len(counter),
-                "shared_groups": len(shared),
-                "records_in_shared_group": sum(shared),
-                "redundant_records": sum(shared) - len(shared)}
-
-    rep = {
-        "stage": "load_concentrations", "stage_version": "1.0",
-        "records_in": len(files), "records_out": len(kept),
-        "mass_table_used": bool(st.mass_table),
-        "mass_table_entries": len(st.mass_table),
-        "counters": dict(st.stats),
-        "blocked_by_reason": dict(st.block),
-        "block_reason_glossary": BLOCK_REASONS,
-        "composition_resolution": {
-            "exchange_set_only": redundancy(ex_only),
-            "with_verbatim_amounts": redundancy(quant),
-        },
-        "assertion_failures": [{"assertion": x[0], "record": x[1], "detail": x[2]} for x in fails],
-        "assertions_passed": not fails,
-    }
-    json.dump(rep, open(os.path.join(a.out, "reports", "concentrations_report.json"), "w"), indent=1)
-
-    with open(os.path.join(a.out, "reports", "quantities.tsv"), "w") as fh:
-        fh.write("record_id\texchange\tbigg_id\tmapping_method\tderived_not_sourced\t"
-                 "source_value\tsource_unit\tsource_basis\tconcentration_mM\t"
-                 "amount_mmol_per_100g\tblock_reason\n")
-        for r in st.rows:
-            fh.write("\t".join(r) + "\n")
-
-    print(json.dumps({k: rep[k] for k in
-                      ("records_out", "counters", "blocked_by_reason",
-                       "composition_resolution", "assertions_passed")},
-                     indent=1))
-    if fails:
-        print("\nASSERTION FAILURES (%d):" % len(fails), file=sys.stderr)
-        for x in fails[:25]:
-            print("  %s %s %s" % x, file=sys.stderr)
-        return 2
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
