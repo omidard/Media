@@ -438,10 +438,9 @@
         MDB.share(totals.n_sourced, totals.n_components) + ' of components'),
       figure(fmt(totals.n_derived), 'supplied by the pipeline',
         MDB.share(totals.n_derived, totals.n_components) + ' of components'));
-    $('release-stamp').textContent = 'Built ' + cat.built_utc +
+    $('release-stamp').textContent = 'Built ' + cat.built_utc.slice(0, 10) +
       (cat.git_head ? ' from commit ' + cat.git_head.slice(0, 10) : '') +
-      ' by tools/build_web_payload.py, reading ' + cat.corpus + '. ' +
-      cat.count_authority + '.';
+      '. Every number on this page is counted from the published records.';
 
     const counts = cat.evidence_classes.map((c) => c.n);
     $('ev-bar').appendChild(MDB.evidenceBar(counts));
