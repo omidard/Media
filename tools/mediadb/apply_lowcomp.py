@@ -13,8 +13,10 @@ import build_mediadb_media as B   # map_compound(), bound(), DICT
 def to_mM(conc, unit):
     if conc is None or unit is None: return None
     u = str(unit).strip().lower()
-    try: c = float(conc)
-    except: return None
+    try:
+        c = float(conc)
+    except (ValueError, TypeError):
+        return None   # unreadable concentration stays null, never 0
     if u in ("mm", "mmol/l", "mmol/l."): return c
     if u in ("um", "µm", "umol/l", "μm"): return c/1000.0
     if u in ("m", "mol/l"): return c*1000.0

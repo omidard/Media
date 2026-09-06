@@ -28,7 +28,7 @@ STAGE, VERSION = "00_baseline", "1.0.0"
 # this remediation was audited against — which must be noticed, not absorbed.
 EXPECT = {
     "n_media": 13515,
-    "n_components": 665582,
+    "components": 665582,
     "components_with_bigg": 664218,
     "exchange_identity_ok": 664218,
     "records_n_mapped_eq_n_components": 13515,

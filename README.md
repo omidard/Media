@@ -56,8 +56,9 @@ Media/
 
 Each record: see **[DESIGN.md](DESIGN.md)**. Every component records **how** it was mapped
 (`mapping_method`) and **how confident** that mapping is (`exact` via cross-reference,
-`inferred` via name, or `manual`). Compounds that can't be mapped are listed in `unmapped`,
-never dropped silently.
+`inferred` via name). Compounds that can't be mapped are listed in `uncovered`,
+never dropped silently. Note that `exact` currently marks a name-table lookup as well as
+a cross-referenced match; separating those tiers is in progress.
 
 ## Use a medium (COBRApy)
 

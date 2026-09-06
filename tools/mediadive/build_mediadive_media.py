@@ -46,13 +46,20 @@ def comp(ex, lb, method, conf, gl=None, mM=None):
     return c
 
 written=0; index_rows=[]
+_skipped_details=[]   # per-medium files we could not parse; reported, never ignored
+_mM_failures=0
 _DETAILS = source_dir("mediadive", "details",
                       what="per-medium MediaDive REST responses "
                            "(fetch with tools/mediadive/fetch_media.py)")
 for fp in glob.glob(os.path.join(_DETAILS,"*.json")):
     mid=os.path.basename(fp)[:-5]
-    try: det=json.load(open(fp))
-    except: continue
+    try:
+        det=json.load(open(fp))
+    except (ValueError, OSError) as _exc:
+        # A detail file that will not parse means a medium silently vanishes from the
+        # build. Record it and account for it at the end instead of dropping it.
+        _skipped_details.append((mid, "%s: %s" % (type(_exc).__name__, _exc)))
+        continue
     data=det.get("data") or {}
     med=data.get("medium") or medialist.get(mid,{})
     if not med: continue
@@ -67,8 +74,11 @@ for fp in glob.glob(os.path.join(_DETAILS,"*.json")):
             if cid in imap:
                 v=imap[cid]
                 if v["kind"]=="defined" and v.get("mass") and gl:
-                    try: mM=round(float(gl)/float(v["mass"])*1000.0,4)
-                    except: mM=None
+                    try:
+                        mM=round(float(gl)/float(v["mass"])*1000.0,4)
+                    except (ValueError, TypeError, ZeroDivisionError):
+                        mM=None
+                        _mM_failures+=1
                 else: mM=None
                 for ex in v["exchanges"]:
                     if ex in IGNORE_EX: continue
@@ -113,7 +123,15 @@ for fp in glob.glob(os.path.join(_DETAILS,"*.json")):
     index_rows.append({"id":rec["id"],"defined":rec["defined"],"n_components":rec["n_components"],"n_defined":n_defined_real})
 os.makedirs(os.path.join(OUT_ROOT,"mediadive"), exist_ok=True)
 json.dump(index_rows, open(os.path.join(OUT_ROOT,"mediadive","md_index.json"),"w"))
+if _skipped_details:
+    print(f"UNPARSEABLE detail files: {len(_skipped_details)} of "
+          f"{len(glob.glob(os.path.join(_DETAILS,'*.json')))} — these media are ABSENT "
+          f"from this build: {_skipped_details[:5]}")
+    if len(_skipped_details) > 0.01 * max(written, 1):
+        raise SystemExit("refusing to publish a build that silently dropped "
+                         f"{len(_skipped_details)} media")
 print(f"MediaDive media written: {written}")
+print(f"concentration conversions that failed (left null): {_mM_failures}")
 dfn=sum(1 for r in index_rows if r["defined"]); print(f"  defined: {dfn} | complex: {written-dfn}")
 import statistics
 nd=[r["n_defined"] for r in index_rows]

@@ -61,8 +61,10 @@ def dissociate(name):
 CATMAP={"minimal":"laboratory","defined":"laboratory","rich":"laboratory","complex":"laboratory","dietary":"dietary","other":"laboratory"}
 
 def to_mM(amount, unit):
-    try: v=float(re.search(r"[-+]?\d*\.?\d+", str(amount)).group(0))
-    except: return None
+    try:
+        v=float(re.search(r"[-+]?\d*\.?\d+", str(amount)).group(0))
+    except (ValueError, TypeError, AttributeError):
+        return None   # unparseable amount stays null; it is never guessed
     u=(unit or "").strip().lower()
     if u in ("mm","mmol/l"): return v
     if u in ("um","µm","umol/l","micromolar"): return v/1000
@@ -73,9 +75,14 @@ def to_mM(amount, unit):
 def slug(s): return re.sub(r"[^a-z0-9]+","_",(s or "").lower()).strip("_")[:40] or "medium"
 
 seen=set(); written=0; kept=[]; total_in=0
+_bad_batches=[]        # extraction batches that would not parse
+_bound_defaulted=0     # paper bounds we could not read and replaced with a convention
 for fp in glob.glob(os.path.join(LIT,"batch_*.json")):
-    try: data=json.load(open(fp))
-    except: continue
+    try:
+        data=json.load(open(fp))
+    except (ValueError, OSError) as _exc:
+        _bad_batches.append((os.path.basename(fp), "%s: %s" % (type(_exc).__name__, _exc)))
+        continue
     for med in data.get("media",[]):
         total_in+=1
         if not med.get("source_snippet"): continue
@@ -86,8 +93,13 @@ for fp in glob.glob(os.path.join(LIT,"batch_*.json")):
             mm=re.match(r"EX_(.+)_e$",ex); bid=mm.group(1) if mm else None
             if bid and valid(bid):
                 lb=e.get("lower_bound");
-                try: lb=float(lb)
-                except: lb=(-1000 if is_min(bid) else -1.0)
+                try:
+                    lb=float(lb)
+                except (ValueError, TypeError):
+                    # The paper's own bound could not be read, so a CONVENTION is
+                    # substituted. That is a derived value, and it is counted.
+                    lb=(-1000 if is_min(bid) else -1.0)
+                    _bound_defaulted+=1
                 comps[f"EX_{bid}_e"]={"name":nm(bid),"bigg_metabolite":bid,"exchange":f"EX_{bid}_e",
                     "lower_bound":lb,"upper_bound":1000.0,"concentration_mM":None,"xref":xr(bid),
                     "in_biggr":True,"mapping_method":"paper_exchange","mapping_confidence":"exact"}

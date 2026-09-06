@@ -33,10 +33,14 @@ backmap={tuple(k.split("|",1)):v for k,v in _bm.items() if "|" in k}
 # existing composition-name signatures to dedup against
 seen={}
 import glob as _g
+_dedup_unreadable=[]   # records we could not read, so could not dedup against
 for _f in _g.glob(os.path.join(OUT,"growthlit_*.json"))+_g.glob(os.path.join(OUT,"complexlit_*.json")):
     try:
         _d=json.load(open(_f)); sig=nkey(_d["name"].split(" (")[0]); seen.setdefault(sig,_d["id"])
-    except: pass
+    except (ValueError, OSError, KeyError) as _exc:
+        # A record we cannot read is a record we cannot dedup against, so it is
+        # reported: silently skipping it produces duplicate media.
+        _dedup_unreadable.append((os.path.basename(_f), type(_exc).__name__))
 written=0
 for item in add:
     name=item.get("medium_name") or "medium"; pmc=item.get("pmcid",""); comp=item.get("composition") or []

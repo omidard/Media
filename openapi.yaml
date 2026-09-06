@@ -123,14 +123,26 @@ components:
           type: string
           enum: [food, laboratory, biospecimen, minimal, defined, rich, dietary, niche]
         organism_scope: { type: string }
-        aerobic: { type: boolean }
+        aerobic:
+          type: boolean
+          nullable: true
+          description: >-
+            true | false | null. 439 media have no stated oxygen requirement;
+            those must read as unknown, not as anaerobic (UX-01).
         n_components: { type: integer }
         n_mapped: { type: integer }
         n_in_biggr: { type: integer }
         namespace: { type: string, examples: [bigg] }
         source_type: { type: string }
         source_db: { type: string }
-        defined: { type: boolean }
+        defined:
+          type: boolean
+          nullable: true
+          description: >-
+            true | false | null. null means nobody recorded it (9,798 records),
+            not "not defined", and it is never inferred from mapping coverage.
+            The catalog previously emitted "" for these, which is falsy and
+            violated this boolean contract (SCHEMA-03).
         citation: { type: string }
         food_group: { type: string }
     Medium:
@@ -140,10 +152,22 @@ components:
         name: { type: string }
         category: { type: string }
         organism_scope: { type: string }
-        aerobic: { type: boolean }
+        aerobic:
+          type: boolean
+          nullable: true
+          description: >-
+            true | false | null. 439 media have no stated oxygen requirement;
+            those must read as unknown, not as anaerobic (UX-01).
         description: { type: string }
         namespace: { type: string }
-        defined: { type: boolean }
+        defined:
+          type: boolean
+          nullable: true
+          description: >-
+            true | false | null. null means nobody recorded it (9,798 records),
+            not "not defined", and it is never inferred from mapping coverage.
+            The catalog previously emitted "" for these, which is falsy and
+            violated this boolean contract (SCHEMA-03).
         source_db: { type: string }
         food_group: { type: string }
         n_components: { type: integer }
@@ -153,9 +177,17 @@ components:
         components:
           type: array
           items: { $ref: "#/components/schemas/Component" }
-        unmapped:
+        n_nonbigg_fallback:
+          type: integer
+          description: >-
+            Components carrying a ModelSEED/MetaNetX/KEGG fallback exchange instead of a
+            BiGG one. n_mapped counts BiGG-mapped components only.
+        uncovered:
           type: array
-          description: Components that could not be mapped (never silently dropped).
+          description: >-
+            Components that could not be given an exchange (never silently dropped).
+            Named `unmapped` in earlier documentation; that field is present in 0 of the
+            13,515 shipped records.
           items: { type: object }
     Provenance:
       type: object

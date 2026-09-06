@@ -84,11 +84,15 @@ def recover(cid):
 food_comp = {}   # fid -> {exchange:{content,unit,cite,bid,name,method,conf}}
 food_unc = {}    # fid -> {inchikey_or_name: {name,inchikey,content,unit}}
 food_cites = {}
+_unparseable_content = 0   # FooDB content rows with no readable measured value
 with open(os.path.join(CSVD, "Content.csv"), encoding="utf-8", errors="replace") as f:
     for row in csv.DictReader(f):
         if row.get("source_type") != "Compound": continue
-        try: cval = float(row.get("standard_content") or "")
-        except: continue
+        try:
+            cval = float(row.get("standard_content") or "")
+        except (ValueError, TypeError):
+            _unparseable_content += 1
+            continue
         if cval <= 0: continue
         fid = row.get("food_id")
         if fid not in foods: continue

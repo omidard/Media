@@ -204,3 +204,62 @@ def test_bigg_namespace_fixture_parses_into_id_and_name():
         first = fh.readline().rstrip("\n").split("\t")
     assert "universal_bigg_id" in header and "name" in header
     assert len(first) == len(header)
+
+
+# --------------------------------------------------- generator-level regressions
+# The corrections above are only durable if the GENERATORS stop reintroducing them.
+# tools/enrich_coverage.py runs on every push (make derived / CI), so if it still
+# wrote the old values it would silently undo the schema stage on the next build.
+
+
+def test_enrich_coverage_does_not_make_n_mapped_a_tautology():
+    """SCHEMA-01 at its source: it used to set n_mapped = n_components = n_covered."""
+    import enrich_coverage as EC
+    med = {
+        "id": "t", "name": "t", "category": "laboratory", "namespace": "bigg",
+        "provenance": {"source_type": "database", "citation": "c"},
+        "components": [
+            {"name": "glucose", "bigg_metabolite": "glc__D", "exchange": "EX_glc__D_e",
+             "lower_bound": -10.0, "upper_bound": 1000.0, "in_biggr": True,
+             "mapping_method": "curated", "exchange_source": "bigg", "xref": {}},
+            {"name": "mystery", "bigg_metabolite": None, "exchange": "EX_cpd09225_e",
+             "lower_bound": -1.0, "upper_bound": 1000.0, "in_biggr": False,
+             "mapping_method": "modelseed_fallback", "exchange_source": "modelseed",
+             "xref": {}},
+        ],
+        "uncovered": [],
+    }
+    EC.enrich(med)
+    assert med["n_components"] == 2
+    assert med["n_mapped"] == 1, "n_mapped must count components carrying a BiGG id"
+    assert med["n_nonbigg_fallback"] == 1
+
+
+def test_enrich_coverage_does_not_score_an_empty_medium_as_fully_covered():
+    """SCHEMA-07 at its source: `if total else 100.0` invented a perfect score."""
+    import enrich_coverage as EC
+    med = {"id": "t", "name": "t", "category": "laboratory", "namespace": "bigg",
+           "provenance": {"source_type": "database", "citation": "c"},
+           "components": [], "uncovered": []}
+    EC.enrich(med)
+    assert med["coverage"]["pct_covered"] is None, (
+        "a medium with no compounds is unmeasured, not perfectly covered")
+
+
+def test_no_bare_except_swallows_a_failure_in_the_build_tools():
+    """A bare `except:` is how a builder drops records without saying so.
+
+    tools/lit/build_lit_media.py used to answer 'extraction records in: 0' when its
+    entire input directory was missing, and the MediaDive builder dropped any medium
+    whose detail file would not parse.
+    """
+    offenders = {}
+    for p in _source_files():
+        if not p.endswith(".py"):
+            continue
+        with open(p, encoding="utf-8", errors="replace") as fh:
+            for i, line in enumerate(fh, 1):
+                if re.match(r"\s*except\s*:", line):
+                    offenders.setdefault(os.path.relpath(p, REPO), []).append(i)
+    assert not offenders, ("bare except clauses (catch the specific exception, count "
+                           "the loss, and report it): %s" % offenders)

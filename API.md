@@ -56,8 +56,10 @@ Full record for one medium: metadata, `provenance` (`source_type`, `citation`, `
 | `in_biggr` | whether the metabolite exists in the local BiGGr universal model |
 | `mapping_method` / `mapping_confidence` | how the name was mapped, and how confident |
 
-Records also carry an `unmapped[]` list — components that could not be mapped are
-**never silently dropped**.
+Records also carry an `uncovered[]` list — components that could not be given an
+exchange are **never silently dropped**. (The field was documented as `unmapped[]`
+until 2026-09; that name exists in 0 of the 13,515 shipped records — `enrich_coverage.py`
+consumes it and writes `uncovered[]` instead.)
 
 ### Aggregate helpers
 

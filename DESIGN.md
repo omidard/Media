@@ -18,13 +18,23 @@ mapping and provenance rules, and the quality bar.
 {
   "id": "m9_glucose_aerobic",
   "name": "M9 minimal + glucose (aerobic)",
-  "category": "minimal",            // minimal | defined | rich | dietary | biospecimen | niche | food
+  "category": "laboratory",         // SHIPPED vocabulary: laboratory (4,930) | food (8,125)
+                                    // | growth_medium (443, a second-generation label for
+                                    // laboratory, merged by tools/stages/10_normalize_schema.py)
+                                    // | biospecimen (17). The seven values documented here
+                                    // before 2026-09 (minimal|defined|rich|dietary|niche|…)
+                                    // appear in 0 records (SCHEMA-02/SCHEMA-06).
   "organism_scope": "prokaryote-generic",
   "aerobic": true,
   "description": "…",
   "namespace": "bigg",              // canonical exchange namespace
   "provenance": {
-    "source_type": "standard",      // standard | literature | database | formulated
+    "source_type": "standard",      // standard | literature | database. `formulated` is
+                                    // never used, and 472 records currently carry a source
+                                    // DATABASE NAME in this slot ("MediaDB (ISB defined
+                                    // media)" 471, "Published (GEM paper)" 1) — a defect
+                                    // being resolved by the provenance stage, not a
+                                    // vocabulary (SCHEMA-02).
     "citation": "Author et al., Journal (year). …",
     "doi": "10.…",
     "url": "…",
@@ -41,12 +51,30 @@ mapping and provenance rules, and the quality bar.
       "xref": { "inchikey": "WQZ…", "chebi": "CHEBI:12965", "kegg": "C00031",
                 "hmdb": "HMDB00122", "mnx": "MNXM41", "seed": "cpd00027" },
       "in_biggr": true,              // present in the local BiGGr prokaryote reactome
-      "mapping_method": "inchikey",  // inchikey | chebi | kegg | hmdb | mnx | seed | name | bigg_native | manual
-      "mapping_confidence": "exact"  // exact (xref) | inferred (name) | manual
+      "mapping_method": "inchikey",  // 55 values in the shipped data, not 9: the xref
+                                     // routes (inchikey|chebi|kegg|hmdb|mnx|seed), the
+                                     // name routes (name*, *_remap), salt dissociation,
+                                     // the pipeline-derived routes (mineral_base,
+                                     // hydrolysate_approximation, complex_decomposition,
+                                     // base_medium_expansion) and the fallbacks.
+                                     // `python3 -c` over data/media enumerates them.
+      "mapping_confidence": "exact"  // shipped values: exact | inferred | convention |
+                                     // approximation | curated | standard_formulation |
+                                     // high.  'manual' is documented but never used, and
+                                     // 'exact' is NOT proof of a verified cross-reference
+                                     // (finding MAP-02/COV-01) -- see the confidence note
+                                     // under Conventions.
     }
   ],
-  "unmapped": [ { "name": "…", "concentration_mM": 1.2, "reason": "no BiGG match" } ],
-  "n_components": 25, "n_mapped": 25, "n_in_biggr": 25,
+  "uncovered": [ { "name": "…", "concentration_mM": 1.2, "reason": "no BiGG match" } ],
+  // NB the field is `uncovered`, not `unmapped`: tools/enrich_coverage.py consumes the
+  // legacy `unmapped[]` and replaces it, and `unmapped` is present in 0 of 13,515
+  // shipped records. The docs said otherwise until this was corrected (SCHEMA-02).
+  "n_components": 25,   // len(components)
+  "n_mapped": 24,       // components carrying a BiGG metabolite id -- NOT a synonym for
+                        // n_components (it used to be set equal to it in every record)
+  "n_nonbigg_fallback": 1,  // components with a ModelSEED/MetaNetX/KEGG exchange instead
+  "n_in_biggr": 24,     // components present in the local BiGGr reactome
   "version": "1.0"
 }
 ```
@@ -74,7 +102,7 @@ was turned into a bound (never silently invented).
 `tools/` mapper: cross-reference first (InChIKey → ChEBI → KEGG → HMDB → MetaNetX → SEED,
 `confidence = exact`), then normalized name (`confidence = inferred`), then manual
 curation (`confidence = manual`). A compound that cannot be mapped is **listed in
-`unmapped` — never dropped silently**. `mapping_method` + `mapping_confidence` are stored
+`uncovered` — never dropped silently**. `mapping_method` + `mapping_confidence` are stored
 on every component so a reader can trust, or re-check, each one.
 
 **Citations are mandatory.** Every medium has a `provenance.citation` (+ DOI/URL where

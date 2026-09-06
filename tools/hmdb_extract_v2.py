@@ -68,8 +68,13 @@ for ev, el in ctx:
     if nc is not None and len(list(nc)):
         name=txt(el,'name'); ik=txt(el,'inchikey'); kegg=txt(el,'kegg_id'); chebi=txt(el,'chebi_id')
         acc=txt(el,'accession'); bigg=txt(el,'bigg_id')
-        try: mw=float(txt(el,'average_molecular_weight') or 0)
-        except: mw=0
+        try:
+            mw=float(txt(el,'average_molecular_weight'))
+        except (ValueError, TypeError):
+            # No molecular weight means no molar conversion. to_mM() guards on
+            # `if mw and mw>0`, so None propagates as 'not converted' rather than
+            # 0, which is a number that looks measured.
+            mw=None
         hit = map_met(name, ik, kegg, chebi, acc, bigg)
         ok = hit and not BAD.search(hit["name"]) and not BAD.search(hit["bigg_metabolite"])
         if ok:

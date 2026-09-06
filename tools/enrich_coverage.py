@@ -451,11 +451,20 @@ def enrich(med):
     med["uncovered"] = uncovered
     med.pop("unmapped", None)
     med["n_components"] = n_cov
-    med["n_mapped"] = n_cov
+    # SCHEMA-01: n_mapped used to be set to n_cov, making it a tautology equal to
+    # n_components in 13,515/13,515 records and overstating BiGG mapping by 1,364
+    # components. It counts components that actually carry a BiGG metabolite id; the
+    # rest hold a ModelSEED/MetaNetX/KEGG fallback exchange and are counted separately.
+    med["n_mapped"] = sum(1 for c in comps if c.get("bigg_metabolite"))
+    med["n_nonbigg_fallback"] = sum(1 for c in comps
+                                    if not c.get("bigg_metabolite") and c.get("exchange"))
     med["n_in_biggr"] = sum(1 for c in comps if c.get("in_biggr"))
     med["coverage"] = {
         "n_compounds": total, "n_covered": n_cov, "n_uncovered": n_unc,
-        "pct_covered": round(100.0 * n_cov / total, 1) if total else 100.0,
+        # SCHEMA-07: a medium with no compounds is UNMEASURED, not perfectly covered.
+        # This used to emit 100.0, which the catalog and the site then rendered as a
+        # green full-coverage bar for a medium nothing is known about.
+        "pct_covered": round(100.0 * n_cov / total, 1) if total else None,
         "by_source": by_source,
     }
     # record the references for any complex-ingredient decomposition used in this medium
@@ -473,14 +482,44 @@ def enrich(med):
     return med
 
 
+# Stages that have taken over authorship of the `coverage` block. If a record carries
+# a transform stamp from one of these, re-running this script would overwrite a
+# corrected, stage-produced coverage with this file's older logic — the two-layer
+# clobber the audit warned about (PIPE-01: builders and in-place curation passes
+# rewriting the same records in an order nothing records).
+COVERAGE_AUTHORITY_STAGES = ("39_recompute_coverage",)
+
+
+def _stage_stamped(med):
+    for t in ((med.get("provenance") or {}).get("transforms") or []):
+        if t.get("stage") in COVERAGE_AUTHORITY_STAGES:
+            return t.get("stage")
+    return None
+
+
 def main():
     dry = "--dry" in sys.argv
+    force = "--force" in sys.argv
     limit = None
     if "--limit" in sys.argv:
         limit = int(sys.argv[sys.argv.index("--limit") + 1])
     files = sorted(glob.glob(os.path.join(MEDIA, "*.json")))
     if limit:
         files = files[:limit]
+    if not files:
+        raise SystemExit("FATAL: no media found in %s — refusing to run over an empty "
+                         "corpus." % MEDIA)
+
+    stamped = [f for f in files[:200] if _stage_stamped(json.load(open(f)))]
+    if stamped and not force:
+        raise SystemExit(
+            "REFUSING TO RUN: %d of the first %d records carry a coverage stamp from a "
+            "transform stage (%s).\n"
+            "  Re-running this script would overwrite stage-produced coverage with this "
+            "file's older logic.\n"
+            "  Recompute coverage through the chain instead:  make stages\n"
+            "  Override deliberately with --force if you really mean to."
+            % (len(stamped), min(200, len(files)), ", ".join(COVERAGE_AUTHORITY_STAGES)))
     tot_recovered = 0
     tot_uncovered = 0
     src_tally = {}

@@ -38,7 +38,8 @@ def fetch_media(mid):
         if len(p) < 2: continue
         name = p[0].strip(); 
         try: amt = float(p[1])
-        except: amt = None
+        except (ValueError, TypeError, AttributeError):
+            amt = None   # absent amount stays null
         def cell(i): 
             v = p[i].strip() if len(p) > i else ""
             return None if v in ("", "None") else v

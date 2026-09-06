@@ -50,6 +50,7 @@ with open(os.path.join(CSVD, "Food.csv"), encoding="utf-8", errors="replace") as
 # stream Content: gather mapped organic components per food + citations
 food_comp = {}   # food_id -> { exchange: {content, unit, cite} }
 food_cites = {}  # food_id -> set(citation)
+_unparseable_content = 0   # FooDB content rows with no readable measured value
 with open(os.path.join(CSVD, "Content.csv"), encoding="utf-8", errors="replace") as f:
     r = csv.DictReader(f)
     for row in r:
@@ -60,8 +61,11 @@ with open(os.path.join(CSVD, "Content.csv"), encoding="utf-8", errors="replace")
         if BAD.search(mp["name"]) or BAD.search(mp["bigg"]): continue   # drop non-dietary intermediates
         # REQUIRE a real measured concentration (excludes FooDB predicted/expected rows)
         content = row.get("standard_content") or ""
-        try: cval = float(content)
-        except: continue
+        try:
+            cval = float(content)
+        except (ValueError, TypeError):
+            _unparseable_content += 1
+            continue
         if cval <= 0: continue
         fid = row.get("food_id")
         if fid not in foods: continue

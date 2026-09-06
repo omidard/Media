@@ -86,6 +86,23 @@ Registry entry:
 after and fails on an undeclared change. Declaring a key you do not add is fine;
 adding one you did not declare is not.
 
+Two conveniences, because four agents write stages concurrently:
+
+* **`"file"`** — a registry entry may name its script explicitly
+  (`"file": "remap_components.py"`) when the filename does not carry the `NN_` prefix.
+  A stage-shaped file that is neither `NN_`-named nor registered by `file` is a hard
+  error, since the chain would never execute it.
+* **`python3 tools/stages/run_stages.py --register-missing`** — writes a minimal,
+  honest entry for every unregistered stage file it finds: owner inferred from the
+  reserved range, findings scraped from the file's own `FINDINGS:` line, and
+  `enabled` set from whether the script actually accepts `--in/--out`. It marks the
+  entry `registered_by` the harness so you know to confirm it. Confirm your own
+  entry rather than leaving the guess in place.
+
+A registered stage may be `"enabled": false` with a `"disabled_reason"`. The runner
+prints every disabled stage on each `--check` and each run, loudly, so a stage that
+is not running is visible rather than merely absent.
+
 ## 3. Command-line contract
 
 Every stage is executable and accepts exactly this interface:
@@ -107,6 +124,11 @@ python3 tools/stages/NN_name.py --in <corpus-dir> --out <corpus-dir> \
 * `--dry-run` computes and reports but writes no corpus.
 
 `stagelib.run_stage()` gives you all of this for free — use it (§6).
+
+If your stage predates part of this contract, the runner adapts rather than failing:
+it reads your `--help` and passes only the flags you accept, recording in the chain
+report that your report was not produced. `--in` and `--out` are the two it cannot
+work without.
 
 ## 4. Hard rules for stage behaviour
 
@@ -274,3 +296,39 @@ make promote        # backup data/media, then promote data/_rebuild/media over i
 
 `make all` = `check → stages → test → derived`. It stops at the first failure and never
 promotes.
+
+## 11. After promotion: who owns a field
+
+Once a stage takes over authorship of a field, the old generator must not silently
+overwrite it. `tools/enrich_coverage.py` — which CI runs on every push — now refuses
+to run over records carrying a `39_recompute_coverage` transform stamp, and says so:
+
+```
+REFUSING TO RUN: 5 of the first 5 records carry a coverage stamp from a transform
+stage (39_recompute_coverage). Re-running this script would overwrite stage-produced
+coverage with this file's older logic. Recompute coverage through the chain instead:
+make stages
+```
+
+If your stage takes authorship of a field that an existing tool writes, add the same
+guard to that tool (`COVERAGE_AUTHORITY_STAGES` is the pattern) in the same commit.
+This is the two-layer clobber the audit warned about: builders and in-place curation
+passes rewriting the same records in an order nothing recorded.
+
+## 12. Evidence that the chain works
+
+Run over the full corpus on 2026-09-06, six stages from four workstreams:
+
+```
+00_baseline              changed=0      assertions=9/9    invariants 8/8
+10_normalize_schema      changed=13515  assertions=9/9    invariants 11/11
+20_stamp_provenance      changed=13515  assertions=7/7    invariants 11/11
+39_recompute_coverage    changed=13515  assertions=4/4    invariants 11/11
+50_load_concentrations   changed=13515  assertions=12/12  invariants 11/11
+51_normalize_names       changed=13515  assertions=11/11  invariants 11/11
+final corpus -> data/_rebuild/media
+```
+
+Running the test suite against that corrected corpus
+(`pytest --corpus data/_rebuild/media`) turns 9 of the 13 defect-ledger entries from
+xfail to XPASS, which is the measurement that the corrections actually landed.
