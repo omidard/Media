@@ -126,22 +126,27 @@ def test_documented_build_commands_name_no_path_outside_the_repository():
     Only executable lines are checked — Makefile recipes and workflow `run:` bodies.
     Prose may name the old backup archive as history; a command may not read it.
     """
+    # /tmp and system paths are fine — they are scratch that any machine has. A path
+    # under a user's or an operator's data root is not: that is the shape the chain
+    # input had (/data/media_curate_backups/...), and it is why `make stages` worked
+    # on one machine and nowhere else.
+    machine_local = re.compile(r"(?<![\w./$)-])(~/[\w./-]+|/(?:data|home|Users|mnt|media)/[\w./-]+)")
     offenders = []
     for line in read(MAKEFILE).splitlines():
         if not line.startswith("\t"):
             continue
         body = line[1:].lstrip("@-")
-        for m in re.finditer(r"(?<![\w./$)-])(/[A-Za-z][\w./-]+|~/[\w./-]+)", body):
+        for m in machine_local.finditer(body):
             offenders.append(("Makefile", body.strip(), m.group(1)))
     for wf in (BUILD_API, TESTS_YML):
         for line in read(wf).splitlines():
             s = line.strip()
             if s.startswith("#") or not s:
                 continue
-            for m in re.finditer(r"(?<![\w./$)-])(~/[\w./-]+)", s):
+            for m in machine_local.finditer(s):
                 offenders.append((os.path.basename(wf), s, m.group(1)))
     assert not offenders, (
-        "a documented build command depends on a path outside the repository:\n"
+        "a documented build command depends on a machine-local path:\n"
         + "\n".join("  %s: %s  ->  %s" % o for o in offenders))
 
 
@@ -175,12 +180,16 @@ def test_no_trigger_path_is_an_artifact_the_job_commits():
         man = json.load(fh)
     block = build_ci_paths.current_block(read(BUILD_API))
     listed = set(re.findall(r'-\s+"([^"]+)"', block))
-    for rel in man["artifacts"]:
-        if rel.endswith("/"):
-            continue
+    staged = set(build_manifest.artifact_paths(man))
+    for rel in staged:
         assert rel not in listed, (
             "%s is both a trigger and an artifact this job commits — the job can "
             "re-trigger itself" % rel)
+    # Corpus paths are the opposite case and must be triggers.
+    for rel in build_manifest.corpus_paths(man):
+        assert rel in listed or rel + "/**" in listed, (
+            "%s is corpus data every builder reads, but changing it triggers no "
+            "rebuild" % rel)
 
 
 # ------------------------------------------------------------- (c) what CI stages
