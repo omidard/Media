@@ -231,17 +231,26 @@
     "corpus"
    ],
    "after": [
-    "10_normalize_schema"
+    "10_normalize_schema",
+    "39_recompute_coverage"
    ],
    "may_change_record_count": false,
    "may_change_id_set": false,
    "adds_keys": [
-    "provenance.transforms"
+    "provenance.transforms",
+    "n_observed",
+    "n_derived",
+    "n_unmappable",
+    "pct_covered_observed",
+    "tier_counts",
+    "mapping_schema_version"
    ],
    "removes_keys": [],
-   "enabled": false,
-   "disabled_reason": "CLI is not yet contract-conformant: it takes --media-dir/--report-only instead of the required --in/--out/--report, so the runner cannot invoke it. The chemistry agent should switch to stagelib.run_stage() (or rename the flags) and set enabled:true.",
-   "registered_by": "pipeline harness, so an in-progress stage is visible instead of silently skipped"
+   "enabled": true,
+   "registered_by": "pipeline harness, so an in-progress stage is visible instead of silently skipped",
+   "enabled_by": "rebuild agent 2026-09-06: remap_components.py gained the contract entrypoint (--in/--out/--report/--limit/--dry-run via stagelib.run_stage) in remap_components.stage_main; its legacy --media-dir/--report-only/--sample CLI is unchanged and still drives the chemistry workstream's own tests. Not one line of the transform was altered.",
+   "order_note": "Runs AFTER 20_stamp_provenance and 39_recompute_coverage, which is safe and was checked rather than assumed: those two stages key on components[].mapping_method, and this stage never writes mapping_method. It rewrites identity (bigg_metabolite, exchange, xref split), tiers and the record counters, none of which 20 or 39 read. The reverse order would not be safe: 39 must see every component classified, and this stage does not classify.",
+   "cross_workstream_check": "components[].evidence_tier == 'derived_component' (tools/evidence_tiers.METHOD_TIERS) and components[].evidence_class == 'derived' (tools/component_evidence_classes.tsv) are two workstreams' definitions of the same fact. Verified identical: both name exactly base, base_medium_expansion, complex_decomposition, hydrolysate_approximation, mineral_base, oxygen_regime, regime. So record-level n_derived (this stage) and coverage_source.n_derived (stage 39) cannot disagree."
   },
   {
    "id": "50_load_concentrations",

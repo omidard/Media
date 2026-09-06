@@ -68,9 +68,21 @@ ASSERTIONS (the stage aborts rather than writing a corrupt corpus)
      whatever a correction says about its identity
 
 USAGE
+  # contract-conformant entrypoint (tools/stages/README.md section 3) -- this is the
+  # one the chain runner drives, and the only one that writes a corpus the runner
+  # will accept:
+  python3 tools/stages/remap_components.py --in <corpus> --out <corpus> \
+          [--report r.json] [--limit N] [--dry-run]
+
+  # legacy entrypoint, kept because the chemistry workstream's tests and the tier
+  # verification tool call it. Selected by --media-dir / --report-only / --sample:
   python3 tools/stages/remap_components.py --sample 200 --out /tmp/stage_sample
   python3 tools/stages/remap_components.py --report-only          # tiers, no writing
-  python3 tools/stages/remap_components.py --out build/remapped   # full corpus
+  python3 tools/stages/remap_components.py --media-dir data/media --out build/remapped
+
+  Note the difference in what --out means. Legacy --out is a REPORT directory and the
+  corrected records land in <out>/media/. Contract --out is the corpus directory
+  itself, and the four side reports land next to it in <out>/../.
 """
 import argparse, csv, gzip, json, os, re, sys, collections
 
@@ -571,6 +583,191 @@ def write_reports(stage, out_dir, n_files):
     return dist
 
 
+# ---------------------------------------------------------------------------
+# contract-conformant entrypoint  (tools/stages/README.md section 3)
+# ---------------------------------------------------------------------------
+# The stage was written before the chain runner existed and shipped with a
+# --media-dir/--out/--report-only CLI, so run_stages.py could not drive it and the
+# registry carried it as enabled:false. A corpus promoted without it would have been
+# a corpus missing the chemistry corrections. This entrypoint adapts the SAME Stage
+# object to --in/--out; not one line of the transform above is changed by it.
+STAGE_ID = "40_remap_components"
+STAGE_VERSION = "1.0.0"
+SCHEMA_TAG = "2.0-evidence-tiers"
+
+_STAGE = None            # the Stage singleton, built on first use
+_OUT_DIR = None          # captured from argv so finalize() can place the side reports
+_TOTALS = collections.Counter()
+
+
+def _stage_singleton():
+    global _STAGE
+    if _STAGE is None:
+        _STAGE = Stage()
+    return _STAGE
+
+
+def _already_transformed(rec):
+    """True iff this record already carries THIS stage's output.
+
+    Re-running the stage on its own output is NOT a recomputation: several curated
+    corrections match on `current_bigg`, which this stage has by then already
+    changed (CHEM-CO2-01 matches cobalt2 and rewrites it to co2), so a second pass
+    would find no rule to apply and would silently drop the tier back to whatever
+    the mapping_method alone supports. The honest guard is therefore a replay guard
+    on the provenance stamp, not a recomputation — and it is reported as such in
+    `idempotence_mechanism` rather than presented as a fixed point.
+    """
+    if rec.get("mapping_schema_version") != SCHEMA_TAG:
+        return False
+    tr = (rec.get("provenance") or {}).get("transforms") or []
+    return any(isinstance(t, dict) and t.get("stage") == STAGE_ID for t in tr)
+
+
+def _stage_transform(rec, rep):
+    st = _stage_singleton()
+    comps_in = len(rec.get("components") or [])
+    _TOTALS["components_in"] += comps_in
+    if _already_transformed(rec):
+        rep.count("records_already_carrying_this_stage_skipped", 1, rep.n_in)
+        _TOTALS["components_out"] += comps_in
+        _TOTALS["records_skipped"] += 1
+        return False
+    _TOTALS["records_transformed"] += 1
+    _TOTALS["components_transformed"] += comps_in
+
+    before = json.dumps(rec, sort_keys=True, ensure_ascii=False)
+    new = st.transform_medium(rec)
+    comps = new.get("components") or []
+    _TOTALS["components_out"] += len(comps)
+
+    # honest counters, computed on the OUTPUT of this record
+    for c in comps:
+        tier = c.get("evidence_tier")
+        if c.get("source_observed"):
+            _TOTALS["components_source_observed"] += 1
+        if tier == "derived_component":
+            _TOTALS["components_derived"] += 1
+        bid = c.get("bigg_metabolite")
+        if bid:
+            if bid not in st.dict:
+                _TOTALS["emitted_bigg_absent_from_dictionary"] += 1
+            if c.get("exchange") != "EX_%s_e" % bid:
+                _TOTALS["exchange_does_not_match_metabolite"] += 1
+        if tier in NAME_TIERS and c.get("match_key"):
+            _TOTALS["name_tier_carrying_a_match_key"] += 1
+        if c.get("source_name"):
+            _TOTALS["components_with_a_recovered_source_name"] += 1
+
+    changes = sorted(set(new) - set(rec)) or ["component_evidence_tiers"]
+    rec.clear()
+    rec.update(new)
+    if json.dumps(rec, sort_keys=True, ensure_ascii=False) == before:
+        return False
+    stamp(rec, STAGE_ID, STAGE_VERSION, changes)
+    return True
+
+
+def _stage_finalize(rep):
+    st = _stage_singleton()
+    n_comp = _TOTALS["components_out"]
+    n_done = _TOTALS["components_transformed"]
+    # The side reports describe THIS output corpus, so they are named after it. The
+    # runner's idempotence pass writes a second corpus (media_idem) beside the first;
+    # a fixed filename here would let the replay run's empty ledger overwrite the real
+    # one, which is exactly the silent-clobber class this pipeline exists to remove.
+    out_abs = os.path.abspath(_OUT_DIR) if _OUT_DIR else os.path.join(REPO, "media")
+    out_parent = os.path.join(os.path.dirname(out_abs),
+                              os.path.basename(out_abs) + "_reports")
+    dist = write_reports(st, out_parent, rep.n_in)
+
+    for tier, n in sorted(st.tier_after.items(), key=lambda kv: -kv[1]):
+        rep.count("tier_after_%s" % tier, n, n_comp)
+    for tier, n in sorted(st.tier_before.items(), key=lambda kv: -kv[1]):
+        rep.count("tier_before_%s" % tier, n, n_comp)
+    for act, n in sorted(st.actions.items(), key=lambda kv: -kv[1]):
+        rep.count("action_%s" % act, n, n_comp)
+    rep.count("components_source_observed", _TOTALS["components_source_observed"], n_comp)
+    rep.count("components_derived_not_sourced", _TOTALS["components_derived"], n_comp)
+    rep.count("components_with_a_recovered_source_name",
+              _TOTALS["components_with_a_recovered_source_name"], n_comp)
+    rep.count("components_changed", len(st.ledger), n_comp)
+    rep.count("review_queue_rows", len(st.review), n_comp)
+    rep.count("refusals", len(st.refusals), n_comp)
+
+    # named fixes, counted from the ledger so the number is the one that shipped
+    named = collections.Counter()
+    for row in st.ledger:
+        for cid in (row.get("corrections") or "").split(","):
+            if cid:
+                named[cid] += 1
+        if row.get("action") == "stereo_correction":
+            named["_stereo_correction"] += 1
+        if row.get("action") == "bigg_generation_migration":
+            named["_bigg_generation_migration"] += 1
+    for cid, n in sorted(named.items(), key=lambda kv: -kv[1]):
+        rep.count("fix_%s" % cid, n, n_comp)
+    rep.example("named_fixes", dict(named.most_common(12)))
+
+    rep.assert_eq("component_count_unchanged",
+                  _TOTALS["components_out"], _TOTALS["components_in"])
+    rep.assert_eq("every_emitted_bigg_id_is_in_the_dictionary",
+                  _TOTALS["emitted_bigg_absent_from_dictionary"], 0)
+    rep.assert_eq("exchange_equals_EX_metabolite_e",
+                  _TOTALS["exchange_does_not_match_metabolite"], 0)
+    rep.assert_eq("no_name_based_tier_carries_a_match_key",
+                  _TOTALS["name_tier_carrying_a_match_key"], 0)
+    # Partition is asserted over the components this run actually tiered, not over the
+    # whole corpus: on a replay run every record is copy-through and tiering it again
+    # would be the wrong thing to assert. The count of skipped records is reported.
+    rep.assert_eq("tier_labels_partition_the_transformed_components",
+                  sum(st.tier_after.values()), n_done)
+    rep.assert_eq("side_report_covers_the_same_components",
+                  dist["n_components"], n_done)
+    rep.assert_eq("every_record_either_transformed_or_replay_skipped",
+                  _TOTALS["records_transformed"] + _TOTALS["records_skipped"], rep.n_in)
+
+    rep.unresolved(
+        "idempotence_mechanism", rep.counters.get(
+            "records_already_carrying_this_stage_skipped", {"n": 0})["n"], rep.n_in,
+        "this stage is idempotent by a REPLAY GUARD, not by recomputation: a record "
+        "already carrying a 40_remap_components stamp is copied through untouched. "
+        "Curated corrections that match on current_bigg (CHEM-CO2-01 cobalt2->co2, "
+        "CHEM-CO-01, CHEM-B12-01..04) cannot re-match once the id they correct has "
+        "been corrected, so a genuine second pass would silently drop those rows' "
+        "tier back to what the mapping_method alone supports. The guard is declared "
+        "rather than hidden.")
+    rep.unresolved(
+        "review_queue_not_applied", len(st.review), n_comp,
+        "re-derivation proposes a different compound, not a different enantiomer; "
+        "each needs a curator decision and is written to review_queue.tsv unapplied.")
+    rep.unresolved(
+        "refusals", len(st.refusals), n_comp,
+        "the corrected mapper refuses these names rather than guessing; listed with "
+        "their reason in refusals.tsv.")
+
+
+def stage_main(argv=None):
+    """--in/--out entrypoint, driven by stagelib so the chain runner can compose it."""
+    global _OUT_DIR
+    args = list(sys.argv[1:] if argv is None else argv)
+    if "--out" in args:
+        _OUT_DIR = args[args.index("--out") + 1]
+    from stagelib import run_stage
+    return run_stage(STAGE_ID, STAGE_VERSION, _stage_transform,
+                     finalize=_stage_finalize,
+                     inputs=["tools/bigg_metabolite_dict.json",
+                             "tools/bigg_reverse_index.json",
+                             "tools/curation/metabolite_corrections.tsv"],
+                     argv=argv)
+
+
+NAME_TIERS = ("exact_name", "name_table", "fuzzy_name", "class_proxy")
+LEGACY_FLAGS = {"--media-dir", "--report-only", "--sample"}
+
+from stagelib import stamp                                       # noqa: E402
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--media-dir", default=MEDIA_DIR)
@@ -595,4 +792,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # The contract entrypoint is the DEFAULT, so `--help` advertises --in/--out and
+    # run_stages.py can discover the flags it needs. The legacy CLI is selected
+    # explicitly by one of its own flags.
+    if LEGACY_FLAGS & set(sys.argv[1:]):
+        main()
+    else:
+        sys.exit(stage_main())
