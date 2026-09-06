@@ -204,30 +204,14 @@
   "where": "GitHub Release data-v1",
   "url_prefix": "https://github.com/omidard/Media/releases/download/data-v1",
   "files": [
-   "media.jsonl.part01.gz",
-   "media.sqlite.gz"
+   "media.sqlite.gz",
+   "media.jsonl.part01.gz"
   ],
   "one_command": "gh release download data-v1 --repo omidard/Media --pattern '*'",
   "without_gh": "https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz",
   "why_not_in_the_repository": "GitHub Pages publishes this repository's root and refuses a site over 1 GiB. These files are a re-encoding of data/media, which is published and stays published because the browser fetches data/media/{id}.json at runtime. Nothing here is unavailable: every full record is fetchable one at a time from the medium endpoint, the parquet pair is in the repository and queryable over HTTP with DuckDB, and pymediadb.iter_full_records() streams the release when it is present and falls back to the medium endpoint when it is not.",
   "rebuild": "make release-assets",
-  "manifest": {
-   "media.sqlite.gz": {
-    "tables": [
-     "media",
-     "components"
-    ],
-    "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-    "size": "23.2 MB"
-   },
-   "media.jsonl.part01.gz": {
-    "grain": "one full medium record per line",
-    "shard": 1,
-    "of_shards": 1,
-    "note": "streamable; byte-for-byte the same schema as data/media/<id>.json, so cross-references and notes are keyed (xref_id / mapping_note_id / xref_note_id) and join on data/refs.json, which stays in the repository. Sharded because the single file would exceed GitHub's 100 MiB per-file limit; concatenate the parts in name order to reconstitute it.",
-    "size": "61.2 MB"
-   }
-  }
+  "inventory": "dist/api/manifest.json, uploaded with the assets"
  },
  "reference_tables": {
   "url": "/data/refs.json",

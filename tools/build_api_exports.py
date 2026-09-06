@@ -60,6 +60,10 @@ API_VERSION = "v1"
 BASE_URL = "https://omidard.github.io/Media"
 RELEASE_TAG = "data-v1"
 RELEASE_URL = "https://github.com/omidard/Media/releases/download/" + RELEASE_TAG
+#: What the release carries. Named here so data/api/manifest.json says the same
+#: thing whether or not this run rebuilt them; build_jsonl_shards asserts the shard
+#: list it produces against this, so the declaration cannot go quietly stale.
+RELEASE_FILES = ["media.sqlite.gz", "media.jsonl.part01.gz"]
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -442,6 +446,19 @@ def main(argv=None):
             }
         for name, meta in bulk.items():
             meta["size"] = human(os.path.join(bulk_dir, name))
+        # The declaration in the published manifest and what was actually built must
+        # agree, or a consumer following data/api/manifest.json asks the release for
+        # a file nobody uploaded. Checked here, where both are in hand.
+        if sorted(bulk) != sorted(RELEASE_FILES):
+            raise SystemExit(
+                "FATAL: this build produced %s but data/api/manifest.json declares "
+                "%s. Update RELEASE_FILES in this script — a consumer reads that "
+                "list to find the download."
+                % (sorted(bulk), sorted(RELEASE_FILES)))
+        with open(os.path.join(bulk_dir, "manifest.json"), "w") as fh:
+            json.dump({"release": RELEASE_TAG, "url_prefix": RELEASE_URL,
+                       "built_from_catalog_count": catalog["count"],
+                       "files": bulk}, fh, indent=1)
         oversize = [(n, os.path.getsize(os.path.join(bulk_dir, n))) for n in bulk
                     if os.path.getsize(os.path.join(bulk_dir, n)) > MAX_ARTIFACT_BYTES]
         if oversize:
@@ -544,9 +561,13 @@ def main(argv=None):
         "bulk_download": {
             "where": "GitHub Release " + RELEASE_TAG,
             "url_prefix": RELEASE_URL,
-            "files": (sorted(bulk) if bulk
-                      else ["media.sqlite.gz", "media.jsonl.part01.gz",
-                            "media.jsonl.part02.gz"]),
+            # Declared from constants, NOT from whatever this run happened to build.
+            # A published manifest that changed depending on whether --bulk was
+            # passed would drift from data/MANIFEST.json's hash of it every time the
+            # release was rebuilt, and the file whose job is to describe the site
+            # would be the file that could not be reproduced. The per-file inventory
+            # of an actual build goes to dist/api/manifest.json, beside the assets.
+            "files": RELEASE_FILES,
             "one_command": "gh release download %s --repo omidard/Media --pattern '*'"
                            % RELEASE_TAG,
             "without_gh": RELEASE_URL + "/media.sqlite.gz",
@@ -560,7 +581,7 @@ def main(argv=None):
                 "DuckDB, and pymediadb.iter_full_records() streams the release when "
                 "it is present and falls back to the medium endpoint when it is not.",
             "rebuild": "make release-assets",
-            "manifest": bulk or None,
+            "inventory": "dist/api/manifest.json, uploaded with the assets",
         },
         "reference_tables": {
             "url": "/data/refs.json",

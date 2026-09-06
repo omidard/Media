@@ -1,7 +1,7 @@
 {
  "schema": "mediadb-artifact-manifest/1",
- "built_utc": "2026-09-06T11:10:11Z",
- "git_head": "888539d62b482b318f8da572440b69ec31c6fe3a",
+ "built_utc": "2026-09-06T11:21:02Z",
+ "git_head": "db026e99473e6369bf0cb544f9337c4778b4b75b",
  "provenance": {
   "corpus_status": "frozen snapshot",
   "why": "The raw inputs are gone. 19 generator scripts hardcoded a session scratchpad that was deleted, none of the upstream payloads was ever committed, and the shipped data/media/*.json is the only surviving copy of the corpus (audit finding PIPE-01).",
@@ -101,10 +101,10 @@
     "data/index.json"
    ],
    "present": true,
-   "bytes": 8282,
-   "sha256": "c9b5db29d9df66667e1c363f93eed1d2d120e9ae4feb8bb73f059d5de2e878c9",
+   "bytes": 8301,
+   "sha256": "5c3c810609a6f37d2cd63219dbebd3fae975ba9c8aa5df0983951aa80d6166ac",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T11:09:48Z"
+   "mtime_utc": "2026-09-06T11:20:58Z"
   },
   "data/api/media.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -116,7 +116,7 @@
    "bytes": 880062,
    "sha256": "8e0ce1c418d18f7c26be8fa0fba3973617b1f445b479b7e5580662eb2d87a14d",
    "rows": 13515,
-   "mtime_utc": "2026-09-06T11:09:39Z"
+   "mtime_utc": "2026-09-06T11:20:49Z"
   },
   "data/api/components.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -128,7 +128,7 @@
    "bytes": 4971879,
    "sha256": "33bfe6139fe92fc85a438a6307dbad030683d05a4d3441fe93abcd3e6790092b",
    "rows": 665582,
-   "mtime_utc": "2026-09-06T11:09:46Z"
+   "mtime_utc": "2026-09-06T11:20:56Z"
   },
   "data/cluster/clustergram.json": {
    "generator": "tools/build_cluster_data.py",
