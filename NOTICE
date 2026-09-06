@@ -1,0 +1,191 @@
+NOTICE — attributions this resource owes upstream
+=================================================
+
+Media / MediaDB redistributes and reformats data from the sources below. This file is the
+project-level attribution; every individual record additionally carries its own source,
+citation and licence in its `provenance` block, and the machine-readable schedule is
+tools/licenses.tsv.
+
+Record counts are of 13,515 media and are resolved from each record's own provenance
+evidence (URL host, DOI, citation text), not from its filename. Counts and terms were last
+verified on 2026-09-06.
+
+
+--------------------------------------------------------------------------------------------
+USDA FoodData Central — 7,424 media
+--------------------------------------------------------------------------------------------
+U.S. Department of Agriculture, Agricultural Research Service, FoodData Central.
+https://fdc.nal.usda.gov/
+
+  Licence: CC0 1.0 Universal — public domain, not copyrighted.
+  Terms read from https://fdc.nal.usda.gov/api-guide on 2026-09-06 (first-party).
+  Attribution is requested rather than required, and is given here.
+
+  Note for automated link-checkers: the FDC food-detail URLs stored in these records return
+  HTTP 404 while rendering the correct food page client-side. Verified 2026-09-06 — curl
+  returns 404 with an identical application shell for every id, while headless Chromium
+  loads the same URL and renders the right food ("Flour, soy, defatted", FDC 1104705;
+  "Candies, MARS SNACKFOOD US, M&M's Milk Chocolate Candies", FDC 169583). This is a USDA
+  server-side soft-404. The links are correct and are deliberately NOT retired; each record
+  carries `provenance.url_status: "soft_404"` so a checker knows the status code is lying.
+
+
+--------------------------------------------------------------------------------------------
+DSMZ MediaDive — 3,148 media
+--------------------------------------------------------------------------------------------
+Koblitz J, Halama P, Spring S, Thiel V, Baschien C, Hahnke RL, Pester M, Overmann J,
+Reimer LC. MediaDive: the expert-curated cultivation media database. Nucleic Acids Research
+2023;51(D1):D1531-D1538. doi:10.1093/nar/gkac803
+https://mediadive.dsmz.de/
+
+  Licence: MediaDive (c) 2022 by DSMZ is licensed under CC BY 4.0
+           https://creativecommons.org/licenses/by/4.0/
+  Terms read from https://mediadive.dsmz.de/imprint on 2026-09-06 (first-party).
+
+  This licence indication is itself part of the obligation. CC BY 4.0 s.3(a)(1)(C) requires a
+  redistributor to indicate the licence, and this repository did not do so before the present
+  schedule existed. MediaDive was under-attributed, not only the non-commercial sources.
+
+  MediaDive AGGREGATES OTHER CULTURE COLLECTIONS, and this resource previously erased that.
+  Its imprint states: "Official DSMZ media were manually curated by curators of the DSMZ.
+  JCM media were kindly provided by the JCM." Of the 3,148 media here:
+
+      DSMZ  1,900   Leibniz Institute DSMZ, Braunschweig, Germany
+      JCM   1,143   Japan Collection of Microorganisms, RIKEN BioResource Research Center
+      CCAP    105   Culture Collection of Algae and Protozoa, Scottish Association for
+                    Marine Science
+
+  1,248 of these records were named and cited as "DSMZ Medium <n>" although they belong to
+  JCM or CCAP. Their citations have been corrected to name the originating collection with
+  MediaDive as the aggregator; the original strings are preserved in
+  `provenance.citation_original`, and the still-uncorrected display names are flagged in
+  `provenance.attribution_conflict`.
+
+
+--------------------------------------------------------------------------------------------
+FooDB — 701 media
+--------------------------------------------------------------------------------------------
+FooDB Version 1.0, The Metabolomics Innovation Centre (TMIC), University of Alberta.
+https://foodb.ca/
+
+  Licence: Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+           https://creativecommons.org/licenses/by-nc/4.0/
+  Terms read from https://foodb.ca/about on 2026-09-06 (first-party):
+  "Use and re-distribution of the data, in whole or in part, for commercial purposes requires
+   explicit permission of the authors and explicit acknowledgment of the source material
+   (FooDB) and the original publication."
+
+  These records are NOT redistributable for commercial purposes under this repository's
+  terms. Commercial licence enquiries go to TMIC as directed by foodb.ca/about.
+
+
+--------------------------------------------------------------------------------------------
+MediaDB — 471 media
+--------------------------------------------------------------------------------------------
+MediaDB: a database of microbial growth conditions in defined media.
+Price Lab, Institute for Systems Biology, Seattle WA, and the University of Illinois at
+Urbana-Champaign.
+https://mediadb.systemsbiology.net/defined_media/
+
+  Terms read from that page on 2026-09-06 (first-party). The only statement on it is:
+  "(c) 2014, Institute for Systems Biology, All Rights Reserved". No reuse grant of any kind
+  is offered. Contact: mediadb@systemsbiology.org
+
+  MediaDB was previously absent from this project's documentation entirely — from the README
+  source table and from its headline list of sources — while supplying 8,397 of the 14,341
+  non-null concentration values in the library (58.6%), its single richest seam of
+  quantitative data, under the most restrictive terms of any source. That omission is
+  corrected here. The records are retained, labelled all-rights-reserved and excluded from
+  the commercially usable subset, pending written permission.
+
+
+--------------------------------------------------------------------------------------------
+Human Metabolome Database (HMDB 5.0) — 9 media, and 3 further media derived from HMDB tables
+--------------------------------------------------------------------------------------------
+Wishart DS et al. HMDB 5.0: the Human Metabolome Database for 2022. Nucleic Acids Research
+2022;50(D1):D622-D631. doi:10.1093/nar/gkab1062
+https://hmdb.ca/
+
+  Licence: Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+  "All data and metadata in the HMDB are released under the Creative Commons (CC)
+   Attribution-NonCommercial (NC) 4.0 International Licensing condition."
+
+  Evidence caveat, stated rather than hidden: hmdb.ca is Cloudflare-gated and returned HTTP
+  403 to every retrieval method attempted on 2026-09-06 (curl with a browser user agent,
+  three URL variants). The quote above is from the first-party page as captured by the
+  Internet Archive on 2026-01-02:
+  https://web.archive.org/web/20260102200014/https://hmdb.ca/about
+  It is corroborated by the identical clause on the first-party pages of HMDB's sibling
+  databases FooDB and BMDB. Re-verify first-party before relying on it commercially.
+
+  The 3 derived media take their values from HMDB-derived supplementary tables of:
+  Ardalani O et al. Rare metabolic gene essentiality is a determinant of microniche
+  adaptation in Escherichia coli. PLOS Pathogens 2025. doi:10.1371/journal.ppat.1013775
+  That paper is open access, but republication in a CC BY paper does not relicense the
+  underlying HMDB values, so these records are labelled NC and flagged for review.
+
+
+--------------------------------------------------------------------------------------------
+Bovine Metabolome Database (BMDB) — 5 media
+--------------------------------------------------------------------------------------------
+Foroutan A et al. The Bovine Metabolome. Metabolites 2020;10(6):233.
+doi:10.3390/metabo10060233
+https://bovinedb.ca/
+
+  Terms read from https://bovinedb.ca/about on 2026-09-06 (first-party):
+  "Use and re-distribution of the data, in whole or in part, for commercial purposes requires
+   explicit permission of the authors and explicit acknowledgment of the source material
+   (BMDB) and the original publication."
+
+  The page states no Creative Commons licence, so these records are labelled
+  custom/permission-required rather than CC BY-NC. They cover bovine blood, colostrum, milk,
+  rumen and urine, and were previously mis-filed in this project's index as
+  "Published (HMDB-derived)" — that is, bovine rumen and colostrum shipped labelled as
+  human-metabolome-derived. Source identity is now resolved from the record's own DOI and
+  citation instead of its filename prefix.
+
+
+--------------------------------------------------------------------------------------------
+Primary literature — 1,457 media
+--------------------------------------------------------------------------------------------
+1,369 media curated through GrowthDB (https://github.com/omidard/GrowthDB) and 88 mined from
+genome-scale-model papers. Each carries the citation of the publication whose formulation it
+encodes, and, where the publication is in PubMed Central, its PMC identifier in
+`provenance.primary_identifier`.
+
+  The formulations are facts reported in those publications; the publications themselves are
+  not redistributed here. This project asserts CC BY 4.0 over its own compilation, mapping and
+  encoding only. Anyone reusing a medium must cite the primary publication.
+
+
+--------------------------------------------------------------------------------------------
+Classic and standard formulations — 297 media
+--------------------------------------------------------------------------------------------
+Canonical laboratory media (LB, M9, MOPS, M63, BHI, TSB, Davis, and others) encoded to BiGG
+exchanges. Each record cites the canonical reference it was formulated from — for example
+Bertani G, J Bacteriol 1951;62:293-300 for LB; Sambrook & Russell, Molecular Cloning, CSHL
+2001 for M9; Neidhardt FC, Bloch PL, Smith DF, J Bacteriol 1974;119:736-747 for MOPS.
+
+  5 of these records carry a MediaDive URL as their composition link, so their formulation may
+  have been taken from a CC BY source requiring attribution and licence indication. They are
+  flagged `license_review_required` rather than silently claimed as project-compiled.
+
+
+--------------------------------------------------------------------------------------------
+Composition that this project generated, not any source
+--------------------------------------------------------------------------------------------
+229,486 of 665,582 component records (34.5%) were produced by this project's pipeline and are
+not stated by the source the record cites. They are retained and labelled, never removed:
+`components[].evidence_class` is `sourced` or `derived`, and derived components carry a
+`derived_class` of `inferred_from_listed_ingredient` (127,303 — a complex ingredient the
+recipe does list, broken down by convention), `injected_convention` (101,796 — a mineral or
+gas panel nothing in the recipe corresponds to) or `canonical_base_expansion` (387 — a named
+base medium expanded to its published composition).
+
+Standard compositions used for those inferences are credited in each affected record's
+`provenance.decomposition_refs`, and include:
+  BD Bionutrient Technical Manual, 3rd edition, Becton Dickinson.
+  Atlas RM, Handbook of Microbiological Media, 4th edition, CRC Press, 2010.
+
+These components are excluded from the source-coverage figure (`coverage_source`) so that no
+medium can report high coverage on composition this project invented.

@@ -2,23 +2,62 @@
  "schema": "mediadb-stage-registry/1",
  "doc": "Ordered registry of corpus transform stages. A file in tools/stages/ that is not listed here is a hard error in run_stages.py --check: an unregistered stage is a silent skip, which is the failure class this resource was audited for. Ranges are reserved per workstream; see tools/stages/README.md section 1.",
  "reserved_ranges": [
-  {"range": "00-09", "workstream": "harness / baseline / provenance scaffold", "owner": "pipeline"},
-  {"range": "10-19", "workstream": "schema, types, null-vs-empty-vs-missing, record counters", "owner": "pipeline"},
-  {"range": "20-29", "workstream": "licensing, source attribution, provenance segregation", "owner": "licensing"},
-  {"range": "30-39", "workstream": "derived-not-sourced component labelling, coverage honesty", "owner": "components"},
-  {"range": "40-49", "workstream": "metabolite identity, mapping confidence tiers, xref provenance", "owner": "chemistry"},
-  {"range": "50-59", "workstream": "naming, grouping, display-facing record fields", "owner": "naming-web"},
-  {"range": "60-89", "workstream": "unassigned", "owner": null},
-  {"range": "90-99", "workstream": "derived-artifact rebuild and manifest (not corpus stages)", "owner": "pipeline"}
+  {
+   "range": "00-09",
+   "workstream": "harness / baseline / provenance scaffold",
+   "owner": "pipeline"
+  },
+  {
+   "range": "10-19",
+   "workstream": "schema, types, null-vs-empty-vs-missing, record counters",
+   "owner": "pipeline"
+  },
+  {
+   "range": "20-29",
+   "workstream": "licensing, source attribution, provenance segregation",
+   "owner": "licensing"
+  },
+  {
+   "range": "30-39",
+   "workstream": "derived-not-sourced component labelling, coverage honesty",
+   "owner": "components"
+  },
+  {
+   "range": "40-49",
+   "workstream": "metabolite identity, mapping confidence tiers, xref provenance",
+   "owner": "chemistry"
+  },
+  {
+   "range": "50-59",
+   "workstream": "naming, grouping, display-facing record fields",
+   "owner": "naming-web"
+  },
+  {
+   "range": "60-89",
+   "workstream": "unassigned",
+   "owner": null
+  },
+  {
+   "range": "90-99",
+   "workstream": "derived-artifact rebuild and manifest (not corpus stages)",
+   "owner": "pipeline"
+  }
  ],
  "stages": [
   {
    "id": "00_baseline",
    "title": "Copy-through baseline: measures the frozen snapshot and proves the harness",
    "owner": "pipeline",
-   "findings": ["PIPE-01", "PIPE-02"],
-   "reads": ["corpus"],
-   "writes": ["corpus"],
+   "findings": [
+    "PIPE-01",
+    "PIPE-02"
+   ],
+   "reads": [
+    "corpus"
+   ],
+   "writes": [
+    "corpus"
+   ],
    "after": [],
    "may_change_record_count": false,
    "may_change_id_set": false,
@@ -30,15 +69,258 @@
    "id": "10_normalize_schema",
    "title": "Normalize record types, null-vs-empty-vs-missing drift, vocabularies and record-level counters",
    "owner": "pipeline",
-   "findings": ["SCHEMA-01", "SCHEMA-02", "SCHEMA-03", "SCHEMA-05", "SCHEMA-06", "SCHEMA-07"],
-   "reads": ["corpus"],
-   "writes": ["corpus"],
-   "after": ["00_baseline"],
+   "findings": [
+    "SCHEMA-01",
+    "SCHEMA-02",
+    "SCHEMA-03",
+    "SCHEMA-05",
+    "SCHEMA-06",
+    "SCHEMA-07"
+   ],
+   "reads": [
+    "corpus"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "00_baseline"
+   ],
    "may_change_record_count": false,
    "may_change_id_set": false,
-   "adds_keys": ["schema_version", "formulation_class", "category_original", "n_nonbigg_fallback", "defined", "provenance.transforms"],
-   "removes_keys": ["curation"],
+   "adds_keys": [
+    "schema_version",
+    "formulation_class",
+    "category_original",
+    "n_nonbigg_fallback",
+    "defined",
+    "provenance.transforms"
+   ],
+   "removes_keys": [
+    "curation"
+   ],
    "enabled": true
+  },
+  {
+   "id": "20_stamp_provenance",
+   "title": "Per-source licence, verified source identity, true culture collection, citation type, honest verification status, and the sourced/derived split on every component",
+   "owner": "licensing",
+   "findings": [
+    "COV-03",
+    "COV-05",
+    "MEDIA-WEB-02",
+    "MEDIA-WEB-18",
+    "NM-03",
+    "PROV-01",
+    "PROV-03",
+    "PROV-05",
+    "PROV-06",
+    "PROV-07",
+    "PROV-11",
+    "PROV-16"
+   ],
+   "reads": [
+    "corpus",
+    "tools/licenses.tsv",
+    "tools/component_evidence_classes.tsv",
+    "tools/verification_verdicts.tsv"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "10_normalize_schema"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "provenance.source_id",
+    "provenance.source_name",
+    "provenance.source_identity_evidence",
+    "provenance.source_identity_confidence",
+    "provenance.license",
+    "provenance.license_name",
+    "provenance.license_url",
+    "provenance.license_source",
+    "provenance.license_terms_url",
+    "provenance.license_terms_retrieved",
+    "provenance.license_terms_verification",
+    "provenance.commercial_use",
+    "provenance.commercial_use_ok",
+    "provenance.attribution_required",
+    "provenance.license_indication_required",
+    "provenance.license_review_required",
+    "provenance.license_review_reason",
+    "provenance.collection",
+    "provenance.collection_evidence",
+    "provenance.collection_medium_id",
+    "provenance.aggregator",
+    "provenance.citation_original",
+    "provenance.attribution_conflict",
+    "provenance.url_status",
+    "provenance.url_status_note",
+    "provenance.citation_type",
+    "provenance.has_primary_citation",
+    "provenance.citation_resolved",
+    "provenance.primary_identifier",
+    "provenance.verification_status",
+    "provenance.verification_downgrade_reason",
+    "provenance.verification_original",
+    "provenance.verification_pass_verdict",
+    "provenance.composition_provenance",
+    "provenance.transforms",
+    "components[].evidence_class",
+    "components[].derived_class"
+   ],
+   "removes_keys": [],
+   "enabled": true,
+   "confirmed_by": "licensing agent 2026-09-06: adds_keys and findings confirmed against the implementation",
+   "notes": "Rewrites provenance.citation for the 1,248 MediaDive media that belong to JCM or CCAP, preserving the original in provenance.citation_original. Does NOT rename records: the display-name conflict and a suggested name go to provenance.attribution_conflict for the naming stage (50-59). Deletes nothing — the 1,189 non-commercial/all-rights-reserved records and the 229,486 pipeline-derived components are labelled, per the operator's segregate-and-label decision."
+  },
+  {
+   "id": "39_recompute_coverage",
+   "title": "Stage 39 — coverage recomputed with its denominator, and derived composition excluded.",
+   "owner": "components",
+   "findings": [
+    "COV-02",
+    "COV-03",
+    "COV-06",
+    "MEDIA-WEB-02",
+    "PROV-07",
+    "PROV-11"
+   ],
+   "reads": [
+    "corpus"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "20_stamp_provenance"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "coverage_source",
+    "provenance.transforms"
+   ],
+   "removes_keys": [],
+   "enabled": true,
+   "registered_by": "pipeline harness --register-missing; the owning agent must confirm findings, adds_keys and ordering"
+  },
+  {
+   "id": "40_remap_components",
+   "file": "remap_components.py",
+   "title": "Honest evidence tiers and chemistry corrections for component mappings",
+   "owner": "chemistry",
+   "findings": [
+    "MAP-01",
+    "MAP-02",
+    "MAP-03",
+    "MAP-04",
+    "MAP-07",
+    "MAP-12",
+    "COV-01",
+    "SCHEMA-08"
+   ],
+   "reads": [
+    "corpus",
+    "tools/bigg_metabolite_dict.json"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "10_normalize_schema"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "provenance.transforms"
+   ],
+   "removes_keys": [],
+   "enabled": false,
+   "disabled_reason": "CLI is not yet contract-conformant: it takes --media-dir/--report-only instead of the required --in/--out/--report, so the runner cannot invoke it. The chemistry agent should switch to stagelib.run_stage() (or rename the flags) and set enabled:true.",
+   "registered_by": "pipeline harness, so an in-progress stage is visible instead of silently skipped"
+  },
+  {
+   "id": "50_load_concentrations",
+   "title": "Project the quantitative layer already on disk: verbatim amounts, honest units, derived-only-where-valid concentrations",
+   "owner": "naming-web",
+   "findings": [
+    "NM-11",
+    "NM-02",
+    "NM-15",
+    "PROV-04",
+    "PROV-09",
+    "PROV-13",
+    "COV-04",
+    "MAP-13"
+   ],
+   "reads": [
+    "corpus",
+    "tools/bigg_metabolite_dict.json"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "10_normalize_schema"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "provenance.transforms",
+    "quantitation"
+   ],
+   "removes_keys": [],
+   "enabled": true,
+   "confirmed_by_owner": "naming-web; adds_keys and findings verified by key-universe diff on a 400-record sample run"
+  },
+  {
+   "id": "51_normalize_names",
+   "title": "Base-medium + modifier taxonomy, keyed on verified source identity and chemistry.",
+   "owner": "naming-web",
+   "findings": [
+    "NM-01",
+    "NM-02"
+   ],
+   "reads": [
+    "corpus"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "50_load_concentrations"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "aggregator",
+    "collection",
+    "collection_accession",
+    "collection_evidence",
+    "composition_distinguishes_modifiers",
+    "composition_identical_to",
+    "composition_limitation",
+    "composition_signature",
+    "family",
+    "modifier_parse",
+    "modifiers",
+    "modifiers_unparsed",
+    "name_core",
+    "name_display",
+    "name_provenance_tail",
+    "name_verbatim",
+    "ph_declared",
+    "preparation",
+    "provenance.transforms",
+    "strength"
+   ],
+   "removes_keys": [],
+   "enabled": true,
+   "registered_by": "pipeline harness --register-missing; the owning agent must confirm findings, adds_keys and ordering"
   }
  ]
 }

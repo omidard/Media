@@ -1,0 +1,89 @@
+# tools/component_evidence_classes.tsv — is a component READ FROM THE SOURCE, or did the
+# pipeline supply it?
+#
+# 229,449 of 665,582 component records (34.47%) were never stated by the source the record
+# cites. They are pipeline output: injected mineral bases, an injected oxygen exchange, a
+# canonical base medium expanded from its name, and blanket "hydrolysate approximations"
+# that turn one undefined ingredient into 35 metabolites. Nothing in index.json, the browser
+# table, media.parquet or the coverage number distinguishes them, so a medium built entirely
+# from guesses can and does display "Coverage 100%" in the green high-confidence band
+# (findings PROV-07, COV-03, MEDIA-WEB-02).
+#
+# The operator's decision is SEGREGATE AND LABEL: none of these records are deleted. They
+# stay, flagged as derived-not-sourced, excluded from the honest coverage denominator, and
+# distinguishable everywhere they appear.
+#
+# This table is the SINGLE definition of that split. tools/stages/stamp_provenance.py reads
+# it and HARD-FAILS on any mapping_method not listed here, so a newly added source can never
+# be silently classified by a default. That hard failure is the test: the corpus currently
+# uses 55 distinct mapping_method values and every one of them must have a row.
+#
+# evidence_class:
+#   sourced   the component corresponds to something the cited source states
+#   derived   the pipeline supplied it; the source does not state it
+#
+# derived_class (empty for sourced rows) — three classes, because they carry different
+# warrant and collapsing them into one bucket would be a false equivalence:
+#   inferred_from_listed_ingredient  the ingredient IS in the recipe; its breakdown into
+#                                    metabolites is the pipeline's inference
+#   injected_convention              nothing in the recipe corresponds to it at all
+#   canonical_base_expansion         a named, published base medium (M9, MOPS, LB) expanded
+#                                    from its name; the base's own reference is recorded
+#
+# Columns: mapping_method, evidence_class, derived_class, note
+mapping_method	evidence_class	derived_class	note
+hydrolysate_approximation	derived	inferred_from_listed_ingredient	A fixed 35-metabolite block (20 amino acids + 6 nucleosides + 9 vitamins) injected whenever ANY ingredient was flagged undefined, each at lower_bound -1.0. It is a constant, not an estimate of the ingredient. 100,619 components; none carry derived_from, so they cannot be traced back to what triggered them.
+complex_decomposition	derived	inferred_from_listed_ingredient	Standard-composition breakdown of a complex ingredient that IS listed in the recipe (yeast extract, beef extract, peptone). Carries derived_from and a decomposition reference.
+mineral_base	derived	injected_convention	A fixed mineral panel added to every food record regardless of what the source says.
+base	derived	injected_convention	Water, protons, CO2 and similar background exchanges added by convention.
+base_medium_expansion	derived	canonical_base_expansion	A named base medium expanded to its published standard composition; provenance.base_expansion names the reference (e.g. Sambrook & Russell 2001).
+oxygen_regime	derived	injected_convention	EX_o2_e written from the record's aerobicity call, not from a stated recipe line.
+regime	derived	injected_convention	EX_o2_e written from a curated aerobic/anaerobic regime, not from a stated recipe line.
+usda_nutrient	sourced		A measured nutrient value in the USDA FoodData Central record.
+usda_mineral	sourced		A measured mineral value in the USDA FoodData Central record (usda_amount is populated).
+mediadive_salt	sourced		A salt listed in the MediaDive recipe, dissociated to its ion exchanges.
+mediadive_defined	sourced		A chemically defined compound listed in the MediaDive recipe.
+mediadb_salt_dissociation	sourced		A salt listed in the MediaDB (ISB) formulation, dissociated to its ion exchanges.
+mediadb_bigg	sourced		A compound listed in the MediaDB (ISB) formulation, mapped to BiGG.
+mediadb_alias	sourced		A compound listed in the MediaDB (ISB) formulation, matched through an alias.
+foodb_inchikey_name	sourced		A compound in the FooDB food-content record.
+name_foodb	sourced		A compound in the FooDB food-content record, matched by name.
+name_alias_foodb	sourced		A compound in the FooDB food-content record, matched by alias.
+name_deformula_foodb	sourced		A compound in the FooDB food-content record, matched after formula stripping.
+name_acid_heuristic_foodb	sourced		A compound in the FooDB food-content record, matched by an acid/conjugate-base heuristic.
+growthdb_curation	sourced		A component stated in the paper's recipe, curated through GrowthDB.
+wellknown_curation	sourced		A component of a canonical published formulation; provenance.wellknown_reference names the reference.
+curated	sourced		A component of a project-formulated assay/base medium, curated by hand.
+recipe	sourced		A component of the record's own stated recipe.
+carbon_source	sourced		The carbon source stated by the growth record this medium was formulated for.
+paper_salt_dissociation	sourced		A salt stated in the paper's recipe, dissociated to its ion exchanges.
+salt_dissociation_remap	sourced		A salt from the source recipe, dissociated and then remapped to a BiGG exchange.
+remap_salt_dissociation	sourced		A salt from the source recipe, dissociated and then remapped to a BiGG exchange.
+name_salt_remap	sourced		A salt from the source recipe, remapped by name.
+name_alias_salt_remap	sourced		A salt from the source recipe, remapped by alias.
+name_deformula_salt_remap	sourced		A salt from the source recipe, remapped after formula stripping.
+name_acid_heuristic_salt_remap	sourced		A salt from the source recipe, remapped by an acid/conjugate-base heuristic.
+salt_parse_remap	sourced		A salt from the source recipe, parsed and remapped.
+name	sourced		Source ingredient matched to a BiGG exchange by name string.
+name_alias	sourced		Source ingredient matched by an alias of a BiGG metabolite name.
+name_remap	sourced		Source ingredient matched by name through the remap table.
+name_alias_remap	sourced		Source ingredient matched by alias through the remap table.
+name_deformula	sourced		Source ingredient matched after stripping a formula suffix.
+name_deformula_remap	sourced		Source ingredient matched after stripping a formula suffix, through the remap table.
+remap_name_deformula	sourced		Source ingredient matched after stripping a formula suffix, through the remap table.
+name_acid_heuristic	sourced		Source ingredient matched by an acid/conjugate-base heuristic.
+name_acid_heuristic_remap	sourced		Source ingredient matched by an acid/conjugate-base heuristic, through the remap table.
+remap_name_acid_heuristic	sourced		Source ingredient matched by an acid/conjugate-base heuristic, through the remap table.
+remap_name_alias	sourced		Source ingredient matched by alias through the remap table.
+inchikey	sourced		Source ingredient resolved by InChIKey cross-reference.
+inchikey_remap	sourced		Source ingredient resolved by InChIKey cross-reference, through the remap table.
+kegg	sourced		Source ingredient resolved by KEGG cross-reference.
+kegg_remap	sourced		Source ingredient resolved by KEGG cross-reference, through the remap table.
+kegg_fallback	sourced		Source ingredient resolved by KEGG cross-reference as a fallback.
+chebi	sourced		Source ingredient resolved by ChEBI cross-reference.
+chebi_remap	sourced		Source ingredient resolved by ChEBI cross-reference, through the remap table.
+hmdb	sourced		Source ingredient resolved by HMDB cross-reference.
+hmdb_remap	sourced		Source ingredient resolved by HMDB cross-reference, through the remap table.
+bigg_native	sourced		Source ingredient already named as a BiGG metabolite.
+modelseed_fallback	sourced		Source ingredient with no BiGG exchange, given a ModelSEED identifier instead.
+metanetx_fallback	sourced		Source ingredient with no BiGG exchange, given a MetaNetX identifier instead.

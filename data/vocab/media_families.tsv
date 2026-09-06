@@ -1,0 +1,300 @@
+# MediaDB family (naming) vocabulary  -- versioned input, NOT generated at run time
+# ---------------------------------------------------------------------------
+# THIS IS THE NAMING REGISTRY. It is deliberately SEPARATE from the COMPOSITION
+# registry in tools/base_media.py (BASES) and from the canonical formulations in
+# tools/curate_wellknown_media.py (REGISTRY). Assigning a family here must NEVER
+# cause any component to be injected into a medium. Composition rewriting and
+# family labelling are different operations; conflating them is what let a
+# hamburger inherit LB's yeast-extract decomposition (finding NM-01).
+#
+# Seeded from tools/curate_wellknown_media.py REGISTRY (262 entries, each with its
+# own formulation citation) plus the families named in the 2026-09 audit that the
+# registry lacked (ISP-1..5, CGXII, YCFA, marine 2216, RPMI, DMEM, Widdel, Davis,
+# SOB/SOC, LBv2).
+#
+# Columns
+#   family_id       stable snake_case key. Never rendered; used for grouping.
+#   display_label   human label shown in the browser.
+#   name_regex      matched against the CLEANED MEDIUM NAME ONLY. Never against
+#                   `description` - 701 food descriptions say "plus a standard M9
+#                   mineral base" and 0 food names say M9 (NM-01 verification (6)).
+#   alias_of        this family is the SAME medium as the named family; collapse into it.
+#   parent_family   this family is a REFINEMENT of the named family (LBv2 of LB,
+#                   BG-11_0 of BG-11); the child wins and the parent is recorded.
+#   reference_id    id of the canonical std_* record whose composition is used to
+#                   corroborate a name match. Empty = no reference available, so
+#                   the family stays method='name_only' and is never promoted.
+#
+# A family match is a HYPOTHESIS. normalize_names.py promotes it to
+# 'name_and_composition' only if the record's non-injected exchange set overlaps
+# the reference composition; otherwise it stays 'name_only' and says so.
+family_id	display_label	name_regex	reference_id	alias_of	parent_family
+2xyt	2xYT (standard)	2\s*[x×]\s*yt	std_2xyt		
+aia	Actinomycete Isolation Agar (standard)	actinomycete isolation agar|\bAIA\b	std_aia		
+allenarnon	Allen & Arnon medium (standard)	allen.{0,3}arnon	std_allen_arnon		
+allensulfolobus	Allen medium (standard, Sulfolobus)	allen (medium|salts) sulfolobus|sulfolobus allen	std_allen_sulfolobus		
+amm	Aspergillus Minimal Medium (standard)	aspergillus minimal|\bAMM\b	std_amm		
+anaerobebasal	Anaerobe Basal Agar (standard)	anaerobe basal|anaerobic basal agar	std_anaerobe_basal		
+andrade	Andrade's peptone water (standard)	andrade'?s?	std_andrade		
+apt	APT medium (standard)	\bAPT\b (agar|broth|medium)	std_apt		
+apw	Alkaline Peptone Water (standard)	alkaline peptone water|\bAPW\b	std_alkaline_peptone_water		
+ashby	Ashby's mannitol medium (standard)	ashby'?s? (mannitol )?(medium|agar)|ashby mannitol	std_ashby		
+asniii	ASN-III medium (standard, marine cyanobacteria)	\bASN.?III\b	std_asn_iii		
+av	AV agar (standard, actinomycetes)	\bAV\b agar|arginine.?vitamin agar	std_av_agar		
+azidedextrose	Azide Dextrose broth (standard)	azide dextrose|rothe broth	std_azide_dextrose		
+baars	Baar's medium (standard, SRB)	baar'?s? medium	std_baars		
+bairdparker	Baird-Parker agar (standard)	baird.?parker	std_baird_parker		
+balch	Balch medium (standard, methanogen)	balch medium|balch'?s?	std_balch		
+bbe	Bacteroides Bile Esculin agar (standard)	bacteroides bile esculin|\bBBE\b	std_bbe		
+bbm	Bold's Basal Medium (standard)	bold'?s? basal|\bBBM\b	std_bbm		
+bcye	Buffered Charcoal Yeast Extract (standard)	\bBCYE\b|buffered charcoal|charcoal yeast	std_bcye		
+bennett	Bennett's agar (standard)	bennett'?s? (agar|medium)	std_bennett		
+bg11	BG-11 medium (standard, cyanobacteria)	BG-?11	std_bg11		
+bg110	BG-11_0 medium (standard, diazotrophic cyanobacteria)	\bBG.?11.?0\b|\bBG11.?0\b|nitrogen.?free BG.?11	std_bg110		bg11
+bglb	Brilliant Green Lactose Bile broth (standard)	brilliant green lactose bile|\bBGLB\b|\bBGBL\b	std_bglb		
+bhi	Brain Heart Infusion (standard)	brain.?heart|\bBHIS?\b	std_bhi		
+biggy	BiGGY agar (standard, Candida)	\bBiGGY\b|nickerson	std_biggy		
+bileesculin	Bile Esculin Agar (standard)	bile esculin	std_bile_esculin		
+bileesculinazide	Bile Esculin Azide agar (standard)	bile esculin azide|enterococcosel	std_bile_esculin_azide		
+bismuthsulfite	Bismuth Sulfite agar (standard)	bismuth sulf?ite|wilson.?blair	std_bismuth_sulfite		
+bloodagar	Blood Agar (TSA + sheep blood, standard)	blood agar|sheep blood agar	std_blood_agar		
+bolton	Bolton broth (standard, Campylobacter)	bolton (broth|medium)	std_bolton		
+bordetgengou	Bordet-Gengou medium (standard)	bordet.?gengou	std_bordet_gengou		
+bpw	Buffered Peptone Water (standard)	buffered peptone water|\bBPW\b	std_bpw		
+brilliantgreen	Brilliant Green Agar (standard)	brilliant green agar|\bBGA\b	std_brilliant_green		
+brock	Brock's basal salts (standard, Sulfolobus)	brock'?s? (basal|medium|salts)|sulfolobus medium	std_brock		
+brucellaba	Brucella Blood Agar (standard)	brucella blood|brucella agar	std_brucella_blood		
+bsm	Basal Salts Medium (standard)	basal salts medium|\bBSM\b	std_bsm		
+burks	Burk's N-free medium (standard)	burk'?s? (n.?free|medium|nitrogen)	std_burks		
+bushnellhaas	Bushnell-Haas mineral medium (standard)	bushnell.?haas|\bBH\b medium|mineral salts.{0,10}hydrocarbon	std_bushnell_haas		
+butzler	Campy-CVA (Butzler) medium (standard)	butzler|campy.?cva	std_butzler		
+castenholz	Castenholz TYE medium (standard, Thermus)	castenholz|thermus medium|\bTYE\b thermus|medium D thermus	std_castenholz		
+ccda	Charcoal Cefoperazone Deoxycholate Agar (standard)	\bCCDA\b|charcoal cefoperazone	std_ccda		
+ccfa	CCFA (standard, C. difficile)	\bCCFA\b|cycloserine.?cefoxitin	std_ccfa		
+cetrimide	Cetrimide agar (standard)	cetrimide	std_cetrimide		
+cfc	Pseudomonas CFC agar (standard)	\bCFC\b agar|cetrimide.?fucidin	std_cfc		
+cgxii	CGXII defined minimal medium	\bCG\W?XII\b|\bCGXII\b			
+chocolate	Chocolate agar (standard)	chocolate agar	std_chocolate_agar		
+choppedmeatglucose	Chopped Meat Glucose broth (standard)	chopped meat glucose|chopped meat carbohydrate	std_chopped_meat_glucose		
+chu10	Chu-10 medium (standard)	chu.?10|chu'?s? medium	std_chu10		
+cin	CIN agar (standard, Yersinia)	\bCIN\b agar|cefsulodin.?irgasan	std_cin		
+cled	CLED agar (standard)	\bCLED\b|cystine lactose electrolyte	std_cled		
+cna	Colistin-Nalidixic Acid agar (standard)	colistin.?nalidixic|\bCNA\b agar	std_cna		
+columbia	Columbia blood agar (standard)	columbia	std_columbia_blood		
+columbiabroth	Columbia Broth (standard)	columbia broth	std_columbia_broth		
+congoyem	Congo Red YEM agar (standard)	congo red (yeast|mannitol|YEM)|CRYEM	std_congo_yem		
+cookedmeat	Cooked/Chopped Meat Medium (standard)	cooked meat|chopped meat|robertson	std_cooked_meat		
+cornmeal	Cornmeal Agar (standard)	cornmeal agar|corn meal agar	std_cornmeal		
+cya	Czapek Yeast Autolysate agar (standard)	czapek yeast|\bCYA\b	std_cya		
+cystinetellurite	Cystine-Tellurite Blood Agar (standard)	cystine.?tellurite	std_cystine_tellurite		
+czapek	Czapek-Dox medium (standard)	czapek	std_czapek_dox		
+davis	Davis minimal medium (standard)	davis (minimal|medium)	std_davis_minimal		
+dca	Deoxycholate Citrate Agar (standard)	deoxycholate citrate|\bDCA\b	std_dca		
+dent	Dent's medium (standard, H. pylori)	dent'?s? medium|dent'?s? agar	std_dent		
+dg18	DG18 agar (standard)	\bDG18\b|dichloran.{0,4}glycerol	std_dg18		
+dixon	Dixon agar (standard, Malassezia)	dixon agar|dixon medium	std_dixon		
+dmem	DMEM	\bDMEM\b			
+dnase	DNase Test Agar (standard)	dnase (test )?agar|deoxyribonuclease agar	std_dnase		
+drbc	DRBC agar (standard)	\bDRBC\b|dichloran rose bengal	std_drbc		
+drcm	DRCM (standard)	\bDRCM\b|differential reinforced clostridial	std_drcm		
+dsm	Difco Sporulation Medium (standard)	difco sporulation|schaeffer'?s?|\bDSM\b sporulation|sporulation medium	std_dsm_sporulation		
+dtm	Dermatophyte Test Medium (standard)	dermatophyte test	std_dtm		
+dubos	Dubos broth (standard)	dubos	std_dubos		
+ecbroth	EC broth (standard)	\bEC broth\b	std_ec_broth		
+ecmug	EC-MUG broth (standard)	\bEC.?MUG\b	std_ec_mug		
+edwards	Edwards medium (standard)	edwards medium|edwards agar	std_edwards		
+eebroth	Enterobacteriaceae Enrichment broth (standard)	enterobacteriaceae enrichment|\bEE broth\b|mossel	std_ee_broth		
+eggyolk	Egg Yolk Agar (standard)	egg yolk agar|mcclung.?toabe	std_egg_yolk		
+elliker	Elliker broth (standard)	elliker	std_elliker		
+emb	Eosin Methylene Blue agar (standard)	\bEMB\b|eosin methylene|levine.{0,6}agar	std_emb		
+emerson	Emerson YpSs agar (standard)	emerson (agar|ypss)|\bYpSs\b	std_emerson		
+emjh	EMJH medium (standard, Leptospira)	\bEMJH\b|ellinghausen	std_emjh		
+emm	Edinburgh Minimal Medium (standard)	edinburgh minimal|\bEMM\b|\bEMMG\b	std_emm		
+endo	Endo agar (standard)	endo agar|endo'?s? medium	std_endo		
+f2	f/2 medium (standard, marine algae)	\bf/2\b|guillard'?s? f/2|f/2 medium	std_f2		
+fildes	Fildes enrichment agar (standard)	fildes	std_fildes		
+frankia	BAP medium (standard, Frankia)	\bBAP\b medium|frankia medium	std_frankia_bap		
+fraser	Fraser broth (standard)	fraser broth	std_fraser		
+fries	Fries medium (standard)	fries (medium|minimal)	std_fries		
+gam	Gifu Anaerobic Medium (standard)	\bGAM\b|gifu anaerobic	std_gam		
+gauze1	Gauze's synthetic agar No.1 (standard)	gau[sz]e'?s?	std_gauze1		
+gnbroth	GN broth (standard, Hajna)	\bGN broth\b|hajna.?gn	std_gn_broth		
+goulds1	Gould's S1 agar (standard)	gould'?s? s1|\bS1 agar\b	std_gould_s1		
+granada	Granada medium (standard, GBS)	granada medium|granada agar	std_granada		
+gye	Glycerol Yeast Extract agar (standard)	glycerol yeast extract|\bGYE\b|\bGYEA\b	std_gye		
+haloagar	Halophilic Agar (standard)	halophilic agar|moderate halophile	std_halophilic_agar		
+halobacterium	Halobacterium medium (standard)	halobacterium|haloarchaea|halophilic archaea	std_halobacterium		
+hektoen	Hektoen Enteric agar (standard)	hektoen	std_hektoen		
+heym	Herrold's Egg Yolk medium (standard)	herrold'?s egg|\bHEYM\b	std_heym		
+htm	Haemophilus Test Medium (standard)	haemophilus test medium|\bHTM\b	std_htm		
+hutner	Hutner's mineral base (standard)	hutner'?s?	std_hutner		
+hv	HV agar (standard, actinomycetes)	\bHV\b agar|humic acid.?vitamin	std_hv_agar		
+ima	Inhibitory Mould Agar (standard)	inhibitory mou?ld agar|\bIMA\b	std_ima		
+ironmilk	Iron Milk medium (standard)	iron milk	std_iron_milk		
+isp1	ISP Medium 1 (standard)	\bISP\W?1\b|ISP medium 1|tryptone.?yeast extract broth	std_isp1		
+isp2	ISP Medium 2 / Yeast-Malt agar (standard)	\bISP\b|yeast.?malt|\bGYM\b agar|\bYM\b agar	std_isp2_ym		
+isp3	ISP Medium 3 (oatmeal agar)	\bISP\W?3\b|ISP medium 3			
+isp4	ISP Medium 4 (standard)	\bISP\W?4\b|ISP medium 4|inorganic salts.?starch	std_isp4		
+isp5	ISP Medium 5 (standard)	\bISP\W?5\b|ISP medium 5|glycerol.?asparagine	std_isp5		
+isp6	ISP Medium 6 (standard)	\bISP\W?6\b|ISP medium 6|peptone.?yeast.?iron	std_isp6		
+isp7	ISP Medium 7 (standard)	\bISP\W?7\b|ISP medium 7|tyrosine agar	std_isp7		
+itc	ITC broth (standard, Yersinia)	\bITC\b broth|irgasan.?ticarcillin	std_itc		
+jensen	Jensen's N-free medium (standard)	jensen'?s? (n.?free|nitrogen.?free)	std_jensen_nfree		
+kaa	Kanamycin Aesculin Azide agar (standard)	kanamycin aesculin azide|kanamycin esculin azide|\bKAA\b	std_kaa		
+karmali	Karmali agar (standard)	karmali	std_karmali		
+kfstrep	KF Streptococcus agar (standard)	\bKF\b strep|kenner.?fair	std_kf_streptococcus		
+kia	Kligler Iron Agar (standard)	kligler	std_kia		
+kingsa	King's A medium (standard)	king'?s a\b|king a (medium|agar)	std_kings_a		
+kingsb	King's B medium (standard)	king'?s b\b|kings b\b	std_kings_b		
+kirchner	Kirchner medium (standard)	kirchner	std_kirchner		
+koser	Koser's Citrate broth (standard)	koser'?s? citrate|koser	std_koser		
+kvlb	Kanamycin-Vancomycin Laked Blood agar (standard)	\bKVLB\b|kanamycin.?vancomycin laked	std_kvlb		
+lactosebroth	Lactose Broth (standard)	lactose broth	std_lactose_broth		
+landy	Landy medium (standard)	landy medium|landy broth	std_landy		
+lb	LB broth (standard, Lennox)	\bLB\b|\bLBv2\b|luria|lysogen|lennox|bertani	std_lb_broth		
+lbv2	LBv2 (modified LB, Zhang et al.)	\bLBv2\b			lb
+leeming	Leeming-Notman agar (standard, Malassezia)	leeming.?notman|leeming	std_leeming_notman		
+lesendo	LES Endo agar (standard)	\bLES endo\b|\bm.?endo\b	std_les_endo		
+levinthal	Levinthal medium (standard)	levinthal	std_levinthal		
+lia	Lysine Iron Agar (standard)	lysine iron|\bLIA\b	std_lia		
+littman	Littman Oxgall agar (standard)	littman	std_littman		
+loeffler	Loeffler serum slope (standard)	l[oö]effler	std_loeffler		
+lowensteinjensen	Löwenstein-Jensen medium (standard)	l[oö]wenstein.?jensen|\bLJ\b (medium|slant|agar)	std_lowenstein_jensen		
+lst	Lauryl Tryptose Broth (standard)	lauryl (tryptose|sul) |lauryl tryptose|\bLST broth\b|\bLTB\b	std_lst		
+m17	M17 medium (standard)	\bM17\b	std_m17		
+m63	M63 minimal medium (standard)	\bM63\b	std_m63_minimal		
+m9	M9 minimal medium (standard)	\bM9\b	std_m9_minimal		
+macconkey	MacConkey agar (standard)	macconkey|mac conkey	std_macconkey_agar		
+macconkeybroth	MacConkey Broth (standard)	macconkey broth	std_macconkey_broth		
+malonate	Malonate broth (standard)	malonate broth|malonate utiliz	std_malonate		
+marine2216	Marine Broth 2216 (standard, ZoBell)	marine broth|\b2216\b|zobell	std_marine_broth_2216		
+martinlewis	Martin-Lewis agar (standard)	martin.?lewis	std_martin_lewis		
+mbm	Marine Basal Mineral medium (standard)	marine basal (mineral|medium)|\bMBM\b	std_mbm		
+mea	Malt Extract Agar (standard)	malt extract agar|\bMEA\b	std_malt_extract_agar		
+methanobacterium	Methanobacterium medium (standard)	methanobacterium medium|hydrogenotrophic methanogen	std_methanobacterium		
+mfc	m-FC agar (standard)	\bm.?FC\b|faecal coliform agar|fecal coliform agar	std_mfc		
+mgyp	MGYP medium (standard)	\bMGYP\b|malt glucose yeast peptone	std_mgyp		
+mhmed	MH medium (standard, moderate halophile)	moderate halophile medium|\bMH medium\b	std_mh_medium		
+middlebrook7h10	Middlebrook 7H10 agar (standard)	7H10|7H11	std_middlebrook_7h10		
+middlebrook7h11	Middlebrook 7H11 agar (standard)	7H11	std_middlebrook_7h11		
+middlebrook7h9	Middlebrook 7H9 broth (standard)	7H9|middlebrook	std_middlebrook_7h9		
+mio	Motility-Indole-Ornithine medium (standard)	\bMIO\b|motility indole ornithine	std_mio		
+moellerarg	Moeller Arginine broth (standard)	arginine (decarboxylase|dihydrolase)	std_moeller_arginine		
+moellerdecarb	Moeller Decarboxylase broth (standard)	moeller|decarboxylase broth	std_moeller_decarboxylase		
+moellerorn	Moeller Ornithine Decarboxylase broth (standard)	ornithine decarboxylase	std_moeller_ornithine		
+mops	MOPS minimal medium (standard, Neidhardt)	\bMOPS\b (minimal|defined)|minimal.{0,12}\bMOPS\b|\bMOPS\b minimal	std_mops_minimal		
+motilitytest	Motility Test Medium (standard)	motility test medium|motility medium	std_motility_test		
+mrs	MRS broth (standard, De Man-Rogosa-Sharpe)	\bMRS\b|de man|rogosa	std_mrs_broth		
+mrvp	MR-VP broth (standard)	\bMR.?VP\b|methyl red.?voges|clark.?lubs	std_mrvp		
+msa	Mannitol Salt Agar (standard)	mannitol salt|\bMSA\b|chapman	std_mannitol_salt		
+msmeth	MS medium (standard, methanogen)	\bMS medium\b methanogen|methanosarcina medium|methanol.*methanogen	std_ms_methanogen		
+msrv	MSRV agar (standard)	\bMSRV\b|semisolid rappaport	std_msrv		
+mtec	Modified mTEC agar (standard)	\bm.?TEC\b	std_mtec		
+muellerhinton	Mueller-Hinton broth (standard)	mueller.?hinton|\bMHB\b|\bMHA\b	std_mueller_hinton		
+mya	Malt Yeast agar (standard)	malt yeast agar|\bMYA\b	std_mya		
+mycosel	Mycosel / Mycobiotic agar (standard)	mycosel|mycobiotic	std_mycosel		
+mygp	MYGP medium (standard)	\bMYGP\b|malt yeast glucose peptone	std_mygp		
+myp	MYP agar (standard, B. cereus)	mannitol egg yolk polymyxin|\bMYP\b	std_myp		
+nbrip	NBRIP medium (standard, P-solubiliser)	\bNBRIP\b|national botanical research	std_nbrip		
+nfb	NFb semisolid medium (standard)	\bNFb\b|nitrogen.?free bromothymol	std_nfb		
+nigerseed	Niger Seed Agar (standard)	niger seed|birdseed agar|bird seed agar|staib	std_niger_seed		
+ninek	9K medium (standard, iron-oxidiser)	\b9K\b medium|silverman.{0,3}lundgren|ferrooxidans medium	std_9k		
+nitratebroth	Nitrate Broth (standard)	nitrate (broth|reduction (broth|medium))	std_nitrate_broth		
+nitrobacter	Nitrobacter medium (standard)	nitrobacter|nitrite.?oxidi[sz]er medium|\bNOB\b medium	std_nitrobacter		
+nitrosomonas	Nitrosomonas medium (standard)	nitrosomonas|ammonia.?oxidi[sz]er medium|\bAOB\b medium	std_nitrosomonas		
+nnn	Novy-MacNeal-Nicolle medium (standard)	\bNNN\b|novy.?macneal	std_nnn		
+norris	Norris N-free medium (standard)	norris (n.?free|nitrogen.?free|medium)	std_norris		
+nutrient	Nutrient Broth (standard)	nutrient broth|nutrient agar	std_nutrient_broth		
+nutrientgelatin	Nutrient Gelatin (standard)	nutrient gelatin|gelatin agar	std_nutrient_gelatin		
+nyc	New York City medium (standard)	new york city medium|\bNYC\b medium	std_nyc		
+oatmeal	Oatmeal Agar / ISP3 (standard)	oatmeal agar|\bISP\W?3\b|ISP medium 3	std_oatmeal	isp3	
+of	Hugh-Leifson OF medium (standard)	hugh.?leifson|\bO/?F\b (medium|basal)|oxidation.?fermentation	std_of_medium		
+ogawa	Ogawa egg medium (standard)	ogawa	std_ogawa		
+oxfordlisteria	Oxford agar (standard, Listeria)	oxford agar|oxford listeria	std_oxford_listeria		
+palcam	PALCAM agar (standard, Listeria)	\bPALCAM\b	std_palcam		
+pca	Plate Count Agar (standard)	plate count agar|standard methods agar|\bPCA\b	std_plate_count_agar		
+pda	Potato Dextrose Agar (standard)	potato dextrose|\bPDA\b	std_potato_dextrose		
+pea	Phenylethyl Alcohol agar (standard)	phenylethyl alcohol|\bPEA\b agar	std_pea		
+pemba	PEMBA agar (standard, B. cereus)	\bPEMBA\b	std_pemba		
+petc	PETC medium (standard, acetogen)	\bPETC\b|ATCC 1754|ljungdahlii medium	std_petc		
+petragnani	Petragnani medium (standard)	petragnani	std_petragnani		
+phenolredcarb	Phenol Red Carbohydrate Broth (standard)	phenol red (carbohydrate|glucose|dextrose|broth)	std_phenol_red_broth		
+phenylalanine	Phenylalanine Agar (standard)	phenylalanine agar|phenylalanine deaminase	std_phenylalanine		
+pia	Pseudomonas Isolation Agar (standard)	pseudomonas isolation agar|\bPIA\b	std_pia		
+pikovskaya	Pikovskaya agar (standard)	pikovskaya	std_pikovskaya		
+postgate	Postgate medium C (standard)	postgate	std_postgate_c		
+potatocarrot	Potato Carrot Agar (standard)	potato carrot	std_potato_carrot		
+preston	Preston Campylobacter medium (standard)	preston (medium|broth|agar|campylobacter)	std_preston		
+purplebroth	Purple Broth Base (standard)	purple broth	std_purple_broth		
+pybroth	Peptone Yeast broth (standard)	peptone yeast (broth|medium)|\bPY broth\b	std_py_broth		
+pyg	PYG medium (standard)	\bPYG\b|peptone.?yeast.?glucose	std_pyg		
+r2a	R2A medium (standard)	\bR2A\b	std_r2a		
+rappaportvassiliadis	Rappaport-Vassiliadis broth (standard)	rappaport.?vassiliadis|\bRV\b broth|\bRVS\b	std_rappaport_vassiliadis		
+rcm	Reinforced Clostridial Medium (standard)	reinforced clostridial|\bRCM\b	std_reinforced_clostridial		
+reganlowe	Regan-Lowe agar (standard)	regan.?lowe	std_regan_lowe		
+rogosa	Rogosa SL agar (standard)	rogosa	std_rogosa	mrs	
+rosebengal	Rose Bengal Chloramphenicol Agar (standard)	rose.?bengal	std_rose_bengal		
+rpmi	RPMI-1640	\bRPMI\b			
+sabhi	SABHI agar (standard)	\bSABHI\b|sabouraud brain heart	std_sabhi		
+sabouraud	Sabouraud dextrose broth (standard)	sabouraud|\bSDA\b|\bSDB\b	std_sabouraud_dextrose		
+sauton	Sauton medium (standard)	sauton	std_sauton		
+sc	Synthetic Complete medium (standard)	synthetic complete|\bSC medium\b|\bSD medium\b|synthetic defined|drop.?out	std_sc_medium		
+schaedler	Schaedler broth (standard)	schaedler	std_schaedler		
+selenite	Selenite F broth (standard)	selenite	std_selenite_broth		
+selenitecystine	Selenite Cystine Broth (standard)	selenite cystine	std_selenite_cystine		
+sim	SIM medium (standard)	\bSIM\b medium|sulfide.?indole.?motility	std_sim		
+simmonscitrate	Simmons Citrate Agar (standard)	simmons citrate|citrate agar	std_simmons_citrate		
+skirrow	Skirrow agar (standard)	skirrow	std_skirrow		
+slanetzbartley	Slanetz-Bartley agar (standard)	slanetz.?bartley	std_slanetz_bartley		
+smac	Sorbitol MacConkey (standard)	sorbitol macconkey|\bSMAC\b	std_smac		
+sob	SOB / SOC (standard)	\bSOB\b|\bSOC\b	std_sob_soc	sob_soc	
+sob_soc	SOB / SOC medium	\bSOB\b|\bSOC\b			
+spizizen	Spizizen minimal medium (standard)	spizizen	std_spizizen		
+spmed	SP medium (standard, haloarchaea)	\bSP medium\b halo|haloarchaea SP	std_sp_medium		
+sps	SPS agar (standard)	\bSPS\b agar|sulfite polymyxin sulfadiazine	std_sps		
+ssagar	Salmonella-Shigella agar (standard)	salmonella.?shigella|\bSS agar\b|\bSSA\b	std_ss_agar		
+stanier	Stanier's mineral base (standard)	stanier'?s?	std_stanier		
+starchcasein	Starch-Casein agar (standard)	starch.?casein	std_starch_casein		
+starkey	Starkey medium (standard)	starkey	std_starkey		
+stonebrink	Stonebrink medium (standard)	stonebrink	std_stonebrink		
+swc	Seawater Complete medium (standard)	seawater complete|\bSWC\b	std_swc		
+swt	Seawater Tryptone (standard)	seawater tryptone|\bSWT\b	std_swt		
+takashio	Takashio agar (standard)	takashio	std_takashio		
+tbx	TBX agar (standard)	\bTBX\b|tryptone bile glucuronide|tryptone bile x	std_tbx		
+tcbs	TCBS agar (standard)	\bTCBS\b|thiosulfate.?citrate	std_tcbs		
+terrific	Terrific Broth (standard)	terrific	std_terrific_broth		
+tetrathionate	Tetrathionate broth (standard)	tetrathionate	std_tetrathionate		
+thayermartin	Modified Thayer-Martin medium (standard)	thayer.?martin	std_thayer_martin		
+thermocellum	GS-2 medium (standard, C. thermocellum)	\bGS.?2\b medium|thermocellum medium|clostridium thermocellum medium	std_thermocellum		
+thermotoga	Thermotoga medium (standard)	thermotoga medium	std_thermotoga		
+thioglycollate	Fluid Thioglycollate Medium (standard)	thioglycollate|thioglycolate|\bFTM\b	std_thioglycollate		
+tinsdale	Tinsdale medium (standard)	tinsdale	std_tinsdale		
+toddhewitt	Todd-Hewitt broth (standard)	todd.?hewitt	std_todd_hewitt		
+tryptonewater	Tryptone Water (standard)	tryptone water|peptone water	std_tryptone_water		
+tsb	Tryptic Soy Broth (standard)	tryptic soy|\bTSB\b|\bTSA\b|soybean.?casein	std_tsb		
+tsc	TSC agar (standard, C. perfringens)	tryptose sulf?ite cycloserine|\bTSC\b	std_tsc		
+tsi	Triple Sugar Iron agar (standard)	triple sugar iron|\bTSI\b	std_tsi		
+tym	Diamond's TYM medium (standard)	\bTYM\b|diamond'?s? (medium|tym)	std_tym		
+ureaagar	Christensen Urea Agar (standard)	christensen|urea agar|urease agar	std_urea_agar		
+v8	V8 juice agar (standard)	\bV8\b (juice )?agar	std_v8_agar		
+vogelbonner	Vogel-Bonner minimal medium (standard)	vogel.?bonner	std_vogel_bonner		
+vogeljohnson	Vogel-Johnson agar (standard)	vogel.?johnson	std_vogel_johnson		
+vogeln	Vogel's Minimal Medium N (standard, Neurospora)	vogel'?s? (minimal )?(medium )?n\b|neurospora minimal	std_vogel_n		
+vrba	Violet Red Bile Agar (standard)	violet red bile agar|\bVRBA\b	std_vrba		
+vrbga	Violet Red Bile Glucose Agar (standard)	violet red bile glucose|\bVRBGA\b|\bVRBG\b	std_vrbga		
+wateragar	Water Agar (standard)	water agar|plain agar	std_water_agar		
+wc	WC medium (standard, algae)	\bWC\b medium|guillard.{0,3}lorenzen	std_wc_medium		
+widdel	Widdel-Pfennig medium (standard)	widdel|widdel.?pfennig	std_widdel		
+wilkins	Wilkins-Chalgren anaerobe broth (standard)	wilkins.?chalgren|\bWCA\b	std_wilkins_chalgren		
+winogradsky	Winogradsky salt solution (standard)	winogradsky	std_winogradsky		
+wolfe	Wolfe's mineral medium (standard)	wolfe'?s? mineral|wolin.{0,3}wolfe	std_wolfe_mineral		
+xld	XLD agar (standard)	\bXLD\b|xylose lysine	std_xld		
+xlt4	XLT4 agar (standard)	\bXLT4\b|xylose lysine tergitol	std_xlt4		
+ycb	Yeast Carbon Base (standard)	yeast carbon base|\bYCB\b	std_ycb		
+ycfa	YCFA medium	\bYCFA\b			
+yem	Yeast Extract Mannitol agar (standard)	yeast (extract )?mannitol|\bYEM\b|\bYMA\b	std_yem		
+ymagar	YM (Yeast-Mould) agar (standard)	\bYM\b agar|yeast.?mou?ld agar|yeast.?malt agar	std_ym_agar		
+ynb	Yeast Nitrogen Base (standard)	yeast nitrogen base|\bYNB\b	std_ynb		
+ypd	YPD medium (standard)	\bYPD\b|\bYEPD\b|yeast extract.{0,4}peptone.{0,4}dextrose	std_ypd		
+ypgal	YP-Galactose (standard)	\bYP.?gal|yp.?galactose|yepd?.?gal	std_ypgal		
+z8	Z8 medium (standard, cyanobacteria)	\bZ8\b medium|\bZ8\b agar	std_z8		

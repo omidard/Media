@@ -2,6 +2,24 @@
 """
 Standard base-media compositions, mapped to BiGG exchange ids.
 
+THIS FILE IS THE **COMPOSITION** REGISTRY. IT IS NOT THE NAMING REGISTRY.
+=========================================================================
+`BASES` and `_PATTERNS` below exist for one purpose: deciding which standard
+recipe to INJECT into a medium whose extraction lost its base (see
+tools/expand_base_media.py). A match here rewrites chemistry.
+
+The **naming / family** registry lives in `data/vocab/media_families.tsv` and is
+consumed only by `tools/stages/normalize_names.py`. A family label there never
+injects a component. The two registries are deliberately separate because
+conflating them is exactly how a Wendy's quarter-pound hamburger
+(usda_170772, "1/4 LB, single") acquired base_medium="LB" and 36 injected LB
+yeast-extract components (audit finding NM-01), and it is why adding BG-11 to
+this file "to fix the search" would silently inject a BG-11 salt scaffold into
+53 cyanobacteria media (audit finding NM-05, risk 1).
+
+DO NOT add a family to this file merely so that it can be grouped or searched.
+Add it to data/vocab/media_families.tsv instead.
+
 Many literature media are "<named standard base> + supplements" and the LLM
 extraction captured only the supplements, dropping the base (e.g. "M9 + vitamin B1
 + trace elements + acetate" -> just acetate). This library holds the correct
@@ -97,7 +115,14 @@ BASES = {
     },
 }
 
-# name/description regex -> base key (order = priority; specific first)
+# name regex -> base key (order = priority; specific first)
+#
+# NOTE ON INPUT: these patterns must be matched against a medium's NAME ONLY.
+# Matching them against `description` is a proven defect: 701 food records carry
+# the generated phrase "plus a standard M9 mineral base" in their description and
+# 0 food records name M9, so a name+description match would stamp 319 food media
+# with base_medium="M9" and inject M9 salts into them (NM-01 verification (6),
+# risk 5). detect_base() below now refuses description-shaped input.
 import re as _re
 _PATTERNS = [
     (_re.compile(r"tryptic soy|\bTSB\b|\bTSA\b", _re.I), "TSB"),
@@ -115,9 +140,95 @@ _PATTERNS = [
     (_re.compile(r"\bM9\b", _re.I), "M9"),
 ]
 
+# ---------------------------------------------------------------------------
+# Quantity-context veto for "LB".
+#
+# "LB" is both a medium name and the abbreviation for POUND. usda_170772 is
+# "WENDY'S, DAVE'S Hot 'N Juicy 1/4 LB, single" -- a quarter pound of beef, which
+# the old bare `\bLB\b` matched. It was stamped base_medium="LB", had 39 of its 43
+# measured USDA nutrients and all 10 measured minerals replaced by 36 LB
+# yeast-extract decomposition components + 14 LB canonical components, and was
+# ranked tier 1 "expert" in the shipped index citing Bertani 1951 (finding NM-01).
+#
+# The veto is UNIT-AWARE, not category-aware, because detect_base() takes a bare
+# string and cannot see a record's category. Callers that DO have the record
+# should additionally pass category= below.
+#
+# It must NOT over-fire: "1/3 LB Agar (DSMZ J842)" is one-third-strength LB
+# medium, a real DSMZ variant, and vetoing it would lose a genuine family member.
+# The discriminator is what FOLLOWS the LB token -- a medium-context word, or a
+# food noun / end of clause.
+#
+# This is the single definition. tools/stages/normalize_names.py imports it
+# rather than carrying a second copy, because two uncoordinated regexes for the
+# same rule is exactly the defect that let base_media.py:113 and
+# curate_wellknown_media.py:1618 both govern all 13,515 media independently.
+LB_QUANTITY_VETO = _re.compile(
+    r"(?:\d+\s*/\s*\d+|\d+(?:[.,]\d+)?|[¼½¾⅓⅔])\s*(?:-\s*)?LB\b"
+    r"(?!\s*(?:agar|broth|medium|media|plate|slant|liquid|seawater|salt|\+))",
+    _re.I)
+_LB_QUANTITY_VETO = LB_QUANTITY_VETO  # back-compat alias
 
-def detect_base(text):
+# A description is generated prose, not a name. If the caller hands us something
+# description-shaped we refuse rather than silently matching a base that the
+# description merely MENTIONS.
+# Only phrases that occur in GENERATED DESCRIPTIONS and never in a medium name.
+# Verified over all 13,515 shipped names: each of these occurs 0 times in `name`,
+# whereas "mineral base" occurs in 701 food DESCRIPTIONS. ("in-silico" and
+# "approximation" are deliberately NOT here -- 5 canonical std_* records carry
+# them in their own names.)
+_DESCRIPTION_SHAPED = _re.compile(
+    r"standard M9 mineral base|measured amino acids|per 100 ?g|"
+    r"rendered as a labeled|metabolizable components of", _re.I)
+
+
+def veto_reasons(text, category=None):
+    """Return the list of reasons a base must NOT be detected from `text`.
+
+    Empty list == no veto. Exposed so callers can log WHY a base was refused
+    instead of silently getting None.
+    """
+    t = text or ""
+    out = []
+    if category == "food":
+        out.append("category_food")
+    if _DESCRIPTION_SHAPED.search(t):
+        out.append("description_shaped_input")
+    return out
+
+
+def detect_bases(text, category=None):
+    """Return EVERY base whose pattern matches, not just the first.
+
+    tools/base_media.py used to return the first hit in a fixed priority list,
+    which silently mis-resolved multi-base names: "Luria Broth (LB) for in vitro
+    bacterial growth; tryptic soy agar (TSA) for plating" returned TSB -- the
+    plating agar beat the actual growth medium -- and "1/2 MRS + 1/2 BHI Agar"
+    returned BHI, dropping the MRS half (NM-13 verification (b)).
+
+    A caller that gets >1 base back must REFUSE to expand and flag the record
+    ambiguous. Flag, do not force.
+    """
+    t = text or ""
+    if veto_reasons(t, category):
+        return []
+    lb_vetoed = bool(_LB_QUANTITY_VETO.search(t))
+    hits = []
     for rx, key in _PATTERNS:
-        if rx.search(text or ""):
-            return key
-    return None
+        if key == "LB" and lb_vetoed:
+            continue
+        if rx.search(t):
+            hits.append(key)
+    return hits
+
+
+def detect_base(text, category=None):
+    """Back-compatible single-base detector, now with the vetoes applied.
+
+    Returns None when the name is ambiguous between two bases, because injecting
+    one base's scaffold into a medium that names two is a fabrication. Existing
+    callers (tools/expand_base_media.py:51) therefore stop expanding ambiguous
+    records instead of picking by pattern order.
+    """
+    hits = detect_bases(text, category=category)
+    return hits[0] if len(hits) == 1 else None
