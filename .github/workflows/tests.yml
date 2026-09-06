@@ -40,9 +40,27 @@ jobs:
         run: pip install --quiet pytest pyarrow
       - name: Stage registry is consistent
         run: make check
+      - name: CI trigger paths match the Makefile
+        # The workflow trigger list is generated from the Makefile and the manifest
+        # by tools/build_ci_paths.py. Maintaining it by hand let it name a builder
+        # `make derived` no longer runs and omit two it does, so a change to either
+        # rebuilt nothing, silently.
+        run: make ci-paths-check
+      - name: Chain input is present and intact
+        # data/_baseline is the corpus the stage chain consumes. Until it was
+        # committed the chain's only input was an untracked archive on one machine
+        # and `make stages` failed from a fresh clone (PIPE-01, one level up).
+        run: python3 tools/baseline.py --verify --deep
       - name: Stage chain over the sample corpus (fast, checks idempotence)
+        # Draws the sample from the chain input, so this exercises the stages
+        # against the corpus they were written for rather than against their own
+        # output.
         run: make stages-sample
       - name: Test suite
         run: make test
-      - name: Artifact manifest is current
-        run: python3 tools/build_manifest.py --check
+      - name: Artifact manifest is current, and describes what is committed
+        # --check compares the manifest to the working tree and asserts that every
+        # generator it names exists and actually writes the artifact it is credited
+        # with. --check-tree compares it to the COMMITTED blobs, which is what
+        # catches an artifact that was rebuilt but never staged (data/web).
+        run: make manifest-check
