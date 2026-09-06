@@ -1,0 +1,41 @@
+{
+  "n_media": 13515,
+  "n_components": 665582,
+  "tier_before": {
+    "source_bigg_id": 2928,
+    "derived_component": 229486,
+    "author_asserted": 8041,
+    "structural_xref": 2756,
+    "fuzzy_name": 102609,
+    "non_bigg_fallback": 1364,
+    "name_table": 318398
+  },
+  "tier_after": {
+    "source_bigg_id": 2928,
+    "derived_component": 229486,
+    "author_asserted": 8041,
+    "structural_xref": 2756,
+    "exact_name": 14073,
+    "fuzzy_name": 56911,
+    "non_bigg_fallback": 1364,
+    "name_table": 256234,
+    "curated_mapping": 682,
+    "class_proxy": 92889,
+    "unmappable_mixture": 20,
+    "unmapped": 198
+  },
+  "actions": {
+    "tier_only": 549301,
+    "curated_retarget": 9004,
+    "tier_rederived": 13790,
+    "bigg_generation_migration": 20,
+    "stereo_correction": 323,
+    "curated_mixture": 20,
+    "curated_unmap": 198,
+    "curated_retier": 92926
+  },
+  "n_changed": 365706,
+  "n_review_queue": 305,
+  "n_refusals": 1018,
+  "observed_components": 436096
+}

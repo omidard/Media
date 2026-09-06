@@ -1,0 +1,275 @@
+component_name	current_bigg	refusal_kind	reason	n_components
+Fluoride, F	f	no_match	no candidate matched the source name in any lane	465
+Magnesium (from MgSO4)	mg2	no_match	no candidate matched the source name in any lane	24
+Ammonium (from NH4Cl)	nh4	no_match	no candidate matched the source name in any lane	22
+Calcium (from CaCl2)	ca2	no_match	no candidate matched the source name in any lane	20
+Ammonium (NH4Cl)	nh4	no_match	no candidate matched the source name in any lane	18
+Potassium (from KH2PO4)	k	no_match	no candidate matched the source name in any lane	17
+Potassium (from K2HPO4)	k	no_match	no candidate matched the source name in any lane	15
+Magnesium (from MgSO4.7H2O)	mg2	no_match	no candidate matched the source name in any lane	11
+Ammonium (NH4+, from NH4Cl)	nh4	no_match	no candidate matched the source name in any lane	8
+Magnesium (from MgSO4·7H2O)	mg2	no_match	no candidate matched the source name in any lane	7
+Zinc (from ZnSO4.7H2O)	zn2	no_match	no candidate matched the source name in any lane	7
+Calcium (CaCl2)	ca2	no_match	no candidate matched the source name in any lane	6
+Calcium (from CaCl2.2H2O)	ca2	no_match	no candidate matched the source name in any lane	6
+Calcium (from CaCl2·2H2O)	ca2	no_match	no candidate matched the source name in any lane	6
+Zinc(II)	zn2	no_match	no candidate matched the source name in any lane	6
+Potassium (from K2HPO4 + KH2PO4)	k	no_match	no candidate matched the source name in any lane	6
+Calcium (CaCl2*2H2O)	ca2	no_match	no candidate matched the source name in any lane	6
+Magnesium (MgSO4*7H2O)	mg2	no_match	no candidate matched the source name in any lane	6
+Zinc (ZnSO4*7H2O)	zn2	no_match	no candidate matched the source name in any lane	6
+Na2WO4·2H2O (sodium tungstate)	tungs	no_match	no candidate matched the source name in any lane	5
+Magnesium (MgSO4)	mg2	no_match	no candidate matched the source name in any lane	5
+Magnesium (from MgCl2.6H2O)	mg2	no_match	no candidate matched the source name in any lane	5
+N2/CO2 gas phase	n2	no_match	no candidate matched the source name in any lane	4
+Zinc (from ZnSO4·7H2O)	zn2	no_match	no candidate matched the source name in any lane	4
+Magnesium (Mg2+, from MgSO4·7H2O)	mg2	no_match	no candidate matched the source name in any lane	4
+Calcium (Ca2+, from CaCl2)	ca2	no_match	no candidate matched the source name in any lane	4
+Na2WO4*2H2O (sodium tungstate)	tungs	no_match	no candidate matched the source name in any lane	4
+Sodium (NaCl)	na1	no_match	no candidate matched the source name in any lane	3
+Carbon dioxide / bicarbonate (photoautotrophic inorganic carbon)	co2	no_match	no candidate matched the source name in any lane	3
+sulfate/sulfur	so4	no_match	no candidate matched the source name in any lane	3
+Sodium (from Na2HPO4 + NaCl)	na1	no_match	no candidate matched the source name in any lane	3
+H2O, H+	h2o	no_match	no candidate matched the source name in any lane	3
+Potassium (from K2HPO4/KH2PO4)	k	no_match	no candidate matched the source name in any lane	3
+Zinc (trace element solution)	zn2	no_match	no candidate matched the source name in any lane	3
+Potassium (K+, from KH2PO4)	k	no_match	no candidate matched the source name in any lane	3
+Potassium (K+, from KH2PO4 + KOH to pH 7.4)	k	no_match	no candidate matched the source name in any lane	3
+Magnesium (from MgCl2)	mg2	no_match	no candidate matched the source name in any lane	3
+Magnesium (Mg2+, from MgSO4)	mg2	no_match	no candidate matched the source name in any lane	3
+Calcium (from CaCl2.2H2O, trace-element soln 2 ml/l)	ca2	no_match	no candidate matched the source name in any lane	3
+Sodium (from NaCl + Na2S2O3)	na1	no_match	no candidate matched the source name in any lane	3
+Sodium (from NaCl + Na2HPO4.2H2O)	na1	no_match	no candidate matched the source name in any lane	3
+Zinc (ZnSO4)	zn2	no_match	no candidate matched the source name in any lane	3
+Zinc (ZnSO4.7H2O)	zn2	no_match	no candidate matched the source name in any lane	3
+Sodium DL-lactate (lac__L)	lac__D	racemate	source declares DL (racemate); alias target lac__L is a single enantiomer	3
+Zinc (Zn2+, from ZnSO4·7H2O)	zn2	no_match	no candidate matched the source name in any lane	3
+Potassium (KH2PO4)	k	no_match	no candidate matched the source name in any lane	2
+ammonium (NH4+ salt)	nh4	no_match	no candidate matched the source name in any lane	2
+sodium DL-lactate	lac__D	racemate	source declares DL (racemate); alias target lac__L is a single enantiomer	2
+Potassium (from KH2PO4 + KCl)	k	no_match	no candidate matched the source name in any lane	2
+Zinc (from ZnCl2)	zn2	no_match	no candidate matched the source name in any lane	2
+N2/CO2 headspace gas (80:20 v/v)	n2	no_match	no candidate matched the source name in any lane	2
+FeSO4 chelated with EDTA (ferrous iron)	fe	no_match	no candidate matched the source name in any lane	2
+pectin / pectic acid (galacturonan - partly fermentable polysaccharide, no single BiGG met)	pectin	no_match	no candidate matched the source name in any lane	2
+Starch, pregelatinized	starch	no_match	no candidate matched the source name in any lane	2
+Zinc (Zn2+, from ZnSO4)	zn2	no_match	no candidate matched the source name in any lane	2
+Potassium (from KH2PO4 buffer)	k	no_match	no candidate matched the source name in any lane	2
+Sodium (from NaCl and Na2HPO4)	na1	no_match	no candidate matched the source name in any lane	2
+Sodium (from NaCl)	na1	no_match	no candidate matched the source name in any lane	2
+Ammonium (from ammonium sulfate)	nh4	no_match	no candidate matched the source name in any lane	2
+NaWO4*2H2O (sodium tungstate)	tungs	no_match	no candidate matched the source name in any lane	2
+Na2WO4 (sodium tungstate)	tungs	no_match	no candidate matched the source name in any lane	2
+Ammonium (NH4Cl + ammonium ferric citrate)	nh4	no_match	no candidate matched the source name in any lane	2
+Sodium DL-lactate	lac__D	racemate	source declares DL (racemate); alias target lac__L is a single enantiomer	2
+Magnesium (Mg2+, from MgCl2)	mg2	no_match	no candidate matched the source name in any lane	2
+Potassium (from KCl)	k	no_match	no candidate matched the source name in any lane	2
+Magnesium (MgSO4.7H2O)	mg2	no_match	no candidate matched the source name in any lane	2
+Sodium (from NaNO3 + NaOH + Na-DL-lactate)	na1	no_match	no candidate matched the source name in any lane	2
+Sodium DL-lactate (lac__L / lac__D)	lac__D	racemate	source declares DL (racemate); alias target lac__L is a single enantiomer	2
+Carbonate/bicarbonate (Na2CO3, provides CO2)	hco3	no_match	no candidate matched the source name in any lane	2
+Sodium (from NaNO2 + NaH2PO4 + Na2CO3 + Na2MoO4)	na1	no_match	no candidate matched the source name in any lane	2
+Acetic acid / acetate	ac	no_match	no candidate matched the source name in any lane	2
+Formic acid / formate	for	no_match	no candidate matched the source name in any lane	2
+Calcium (Ca2+, from CaCl2·2H2O)	ca2	no_match	no candidate matched the source name in any lane	2
+Potassium (K+, from K2HPO4)	k	no_match	no candidate matched the source name in any lane	2
+Sodium (Na+, from NaH2PO4·2H2O + Na2EDTA)	na1	no_match	no candidate matched the source name in any lane	2
+Sodium (from Na2SO4.10H2O and Na2MoO4.2H2O)	na1	no_match	no candidate matched the source name in any lane	2
+Bicarbonate / CO2 (NaHCO3)	hco3	no_match	no candidate matched the source name in any lane	2
+Magnesium (from MgSO4*7H2O)	mg2	no_match	no candidate matched the source name in any lane	2
+Sodium (from Na2MoO4 + Zn acetate)	na1	no_match	no candidate matched the source name in any lane	2
+Magnesium (MgCl2)	mg2	no_match	no candidate matched the source name in any lane	2
+Folate, food	fol	no_match	no candidate matched the source name in any lane	2
+Folate, DFE	fol	no_match	no candidate matched the source name in any lane	2
+cis-Lutein/Zeaxanthin	zeax	no_match	no candidate matched the source name in any lane	2
+NiCl2 (Ni)	ni2	chemically_ambiguous	case-folded name key is chemically ambiguous: Ni (nickel) vs NI	1
+Bicarbonate/CO2 buffer (NaHCO3, anoxic headspace)	hco3	no_match	no candidate matched the source name in any lane	1
+MCLMAN inorganic salt / iron / trace-element base	fe	no_match	no candidate matched the source name in any lane	1
+nicotinic acid / nicotinamide	nac	no_match	no candidate matched the source name in any lane	1
+Tartrate	tartr__D	stereo_conflict	source declares no stereochemistry but every candidate is a single enantiomer: tartr__D,tartr__L	1
+Ammonium (NH4Cl / NH3-NH4+)	nh4	no_match	no candidate matched the source name in any lane	1
+Na2MoO4 / molybdate	mobd	no_match	no candidate matched the source name in any lane	1
+Ammonium (NH4+, as NH4Cl)	nh4	no_match	no candidate matched the source name in any lane	1
+Distilled/deionized water	h2o	no_match	no candidate matched the source name in any lane	1
+Oleic acid / oleate	ocdcea	no_match	no candidate matched the source name in any lane	1
+carbon dioxide / dinitrogen gas phase	co2	no_match	no candidate matched the source name in any lane	1
+carbon dioxide / bicarbonate (CO2 from N2:CO2 90:10 headspace)	co2	no_match	no candidate matched the source name in any lane	1
+Na3-citrate (trisodium citrate)	cit	no_match	no candidate matched the source name in any lane	1
+Citric acid / citrate	cit	no_match	no candidate matched the source name in any lane	1
+Sodium (from Na2S2O3.5H2O)	na1	no_match	no candidate matched the source name in any lane	1
+Ammonium (ammonium hydroxide 25%)	nh4	no_match	no candidate matched the source name in any lane	1
+Sodium (from Na-L-glutamate + NaCl)	na1	no_match	no candidate matched the source name in any lane	1
+Caffeic acid, trans-Sinapic acid, ferulate, gallic acid, vanillate - phenolic acids	fer	no_match	no candidate matched the source name in any lane	1
+raffinose/fructans	raffin	no_match	no candidate matched the source name in any lane	1
+ferulic acid / caffeic acid / p-coumaric acid / sinapic acid / syringic acid (hydroxycinnamates)	fer	no_match	no candidate matched the source name in any lane	1
+putrescine / spermidine / spermine (polyamines; genuine in oat, no BiGG growth role)	ptrc	no_match	no candidate matched the source name in any lane	1
+glycine betaine, choline (osmolytes; choline quantified above)	glyb	no_match	no candidate matched the source name in any lane	1
+glycine betaine, choline (osmolytes, genuine)	glyb	no_match	no candidate matched the source name in any lane	1
+pyridoxine / vitamin B6	pydxn	no_match	no candidate matched the source name in any lane	1
+caffeic acid, ferulic acid, p-coumaric acid, cinnamic acid — hydroxycinnamates	fer	no_match	no candidate matched the source name in any lane	1
+quercetin, myricetin, catechins/epigallocatechin — flavonoid phytochemicals	quc	no_match	no candidate matched the source name in any lane	1
+caffeic acid, p-coumaric acid, ferulic acid, cinnamic acid (hydroxycinnamates)	fer	no_match	no candidate matched the source name in any lane	1
+quercetin, myricetin, catechin/epigallocatechin, genistein, isoflavones (flavonoids)	quc	no_match	no candidate matched the source name in any lane	1
+Catechol / 3-methylcatechol / 4-methylcatechol / phenol / guaiacol / 4-vinylguaiacol / pyrogallol (mostly roast-derived phenolics)	catechol	no_match	no candidate matched the source name in any lane	1
+nitrate/ammonium	no3	no_match	no candidate matched the source name in any lane	1
+kaempferol, quercetin, alpha-catechin - genuine flavonoids	quc	no_match	no candidate matched the source name in any lane	1
+syringic / sinapic / ferulic / gallic / vanillic / 4-hydroxybenzoic acids - genuine phenolic acids	fer	no_match	no candidate matched the source name in any lane	1
+retinol/vitamin A	retinol	no_match	no candidate matched the source name in any lane	1
+caffeic acid, p-coumaroylquinic acids, o-coumaric acid, ferulic acid, syringic acid, gallic acid	fer	no_match	no candidate matched the source name in any lane	1
+Chlorophyll a'	chlaemr	chemically_ambiguous	chemically distinct candidates share one name key: chlaemr,cholphya	1
+gadoleic/gondoic acid	M01235	no_match	no candidate matched the source name in any lane	1
+Vanillate/Vanillin	vanlt	no_match	no candidate matched the source name in any lane	1
+4-hydroxybenzoate, vanillate (genuine phenolics)	4hbz	no_match	no candidate matched the source name in any lane	1
+starch / non-fiber polysaccharide	starch	no_match	no candidate matched the source name in any lane	1
+quercetin 3-rutinoside (rutin), quercetin	quc	no_match	no candidate matched the source name in any lane	1
+caffeic acid, p-coumaric acid, ferulic acid, 3-/5-feruloylquinic acid, 5-p-coumaroylquinic acid	fer	no_match	no candidate matched the source name in any lane	1
+Quercetin / Quercetin 3-rutinoside (rutin) / Hyperin (quercetin 3-galactoside)	quc	no_match	no candidate matched the source name in any lane	1
+Pectic acid / pectin (genuine cell-wall polysaccharide)	pectin	no_match	no candidate matched the source name in any lane	1
+sulfur / sulfate	s	no_match	no candidate matched the source name in any lane	1
+Quercetin, Kaempferol - genuine flavonols	quc	no_match	no candidate matched the source name in any lane	1
+p-Coumaric acid, ferulic/caffeic phenolic acids - genuine phenolics	fer	no_match	no candidate matched the source name in any lane	1
+alpha-carotene, beta-carotene, beta-cryptoxanthin - genuine carotenoids (provitamin A carried above as RAE)	acaro	no_match	no candidate matched the source name in any lane	1
+quercetin, myricetin, kaempferol (flavonols)	quc	no_match	no candidate matched the source name in any lane	1
+Aroma aldehydes: Decanal, Nonanal, 2-Nonanone, (E)-2-Phenyl-2-butenal	nonal	no_match	no candidate matched the source name in any lane	1
+pectic acid / pectin	pectin	no_match	no candidate matched the source name in any lane	1
+retinol activity / vitamin A	retinol	no_match	no candidate matched the source name in any lane	1
+mannan / galactomannan	mannan	no_match	no candidate matched the source name in any lane	1
+Lutein / zeaxanthin (genuine grain carotenoids)	lut	no_match	no candidate matched the source name in any lane	1
+Catechin, Quercetin, Quercitrin, Myricetin, Isorhamnetin, Astragalin (flavonoids)	quc	no_match	no candidate matched the source name in any lane	1
+Caffeic acid, Caftaric acid & glutathionyl-caftaric acids, Gallic acid, Ferulate, Gentisic acid, Neochlorogenic acid (hydroxycinnamic/benzoic acids)	ga	no_match	no candidate matched the source name in any lane	1
+Glycine betaine, Taurine, L-carnitine and acylcarnitines (genuine minor milk metabolites)	glyb	no_match	no candidate matched the source name in any lane	1
+orotate/urate/allantoin and nucleosides (genuine milk purine/pyrimidine metabolites)	orot	no_match	no candidate matched the source name in any lane	1
+Nonanoate / gadoleic acid (C9:0, C20:1 — genuine trace odd/long-chain milk fatty acids)	C01601	no_match	no candidate matched the source name in any lane	1
+beta-Carotene / retinol precursors from residual milk fat (genuine trace)	caro	no_match	no candidate matched the source name in any lane	1
+starch / non-sugar digestible carbohydrate	starch	no_match	no candidate matched the source name in any lane	1
+catechol / 3- & 4-methylcatechol / pyrogallol (1,2,3-benzenetriol) / phenol (genuine roast-derived phenolics)	catechol	no_match	no candidate matched the source name in any lane	1
+retinol / vitamin A	retinol	no_match	no candidate matched the source name in any lane	1
+Caproic/Hexanoic acid	hxa	no_match	no candidate matched the source name in any lane	1
+Caprylic/Octanoic acid	octa	no_match	no candidate matched the source name in any lane	1
+Capric/Decanoic acid	decacid	no_match	no candidate matched the source name in any lane	1
+Lauric/Dodecanoic acid	dodecacid	no_match	no candidate matched the source name in any lane	1
+Lutein, (3R,3'R,all-E)-Zeaxanthin, Beta-cryptoxanthin, Beta-carotene (carotenoids – yellow pepper is lutein/zeaxanthin/violaxanthin rich)	lut	no_match	no candidate matched the source name in any lane	1
+Quercetin, Luteolin (flavonoids)	quc	no_match	no candidate matched the source name in any lane	1
+Caffeic acid, Ferulate, Gallic acid, Vanillate, 2,3-Dihydroxybenzoate (phenolic acids)	fer	no_match	no candidate matched the source name in any lane	1
+Dopamine, Putrescine (genuine biogenic amines)	dopa	no_match	no candidate matched the source name in any lane	1
+L-DOPA / dopamine (trace catecholamines; low confidence for Phaseolus pods)	dopa	no_match	no candidate matched the source name in any lane	1
+L-DOPA, dopamine, serotonin, histamine (minor legume amines - genuine but low)	dopa	no_match	no candidate matched the source name in any lane	1
+sulfate / sulfur	so4	no_match	no candidate matched the source name in any lane	1
+2-oxoglutarate, malonic acid, L-glutamine/levoglutamide (genuine minor metabolites)	akg	no_match	no candidate matched the source name in any lane	1
+acylcarnitines: acetyl-/propionyl-/butyryl-/tetradecanoyl-carnitine (genuine trace milk metabolites)	ttdcrn	no_match	no candidate matched the source name in any lane	1
+caproic acid / hexanoate	caproic	no_match	no candidate matched the source name in any lane	1
+caprylic acid / octanoic	octa	no_match	no candidate matched the source name in any lane	1
+lauric acid / dodecanoic	ddca	no_match	no candidate matched the source name in any lane	1
+capric acid / decanoic	dca	no_match	no candidate matched the source name in any lane	1
+Carbon dioxide / bicarbonate (carbonate)	co2	no_match	no candidate matched the source name in any lane	1
+Na2WO4 · 2H2O (sodium tungstate dihydrate)	tungs	no_match	no candidate matched the source name in any lane	1
+Ammonium (from NH4Cl in 5X M9 salts)	nh4	no_match	no candidate matched the source name in any lane	1
+H2/CO2 gas mixture (20 vol% CO2 in H2)	h2	no_match	no candidate matched the source name in any lane	1
+Magnesium (from MgCl2·6H2O)	mg2	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaH2PO4 + Na2MoO4)	na1	no_match	no candidate matched the source name in any lane	1
+Carbon dioxide / bicarbonate (N2:CO2 80:20 headspace)	co2	no_match	no candidate matched the source name in any lane	1
+Calcium (ca2; from CaCl2)	ca2	no_match	no candidate matched the source name in any lane	1
+Potassium (k; from KH2PO4)	k	no_match	no candidate matched the source name in any lane	1
+Magnesium (mg2; from MgSO4)	mg2	no_match	no candidate matched the source name in any lane	1
+Sodium (na1; from Na2HPO4·2H2O, NaCl, Na2MoO4)	na1	no_match	no candidate matched the source name in any lane	1
+Ammonium (nh4; from NH4Cl)	nh4	no_match	no candidate matched the source name in any lane	1
+Thiamin / vitamin B1 (thm; from Thiamine-HCl)	thm	no_match	no candidate matched the source name in any lane	1
+Zinc (zn2; from ZnSO4·7H2O)	zn2	no_match	no candidate matched the source name in any lane	1
+H2O / H+ / O2	h2o	no_match	no candidate matched the source name in any lane	1
+K2CrO4 (potassium chromate)	cro4	no_match	no candidate matched the source name in any lane	1
+Calcium (Ca2+, from CaCl2·2H2O trace stock)	ca2	no_match	no candidate matched the source name in any lane	1
+Ammonium (NH4+, from 8% ammonium hydroxide for pH 6.5 control)	nh4	no_match	no candidate matched the source name in any lane	1
+Zinc (Zn2+, from ZnSO4·7H2O trace stock)	zn2	no_match	no candidate matched the source name in any lane	1
+Potassium (from KCl + KH2PO4/K2HPO4)	k	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaCl and NaHCO3)	na1	no_match	no candidate matched the source name in any lane	1
+Potassium (from K2HPO4 + K2SO4 + KOH)	k	no_match	no candidate matched the source name in any lane	1
+Sodium (from sodium gluconate)	na1	no_match	no candidate matched the source name in any lane	1
+N2/CO2 gas (headspace 80% N2 - 20% CO2)	n2	no_match	no candidate matched the source name in any lane	1
+CuCl2 / Cu (trace)	cu	no_match	no candidate matched the source name in any lane	1
+FeCl2 / Fe (trace)	fe3	no_match	no candidate matched the source name in any lane	1
+MnCl2 / Mn (trace)	mn2	no_match	no candidate matched the source name in any lane	1
+Nicotinic acid / niacin	nac	no_match	no candidate matched the source name in any lane	1
+NiCl2 / Ni (trace)	ni2	no_match	no candidate matched the source name in any lane	1
+ZnCl2 / Zn (trace)	zn2	no_match	no candidate matched the source name in any lane	1
+Sodium (from sodium citrate + NaOH pH adjustment)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from sodium pyruvate + NaOH pH adjustment)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaNO3 + sodium pyruvate + NaOH)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaOH pH adjustment)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaNO3 + NaOH pH adjustment)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaNO2 + NaOH pH adjustment)	na1	no_match	no candidate matched the source name in any lane	1
+Potassium (K+, from M9 salts KH2PO4)	k	no_match	no candidate matched the source name in any lane	1
+Sodium (Na+, from M9 salts Na2HPO4/NaCl)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaHCO3/NaMoO4/Na2MgEDTA)	na1	no_match	no candidate matched the source name in any lane	1
+Thioctic acid / lipoic acid (D,L-6,8-thioctic acid)	lipoate	no_match	no candidate matched the source name in any lane	1
+Ammonium (from ammonium citrate)	nh4	no_match	no candidate matched the source name in any lane	1
+Potassium (K+, from K2HPO4 and K2SO4)	k	no_match	no candidate matched the source name in any lane	1
+Sodium (Na+, from NaCl)	na1	no_match	no candidate matched the source name in any lane	1
+NaCl -> sodium/chloride	cl	no_match	no candidate matched the source name in any lane	1
+Nonanoic acid / nonanoate (pelargonate)	C01601	no_match	no candidate matched the source name in any lane	1
+Acrylic acid / acrylate	acryl	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaH2PO4 and Na2SO4)	na1	no_match	no candidate matched the source name in any lane	1
+Ammonium (from ammonium acetate)	nh4	no_match	no candidate matched the source name in any lane	1
+Sodium (from Na3-citrate·2H2O + Na2HPO4·2H2O)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (Na+, from Na2HPO4 / NaCl)	na1	no_match	no candidate matched the source name in any lane	1
+Calcium (Ca2+, from CaCl2.2H2O)	ca2	no_match	no candidate matched the source name in any lane	1
+Potassium (K+, from K2SO4 and KH2PO4)	k	no_match	no candidate matched the source name in any lane	1
+Magnesium (Mg2+, from MgCl2.6H2O)	mg2	no_match	no candidate matched the source name in any lane	1
+Sodium (Na+, from Na2HPO4)	na1	no_match	no candidate matched the source name in any lane	1
+Zinc (Zn2+, from ZnSO4.7H2O)	zn2	no_match	no candidate matched the source name in any lane	1
+Sodium sulfide (Na2S) / H2S	h2s	no_match	no candidate matched the source name in any lane	1
+Selenite / Selenium (Na2SeO3)	slnt	no_match	no candidate matched the source name in any lane	1
+NaWO4·2H2O (sodium tungstate dihydrate)	tungs	no_match	no candidate matched the source name in any lane	1
+Calcium (CaCl2·2H2O)	ca2	no_match	no candidate matched the source name in any lane	1
+Potassium (KCl)	k	no_match	no candidate matched the source name in any lane	1
+Magnesium (MgCl2·6H2O)	mg2	no_match	no candidate matched the source name in any lane	1
+Sodium (Na2SO4 + NaH2PO4 + Na2MoO4)	na1	no_match	no candidate matched the source name in any lane	1
+Zinc (ZnO)	zn2	no_match	no candidate matched the source name in any lane	1
+Ammonium (as NH4Cl)	nh4	no_match	no candidate matched the source name in any lane	1
+Bicarbonate / carbonate (HCO3-/CO3 2-, from NaHCO3 + Na2CO3)	hco3	no_match	no candidate matched the source name in any lane	1
+Potassium (K+, from KCl + K2HPO4)	k	no_match	no candidate matched the source name in any lane	1
+Sodium (Na+, from Na2SO4 + NaHCO3 + Na2CO3)	na1	no_match	no candidate matched the source name in any lane	1
+Calcium (from CaSO4.2H2O)	ca2	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaCl 0.2 + NaMoO4.2H2O)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaH2PO4 and Na2SeO3)	na1	no_match	no candidate matched the source name in any lane	1
+Zinc (from ZnO)	zn2	no_match	no candidate matched the source name in any lane	1
+Potassium (from KH2PO4 + K2HPO4)	k	no_match	no candidate matched the source name in any lane	1
+Calcium (CaCl2.2H2O)	ca2	no_match	no candidate matched the source name in any lane	1
+Potassium (K2HPO4)	k	no_match	no candidate matched the source name in any lane	1
+Sodium (NaH2PO4.H2O + NaCl)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from sodium acetate + sodium pyruvate)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaH2PO4)	na1	no_match	no candidate matched the source name in any lane	1
+Bicarbonate / dissolved inorganic carbon (CO2 sparged)	hco3	no_match	no candidate matched the source name in any lane	1
+Carbonate / bicarbonate (CO3 2- / HCO3- / CO2)	hco3	no_match	no candidate matched the source name in any lane	1
+Sodium (Na2S2O3)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from Na2HPO4, NaCl, NaHCO3, Na2SO4)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from Na2HPO4, NaCl, Na2SO4, NaHCO3)	na1	no_match	no candidate matched the source name in any lane	1
+Potassium (from potassium lactate + KH2PO4)	k	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaNO3)	na1	no_match	no candidate matched the source name in any lane	1
+Zinc (ZnCl2, SL-10)	zn2	no_match	no candidate matched the source name in any lane	1
+Potassium hydrogen tartrate (tartrate)	tartr__D	stereo_conflict	source declares no stereochemistry but every candidate is a single enantiomer: tartr__D,tartr__L	1
+Calcium (ca2, dissociated)	ca2	no_match	no candidate matched the source name in any lane	1
+Potassium (k, dissociated)	k	no_match	no candidate matched the source name in any lane	1
+Ammonium (nh4, dissociated)	nh4	no_match	no candidate matched the source name in any lane	1
+Potassium (K2HPO4/K2SO4)	k	no_match	no candidate matched the source name in any lane	1
+NaWO4·2H2O (sodium tungstate)	tungs	no_match	no candidate matched the source name in any lane	1
+Ammonium (from NH4NO3)	nh4	no_match	no candidate matched the source name in any lane	1
+Sodium (Na+, from Na2HPO4 + NaCl)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from Na2HPO4/NaCl)	na1	no_match	no candidate matched the source name in any lane	1
+Tartaric acid (tartrate)	tartr__D	stereo_conflict	source declares no stereochemistry but every candidate is a single enantiomer: tartr__D,tartr__L	1
+NaWO4*2H2O (sodium tungstate dihydrate)	tungs	no_match	no candidate matched the source name in any lane	1
+Potassium (from KH2PO4 -> K+)	k	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaCl and NaHCO3 -> Na+)	na1	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaHCO3)	na1	no_match	no candidate matched the source name in any lane	1
+Zinc (trace)	zn2	no_match	no candidate matched the source name in any lane	1
+Potassium (from K2HPO4 2x12.5 mM + KH2PO4 4.58 mM)	k	no_match	no candidate matched the source name in any lane	1
+Sodium (from NaCl 102 mM + Na2S2O3 2x0.38 mM)	na1	no_match	no candidate matched the source name in any lane	1
+Potassium (k, EX_k_e)	k	no_match	no candidate matched the source name in any lane	1
+Molybdenum / molybdate (mobd, EX_mobd_e)	mobd	no_match	no candidate matched the source name in any lane	1
+Sodium (na1, EX_na1_e)	na1	no_match	no candidate matched the source name in any lane	1
+Ammonium (nh4, EX_nh4_e)	nh4	no_match	no candidate matched the source name in any lane	1
+Nitrogen dioxide / nitrite (no2, EX_no2_e)	no2	no_match	no candidate matched the source name in any lane	1
+DL-Alanine	ala__L	racemate	source declares DL (racemate); alias target ala__L is a single enantiomer	1
+NaC2H3O2·3H2O (sodium acetate trihydrate)	ac	no_match	no candidate matched the source name in any lane	1
+Zinc (Zn2+, from ZnCl2)	zn2	no_match	no candidate matched the source name in any lane	1
+Sodium nitrate (NaNO3) / nitrate	no3	no_match	no candidate matched the source name in any lane	1
+D(+)-Trehalose	tre	no_match	no candidate matched the source name in any lane	1
