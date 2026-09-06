@@ -17,13 +17,23 @@ __pycache__/
 # pytest
 .pytest_cache/
 
-# data/api/media.jsonl.gz — the monolithic streaming export. The corrected corpus
-# makes it 141 MB, past GitHub's 100 MiB per-file hard limit, so
-# tools/build_api_exports.py writes media.jsonl.partNN.gz shards instead (proved
-# byte-identical when concatenated: sha256 370b2376... over 13,515 lines). The old
-# file was moved to the backup area, not deleted, and is ignored here so a stale
-# copy can never block a push.
+# The bulk streaming exports. GitHub Pages publishes this repository's ROOT and
+# refuses a published site over 1 GiB. media.sqlite.gz and the media.jsonl shards
+# are a second and third encoding of data/media — which is itself published, and
+# must stay published, because assets/media.js fetches data/media/<id>.json at
+# runtime — and they measured 24.1 + 83.9 + 64.8 = 172.8 MiB, a sixth of the whole
+# budget spent on redundancy. `make release-assets` now builds them into dist/ and
+# they are distributed as assets on the `data-v1` release.
+#
+# Nothing became unreachable. data/api/manifest.json -> bulk_download names the
+# release, the URL and the one command that fetches it; the parquet pair stays in
+# the repository and DuckDB queries it over HTTP; every full record stays fetchable
+# at data/media/<id>.json; and pymediadb.iter_full_records() streams the release
+# and falls back to the per-medium endpoint when it is unreachable.
 data/api/media.jsonl.gz
+data/api/media.jsonl.part*.gz
+data/api/media.sqlite.gz
+dist/
 
 # Local scratch: the legacy --report-only output of tools/stages/remap_components.py
 # and the working backups taken before destructive steps.
