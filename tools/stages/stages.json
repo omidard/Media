@@ -1,0 +1,44 @@
+{
+ "schema": "mediadb-stage-registry/1",
+ "doc": "Ordered registry of corpus transform stages. A file in tools/stages/ that is not listed here is a hard error in run_stages.py --check: an unregistered stage is a silent skip, which is the failure class this resource was audited for. Ranges are reserved per workstream; see tools/stages/README.md section 1.",
+ "reserved_ranges": [
+  {"range": "00-09", "workstream": "harness / baseline / provenance scaffold", "owner": "pipeline"},
+  {"range": "10-19", "workstream": "schema, types, null-vs-empty-vs-missing, record counters", "owner": "pipeline"},
+  {"range": "20-29", "workstream": "licensing, source attribution, provenance segregation", "owner": "licensing"},
+  {"range": "30-39", "workstream": "derived-not-sourced component labelling, coverage honesty", "owner": "components"},
+  {"range": "40-49", "workstream": "metabolite identity, mapping confidence tiers, xref provenance", "owner": "chemistry"},
+  {"range": "50-59", "workstream": "naming, grouping, display-facing record fields", "owner": "naming-web"},
+  {"range": "60-89", "workstream": "unassigned", "owner": null},
+  {"range": "90-99", "workstream": "derived-artifact rebuild and manifest (not corpus stages)", "owner": "pipeline"}
+ ],
+ "stages": [
+  {
+   "id": "00_baseline",
+   "title": "Copy-through baseline: measures the frozen snapshot and proves the harness",
+   "owner": "pipeline",
+   "findings": ["PIPE-01", "PIPE-02"],
+   "reads": ["corpus"],
+   "writes": ["corpus"],
+   "after": [],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [],
+   "removes_keys": [],
+   "enabled": true
+  },
+  {
+   "id": "10_normalize_schema",
+   "title": "Normalize record types, null-vs-empty-vs-missing drift, vocabularies and record-level counters",
+   "owner": "pipeline",
+   "findings": ["SCHEMA-01", "SCHEMA-02", "SCHEMA-03", "SCHEMA-05", "SCHEMA-06", "SCHEMA-07"],
+   "reads": ["corpus"],
+   "writes": ["corpus"],
+   "after": ["00_baseline"],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": ["schema_version", "formulation_class", "category_original", "n_nonbigg_fallback", "defined", "provenance.transforms"],
+   "removes_keys": ["curation"],
+   "enabled": true
+  }
+ ]
+}

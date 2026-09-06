@@ -1,0 +1,18 @@
+# Regenerated staging trees produced by the stage chain (tools/stages/run_stages.py).
+# The corrected corpus is promoted into data/media by `make promote`; the staging
+# trees themselves are build output and are never committed.
+data/_rebuild/
+
+# Local source cache re-acquired by tools/fetch_sources.py. The payloads are large
+# and licence-encumbered; data/_sources/MANIFEST.json (the provenance ledger) IS
+# committed, the payloads are not.
+data/_sources/**
+!data/_sources/README.md
+!data/_sources/MANIFEST.json
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# pytest
+.pytest_cache/
