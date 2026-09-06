@@ -2,8 +2,17 @@
 pymediadb - a tiny client for the Media data API.
 
 The Media dataset (https://github.com/omidard/Media) is a curated, citation-backed
-library of growth / simulation media, every component mapped to a standard BiGG
-exchange reaction (``EX_<met>_e``) so any genome-scale model can adopt a medium.
+library of growth / simulation media whose components carry a standard BiGG exchange
+reaction (``EX_<met>_e``) so a genome-scale model can adopt a medium. 664,000 of
+665,582 component records (99.8%) reach one; 1,364 carry a ModelSEED/MetaNetX/KEGG
+fallback id that no BiGG model will accept, and 218 carry no exchange at all. Per
+record: ``n_mapped``, ``n_nonbigg_fallback``, ``n_unmappable``.
+
+Two further things a caller should know before trusting a result: the data is NOT
+under a single licence (1,189 of 13,515 records may not be used commercially -- filter
+on ``commercial_use_ok``), and 6,827 of 13,515 media (50.5%) hand a model a constraint
+set identical to at least one other record (see ``n_media_with_identical_model_input``
+in the catalog).
 
 It is served as static JSON/Parquet over GitHub Pages with permissive CORS, so this
 client is a thin, dependency-light wrapper over plain HTTP GETs.
@@ -23,6 +32,25 @@ Bulk / analytics (needs pandas + pyarrow; duckdb optional):
     df = db.load_media()                 # DataFrame, one row per medium
     comp = db.load_components()          # DataFrame, one row per component
     db.query("SELECT category, count(*) FROM media GROUP BY category")  # duckdb
+    for rec in db.iter_full_records(): ...   # streams every full record
+
+Where the bytes live
+--------------------
+The parquet pair and every per-medium record are served from GitHub Pages. The
+JSONL shards and the SQLite database are NOT: they are a second encoding of a
+corpus that is already published, they measured 172.8 MB, and GitHub Pages
+refuses a published site over 1 GiB. They are release assets:
+
+    gh release download data-v1 --repo omidard/Media --pattern '*'
+
+``iter_full_records()`` fetches them for you and falls back to the per-medium
+endpoint if the release is unreachable, so no data is out of reach either way.
+
+Cross-references and prose notes are held once in ``data/refs.json`` (2,287
+distinct cross-reference blocks stood in for 665,582 copies) and joined on
+``components[].xref_id`` / ``mapping_note_id`` / ``xref_note_id``.
+``get_medium()`` and ``iter_full_records()`` perform the join by default; pass
+``resolve=False`` for the record exactly as published.
 """
 from __future__ import annotations
 
@@ -36,6 +64,8 @@ from typing import Any, Dict, Iterable, List, Optional
 __version__ = "1.0.0"
 
 DEFAULT_BASE_URL = "https://omidard.github.io/Media"
+RELEASE_TAG = "data-v1"
+RELEASE_URL = "https://github.com/omidard/Media/releases/download/" + RELEASE_TAG
 _USER_AGENT = "pymediadb/%s (+https://github.com/omidard/Media)" % __version__
 
 
@@ -54,6 +84,7 @@ class MediaDB:
         )
         self.cache_ttl = cache_ttl
         self._catalog: Optional[Dict[str, Any]] = None
+        self._refs: Optional[Dict[str, Any]] = None
 
     # ---- low-level fetch -------------------------------------------------
 
@@ -130,9 +161,68 @@ class MediaDB:
         """Convenience: just the ids matching ``list_media`` filters."""
         return [m["id"] for m in self.list_media(**filters)]
 
-    def get_medium(self, medium_id: str) -> Dict[str, Any]:
-        """Full record for one medium (components, bounds, xrefs, provenance)."""
-        return self._get_json("data/media/%s.json" % medium_id)
+    def refs(self) -> Dict[str, Any]:
+        """The cross-reference / note tables (``data/refs.json``).
+
+        2,287 distinct cross-reference blocks were repeated across 665,582
+        components and 113 distinct notes across 621,274 of them; holding them
+        once is what keeps the published site under GitHub Pages' 1 GiB limit.
+        Fetched once and cached; ``get_medium`` joins it for you.
+        """
+        if self._refs is None:
+            self._refs = self._get_json("data/refs.json")
+        return self._refs
+
+    def get_medium(self, medium_id: str, resolve: bool = True) -> Dict[str, Any]:
+        """Full record for one medium (components, bounds, xrefs, provenance).
+
+        With ``resolve=True`` (the default) each component's ``xref_id`` /
+        ``mapping_note_id`` / ``xref_note_id`` is joined against
+        ``data/refs.json`` and the record comes back in its flat form, with
+        ``xref``, ``target_xref``, ``mapping_note``, ``target_xref_note``,
+        ``quantity_basis`` and the ``usda_*`` copies restored. Pass
+        ``resolve=False`` for the record exactly as it is published.
+        """
+        rec = self._get_json("data/media/%s.json" % medium_id)
+        return self.resolve_record(rec) if resolve else rec
+
+    def resolve_record(self, rec: Dict[str, Any]) -> Dict[str, Any]:
+        """Join the reference tables into one published record."""
+        refs = self.refs()
+        xrefs, notes = refs.get("xrefs", {}), refs.get("notes", {})
+        out = dict(rec)
+        comps = []
+        for c in rec.get("components") or []:
+            c = dict(c)
+            xid = c.pop("xref_id", None)
+            if xid is not None:
+                if xid not in xrefs:
+                    raise KeyError(
+                        "xref_id %r is not in data/refs.json; the record and the "
+                        "reference table are out of step" % xid)
+                c["xref"] = c["target_xref"] = xrefs[xid]
+            elif "target_xref" not in c:
+                c["xref"] = c["target_xref"] = {}
+            for key, field in (("xref_note_id", "target_xref_note"),
+                               ("mapping_note_id", "mapping_note")):
+                nid = c.pop(key, None)
+                if nid is not None:
+                    if nid not in notes:
+                        raise KeyError(
+                            "%s %r is not in data/refs.json" % (key, nid))
+                    c[field] = notes[nid]
+            # quantity_basis / usda_amount / usda_unit / amount_basis were
+            # type-exact copies of quantity.basis / .value / .unit / .basis on
+            # every component that carried them, and are restored from there.
+            q = c.get("quantity") or {}
+            c.setdefault("quantity_basis", q.get("basis"))
+            if c.get("amount_source") is not None:
+                c.setdefault("usda_amount", q.get("value"))
+                c.setdefault("usda_unit", q.get("unit"))
+                c.setdefault("amount_basis", q.get("basis"))
+            comps.append(c)
+        out["components"] = comps
+        return out
 
     def get_media(self, medium_ids: Iterable[str]) -> List[Dict[str, Any]]:
         return [self.get_medium(i) for i in medium_ids]
@@ -210,16 +300,63 @@ class MediaDB:
         )
         return con.execute(sql).fetchdf()
 
-    def iter_full_records(self):
-        """Stream every full medium record from media.jsonl.gz (no full-index fetch)."""
-        dest = os.path.join(self.cache_dir, "media.jsonl.gz")
-        if not os.path.exists(dest):
-            self._download_to("data/api/media.jsonl.gz", dest)
-        with gzip.open(dest, "rt") as fh:
-            for line in fh:
-                line = line.strip()
-                if line:
-                    yield json.loads(line)
+    def iter_full_records(self, resolve: bool = True):
+        """Stream every full medium record.
+
+        The bulk JSONL export is 148 MB of DERIVED bytes -- a second copy of a
+        corpus that is already published one record at a time -- so it is not in
+        the repository. GitHub Pages publishes the repository root and refuses a
+        site over 1 GiB, and data/media has to stay published because the browser
+        fetches it at runtime. The shards are distributed as assets on the
+        ``data-v1`` release instead.
+
+        This method streams them from there, and falls back to the per-medium
+        endpoint when the release is unreachable, so it always returns every
+        record rather than raising. ``resolve`` joins data/refs.json as
+        ``get_medium`` does.
+
+        One-command download of the same files:
+            gh release download data-v1 --repo omidard/Media --pattern '*'
+        """
+        try:
+            shards = self._release_shards()
+        except Exception:                                   # noqa: BLE001
+            shards = []
+        if shards:
+            for url in shards:
+                dest = os.path.join(self.cache_dir, url.rsplit("/", 1)[-1])
+                if not os.path.exists(dest):
+                    self._download_url_to(url, dest)
+                with gzip.open(dest, "rt") as fh:
+                    for line in fh:
+                        line = line.strip()
+                        if line:
+                            rec = json.loads(line)
+                            yield self.resolve_record(rec) if resolve else rec
+            return
+        # The release is not reachable. Every record is still individually
+        # published, so walk the catalog rather than failing.
+        for m in self.catalog()["media"]:
+            yield self.get_medium(m["id"], resolve=resolve)
+
+    def _release_shards(self) -> List[str]:
+        """Absolute URLs of the JSONL shards, from the manifest's own inventory."""
+        man = self.manifest()
+        bulk = man.get("bulk_download") or {}
+        prefix = (bulk.get("url_prefix") or RELEASE_URL).rstrip("/")
+        names = [n for n in (bulk.get("files") or []) if ".jsonl.part" in n]
+        return ["%s/%s" % (prefix, n) for n in sorted(names)]
+
+    def _download_url_to(self, url: str, dest: str) -> str:
+        req = urllib.request.Request(url, headers={"User-Agent": _USER_AGENT})
+        with urllib.request.urlopen(req) as resp:           # noqa: S310
+            data = resp.read()
+        os.makedirs(os.path.dirname(dest) or ".", exist_ok=True)
+        tmp = dest + ".tmp"
+        with open(tmp, "wb") as fh:
+            fh.write(data)
+        os.replace(tmp, dest)
+        return dest
 
 
-__all__ = ["MediaDB", "__version__", "DEFAULT_BASE_URL"]
+__all__ = ["MediaDB", "__version__", "DEFAULT_BASE_URL", "RELEASE_TAG", "RELEASE_URL"]

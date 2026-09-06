@@ -3,13 +3,33 @@
 Build the bulk / programmatic-access artifacts for the Media data API (v1).
 
 Reads the canonical catalog (data/index.json) and the per-medium records
-(data/media/<id>.json) and emits, into data/api/:
+(data/media/<id>.json) and emits:
 
-  manifest.json        - version, totals, file inventory, column schemas
-  media.parquet        - one row per medium (summary + provenance)
-  components.parquet    - one row per (medium, component), tidy/long form
-  media.sqlite.gz      - SQLite db (media + components tables, indexed), gzipped
-  media.jsonl.gz       - one full medium record per line, gzipped (streamable)
+  into data/api/ — TRACKED, published by GitHub Pages
+    manifest.json      - version, totals, file inventory, column schemas
+    media.parquet      - one row per medium (summary + provenance)
+    components.parquet - one row per (medium, component), tidy/long form
+
+  into dist/api/ — NOT tracked, published as GitHub Release assets
+    media.sqlite.gz        - SQLite db (media + components tables, indexed)
+    media.jsonl.partNN.gz  - one full medium record per line (streamable)
+
+WHY THE SPLIT
+-------------
+GitHub Pages serves this repository's root and refuses a published site over
+1 GiB. The two JSONL shards and the SQLite database measured 83.9 + 64.8 + 24.1
+= 172.8 MiB of DERIVED bulk — every byte of it a re-encoding of data/media,
+which is itself published and must stay published because assets/media.js fetches
+data/media/<id>.json at runtime. Keeping a second and third copy of the corpus
+inside the published site spent a sixth of the budget on redundancy.
+
+They are still built, by `make release-assets`, and still distributed — as
+release assets, which is what a 170 MiB bulk download is for. Nothing became
+unreachable: the parquet pair stays in the repository (5.7 MiB, and DuckDB can
+query it straight over HTTP), every full record stays fetchable one at a time at
+data/media/<id>.json, and pymediadb's iter_full_records() streams the release
+when it is there and falls back to the per-medium endpoint when it is not. The
+manifest names the download URL and the one command that fetches it.
 
 Design notes
 ------------
@@ -17,10 +37,14 @@ Design notes
   catalog (any un-indexed work-in-progress files under data/media/ are ignored).
 * All large artifacts are gzipped to stay under GitHub's 100 MB per-file limit.
 * Parquet is the primary surface for remote SQL (DuckDB can query it over HTTP).
+* Cross-references are joined from data/refs.json, where stage 60 holds each
+  distinct block once; the emitted columns are unchanged.
 * No network, no non-stdlib deps beyond pyarrow (already used by the repo).
 
-Rebuild:  python3 tools/build_api_exports.py
+Rebuild:  python3 tools/build_api_exports.py          (repository artifacts)
+          python3 tools/build_api_exports.py --bulk   (+ the release assets)
 """
+import argparse
 import os
 import io
 import gzip
@@ -30,15 +54,22 @@ import sqlite3
 import pyarrow as pa
 import pyarrow.parquet as pq
 
+import refs as REFS
+
 API_VERSION = "v1"
 BASE_URL = "https://omidard.github.io/Media"
+RELEASE_TAG = "data-v1"
+RELEASE_URL = "https://github.com/omidard/Media/releases/download/" + RELEASE_TAG
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 DATA = os.path.join(REPO, "data")
 MEDIA_DIR = os.path.join(DATA, "media")
 OUT = os.path.join(DATA, "api")
+BULK_OUT = os.path.join(REPO, "dist", "api")
 os.makedirs(OUT, exist_ok=True)
+
+_REFS = {"xrefs": {}, "notes": {}}
 
 # Fixed xref columns surfaced as first-class fields in the components table.
 XREF_KEYS = ["inchikey", "kegg", "chebi", "hmdb", "mnx", "seed", "biocyc"]
@@ -57,8 +88,13 @@ MEDIA_COLS = [
     "license", "commercial_use_ok", "attribution_required",
     "verification_status",
     "n_sourced", "n_derived", "n_observed", "n_unmappable",
-    "pct_covered_source", "pct_covered_source_is_upper_bound", "pct_covered_observed",
+    "pct_covered_source", "pct_covered_source_is_upper_bound",
+    "pct_sourced_components_with_bigg_id",
     "name_display", "family", "n_with_concentration_mM",
+    # The two ways a component fails to reach a BiGG exchange, and the model-input
+    # twins, so a bulk consumer sees the same honest fields as the browser.
+    "n_nonbigg_fallback", "n_no_exchange",
+    "model_input_signature", "n_media_with_identical_model_input",
 ]
 COMP_COLS = [
     "medium_id", "name", "bigg_metabolite", "exchange", "exchange_source",
@@ -161,11 +197,23 @@ def medium_row(summary, rec):
         "pct_covered_source": (rec.get("coverage_source") or {}).get("pct_covered_source"),
         "pct_covered_source_is_upper_bound":
             (rec.get("coverage_source") or {}).get("pct_covered_source_is_upper_bound"),
-        "pct_covered_observed": rec.get("pct_covered_observed"),
+        # Renamed from pct_covered_observed (2026-09-06): the old name read as
+        # coverage of the medium while its denominator was the components the record
+        # already carries. The catalog is the authority; the record read is the
+        # fallback for a corpus written before the rename.
+        "pct_sourced_components_with_bigg_id":
+            summary.get("pct_sourced_components_with_bigg_id",
+                        rec.get("pct_sourced_components_with_bigg_id",
+                                rec.get("pct_covered_observed"))),
         "name_display": rec.get("name_display"),
         "family": (rec.get("family") or {}).get("id"),
         "n_with_concentration_mM": (rec.get("quantitation") or {}).get(
             "n_with_concentration_mM"),
+        "n_nonbigg_fallback": summary.get("n_nonbigg_fallback"),
+        "n_no_exchange": summary.get("n_no_exchange"),
+        "model_input_signature": summary.get("model_input_signature"),
+        "n_media_with_identical_model_input":
+            summary.get("n_media_with_identical_model_input"),
     }
     return row
 
@@ -180,9 +228,13 @@ def _text_or_none(v):
     return None if v is None else str(v)
 
 
-def component_rows(mid, rec):
+def component_rows(mid, rec, refs=None):
     for c in rec.get("components", []) or []:
-        xref = c.get("xref", {}) or {}
+        # Cross-references are held once in data/refs.json and joined on
+        # components[].xref_id (stage 60). The parquet/SQLite columns are
+        # unchanged: a consumer still gets xref_inchikey, xref_kegg and the rest
+        # as first-class fields.
+        xref = REFS.component_xref(c, refs if refs is not None else _REFS)
         row = {
             "medium_id": mid,
             "name": c.get("name"),
@@ -313,7 +365,25 @@ def human(path):
     return "%.1f TB" % n
 
 
-def main():
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Build the MediaDB API exports.")
+    ap.add_argument("--bulk", action="store_true",
+                    help="also build the release assets (SQLite + JSONL shards) "
+                         "into dist/api/. They are NOT tracked and NOT published "
+                         "by GitHub Pages; upload them to the release.")
+    ap.add_argument("--bulk-out", default=BULK_OUT,
+                    help="where the release assets are written (default: dist/api)")
+    args = ap.parse_args(argv)
+
+    global _REFS
+    try:
+        _REFS = REFS.load_refs(REPO)
+        print("refs: %d cross-reference blocks, %d notes"
+              % (_REFS["n_xrefs"], _REFS["n_notes"]))
+    except FileNotFoundError:
+        print("refs: data/refs.json absent — reading cross-references inline "
+              "(a corpus that has not been through stage 60)")
+
     catalog = load_catalog()
     print("catalog media:", catalog["count"])
 
@@ -325,12 +395,9 @@ def main():
 
     media_pq = os.path.join(OUT, "media.parquet")
     comp_pq = os.path.join(OUT, "components.parquet")
-    sqlite_gz = os.path.join(OUT, "media.sqlite.gz")
 
     write_parquet(media_rows, MEDIA_COLS, media_pq)
     write_parquet(comp_rows, COMP_COLS, comp_pq)
-    build_sqlite(media_rows, comp_rows, sqlite_gz)
-    shards = build_jsonl_shards(catalog, OUT)
 
     files = {
         "media.parquet": {
@@ -343,22 +410,50 @@ def main():
             "grain": "one row per (medium, component)",
             "columns": COMP_COLS,
         },
-        "media.sqlite.gz": {
-            "tables": ["media", "components"],
-            "note": "gunzip before opening; indexed on category/source_db/medium_id/exchange/bigg_metabolite",
-        },
     }
-    for i, sh in enumerate(shards, 1):
-        files[sh] = {
-            "grain": "one full medium record per line",
-            "shard": i,
-            "of_shards": len(shards),
-            "note": "streamable; same schema as data/media/<id>.json. Sharded because "
-                    "the single file would exceed GitHub's 100 MiB per-file limit; "
-                    "concatenate the parts in name order to reconstitute it.",
-        }
     for name, meta in files.items():
         meta["size"] = human(os.path.join(OUT, name))
+
+    # ---- the release assets: built on request, never into the published site ----
+    bulk_dir = os.path.abspath(args.bulk_out)
+    bulk = {}
+    if args.bulk:
+        os.makedirs(bulk_dir, exist_ok=True)
+        sqlite_gz = os.path.join(bulk_dir, "media.sqlite.gz")
+        build_sqlite(media_rows, comp_rows, sqlite_gz)
+        shards = build_jsonl_shards(catalog, bulk_dir)
+        bulk["media.sqlite.gz"] = {
+            "tables": ["media", "components"],
+            "note": "gunzip before opening; indexed on "
+                    "category/source_db/medium_id/exchange/bigg_metabolite",
+        }
+        for i, sh in enumerate(shards, 1):
+            bulk[sh] = {
+                "grain": "one full medium record per line",
+                "shard": i,
+                "of_shards": len(shards),
+                "note": "streamable; byte-for-byte the same schema as "
+                        "data/media/<id>.json, so cross-references and notes are "
+                        "keyed (xref_id / mapping_note_id / xref_note_id) and join "
+                        "on data/refs.json, which stays in the repository. Sharded "
+                        "because the single file would exceed GitHub's 100 MiB "
+                        "per-file limit; concatenate the parts in name order to "
+                        "reconstitute it.",
+            }
+        for name, meta in bulk.items():
+            meta["size"] = human(os.path.join(bulk_dir, name))
+        oversize = [(n, os.path.getsize(os.path.join(bulk_dir, n))) for n in bulk
+                    if os.path.getsize(os.path.join(bulk_dir, n)) > MAX_ARTIFACT_BYTES]
+        if oversize:
+            raise SystemExit(
+                "FATAL: %d release asset(s) exceed the %d MiB budget:\n%s"
+                % (len(oversize), MAX_ARTIFACT_BYTES // (1024 * 1024),
+                   "\n".join("  %s  %s" % (n, human(os.path.join(bulk_dir, n)))
+                             for n, _ in oversize)))
+        print("release assets -> %s" % os.path.relpath(bulk_dir, REPO))
+        for name in sorted(bulk):
+            print("  %-26s %s" % (name, bulk[name]["size"]))
+        print("upload with:  gh release upload %s %s/* --clobber" % (RELEASE_TAG, bulk_dir))
 
     # The push-blocking check, run here rather than discovered by a failing push.
     # GitHub refuses any file over 100 MiB; this repo is also served by GitHub Pages.
@@ -374,7 +469,9 @@ def main():
                          for n, _ in oversize)))
     if stale:
         print("NOTE: %d file(s) in data/api are not part of this build and are left in "
-              "place, not deleted: %s" % (len(stale), ", ".join(sorted(stale))))
+              "place, not deleted: %s. The SQLite database and the JSONL shards moved "
+              "to dist/api (`make release-assets`) and are distributed as release "
+              "assets; delete the copies here." % (len(stale), ", ".join(sorted(stale))))
 
     manifest = {
         "api_version": API_VERSION,
@@ -404,6 +501,13 @@ def main():
                           "composition the cited source states. Null means not "
                           "measurable, never 100.",
         },
+        # Where every component's exchange id landed, and how many media are
+        # indistinguishable as a model input. Both are carried from the catalog so
+        # a bulk consumer reads the same numbers the site states, with the same
+        # definitions attached.
+        "exchange_resolution": catalog.get("exchange_resolution", {}),
+        "model_input_degeneracy": catalog.get("model_input_degeneracy", {}),
+        "field_renames": catalog.get("field_renames", []),
         "components": {
             "n_records": len(comp_rows),
             "n_sourced": sum(1 for r in comp_rows if r.get("evidence_class") == "sourced"),
@@ -426,16 +530,56 @@ def main():
         "endpoints": {
             "catalog": "/data/index.json",
             "medium": "/data/media/{id}.json",
+            "reference_tables": "/data/refs.json",
             "component_stats": "/data/media_stats.json",
             "presence_matrix": "/data/presence_matrix.json",
             "bulk": {k: "/data/api/" + k for k in files},
             "manifest": "/data/api/manifest.json",
         },
         "bulk_files": files,
+        # The two heaviest exports are DERIVED re-encodings of a corpus that is
+        # itself published. Keeping them inside the published site spent 172.8 MiB
+        # of GitHub Pages' 1 GiB budget on a second and third copy of data/media.
+        # They are distributed, in full, as release assets.
+        "bulk_download": {
+            "where": "GitHub Release " + RELEASE_TAG,
+            "url_prefix": RELEASE_URL,
+            "files": (sorted(bulk) if bulk
+                      else ["media.sqlite.gz", "media.jsonl.part01.gz",
+                            "media.jsonl.part02.gz"]),
+            "one_command": "gh release download %s --repo omidard/Media --pattern '*'"
+                           % RELEASE_TAG,
+            "without_gh": RELEASE_URL + "/media.sqlite.gz",
+            "why_not_in_the_repository":
+                "GitHub Pages publishes this repository's root and refuses a site "
+                "over 1 GiB. These files are a re-encoding of data/media, which is "
+                "published and stays published because the browser fetches "
+                "data/media/{id}.json at runtime. Nothing here is unavailable: every "
+                "full record is fetchable one at a time from the medium endpoint, "
+                "the parquet pair is in the repository and queryable over HTTP with "
+                "DuckDB, and pymediadb.iter_full_records() streams the release when "
+                "it is present and falls back to the medium endpoint when it is not.",
+            "rebuild": "make release-assets",
+            "manifest": bulk or None,
+        },
+        "reference_tables": {
+            "url": "/data/refs.json",
+            "joins": {
+                "components[].xref_id": "refs.xrefs[id] -> the cross-reference block",
+                "components[].mapping_note_id": "refs.notes[id] -> the verbatim note",
+                "components[].xref_note_id": "refs.notes[id] -> the verbatim note",
+            },
+            "why": "2,287 distinct cross-reference blocks were written out 665,582 "
+                   "times and 113 distinct notes 621,274 times. They are held once. "
+                   "An absent xref_id means the component has no cross-references. "
+                   "The parquet and SQLite columns are unchanged: xref_inchikey, "
+                   "xref_kegg and the rest are still first-class fields there.",
+        },
         "notes": [
             "Read-only static API served by GitHub Pages with permissive CORS.",
             "Parquet files are queryable in place over HTTP with DuckDB.",
             "Bounds convention: lower_bound < 0 is uptake (mmol/gDW/h).",
+            "Cross-references and prose notes are keyed; join /data/refs.json.",
         ],
     }
     with open(os.path.join(OUT, "manifest.json"), "w") as fh:
@@ -444,6 +588,9 @@ def main():
     print("\nwrote data/api/:")
     for name in list(files) + ["manifest.json"]:
         print("  %-22s %s" % (name, human(os.path.join(OUT, name))))
+    if not args.bulk:
+        print("release assets (media.sqlite.gz, media.jsonl.part*.gz) not rebuilt; "
+              "run `make release-assets` when the corpus changes.")
 
 
 if __name__ == "__main__":

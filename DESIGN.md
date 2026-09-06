@@ -51,8 +51,12 @@ the quality bar.
       "lower_bound": -20.0,          // < 0 = max uptake (mmol·gDW⁻¹·h⁻¹)
       "upper_bound": 1000.0,         // secretion allowed
       "concentration_mM": null,      // physical concentration when reported
-      "xref": { "inchikey": "WQZ…", "chebi": "CHEBI:12965", "kegg": "C00031",
-                "hmdb": "HMDB00122", "mnx": "MNXM41", "seed": "cpd00027" },
+      "xref_id": "glc__D",           // -> data/refs.json .xrefs["glc__D"] =
+                                     // { "inchikey": "WQZ…", "chebi": "CHEBI:12965",
+                                     //   "kegg": "C00031", "hmdb": "HMDB00122",
+                                     //   "mnx": "MNXM41", "seed": "cpd00027" }
+                                     // 2,287 distinct blocks stood in for 665,582
+                                     // copies; absent = no cross-references at all.
       "in_biggr": true,              // present in the local BiGGr prokaryote reactome
       "mapping_method": "inchikey",  // 55 values in the shipped data, not 9: the xref
                                      // routes (inchikey|chebi|kegg|hmdb|mnx|seed), the

@@ -100,41 +100,39 @@ paths:
           content:
             application/octet-stream:
               schema: { type: string, format: binary }
-  /data/api/media.sqlite.gz:
+  # media.sqlite.gz and media.jsonl.part*.gz USED TO BE SERVED HERE and are not any
+  # more. They are a second and third encoding of a corpus this host already serves
+  # one record at a time, they measured 172.8 MiB, and GitHub Pages refuses a
+  # published site over 1 GiB. They are now assets on the `data-v1` release:
+  #
+  #     gh release download data-v1 --repo omidard/Media --pattern '*'
+  #     https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz
+  #
+  # /data/api/manifest.json -> bulk_download carries the URL, the file list and that
+  # command. Nothing became unavailable: the parquet pair below is still served here
+  # and DuckDB queries it in place over HTTP, every full record is still at
+  # /data/media/{id}.json, and pymediadb.iter_full_records() streams the release and
+  # falls back to the per-medium endpoint when it is unreachable.
+  /data/refs.json:
     get:
-      summary: SQLite database (gzipped) with media + components tables
-      operationId: getSqlite
-      responses:
-        "200":
-          description: gzip-compressed SQLite; gunzip before opening.
-          content:
-            application/gzip:
-              schema: { type: string, format: binary }
-  /data/api/media.jsonl.part01.gz:
-    get:
-      summary: All full medium records, one JSON per line (gzipped) — shard 1 of 2
-      operationId: getJsonlPart01
+      summary: Cross-reference blocks and prose notes, held once
+      operationId: getRefs
+      description: >
+        The join target for components[].xref_id, components[].mapping_note_id and
+        components[].xref_note_id. 2,287 distinct cross-reference blocks stood in for
+        665,582 copies and 113 distinct sentences for 621,274; holding them once is
+        what keeps this site inside GitHub Pages' 1 GiB limit. Fetch once and cache:
+        it is 0.6 MB and changes only when the corpus does.
       responses:
         "200":
           description: >
-            gzip-compressed JSON Lines; same schema as /data/media/{id}.json. Sharded
-            because the single file exceeds GitHub's 100 MiB per-file limit against the
-            corrected corpus; concatenating the parts in name order reproduces the
-            original stream byte for byte. Row counts per shard are in
-            /data/api/manifest.json.
+            { schema, joins, n_xrefs, n_notes, xrefs: {key: {inchikey, kegg, chebi,
+            hmdb, mnx, seed, biocyc, formula, inchi, ...}}, notes: {key: text} }.
+            An xref key is the BiGG metabolite id where that id has one block in the
+            corpus, and <bigg>~<hash> where it has several.
           content:
-            application/gzip:
-              schema: { type: string, format: binary }
-  /data/api/media.jsonl.part02.gz:
-    get:
-      summary: All full medium records, one JSON per line (gzipped) — shard 2 of 2
-      operationId: getJsonlPart02
-      responses:
-        "200":
-          description: gzip-compressed JSON Lines; see part01 for the sharding note.
-          content:
-            application/gzip:
-              schema: { type: string, format: binary }
+            application/json:
+              schema: { type: object }
 components:
   schemas:
     MediumSummary:
@@ -286,6 +284,31 @@ components:
         in_biggr: { type: boolean }
         mapping_method: { type: string }
         mapping_confidence: { type: string }
-        xref:
-          type: object
-          additionalProperties: { type: string }
+        # Cross-references and prose notes are held ONCE in /data/refs.json and
+        # referenced by key. 2,287 distinct cross-reference blocks were written
+        # into 665,582 components and 113 distinct sentences into 621,274 of them,
+        # which was 490 MiB of a site GitHub Pages caps at 1 GiB. Join
+        # refs.xrefs[xref_id] and refs.notes[<note id>]. The parquet and SQLite
+        # exports are unaffected: xref_inchikey, xref_kegg and the rest are still
+        # first-class columns there.
+        xref_id:
+          type: string
+          description: >-
+            Key into /data/refs.json -> xrefs. The block describes the BiGG id
+            that was CHOSEN for this component; whether it was also the evidence
+            for that choice is stated by match_field / match_key / source_xref.
+            ABSENT means the component has no cross-references at all (8,957 of
+            665,582); it never means "look elsewhere".
+          examples: [glc__D, "ca2~0afa"]
+        mapping_note_id:
+          type: [string, "null"]
+          description: Key into /data/refs.json -> notes; the verbatim note.
+          examples: [n168faf]
+        xref_note_id:
+          type: [string, "null"]
+          description: >-
+            Key into /data/refs.json -> notes. Present on 654,067 of 665,582
+            components, carrying the sentence "these cross-references describe
+            the BiGG id that was chosen; they were not used to choose it and
+            cannot contradict it".
+          examples: [n6d132e]

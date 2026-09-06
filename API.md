@@ -95,11 +95,12 @@ Full record for one medium: metadata, `provenance` (`source_type`, `citation`, `
 | `exchange` | BiGG exchange reaction (e.g. `EX_glc__D_e`) |
 | `lower_bound` / `upper_bound` | flux bounds; `lower_bound < 0` = uptake |
 | `concentration_mM` | measured/known concentration where available |
-| `xref` | cross-references (`inchikey`, `kegg`, `chebi`, `hmdb`, `mnx`, `seed`, `biocyc`, …) |
+| `xref_id` | key into [`/data/refs.json`](https://omidard.github.io/Media/data/refs.json) → `xrefs`: the cross-reference block (`inchikey`, `kegg`, `chebi`, `hmdb`, `mnx`, `seed`, `biocyc`, `formula`, …). **Absent means the component has no cross-references** — 8,957 of 665,582 — never "look elsewhere". The parquet/SQLite columns `xref_inchikey`, `xref_kegg`, … are joined for you |
 | `in_biggr` | whether the metabolite exists in the local BiGGr universal model |
 | `mapping_method` / `mapping_confidence` | how the name was mapped, and how confident |
 | `evidence_tier` | how the identity was ACTUALLY decided — one of twelve tiers (`structural_xref`, `source_bigg_id`, `curated_mapping`, `exact_name`, `name_table`, `fuzzy_name`, `class_proxy`, `author_asserted`, `non_bigg_fallback`, `derived_component`, `unmapped`, `unmappable_mixture`). Read this, not `mapping_confidence` |
-| `mapping_note` | why, in prose, where the mapping needs a warning — e.g. "this exchange id is NOT a BiGG identifier and no BiGG model will accept it" |
+| `mapping_note_id` | key into `/data/refs.json` → `notes`: why, in prose, where the mapping needs a warning — e.g. "this exchange id is NOT a BiGG identifier and no BiGG model will accept it". 113 distinct notes over 621,274 components |
+| `xref_note_id` | key into `/data/refs.json` → `notes`. On 654,067 of 665,582 components, carrying "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it" |
 | `source_observed` | `false` when the cited source does not state this component at all |
 
 Records also carry an `uncovered[]` list — components that could not be given an
