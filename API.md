@@ -79,6 +79,13 @@ list use `pct_covered_source`. The catalog ships a `field_renames` block, with t
 measurement, so a consumer of the old key finds out what happened rather than finding
 the key missing.
 
+The rename is applied by the transform chain (`tools/stages/remap_components.py`),
+not by an edit to the data, so it reaches the per-medium records as well as the
+catalog and the exports: all 13,515 published records carry
+`pct_sourced_components_with_bigg_id` and none carries the old key. `make reproduce`
+rebuilds the corpus from the committed chain input and compares it byte for byte with
+what ships, which is what makes that statement checkable rather than asserted.
+
 ### A single medium (full record)
 
 ```
@@ -129,24 +136,39 @@ GET /data/refs.json                # cross-reference and note tables; join on xr
 
 Parquet is queryable **in place over HTTP** — no download step.
 
-**The SQLite database and the JSON Lines shards are not served from this host.**
+**The SQLite database and the JSON Lines shards are not served from this host, and
+are not published anywhere else yet.**
 GitHub Pages publishes the repository root and refuses a published site over 1 GiB,
 and those two files are a re-encoding of `data/media`, which stays published because
-the browser fetches `data/media/{id}.json` at runtime. They are distributed as assets
-on the **`data-v1` GitHub Release**:
+the browser fetches `data/media/{id}.json` at runtime. They are meant to become
+assets on a `data-v1` GitHub Release; that release **has not been created**, so
+until it is, build them from a clone:
 
 ```bash
-gh release download data-v1 --repo omidard/Media --pattern '*'
-# or, without gh:
-curl -LO https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz
+git clone https://github.com/omidard/Media && cd Media
+make release-assets
+# -> dist/api/media.sqlite.gz, dist/api/media.jsonl.part01.gz,
+#    dist/api/manifest.json, dist/api/RELEASE_NOTES.md
 ```
 
-`data/api/manifest.json` -> `bulk_download` carries the URL prefix, the file list and
-that command, so a client resolves it rather than guessing. Nothing became
-unreachable: every full record is still fetchable one at a time at
-`/data/media/{id}.json`, the parquet pair is still here and queryable over HTTP, and
-`pymediadb.iter_full_records()` streams the release when it is present and falls back
-to the per-medium endpoint when it is not.
+`data/api/manifest.json` -> `bulk_download` states this in machine-readable form:
+
+```json
+"bulk_download": {
+  "status": "planned",
+  "url_prefix": "https://github.com/omidard/Media/releases/download/data-v1",
+  "url_prefix_is": "where the assets WILL be served from; requests to it answer 404 today",
+  "how_to_get_them_now": { "build_from_a_clone": ["...", "make release-assets"] }
+}
+```
+
+A client reads `status` instead of guessing: `pymediadb.iter_full_records()` skips
+the release while it is `planned`, uses it when it flips to `published`, and falls
+back to the per-medium endpoint if an advertised asset turns out to be unreachable —
+it yields all 13,515 records on every one of those paths and raises on none of them.
+Nothing became unreachable when the files left the repository: every full record is
+still fetchable one at a time at `/data/media/{id}.json`, and the parquet pair is
+still here and queryable over HTTP.
 
 ---
 

@@ -103,16 +103,21 @@ paths:
   # media.sqlite.gz and media.jsonl.part*.gz USED TO BE SERVED HERE and are not any
   # more. They are a second and third encoding of a corpus this host already serves
   # one record at a time, they measured 172.8 MiB, and GitHub Pages refuses a
-  # published site over 1 GiB. They are now assets on the `data-v1` release:
+  # published site over 1 GiB.
   #
-  #     gh release download data-v1 --repo omidard/Media --pattern '*'
-  #     https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz
+  # They are NOT hosted anywhere yet: the `data-v1` release is planned and has not
+  # been created, so do not send a client to
+  # https://github.com/omidard/Media/releases/download/data-v1/... — it answers 404.
+  # Build them from a clone instead, offline, from the committed corpus:
   #
-  # /data/api/manifest.json -> bulk_download carries the URL, the file list and that
-  # command. Nothing became unavailable: the parquet pair below is still served here
-  # and DuckDB queries it in place over HTTP, every full record is still at
-  # /data/media/{id}.json, and pymediadb.iter_full_records() streams the release and
-  # falls back to the per-medium endpoint when it is unreachable.
+  #     make release-assets      # -> dist/api/
+  #
+  # /data/api/manifest.json -> bulk_download.status ("planned" | "published") is the
+  # machine-readable authority, with the file list and the local build command.
+  # Nothing became unavailable: the parquet pair below is still served here and
+  # DuckDB queries it in place over HTTP, every full record is still at
+  # /data/media/{id}.json, and pymediadb.iter_full_records() walks that endpoint
+  # whenever the release is unpublished or an advertised asset is unreachable.
   /data/refs.json:
     get:
       summary: Cross-reference blocks and prose notes, held once
@@ -251,8 +256,10 @@ components:
             Of the components the cited source states, the share that reached a BiGG
             metabolite id. NOT a coverage measure: its denominator is components, not
             the source's ingredient list. RENAMED from pct_covered_observed on
-            2026-09-06; records written before that carry the old key. null means the
-            denominator was zero, never 100.
+            2026-09-06, and the rename lives in the transform chain (stage
+            40_remap_components), so every one of the 13,515 published records carries
+            the new key and none carries the old one. null means the denominator was
+            zero, never 100.
         uncovered:
           type: array
           description: >-

@@ -64,6 +64,23 @@ RELEASE_URL = "https://github.com/omidard/Media/releases/download/" + RELEASE_TA
 #: thing whether or not this run rebuilt them; build_jsonl_shards asserts the shard
 #: list it produces against this, so the declaration cannot go quietly stale.
 RELEASE_FILES = ["media.sqlite.gz", "media.jsonl.part01.gz"]
+#: Does the release EXIST? "planned" until `gh release create data-v1` has run and
+#: every asset returns HTTP 200.
+#:
+#: The size fix moved 172.8 MiB of bulk exports out of the published site and every
+#: document started sending readers to a release that had never been created: the tag
+#: URL, the asset URLs and the releases API all answered 404 or []. Publishing a URL
+#: that 404s is an overclaim like any other, so the manifest states the status and
+#: pymediadb reads it instead of assuming. The files are not lost while it says
+#: "planned" — `make release-assets` rebuilds both from data/media, which ships.
+#:
+#: Flip to "published" only after the upload is verified, then `make derived` and
+#: commit the regenerated data/api/manifest.json:
+#:     make release-assets
+#:     gh release create data-v1 dist/api/* --repo omidard/Media --notes-file ...
+#:     curl -sSIL -o /dev/null -w '%{http_code}\n' \
+#:       https://github.com/omidard/Media/releases/download/data-v1/media.sqlite.gz
+RELEASE_STATUS = "planned"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -369,6 +386,100 @@ def human(path):
     return "%.1f TB" % n
 
 
+def write_release_notes(bulk_dir, bulk, catalog, media_rows, comp_rows):
+    """Write dist/api/RELEASE_NOTES.md beside the assets it describes.
+
+    Generated, not typed: `gh release create ... --notes-file` takes this file, so
+    the note that ships with the download carries the digests, the corpus identity
+    and the licence position measured in the same run that built the bytes. A
+    hand-written note is a set of numbers that goes stale the first time the corpus
+    moves — which is the failure mode this repository has been correcting all week.
+    """
+    import hashlib
+    import subprocess
+
+    import baseline as _baseline
+
+    corpus_pairs = _baseline.digest_dir(MEDIA_DIR)
+    corpus_sha = _baseline.corpus_digest(corpus_pairs)
+    try:
+        head = subprocess.check_output(["git", "-C", REPO, "rev-parse", "HEAD"],
+                                       text=True).strip()
+    except Exception:                                          # noqa: BLE001
+        head = "unknown (not a git checkout)"
+    refs_path = os.path.join(DATA, "refs.json")
+    refs_sha = (hashlib.sha256(open(refs_path, "rb").read()).hexdigest()
+                if os.path.exists(refs_path) else None)
+    n_noncommercial = sum(1 for m in media_rows if m.get("commercial_use_ok") is False)
+    n_attribution = sum(1 for m in media_rows if m.get("attribution_required"))
+
+    lines = [
+        "# MediaDB bulk exports — `%s`" % RELEASE_TAG,
+        "",
+        "Two re-encodings of the MediaDB corpus: %s media, %s components."
+        % ("{:,}".format(catalog["count"]), "{:,}".format(len(comp_rows))),
+        "",
+        "| asset | size | sha256 |",
+        "| --- | --- | --- |",
+    ]
+    for name in sorted(bulk):
+        p = os.path.join(bulk_dir, name)
+        lines.append("| `%s` | %s | `%s` |"
+                     % (name, human(p),
+                        hashlib.sha256(open(p, "rb").read()).hexdigest()))
+    lines += [
+        "",
+        "## What they are",
+        "",
+        "* `media.sqlite.gz` — gzipped SQLite with tables `media` and `components`, "
+        "indexed on category / source_db / medium_id / exchange / bigg_metabolite. "
+        "`gunzip` before opening.",
+        "* `media.jsonl.part*.gz` — one full medium record per line, byte-for-byte "
+        "the schema of `data/media/<id>.json`. Cross-references and prose notes are "
+        "keyed (`xref_id` / `mapping_note_id` / `xref_note_id`) and join on "
+        "`data/refs.json`, which stays in the repository. Concatenate the parts in "
+        "name order to reconstitute the single file.",
+        "",
+        "They are here rather than in the repository because GitHub Pages publishes "
+        "the repository root and refuses a published site over 1 GiB, and both files "
+        "are a second and third encoding of `data/media`, which stays published "
+        "because the browser fetches `data/media/{id}.json` at runtime. Nothing is "
+        "exclusive to this download.",
+        "",
+        "## Which corpus this is",
+        "",
+        "* repository commit: `%s`" % head,
+        "* `data/media` corpus_sha256: `%s`" % corpus_sha,
+        "  (sha256 over sorted `<filename> <sha256>` lines, %s records)"
+        % "{:,}".format(len(corpus_pairs)),
+        "* `data/refs.json` sha256: `%s`" % (refs_sha or "absent"),
+        "* rebuild these exact files from a clone at that commit: `make release-assets`",
+        "",
+        "## Licence",
+        "",
+        "There is no single licence. Each record carries the terms of the source it "
+        "came from, and the per-source schedule is in `LICENSE` and `NOTICE` in the "
+        "repository — read them before redistributing any subset.",
+        "",
+        "* %s of %s records forbid commercial use (`commercial_use_ok` = false); "
+        "filter on that column." % ("{:,}".format(n_noncommercial),
+                                    "{:,}".format(len(media_rows))),
+        "* %s of %s records require attribution (`attribution_required` = true)."
+        % ("{:,}".format(n_attribution), "{:,}".format(len(media_rows))),
+        "* MediaDB's own curation layer (`mdb_*` records) is all-rights-reserved: no "
+        "reuse grant is stated upstream and redistribution permission has not been "
+        "obtained.",
+        "",
+        "Built by `tools/build_api_exports.py --bulk` (`make release-assets`).",
+        "",
+    ]
+    path = os.path.join(bulk_dir, "RELEASE_NOTES.md")
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(lines))
+    print("release notes -> %s" % os.path.relpath(path, REPO))
+    return path
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Build the MediaDB API exports.")
     ap.add_argument("--bulk", action="store_true",
@@ -457,8 +568,10 @@ def main(argv=None):
                 % (sorted(bulk), sorted(RELEASE_FILES)))
         with open(os.path.join(bulk_dir, "manifest.json"), "w") as fh:
             json.dump({"release": RELEASE_TAG, "url_prefix": RELEASE_URL,
+                       "release_status": RELEASE_STATUS,
                        "built_from_catalog_count": catalog["count"],
                        "files": bulk}, fh, indent=1)
+        write_release_notes(bulk_dir, bulk, catalog, media_rows, comp_rows)
         oversize = [(n, os.path.getsize(os.path.join(bulk_dir, n))) for n in bulk
                     if os.path.getsize(os.path.join(bulk_dir, n)) > MAX_ARTIFACT_BYTES]
         if oversize:
@@ -470,7 +583,25 @@ def main(argv=None):
         print("release assets -> %s" % os.path.relpath(bulk_dir, REPO))
         for name in sorted(bulk):
             print("  %-26s %s" % (name, bulk[name]["size"]))
-        print("upload with:  gh release upload %s %s/* --clobber" % (RELEASE_TAG, bulk_dir))
+        rel = os.path.relpath(bulk_dir, REPO)
+        if RELEASE_STATUS == "published":
+            print("upload with:  gh release upload %s %s/*.gz --clobber "
+                  "--repo omidard/Media" % (RELEASE_TAG, rel))
+        else:
+            print("The %s release does not exist yet, and data/api/manifest.json says "
+                  "so. These files are usable straight from %s."
+                  % (RELEASE_TAG, rel))
+            print("To publish them (needs an authenticated gh, and the branch pushed "
+                  "so the tag has a target):")
+            print("  gh release create %s %s/*.gz --repo omidard/Media \\"
+                  % (RELEASE_TAG, rel))
+            print("    --title 'MediaDB bulk exports (data-v1)' --notes-file "
+                  "%s/RELEASE_NOTES.md" % rel)
+            print("  curl -sIL -o /dev/null -w '%%{http_code}\\n' %s/%s"
+                  % (RELEASE_URL, RELEASE_FILES[0]))
+            print("  then set RELEASE_STATUS = \"published\" in "
+                  "tools/build_api_exports.py,")
+            print("  run `make derived`, and commit data/api/manifest.json.")
 
     # The push-blocking check, run here rather than discovered by a failing push.
     # GitHub refuses any file over 100 MiB; this repo is also served by GitHub Pages.
@@ -559,8 +690,18 @@ def main(argv=None):
         # of GitHub Pages' 1 GiB budget on a second and third copy of data/media.
         # They are distributed, in full, as release assets.
         "bulk_download": {
-            "where": "GitHub Release " + RELEASE_TAG,
+            # "planned" | "published". A client reads this rather than assuming the
+            # release exists, because for now it does not.
+            "status": RELEASE_STATUS,
+            "where": ("GitHub Release %s" % RELEASE_TAG if RELEASE_STATUS == "published"
+                      else "GitHub Release %s — PLANNED, NOT YET CREATED. Nothing is "
+                           "served from the URL below yet; build the files locally "
+                           "instead (see how_to_get_them_now)." % RELEASE_TAG),
             "url_prefix": RELEASE_URL,
+            "url_prefix_is": ("the prefix each asset is served from"
+                              if RELEASE_STATUS == "published"
+                              else "where the assets WILL be served from; requests to "
+                                   "it answer 404 today"),
             # Declared from constants, NOT from whatever this run happened to build.
             # A published manifest that changed depending on whether --bulk was
             # passed would drift from data/MANIFEST.json's hash of it every time the
@@ -568,9 +709,26 @@ def main(argv=None):
             # would be the file that could not be reproduced. The per-file inventory
             # of an actual build goes to dist/api/manifest.json, beside the assets.
             "files": RELEASE_FILES,
-            "one_command": "gh release download %s --repo omidard/Media --pattern '*'"
-                           % RELEASE_TAG,
-            "without_gh": RELEASE_URL + "/media.sqlite.gz",
+            # The path that works TODAY, stated first because it is the one a reader
+            # can act on. The corpus these files re-encode ships in the repository,
+            # so the chain regenerates them offline in one command.
+            "how_to_get_them_now": {
+                "build_from_a_clone": [
+                    "git clone https://github.com/omidard/Media",
+                    "cd Media",
+                    "make release-assets",
+                ],
+                "writes": "dist/api/ (untracked): " + ", ".join(RELEASE_FILES),
+                "inputs": "data/media/*.json + data/refs.json, both committed",
+                "needs": "python3 + pyarrow; no network",
+            },
+            "when_published": {
+                "one_command": "gh release download %s --repo omidard/Media --pattern '*'"
+                               % RELEASE_TAG,
+                "without_gh": RELEASE_URL + "/media.sqlite.gz",
+                "status_flips_where": "RELEASE_STATUS in tools/build_api_exports.py, "
+                                      "after the upload is verified",
+            },
             "why_not_in_the_repository":
                 "GitHub Pages publishes this repository's root and refuses a site "
                 "over 1 GiB. These files are a re-encoding of data/media, which is "
@@ -578,10 +736,12 @@ def main(argv=None):
                 "data/media/{id}.json at runtime. Nothing here is unavailable: every "
                 "full record is fetchable one at a time from the medium endpoint, "
                 "the parquet pair is in the repository and queryable over HTTP with "
-                "DuckDB, and pymediadb.iter_full_records() streams the release when "
-                "it is present and falls back to the medium endpoint when it is not.",
+                "DuckDB, `make release-assets` rebuilds both files from the committed "
+                "corpus, and pymediadb.iter_full_records() walks the medium endpoint "
+                "whenever the release is unpublished or unreachable.",
             "rebuild": "make release-assets",
-            "inventory": "dist/api/manifest.json, uploaded with the assets",
+            "inventory": "dist/api/manifest.json, written beside the assets by "
+                         "`make release-assets`",
         },
         "reference_tables": {
             "url": "/data/refs.json",

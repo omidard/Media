@@ -120,11 +120,23 @@ GET  data/api/manifest.json         # version, totals, file inventory, schemas
 The gzipped SQLite database and the JSON Lines shards are **not served from this
 host**: GitHub Pages publishes the repository root and refuses a published site over
 1 GiB, and both are a re-encoding of `data/media`, which stays published because the
-browser fetches `data/media/{id}.json` at runtime. They are release assets:
+browser fetches `data/media/{id}.json` at runtime.
+
+**There is no hosted download of those two files yet.** The `data-v1` release is
+planned, not created; `data/api/manifest.json` → `bulk_download.status` says
+`planned`, and `pymediadb` reads that rather than sending you to a 404. Build them
+yourself instead — the corpus they re-encode ships in this repository, so the build
+is offline and takes one command:
 
 ```bash
-gh release download data-v1 --repo omidard/Media --pattern '*'
+git clone https://github.com/omidard/Media && cd Media
+make release-assets     # -> dist/api/media.sqlite.gz, media.jsonl.part01.gz
+                        #    + RELEASE_NOTES.md with sizes, sha256s and the corpus id
 ```
+
+Nothing is exclusive to those files: every full record is served one at a time at
+`data/media/{id}.json`, and `pymediadb.iter_full_records()` streams the whole corpus
+from there.
 
 Query the bulk Parquet in place, without downloading, via DuckDB:
 

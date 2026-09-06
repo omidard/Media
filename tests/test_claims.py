@@ -245,3 +245,72 @@ def test_share_never_rounds_a_partial_share_up_to_one_hundred():
     js = _read("assets/media.js")
     assert "if (p >= 100) return '100%';" in js
     assert "while (d < 4 && Number(p.toFixed(d)) >= 100) d++;" in js
+
+
+# ------------------------------- the release that was documented before it existed
+# The size fix moved 172.8 MiB of bulk exports out of the published site and pointed
+# every reader at a `data-v1` GitHub Release. The release was never created: the tag
+# URL, both asset URLs and the releases API answered 404 or []. That is the same
+# defect as (a) and (b) — a shipped document asserting something the world does not
+# support — and it was published at a live API endpoint. The repository now declares
+# the status in one place, and these tests keep every document, the payload and the
+# client agreeing with it.
+
+RELEASE_DOC_FILES = ["README.md", "API.md", "openapi.yaml", "Makefile",
+                     "client/pymediadb/__init__.py"]
+_NOT_YET_PUBLISHED = ("not been created", "not created", "not yet",
+                      "planned, not", "does not exist", "planned")
+
+
+def _release_status():
+    src = _read("tools/build_api_exports.py")
+    m = re.search(r'^RELEASE_STATUS\s*=\s*"(\w+)"', src, re.M)
+    assert m, "tools/build_api_exports.py must declare RELEASE_STATUS"
+    assert m.group(1) in ("planned", "published")
+    return m.group(1)
+
+
+@pytest.mark.parametrize("doc", RELEASE_DOC_FILES)
+def test_no_document_sends_a_reader_to_a_release_that_does_not_exist(doc):
+    """While the release is `planned`, naming it obliges you to say so and to give
+    the command that works instead."""
+    if _release_status() == "published":
+        pytest.skip("the release is published; the 404 this guards against is gone")
+    text = _read(doc)
+    if "data-v1" not in text:
+        return
+    low = text.lower()
+    assert any(p in low for p in _NOT_YET_PUBLISHED), (
+        "%s names the data-v1 release but never says it has not been created — a "
+        "reader following it gets a 404" % doc)
+    assert "release-assets" in text, (
+        "%s names the data-v1 release but not `make release-assets`, which is the "
+        "only way to get those files today" % doc)
+
+
+def test_the_published_manifest_declares_the_release_status():
+    """The machine-readable half: a client must be able to ask, not assume."""
+    path = os.path.join(REPO, "data", "api", "manifest.json")
+    if not os.path.exists(path):
+        pytest.skip("data/api/manifest.json not built")
+    with open(path, encoding="utf-8") as fh:
+        bulk = json.load(fh).get("bulk_download") or {}
+    assert bulk.get("status") == _release_status(), (
+        "data/api/manifest.json advertises bulk_download.status=%r while "
+        "tools/build_api_exports.py declares %r — run `make derived`"
+        % (bulk.get("status"), _release_status()))
+    if bulk["status"] != "published":
+        assert "make release-assets" in json.dumps(bulk), (
+            "the manifest tells a client the download is unavailable without "
+            "telling it how to build the files")
+
+
+def test_the_client_reads_the_status_instead_of_assuming_the_release_exists():
+    src = _read("client/pymediadb/__init__.py")
+    assert "bulk_download_status" in src
+    assert re.search(r'if\s+str\(bulk\.get\("status"\).*!=\s*"published"', src), (
+        "_release_shards must return nothing while the release is unpublished")
+    body = src[src.index("def iter_full_records"):src.index("def bulk_download_status")]
+    assert "except Exception" in body and "self.catalog()" in body, (
+        "iter_full_records must catch a failing shard download and finish from the "
+        "per-medium endpoint — a documented fallback that raises is worse than none")

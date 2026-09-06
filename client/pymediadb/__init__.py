@@ -39,12 +39,20 @@ Where the bytes live
 The parquet pair and every per-medium record are served from GitHub Pages. The
 JSONL shards and the SQLite database are NOT: they are a second encoding of a
 corpus that is already published, they measured 172.8 MB, and GitHub Pages
-refuses a published site over 1 GiB. They are release assets:
+refuses a published site over 1 GiB.
 
-    gh release download data-v1 --repo omidard/Media --pattern '*'
+**The hosted download of those two files does not exist yet.** The `data-v1`
+release is planned, not published; ``data/api/manifest.json`` ->
+``bulk_download.status`` is the authority, and this client reads it rather than
+assuming. Build them yourself from a clone in the meantime:
 
-``iter_full_records()`` fetches them for you and falls back to the per-medium
-endpoint if the release is unreachable, so no data is out of reach either way.
+    git clone https://github.com/omidard/Media && cd Media
+    make release-assets            # -> dist/api/media.sqlite.gz, media.jsonl.part01.gz
+
+``iter_full_records()`` streams the release when the manifest says it is
+published, and walks the per-medium endpoint otherwise — including when the
+release is advertised but a shard fails mid-stream. It yields every record
+either way, and never raises because a download 404'd.
 
 Cross-references and prose notes are held once in ``data/refs.json`` (2,287
 distinct cross-reference blocks stood in for 665,582 copies) and joined on
@@ -59,6 +67,7 @@ import json
 import os
 import time
 import urllib.request
+import warnings
 from typing import Any, Dict, Iterable, List, Optional
 
 __version__ = "1.0.0"
@@ -307,42 +316,88 @@ class MediaDB:
         corpus that is already published one record at a time -- so it is not in
         the repository. GitHub Pages publishes the repository root and refuses a
         site over 1 GiB, and data/media has to stay published because the browser
-        fetches it at runtime. The shards are distributed as assets on the
-        ``data-v1`` release instead.
+        fetches it at runtime.
 
-        This method streams them from there, and falls back to the per-medium
-        endpoint when the release is unreachable, so it always returns every
-        record rather than raising. ``resolve`` joins data/refs.json as
-        ``get_medium`` does.
+        The shards are meant to be assets on the ``data-v1`` release. That
+        release is NOT published yet, and the manifest says so
+        (``bulk_download.status``), so this method walks the per-medium endpoint
+        instead. It also walks it when the release IS advertised and a shard
+        turns out to be unreachable, resuming at the first record the shards did
+        not deliver -- a fallback that raises is worse than no fallback, and a
+        404 on a documented asset is exactly the case it exists for.
 
-        One-command download of the same files:
-            gh release download data-v1 --repo omidard/Media --pattern '*'
+        Every record is yielded exactly once whichever path runs. ``resolve``
+        joins data/refs.json as ``get_medium`` does.
+
+        Build the same files yourself from a clone:
+            make release-assets      # -> dist/api/
         """
+        seen: set = set()
         try:
             shards = self._release_shards()
-        except Exception:                                   # noqa: BLE001
+        except Exception as exc:                            # noqa: BLE001
+            warnings.warn("could not read the bulk inventory from the manifest "
+                          "(%s); streaming the per-medium endpoint instead" % exc,
+                          RuntimeWarning, stacklevel=2)
             shards = []
-        if shards:
-            for url in shards:
+        complete = bool(shards)
+        for url in shards:
+            try:
                 dest = os.path.join(self.cache_dir, url.rsplit("/", 1)[-1])
                 if not os.path.exists(dest):
                     self._download_url_to(url, dest)
                 with gzip.open(dest, "rt") as fh:
                     for line in fh:
                         line = line.strip()
-                        if line:
-                            rec = json.loads(line)
-                            yield self.resolve_record(rec) if resolve else rec
+                        if not line:
+                            continue
+                        rec = json.loads(line)
+                        rid = rec.get("id")
+                        if rid in seen:
+                            continue
+                        seen.add(rid)
+                        yield self.resolve_record(rec) if resolve else rec
+            except Exception as exc:                        # noqa: BLE001
+                # The advertised asset is missing, truncated or unreadable. Say so
+                # -- silence here would look like a short corpus -- and finish from
+                # the per-medium endpoint, which serves every record.
+                warnings.warn("bulk shard %s is unreadable (%s); %d records "
+                              "streamed from it, the rest come from the per-medium "
+                              "endpoint" % (url, exc, len(seen)),
+                              RuntimeWarning, stacklevel=2)
+                complete = False
+                break
+        if complete:
             return
-        # The release is not reachable. Every record is still individually
-        # published, so walk the catalog rather than failing.
+        # Every record is individually published, so walk the catalog for whatever
+        # the shards did not deliver rather than failing.
         for m in self.catalog()["media"]:
+            if m["id"] in seen:
+                continue
             yield self.get_medium(m["id"], resolve=resolve)
 
+    def bulk_download_status(self) -> str:
+        """``published`` or ``planned`` -- whether the release assets exist.
+
+        Read from the manifest the site publishes, not from a constant compiled
+        into this client, so a client released before the assets were uploaded
+        starts using them the moment they are.
+        """
+        bulk = (self.manifest().get("bulk_download") or {})
+        return str(bulk.get("status") or "planned")
+
     def _release_shards(self) -> List[str]:
-        """Absolute URLs of the JSONL shards, from the manifest's own inventory."""
+        """Absolute URLs of the JSONL shards, from the manifest's own inventory.
+
+        Empty while ``bulk_download.status`` is not ``published``: the URLs are
+        declared (that is where the assets will live) but fetching them would be
+        a guaranteed 404, and a client should not spend a request proving what
+        the manifest already told it.
+        """
         man = self.manifest()
         bulk = man.get("bulk_download") or {}
+        if str(bulk.get("status") or "planned") != "published":
+            return []
         prefix = (bulk.get("url_prefix") or RELEASE_URL).rstrip("/")
         names = [n for n in (bulk.get("files") or []) if ".jsonl.part" in n]
         return ["%s/%s" % (prefix, n) for n in sorted(names)]
