@@ -72,10 +72,20 @@ def test_cross_reference_coverage_is_stated_not_assumed(summary):
     assert cr["n_components_with_none"] > 0
 
 
-@pytest.mark.parametrize("doc", ["README.md", "DESIGN.md", "openapi.yaml",
-                                 "index.html", "methods.html", "API.md",
-                                 "client/README.md",
-                                 "client/pymediadb/__init__.py"])
+#: Every document a reader can reach, not the four that were remembered. DESIGN.md:97
+#: still said "Every component *also* carries cross-references" after index.html,
+#: methods.html, README.md and openapi.yaml had all been corrected, because the sweep
+#: was done by hand and this copy was missed. NOTICE, PROVENANCE.md, the deploy-surface
+#: manifest, the browser's own JS and tools/licenses.tsv are in the list for the same
+#: reason: whichever file is left out is the one that keeps the claim.
+CLAIM_DOCS = ["README.md", "DESIGN.md", "openapi.yaml", "index.html", "methods.html",
+              "API.md", "NOTICE", "LICENSE", "PROVENANCE.md", "compare.html",
+              "families.html", "patterns.html", "assets/media.js",
+              "tools/licenses.tsv", "docs/DEPLOY_SURFACE.tsv",
+              "client/README.md", "client/pymediadb/__init__.py"]
+
+
+@pytest.mark.parametrize("doc", CLAIM_DOCS)
 def test_no_document_claims_every_component_is_bigg_mapped(doc):
     """The exact sentence, and its close paraphrases, must not come back."""
     text = _read(doc)
@@ -84,6 +94,8 @@ def test_no_document_claims_every_component_is_bigg_mapped(doc):
         r"every one mapped to a BiGG",
         r"components,? every one mapped",
         r"every component (?:is )?mapped to a standard BiGG exchange",
+        r"(?<!not )every component is mapped into",
+        r"(?<!not )all components (?:are )?mapped to",
     ]
     for pattern in banned:
         for m in re.finditer(pattern, text, re.I):
@@ -94,11 +106,76 @@ def test_no_document_claims_every_component_is_bigg_mapped(doc):
             window = text[max(0, m.start() - 200):m.end() + 200].lower()
             if any(k in window for k in ("said", "used to", "was true of",
                                          "claimed", "earlier release", "banned",
-                                         "must not")):
+                                         "must not", "until 2026", "sentence read")):
                 continue
             raise AssertionError(
                 "%s:%d makes the claim the data does not support: %r"
                 % (doc, line, m.group(0)))
+
+
+#: The claim's other half. It was corrected in index.html, methods.html, README.md and
+#: openapi.yaml on 2026-09-06 and survived in DESIGN.md:97 — plus, in the arithmetic
+#: form "N distinct blocks stood in for 665,582 copies", in openapi.yaml, assets/media.js,
+#: the client library and the API manifest's generator. 8,957 of 665,582 carry none.
+#: `(?<!not )` matters: the corrected wording is "Not every component carries a
+#: cross-reference", and a sweep that flags its own fix teaches people to delete the
+#: sweep.
+_XREF_CLAIMS = [
+    r"(?<!not )every component (?:\*?also\*? )?carries cross-references",
+    r"(?<!not )every component (?:\*?also\*? )?carries a cross-reference",
+    r"(?<!not )each component (?:\*?also\*? )?carries cross-references",
+    r"(?<!not )all components carry cross-references",
+    r"(?<!not )every component (?:has|carries) (?:an? )?(?:xref|cross-ref)",
+    # the arithmetic form: a per-component count asserted over the whole corpus
+    r"stood in for 665,582 copies",
+    r"(?:written|repeated) (?:into|across) 665,582 components",
+    r"written out 665,582 times",
+]
+
+
+@pytest.mark.parametrize("doc", CLAIM_DOCS)
+def test_no_document_claims_every_component_carries_cross_references(doc, summary):
+    """8,957 of 665,582 components carry none, and the documents must say so.
+
+    The measured denominator comes from the payload, so this test cannot pass by
+    agreeing with a number that is itself stale.
+    """
+    cr = summary["cross_references"]
+    assert cr["n_components_with_none"] > 0, (
+        "if every component genuinely carries one, delete this test with the hedged "
+        "wording — do not weaken the wording while 8,957 do not")
+    text = _read(doc)
+    for pattern in _XREF_CLAIMS:
+        for m in re.finditer(pattern, text, re.I):
+            line = text[:m.start()].count("\n") + 1
+            window = text[max(0, m.start() - 240):m.end() + 240].lower()
+            if any(k in window for k in ("said", "used to", "was true of", "claimed",
+                                         "earlier release", "banned", "must not",
+                                         "until 2026")):
+                continue
+            raise AssertionError(
+                "%s:%d claims every component carries a cross-reference; %s of %s "
+                "carry none" % (doc, line, "{:,}".format(cr["n_components_with_none"]),
+                                "{:,}".format(cr["of"])))
+
+
+@pytest.mark.parametrize("doc", CLAIM_DOCS)
+def test_a_document_stating_the_xref_share_states_the_measured_one(doc, summary):
+    """Any document that gives the share must give the payload's number.
+
+    DESIGN.md was corrected by hand once; this is what makes the correction stick.
+    """
+    cr = summary["cross_references"]
+    text = _read(doc)
+    n_with = "{:,}".format(cr["n_components_with_a_cross_reference"])
+    n_none = "{:,}".format(cr["n_components_with_none"])
+    if "cross-reference" not in text.lower() and "xref" not in text.lower():
+        pytest.skip("%s says nothing about cross-references" % doc)
+    if n_with not in text and n_none not in text:
+        pytest.skip("%s states no cross-reference share" % doc)
+    assert n_none in text, (
+        "%s gives the cross-reference share without the exceptions: %s of %s carry "
+        "none, and that is the half a reader needs" % (doc, n_none, "{:,}".format(cr["of"])))
 
 
 # -------------------------------------------------------------- (b) licences

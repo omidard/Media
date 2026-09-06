@@ -10,6 +10,17 @@ rather than typed — and check every other shipped artifact against it. They ar
 FAIL until the rebuild stage regenerates the derived artifacts; a failing test with real
 output is the honest state, and it becomes the gate that stops the totals diverging again.
 
+THE SAME DEFECT, ONE SCALE DOWN. COV-02 was four totals for one catalogue; the corners held
+it for the smaller numbers. 14,341 was the concentration denominator until 296 values that
+were an absence encoded as 0.0 were nulled and 10 were newly derived; the corrected 14,055
+reached data/index.json and a typed 14,341 stayed in LICENSE, NOTICE, README.md,
+PROVENANCE.md, tools/licenses.tsv and the shipped methods.html. "The literature records"
+named five different populations, sized 1,371 / 1,456 / 1,457 / 1,459 / 1,460, and one
+document stated 1,456 where the measurement is 1,371. build_index.py now measures all of
+them into data/index.json (`concentration_provenance`, `literature_populations`), and
+tools/verify_counts.check_stated_statistics checks every document against it — including
+that a literature count sits next to the predicate that says WHICH population it counts.
+
 Run just the gate:  python3 tools/verify_counts.py
 """
 import os
@@ -47,6 +58,20 @@ def test_the_authoritative_count_is_computed_from_the_corpus(results):
     "data/stats.json count",
     "data/stats.json by_category",
     "README media totals",
+    # The same defect one scale down: a statistic typed into prose that no generator
+    # owns. 14,341 was the concentration denominator until 296 absences encoded as 0.0
+    # were nulled; the corrected 14,055 reached data/index.json and six documents kept
+    # the old one. "The literature records" named five populations sized 1,371 / 1,456
+    # / 1,457 / 1,459 / 1,460, and one document stated 1,456 where 1,371 is measured.
+    "every stated concentration denominator is the measured one",
+    "every stated concentration numerator is a measured one",
+    "every stated concentration percentage is the measured one",
+    "every stated component denominator is the measured one",
+    "every stated literature count names the population it counts",
+    "every stated literature count equals its population's measurement",
+    "data/index.json field_renames[].measured is populated",
+    "data/api/manifest.json field_renames[].measured is populated",
+    "data/MANIFEST.json permanently-unreproducible count",
 ])
 def test_every_shipped_total_agrees_with_the_corpus(results, name):
     _, rows = results
