@@ -197,8 +197,15 @@ def compute(verbose: bool = False) -> tuple[list[str], list[str]]:
 
     man = load_manifest()
     artifacts = man["artifacts"]
+    # An artifact written by a transform stage is CORPUS: `make stages` produces it
+    # and `make promote` installs it, so it is a trigger for the rebuild, never a
+    # product of it. data/refs.json (the deduplicated cross-reference table) is one.
+    corpus = {rel for rel, e in artifacts.items()
+              if rel.endswith("/") or str(e.get("generator", "")).startswith("tools/stages/")}
     declared_generators = set()
     for rel, e in artifacts.items():
+        if rel in corpus:
+            continue
         gen = e.get("generator", "")
         if gen.endswith(".py"):
             declared_generators.add(gen)
@@ -241,7 +248,11 @@ def compute(verbose: bool = False) -> tuple[list[str], list[str]]:
     for s in build_scripts:
         closure |= set(local_imports(s, seen))
 
-    paths = sorted(closure | inputs | set(EXTRA_PATHS))
+    # Corpus artifacts ARE triggers: a promoted corpus change must rebuild everything
+    # derived from it, exactly as data/media/** does.
+    corpus_triggers = {rel.rstrip("/") + "/**" if rel.endswith("/") else rel
+                       for rel in corpus}
+    paths = sorted(closure | inputs | corpus_triggers | set(EXTRA_PATHS))
     # data/media/** subsumes data/media/*.json
     paths = [p for p in paths if p != "data/media" and p != "data/media/*.json"]
     if verbose:

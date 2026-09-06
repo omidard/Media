@@ -69,6 +69,15 @@ ARTIFACTS = [
     ("data/media/", "frozen snapshot — generators are dead (PIPE-01)",
      ["(none surviving)"], "dir"),
     ("data/index.json", "build_index.py", ["data/media/*.json"], "json:media"),
+    # Part of the CORPUS, not a derived artifact: it holds the 2,291 distinct
+    # cross-reference blocks and 114 distinct notes that the 665,582 components
+    # refer to by key, after stage 60_dedupe_references took them out of the records
+    # (490 MiB of the published site was the same blocks and sentences written out
+    # again and again). It is promoted with data/media by `make promote` and it is
+    # hashed here because a corpus and a table that drift apart would blank every
+    # cross-reference on the site with no error anywhere.
+    ("data/refs.json", "tools/stages/60_dedupe_references.py",
+     ["data/media/*.json"], "json:n_xrefs"),
     ("data/stats.json", "build_index.py", ["data/media/*.json"], "json:count"),
     # Attribution corrected: stage 39_recompute_coverage took authorship of the
     # per-medium coverage blocks, tools/enrich_coverage.py refuses to run over a
@@ -86,15 +95,16 @@ ARTIFACTS = [
      ["data/index.json", "data/media/*.json"], "parquet"),
     ("data/api/components.parquet", "tools/build_api_exports.py",
      ["data/index.json", "data/media/*.json"], "parquet"),
-    # Sharded: the single media.jsonl.gz is 141 MB against the corrected corpus, past
-    # GitHub's 100 MiB per-file hard limit. tools/build_api_exports.py writes parts and
-    # asserts the budget; the parts concatenate to a byte-identical stream.
-    ("data/api/media.jsonl.part01.gz", "tools/build_api_exports.py",
-     ["data/index.json", "data/media/*.json"], "gzlines"),
-    ("data/api/media.jsonl.part02.gz", "tools/build_api_exports.py",
-     ["data/index.json", "data/media/*.json"], "gzlines"),
-    ("data/api/media.sqlite.gz", "tools/build_api_exports.py",
-     ["data/index.json", "data/media/*.json"], None),
+    # media.jsonl.part01.gz, media.jsonl.part02.gz and media.sqlite.gz are NO LONGER
+    # HERE, and that is not an omission. They are a second and third encoding of
+    # data/media -- which is itself published, and has to stay published because
+    # assets/media.js fetches data/media/<id>.json at runtime -- and at
+    # 83.9 + 64.8 + 24.1 = 172.8 MiB they spent a sixth of GitHub Pages' 1 GiB
+    # published-site budget on redundancy. `make release-assets` builds them into an
+    # untracked dist/ and they are distributed as assets on the `data-v1` release;
+    # data/api/manifest.json -> bulk_download carries the URL and the one command
+    # that fetches them. A file that is not published is not hashed here, because
+    # this manifest describes the published tree.
     ("data/cluster/clustergram.json", "tools/build_cluster_data.py",
      ["data/api/media.parquet", "data/api/components.parquet"], None),
     ("data/cluster/cooccurrence.json", "tools/build_cluster_data.py",
@@ -362,19 +372,35 @@ def check_tree(man: dict, rev: str = "HEAD") -> int:
     return 1 if problems else 0
 
 
+def is_corpus(rel: str, entry: dict) -> bool:
+    """Is this artifact part of the CORPUS rather than a derived rebuild?
+
+    Two things are: the record tree itself, and anything a transform stage under
+    tools/stages/ writes (data/refs.json, the deduplicated cross-reference table).
+    Both are produced by `make stages` and installed by `make promote`, never by
+    `make derived`. The distinction decides two things at once — a corpus path is a
+    CI *trigger* and must never be *staged* by CI, and a derived path is the exact
+    opposite — so it is asked once, here, from the declaration.
+    """
+    return rel.endswith("/") or str(entry.get("generator", "")).startswith("tools/stages/")
+
+
+def corpus_paths(man: dict) -> list[str]:
+    """Corpus paths, as git pathspecs. `make derived` must leave every one alone."""
+    return sorted(rel.rstrip("/") for rel, e in man["artifacts"].items()
+                  if is_corpus(rel, e))
+
+
 def artifact_paths(man: dict) -> list[str]:
-    """The paths CI must stage: every artifact the manifest declares and git tracks.
+    """The paths CI must stage: every derived artifact the manifest declares.
 
     Derived from the manifest instead of hand-listed in the workflow, so relocating
     an artifact (or adding one) updates what CI commits automatically. The hand-list
     is how data/web went unstaged.
     """
     out = []
-    for rel in man["artifacts"]:
-        if rel.endswith("/"):
-            # data/media/ — the corpus, an input, not something a build writes.
-            # `make promote` is the only step allowed to change it, and the workflow
-            # asserts `make derived` did not. CI must never stage it.
+    for rel, e in man["artifacts"].items():
+        if is_corpus(rel, e):
             continue
         p = rel.rstrip("/")
         if _git("check-ignore", "-q", p).returncode == 0:
@@ -438,9 +464,11 @@ if __name__ == "__main__":
                     help="verify the manifest against what git has COMMITTED at --rev")
     ap.add_argument("--rev", default="HEAD", help="revision for --check-tree")
     ap.add_argument("--paths", action="store_true",
-                    help="print the tracked artifact paths CI must stage, one per line")
+                    help="print the derived artifact paths CI must stage, one per line")
+    ap.add_argument("--corpus-paths", action="store_true",
+                    help="print the corpus paths no rebuild may modify, one per line")
     a = ap.parse_args()
-    if a.check or a.check_tree or a.paths:
+    if a.check or a.check_tree or a.paths or a.corpus_paths:
         if not os.path.exists(OUT):
             print("no manifest at %s — run `python3 tools/build_manifest.py`" % OUT)
             sys.exit(1)
@@ -448,6 +476,9 @@ if __name__ == "__main__":
             man = json.load(fh)
         if a.paths:
             print("\n".join(artifact_paths(man)))
+            sys.exit(0)
+        if a.corpus_paths:
+            print("\n".join(corpus_paths(man)))
             sys.exit(0)
         rc = check(man) if a.check else 0
         if a.check_tree:

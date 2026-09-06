@@ -219,8 +219,17 @@ def test_manifest_declares_every_published_payload_file(manifest):
 
 def test_ci_asserts_the_build_did_not_write_the_corpus():
     src = read(BUILD_API)
-    assert "git diff --quiet -- data/media" in src, (
-        "the workflow must assert that `make derived` left data/media alone")
+    assert "--corpus-paths" in src and "git diff --quiet" in src, (
+        "the workflow must assert that `make derived` left the corpus alone, over "
+        "the corpus paths the manifest declares")
+
+
+def test_corpus_and_derived_are_disjoint(manifest):
+    """A path CI stages must not be a path CI is forbidden to change."""
+    staged = set(build_manifest.artifact_paths(manifest))
+    corpus = set(build_manifest.corpus_paths(manifest))
+    assert not (staged & corpus), sorted(staged & corpus)
+    assert "data/media" in corpus
 
 
 # ----------------------------------------------------------- (e) generator truth

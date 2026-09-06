@@ -95,17 +95,22 @@ jobs:
         # documented and testable, not in a comment in this file.
         run: make derived
 
-      - name: No build step wrote the frozen corpus
-        # The Makefile's contract is that nothing under `derived` touches data/media;
-        # `make promote` is the only step allowed to. If that ever stops being true,
-        # this job would silently commit a corpus edit as a "derived artifact".
+      - name: No build step wrote the corpus
+        # The Makefile's contract is that nothing under `derived` touches the corpus —
+        # data/media and anything a transform stage writes (data/refs.json). Only
+        # `make promote` may. If that stops being true, this job would silently commit
+        # a corpus edit as a "derived artifact". The list comes from the manifest, so
+        # a new corpus-level file is covered the moment it is declared.
         run: |
-          if ! git diff --quiet -- data/media; then
-            echo "make derived modified data/media — that is promotion, not a rebuild:"
-            git diff --stat -- data/media | tail -20
+          set -euo pipefail
+          python3 tools/build_manifest.py --corpus-paths > /tmp/corpus_paths.txt
+          echo "corpus paths that must be untouched:"; cat /tmp/corpus_paths.txt
+          if ! xargs -r -a /tmp/corpus_paths.txt git diff --quiet --; then
+            echo "make derived modified the corpus — that is promotion, not a rebuild:"
+            xargs -r -a /tmp/corpus_paths.txt git diff --stat -- | tail -20
             exit 1
           fi
-          echo "data/media untouched by make derived."
+          echo "corpus untouched by make derived."
 
       - name: Tests (schema, invariants, harness, tools)
         # The defect ledger in tests/test_defects.py is xfail while the correction
