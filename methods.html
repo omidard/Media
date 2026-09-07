@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: methods and limitations</title>
-<meta name="description" content="What a MediaDB record is and is not: how each component's identity is decided and how far it can be trusted, what the coverage fractions divide by, which components the pipeline supplies, what the bounds encode, the per-source licence schedule, and the records withdrawn from the library.">
+<meta name="description" content="What a MediaDB record is and is not: how each component's identity is decided and how far it can be trusted, what the coverage fractions divide by, which components the pipeline supplies, what the bounds encode, the per-source licence schedule, and how a withdrawn identifier resolves.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,10 +32,10 @@
 <header class="masthead"><div class="wrap">
   <p class="kicker">Methods and limitations</p>
   <h1>What a record here is, and what it is not.</h1>
-  <p class="lead">This resource is a compilation. Every medium is somebody else's
-    formulation, re-encoded against a standard set of exchange reactions so a
-    genome-scale model can use it. That re-encoding introduces assumptions, and this
-    page states them, with counts, so you can decide what to trust.</p>
+  <p class="lead">Every medium here is somebody else's formulation, re-encoded against a
+    standard set of exchange reactions so a genome-scale model can read it. Each
+    assumption in that encoding is defined below, with the field that records it and the
+    count it applies to.</p>
   <p class="chip-line" style="margin-top:var(--s4)">
     <a class="btn" href="#identity">Component identity</a>
     <a class="btn" href="#exchange">Exchange ids</a>
@@ -46,8 +46,8 @@
     <a class="btn" href="#oxygen">Oxygen</a>
     <a class="btn" href="#families-method">Families</a>
     <a class="btn" href="#licensing">Licensing</a>
+    <a class="btn" href="#withdrawn">Withdrawn identifiers</a>
     <a class="btn" href="#reproducibility">Reproducibility</a>
-    <a class="btn" href="#withdrawn">Withdrawn records</a>
     <a class="btn" href="#limits">The limits, in one list</a>
   </p>
 </div></header>
@@ -68,14 +68,13 @@
     recorded evidence tiers, grouped into six classes and ordered by the strength of the
     evidence.</p>
   <div class="note caution" style="margin-top:var(--s3)">
-    <b>A name match is a fallback, not a confirmation.</b>
+    <b>A name match records a string, not a chemical identity.</b>
     <p style="margin-top:var(--s1)">For most components the deciding evidence is a name
-      string, not a chemical identity check. A name match cannot detect that a source's
-      "Cystine" is a different molecule from L-cysteine, that a "MUFA 18:1" measurement
-      pooled every 18:1 isomer, or that "Vitamin B-6" names a vitamer group rather than
-      pyridoxine. Where the pipeline collapses a class onto one representative molecule,
-      the component says so in the <b>class or assertion</b> tier rather than presenting
-      the assumption as a measurement.</p>
+      string. A name match cannot detect that a source's "Cystine" is a different molecule
+      from L-cysteine, that a "MUFA 18:1" measurement pooled every 18:1 isomer, or that
+      "Vitamin B-6" names a vitamer group and not pyridoxine. A component whose class was
+      collapsed onto one representative molecule carries the <b>class or assertion</b>
+      tier.</p>
   </div>
   <div class="card card-p" style="margin-top:var(--s4)">
     <div id="ev-bar"></div>
@@ -88,33 +87,33 @@
     </table>
   </div>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
-    Read the classes as how far the identity can be trusted. Structure-verified rests on
-    a structural cross-reference and identifier-verified on a database id the source
-    itself supplied; name-matched rests on a string; class or assertion records a
-    deliberate simplification; pipeline-derived components are not in the source at all;
-    unresolved components carry no identity claim. The evidence class is on every
-    component, in the browser and in the data, so a record can be filtered by it.
+    The class states how far the identity can be trusted. Structure-verified rests on a
+    structural cross-reference and identifier-verified on a database id the source itself
+    supplied; name-matched rests on a string; class or assertion records a deliberate
+    simplification; pipeline-derived components are not in the source at all; unresolved
+    components carry no identity claim. Every component carries its class, in the browser
+    and in the data, and can be filtered by it.
   </p>
 
   <h2 id="exchange" style="margin-top:var(--s7)">Where the exchange ids land</h2>
-  <p style="margin-top:var(--s3)">The point of this resource is that a component
-    carries a BiGG exchange reaction a genome-scale model can accept. Nearly every one
-    does; the exceptions are counted and listed rather than rounded away.</p>
+  <p style="margin-top:var(--s3)">A component carries a BiGG exchange reaction a
+    genome-scale model can accept. Nearly every one does. The exceptions fall into two
+    states, both counted here and named on the record that holds them.</p>
   <div class="barlist" id="exchange-bands" style="margin-top:var(--s3)"></div>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
     A fallback id is not a near miss. <code>EX_cpd15137_e</code> is a ModelSEED
     identifier in exchange position: it names a real compound, and no BiGG model has a
-    reaction by that name. The component's own <code>mapping_note</code> says so, the
+    reaction by that name. The component's <code>mapping_note</code> states this, the
     record counts it in <code>n_nonbigg_fallback</code>, and the copy-to-COBRApy block
-    will not silently succeed with it. The components with no exchange at all are
-    ingredients whose identity was never established, or undefined mixtures that have
-    no single molecular identity to establish; they are listed, never dropped.
+    skips any exchange the model does not carry. A component with no exchange at all is
+    an ingredient whose identity was never established, or an undefined mixture with no
+    single molecular identity to establish; both are listed on the record.
   </p>
 
   <h2 id="coverage" style="margin-top:var(--s7)">What each coverage fraction divides by</h2>
-  <p style="margin-top:var(--s3)">Three different fractions can be called "coverage" and
-    they do not agree. This resource publishes all three and names what each divides by;
-    only the first is displayed as a quality signal.</p>
+  <p style="margin-top:var(--s3)">Three fields can be read as coverage and they divide by
+    different denominators. All three ship on every record. Only
+    <code>pct_covered_source</code> is displayed on this site.</p>
   <div class="tablewrap" style="margin-top:var(--s3)">
     <table class="grid">
       <thead><tr><th>Field</th><th>What it divides by</th><th>Status</th></tr></thead>
@@ -132,7 +131,7 @@
             is components the record already carries, <b>not</b> the source's
             ingredient list, so it is not a coverage measure.</td>
           <td>Published on each record; null where the source states no ingredient
-            list. Older data exports name this field
+            list. Exports that predate this release name the same field
             <code>pct_covered_observed</code>.</td>
         </tr>
         <tr>
@@ -141,7 +140,7 @@
             supplies. That ratio is necessarily near 100% and carries no
             information.</td>
           <td><b>Deprecated.</b> Present in the data for compatibility with existing
-            consumers; never rendered here as a quality signal.</td>
+            consumers; not displayed on this site.</td>
         </tr>
       </tbody>
     </table>
@@ -157,8 +156,8 @@
 
   <h2 id="derived" style="margin-top:var(--s7)">Components the source never stated</h2>
   <p style="margin-top:var(--s3)">A large minority of the component records in this
-    library were supplied by the pipeline rather than read from a source. There are three
-    reasons this happens, and none of them is a measurement:</p>
+    library are supplied by the pipeline and are not read from a source. A derived
+    component has one of three origins, and none of them is a measurement:</p>
   <ul style="margin-top:var(--s3)">
     <li><b>Complex-ingredient decomposition.</b> A recipe says "beef extract"; a standard
       composition reference is used to expand that into amino acids, nucleotides, vitamins
@@ -170,12 +169,12 @@
       source took for granted. This is a modelling convention, not the recipe.</li>
   </ul>
   <div class="note derived" style="margin-top:var(--s3)">
-    <b>They are kept, never deleted.</b>
-    <p style="margin-top:var(--s1)">Removing them would make thousands of media infeasible
-      in flux balance analysis, and that failure would be blamed on the model. So they
-      ship, they carry a dashed marker everywhere they appear, they are excluded from
-      every source-coverage number, and the copy-to-COBRApy block puts them in their own
-      commented section so you can delete them yourself.</p>
+    <b>Where a derived component appears.</b>
+    <p style="margin-top:var(--s1)">Derived components are part of every medium that
+      carries them. They are marked with a dashed rule everywhere they appear, excluded
+      from every source-coverage number, and written into their own commented section of
+      the copy-to-COBRApy block, so a medium can be loaded with or without them. Deleting
+      them makes many media infeasible in flux balance analysis.</p>
   </div>
   <div class="figures" id="derived-figures" style="margin-top:var(--s4)"></div>
 
@@ -185,10 +184,12 @@
     Treat a bound as a switch, and set your own numbers before interpreting a flux.</p>
   <div class="figures" id="quant-figures" style="margin-top:var(--s3)"></div>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
-    Where an amount exists it is published verbatim with its basis: a mass per 100 g of
-    food is not a concentration, and converting one into the other requires a volume of
-    medium that nobody measured. This resource does not perform that conversion, and it
-    does not present a mass fraction in the same column as a molar concentration.
+    Where an amount exists it is published verbatim in <code>quantity</code>, with its
+    basis beside it: a mass per 100 g of food is not a concentration, and converting one
+    into the other requires a volume of medium that nobody measured. That conversion is
+    not performed, so <code>concentration_mM</code> is null wherever it is not derivable
+    and the component carries a <code>concentration_block_reason</code> naming what
+    blocks it.
   </p>
 
   <h2 id="degeneracy" style="margin-top:var(--s7)">Two media, one model input</h2>
@@ -199,7 +200,7 @@
     these media changes nothing a solver can see.</p>
   <div class="figures" id="degeneracy-figures" style="margin-top:var(--s3)"></div>
   <div class="note caution" style="margin-top:var(--s3)">
-    <b>Duplicates are labelled, never merged.</b>
+    <b>A duplicate model input is labelled on both records.</b>
     <p style="margin-top:var(--s1)" id="degeneracy-note">Measuring the library.</p>
   </div>
   <p style="margin-top:var(--s3)">Two things drive it. Most bounds in this library are
@@ -208,7 +209,7 @@
     formulations genuinely differ only in something a medium record does not encode:
     an agar concentration, a pH, a preparation step, a sterilisation regime.</p>
   <p style="margin-top:var(--s3)">Which paper a formulation came from is a real
-    difference even when the constraint set is not, so each record keeps its own
+    difference even when the constraint set is not, so each record carries its own
     provenance and citation. The record sheet names the other media that produce the
     identical model input, the catalog carries
     <code>n_media_with_identical_model_input</code> and
@@ -231,23 +232,23 @@
   <div class="note caution" style="margin-top:var(--s3)">
     <b>Unknown is its own state.</b>
     <p style="margin-top:var(--s1)">A record whose source does not state an oxygen regime
-      is counted as unknown, in the table, in the filter and on the record; it is never
-      folded into anaerobic. A facultative regime is shown as facultative and is not
-      evidence that the organism is an aerobe.</p>
+      is unknown, in the table, in the filter and on the record. Unknown is a state of the
+      field and not a synonym for anaerobic. A facultative regime is a property of the
+      medium and not evidence that the organism is an aerobe.</p>
   </div>
 
   <h2 id="families-method" style="margin-top:var(--s7)">Base-medium families</h2>
-  <p style="margin-top:var(--s3)">A family groups the variants of one base medium so that
-    "LB" is one thing with variants rather than dozens of unrelated rows. How each family
-    was decided is recorded on the record and shown in the browser.</p>
+  <p style="margin-top:var(--s3)">A family groups the variants of one base medium, so
+    "LB" is one entry with variants and not dozens of unrelated rows. Each record carries
+    the method its family was decided by, in <code>family.method</code>.</p>
   <div class="note caution" style="margin-top:var(--s3)">
     <b>A family is a naming grouping. It is not a claim that the variants are interchangeable.</b>
-    <p style="margin-top:var(--s1)">Most assignments are made from the medium's name.
-      Where the pipeline could also check the record's composition against the family's
-      canonical scaffold it publishes that corroboration score, and where it could not it
-      publishes the reason instead of a guess. Two records in one family can differ by a
-      carbon source, by strength, by pH, or by being broth against agar. The families view
-      shows what differs rather than averaging it away.</p>
+    <p style="margin-top:var(--s1)">Most assignments come from the medium's name. Where a
+      record's composition could also be checked against the family's canonical scaffold,
+      the record carries that corroboration score; where it could not, it carries the
+      reason the check was unavailable. Two records in one family can differ by a carbon
+      source, by strength, by pH, or by being broth against agar, and the families view
+      lists those differences per variant.</p>
   </div>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)" id="family-coverage"></p>
 
@@ -262,12 +263,12 @@
     <p style="margin-top:var(--s1)">The only statement on the upstream page (read
       2026-09-06, first-party) is "(c) 2014, Institute for Systems Biology, All Rights
       Reserved". <b>No reuse grant of any kind is offered, and redistribution permission
-      has not been obtained.</b> The records are kept rather than deleted: they are the
-      single largest seam of quantitative data here, holding
+      has not been obtained.</b> These records are published, labelled
+      all-rights-reserved, marked <code>commercial_use_ok: false</code> and excluded from
+      the commercially usable subset. They hold
       <span id="isb-quant-share">the largest single share of the non-null concentration
-      values</span>. They are labelled all-rights-reserved, marked
-      <code>commercial_use_ok: false</code> and excluded from the commercially usable
-      subset. If you need a subset you can redistribute, filter them out.</p>
+      values</span> in the library. If you need a subset you can redistribute, filter
+      them out.</p>
   </div>
   <div class="tablewrap" style="margin-top:var(--s3)">
     <table class="grid">
@@ -283,62 +284,58 @@
     the formulation.
   </p>
 
+  <h2 id="withdrawn" style="margin-top:var(--s7)">Withdrawn identifiers</h2>
+  <p style="margin-top:var(--s3)">A withdrawn identifier names a medium that is no longer
+    served by the browser or the API. Withdrawn media are formulations whose cited source
+    does not contain the composition, whose source could not be located, or that are not
+    growth media. A withdrawn identifier is not reassigned and no other record is a
+    substitute for it.</p>
+  <p style="margin-top:var(--s3)" id="withdrawn-count">Opening a withdrawn identifier in
+    the browser returns a tombstone naming it.</p>
+  <div class="field" style="margin-top:var(--s4);max-width:420px">
+    <label for="withdrawn-q">Look up an identifier</label>
+    <input id="withdrawn-q" class="input" type="search" placeholder="An identifier or a name">
+  </div>
+  <p class="resultline" id="withdrawn-result" role="status" aria-live="polite"
+     style="margin-top:var(--s3)"></p>
+  <div id="withdrawn-list" style="margin-top:var(--s3)"></div>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
+    The complete set of withdrawn identifiers, each with a reason field, is published as
+    <code>data/web/tombstones.json</code>.
+  </p>
+
   <h2 id="reproducibility" style="margin-top:var(--s7)">Reproducibility</h2>
   <div class="note stop" style="margin-top:var(--s3)">
     <b>The corpus is a frozen snapshot.</b>
-    <p style="margin-top:var(--s1)">The raw upstream payloads behind the
-      literature-derived records were not retained, so <code>data/media/*.json</code> is
-      the authoritative copy: the library cannot be regenerated from its original inputs.
-      Re-running the literature extraction would file different compositions under the
-      same citations, so it is not run.</p>
+    <p style="margin-top:var(--s1)"><code>data/media/*.json</code> is the authoritative
+      copy of the library and cannot be regenerated from its original inputs: the raw
+      upstream payloads behind the literature-derived records were not retained, and a
+      fresh extraction would file different compositions under the same citations.</p>
   </div>
   <p style="margin-top:var(--s3)">Corrections are applied as transform stages: a stage
     reads the corpus and writes a corrected corpus, and the chain of stages, run in a
     recorded order, is the pipeline. No correction is hand-edited into the data.
     <code>make reproduce</code> runs the whole chain from the committed baseline in
-    <code>data/_baseline/</code> and compares the result to the corpus that ships. The
-    payload this page reads is built by <code>tools/build_web_payload.py</code>, which
-    asserts its own numbers against the corpus before the payload is written.</p>
+    <code>data/_baseline/</code> and compares the result to the corpus that ships.</p>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
     Public upstream sources (USDA, MediaDive, BiGG, MetaNetX) are checksummed into
     <code>data/_sources/</code>, so every mapping can be compared against the source it
     came from.
   </p>
 
-  <h2 id="withdrawn" style="margin-top:var(--s7)">Records withdrawn from the library</h2>
-  <p style="margin-top:var(--s3)">A record is withdrawn when a verification pass against
-    its cited source cannot support it: the composition promises ingredients the source
-    does not contain, the source cannot be found, or the entry is not a growth medium at
-    all. Withdrawn records are not served by the browser or the API. They are listed
-    here with the reason, because a withdrawn record may still be cited elsewhere and
-    its identifier deserves an answer.</p>
-  <div class="note" style="margin-top:var(--s3)">
-    <b>This count has no denominator.</b>
-    <p style="margin-top:var(--s1)" id="withdrawn-denominator">The verification pass
-      recorded what it rejected but not how many records it assessed, so the number below
-      is a count and cannot honestly be turned into a rate.</p>
-  </div>
-  <div class="field" style="margin-top:var(--s4);max-width:420px">
-    <label for="withdrawn-q">Filter the withdrawn records</label>
-    <input id="withdrawn-q" class="input" type="search" placeholder="An identifier or a name">
-  </div>
-  <p class="resultline" id="withdrawn-count" role="status" aria-live="polite"
-     style="margin-top:var(--s3)"></p>
-  <div id="withdrawn-list" style="margin-top:var(--s3)"></div>
-
   <h2 id="limits" style="margin-top:var(--s7)">The limits, in one list</h2>
   <ol style="margin-top:var(--s3)" class="stack">
     <li id="limit-name">Component identities mostly rest on a name string, not on
       chemistry. A name match cannot distinguish a vitamer group from a vitamer, or a
       fatty-acid class from an isomer.</li>
-    <li id="limit-derived">A large minority of component records were supplied by this
+    <li id="limit-derived">A large minority of component records are supplied by this
       pipeline and are not in the cited source. They are an approximation of an undefined
       mixture, or a modelling convention.</li>
     <li id="limit-bounds">Bounds are presence placeholders. No bound in this library is a
       measured uptake rate.</li>
     <li>Food records are built from a population-average nutrient analysis, not from a
       laboratory formulation. Their amounts are per 100 g of food; they are not a
-      concentration and this resource does not convert them into one.</li>
+      concentration and no conversion into one is published.</li>
     <li>Cross-references shown against a component describe the BiGG metabolite that was
       chosen. They were not used to choose it, so they cannot contradict it and they are
       not independent evidence.</li>
@@ -430,7 +427,7 @@
     const media = cat.media_totals;
 
     $('release-figures').replaceChildren(
-      figure(fmt(cat.count), 'media', 'counted from the records on disk'),
+      figure(fmt(cat.count), 'media', 'growth and simulation media'),
       figure(fmt(totals.n_components), 'component records',
         MDB.withDenominator(cat.exchange_resolution.n_bigg_exchange,
           cat.exchange_resolution.of) + ' reach a BiGG exchange'),
@@ -438,9 +435,8 @@
         MDB.share(totals.n_sourced, totals.n_components) + ' of components'),
       figure(fmt(totals.n_derived), 'supplied by the pipeline',
         MDB.share(totals.n_derived, totals.n_components) + ' of components'));
-    $('release-stamp').textContent = 'Built ' + cat.built_utc.slice(0, 10) +
-      (cat.git_head ? ' from commit ' + cat.git_head.slice(0, 10) : '') +
-      '. Every number on this page is counted from the published records.';
+    $('release-stamp').textContent = 'Release built ' + cat.built_utc.slice(0, 10) +
+      (cat.git_head ? ' from commit ' + cat.git_head.slice(0, 10) : '') + '.';
 
     const counts = cat.evidence_classes.map((c) => c.n);
     $('ev-bar').appendChild(MDB.evidenceBar(counts));
@@ -478,11 +474,10 @@
       figure(fmt(dg.largest_group), 'media in the largest identical group',
         'one constraint set, that many records'));
     $('degeneracy-note').textContent =
-      'No record is merged and none is deleted. ' +
       MDB.withDenominator(dg.n_media_sharing_a_model_input, dg.of, 'media') +
       ' fall into ' + fmt(dg.n_groups) + ' groups whose members hand a solver the ' +
-      'identical constraint set. Each keeps its own name, source and citation, and ' +
-      'each record sheet names the others.';
+      'identical constraint set. Each record keeps its own name, source and citation, ' +
+      'and each record sheet names the others in its group.';
     $('degeneracy-conc').textContent = MDB.withDenominator(
       dg.n_media_sharing_a_model_input_with_concentrations, dg.of, 'media');
 
@@ -587,7 +582,7 @@
         MDB.share(totals.n_with_concentration_mM, totals.n_components) + ')'),
       figure(fmt(totals.n_with_source_amount),
         'components carry a verbatim source amount',
-        'published with its basis, never converted'),
+        'published with its basis in quantity'),
       figure(fmt(totals.n_components - totals.n_with_concentration_mM),
         'components have no derivable concentration',
         'each carries a recorded reason'));
@@ -603,9 +598,9 @@
 
     $('family-coverage').textContent =
       MDB.withDenominator(media.n_media_in_a_family, cat.count, 'media') +
-      ' are assigned to a base-medium family; the remaining ' +
+      ' are assigned to a base-medium family. The remaining ' +
       fmt(media.n_media_without_a_family) +
-      ' are shown as ungrouped rather than filed under a guessed family.';
+      ' carry no family and are listed as ungrouped.';
 
     const lic = $('licence-table');
     cat.licences.forEach((l) => {
@@ -624,61 +619,66 @@
       ]));
     });
 
-    /* --- withdrawn records ------------------------------------------------ */
+    /* --- withdrawn identifiers -------------------------------------------- */
+    // A lookup, not a list: the state of an identifier is what a reader needs from
+    // this section, and the per-record reason field ships in tombstones.json.
     const ids = Object.keys(tomb.records || {}).sort();
-    $('withdrawn-denominator').textContent = tomb.why_no_denominator +
-      ' ' + fmt(tomb.n_with_prose) + ' of ' + fmt(tomb.n_withdrawn) +
-      ' carry a written reason; the rest carry only a workflow code.';
+    $('withdrawn-count').textContent = fmt(tomb.n_withdrawn) +
+      ' identifiers are withdrawn in this release. Opening one in the browser returns ' +
+      'a tombstone naming it.';
 
-    function drawWithdrawn(filter) {
-      const needle = (filter || '').trim().toLowerCase();
-      const shown = ids.filter((id) => {
-        if (!needle) return true;
-        const r = tomb.records[id];
-        return (id + ' ' + (r.name || '') + ' ' + (r.note || ''))
-          .toLowerCase().indexOf(needle) >= 0;
-      });
-      $('withdrawn-count').textContent = 'Showing ' + fmt(shown.length) + ' of ' +
-        fmt(ids.length) + ' withdrawn records.';
+    function lookupWithdrawn(query) {
+      const needle = (query || '').trim().toLowerCase();
       const box = $('withdrawn-list');
       box.replaceChildren();
-      if (!shown.length) {
-        box.appendChild(el('div', { class: 'state', text:
-          'None of the ' + fmt(ids.length) + ' withdrawn records matches that text.' }));
+      if (!needle) {
+        $('withdrawn-result').textContent =
+          'Enter an identifier or a medium name to check whether it is withdrawn.';
         return;
       }
-      shown.forEach((id) => {
-        const r = tomb.records[id];
-        const d = el('details', { class: 'disclosure', style: 'margin-top:var(--s2)' });
-        d.appendChild(el('summary', { text: r.name || id }));
-        const inner = el('div');
-        inner.appendChild(el('p', { class: 'muted', style: 'font-size:var(--t-cap)' }, [
-          el('code', { text: id }),
-          document.createTextNode(' · workflow code: ' + (r.code || 'not recorded'))
-        ]));
-        inner.appendChild(el('p', {
-          style: 'margin-top:var(--s2)',
-          text: r.note || 'No written reason was recorded for this record, only the ' +
-            'workflow code above.'
+      const hits = ids.filter((id) => (id + ' ' + (tomb.records[id].name || ''))
+        .toLowerCase().indexOf(needle) >= 0);
+      if (!hits.length) {
+        $('withdrawn-result').textContent = 'No withdrawn identifier matches “' +
+          query + '”. An identifier the library serves is found on the explore page.';
+        return;
+      }
+      $('withdrawn-result').textContent = fmt(hits.length) +
+        (hits.length === 1 ? ' withdrawn identifier matches “'
+          : ' withdrawn identifiers match “') + query + '”.';
+      const list = el('div', { class: 'tablewrap' });
+      const table = el('table', { class: 'grid' }, [
+        el('thead', {}, [el('tr', {}, [
+          el('th', { text: 'Identifier' }),
+          el('th', { text: 'State' })
+        ])])
+      ]);
+      const body = el('tbody');
+      hits.slice(0, 40).forEach((id) => body.appendChild(el('tr', {}, [
+        el('td', {}, [
+          el('code', { style: 'word-break:break-all', text: id }),
+          el('span', { class: 'cellnote', text: tomb.records[id].name || 'no name recorded' })
+        ]),
+        el('td', {}, [el('span', { class: 'chip stop', text: 'withdrawn' })])
+      ])));
+      table.appendChild(body);
+      list.appendChild(table);
+      box.appendChild(list);
+      if (hits.length > 40) {
+        box.appendChild(el('p', {
+          class: 'muted', style: 'font-size:var(--t-cap);margin-top:var(--s2)',
+          text: 'Showing 40 of ' + fmt(hits.length) + ' matches; narrow the search, or ' +
+            'read data/web/tombstones.json for the complete set.'
         }));
-        if (r.evidence) {
-          inner.appendChild(el('div', { class: 'note caution', style: 'margin-top:var(--s3)' }, [
-            el('b', { text: 'The passage it was extracted from' }),
-            el('p', { style: 'margin-top:var(--s1)', text: r.evidence })
-          ]));
-        }
-        d.appendChild(inner);
-        box.appendChild(d);
-      });
+      }
     }
-    drawWithdrawn('');
-    $('withdrawn-q').addEventListener('input', (e) => drawWithdrawn(e.target.value));
+    lookupWithdrawn('');
+    $('withdrawn-q').addEventListener('input', (e) => lookupWithdrawn(e.target.value));
   }).catch((err) => {
     $('release-figures').replaceChildren(el('div', { class: 'state error' }, [
       el('h3', { text: 'The release figures could not be loaded' }),
       el('p', { text: 'data/web/summary.json did not load (' +
-        (err.message || err.kind) + '). The prose on this page is unaffected; the ' +
-        'counts are simply absent rather than guessed.' })
+        (err.message || err.kind) + '). The counts on this page are unavailable.' })
     ]));
   });
 })();
