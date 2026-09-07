@@ -67,6 +67,48 @@ LEDGER = {
         "the same recovery step is spelled remap_X by one emitter and X_remap by "
         "the other, and the spelling is the only marker of which bound convention "
         "was applied"),
+    # ------------------------------------------------------------------ 2026-09-07
+    # Five defects whose remedy is a corpus transform stage plus a promotion. The
+    # published surfaces (payloads, browser, exports) are corrected where the
+    # generating script could reach; the per-record files in data/media still carry
+    # the original values, so each of these is a live difference between what the
+    # site says and what data/media/<id>.json says, and each is asserted here so it
+    # cannot be lost.
+    "oxygen_defaulted_in_the_record": (
+        "OXY-01", "5x naming/display stage",
+        "11,926 records carry oxygen='facultative' while their own oxygen_note "
+        "says the source stated no regime at all. The payloads and the browser now "
+        "publish that as unknown and carry the facultative simulation default in a "
+        "separate field, but the per-record file still reads facultative, so an API "
+        "consumer reading data/media/<id>.json sees a regime nobody asserted"),
+    "oxygen_note_stale_on_curated_records": (
+        "OXY-02", "5x naming/display stage",
+        "71 records carry oxygen='aerobic' with the note 'no oxygen requirement "
+        "specified; O2 available but not asserted', left by a run predating the "
+        "verification guard. The regime is a real curation; the note contradicts it"),
+    "usda_nutrient_collision_last_wins": (
+        "USDA-01", "USDA rebuild + a 4x chemistry stage",
+        "2,025 collisions where two distinct USDA nutrients map to one BiGG "
+        "exchange and dict assignment silently keeps whichever came last in the "
+        "source array. 1,931 reach a shipped record and 1,434 of those disagree by "
+        "more than 1%, up to a factor of 17.8; the discarded measurement exists "
+        "nowhere in the shipped data, and the winner is the broad class nutrient on "
+        "1,089 foods and the cis subset on 936, so the amount column is not "
+        "comparable between USDA records"),
+    "b12_name_is_a_different_molecule": (
+        "CHEM-B12-03", "4x chemistry stage (remap_components rewrites target_name "
+        "on a retarget and leaves `name` behind)",
+        "4,320 components are named Cob(I)alamin while their exchange is "
+        "EX_adocbl_e, adenosylcobalamin: a different molecule, and the only "
+        "components in the corpus whose `name` matches neither source_name nor "
+        "target_name. It reaches the documented components.parquet column a "
+        "consumer joins on"),
+    "en_dashes_in_the_shipped_records": (
+        "VOICE-01", "5x naming/display stage",
+        "all 13,515 records under data/media contain at least one U+2013/U+2014, "
+        "minted by this repo's own name and citation joins. About one record page "
+        "in seven renders one, through provenance.decomposition_refs[].citation, "
+        "provenance.wellknown_reference or provenance.citation"),
 }
 
 
@@ -239,6 +281,113 @@ def test_one_spelling_per_mapping_method(stream):
     pairs = sorted((m, "remap_" + m[:-len("_remap")]) for m in seen
                    if m.endswith("_remap") and "remap_" + m[:-len("_remap")] in seen)
     assert not pairs, ("the same recovery step ships under two spellings: %s" % pairs)
+
+
+# --------------------------------------------------------------------- 2026-09-07
+# Five defects corrected on every published surface a generating script could
+# reach, and still live in data/media because the corpus is a frozen snapshot whose
+# only legitimate correction path is a transform stage plus a promotion. Each is a
+# real difference between what the site says and what data/media/<id>.json says, so
+# each one is asserted rather than described: when the owning stage lands, its test
+# XPASSes and the marker comes off.
+
+@_xfail("oxygen_defaulted_in_the_record")
+def test_a_record_does_not_state_a_regime_no_source_asserted(stream):
+    import web_payload
+    lying = []
+    for mid, rec in stream():
+        note = (rec.get("oxygen_note") or "").strip()
+        if (rec.get("oxygen") == "facultative"
+                and note in web_payload.OXYGEN_NOT_STATED_NOTES):
+            lying.append(mid)
+    assert not lying, (
+        "%d records state oxygen='facultative' while their own oxygen_note says no "
+        "source stated a regime. The payloads publish these as unknown; the record "
+        "file must too. e.g. %s" % (len(lying), lying[:3]))
+
+
+@_xfail("oxygen_note_stale_on_curated_records")
+def test_no_curated_regime_carries_a_no_statement_note(stream):
+    import web_payload
+    stale = []
+    for mid, rec in stream():
+        note = (rec.get("oxygen_note") or "").strip()
+        if (rec.get("oxygen") in ("aerobic", "anaerobic")
+                and note in web_payload.OXYGEN_NOT_STATED_NOTES):
+            stale.append((mid, rec["oxygen"]))
+    assert not stale, (
+        "%d records carry a curated regime AND a note saying nothing was stated. "
+        "The regime is real and the note is a leftover: e.g. %s"
+        % (len(stale), stale[:3]))
+
+
+@_xfail("b12_name_is_a_different_molecule")
+def test_a_component_name_names_the_molecule_its_exchange_carries(stream):
+    """No component's `name` may disagree with BOTH its source and its target.
+
+    4,320 do, all one triple: name Cob(I)alamin, source_name Vitamin B-12,
+    target_name Adenosylcobalamin, exchange EX_adocbl_e. Cob(I)alamin is BiGG
+    cbl1, a different molecule, and 3,525 other components in this same library
+    map that name to EX_cbl1_e, so one string names two molecules here.
+    """
+    wrong = []
+    for mid, rec in stream():
+        for c in rec.get("components") or []:
+            nm = (c.get("name") or "").strip()
+            sn = (c.get("source_name") or "").strip()
+            tn = (c.get("target_name") or "").strip()
+            if nm and sn and tn and nm != sn and nm != tn:
+                wrong.append((mid, nm, sn, tn, c.get("exchange")))
+    assert not wrong, (
+        "%d components carry a `name` matching neither source_name nor "
+        "target_name; the documented components.parquet leads with that column. "
+        "e.g. %s" % (len(wrong), wrong[:2]))
+
+
+@_xfail("en_dashes_in_the_shipped_records")
+def test_no_shipped_record_carries_an_en_or_em_dash(stream):
+    """The Director's ban is absolute and these strings are minted by this repo.
+
+    They reach a reader: about one record page in seven renders one, through
+    provenance.decomposition_refs[].citation, provenance.wellknown_reference or
+    provenance.citation.
+    """
+    import re
+    dash = re.compile(r"[–—]")
+    hits = []
+    for mid, rec in stream():
+        if dash.search(json.dumps(rec, ensure_ascii=False)):
+            hits.append(mid)
+    assert not hits, (
+        "%d of the shipped records contain U+2013 or U+2014. e.g. %s"
+        % (len(hits), hits[:3]))
+
+
+@_xfail("usda_nutrient_collision_last_wins")
+def test_a_colliding_usda_nutrient_publishes_both_amounts(stream):
+    """Two USDA nutrients on one exchange must not silently discard one amount.
+
+    `comps[ex] = {...}` inside the per-nutrient loop keeps whichever came last in
+    the source array. The shipped record names both labels in source_name and
+    publishes one quantity, so a consumer cannot learn the two disagreed, by up to
+    a factor of 17.8, or which one they are holding.
+    """
+    bad = []
+    for mid, rec in stream():
+        if not mid.startswith("usda_"):
+            continue
+        for c in rec.get("components") or []:
+            if "|" not in (c.get("source_name") or ""):
+                continue
+            q = c.get("quantity") or {}
+            if q.get("value") is None:
+                continue
+            if not q.get("alternatives") and not q.get("chose_by"):
+                bad.append((mid, c.get("source_name"), q.get("value")))
+    assert not bad, (
+        "%d components credit two source nutrients and publish one amount with no "
+        "record of the other and no stated rule for choosing. e.g. %s"
+        % (len(bad), bad[:2]))
 
 
 def test_the_ledger_is_complete():

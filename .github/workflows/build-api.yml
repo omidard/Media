@@ -44,6 +44,7 @@ on:
       - "tools/baseline.py"
       - "tools/bigg_metabolite_dict.json"
       - "tools/build_api_exports.py"
+      - "tools/build_bigg_exchange_ids.py"
       - "tools/build_ci_paths.py"
       - "tools/build_cluster_data.py"
       - "tools/build_coverage_index.py"

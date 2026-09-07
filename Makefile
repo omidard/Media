@@ -34,7 +34,8 @@ BASELINE:= $(REBUILD)/baseline/media
 BACKUPS ?= $(REPO)/../media_curate_backups
 STAMP   := $(shell date +%Y%m%d-%H%M%S)
 
-.PHONY: help all check baseline sample stages-sample stages test test-fast test-strict \
+.PHONY: help all check baseline sample stages-sample stages test test-fast test-strict legal \
+        test-browser test-browser-strict \
         derived coverage coverage-index index api cluster stats presence web manifest \
         verify reproduce preflight ci-paths ci-paths-check manifest-check \
         refs-verify release-assets size \
@@ -113,6 +114,40 @@ test-fast:
 test-strict:
 	$(PY) -m pytest tests -q --runxfail
 
+# The browser regressions, and a refusal to let them SKIP.
+#
+# Every one of them guards a defect that shipped: a record sheet that opened from
+# four pages and threw on the fifth, a 404 on a catalogued id reported as an
+# unknown identifier, a 200 with an unreadable body reported as a network fault, a
+# click race that rewrote the permalink to the wrong record, a sorting control
+# with a dead ring, and the rendered-text voice sweep. They all begin with
+# pytest.importorskip("playwright.sync_api"), so without playwright installed they
+# report as passes and guard nothing. `-p no:randomly -W error::UserWarning` is not
+# enough for that: only counting the skips is.
+BROWSER_TESTS := tests/test_browser_record_sheet.py \
+                 tests/test_browser_failure_states.py \
+                 tests/test_browser_table_header.py \
+                 tests/test_browser_voice.py \
+                 tests/test_browser_oxygen_chip.py \
+                 tests/test_published_links.py
+
+test-browser:
+	$(PY) -m pytest $(BROWSER_TESTS) -q
+
+test-browser-strict:
+	@out=$$($(PY) -m pytest $(BROWSER_TESTS) -q -rs 2>&1); status=$$?; \
+	 echo "$$out"; \
+	 if [ $$status -ne 0 ]; then exit $$status; fi; \
+	 case "$$out" in \
+	   *skipped*) \
+	     echo ""; \
+	     echo "REFUSED: a browser regression test SKIPPED, which reports as a pass."; \
+	     echo "  Install playwright and its chromium build:"; \
+	     echo "    pip install playwright && playwright install --with-deps chromium"; \
+	     echo "  A guard that skips is not a guard."; \
+	     exit 1 ;; \
+	 esac
+
 # ------------------------------------------------------- derived artifacts
 # Order is load-bearing and is proven by data flow, not by convention:
 #   the stage chain writes the per-medium `coverage` and `coverage_source` blocks
@@ -125,7 +160,18 @@ test-strict:
 # data/coverage.json lost its generator entirely when stage 39 took authorship —
 # tools/build_coverage_index.py projects it from the corpus instead.
 
-derived: refs-verify coverage-index index api cluster stats presence web manifest
+derived: refs-verify legal coverage-index index api cluster stats presence web manifest
+
+# LICENSE and NOTICE are extensionless, so a static host has nothing to type them
+# by and labels them application/octet-stream: clicking either link downloaded an
+# unnamed file instead of showing the terms, and NOTICE is the only place the seven
+# upstream sources' individual terms are enumerated. The pages link the .txt copies,
+# which are served as text/plain and render; the extensionless originals stay for
+# the host's own licence detection. Generated rather than hand-maintained, because
+# two copies of a licence drift. tests/test_published_links.py asserts they match.
+legal:
+	cp LICENSE LICENSE.txt
+	cp NOTICE NOTICE.txt
 
 # data/refs.json holds each cross-reference block and each prose note ONCE, and the
 # 665,582 components refer to them by key (stage 60_dedupe_references). Every builder

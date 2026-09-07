@@ -37,7 +37,18 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install deps
-        run: pip install --quiet pytest pyarrow
+        # playwright is not optional. The browser tests reproduce defects that no
+        # unit test can see — a record sheet that opened from four pages and threw
+        # on the fifth, a 404 reported as an unknown identifier, a click race that
+        # rewrote the permalink, a sorting control with a dead ring, and the voice
+        # sweep over rendered text. Every one of them called
+        # pytest.importorskip("playwright.sync_api") and SKIPPED here, so the guard
+        # against those defects returning existed on a developer machine and in no
+        # gate that precedes a deploy. That is the same silent no-op the tests were
+        # written about.
+        run: |
+          pip install --quiet pytest pyarrow playwright
+          playwright install --with-deps chromium
       - name: Stage registry is consistent
         run: make check
       - name: CI trigger paths match the Makefile
@@ -58,6 +69,10 @@ jobs:
         run: make stages-sample
       - name: Test suite
         run: make test
+      - name: The browser regressions actually ran
+        # A skipped browser test reports as a pass. This fails the job if the
+        # browser suite skipped, which is what silently disarmed it before.
+        run: make test-browser-strict
       - name: Artifact manifest is current, and describes what is committed
         # --check compares the manifest to the working tree and asserts that every
         # generator it names exists and actually writes the artifact it is credited
