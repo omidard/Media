@@ -716,7 +716,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "n_mapped:recomputed_as_components_with_bigg_metabolite",
      "n_nonbigg_fallback:added",
@@ -728,27 +728,14 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
-     "provenance.attribution_required",
      "provenance.citation_resolved",
      "provenance.citation_type",
-     "provenance.commercial_use",
-     "provenance.commercial_use_ok",
      "provenance.composition_provenance",
      "provenance.has_primary_citation",
-     "provenance.license",
-     "provenance.license_indication_required",
-     "provenance.license_name",
-     "provenance.license_review_reason",
-     "provenance.license_review_required",
-     "provenance.license_source",
-     "provenance.license_terms_retrieved",
-     "provenance.license_terms_url",
-     "provenance.license_terms_verification",
-     "provenance.license_url",
      "provenance.primary_identifier",
      "provenance.source_id",
      "provenance.source_identity_confidence",
@@ -761,7 +748,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "coverage_source"
     ]
@@ -769,7 +756,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -782,7 +769,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -793,7 +780,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -811,7 +798,7 @@
    {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -827,19 +814,6 @@
   "source_name": "MediaDB (ISB defined media)",
   "source_identity_evidence": "provenance.url host 'mediadb.systemsbiology.net'",
   "source_identity_confidence": "verified",
-  "license": "all-rights-reserved",
-  "license_name": "No licence granted — All Rights Reserved",
-  "license_url": null,
-  "license_source": "MediaDB (ISB defined media)",
-  "license_terms_url": "https://mediadb.systemsbiology.net/defined_media/",
-  "license_terms_retrieved": "2026-09-06",
-  "license_terms_verification": "first_party",
-  "commercial_use": "no",
-  "commercial_use_ok": false,
-  "attribution_required": true,
-  "license_indication_required": false,
-  "license_review_required": false,
-  "license_review_reason": null,
   "citation_type": "database_record",
   "has_primary_citation": false,
   "citation_resolved": false,

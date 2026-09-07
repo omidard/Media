@@ -1,6 +1,13 @@
 {
  "count": 13515,
- "count_authority": "data/media/*.json on disk, counted by build_index.py",
+ "license": {
+  "id": "CC-BY-NC-4.0",
+  "name": "Creative Commons Attribution-NonCommercial 4.0 International",
+  "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "applies_to": "the data in this repository: data/media, data/index.json, data/web, data/api and every export built from them",
+  "attribution": "MediaDB (github.com/omidard/Media), plus the primary citation on each record it is used from",
+  "code_license": "MIT"
+ },
  "by_category": {
   "laboratory": 5373,
   "biospecimen": 17,
@@ -28,17 +35,6 @@
  "by_namespace": {
   "bigg": 13240,
   "mixed": 275
- },
- "by_license": {
-  "CC-BY-4.0": 4902,
-  "custom-permission-required": 5,
-  "CC-BY-NC-4.0": 713,
-  "all-rights-reserved": 471,
-  "CC0-1.0": 7424
- },
- "by_commercial_use_ok": {
-  "True": 12326,
-  "False": 1189
  },
  "by_verification_status": {
   "unverified": 11604,
@@ -77,7 +73,7 @@
   "n_components_with_a_cross_reference": 656625,
   "n_components_with_none": 8957,
   "of": 665582,
-  "definition": "A component counts as carrying a cross-reference when it has any of xref, target_xref or source_xref. The README, DESIGN.md and the site claimed every component carried one; 8,957 of 665,582 (1.35%) carry none."
+  "definition": "A component counts as carrying a cross-reference when it has any of xref, target_xref or source_xref. 8,957 of 665,582 (1.35%) carry none."
  },
  "model_input_degeneracy": {
   "n_media": 13515,
@@ -97,7 +93,7 @@
    "old": "pct_covered_observed",
    "new": "pct_sourced_components_with_bigg_id",
    "changed": "2026-09-06",
-   "why": "The old name read as coverage of the medium, but its denominator is the components the record already carries rather than the ingredients the source listed, so it is a near-constant (measured below). It answers one question only: of the components the source states, the share that reached a BiGG id rather than a non-BiGG fallback or nothing. The coverage question is answered by pct_covered_source.",
+   "measures": "of the components the cited source states, the share that reached a BiGG metabolite id rather than a non-BiGG fallback or nothing. Its denominator is components, not the source's ingredient list, so it is not a coverage measure; coverage is pct_covered_source.",
    "measured": {
     "n_records_where_the_value_is_100.0": 12861,
     "n_records_where_it_is_null": 164,
@@ -120,21 +116,20 @@
   "unmapped": 198
  },
  "definitions": {
-  "pct_covered": "DEPRECATED legacy metric: components / (components + unresolved ingredients). Counts pipeline-derived components as covered. Kept because it is a published column.",
+  "pct_covered": "DEPRECATED legacy metric: components / (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of what the source states. Retained for compatibility; use pct_covered_source.",
   "pct_covered_source": "source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). An upper bound where the flag says so. null means the denominator was zero, NOT 100.",
-  "pct_sourced_components_with_bigg_id": "of the components the cited source states, the share that reached a BiGG metabolite id rather than a non-BiGG fallback or nothing. Its denominator is components, not the source's ingredient list, so it is 100.0 on 12,861 of 13,515 records and is NOT a coverage measure. It was named pct_covered_observed until 2026-09-06; see field_renames.",
+  "pct_sourced_components_with_bigg_id": "of the components the cited source states, the share that reached a BiGG metabolite id rather than a non-BiGG fallback or nothing. Its denominator is components, not the source's ingredient list, so it is 100.0 on 12,861 of 13,515 records and is NOT a coverage measure. The name pct_covered_observed resolves to this field; see field_renames.",
   "n_no_exchange": "components with no exchange reaction at all: identity was never established, or the ingredient is an undefined mixture. 218 of 665,582 components library-wide.",
   "n_nonbigg_fallback": "components whose exchange id is a ModelSEED/MetaNetX/KEGG fallback rather than a BiGG id; no BiGG model will accept it. 1,364 of 665,582 library-wide.",
   "n_media_with_identical_model_input": "how many OTHER media hand a genome-scale model the identical set of (exchange, lower bound, upper bound) triples. 0 means this record's model input is unique in the library. See model_input_degeneracy.",
-  "n_derived": "components the pipeline supplied that the cited source does not state (hydrolysate approximations, complex decompositions, injected mineral/oxygen bases, expanded base media). Kept and labelled, never deleted.",
-  "commercial_use_ok": "false for records whose upstream licence forbids commercial use (FooDB CC BY-NC, MediaDB-ISB all rights reserved, HMDB-derived). They ship, labelled.",
-  "source_identity_evidence": "how source_db was decided: 20_stamp_provenance (from record evidence) or id_prefix_heuristic.",
-  "component_evidence_tiers": "how each component's identity was actually decided; see tools/evidence_tiers.py. A name match is a fallback tier, not 'exact'."
+  "n_derived": "components the cited source does not state (hydrolysate approximations, complex decompositions, injected mineral or oxygen bases, expanded base media). They are marked on the record and excluded from every source-coverage figure.",
+  "source_identity_evidence": "how source_db was decided: from the record's own provenance evidence, or from its id prefix (id_prefix_heuristic).",
+  "component_evidence_tiers": "how each component's identity was decided. A name match is a fallback tier: it establishes no structure and checks no identifier."
  },
  "api": {
   "catalog": "data/index.json",
   "medium": "data/media/{id}.json",
   "stats": "data/stats.json"
  },
- "note": "Small enough to fetch for a count without pulling the full catalog. Written by build_index.py in the same pass as index.json."
+ "note": "The library-wide counts on their own, for a consumer that needs a total without transferring the full catalog. Same values as data/index.json."
 }

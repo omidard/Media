@@ -24,7 +24,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -34,27 +34,14 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
-     "provenance.attribution_required",
      "provenance.citation_resolved",
      "provenance.citation_type",
-     "provenance.commercial_use",
-     "provenance.commercial_use_ok",
      "provenance.composition_provenance",
      "provenance.has_primary_citation",
-     "provenance.license",
-     "provenance.license_indication_required",
-     "provenance.license_name",
-     "provenance.license_review_reason",
-     "provenance.license_review_required",
-     "provenance.license_source",
-     "provenance.license_terms_retrieved",
-     "provenance.license_terms_url",
-     "provenance.license_terms_verification",
-     "provenance.license_url",
      "provenance.primary_identifier",
      "provenance.source_id",
      "provenance.source_identity_confidence",
@@ -69,7 +56,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "coverage_source"
     ]
@@ -77,7 +64,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -90,7 +77,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -101,7 +88,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -119,7 +106,7 @@
    {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -135,19 +122,6 @@
   "source_name": "USDA FoodData Central",
   "source_identity_evidence": "provenance.url host 'fdc.nal.usda.gov'",
   "source_identity_confidence": "verified",
-  "license": "CC0-1.0",
-  "license_name": "Creative Commons CC0 1.0 Universal Public Domain Dedication",
-  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-  "license_source": "USDA FoodData Central",
-  "license_terms_url": "https://fdc.nal.usda.gov/api-guide",
-  "license_terms_retrieved": "2026-09-06",
-  "license_terms_verification": "first_party",
-  "commercial_use": "yes",
-  "commercial_use_ok": true,
-  "attribution_required": false,
-  "license_indication_required": false,
-  "license_review_required": false,
-  "license_review_reason": null,
   "url_status": "soft_404",
   "url_status_note": "USDA FoodData Central returns HTTP 404 for food-details URLs while its single-page app renders the correct food page client-side (verified 2026-09-06: curl -> 404 with an identical app shell for every id; headless Chromium -> the correct title and nutrient table). The link works for a reader and fails for a link-checker. Do not retire it.",
   "citation_type": "database_record",

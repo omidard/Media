@@ -17,7 +17,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "n_nonbigg_fallback:added",
      "schema_version:mediadb-record/2"
@@ -26,13 +26,12 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
      "provenance.aggregator",
      "provenance.attribution_conflict",
-     "provenance.attribution_required",
      "provenance.citation",
      "provenance.citation_original",
      "provenance.citation_resolved",
@@ -40,20 +39,8 @@
      "provenance.collection",
      "provenance.collection_evidence",
      "provenance.collection_medium_id",
-     "provenance.commercial_use",
-     "provenance.commercial_use_ok",
      "provenance.composition_provenance",
      "provenance.has_primary_citation",
-     "provenance.license",
-     "provenance.license_indication_required",
-     "provenance.license_name",
-     "provenance.license_review_reason",
-     "provenance.license_review_required",
-     "provenance.license_source",
-     "provenance.license_terms_retrieved",
-     "provenance.license_terms_url",
-     "provenance.license_terms_verification",
-     "provenance.license_url",
      "provenance.primary_identifier",
      "provenance.source_id",
      "provenance.source_identity_confidence",
@@ -66,7 +53,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "coverage_source"
     ]
@@ -74,7 +61,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -87,7 +74,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -98,7 +85,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -116,7 +103,7 @@
    {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-06",
+    "date": "2026-09-07",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -132,19 +119,6 @@
   "source_name": "DSMZ MediaDive",
   "source_identity_evidence": "provenance.doi == '10.1093/nar/gkac803' (MediaDive database paper) and citation contains 'MediaDive'",
   "source_identity_confidence": "verified",
-  "license": "CC-BY-4.0",
-  "license_name": "Creative Commons Attribution 4.0 International",
-  "license_url": "https://creativecommons.org/licenses/by/4.0/",
-  "license_source": "DSMZ MediaDive",
-  "license_terms_url": "https://mediadive.dsmz.de/imprint",
-  "license_terms_retrieved": "2026-09-06",
-  "license_terms_verification": "first_party",
-  "commercial_use": "yes",
-  "commercial_use_ok": true,
-  "attribution_required": true,
-  "license_indication_required": true,
-  "license_review_required": false,
-  "license_review_reason": null,
   "collection": "JCM",
   "collection_evidence": "provenance.url host 'www.jcm.riken.jp'",
   "collection_medium_id": "401",

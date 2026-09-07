@@ -46,7 +46,7 @@
    "old": "pct_covered_observed",
    "new": "pct_sourced_components_with_bigg_id",
    "changed": "2026-09-06",
-   "why": "The old name read as coverage of the medium, but its denominator is the components the record already carries rather than the ingredients the source listed, so it is a near-constant (measured below). It answers one question only: of the components the source states, the share that reached a BiGG id rather than a non-BiGG fallback or nothing. The coverage question is answered by pct_covered_source.",
+   "measures": "of the components the cited source states, the share that reached a BiGG metabolite id rather than a non-BiGG fallback or nothing. Its denominator is components, not the source's ingredient list, so it is not a coverage measure; coverage is pct_covered_source.",
    "measured": {
     "n_records_where_the_value_is_100.0": 12861,
     "n_records_where_it_is_null": 164,
@@ -74,17 +74,13 @@
   },
   "n_with_concentration_mM": 14055
  },
- "licensing": {
-  "by_license": {
-   "CC-BY-4.0": 4902,
-   "custom-permission-required": 5,
-   "CC-BY-NC-4.0": 713,
-   "all-rights-reserved": 471,
-   "CC0-1.0": 7424
-  },
-  "n_commercial_use_ok": 12326,
-  "n_commercial_use_restricted": 1189,
-  "note": "records whose upstream licence forbids commercial use ship and are labelled; see LICENSE and NOTICE for the per-source schedule."
+ "license": {
+  "id": "CC-BY-NC-4.0",
+  "name": "Creative Commons Attribution-NonCommercial 4.0 International",
+  "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "applies_to": "the data in this repository: data/media, data/index.json, data/web, data/api and every export built from them",
+  "attribution": "MediaDB (github.com/omidard/Media), plus the primary citation on each record it is used from",
+  "code_license": "MIT"
  },
  "by_category": {
   "laboratory": 5373,
@@ -142,9 +138,6 @@
     "source_id",
     "source_identity_evidence",
     "collection",
-    "license",
-    "commercial_use_ok",
-    "attribution_required",
     "verification_status",
     "n_sourced",
     "n_derived",
@@ -161,7 +154,7 @@
     "model_input_signature",
     "n_media_with_identical_model_input"
    ],
-   "size": "859.4 KB"
+   "size": "858.5 KB"
   },
   "components.parquet": {
    "rows": 665582,
