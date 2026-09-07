@@ -134,4 +134,5 @@ def finalize(rep: Report) -> None:
 
 if __name__ == "__main__":
     run_stage(STAGE, VERSION, transform, finalize=finalize,
-              inputs=["tools/web_payload.py", "data/_quarantine.json"])
+              inputs=["tools/web_payload.py", "data/_quarantine.json",
+                      "tools/curation/tombstone_reason_codes.tsv"])

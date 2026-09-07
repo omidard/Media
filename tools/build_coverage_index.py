@@ -52,8 +52,9 @@ DEFINITIONS = {
         "of the components the cited source states, the share that reached a BiGG "
         "metabolite id rather than a non-BiGG fallback or nothing. Its denominator "
         "is components, NOT the source's ingredient list, so it is 100.0 on 12,861 "
-        "of 13,515 records and is not a coverage measure. Named pct_covered_observed "
-        "until 2026-09-06; see field_renames in data/index.json.",
+        "of 13,515 records and is not a coverage measure. The name "
+        "pct_covered_observed resolves to this field; see field_renames in "
+        "data/index.json.",
     "exchange_resolution":
         "where each component's exchange id landed: a BiGG EX_<met>_e reaction, a "
         "ModelSEED/MetaNetX/KEGG fallback no BiGG model will accept, or nothing at "

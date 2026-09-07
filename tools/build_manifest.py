@@ -122,7 +122,8 @@ ARTIFACTS = [
     ("data/web/families.json", "tools/build_web_payload.py",
      ["data/media/*.json"], "json:n_families"),
     ("data/web/tombstones.json", "tools/build_web_payload.py",
-     ["data/_quarantine.json"], "json:n_withdrawn"),
+     ["data/_quarantine.json", "tools/curation/tombstone_reason_codes.tsv"],
+     "json:n_withdrawn"),
     ("data/web/twins.json", "tools/build_web_payload.py",
      ["data/media/*.json"], "json:n_groups"),
 ]

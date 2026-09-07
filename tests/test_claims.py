@@ -188,22 +188,39 @@ def test_readme_does_not_claim_permission_it_does_not_have():
         "LICENSE and NOTICE, in the one place a reader looks first")
 
 
-def test_the_licence_documents_agree_with_each_other():
-    lic, notice, readme = _read("LICENSE"), _read("NOTICE"), _read("README.md")
-    tsv = _read("tools/licenses.tsv")
-    for text, name in ((lic, "LICENSE"), (notice, "NOTICE"), (readme, "README.md"),
-                       (tsv, "tools/licenses.tsv")):
+def test_every_document_names_the_same_data_licence():
+    """One licence, stated identically wherever it is stated.
+
+    The defect this replaces: README said "Data: CC-BY-4.0" while LICENSE and
+    NOTICE said the MediaDB/ISB records carry no reuse grant at all. Four
+    documents, three positions. The data now carries ONE licence, set at the most
+    restrictive upstream input, so agreement is checkable by a string.
+    """
+    for name in ("LICENSE", "README.md", "API.md", "index.html", "methods.html",
+                 "client/README.md", "openapi.yaml"):
+        text = _read(name)
+        assert re.search(r"CC[ -]BY[ -]NC[ -]?4\.0", text), (
+            "%s does not name the data licence (CC BY-NC 4.0)" % name)
+    for name in ("README.md", "LICENSE", "API.md"):
+        text = _read(name)
+        assert not re.search(r"no blanket data licence|not under a single licence",
+                             text, re.I), (
+            "%s still describes a per-source schedule" % name)
+
+
+def test_the_upstream_position_on_mediadb_isb_is_still_stated():
+    """One dataset licence does not erase an obligation.
+
+    MediaDB (ISB) grants no reuse right upstream. The compilation licence is set
+    at that constraint rather than papering over it, and the documents that owe
+    the attribution must still say so.
+    """
+    for name in ("LICENSE", "NOTICE", "README.md"):
+        text = _read(name)
         assert re.search(r"permission (has|had) not been obtained", text, re.I) \
-            or re.search(r"NOT been obtained", text), (
-                "%s does not state that MediaDB/ISB redistribution permission is "
-                "absent; the four documents must not disagree about a licence" % name)
-
-
-def test_readme_asserts_no_blanket_data_licence():
-    readme = _read("README.md")
-    assert "no blanket data licence" in readme.lower(), (
-        "README once said 'Data: CC-BY-4.0', which grants commercial use over "
-        "1,189 records whose upstream sources grant no such right")
+            or re.search(r"NOT been obtained", text) \
+            or re.search(r"grants no reuse right", text, re.I), (
+                "%s no longer states the MediaDB/ISB position" % name)
 
 
 # ------------------------------------------------------------- (g) the rename
@@ -309,8 +326,7 @@ def test_the_limits_list_carries_measurements_not_adjectives():
     """
     methods = _read("methods.html")
     for lid in ("limit-name", "limit-derived", "limit-bounds", "limit-oxygen",
-                "limit-licence", "limit-degeneracy", "limit-exchange",
-                "limit-xref"):
+                "limit-degeneracy", "limit-exchange", "limit-xref"):
         assert 'id="%s"' % lid in methods, "%s is missing from the limits list" % lid
         assert "$('%s')" % lid in methods, (
             "%s ships its placeholder adjective and is never given a "
@@ -391,3 +407,82 @@ def test_the_client_reads_the_status_instead_of_assuming_the_release_exists():
     assert "except Exception" in body and "self.catalog()" in body, (
         "iter_full_records must catch a failing shard download and finish from the "
         "per-medium endpoint — a documented fallback that raises is worse than none")
+
+
+# ------------------------------------------------- the register of the payload
+# The shipped payloads are read by strangers, and a JSON string is page copy the
+# moment a page renders it. The subject of every string in them is the DATA: what
+# a record is, what a field means, what it cannot support. Not the pipeline, not
+# a build, not a verification pass, not a correction. These assertions are the
+# regression guard for that rule.
+
+PAYLOADS = [os.path.join("data", "web", n) for n in
+            ("catalog.json", "summary.json", "compounds.json", "families.json",
+             "tombstones.json", "twins.json")] + \
+           [os.path.join("data", "index.json"), os.path.join("data", "stats.json")]
+
+# Keys whose subject was the build system or our own record-keeping.
+RETIRED_KEYS = ("stamp_policy", "count_authority", "why_no_denominator",
+                "assessed_denominator")
+
+# Phrases from the self-reporting register.
+RETIRED_PHRASES = ("verification pass", "cannot honestly", "was corrected from",
+                   "counted by tools/", "counted by build_index",
+                   "rather than rounding", "instead of returning",
+                   "rather than hides", "for form")
+
+
+@pytest.mark.parametrize("rel", PAYLOADS)
+def test_no_payload_reports_on_the_project(rel):
+    path = os.path.join(REPO, rel)
+    if not os.path.exists(path):
+        pytest.skip("%s is not built in this tree" % rel)
+    with open(path, encoding="utf-8") as fh:
+        blob = fh.read()
+    for key in RETIRED_KEYS:
+        assert '"%s"' % key not in blob, (
+            "%s ships %r. Build provenance and self-assessment are not user "
+            "documentation; remove it at the generator." % (rel, key))
+    for phrase in RETIRED_PHRASES:
+        assert phrase not in blob, (
+            "%s ships the phrase %r. Every string in a payload describes the "
+            "data, never the project." % (rel, phrase))
+
+
+def test_the_rename_resolves_without_explaining_itself():
+    """A client holding the old key needs the mapping, not the reasoning."""
+    path = os.path.join(REPO, "data", "index.json")
+    if not os.path.exists(path):
+        pytest.skip("data/index.json not built")
+    with open(path, encoding="utf-8") as fh:
+        renames = json.load(fh).get("field_renames") or []
+    assert renames, "the rename map must ship so the old key resolves"
+    for r in renames:
+        assert r.get("old") and r.get("new") and r.get("measures")
+        assert "why" not in r, (
+            "field_renames[].why explained our own naming mistake to the reader")
+
+
+def test_a_withdrawn_identifier_resolves_to_a_code_not_to_a_case_report():
+    path = os.path.join(REPO, "data", "web", "tombstones.json")
+    if not os.path.exists(path):
+        pytest.skip("data/web/tombstones.json not built")
+    with open(path, encoding="utf-8") as fh:
+        tomb = json.load(fh)
+    codes = {c["code"] for c in tomb["reason_codes"]}
+    assert codes, "the vocabulary must ship with the codes that reference it"
+    assert sum(c["n"] for c in tomb["reason_codes"]) == tomb["n_withdrawn"]
+    for c in tomb["reason_codes"]:
+        assert c["of"] == tomb["n_withdrawn"], "a count without its denominator"
+        assert c["label"] and c["definition"]
+    for mid, rec in tomb["records"].items():
+        assert set(rec) == {"name", "reason_code"}, (
+            "%s carries %s; a tombstone is a state and a class-level reason"
+            % (mid, sorted(set(rec) - {"name", "reason_code"})))
+        assert rec["reason_code"] in codes
+    blob = json.dumps(tomb)
+    for banned in ("REJECTED", "auto-extraction artifact", "workflow:",
+                   "This paper does NOT", "was fetched and read"):
+        assert banned not in blob, (
+            "the per-record review prose (%r) is back in the shipped payload; it "
+            "belongs in tools/curation/tombstone_reason_codes.tsv" % banned)

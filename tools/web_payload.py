@@ -24,9 +24,12 @@ denominator of every count it states:
   families.json    base-medium families with their variants and what differs
                    between them, so "browse LB" is a navigation concept rather
                    than 33 unrelated rows.
-  tombstones.json  the 77 media the verification pass assessed and withdrew,
-                   with the reason, so a rotted `?medium=` permalink says what
-                   happened instead of rendering an ordinary landing page.
+  tombstones.json  the 77 withdrawn identifiers, each resolving to its name and
+                   to one class-level reason code, so a rotted `?medium=`
+                   permalink states the identifier's state instead of rendering
+                   an ordinary landing page. The per-record review prose lives
+                   in tools/curation/tombstone_reason_codes.tsv and ships
+                   nowhere.
   twins.json       the groups of media that hand a model the identical constraint
                    set. Half this library is degenerate as a model input, and a
                    reader choosing between two media is entitled to know when the
@@ -55,8 +58,9 @@ import sys
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from model_input import Degeneracy   # noqa: E402
-import refs as R                     # noqa: E402
+from dataset_license import DATASET_LICENSE   # noqa: E402
+from model_input import Degeneracy           # noqa: E402
+import refs as R                             # noqa: E402
 
 SCHEMA = "mediadb-web-payload/1"
 
@@ -118,12 +122,11 @@ EVIDENCE_CLASSES = [
         "label": "Pipeline-derived",
         "tiers": ["derived_component"],
         "definition": (
-            "The cited source never states this component. This pipeline "
-            "supplied it, by decomposing a complex ingredient, approximating a "
-            "hydrolysate, or injecting a standard mineral or oxygen base. It is "
-            "an in-silico addition. It is kept because models need it to grow, "
-            "labelled everywhere it appears, and excluded from every "
-            "source-coverage number."),
+            "The cited source never states this component. It is supplied by "
+            "decomposing a complex ingredient, approximating a hydrolysate, or "
+            "injecting a standard mineral or oxygen base. It is an in-silico "
+            "addition, marked on every record that carries it and excluded "
+            "from every source-coverage figure."),
     },
     {
         "id": "unresolved",
@@ -143,7 +146,7 @@ CLASS_ORDER = [c["id"] for c in EVIDENCE_CLASSES]
 # readable, documented catalog is data/index.json. Any consumer that wants
 # objects can zip `columns` against a row.
 COLUMNS = [
-    "id", "name", "category", "source_db", "license", "commercial_use_ok",
+    "id", "name", "category", "source_db",
     "verification_status", "oxygen", "organism_scope",
     "n_components", "n_sourced", "n_derived", "n_uncovered",
     "pct_covered_source", "pct_covered_source_is_upper_bound", "family",
@@ -156,7 +159,7 @@ COLUMNS = [
     "model_input_twins",
 ] + ["ev_" + c for c in CLASS_ORDER]
 
-ENUM_COLUMNS = ("category", "source_db", "license", "verification_status",
+ENUM_COLUMNS = ("category", "source_db", "verification_status",
                 "oxygen", "organism_scope", "family", "food_group")
 
 COLUMN_NOTES = {
@@ -174,7 +177,7 @@ COLUMN_NOTES = {
                          "means this record's model input is unique in the "
                          "library; see model_input_degeneracy",
     "n_sourced": "of those, the number the cited source actually states",
-    "n_derived": "of those, the number this pipeline supplied (see the "
+    "n_derived": "of those, the number the cited source does not state (the "
                  "pipeline-derived evidence class)",
     "n_uncovered": "ingredients the source states that got no exchange at all; "
                    "they are NOT in n_components",
@@ -190,26 +193,68 @@ COLUMN_NOTES = {
 }
 
 
-# A rename is only honest if the consumer is told. This block ships in
-# catalog.json, summary.json and data/index.json so a script reading the old key
-# finds out what happened instead of finding the key missing.
+# The rename map a client holding the old key resolves against. It ships in
+# catalog.json, summary.json and data/index.json. It carries the two names and
+# what the field measures; the reasoning behind the rename is not documentation
+# a consumer of the field can act on, so it is not published.
 FIELD_RENAMES = [
     {
         "old": "pct_covered_observed",
         "new": "pct_sourced_components_with_bigg_id",
         "changed": "2026-09-06",
-        "why": ("The old name read as coverage of the medium, but its denominator "
-                "is the components the record already carries rather than the "
-                "ingredients the source listed, so it is a near-constant "
-                "(measured below). It answers one question only: of the "
-                "components the source states, the share that reached a BiGG id "
-                "rather than a non-BiGG fallback or nothing. The coverage "
-                "question is answered by pct_covered_source."),
-        # filled by build_payload from the corpus, so the claim that the field was
-        # near-constant carries its own denominator rather than an adjective
+        "measures": ("of the components the cited source states, the share that "
+                     "reached a BiGG metabolite id rather than a non-BiGG "
+                     "fallback or nothing. Its denominator is components, not "
+                     "the source's ingredient list, so it is not a coverage "
+                     "measure; coverage is pct_covered_source."),
+        # filled by build_payload from the corpus, so the field's near-constant
+        # distribution is a measurement with a denominator, not an adjective
         "measured": None,
     },
 ]
+
+
+# ---------------------------------------------------------------------------
+# Withdrawn identifiers.
+#
+# A withdrawn identifier resolves to its state and to ONE class-level reason
+# code, the pattern UniProt uses for deleted accessions and the wwPDB for
+# obsolete entries. The reviewer's per-record prose and the source excerpt it
+# was read from stay in tools/curation/tombstone_reason_codes.tsv, which is a
+# curation table and is not projected into any payload or page.
+# ---------------------------------------------------------------------------
+TOMBSTONE_REASON_CODES = [
+    {
+        "code": "composition_not_stated",
+        "label": "Composition not stated by the source",
+        "definition": ("The cited source names the medium and does not state its "
+                       "composition; the formulation sits in another work, in "
+                       "material outside the article, or in a commercial product."),
+    },
+    {
+        "code": "not_a_defined_medium",
+        "label": "Not a defined growth medium",
+        "definition": ("The entry is an environmental sample, an undefined complex "
+                       "substrate, a buffer or an in-vivo condition, so it has no "
+                       "formulation to state."),
+    },
+    {
+        "code": "extraction_artifact",
+        "label": "Extraction artifact",
+        "definition": ("The composition on the record is not the one the cited "
+                       "source states: it merges distinct media or mutually "
+                       "exclusive conditions, or carries components the source "
+                       "does not give."),
+    },
+    {
+        "code": "no_composition_recorded",
+        "label": "No composition recorded",
+        "definition": "The record carries no components to serve.",
+    },
+]
+TOMBSTONE_CODES = {c["code"] for c in TOMBSTONE_REASON_CODES}
+REASON_CODE_TABLE = os.path.join(REPO, "tools", "curation",
+                                 "tombstone_reason_codes.tsv")
 
 
 #: Payload keys that record the BUILD rather than the DATA.
@@ -340,7 +385,8 @@ def _modifier_rows(rec: dict) -> list[dict]:
 
 
 def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
-                  quarantine: str | None = None) -> dict:
+                  quarantine: str | None = None,
+                  reason_codes: str | None = None) -> dict:
     """Read the corpus, write data/web/*.json, return a machine-readable report."""
     files = sorted(glob.glob(os.path.join(media_dir, "*.json")))
     # Cross-references live once in data/refs.json (stage 60), keyed off
@@ -363,10 +409,9 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     compound_meta: dict[str, dict] = {}
     families: dict[str, dict] = {}
     # aggregates, every one with an explicit denominator written beside it
-    agg = {k: {} for k in ("by_category", "by_source_db", "by_license",
+    agg = {k: {} for k in ("by_category", "by_source_db",
                            "by_verification_status", "by_oxygen",
-                           "by_commercial_use_ok", "by_food_group",
-                           "by_collection")}
+                           "by_food_group", "by_collection")}
     class_totals = {c: 0 for c in CLASS_ORDER}
     totals = {"n_components": 0, "n_sourced": 0, "n_derived": 0,
               "n_uncovered": 0, "n_with_concentration_mM": 0,
@@ -388,13 +433,10 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     # README claimed every component "carries cross-references". Measured here.
     xrefs = {"n_components_with_a_cross_reference": 0,
              "n_components_with_none": 0}
-    # Where the quantitative content comes from and under whose terms. The licence
-    # documents and the methods page state this in prose; the numbers are measured
-    # here so the page can bind them instead of carrying a typed 14,341 that four
-    # corrections outlived.
-    conc_by_license: dict[str, int] = {}
+    # Which source each quantitative value comes from. The documents and the methods
+    # page state this in prose; the numbers are measured here so the page binds them
+    # instead of carrying a typed figure.
     conc_by_source_db: dict[str, int] = {}
-    conc_by_commercial_use_ok: dict[str, int] = {}
     degeneracy = Degeneracy()
     row_of_id: dict[str, int] = {}
     bands_source = {"high_ge_90": 0, "mid_60_90": 0, "review_lt_60": 0,
@@ -402,7 +444,6 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     n_upper_bound = 0
     n_any_derived = 0
     n_all_derived = 0
-    licence_terms: dict[str, dict] = {}
 
     def bump(key, value):
         table = agg[key]
@@ -471,11 +512,8 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
 
         n_conc = quant.get("n_with_concentration_mM") or 0
         if n_conc:
-            for table, key in ((conc_by_license, str(prov.get("license"))),
-                               (conc_by_source_db, prov.get("source_name")),
-                               (conc_by_commercial_use_ok,
-                                str(prov.get("commercial_use_ok")))):
-                table[key] = table.get(key, 0) + n_conc
+            key = prov.get("source_name")
+            conc_by_source_db[key] = conc_by_source_db.get(key, 0) + n_conc
 
         if pcs is None:
             bands_source["not_computed"] += 1
@@ -488,39 +526,18 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
 
         bump("by_category", rec.get("category"))
         bump("by_source_db", prov.get("source_name"))
-        bump("by_license", prov.get("license"))
         bump("by_verification_status", prov.get("verification_status"))
         bump("by_oxygen", rec.get("oxygen"))
-        bump("by_commercial_use_ok", prov.get("commercial_use_ok"))
         if rec.get("food_group"):
             bump("by_food_group", rec.get("food_group"))
         if prov.get("collection"):
             bump("by_collection", prov.get("collection"))
-
-        lic = prov.get("license")
-        if lic and lic not in licence_terms:
-            licence_terms[lic] = {
-                "license": lic,
-                "license_url": prov.get("license_url"),
-                "commercial_use": prov.get("commercial_use"),
-                "commercial_use_ok": prov.get("commercial_use_ok"),
-                "attribution_required": prov.get("attribution_required"),
-                "n_media": 0,
-                "sources": [],
-            }
-        if lic:
-            licence_terms[lic]["n_media"] += 1
-            src = prov.get("source_name")
-            if src and src not in licence_terms[lic]["sources"]:
-                licence_terms[lic]["sources"].append(src)
 
         rows.append([
             rec["id"],
             rec.get("name_display") or rec.get("name"),
             enc("category", rec.get("category")),
             enc("source_db", prov.get("source_name")),
-            enc("license", lic),
-            prov.get("commercial_use_ok"),
             enc("verification_status", prov.get("verification_status")),
             enc("oxygen", rec.get("oxygen")),
             enc("organism_scope", rec.get("organism_scope")),
@@ -582,8 +599,6 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
                 "composition_signature": rec.get("composition_signature"),
                 "composition_identical_to": rec.get("composition_identical_to") or [],
                 "source_db": prov.get("source_name"),
-                "license": lic,
-                "commercial_use_ok": prov.get("commercial_use_ok"),
                 "citation": prov.get("citation"),
             })
 
@@ -606,7 +621,6 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     ]
 
     n_conc_total = totals["n_with_concentration_mM"]
-    n_conc_restricted = conc_by_commercial_use_ok.get("False", 0)
     _top = max(conc_by_source_db.items(), key=lambda kv: kv[1]) \
         if conc_by_source_db else None
     concentration_provenance = {
@@ -614,27 +628,20 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         "of": n_components_seen,
         "by_source_db": dict(sorted(conc_by_source_db.items(),
                                     key=lambda kv: -kv[1])),
-        "by_license": dict(sorted(conc_by_license.items(), key=lambda kv: -kv[1])),
-        "by_commercial_use_ok": conc_by_commercial_use_ok,
-        "n_from_media_that_may_not_be_used_commercially": n_conc_restricted,
-        "n_from_media_that_may": n_conc_total - n_conc_restricted,
         "largest_contributor": None if _top is None else {
             "source_db": _top[0], "n": _top[1], "of": n_conc_total},
         "definition": (
-            "Where the resource's quantitative content comes from, and under whose "
-            "terms. A component counts when its concentration_mM is not null. The "
-            "methods page binds these numbers rather than stating them, because the "
-            "denominator was corrected from 14,341 and a typed copy survived the "
-            "correction on the shipped page."),
+            "Which source each quantitative value comes from. A component counts "
+            "when its concentration_mM is not null."),
     }
 
     # --- consistency: the payload's totals must be the corpus's totals --------
-    if sum(conc_by_license.values()) != n_conc_total:
+    if sum(conc_by_source_db.values()) != n_conc_total:
         raise ValueError(
-            "the licence tally covers %d of the %d components carrying a "
-            "concentration. A concentration with no licence beside it is how the "
-            "site stated a redistribution exposure nobody had measured."
-            % (sum(conc_by_license.values()), n_conc_total))
+            "the source tally covers %d of the %d components carrying a "
+            "concentration. A concentration with no source beside it is a number "
+            "with no provenance."
+            % (sum(conc_by_source_db.values()), n_conc_total))
     if sum(xrefs.values()) != n_components_seen:
         raise ValueError(
             "cross-reference accounting covers %d of the %d components walked"
@@ -680,29 +687,28 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
 
     built = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     head = git_head(repo)
+    # built_utc and git_head date the release these bytes belong to. The policy
+    # that keeps them stable across a no-op rebuild is documented at
+    # write_payload_file(), where it is enforced; it is not user documentation
+    # and does not ship in the payload.
     stamp = {
         "schema": SCHEMA,
         "built_utc": built,
         "git_head": head,
-        "stamp_policy": ("built_utc and git_head date the build that last CHANGED "
-                         "this payload, not the last time the builder ran: a "
-                         "rebuild that reproduces these bytes leaves the file, and "
-                         "this stamp, alone. So a diff on this file means its data "
-                         "changed."),
         "corpus": os.path.relpath(media_dir, repo),
         "count": n,
-        "count_authority": ("data/media/*.json on disk, counted by "
-                            "tools/web_payload.py in the same pass that wrote "
-                            "every number below"),
+        # One licence for the whole dataset. There is no per-record licence field
+        # and no by-licence aggregate: the compilation is licensed at its most
+        # restrictive input, so every record carries the same terms.
+        "license": DATASET_LICENSE,
     }
 
     catalog = dict(stamp)
     catalog.update({
         "doc": ("Browser payload. Rows are arrays; zip them against `columns`. "
                 "The enum columns listed in `enum_columns` are dictionary-"
-                "encoded against `dicts`. The readable, documented catalog is "
-                "data/index.json; this file exists so the landing page does not "
-                "have to transfer 16.7 MB to draw a table."),
+                "encoded against `dicts`. The readable, documented catalog, one "
+                "object per medium, is data/index.json."),
         "columns": COLUMNS,
         "enum_columns": list(ENUM_COLUMNS),
         "column_notes": COLUMN_NOTES,
@@ -720,8 +726,7 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
                 "ModelSEED/MetaNetX/KEGG id in exchange position: the component's "
                 "own mapping_note says no BiGG model will accept it. "
                 "n_no_exchange has none at all. The three partition "
-                "n_components, and the site states all three rather than "
-                "claiming every component is BiGG-mapped.")),
+                "n_components.")),
         "cross_references": dict(
             xrefs, of=n_components_seen,
             definition=(
@@ -744,8 +749,6 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         "coverage_bands_source": dict(bands_source, of=n),
         "n_exchanges": len(postings),
         "n_uncovered_ingredients": totals["n_uncovered"],
-        "licences": sorted(licence_terms.values(),
-                           key=lambda x: -x["n_media"]),
         "dicts": enc.dump(),
         "rows": rows,
     })
@@ -781,8 +784,9 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     })
 
     tomb = dict(stamp)
-    tomb.update(_tombstones(quarantine or os.path.join(repo, "data",
-                                                       "_quarantine.json")))
+    tomb.update(_tombstones(
+        quarantine or os.path.join(repo, "data", "_quarantine.json"),
+        reason_codes or REASON_CODE_TABLE))
 
     # The twin groups, named. The catalog column says HOW MANY other records share
     # a record's model input; this file says WHICH, so the record sheet can list
@@ -804,7 +808,7 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     summary = {k: v for k, v in catalog.items()
                if k not in ("rows", "dicts", "columns", "enum_columns")}
     summary["doc"] = ("Library-wide aggregates only, for pages that render no per-medium "
-                      "rows. Identical values to catalog.json, same build.")
+                      "rows. The values are identical to catalog.json.")
 
     os.makedirs(out_dir, exist_ok=True)
     written = {}
@@ -848,46 +852,72 @@ def _delta(values: list[int]) -> list[int]:
     return out
 
 
-def _tombstones(path: str) -> dict:
-    """The withdrawn records, with the prose reason rather than the machine code.
+def read_reason_code_table(path: str) -> dict[str, str]:
+    """id -> reason code, from the curation table.
 
-    COV-05: 74 of the 77 rows carry `reason` = "workflow:rejected" or
-    "workflow:not_found", which are workflow codes, not curation reasoning.
-    The reasoning is in `note`. Publishing the code under a heading that
-    promises a reason would be a confident surface built on a machine string,
-    so the payload states which of the two it has for each record and counts
-    the rows for which no prose exists.
+    The table also holds the reviewer's prose and the source excerpt behind each
+    decision. Those two columns are read by nobody: they are the internal record,
+    and this function returns only the code.
     """
+    codes: dict[str, str] = {}
     if not os.path.isfile(path):
-        return {"n_withdrawn": 0, "records": {}, "reasons": {},
-                "n_with_prose": 0,
-                "assessed_denominator": None,
-                "why_no_denominator": (
-                    "no quarantine ledger is present in this corpus")}
+        return codes
+    with open(path, encoding="utf-8") as fh:
+        for line in fh:
+            if line.startswith("#") or not line.strip():
+                continue
+            cells = line.rstrip("\n").split("\t")
+            if cells[0] == "id":
+                continue
+            if len(cells) < 2:
+                raise ValueError("%s: row has no reason code: %r" % (path, line[:80]))
+            mid, code = cells[0], cells[1]
+            if code not in TOMBSTONE_CODES:
+                raise ValueError(
+                    "%s: %s carries reason code %r, which is not in the published "
+                    "vocabulary %s. A code the payload cannot define would render "
+                    "as a blank reason on the tombstone."
+                    % (path, mid, code, sorted(TOMBSTONE_CODES)))
+            codes[mid] = code
+    return codes
+
+
+def _tombstones(path: str, codes_path: str) -> dict:
+    """The withdrawn identifiers: state, name, and one class-level reason code.
+
+    COV-05: the ledger's own `reason` is a workflow string ("workflow:rejected",
+    "workflow:not_found") on 74 of the 77 rows, and the review that produced it
+    is per-record prose. Neither is documentation. The identifier resolves to a
+    code from TOMBSTONE_REASON_CODES, each code carries its count and its
+    denominator, and the prose stays in the curation table.
+    """
+    doc = ("Withdrawn identifiers. A withdrawn identifier names a medium that is "
+           "not served by the browser or the API; it is not reassigned, and no "
+           "other record is a substitute for it. `records` maps the identifier to "
+           "its name and to one code in `reason_codes`.")
+    if not os.path.isfile(path):
+        return {"doc": doc, "n_withdrawn": 0, "records": {},
+                "reason_codes": [dict(c, n=0, of=0)
+                                 for c in TOMBSTONE_REASON_CODES]}
     with open(path, encoding="utf-8") as fh:
         entries = json.load(fh)
-    records, reasons, with_prose = {}, {}, 0
+    codes = read_reason_code_table(codes_path)
+    missing = sorted(e["id"] for e in entries if e["id"] not in codes)
+    if missing:
+        raise ValueError(
+            "%d of %d withdrawn identifiers have no reason code in %s (%s%s). An "
+            "identifier that resolves to no reason resolves to nothing."
+            % (len(missing), len(entries), codes_path, ", ".join(missing[:3]),
+               ", ..." if len(missing) > 3 else ""))
+    records, counts = {}, {}
     for e in entries:
-        code = e.get("reason")
-        reasons[code] = reasons.get(code, 0) + 1
-        note = e.get("note")
-        if note:
-            with_prose += 1
-        records[e["id"]] = {
-            "name": e.get("name"),
-            "code": code,
-            "note": note,
-            "evidence": e.get("evidence"),
-        }
+        code = codes[e["id"]]
+        counts[code] = counts.get(code, 0) + 1
+        records[e["id"]] = {"name": e.get("name"), "reason_code": code}
     return {
+        "doc": doc,
         "n_withdrawn": len(entries),
-        "n_with_prose": with_prose,
-        "n_without_prose": len(entries) - with_prose,
-        "reasons": reasons,
-        "assessed_denominator": None,
-        "why_no_denominator": (
-            "The verification pass recorded what it rejected but not how many "
-            "records it assessed, so 77 has no denominator to divide by. It is "
-            "reported as a count, never as a rate."),
+        "reason_codes": [dict(c, n=counts.get(c["code"], 0), of=len(entries))
+                         for c in TOMBSTONE_REASON_CODES],
         "records": records,
     }

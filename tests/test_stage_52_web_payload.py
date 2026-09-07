@@ -16,7 +16,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "tools"))
 
 from web_payload import (CLASS_ORDER, COLUMNS, EVIDENCE_CLASSES,   # noqa: E402
-                         TIER_TO_CLASS, build_payload)
+                         TIER_TO_CLASS, TOMBSTONE_REASON_CODES, build_payload)
 
 
 def record(mid, **kw):
@@ -57,11 +57,6 @@ def record(mid, **kw):
             "source_type": "standard",
             "source_name": kw.get("source_name", "DSMZ MediaDive"),
             "citation": "a citation",
-            "license": kw.get("license", "CC-BY-4.0"),
-            "license_url": "https://creativecommons.org/licenses/by/4.0/",
-            "commercial_use": "yes",
-            "commercial_use_ok": kw.get("commercial_use_ok", True),
-            "attribution_required": True,
             "verification_status": kw.get("verification_status", "unverified"),
             "collection": None,
         },
@@ -84,7 +79,7 @@ def write_corpus(tmp_path, records):
     return str(d)
 
 
-def build(tmp_path, records, quarantine=None):
+def build(tmp_path, records, quarantine=None, reason_codes=None):
     media = write_corpus(tmp_path, records)
     out = tmp_path / "web"
     qpath = None
@@ -92,7 +87,16 @@ def build(tmp_path, records, quarantine=None):
         qpath = tmp_path / "_quarantine.json"
         qpath.write_text(json.dumps(quarantine), encoding="utf-8")
         qpath = str(qpath)
-    report = build_payload(media, str(out), repo=REPO, quarantine=qpath or "/nonexistent")
+    cpath = None
+    if reason_codes is not None:
+        cpath = tmp_path / "reason_codes.tsv"
+        cpath.write_text(
+            "id\treason_code\tsource_reason\tnote\tevidence\n"
+            + "".join("%s\t%s\t\t\t\n" % (k, v) for k, v in reason_codes.items()),
+            encoding="utf-8")
+        cpath = str(cpath)
+    report = build_payload(media, str(out), repo=REPO, quarantine=qpath or "/nonexistent",
+                           reason_codes=cpath)
     loaded = {n: json.loads((out / n).read_text(encoding="utf-8"))
               for n in os.listdir(out)}
     return report, loaded
@@ -247,20 +251,40 @@ def test_families_carry_their_members_and_a_denominator(tmp_path):
 # ------------------------------------------------------- COV-05 / MEDIA-WEB-11 ---
 
 
-def test_tombstones_separate_a_workflow_code_from_a_written_reason(tmp_path):
+def test_a_withdrawn_identifier_resolves_to_a_class_level_reason_code(tmp_path):
     quarantine = [
         {"id": "gone_a", "name": "A", "reason": "workflow:rejected",
-         "note": "The paper does not state a composition."},
+         "note": "REJECTED as a defined growth medium. The entry conflates ...",
+         "evidence": "Live sponge explants were transferred to ..."},
         {"id": "gone_b", "name": "B", "reason": "workflow:not_found"},
     ]
-    report, out = build(tmp_path, [record("m1")], quarantine=quarantine)
+    codes = {"gone_a": "extraction_artifact", "gone_b": "composition_not_stated"}
+    report, out = build(tmp_path, [record("m1")], quarantine=quarantine,
+                        reason_codes=codes)
     tomb = out["tombstones.json"]
     assert tomb["n_withdrawn"] == 2
-    assert tomb["n_with_prose"] == 1 and tomb["n_without_prose"] == 1
-    assert tomb["assessed_denominator"] is None, (
-        "77 has no denominator; inventing one would be worse than having none")
-    assert tomb["why_no_denominator"]
-    assert tomb["records"]["gone_b"]["note"] is None
+    assert tomb["records"]["gone_a"] == {"name": "A",
+                                         "reason_code": "extraction_artifact"}
+    assert set(tomb["records"]["gone_b"]) == {"name", "reason_code"}, (
+        "a tombstone carries the identifier's state, never the review that "
+        "produced it")
+    by_code = {c["code"]: c for c in tomb["reason_codes"]}
+    assert set(by_code) == {c["code"] for c in TOMBSTONE_REASON_CODES}
+    assert by_code["extraction_artifact"]["n"] == 1
+    assert by_code["extraction_artifact"]["of"] == 2, (
+        "every published count carries its denominator")
+    assert all(c["label"] and c["definition"] for c in tomb["reason_codes"])
+    blob = json.dumps(tomb)
+    for banned in ("REJECTED", "sponge explants", "workflow:", "verification pass"):
+        assert banned not in blob, (
+            "%r reached the shipped payload; the per-record review stays in "
+            "tools/curation/tombstone_reason_codes.tsv" % banned)
+
+
+def test_an_unmapped_withdrawn_identifier_fails_the_build(tmp_path):
+    quarantine = [{"id": "gone_a", "name": "A", "reason": "workflow:rejected"}]
+    with pytest.raises(ValueError, match="no reason code"):
+        build(tmp_path, [record("m1")], quarantine=quarantine, reason_codes={})
 
 
 def test_a_missing_quarantine_file_is_an_empty_ledger_not_a_crash(tmp_path):
@@ -275,8 +299,8 @@ def test_every_aggregate_carries_its_denominator(tmp_path):
     recs = [record("m%d" % i) for i in range(3)]
     report, out = build(tmp_path, recs)
     cat = out["catalog.json"]
-    for key in ("by_category", "by_source_db", "by_license", "by_oxygen",
-                "by_verification_status", "by_commercial_use_ok"):
+    for key in ("by_category", "by_source_db", "by_oxygen",
+                "by_verification_status"):
         assert cat[key]["_of"] == 3, "%s ships without a denominator" % key
     assert cat["count"] == 3
     assert cat["media_totals"]["of"] == 3
