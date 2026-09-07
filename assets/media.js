@@ -197,7 +197,10 @@ const MDB = (function () {
   async function loadTombstones() {
     if (!tombstones) {
       try { tombstones = await getJSON('data/web/tombstones.json'); }
-      catch (e) { tombstones = { records: {}, n_withdrawn: null, _error: e.kind }; }
+      catch (e) {
+        tombstones = { records: {}, reason_codes: [], n_withdrawn: null,
+          _error: e.kind };
+      }
     }
     return tombstones;
   }
@@ -245,10 +248,21 @@ const MDB = (function () {
   }
 
   /* ------------------------------------------------------- the vocabulary -- */
-  /** Evidence classes come from the payload. `meta(id)` never invents one. */
-  function evidenceClasses() { return catalog.evidence_classes; }
+  /** Evidence classes come from the payload. `meta(id)` never invents one.
+   *
+   *  These read a payload the caller must have loaded. Reading it off a global
+   *  that the call path does not guarantee is how a record sheet opened from
+   *  families.html threw "Cannot read properties of null" and was reported to
+   *  the reader as a network fault: that page loads families.json and nothing
+   *  else, so `catalog` was still null on every one of its 1,170 medium links.
+   *  openMedium() now loads the vocabulary itself; these two degrade to a named
+   *  unknown rather than throwing if it is somehow still absent.
+   */
+  function evidenceClasses() {
+    return (catalog && catalog.evidence_classes) || [];
+  }
   function evidenceMeta(id) {
-    const found = catalog.evidence_classes.find((c) => c.id === id);
+    const found = evidenceClasses().find((c) => c.id === id);
     if (found) return found;
     // An unknown class is rendered as the loudest style, not the calmest.
     return {
@@ -349,35 +363,13 @@ const MDB = (function () {
     });
   }
 
-  const LICENCE_SHORT = {
-    'CC0-1.0': 'CC0', 'CC-BY-4.0': 'CC BY', 'CC-BY-NC-4.0': 'CC BY-NC',
-    'all-rights-reserved': 'All rights reserved',
-    'custom-permission-required': 'Permission required'
-  };
-  function licenceChip(license, commercialOk) {
-    if (!license) {
-      return el('span', {
-        class: 'chip stop', text: 'no licence recorded',
-        title: 'This record carries no licence. Do not redistribute it.'
-      });
-    }
-    const ok = commercialOk === true;
-    // For all-rights-reserved the honest statement is stronger than "not for
-    // commercial use": no reuse grant of any kind is stated upstream, and this
-    // project has not obtained redistribution permission. LICENSE, NOTICE and
-    // tools/licenses.tsv say exactly this; the chip must not say less.
-    const note = license === 'all-rights-reserved'
-      ? '. No reuse grant of any kind is stated upstream and redistribution ' +
-        'permission has not been obtained. Ask the rights-holder before reusing it.'
-      : (ok
-        ? '. Commercial use is permitted by the upstream terms.'
-        : '. The upstream terms do NOT permit commercial use.');
-    return el('span', {
-      class: 'chip ' + (ok ? 'plain' : 'stop'),
-      text: LICENCE_SHORT[license] || license,
-      title: license + note
-    });
-  }
+  // The dataset carries ONE licence. There is no per-record licence chip and no
+  // commercial-use filter: a badge that reads the same on all 13,515 records
+  // states a distinction that does not exist. The licence is named once, in the
+  // page footer and on the methods page, and it ships in every payload as
+  // `license`.
+  const DATA_LICENCE = { id: 'CC-BY-NC-4.0', short: 'CC BY-NC 4.0',
+    url: 'https://creativecommons.org/licenses/by-nc/4.0/' };
 
   function verificationChip(status) {
     const stop = status === 'rejected-by-verification-pass';
@@ -760,7 +752,7 @@ const MDB = (function () {
       'evidence_class', 'derived_not_sourced', 'derived_from',
       'quantity_value', 'quantity_unit', 'quantity_basis',
       'concentration_mM', 'concentration_status', 'concentration_block_reason',
-      'inchikey', 'kegg', 'chebi', 'hmdb', 'seed', 'license'];
+      'inchikey', 'kegg', 'chebi', 'hmdb', 'seed', 'data_license'];
     const cell = (v) => '"' + String(v === null || v === undefined ? '' : v)
       .replace(/"/g, '""') + '"';
     const prov = med.provenance || {};
@@ -773,7 +765,7 @@ const MDB = (function () {
         cls ? cls.id : '', c.derived_not_sourced === true, c.derived_from,
         q.value, q.unit, q.basis || c.quantity_basis,
         c.concentration_mM, c.concentration_status, c.concentration_block_reason,
-        xr.inchikey, xr.kegg, xr.chebi, xr.hmdb, xr.seed, prov.license]
+        xr.inchikey, xr.kegg, xr.chebi, xr.hmdb, xr.seed, DATA_LICENCE.id]
         .map(cell).join(',');
     });
     return head.join(',') + '\n' + body.join('\n') + '\n';
@@ -791,17 +783,33 @@ const MDB = (function () {
 
   async function openMedium(id, opts) {
     const push = !(opts && opts.replace === true);
+    let med;
     try {
-      const [med] = await Promise.all([
-        getJSON('data/media/' + id + '.json'), loadTwins(), loadRefs()]);
+      // loadSummary() is what makes this call path self-sufficient: the record
+      // sheet renders the evidence vocabulary, which lives in the library-wide
+      // payload and never in a per-medium record. Pages that open a record
+      // without having loaded the catalog (families.html) reached this function
+      // with `catalog` null. loadSummary() is a no-op when a payload is already
+      // in hand, and 11 KB when it is not.
+      [med] = await Promise.all([
+        getJSON('data/media/' + id + '.json'), loadSummary(), loadTwins(),
+        loadRefs()]);
+    } catch (e) {
+      if (e.kind === 'not_found') await renderMissing(id);
+      else renderUnreachable(id, e);
+      return;
+    }
+    // Fetching succeeded. Anything that throws from here is this code failing to
+    // render a record it holds, and it is reported as that, never as a network
+    // fault (which would send the reader to reload a page that will fail again).
+    try {
       renderMedium(med);
       const url = new URL(location.href);
       url.searchParams.set('medium', id);
       if (push) history.pushState({ medium: id }, '', url);
       else history.replaceState({ medium: id }, '', url);
     } catch (e) {
-      if (e.kind === 'not_found') await renderMissing(id);
-      else renderUnreachable(id, e);
+      renderNotDisplayable(id, e);
     }
   }
 
@@ -818,20 +826,19 @@ const MDB = (function () {
     ]);
     const body = el('div', { class: 'sheet-body' });
     if (record) {
-      // A tombstone: the state of the identifier and where its record now lives.
-      // The per-record reason ships as a field in data/web/tombstones.json.
+      // A tombstone: the state of the identifier and the class-level reason it
+      // carries. The reason vocabulary is defined in data/web/tombstones.json and
+      // on methods.html; no per-record review prose is published.
+      const rc = (tomb.reason_codes || []).find((c) => c.code === record.reason_code);
       body.appendChild(el('div', { class: 'note stop' }, [
         el('b', { text: 'This identifier is withdrawn.' }),
         document.createTextNode(' It is not served by the browser or the API, it is ' +
-          'not reassigned, and no other record is a substitute for it. Withdrawn media ' +
-          'are formulations whose cited source does not contain the composition, whose ' +
-          'source could not be located, or that are not growth media.')
+          'not reassigned, and no other record is a substitute for it.')
       ]));
-      body.appendChild(el('p', {
-        class: 'muted',
-        text: 'The reason recorded for this identifier is a field on its entry in ' +
-          'data/web/tombstones.json.'
-      }));
+      body.appendChild(el('p', {}, [
+        el('b', { text: rc ? rc.label : (record.reason_code || 'Reason not recorded') }),
+        document.createTextNode(rc ? ' ' + rc.definition : '')
+      ]));
     } else {
       body.appendChild(el('div', { class: 'note stop' }, [
         el('b', { text: 'No medium is served under this identifier.' }),
@@ -863,7 +870,25 @@ const MDB = (function () {
     wireSheet(mountSheet(card));
   }
 
+  /** The request for the record failed. A cause this code HAS established. */
   function renderUnreachable(id, error) {
+    failureSheet(id, 'The library could not be reached.',
+      ' The request for this record did not complete: ' +
+      (error && error.message ? error.message : 'no response') +
+      '. It is a network or server fault, not a statement about the medium. ' +
+      'Reloading the page may succeed.');
+  }
+
+  /** The record arrived and this code could not render it. Our defect, said so. */
+  function renderNotDisplayable(id, error) {
+    failureSheet(id, 'This record could not be displayed.',
+      ' The record was retrieved; the browser failed while rendering it (' +
+      (error && error.message ? error.message : 'no detail') +
+      '). Reloading will not change that. The record itself is at ' +
+      'data/media/' + id + '.json.');
+  }
+
+  function failureSheet(id, heading, detail) {
     const card = el('div', { class: 'sheet' }, [
       el('div', { class: 'sheet-head' }, [
         el('div', {}, [
@@ -874,10 +899,8 @@ const MDB = (function () {
       ]),
       el('div', { class: 'sheet-body' }, [
         el('div', { class: 'note caution' }, [
-          el('b', { text: 'The library could not be reached.' }),
-          document.createTextNode(' This is a network or server problem, not a ' +
-            'statement about the medium: ' + (error && error.message ? error.message : '') +
-            '. Reload the page and try again.')
+          el('b', { text: heading }),
+          document.createTextNode(detail)
         ])
       ])
     ]);
@@ -983,7 +1006,6 @@ const MDB = (function () {
     const chips = el('div', { class: 'chip-line', style: 'margin-top:var(--s2)' }, [
       el('span', { class: 'chip', text: med.category }),
       o2Chip(med.oxygen),
-      licenceChip(prov.license, prov.commercial_use_ok),
       verificationChip(prov.verification_status)
     ]);
     if (fam.id) {
@@ -1076,19 +1098,6 @@ const MDB = (function () {
       limits.push(['caution', 'The oxygen regime is unknown.',
         'This record does not record whether the medium is used aerobically. ' +
         'It is unknown, not anaerobic. Decide EX_o2_e yourself.']);
-    }
-    if (prov.license === 'all-rights-reserved') {
-      limits.push(['stop', 'No reuse grant of any kind is stated upstream.',
-        'Terms: all rights reserved' +
-        (prov.license_source ? ', read from ' + prov.license_source : '') +
-        '. Redistribution permission has not been obtained. This record is labelled ' +
-        'all-rights-reserved and excluded from the commercially usable subset. Ask ' +
-        'the rights-holder before reusing it.']);
-    } else if (prov.commercial_use_ok !== true) {
-      limits.push(['stop', 'The upstream licence does not permit commercial use.',
-        'Terms: ' + (prov.license || 'not recorded') + '. ' +
-        (prov.license_source ? 'Read from ' + prov.license_source + '. ' : '') +
-        'This record is excluded from the commercially usable subset.']);
     }
     if (med.composition_limitation) {
       limits.push(['caution', 'Composition is not unique to this record.',
@@ -1184,11 +1193,10 @@ const MDB = (function () {
     }
     provCard.appendChild(el('p', { class: 'muted', style: 'margin-top:var(--s3)' }, [
       el('b', { text: 'Licence: ' }),
-      document.createTextNode((prov.license || 'not recorded') +
-        (prov.attribution_required ? ' · attribution required' : '') + ' · '),
-      prov.license_url
-        ? el('a', { href: prov.license_url, target: '_blank', rel: 'noopener', text: 'terms ↗' })
-        : el('span', { text: 'no terms URL recorded' })
+      document.createTextNode('the data is licensed ' + DATA_LICENCE.short +
+        '; attribution required. '),
+      el('a', { href: DATA_LICENCE.url, target: '_blank', rel: 'noopener',
+        text: 'terms ↗' })
     ]));
     body.appendChild(provCard);
 
@@ -1423,7 +1431,7 @@ const MDB = (function () {
     loadRefs, xrefOf, noteOf,
     evidenceClasses, evidenceMeta, evidenceChip, evidenceBar, evidenceKey,
     evidenceLegend,
-    dominantEvidence, classOfTier, o2Chip, licenceChip, verificationChip,
+    dominantEvidence, classOfTier, o2Chip, verificationChip, DATA_LICENCE,
     announce, makeTable, openMedium, closeSheet, delegateMediumLinks,
     downloadText, xrefUrl, svgEl, accentRamp, tipShow, tipHide, drawDendro,
     clusterOrder,
