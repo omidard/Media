@@ -34,8 +34,8 @@
   <h1>Two to eight media, compound by compound.</h1>
   <p class="lead">See how similar two formulations really are, which compounds separate
     them, and, for every compound, whether it was stated by the cited source or supplied
-    by this pipeline. A shared compound that both pipelines invented is not evidence that
-    two media are alike.</p>
+    by this pipeline. A compound this pipeline supplied to both media is not evidence
+    that the two formulations are alike.</p>
 </div></header>
 
 <section class="section" id="picker"><div class="wrap">
@@ -45,8 +45,8 @@
       <input id="q" class="input" type="search"
              placeholder="Search by name, family or source" autocomplete="off">
       <p class="muted" style="font-size:var(--t-cap)" id="q-note">
-        Up to eight media. Every match is listed so you choose, rather than the page
-        choosing the first substring hit for you.
+        Up to eight media at a time. Every match is listed, with the count it was
+        drawn from.
       </p>
     </div>
     <div id="matches" style="margin-top:var(--s3)"></div>
@@ -103,7 +103,7 @@
       <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)">
         Present in some of the selection and absent from the rest, ordered so the most
         discriminating come first, then clustered by presence pattern. A hatched cell is a
-        compound this pipeline supplied for that medium rather than reading it from the source.
+        compound the pipeline supplied for that medium; the cited source does not state it.
       </p>
       <div class="viz" id="grid-wrap"><svg id="grid-svg" role="img"
         aria-label="Presence grid of the most differentiating compounds"></svg></div>
@@ -115,10 +115,10 @@
 </main>
 
 <footer class="foot"><div class="wrap">
-  <p>Everything on this page is computed in your browser from the published records. It
-    uses the same numbers as the rest of the site; the definitions are on the
-    <a href="methods.html">methods page</a>, and the per-source attribution and licence
-    terms are in <a href="methods.html#licensing">the licence schedule</a>.</p>
+  <p>Every figure on this page is computed in your browser from the published records.
+    The definitions are on the <a href="methods.html">methods page</a>, and the per-source
+    attribution and licence terms are in
+    <a href="methods.html#licensing">the licence schedule</a>.</p>
 </div></footer>
 
 <script src="assets/media.js"></script>
@@ -424,7 +424,7 @@
       ? 'Showing the ' + fmt(combos.length) + ' largest of ' + fmt(all.length) +
         ' intersections; the ' + fmt(hidden) + ' not shown hold ' +
         fmt(hiddenCompounds) + ' of ' + fmt(union.size) + ' compounds between them.'
-      : 'Showing all ' + fmt(all.length) + ' intersections; nothing is hidden.';
+      : 'Showing all ' + fmt(all.length) + ' intersections.';
     svg.setAttribute('aria-label', 'Intersection sizes: ' +
       combos.map((c) => fmt(c.n) + ' compounds in ' +
         labels.filter((_, i) => c.mask & (1 << i)).join(' and ')).join('; '));
@@ -539,7 +539,7 @@
     sync();
   }).catch((err) => {
     $('status').textContent = 'The catalogue could not be loaded (' +
-      (err.message || err.kind) + '), so no medium can be picked. Reload the page.';
+      (err.message || err.kind) + '). Reload the page.';
   });
 })();
 </script>

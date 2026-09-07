@@ -156,9 +156,8 @@
 
   <div class="tablebar">
     <p class="muted" style="font-size:var(--t-cap)">
-      The library is a frozen snapshot. Numbers on this page are read from
-      <code>data/web/catalog.json</code>, which is written from the records themselves by
-      <code>tools/build_web_payload.py</code>.
+      The library is a frozen snapshot. The catalogue behind this table is served as
+      <code>data/web/catalog.json</code>.
       <a href="methods.html">Read the methods and the limits</a>.
     </p>
   </div>
@@ -177,8 +176,8 @@
       <h3>How much of each source recipe was captured</h3>
       <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)" id="cov-caption">
         The share of a medium's own stated ingredient list that reached a BiGG exchange.
-        Pipeline-derived components are excluded from both sides of this fraction, which is
-        why it is lower, and more honest, than the coverage number this project used to publish.
+        Pipeline-derived components are excluded from both sides of this fraction, so it
+        is lower than a share computed over every component a record carries.
       </p>
       <div class="hist" id="chart-coverage" role="img" aria-label="Distribution of source coverage"></div>
       <div class="axis"><span>0%</span><span>50%</span><span>100%</span></div>
@@ -215,13 +214,13 @@
       <h4>Use it</h4>
       <ul>
         <li><a href="API.md">Programmatic API and bulk exports</a></li>
-        <li><a href="methods.html">Methods, limits and the withdrawn records</a></li>
+        <li><a href="methods.html">Methods, limits and withdrawn identifiers</a></li>
         <li><a href="DESIGN.md">Record schema</a> and <a href="PROVENANCE.md">provenance rules</a></li>
         <li><a href="https://github.com/omidard/Media" rel="noopener">Source code on GitHub</a></li>
       </ul>
       <p style="margin-top:var(--s3)">Code is MIT. Data is <b>not</b> under a single licence:
         it is per source, and 1,189 of the 13,515 records may not be used commercially.
-        Filter for them above rather than assuming.</p>
+        The licence filter above returns the commercially usable subset.</p>
     </div>
     <div>
       <h4>Cite</h4>
@@ -503,7 +502,7 @@
       ' were supplied by this pipeline rather than by the cited source, and ' +
       MDB.withDenominator(nameCls.n, nameCls.of) +
       ' were identified by a name string rather than by chemistry. ' +
-      'Every row here says which is which.';
+      'Each row states both counts.';
 
     $('ev-caption').textContent =
       'Across ' + fmt(totals.n_components) + ' component records in ' + fmt(cat.count) +
@@ -582,11 +581,10 @@
       el('h3', { text: 'The catalogue could not be loaded' }),
       el('p', {
         text: 'data/web/catalog.json did not load (' + (err.message || err.kind) +
-          '). Nothing below is missing data: the page has none to show. ' +
-          'Reload, or read the records directly from data/media/.'
+          '). Reload, or read the records directly from data/media/.'
       })
     ]));
-    $('claim').textContent = 'The catalogue could not be loaded, so this page states no numbers.';
+    $('claim').textContent = 'The catalogue could not be loaded.';
   });
 })();
 </script>

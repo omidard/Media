@@ -32,15 +32,15 @@
 <header class="masthead"><div class="wrap">
   <p class="kicker">Patterns</p>
   <h1>What recurs across the whole collection.</h1>
-  <p class="lead" id="claim">Ward-linkage hierarchical clustering over the library, computed
-    once by <code>tools/build_cluster_data.py</code> and published as data.</p>
+  <p class="lead" id="claim">Ward-linkage hierarchical clustering over the library,
+    published as precomputed data.</p>
   <div class="note derived" style="margin-top:var(--s4);max-width:78ch">
-    <b>Read these heatmaps with the pipeline in mind.</b>
+    <b>Derived components shape these blocks.</b>
     <p style="margin-top:var(--s1)" id="derived-warning">A third of all component records in
       this library were supplied by the pipeline rather than by a source, and the mineral
       and oxygen base it injects is by construction present in almost every medium. Blocks
       that look like a universal biochemical core are partly that convention.
-      <a href="methods.html#derived">What the pipeline supplies, and why</a>.</p>
+      <a href="methods.html#derived">Which components the pipeline supplies</a>.</p>
   </div>
 </div></header>
 
@@ -111,10 +111,10 @@
 </main>
 
 <footer class="foot"><div class="wrap">
-  <p>Clustering: SciPy Ward linkage, precomputed by <code>tools/build_cluster_data.py</code>
-    and published under <code>data/cluster/</code>. Definitions and limits are on the
-    <a href="methods.html">methods page</a>; per-source attribution and licence terms are
-    in <a href="methods.html#licensing">the licence schedule</a>.</p>
+  <p>Clustering: SciPy Ward linkage, published under <code>data/cluster/</code>.
+    Definitions and limits are on the <a href="methods.html">methods page</a>; per-source
+    attribution and licence terms are in
+    <a href="methods.html#licensing">the licence schedule</a>.</p>
 </div></footer>
 
 <script src="assets/media.js"></script>
@@ -216,8 +216,7 @@
       const derived = cat.evidence_classes.find((c) => c.id === 'derived');
       $('claim').textContent = 'Ward-linkage hierarchical clustering over all ' +
         fmt(cat.count) + ' media and ' + fmt(cat.n_exchanges) +
-        ' distinct exchange reactions, computed once by tools/build_cluster_data.py ' +
-        'and published as data rather than recomputed in your browser.';
+        ' distinct exchange reactions, published as precomputed data.';
       $('derived-warning').textContent =
         MDB.withDenominator(derived.n, derived.of, 'component records') +
         ' in this library were supplied by the pipeline rather than by a source, and the ' +
@@ -226,7 +225,7 @@
         'convention.';
       $('derived-warning').appendChild(document.createTextNode(' '));
       $('derived-warning').appendChild(el('a', { href: 'methods.html#derived',
-        text: 'What the pipeline supplies, and why' }));
+        text: 'Which components the pipeline supplies' }));
 
       const sel = $('cg-group');
       cg.views.forEach((v, i) => sel.appendChild(
@@ -242,7 +241,7 @@
       $('cg-wrap').replaceChildren(el('div', { class: 'state error' }, [
         el('h3', { text: 'The clustering could not be loaded' }),
         el('p', { text: 'data/cluster/clustergram.json did not load (' +
-          (err.message || err.kind) + '). No pattern is shown rather than a partial one.' })
+          (err.message || err.kind) + ').' })
       ]));
     });
 

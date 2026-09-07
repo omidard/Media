@@ -35,10 +35,10 @@
   <p class="lead" id="claim">Loading the family index.</p>
   <div class="note caution" style="margin-top:var(--s4);max-width:76ch">
     <b>A family is a naming grouping, not a claim of equivalence.</b>
-    <p style="margin-top:var(--s1)">Most assignments are made from the medium's name. Two
+    <p style="margin-top:var(--s1)">Most assignments come from the medium's name. Two
       records in one family can differ by a carbon source, by strength, by pH, or by being
-      broth rather than agar. This page shows what differs; it does not average them
-      together. <a href="methods.html#families-method">How a family is decided</a>.</p>
+      broth rather than agar, and each variant is listed with its own differences.
+      <a href="methods.html#families-method">How a family is decided</a>.</p>
   </div>
 </div></header>
 
@@ -75,11 +75,10 @@
 </main>
 
 <footer class="foot"><div class="wrap">
-  <p>Base-medium families are written onto each record by the naming stage and published in
-    <code>data/web/families.json</code>. Records with no family are shown as ungrouped on the
-    <a href="index.html">explore page</a> rather than filed under a guessed family.
-    Attribution and licence terms for every source are on the
-    <a href="methods.html#licensing">methods page</a>.</p>
+  <p>A base-medium family is a field on every record, and the whole index is published in
+    <code>data/web/families.json</code>. A record with no family is listed as ungrouped on
+    the <a href="index.html">explore page</a>. Attribution and licence terms for every
+    source are on the <a href="methods.html#licensing">methods page</a>.</p>
 </div></footer>
 
 <script src="assets/media.js"></script>
@@ -227,8 +226,8 @@
       groups.appendChild(el('p', {
         style: 'margin-top:var(--s1)',
         text: shared.length + ' group(s) of variants in this family carry the same ' +
-          'components, bounds and quantities as each other, so the difference their ' +
-          'names promise is not present in the data:'
+          'components, bounds and quantities as each other. The difference their names ' +
+          'declare is not present in their compositions:'
       }));
       const ul = el('ul', { style: 'margin-top:var(--s2)' });
       shared.forEach((g) => ul.appendChild(el('li', {
@@ -341,7 +340,7 @@
     }
   }).catch((err) => {
     document.getElementById('claim').textContent =
-      'The family index could not be loaded, so this page states no numbers.';
+      'The family index could not be loaded.';
     $('fam-detail').replaceChildren(el('div', { class: 'state error' }, [
       el('h3', { text: 'data/web/families.json did not load' }),
       el('p', { text: (err.message || err.kind) + '. Reload, or browse the library on ' +
