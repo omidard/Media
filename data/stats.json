@@ -63,11 +63,12 @@
   "n_with_concentration_mM": 14055
  },
  "exchange_resolution": {
-  "n_bigg_exchange": 664000,
+  "n_bigg_exchange": 652620,
   "n_nonbigg_fallback": 1364,
+  "n_bigg_shaped_no_such_exchange": 11380,
   "n_no_exchange": 218,
   "of": 665582,
-  "definition": "Where each component's exchange id landed, over the whole library. n_bigg_exchange is a real BiGG EX_<met>_e reaction; n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG id in exchange position that no BiGG model will accept (the component's own mapping_note says so); n_no_exchange has none at all. The three partition n_components."
+  "definition": "Where each component's exchange id landed, over the whole library, in four states. n_bigg_exchange is a reaction BiGG has: the id is EX_<met>_e and <met> carries an extracellular form in the BiGG namespace. n_bigg_shaped_no_such_exchange has that same shape and names no BiGG reaction, so no model has it and the documented adoption path drops it silently. n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG id in exchange position that no BiGG model will accept (the component's own mapping_note says so); n_no_exchange has none at all. The four partition n_components; the last three are all unusable to a model."
  },
  "cross_references": {
   "n_components_with_a_cross_reference": 656625,
@@ -77,15 +78,15 @@
  },
  "model_input_degeneracy": {
   "n_media": 13515,
-  "n_media_sharing_a_model_input": 6827,
-  "n_media_with_a_unique_model_input": 6688,
-  "n_groups": 1623,
+  "n_media_sharing_a_model_input": 7012,
+  "n_media_with_a_unique_model_input": 6503,
+  "n_groups": 1663,
   "largest_group": 93,
-  "n_distinct_model_inputs": 8311,
+  "n_distinct_model_inputs": 8166,
   "of": 13515,
   "definition": "Two records share a model input when the set of (exchange reaction, lower bound, upper bound) triples they hand a model is identical. That set is everything the documented COBRApy adoption path reads; the name, the source, the citation and the licence are not part of it. Records sharing one are indistinguishable to a solver, not merely similar.",
-  "n_media_sharing_a_model_input_with_concentrations": 6328,
-  "n_groups_with_concentrations": 1530,
+  "n_media_sharing_a_model_input_with_concentrations": 6508,
+  "n_groups_with_concentrations": 1568,
   "with_concentrations_definition": "The same comparison with each component's source-stated concentration added to the tuple. It is the stricter test: a pair that still collides here is identical even to a reader who inspects the amounts, not only the bounds."
  },
  "field_renames": [
@@ -121,6 +122,7 @@
   "pct_sourced_components_with_bigg_id": "of the components the cited source states, the share that reached a BiGG metabolite id rather than a non-BiGG fallback or nothing. Its denominator is components, not the source's ingredient list, so it is 100.0 on 12,861 of 13,515 records and is NOT a coverage measure. The name pct_covered_observed resolves to this field; see field_renames.",
   "n_no_exchange": "components with no exchange reaction at all: identity was never established, or the ingredient is an undefined mixture. 218 of 665,582 components library-wide.",
   "n_nonbigg_fallback": "components whose exchange id is a ModelSEED/MetaNetX/KEGG fallback rather than a BiGG id; no BiGG model will accept it. 1,364 of 665,582 library-wide.",
+  "n_bigg_shaped_no_such_exchange": "components whose exchange id has the EX_<met>_e shape but names no reaction in BiGG, because the metabolite has no extracellular form there. No model has the reaction, so the documented adoption path drops it without a word. 11,380 of 665,582 library-wide; the largest is EX_choles_e, where BiGG carries choles_c only and cholesterol's exchange is EX_chsterol_e.",
   "n_media_with_identical_model_input": "how many OTHER media hand a genome-scale model the identical set of (exchange, lower bound, upper bound) triples. 0 means this record's model input is unique in the library. See model_input_degeneracy.",
   "n_derived": "components the cited source does not state (hydrolysate approximations, complex decompositions, injected mineral or oxygen bases, expanded base media). They are marked on the record and excluded from every source-coverage figure.",
   "source_identity_evidence": "how source_db was decided: from the record's own provenance evidence, or from its id prefix (id_prefix_heuristic).",

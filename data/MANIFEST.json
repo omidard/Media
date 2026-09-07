@@ -1,7 +1,7 @@
 {
  "schema": "mediadb-artifact-manifest/1",
- "built_utc": "2026-09-07T08:51:17Z",
- "git_head": "b9865e216647d70bf14842b3a9ef6668691097bd",
+ "built_utc": "2026-09-07T10:46:58Z",
+ "git_head": "83766023459ae3011006b9a45aece515b4890423",
  "stamp_policy": "built_utc, git_head and each artifact's mtime_utc date the build that last CHANGED what is described here; a rebuild that reproduces the same bytes leaves this file untouched. `make derived` is therefore idempotent, and a git diff on a derived artifact means its CONTENT moved \u2014 which is what makes `--check-tree` a usable gate rather than one that is red on every clean tree.",
  "provenance": {
   "corpus_status": "frozen snapshot",
@@ -36,10 +36,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 17657234,
-   "sha256": "d1a3a5a54bfb8cc918984c94627081c967d4a627765586f69a43999ec7837677",
+   "bytes": 18693272,
+   "sha256": "7b860bdf7d49455cfe135f7af48bfdc8c9ae12219a27a42fea271f76eadeb3d1",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T08:50:24Z"
+   "mtime_utc": "2026-09-07T10:46:12Z"
   },
   "data/refs.json": {
    "generator": "tools/stages/60_dedupe_references.py",
@@ -58,10 +58,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 6630,
-   "sha256": "563a90d89a50c5b4f6b2d38c09142518fc8e0905648e99fc113fee83cb75ce8f",
+   "bytes": 7356,
+   "sha256": "f8d8f0d9878163a8ba043b7c23b88bc39bb0a0827a1e2c73cd83af3f6bb06934",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T08:50:24Z"
+   "mtime_utc": "2026-09-07T10:46:12Z"
   },
   "data/coverage.json": {
    "generator": "tools/build_coverage_index.py",
@@ -69,10 +69,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 4646542,
-   "sha256": "a7311c467a900be26bb5beba9dffff78b33c287a5de1381e9f5a2a767e94d229",
+   "bytes": 5119797,
+   "sha256": "9227845146f87473ff06e3e69a413a15489b6ae95282a210038be48a4ab76fc7",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T08:50:16Z"
+   "mtime_utc": "2026-09-07T10:46:03Z"
   },
   "data/media_stats.json": {
    "generator": "tools/build_media_stats.py",
@@ -84,7 +84,7 @@
    "bytes": 7837,
    "sha256": "5819b2d2c71a6ba680437cb3ac5edef6528876742493a03ca9936205974b3a56",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T08:51:00Z"
+   "mtime_utc": "2026-09-07T10:46:41Z"
   },
   "data/presence_matrix.json": {
    "generator": "tools/build_presence_matrix.py",
@@ -96,7 +96,7 @@
    "bytes": 2920464,
    "sha256": "09fbf13dd3ff35b45e7eb526993635a654e7c16a201a337c264fd9dda014fd32",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T08:51:07Z"
+   "mtime_utc": "2026-09-07T10:46:47Z"
   },
   "data/api/manifest.json": {
    "generator": "tools/build_api_exports.py",
@@ -104,10 +104,10 @@
     "data/index.json"
    ],
    "present": true,
-   "bytes": 9002,
-   "sha256": "f356ffac90b77c87f938b72c7814722f262f2068760eea56053c163211b33e1c",
+   "bytes": 9326,
+   "sha256": "7c44824006707caf0b57a5597c5ade2cee04fc5958ed73cbe559d627173d3f8d",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T08:50:47Z"
+   "mtime_utc": "2026-09-07T10:46:31Z"
   },
   "data/api/media.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -116,10 +116,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 879124,
-   "sha256": "2156925454ed48c6750c2d692d675545f9818538eed5ad6ea3a11c0e6e38cda4",
+   "bytes": 876347,
+   "sha256": "f162ef5a02a12d01f2bc1a0ba71dc559b40abf1b392c0ebc4589ab68577d5375",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T08:50:34Z"
+   "mtime_utc": "2026-09-07T10:46:23Z"
   },
   "data/api/components.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -131,7 +131,7 @@
    "bytes": 4971879,
    "sha256": "33bfe6139fe92fc85a438a6307dbad030683d05a4d3441fe93abcd3e6790092b",
    "rows": 665582,
-   "mtime_utc": "2026-09-07T08:50:46Z"
+   "mtime_utc": "2026-09-07T10:46:30Z"
   },
   "data/cluster/clustergram.json": {
    "generator": "tools/build_cluster_data.py",
@@ -143,7 +143,7 @@
    "bytes": 42026,
    "sha256": "282638848a2288b6443a210909bc16aa518a4347f782e2da6695ab01406d9a17",
    "rows": null,
-   "mtime_utc": "2026-09-07T08:50:54Z"
+   "mtime_utc": "2026-09-07T10:46:34Z"
   },
   "data/cluster/cooccurrence.json": {
    "generator": "tools/build_cluster_data.py",
@@ -155,7 +155,7 @@
    "bytes": 50333,
    "sha256": "79587cea181e3f51806cca8d083ed626feb622c18357ce9524404da07b4b31c2",
    "rows": null,
-   "mtime_utc": "2026-09-07T08:50:54Z"
+   "mtime_utc": "2026-09-07T10:46:35Z"
   },
   "data/_quarantine.json": {
    "generator": "tools/apply_verification.py",
@@ -175,10 +175,10 @@
     "data/_quarantine.json"
    ],
    "present": true,
-   "bytes": 2025990,
-   "sha256": "f17740fc8ba5626f4b3fb5cfdd8e274197dd9a7afb8f6cd98eeca4f7edc59eb8",
+   "bytes": 2123647,
+   "sha256": "19b5b9243a4a204225a22c2e5d32a7951b15554947908a23d5336a27cb5cf405",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T08:51:16Z"
+   "mtime_utc": "2026-09-07T10:46:58Z"
   },
   "data/web/summary.json": {
    "generator": "tools/build_web_payload.py",
@@ -186,10 +186,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 9555,
-   "sha256": "cdaa7ee85b5e1368d5b36ec51cf64b6561b163ef9c803f917983001b5506a5ec",
+   "bytes": 15802,
+   "sha256": "ae0efce44b91f2fb75596d168a88aed21f370f96dfc5645fa7f39255ba44547b",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T08:51:16Z"
+   "mtime_utc": "2026-09-07T10:46:58Z"
   },
   "data/web/compounds.json": {
    "generator": "tools/build_web_payload.py",
@@ -208,10 +208,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 1082954,
-   "sha256": "b871eaca3ac34998cce579d12c6d04b78517ecb123688ab5615d71699125d037",
+   "bytes": 1129486,
+   "sha256": "62f7c797538051924825f4b03fe4144c86dee08056e65ecec470912e68d5621b",
    "rows": 253,
-   "mtime_utc": "2026-09-07T08:51:17Z"
+   "mtime_utc": "2026-09-07T10:46:58Z"
   },
   "data/web/tombstones.json": {
    "generator": "tools/build_web_payload.py",
@@ -231,10 +231,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 139086,
-   "sha256": "e21bfe6477d3487150845b8997a320e914d4657e1ed9dac72bc3ab8d6195b083",
-   "rows": 1623,
-   "mtime_utc": "2026-09-07T08:51:17Z"
+   "bytes": 141836,
+   "sha256": "a257af010de5e5b6f7bc0b7b3405ed58d3ca9231bcc85a6497be5ced88f850bb",
+   "rows": 1663,
+   "mtime_utc": "2026-09-07T10:37:44Z"
   }
  },
  "catalog_count_identity": {

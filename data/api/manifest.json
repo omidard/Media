@@ -22,23 +22,24 @@
   "definition": "pct_covered is the legacy metric and counts pipeline-derived components as covered; pct_covered_source counts only composition the cited source states. Null means not measurable, never 100."
  },
  "exchange_resolution": {
-  "n_bigg_exchange": 664000,
+  "n_bigg_exchange": 652620,
   "n_nonbigg_fallback": 1364,
+  "n_bigg_shaped_no_such_exchange": 11380,
   "n_no_exchange": 218,
   "of": 665582,
-  "definition": "Where each component's exchange id landed, over the whole library. n_bigg_exchange is a real BiGG EX_<met>_e reaction; n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG id in exchange position that no BiGG model will accept (the component's own mapping_note says so); n_no_exchange has none at all. The three partition n_components."
+  "definition": "Where each component's exchange id landed, over the whole library, in four states. n_bigg_exchange is a reaction BiGG has: the id is EX_<met>_e and <met> carries an extracellular form in the BiGG namespace. n_bigg_shaped_no_such_exchange has that same shape and names no BiGG reaction, so no model has it and the documented adoption path drops it silently. n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG id in exchange position that no BiGG model will accept (the component's own mapping_note says so); n_no_exchange has none at all. The four partition n_components; the last three are all unusable to a model."
  },
  "model_input_degeneracy": {
   "n_media": 13515,
-  "n_media_sharing_a_model_input": 6827,
-  "n_media_with_a_unique_model_input": 6688,
-  "n_groups": 1623,
+  "n_media_sharing_a_model_input": 7012,
+  "n_media_with_a_unique_model_input": 6503,
+  "n_groups": 1663,
   "largest_group": 93,
-  "n_distinct_model_inputs": 8311,
+  "n_distinct_model_inputs": 8166,
   "of": 13515,
   "definition": "Two records share a model input when the set of (exchange reaction, lower bound, upper bound) triples they hand a model is identical. That set is everything the documented COBRApy adoption path reads; the name, the source, the citation and the licence are not part of it. Records sharing one are indistinguishable to a solver, not merely similar.",
-  "n_media_sharing_a_model_input_with_concentrations": 6328,
-  "n_groups_with_concentrations": 1530,
+  "n_media_sharing_a_model_input_with_concentrations": 6508,
+  "n_groups_with_concentrations": 1568,
   "with_concentrations_definition": "The same comparison with each component's source-stated concentration added to the tuple. It is the stricter test: a pair that still collides here is identical even to a reader who inspects the amounts, not only the bounds."
  },
  "field_renames": [
@@ -154,7 +155,7 @@
     "model_input_signature",
     "n_media_with_identical_model_input"
    ],
-   "size": "858.5 KB"
+   "size": "855.8 KB"
   },
   "components.parquet": {
    "rows": 665582,
