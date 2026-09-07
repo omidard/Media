@@ -849,7 +849,7 @@ const MDB = (function () {
     }
     body.appendChild(el('div', { class: 'chip-line' }, [
       el('a', { class: 'btn', href: 'index.html#explore', text: 'Search the library' }),
-      el('a', { class: 'btn', href: 'methods.html#withdrawn', text: 'Withdrawn identifiers' })
+      el('a', { class: 'btn', href: 'methods.html', text: 'Methods and limits' })
     ]));
     if (catalog && catalog.media) {
       const near = nearestIds(id, 5);
