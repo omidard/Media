@@ -368,12 +368,10 @@ const MDB = (function () {
     // tools/licenses.tsv say exactly this; the chip must not say less.
     const note = license === 'all-rights-reserved'
       ? '. No reuse grant of any kind is stated upstream and redistribution ' +
-        'permission has not been obtained. The record ships, labelled, so you can ' +
-        'find and cite it; ask the rights-holder before reusing it.'
+        'permission has not been obtained. Ask the rights-holder before reusing it.'
       : (ok
         ? '. Commercial use is permitted by the upstream terms.'
-        : '. The upstream terms do NOT permit commercial use. ' +
-          'The record ships so you can find it, labelled so you do not misuse it.');
+        : '. The upstream terms do NOT permit commercial use.');
     return el('span', {
       class: 'chip ' + (ok ? 'plain' : 'stop'),
       text: LICENCE_SHORT[license] || license,
@@ -388,8 +386,8 @@ const MDB = (function () {
       class: 'chip ' + (stop ? 'stop' : (weak ? 'warn' : 'ok')),
       text: status || 'unverified',
       title: weak
-        ? 'No verification of this formulation against its source is recorded.'
-        : 'Verification status recorded on the record itself.'
+        ? 'No check of this formulation against its cited source is recorded.'
+        : 'How this formulation was checked against its cited source.'
     });
   }
 
@@ -813,52 +811,38 @@ const MDB = (function () {
     const card = el('div', { class: 'sheet' });
     const head = el('div', { class: 'sheet-head' }, [
       el('div', {}, [
-        el('div', { class: 'kicker', text: record ? 'Withdrawn record' : 'Unknown identifier' }),
+        el('div', { class: 'kicker', text: record ? 'Withdrawn identifier' : 'Unknown identifier' }),
         el('h3', { id: 'sheet-title', text: record ? (record.name || id) : id })
       ]),
       el('button', { class: 'btn sheet-close', type: 'button', text: 'Close' })
     ]);
     const body = el('div', { class: 'sheet-body' });
     if (record) {
-      const isWorkflowCode = /^workflow:/.test(record.code || '');
+      // A tombstone: the state of the identifier and where its record now lives.
+      // The per-record reason ships as a field in data/web/tombstones.json.
       body.appendChild(el('div', { class: 'note stop' }, [
-        el('b', { text: 'This medium was assessed and withdrawn.' }),
-        document.createTextNode(' It is not served, and no other record is a ' +
-          'substitute for it. ' + (isWorkflowCode
-            ? 'The verification pass recorded the workflow code "' + record.code + '".'
-            : 'Recorded reason: ' + (record.code || 'not recorded') + '.'))
+        el('b', { text: 'This identifier is withdrawn.' }),
+        document.createTextNode(' It is not served by the browser or the API, it is ' +
+          'not reassigned, and no other record is a substitute for it. Withdrawn media ' +
+          'are formulations whose cited source does not contain the composition, whose ' +
+          'source could not be located, or that are not growth media.')
       ]));
-      if (record.note) {
-        body.appendChild(el('div', { class: 'note' }, [
-          el('b', { text: 'What the reviewer wrote' }),
-          el('p', { style: 'margin-top:var(--s2)', text: record.note })
-        ]));
-      } else if (isWorkflowCode) {
-        body.appendChild(el('p', {
-          class: 'muted',
-          text: 'No written reason was recorded for this record, only the workflow code ' +
-            'above. ' + fmt(tomb.n_without_prose) + ' of ' + fmt(tomb.n_withdrawn) +
-            ' withdrawn records are in that position.'
-        }));
-      }
-      if (record.evidence) {
-        body.appendChild(el('div', { class: 'note caution' }, [
-          el('b', { text: 'The passage this record was extracted from' }),
-          el('p', { style: 'margin-top:var(--s2)', text: record.evidence })
-        ]));
-      }
+      body.appendChild(el('p', {
+        class: 'muted',
+        text: 'The reason recorded for this identifier is a field on its entry in ' +
+          'data/web/tombstones.json.'
+      }));
     } else {
       body.appendChild(el('div', { class: 'note stop' }, [
         el('b', { text: 'No medium is served under this identifier.' }),
         document.createTextNode(' It is not in the library of ' +
           (catalog ? fmt(catalog.count) : 'this release') +
-          ' media and it is not in the list of withdrawn records, so it was ' +
-          'either mistyped or never published.')
+          ' media and it is not a withdrawn identifier.')
       ]));
     }
     body.appendChild(el('div', { class: 'chip-line' }, [
       el('a', { class: 'btn', href: 'index.html#explore', text: 'Search the library' }),
-      el('a', { class: 'btn', href: 'methods.html#withdrawn', text: 'Every withdrawn record' })
+      el('a', { class: 'btn', href: 'methods.html#withdrawn', text: 'Withdrawn identifiers' })
     ]));
     if (catalog && catalog.media) {
       const near = nearestIds(id, 5);
@@ -953,8 +937,7 @@ const MDB = (function () {
       text: fmt(others.length) + ' other ' + (others.length === 1 ? 'medium hands' :
         'media hand') + ' a model exactly the same set of (exchange, lower bound, ' +
         'upper bound) triples as this record. Choosing between them changes nothing ' +
-        'a solver can see. They keep their own names, sources and citations, which ' +
-        'is why none of them was merged away.'
+        'a solver can see. Each keeps its own name, source and citation.'
     }));
     const shown = others.slice(0, 12);
     const list = el('p', { class: 'chip-line', style: 'margin-top:var(--s3)' });
@@ -1043,8 +1026,8 @@ const MDB = (function () {
     covCard.appendChild(el('p', {
       style: 'margin-top:var(--s2)',
       text: pcs === null || pcs === undefined
-        ? 'Not computed: the source states no ingredient list this record could be ' +
-          'measured against. It is not 100%.'
+        ? 'Not computed: the source states no ingredient list to measure against. ' +
+          'The value is absent, not 100%.'
         : pctOrAbsent(pcs) + '. ' +
           withDenominator(covs.n_sourced, covs.pct_covered_source_denominator,
             'ingredients the source states') + ' reached a BiGG exchange.'
@@ -1074,8 +1057,8 @@ const MDB = (function () {
         'This record contains components the source never stated.',
         fmt(nDerived) + ' of ' + fmt(total) + ' components are in-silico: a ' +
         'decomposition of a complex ingredient, a hydrolysate approximation, or ' +
-        'an injected mineral or oxygen base. They are kept because a model needs ' +
-        'them to grow, and excluded from every source-coverage number above.']);
+        'an injected mineral or oxygen base. They are excluded from every ' +
+        'source-coverage number above and listed separately in the COBRApy block.']);
     }
     if (counts[2] + counts[3] > 0) {
       limits.push(['caution',
@@ -1098,15 +1081,14 @@ const MDB = (function () {
       limits.push(['stop', 'No reuse grant of any kind is stated upstream.',
         'Terms: all rights reserved' +
         (prov.license_source ? ', read from ' + prov.license_source : '') +
-        '. Redistribution permission has not been obtained, and this project does ' +
-        'not claim it. The record is published, labelled and excluded from the ' +
-        'commercially usable subset so you can find and cite it; ask the ' +
-        'rights-holder before reusing it.']);
+        '. Redistribution permission has not been obtained. This record is labelled ' +
+        'all-rights-reserved and excluded from the commercially usable subset. Ask ' +
+        'the rights-holder before reusing it.']);
     } else if (prov.commercial_use_ok !== true) {
       limits.push(['stop', 'The upstream licence does not permit commercial use.',
         'Terms: ' + (prov.license || 'not recorded') + '. ' +
         (prov.license_source ? 'Read from ' + prov.license_source + '. ' : '') +
-        'The record is published so you can find and cite it.']);
+        'This record is excluded from the commercially usable subset.']);
     }
     if (med.composition_limitation) {
       limits.push(['caution', 'Composition is not unique to this record.',
