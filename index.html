@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MediaDB: growth media for genome-scale models, with their evidence</title>
-<meta name="description" content="A library of growth and simulation media for genome-scale metabolic models. 664,000 of 665,582 components reach a BiGG exchange; 1,364 carry a fallback id no BiGG model accepts and 218 reach none. Every component is labelled with how its identity was actually decided: by structure, by an identifier, by a name string, by a class assumption, or supplied by the pipeline.">
+<title>MediaDB: in silico media for genome-scale metabolic models</title>
+<meta name="description" content="In silico media for genome-scale metabolic models: 13,515 laboratory, food and biospecimen compositions re-encoded as BiGG exchange reactions. 664,000 of 665,582 components reach a BiGG exchange; 1,364 carry a fallback id no BiGG model accepts and 218 reach none. Each component records the evidence tier its identity was decided by.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,8 +32,8 @@
 <header class="masthead"><div class="wrap">
   <div class="cols">
     <div>
-      <p class="kicker">Growth media for genome-scale metabolic models</p>
-      <h1>A media library that shows its evidence.</h1>
+      <p class="kicker">MediaDB</p>
+      <h1>In silico media for genome-scale metabolic models.</h1>
       <p class="lead" id="claim">
         <span class="skeleton" style="display:inline-block;width:34ch;vertical-align:middle"></span>
       </p>
@@ -44,7 +44,7 @@
       </p>
     </div>
     <div class="card card-p">
-      <h2 style="font-size:var(--t-lg)">How every component identity was decided</h2>
+      <h2 style="font-size:var(--t-lg)">How each component identity was decided</h2>
       <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s1)" id="ev-caption">
         Reading the corpus.
       </p>
@@ -65,7 +65,7 @@
     <h2>Browse the library</h2>
     <p>Search by medium name, base-medium family, source database or organism scope, or
       switch the search to a compound and find every medium that contains it. Every row
-      opens a record with its full component list, its provenance and its licence.</p>
+      opens a record with its full component list and its provenance.</p>
   </div>
 
   <div class="card card-p">
@@ -112,14 +112,6 @@
         </select>
       </div>
       <div class="field">
-        <label for="f-licence">Licence</label>
-        <select id="f-licence" class="input">
-          <option value="">Any licence</option>
-          <option value="__commercial">Commercial use permitted</option>
-          <option value="__noncommercial">Commercial use NOT permitted</option>
-        </select>
-      </div>
-      <div class="field">
         <label for="f-derived">Pipeline-derived components</label>
         <select id="f-derived" class="input">
           <option value="">Any amount</option>
@@ -148,7 +140,6 @@
         <th class="sortable opt"><button type="button" data-sort="pct_covered_source">From source <span class="arrow" data-arrow="pct_covered_source"></span></button></th>
         <th class="opt">O₂</th>
         <th class="sortable opt"><button type="button" data-sort="source_db">Source <span class="arrow" data-arrow="source_db"></span></button></th>
-        <th class="opt">Licence</th>
       </tr></thead>
       <tbody id="tbody"></tbody>
     </table>
@@ -168,7 +159,7 @@
     <div class="card card-p">
       <h3>Where the media come from</h3>
       <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)">
-        Every source database, with its share of the library and the licence its records carry.
+        Every source database, with its share of the library.
       </p>
       <div class="barlist" id="chart-sources"></div>
     </div>
@@ -193,14 +184,14 @@
     <div>
       <h4>Attribution</h4>
       <p style="margin-top:var(--s2)">This resource redistributes data from other people's
-        databases. Each medium record carries the licence of the source it came from, and
-        the full schedule is in <a href="LICENSE">LICENSE</a> and <a href="NOTICE">NOTICE</a>.</p>
+        databases. The sources and the terms their material was taken under are named in
+        <a href="NOTICE">NOTICE</a>.</p>
       <ul>
         <li><b>USDA FoodData Central</b>: U.S. Department of Agriculture, Agricultural
           Research Service. Public domain (CC0 1.0).</li>
         <li><b>DSMZ MediaDive</b>: MediaDive (c) 2022 by DSMZ, licensed under CC BY 4.0.
           Includes media aggregated from JCM (RIKEN) and CCAP.</li>
-        <li><b>FooDB</b>: FooDB version 1.0, licensed CC BY-NC 4.0. Not for commercial use.</li>
+        <li><b>FooDB</b>: FooDB version 1.0, licensed CC BY-NC 4.0.</li>
         <li><b>MediaDB (ISB defined media)</b>: Institute for Systems Biology. All rights
           reserved by the upstream provider; republished here for reference only.</li>
         <li><b>Human Metabolome Database (HMDB 5.0)</b>: licensed CC BY-NC 4.0.</li>
@@ -214,19 +205,19 @@
       <h4>Use it</h4>
       <ul>
         <li><a href="API.md">Programmatic API and bulk exports</a></li>
-        <li><a href="methods.html">Methods, limits and withdrawn identifiers</a></li>
+        <li><a href="methods.html">Methods and limits</a></li>
         <li><a href="DESIGN.md">Record schema</a> and <a href="PROVENANCE.md">provenance rules</a></li>
         <li><a href="https://github.com/omidard/Media" rel="noopener">Source code on GitHub</a></li>
       </ul>
-      <p style="margin-top:var(--s3)">Code is MIT. Data is <b>not</b> under a single licence:
-        it is per source, and 1,189 of the 13,515 records may not be used commercially.
-        The licence filter above returns the commercially usable subset.</p>
+      <p style="margin-top:var(--s3)">The data is licensed
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener">CC BY-NC 4.0</a>;
+        code in this repository is MIT.</p>
     </div>
     <div>
       <h4>Cite</h4>
       <p style="margin-top:var(--s2)">Cite the primary publication recorded in each medium's
         <code>provenance.citation</code>, not this compilation alone. A record here is an
-        encoding of somebody else's formulation.</p>
+        encoding of somebody else's composition.</p>
       <p style="margin-top:var(--s3)" id="build-stamp">Build stamp loading.</p>
     </div>
   </div>
@@ -298,8 +289,7 @@
     return el('tr', {}, [
       name, comps, ev, cov,
       el('td', { class: 'opt' }, [MDB.o2Chip(r.oxygen)]),
-      el('td', { class: 'opt', text: r.source_db }),
-      el('td', { class: 'opt' }, [MDB.licenceChip(r.license, r.commercial_use_ok)])
+      el('td', { class: 'opt', text: r.source_db })
     ]);
   }
 
@@ -310,7 +300,6 @@
       source: $('f-source').value,
       category: $('f-category').value,
       oxygen: $('f-oxygen').value,
-      licence: $('f-licence').value,
       derived: $('f-derived').value
     };
   }
@@ -327,8 +316,6 @@
       if (f.category && r.category !== f.category) return false;
       if (f.oxygen === '__unknown' && r.oxygen !== null) return false;
       if (f.oxygen && f.oxygen !== '__unknown' && r.oxygen !== f.oxygen) return false;
-      if (f.licence === '__commercial' && r.commercial_use_ok !== true) return false;
-      if (f.licence === '__noncommercial' && r.commercial_use_ok === true) return false;
       if (f.derived === 'none' && r.n_derived !== 0) return false;
       if (f.derived === 'some' && !r.n_derived) return false;
       if (f.derived === 'half' && !(r.n_derived * 2 > r.n_components)) return false;
@@ -359,20 +346,13 @@
       .filter(([k]) => k !== '_of')
       .sort((a, b) => b[1] - a[1]);
     const top = entries[0][1];
-    const licenceOf = {};
-    cat.licences.forEach((l) => l.sources.forEach((s) => { licenceOf[s] = l; }));
     entries.forEach(([label, n]) => {
-      const lic = licenceOf[label];
       box.appendChild(el('div', { class: 'barrow' }, [
         el('span', { class: 'lbl', title: label, text: label }),
         el('span', { class: 'track' }, [
           el('span', { class: 'fill', style: 'width:' + (100 * n / top) + '%' })
         ]),
-        el('span', {
-          class: 'val',
-          text: MDB.withDenominator(n, cat.count) +
-            (lic ? ' · ' + (lic.commercial_use_ok ? lic.license : lic.license + ' ⚠') : '')
-        })
+        el('span', { class: 'val', text: MDB.withDenominator(n, cat.count) })
       ]));
     });
   }
@@ -501,12 +481,11 @@
       MDB.withDenominator(derived.n, derived.of) +
       ' were supplied by this pipeline rather than by the cited source, and ' +
       MDB.withDenominator(nameCls.n, nameCls.of) +
-      ' were identified by a name string rather than by chemistry. ' +
-      'Each row states both counts.';
+      ' were identified by a name string rather than by chemistry.';
 
     $('ev-caption').textContent =
       'Across ' + fmt(totals.n_components) + ' component records in ' + fmt(cat.count) +
-      ' media. The classes are ordered by the strength of the evidence, strongest first. ' +
+      ' media. The classes are ordered by strength of evidence, strongest first. ' +
       'Widths are proportional, so the smallest class is a sliver: read the counts.';
     $('ev-bar').appendChild(MDB.evidenceBar(
       cat.evidence_classes.map((c) => c.n)));
@@ -551,7 +530,7 @@
       });
     });
 
-    ['q', 'f-evidence', 'f-source', 'f-category', 'f-oxygen', 'f-licence', 'f-derived']
+    ['q', 'f-evidence', 'f-source', 'f-category', 'f-oxygen', 'f-derived']
       .forEach((id) => {
         const node = $(id);
         node.addEventListener(node.tagName === 'SELECT' ? 'change' : 'input',
@@ -561,7 +540,7 @@
       debounce((e) => compoundFilter(e.target.value), 260));
     $('clear').addEventListener('click', () => {
       ['q', 'f-compound', 'f-evidence', 'f-source', 'f-category', 'f-oxygen',
-        'f-licence', 'f-derived'].forEach((id) => { $(id).value = ''; });
+        'f-derived'].forEach((id) => { $(id).value = ''; });
       compoundHits = null;
       $('compound-note').textContent = 'A BiGG exchange, a metabolite name, a KEGG ' +
         'or ChEBI id, or an InChIKey.';

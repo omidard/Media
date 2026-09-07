@@ -12,10 +12,9 @@ Every file below is a plain HTTPS `GET`, returned with permissive CORS
   ModelSEED/MetaNetX/KEGG **fallback id no BiGG model will accept**, and 218 carry no
   exchange at all. Per record: `n_mapped`, `n_nonbigg_fallback`, `n_unmappable`.
 - **Bounds convention:** `lower_bound < 0` means **uptake** (mmol · gDW⁻¹ · h⁻¹)
-- **Licence:** the code is MIT; the **data is not under a single licence**. It is per
-  upstream source, and 1,189 of 13,515 records (8.8%) may not be used commercially.
-  Every record carries `provenance.license` / `commercial_use_ok`; the schedule is
-  [`LICENSE`](./LICENSE) and [`tools/licenses.tsv`](./tools/licenses.tsv).
+- **Licence:** the data is **CC BY-NC 4.0**, one licence for the whole compilation; the
+  code is MIT. Every payload carries it as `license`. Attribution owed upstream is in
+  [`NOTICE`](./NOTICE); see [`LICENSE`](./LICENSE).
 
 A machine-readable description lives in [`openapi.yaml`](./openapi.yaml).
 For a ready-made client see [`client/`](./client) (`pip install ".../#subdirectory=client"`).
@@ -41,8 +40,7 @@ The full catalog. Object with:
 
 Each `media[]` summary: `id`, `name`, `category`, `organism_scope`, `aerobic`, `oxygen`,
 `n_components`, `n_mapped`, `n_in_biggr`, `n_nonbigg_fallback`, `n_no_exchange`,
-`namespace`, `source_type`, `source_db`, `license`, `commercial_use_ok`,
-`verification_status`, `n_sourced`, `n_derived`, `n_unmappable`,
+`namespace`, `source_type`, `source_db`, `verification_status`, `n_sourced`, `n_derived`, `n_unmappable`,
 `pct_covered_source`, `pct_sourced_components_with_bigg_id`,
 `model_input_signature`, `n_media_with_identical_model_input`,
 `defined`, `citation`, `food_group`.

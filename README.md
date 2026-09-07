@@ -1,15 +1,13 @@
 # Media
 
-**A semi-curated, citation-backed library of growth & simulation media for genome-scale
-metabolic models — 664,000 of 665,582 components (99.8%) mapped to a standard BiGG
-exchange reaction.**
+**In silico media for genome-scale metabolic models: 13,515 laboratory, food and
+biospecimen compositions re-encoded as BiGG exchange reactions.**
 
 Reusing a published medium in a genome-scale metabolic model (GEM) usually means
 re-reading the paper and re-mapping every compound into your model's namespace by hand.
-`Media` does that once, transparently: each medium is a machine-readable record whose
-components carry a BiGG exchange (`EX_<met>_e`) and, for most of them, cross-references
-(InChIKey / ChEBI / KEGG / HMDB / MetaNetX / SEED), and the whole medium carries a
-**citation**.
+`Media` does that once: each medium is a machine-readable record whose components carry a
+BiGG exchange (`EX_<met>_e`) and, for most of them, cross-references (InChIKey / ChEBI /
+KEGG / HMDB / MetaNetX / SEED), and the whole medium carries a **citation**.
 
 Component coverage, measured:
 
@@ -48,7 +46,7 @@ An interactive browser — search and filter every medium, inspect each componen
 
 <p align="center">
   <em>Explore the library &middot; clustered composition patterns &middot; side-by-side comparison &middot; and every medium copyable straight into COBRApy</em><br><br>
-  <a href="https://omidard.github.io/Media/"><img src="https://img.shields.io/badge/%E2%96%B6%20Open%20the%20Media%20browser-1F8A70?style=for-the-badge&logo=googlechrome&logoColor=white" height="42" alt="Open the Media browser"></a>
+  <a href="https://omidard.github.io/Media/"><img src="https://img.shields.io/badge/%E2%96%B6%20Open%20the%20Media%20browser-1F8A70?style=for-the-badge&logo=googlechrome&logoColor=white" height="42" alt="Open the MediaDB browser: in silico media for genome-scale metabolic models"></a>
   &nbsp;&nbsp;<a href="https://omidard.github.io/Media/"><code>omidard.github.io/Media</code></a>
 </p>
 
@@ -196,29 +194,18 @@ repository is generated from it (`make derived`) and checked against it
 | **HMDB tables republished in an open-access paper** | 3 | CC BY-NC 4.0 | host biofluids — **non-commercial** |
 | **total** | **13,515** | | |
 
-Where a row says **CC BY 4.0** for a project-compiled set (GrowthDB literature, GEM
-papers, classic formulations), that licence is asserted by this project over **its own
-compilation, mapping and encoding** — not over the cited publications, which are not
-redistributed here. `tools/licenses.tsv` records that as `terms_verification:
-project_assertion`, and 8 records carry `license_review_required: true` because their
-provenance points at a source whose terms have not been resolved.
-
-1,189 of these records (8.8%) may not be used commercially; every record states its own
-licence in `provenance.license` and the catalogue carries `commercial_use_ok`, so a
-commercially usable subset is one filter away. See `LICENSE` and `NOTICE` for the
-per-source schedule.
+The **licence column above is the upstream position**, which is what `NOTICE` credits. The
+compilation as a whole is licensed **CC BY-NC 4.0**, set at the most restrictive of those
+inputs; there is no per-record licence field.
 
 **On the 471 MediaDB (ISB) records, stated plainly.** The only statement on
 `mediadb.systemsbiology.net/defined_media/` (read 2026-09-06, first-party) is
 "(c) 2014, Institute for Systems Biology, All Rights Reserved". **No reuse grant of any
-kind is offered upstream, and redistribution permission has not been obtained.** These
-records are published under `mdb_*` identifiers, labelled `all-rights-reserved`, marked
-`commercial_use_ok: false`, excluded from the commercially usable subset, and rendered
-all-rights-reserved on the site. They hold 8,397 of 14,055 non-null concentration values
-(59.7%), the largest single share in the library. Permission is being sought (contact:
-mediadb@systemsbiology.org). If you need a subset you can redistribute, filter them out.
-`tools/licenses.tsv` is the machine-readable schedule; `LICENSE` and `NOTICE` carry the
-verbatim terms.
+kind is offered upstream, and redistribution permission has not been obtained.** They are
+published under `mdb_*` identifiers with `provenance.source_name`
+"MediaDB (ISB defined media)" so they can be identified, and they hold 8,397 of 14,055
+non-null concentration values (59.7%), the largest single share in the library. Permission
+is being sought (contact: mediadb@systemsbiology.org).
 
 Categories: **laboratory** 5,373, **food** 8,125, **biospecimen** 17. (`growth_medium`,
 a second-generation label carried by 443 laboratory records, is merged into
@@ -322,16 +309,10 @@ source of any medium you use (given in each record's `provenance`).
 
 ## License
 
-**There is no blanket data licence here, and this repository does not assert one.**
-
+* **Data**: **CC BY-NC 4.0** ([terms](https://creativecommons.org/licenses/by-nc/4.0/)).
+  One licence for the whole compilation, set at the most restrictive upstream input; see
+  [`LICENSE`](LICENSE). Attribution owed upstream is in [`NOTICE`](NOTICE).
 * **Code** (`tools/`, `client/`, `build_index.py`, the site's HTML/CSS/JS): **MIT**.
-* **Data**: per upstream source. The schedule is [`LICENSE`](LICENSE), the machine-readable
-  table is [`tools/licenses.tsv`](tools/licenses.tsv) (each row carries the verbatim terms,
-  the URL they were read from and the date), and the attributions owed upstream are in
-  [`NOTICE`](NOTICE). Every record carries its own `provenance.license`,
-  `commercial_use` and `commercial_use_ok`.
-* 12,326 of 13,515 records (91.2%) permit commercial use; **1,189 (8.8%) do not**, and this
-  project cannot grant rights it does not hold. Filter on `commercial_use_ok == true`.
 
 Cite each medium's original source, given in its `provenance.citation`. A record here is an
-encoding of somebody else's formulation.
+encoding of somebody else's composition.

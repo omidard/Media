@@ -77,8 +77,9 @@
 <footer class="foot"><div class="wrap">
   <p>A base-medium family is a field on every record, and the whole index is published in
     <code>data/web/families.json</code>. A record with no family is listed as ungrouped on
-    the <a href="index.html">explore page</a>. Attribution and licence terms for every
-    source are on the <a href="methods.html#licensing">methods page</a>.</p>
+    the <a href="index.html">explore page</a>. The data is licensed
+    <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener">CC BY-NC 4.0</a>;
+    upstream sources are named in <a href="NOTICE">NOTICE</a>.</p>
 </div></footer>
 
 <script src="assets/media.js"></script>
@@ -276,8 +277,7 @@
           (m.pct_covered_source_is_upper_bound && m.pct_covered_source > 0)
             ? el('span', { class: 'cellnote', text: 'at most' }) : el('span')
         ]),
-        el('td', { class: 'opt' }, [MDB.o2Chip(m.oxygen)]),
-        el('td', { class: 'opt' }, [MDB.licenceChip(m.license, m.commercial_use_ok)])
+        el('td', { class: 'opt' }, [MDB.o2Chip(m.oxygen)])
       ]));
     });
 
@@ -295,8 +295,7 @@
             el('th', { class: 'opt', text: 'What its name declares' }),
             el('th', { class: 'opt', text: 'Components' }),
             el('th', { class: 'opt', text: 'From source' }),
-            el('th', { class: 'opt', text: 'O₂' }),
-            el('th', { class: 'opt', text: 'Licence' })
+            el('th', { class: 'opt', text: 'O₂' })
           ])]),
           tbody
         ])

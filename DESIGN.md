@@ -1,8 +1,8 @@
 # Media — design & data model
 
-A curated, citation-backed library of growth and simulation **media** whose components
-carry a standard **BiGG exchange reaction**, so a genome-scale metabolic model (GEM) can
-adopt a medium without re-deriving it. Measured over the shipped corpus: **664,000 of
+In silico **media** for genome-scale metabolic models: laboratory, food and biospecimen
+compositions whose components carry a standard **BiGG exchange reaction**, so a
+genome-scale metabolic model (GEM) can adopt a medium without re-deriving it. Measured over the shipped corpus: **664,000 of
 665,582 component records (99.8%) reach a BiGG exchange**; 1,364 carry a
 ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will accept, and 218 carry no
 exchange at all. This document defines the schema, the mapping and provenance rules, and
