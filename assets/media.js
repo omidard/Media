@@ -77,27 +77,49 @@ const MDB = (function () {
   /* ------------------------------------------------------------ fetching -- */
   /** Typed fetch. A 404 and an unreachable server are different states and the
    *  UI must be able to tell them apart. Collapsing them is how a flaky
-   *  network gets reported to a user as "this medium was removed". */
+   *  network gets reported to a user as "this medium was removed".
+   *
+   *  A body that arrives and cannot be parsed is a fourth state, and leaving it
+   *  untyped was not free. `response.json()` rejects with a SyntaxError that
+   *  carries no `kind`, so it fell through every branch below: a captive portal
+   *  or TLS-inspecting proxy answering 200 with a block page, a corrupted cache
+   *  object or a truncated file was reported as "The library could not be
+   *  reached ... Reloading the page may succeed", when the response had arrived
+   *  intact and a reload returns the same bytes. Worse, loadTwins/loadRefs/
+   *  loadTombstones record `e.kind` and undefined is falsy, so their
+   *  "could not be checked" guards never fired and a degeneracy payload that
+   *  never loaded rendered as "this record's model input is unique". */
   async function getJSON(path) {
+    // The message is what a reader sees when a page prints it, so it states the
+    // condition and not the repository layout: which file failed is build
+    // plumbing, and it is carried on `e.path` and logged for whoever is
+    // debugging rather than shown to a scientist reading the page.
+    const fail = (kind, message) => {
+      const e = new Error(message);
+      e.kind = kind;
+      e.path = path;
+      if (window.console && console.warn) console.warn('MediaDB:', path, kind, message);
+      return e;
+    };
     let response;
     try {
       response = await fetch(path);
     } catch (networkError) {
-      const e = new Error('could not reach ' + path);
-      e.kind = 'unreachable';
-      throw e;
+      throw fail('unreachable', 'the request did not complete');
     }
     if (response.status === 404) {
-      const e = new Error(path + ' is not on this server');
-      e.kind = 'not_found';
-      throw e;
+      throw fail('not_found', 'the server returned HTTP 404');
     }
     if (!response.ok) {
-      const e = new Error(path + ' returned HTTP ' + response.status);
-      e.kind = 'http_' + response.status;
-      throw e;
+      throw fail('http_' + response.status,
+        'the server returned HTTP ' + response.status);
     }
-    return response.json();
+    try {
+      return await response.json();
+    } catch (parseError) {
+      throw fail('unparseable', 'the response is not valid JSON (' +
+        (parseError && parseError.message ? parseError.message : 'no detail') + ')');
+    }
   }
 
   /** Fold case and punctuation so "BG-11", "BG 11" and "bg11" are one query. */
@@ -189,7 +211,11 @@ const MDB = (function () {
         (raw.groups || []).forEach((g, gi) => g.forEach((id) => { of[id] = gi; }));
         raw.group_of = of;
         twins = raw;
-      } catch (e) { twins = { groups: [], group_of: {}, _error: e.kind }; }
+      // `e.kind || 'load_failed'`, never a bare `e.kind`: an untyped throw stored
+      // undefined here, which is falsy, so the guard in twinCard() did not fire
+      // and a payload that never loaded produced the confident sentence "the set
+      // of exchange reactions and bounds this record hands a model is unique".
+      } catch (e) { twins = { groups: [], group_of: {}, _error: e.kind || 'load_failed' }; }
     }
     return twins;
   }
@@ -199,7 +225,7 @@ const MDB = (function () {
       try { tombstones = await getJSON('data/web/tombstones.json'); }
       catch (e) {
         tombstones = { records: {}, reason_codes: [], n_withdrawn: null,
-          _error: e.kind };
+          _error: e.kind || 'load_failed' };
       }
     }
     return tombstones;
@@ -223,7 +249,7 @@ const MDB = (function () {
       try {
         refs = await getJSON('data/refs.json');
       } catch (e) {
-        refs = { xrefs: {}, notes: {}, _error: e.kind };
+        refs = { xrefs: {}, notes: {}, _error: e.kind || 'load_failed' };
       }
     }
     return refs;
@@ -258,6 +284,24 @@ const MDB = (function () {
    *  openMedium() now loads the vocabulary itself; these two degrade to a named
    *  unknown rather than throwing if it is somehow still absent.
    */
+  /** Does this exchange id name a BiGG reaction that exists?
+   *
+   *  An id can have the EX_<met>_e shape and name no BiGG reaction, because the
+   *  metabolite has no extracellular form there. 11,380 components in 5,942 media
+   *  are in that state, EX_choles_e the largest (BiGG carries choles_c only, and
+   *  cholesterol's exchange is EX_chsterol_e). `model.medium = {...}` drops every
+   *  one of them without a word. The list is published in the payload the record
+   *  sheet already loads, so this costs no extra fetch.
+   *
+   *  Returns FALSE when the payload has not been loaded, so a component is never
+   *  marked unusable on the strength of a list this code does not hold. An absent
+   *  answer must not become a confident label in either direction. */
+  function isUnusableExchange(ex) {
+    const xr = catalog && catalog.exchange_resolution;
+    const ids = xr && xr.bigg_shaped_no_such_exchange_ids;
+    return !!(ids && ids.indexOf(ex) >= 0);
+  }
+
   function evidenceClasses() {
     return (catalog && catalog.evidence_classes) || [];
   }
@@ -354,6 +398,28 @@ const MDB = (function () {
     unknown: 'The oxygen regime is NOT recorded for this medium. It is unknown, ' +
       'not anaerobic. Set EX_o2_e yourself.'
   };
+  /** The regime a source or a curator actually stated, from a per-record file.
+   *
+   *  The catalogue already publishes this correctly, because the payload builder
+   *  applies the rule. A record sheet reads the per-medium file instead, and that
+   *  file still carries the pipeline's `facultative` default with the reason in
+   *  `oxygen_note`: two catch-all branches of the oxygen curation return
+   *  facultative when the source says nothing at all, which is 11,926 of the
+   *  12,136 facultative records. Without this the browse table would say unknown
+   *  and the record sheet for the same medium would say facultative.
+   *
+   *  The vocabulary comes from the payload (`oxygen_basis.unstated_notes`), so
+   *  the browser and the builder cannot disagree about which notes mean nothing
+   *  was stated. With no payload in hand the record's own value is returned
+   *  unchanged: this must not invent an absence any more than it invents a value. */
+  function recordedOxygen(med) {
+    const basis = catalog && catalog.oxygen_basis;
+    const notes = basis && basis.unstated_notes;
+    if (!notes || med.oxygen !== 'facultative') return med.oxygen;
+    const note = (med.oxygen_note || '').trim();
+    return notes.indexOf(note) >= 0 ? null : med.oxygen;
+  }
+
   function o2Chip(oxygen) {
     const known = oxygen && O2_LABEL[oxygen];
     return el('span', {
@@ -485,6 +551,9 @@ const MDB = (function () {
   let lastFocused = null;
 
   function closeSheet(pushHistory) {
+    // Invalidate any record still in flight, so it cannot mount a sheet over a
+    // page the reader has already returned to.
+    openSeq++;
     const open = document.getElementById('medium-sheet');
     if (!open) return;
     open.remove();
@@ -527,11 +596,11 @@ const MDB = (function () {
   const BLOCK_REASON = {
     food_amount_no_volume_basis:
       'the source gives a mass per 100 g of food, and no volume of medium to divide it by',
-    invented_component: 'the component is pipeline-derived, so no source amount exists',
+    invented_component: 'the component is derived, so no source amount exists',
     no_source_amount: 'the source states the ingredient but never states how much',
     parent_salt_identity_lost:
       'the ion was recorded without the salt it came from, so its molar amount cannot be recovered',
-    unrecognised_unit: 'the amount carries a unit this pipeline does not convert'
+    unrecognised_unit: 'the amount carries a unit that was not converted'
   };
   const BASIS_LABEL = {
     per_100g_food: 'per 100 g of food',
@@ -563,9 +632,10 @@ const MDB = (function () {
     if (c.derived_not_sourced) {
       nameCell.appendChild(el('div', {}, [el('span', {
         class: 'chip ev-derived',
-        title: (noteOf(c, 'mapping_note') || 'supplied by this pipeline') +
+        title: (noteOf(c, 'mapping_note') ||
+                'derived: the cited source does not state this component') +
           (c.derived_from ? ' (from "' + c.derived_from + '")' : ''),
-        text: c.derived_from ? 'derived from ' + c.derived_from : 'pipeline-derived'
+        text: c.derived_from ? 'derived from ' + c.derived_from : 'derived'
       })]));
     }
 
@@ -714,32 +784,49 @@ const MDB = (function () {
     });
     const stated = med.components.filter(
       (c) => c.concentration_status === 'source_stated').length;
+    // Ids of the EX_<met>_e shape that name no BiGG reaction. The `continue`
+    // below silently drops every one of them, and it used to do so without
+    // saying how many, so a reader could copy a medium and lose components
+    // without a word. Marked inline and counted.
+    const noSuchReaction = med.components.filter(
+      (c) => c.lower_bound < 0 && c.exchange && isUnusableExchange(c.exchange)).length;
     const lines = [];
     lines.push('# ' + med.id + ': ' + (med.name_display || med.name));
     lines.push('# WARNING: a bound below is NOT a measured uptake rate.');
     lines.push('#   ' + groups.sourced.length + ' of ' + med.components.length +
       ' components are stated by the cited source.');
     lines.push('#   ' + groups.derived.length + ' of ' + med.components.length +
-      ' were supplied by the MediaDB pipeline and are NOT in the source. ' +
-      'Edit or delete them.');
+      ' are derived and are NOT in the source. Edit or delete them.');
     lines.push('#   ' + stated + ' of ' + med.components.length +
       ' carry a source-stated concentration; the rest are presence placeholders.');
+    if (noSuchReaction) {
+      lines.push('#   ' + noSuchReaction + ' name no BiGG reaction at all and are ' +
+        'marked NO SUCH BiGG REACTION below.');
+      lines.push('#   The loop skips them, so the medium you apply is that many ' +
+        'components smaller.');
+    }
     lines.push('uptake = {');
     lines.push('    # --- stated by the cited source ---');
     groups.sourced.forEach((c) => {
-      lines.push('    "' + c.exchange + '": ' + c.lower_bound + ',');
+      lines.push('    "' + c.exchange + '": ' + c.lower_bound + ',' +
+        (isUnusableExchange(c.exchange) ? '   # NO SUCH BiGG REACTION' : ''));
     });
     if (groups.derived.length) {
-      lines.push('    # --- supplied by the pipeline, not by the source ---');
+      lines.push('    # --- derived, not stated by the source ---');
       groups.derived.forEach((c) => {
         lines.push('    "' + c.exchange + '": ' + c.lower_bound + ',   # ' +
+          (isUnusableExchange(c.exchange) ? 'NO SUCH BiGG REACTION; ' : '') +
           (c.derived_from ? 'from ' + c.derived_from : 'in-silico addition'));
       });
     }
     lines.push('}');
+    lines.push('skipped = [x for x in uptake if x not in model.reactions]');
+    lines.push('if skipped:');
+    lines.push('    print(len(skipped), "of", len(uptake),');
+    lines.push('          "components are not in this model and were dropped:", skipped)');
     lines.push('for ex_id, lb in uptake.items():');
     lines.push('    if ex_id not in model.reactions:');
-    lines.push('        continue   # this model has no exchange for it');
+    lines.push('        continue   # reported above, not silently lost');
     lines.push('    rxn = model.reactions.get_by_id(ex_id)');
     lines.push('    rxn.lower_bound = lb');
     lines.push('    rxn.upper_bound = 1000.0');
@@ -781,8 +868,27 @@ const MDB = (function () {
     setTimeout(() => URL.revokeObjectURL(url), 4000);
   }
 
+  /** Which open request is the current one.
+   *
+   *  openMedium() rendered and rewrote history whenever its own await resolved,
+   *  with no check against a newer call. Record payloads span 7 KB to 807 KB, so
+   *  on a slow or variable link responses arrive out of order: a reader who
+   *  clicked a second medium while the first was still loading was silently left
+   *  on the first, with the URL rewritten to match, so the page looked correct
+   *  and the permalink they copied named a record they did not choose. Measured
+   *  at 250 kbps / 300 ms RTT with no request interception at all, clicking a
+   *  76 KB record then an 11 KB one settled on the record clicked FIRST.
+   *
+   *  Every await below re-checks this counter, on the failure paths as well as
+   *  the success path: a late 404 or a late network error could otherwise
+   *  overwrite a good record just as easily as a late success. closeSheet()
+   *  bumps it too, so a record still in flight cannot mount a sheet the reader
+   *  has already dismissed. */
+  let openSeq = 0;
+
   async function openMedium(id, opts) {
     const push = !(opts && opts.replace === true);
+    const mySeq = ++openSeq;
     let med;
     try {
       // loadSummary() is what makes this call path self-sufficient: the record
@@ -795,10 +901,13 @@ const MDB = (function () {
         getJSON('data/media/' + id + '.json'), loadSummary(), loadTwins(),
         loadRefs()]);
     } catch (e) {
-      if (e.kind === 'not_found') await renderMissing(id);
+      if (mySeq !== openSeq) return;
+      if (e.kind === 'not_found') await renderMissing(id, mySeq);
+      else if (e.kind === 'unparseable') renderUnreadable(id, e);
       else renderUnreachable(id, e);
       return;
     }
+    if (mySeq !== openSeq) return;
     // Fetching succeeded. Anything that throws from here is this code failing to
     // render a record it holds, and it is reported as that, never as a network
     // fault (which would send the reader to reload a page that will fail again).
@@ -813,13 +922,44 @@ const MDB = (function () {
     }
   }
 
-  async function renderMissing(id) {
+  /** The record file did not come back. Name the state, and only the state this
+   *  code has established.
+   *
+   *  There are three, and the old branch knew one. It consulted the tombstone
+   *  table and nothing else, so a 404 on an identifier the CATALOGUE lists
+   *  rendered "It is not in the library of 13,515 media", six lines above a
+   *  "Closest identifiers in the library" list whose first entry was that
+   *  record's own name. A per-record 404 is an ordinary serving condition for
+   *  13,515 separately served files (a partial deploy, a renamed id, a CDN edge
+   *  miss), and the reader was told the medium had never existed.
+   *
+   *  loadCatalog() rather than loadSummary(): summary.json carries no `media`
+   *  array, so on families.html the check was not skipped but impossible, and
+   *  that is also the page where the contradicting list was absent, leaving the
+   *  false sentence with no tell at all. The catalogue is fetched here only
+   *  after a record has already failed, so the cost is paid on the failure path. */
+  async function renderMissing(id, seq) {
+    const current = () => seq === undefined || seq === openSeq;
     const tomb = await loadTombstones();
+    if (!current()) return;
     const record = tomb.records ? tomb.records[id] : null;
+    // Whether the identifier is withdrawn is only KNOWN if the table loaded.
+    const withdrawnKnown = !tomb._error;
+    // true, false, or null when the catalogue itself could not be consulted.
+    let listed = null;
+    if (!record) {
+      try { await loadCatalog(); } catch (e) { /* listed stays null */ }
+      if (!current()) return;
+      if (catalog && catalog.media) {
+        listed = catalog.media.some((r) => r.id === id);
+      }
+    }
+    const kicker = record ? 'Withdrawn identifier'
+      : (listed === true ? 'Record not served' : 'Unknown identifier');
     const card = el('div', { class: 'sheet' });
     const head = el('div', { class: 'sheet-head' }, [
       el('div', {}, [
-        el('div', { class: 'kicker', text: record ? 'Withdrawn identifier' : 'Unknown identifier' }),
+        el('div', { class: 'kicker', text: kicker }),
         el('h3', { id: 'sheet-title', text: record ? (record.name || id) : id })
       ]),
       el('button', { class: 'btn sheet-close', type: 'button', text: 'Close' })
@@ -839,19 +979,50 @@ const MDB = (function () {
         el('b', { text: rc ? rc.label : (record.reason_code || 'Reason not recorded') }),
         document.createTextNode(rc ? ' ' + rc.definition : '')
       ]));
+    } else if (listed === true) {
+      // The catalogue lists it and the file did not come back. That is all this
+      // code knows, and it is a fact about the server, not about the medium.
+      body.appendChild(el('div', { class: 'note caution' }, [
+        el('b', { text: 'This record did not load.' }),
+        document.createTextNode(' The catalogue for this release lists this ' +
+          'identifier, and the request for its record returned HTTP 404. That is ' +
+          'a serving fault. Nothing here is a statement about the medium.')
+      ]));
+    } else if (listed === null) {
+      // The catalogue could not be consulted, so absence was never established.
+      body.appendChild(el('div', { class: 'note caution' }, [
+        el('b', { text: 'This record did not load.' }),
+        document.createTextNode(' The request for its record returned HTTP 404, ' +
+          'and the catalogue could not be loaded, so whether this release lists ' +
+          'this identifier is not known here.')
+      ]));
     } else {
       body.appendChild(el('div', { class: 'note stop' }, [
         el('b', { text: 'No medium is served under this identifier.' }),
         document.createTextNode(' It is not in the library of ' +
-          (catalog ? fmt(catalog.count) : 'this release') +
-          ' media and it is not a withdrawn identifier.')
+          (catalog ? fmt(catalog.count) : 'this release') + ' media' +
+          (withdrawnKnown
+            ? ' and it is not a withdrawn identifier.'
+            : '. The list of withdrawn identifiers could not be loaded, so ' +
+              'whether it was withdrawn is not known here.'))
       ]));
     }
     body.appendChild(el('div', { class: 'chip-line' }, [
       el('a', { class: 'btn', href: 'index.html#explore', text: 'Search the library' }),
       el('a', { class: 'btn', href: 'methods.html', text: 'Methods and limits' })
     ]));
-    if (catalog && catalog.media) {
+    // Only an identifier the library genuinely does not hold gets suggestions,
+    // and they are named for what the computation does. Scoring on common
+    // leading characters meant that for a withdrawn `complexlit_PMC…` id every
+    // one of the 333 records sharing that prefix cleared the threshold and the
+    // ranking was decided by how many leading digits of a PubMed Central
+    // accession happened to agree; accessions are assigned by deposit order and
+    // carry no compositional information. For 42 of the 77 withdrawn ids not one
+    // of the five suggestions shared a content word with the withdrawn record's
+    // own name. Ranking withdrawn ids by chemistry instead is not available and
+    // cannot be: a tombstone carries a name and a reason code and nothing else,
+    // and one of the reasons is that no composition was ever recorded.
+    if (listed === false && catalog && catalog.media) {
       const near = nearestIds(id, 5);
       if (near.length) {
         const list = el('ul');
@@ -861,7 +1032,11 @@ const MDB = (function () {
           ]));
         });
         body.appendChild(el('div', {}, [
-          el('h4', { text: 'Closest identifiers in the library' }), list
+          el('h4', { text: 'Identifiers that begin the same way' }),
+          el('p', { class: 'muted', text: 'Ranked by how much of the identifier ' +
+            'string they share with the one requested, which is a guide to a typo ' +
+            'or a truncated link and not a statement about composition.' }),
+          list
         ]));
       }
     }
@@ -873,10 +1048,24 @@ const MDB = (function () {
   /** The request for the record failed. A cause this code HAS established. */
   function renderUnreachable(id, error) {
     failureSheet(id, 'The library could not be reached.',
-      ' The request for this record did not complete: ' +
+      ' The request for this record did not complete (' +
       (error && error.message ? error.message : 'no response') +
-      '. It is a network or server fault, not a statement about the medium. ' +
+      '). It is a network or server fault, not a statement about the medium. ' +
       'Reloading the page may succeed.');
+  }
+
+  /** The response arrived and its bytes are not readable. Neither a transport
+   *  fault nor a render fault, so it gets its own sentence: renderUnreachable
+   *  would blame a network that answered, and renderNotDisplayable would say the
+   *  browser failed while rendering (nothing was rendered) and then point the
+   *  reader at the very bytes that could not be read. */
+  function renderUnreadable(id, error) {
+    failureSheet(id, 'This record could not be read.',
+      ' The request completed and this record was returned, and its contents are ' +
+      'not valid JSON: ' +
+      (error && error.message ? error.message : 'no detail') +
+      '. Reloading will not change that; the same bytes will come back. Nothing ' +
+      'here is a statement about the medium itself.');
   }
 
   /** The record arrived and this code could not render it. Our defect, said so. */
@@ -884,8 +1073,8 @@ const MDB = (function () {
     failureSheet(id, 'This record could not be displayed.',
       ' The record was retrieved; the browser failed while rendering it (' +
       (error && error.message ? error.message : 'no detail') +
-      '). Reloading will not change that. The record itself is at ' +
-      'data/media/' + id + '.json.');
+      '). Reloading will not change that. Nothing here is a statement about the ' +
+      'medium itself.');
   }
 
   function failureSheet(id, heading, detail) {
@@ -907,9 +1096,13 @@ const MDB = (function () {
     wireSheet(mountSheet(card));
   }
 
+  /** Records whose identifier begins the same way. Not a claim about closeness:
+   *  see the caller. A record is never offered as a near miss for itself, so a
+   *  future caller that reaches here with a catalogued id cannot suggest it back. */
   function nearestIds(id, n) {
     const target = String(id).toLowerCase();
-    const scored = catalog.media.map((r) => {
+    if (!catalog || !catalog.media) return [];
+    const scored = catalog.media.filter((r) => r.id !== id).map((r) => {
       const cand = r.id.toLowerCase();
       let shared = 0;
       while (shared < cand.length && shared < target.length &&
@@ -1005,7 +1198,7 @@ const MDB = (function () {
     /* head ---------------------------------------------------------------- */
     const chips = el('div', { class: 'chip-line', style: 'margin-top:var(--s2)' }, [
       el('span', { class: 'chip', text: med.category }),
-      o2Chip(med.oxygen),
+      o2Chip(recordedOxygen(med)),
       verificationChip(prov.verification_status)
     ]);
     if (fam.id) {
@@ -1035,7 +1228,7 @@ const MDB = (function () {
       text: withDenominator(nSourced, total, 'components') +
         ' are stated by the cited source. ' +
         withDenominator(nDerived, total, 'components') +
-        ' were supplied by this pipeline and appear nowhere in the source.'
+        ' are derived and appear nowhere in the source.'
     }));
     answer.appendChild(el('div', { style: 'margin-top:var(--s3)' }, [evidenceBar(counts)]));
     answer.appendChild(evidenceLegend(counts, total));
@@ -1058,7 +1251,7 @@ const MDB = (function () {
       covCard.appendChild(el('div', { class: 'note caution' }, [
         el('b', { text: 'That percentage is a ceiling.' }),
         document.createTextNode(' The number of source ingredients replaced by ' +
-          'pipeline-derived components is a floor, so the true denominator is at ' +
+          'derived components is a floor, so the true denominator is at ' +
           'least this large and the coverage is at most this high.')
       ]));
     }
@@ -1094,10 +1287,17 @@ const MDB = (function () {
         'Every lower bound below is a presence placeholder, not a measured ' +
         'uptake rate. Set your own bounds before you interpret a flux.']);
     }
-    if (med.oxygen === null || med.oxygen === undefined) {
+    const o2 = recordedOxygen(med);
+    if (o2 === null || o2 === undefined) {
+      const defaulted = med.oxygen && med.oxygen !== o2;
       limits.push(['caution', 'The oxygen regime is unknown.',
-        'This record does not record whether the medium is used aerobically. ' +
-        'It is unknown, not anaerobic. Decide EX_o2_e yourself.']);
+        'No source or curator states whether this medium is used aerobically. ' +
+        'It is unknown, not anaerobic. Decide EX_o2_e yourself.' +
+        (defaulted
+          ? ' The medium exported below still opens EX_o2_e, by the same ' +
+            'convention that supplies the mineral base: that O2 row is marked ' +
+            'derived, and it is not a finding about this medium.'
+          : '')]);
     }
     if (med.composition_limitation) {
       limits.push(['caution', 'Composition is not unique to this record.',
@@ -1133,6 +1333,25 @@ const MDB = (function () {
         ' have no exchange reaction at all: the identity was never established, ' +
         'or the ingredient is an undefined mixture.');
     }
+    // The third exception, and the one that used to be counted as a success.
+    // 5,719 records carry an id of the EX_<met>_e shape that names no BiGG
+    // reaction while reporting zero unusable components, so their sheet said
+    // every component reached a BiGG exchange. Counted here from the components
+    // themselves, and only when the list of such ids is actually in hand: with no
+    // list, this says nothing rather than saying none.
+    const xr = catalog && catalog.exchange_resolution;
+    if (xr && xr.bigg_shaped_no_such_exchange_ids) {
+      const noSuch = med.components.filter(
+        (c) => c.exchange && isUnusableExchange(c.exchange));
+      if (noSuch.length) {
+        anyExceptions = true;
+        parts.push(withDenominator(noSuch.length, total, 'components') +
+          ' carry an id shaped like a BiGG exchange that names no BiGG reaction (' +
+          noSuch.slice(0, 3).map((c) => c.exchange).join(', ') +
+          (noSuch.length > 3 ? ' and others' : '') +
+          '), so no model has them and they are dropped without a word.');
+      }
+    }
     if (parts.length) {
       limits.push(['caution', anyExceptions
         ? 'Not every component here reaches a BiGG exchange.'
@@ -1142,7 +1361,7 @@ const MDB = (function () {
     if (med.category === 'food') {
       limits.push(['caution', 'A food is not a laboratory medium.',
         'This record is built from a population-average nutrient analysis of a ' +
-        'food, with a standard mineral base added by this pipeline. Component ' +
+        'food, with a standard mineral base added by convention. Component ' +
         'presence is real; the amounts are per 100 g of food, not per litre of medium.']);
     }
     if (limits.length) {
@@ -1261,7 +1480,7 @@ const MDB = (function () {
         : 'Components: all ' + fmt(total) + ' compounds the record holds' }),
       el('p', {
         class: 'muted', style: 'margin:var(--s2) 0',
-        text: 'Source-stated components are listed first; pipeline-derived ones follow ' +
+        text: 'Source-stated components are listed first; derived ones follow ' +
           'and carry a dashed chip. Every row states how its identity was decided.'
       }),
       el('div', { class: 'tablewrap scroll-y' }, [
