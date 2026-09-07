@@ -64,27 +64,24 @@ GET /data/web/twins.json          # the complete groups, by medium id
 ```
 
 Per record the catalog carries `model_input_signature` (a hash of that triple set) and
-`n_media_with_identical_model_input` (0 = unique). Nothing was merged or deleted: two
-identical constraint sets can still have two different provenances, and which paper a
-formulation came from is a real difference.
+`n_media_with_identical_model_input` (0 = unique). Records are not deduplicated by model
+input: two identical constraint sets can still have two different provenances, and which
+paper a formulation came from is a real difference.
 
-#### One field was renamed
+#### Renamed field
 
-`pct_covered_observed` → **`pct_sourced_components_with_bigg_id`** (2026-09-06). The old
-name read as coverage of the medium, but its denominator is the components the record
-already carries rather than the ingredients the source published, so the value was
-`100.0` on 12,861 of 13,515 records. It answers one question: of the components the
-source states, the share that reached a BiGG id. For coverage of the source's ingredient
-list use `pct_covered_source`. The catalog ships a `field_renames` block, with the
-measurement, so a consumer of the old key finds out what happened rather than finding
-the key missing.
+`pct_covered_observed` → **`pct_sourced_components_with_bigg_id`** (2026-09-06). The
+field's denominator is the components the record already carries, not the ingredients the
+source published, so its value is `100.0` on 12,861 of 13,515 records and it is not a
+coverage measure. It answers one question: of the components the source states, the share
+that reached a BiGG id. For coverage of the source's ingredient list use
+`pct_covered_source`. The catalog ships a `field_renames` block carrying both names and
+that measurement, so a client holding the old key can resolve it.
 
-The rename is applied by the transform chain (`tools/stages/remap_components.py`),
-not by an edit to the data, so it reaches the per-medium records as well as the
-catalog and the exports: all 13,515 published records carry
-`pct_sourced_components_with_bigg_id` and none carries the old key. `make reproduce`
-rebuilds the corpus from the committed chain input and compares it byte for byte with
-what ships, which is what makes that statement checkable rather than asserted.
+The rename is applied by the transform chain (`tools/stages/remap_components.py`), so it
+reaches the per-medium records as well as the catalog and the exports: all 13,515
+published records carry `pct_sourced_components_with_bigg_id` and none carries the old
+key.
 
 ### A single medium (full record)
 
@@ -162,13 +159,12 @@ make release-assets
 }
 ```
 
-A client reads `status` instead of guessing: `pymediadb.iter_full_records()` uses the
-release now that it is `published`, would skip it were it `planned`, and falls
-back to the per-medium endpoint if an advertised asset turns out to be unreachable —
-it yields all 13,515 records on every one of those paths and raises on none of them.
-Nothing became unreachable when the files left the repository: every full record is
-still fetchable one at a time at `/data/media/{id}.json`, and the parquet pair is
-still here and queryable over HTTP.
+A client reads `status` rather than assuming the release exists.
+`pymediadb.iter_full_records()` uses the release while it is `published`, skips it while
+it is `planned`, and falls back to the per-medium endpoint if an advertised asset is
+unreachable; it yields all 13,515 records on every one of those paths. Every full record
+is also fetchable one at a time at `/data/media/{id}.json`, and the parquet pair is
+queryable over HTTP.
 
 ---
 

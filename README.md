@@ -11,7 +11,7 @@ components carry a BiGG exchange (`EX_<met>_e`) and, for most of them, cross-ref
 (InChIKey / ChEBI / KEGG / HMDB / MetaNetX / SEED), and the whole medium carries a
 **citation**.
 
-Two numbers, stated here because they are the ones a reader would otherwise assume away:
+Component coverage, measured:
 
 | | |
 |---|---|
@@ -72,9 +72,10 @@ Media/
 
 Each record: see **[DESIGN.md](DESIGN.md)**. Every component records **how** its identity
 was decided, in `evidence_tier` — one of twelve recorded tiers, grouped into six classes
-ordered by the strength of the evidence. The word `exact` has been withdrawn: it used to
-mark a hard-coded English-name lookup as well as a cross-referenced match, and 42% of
-components carried it. What the library actually rests on, measured:
+ordered by the strength of the evidence. No evidence class is labelled `exact`: a
+hard-coded English-name lookup (`name_table`) and a cross-referenced match
+(`structural_xref`) are separate tiers in separate classes. What each class rests on,
+measured:
 
 | Evidence class | Components |
 |---|---:|
@@ -85,15 +86,15 @@ components carried it. What the library actually rests on, measured:
 | Pipeline-derived (the cited source never states it) | 229,486 of 665,582 (34%) |
 | Unresolved | 218 of 665,582 (<0.1%) |
 
-Compounds that can't be mapped are listed in `uncovered`, never dropped silently.
+A compound with no BiGG mapping is listed in the record's `uncovered` array.
 
 **Half this library is degenerate as a model input.** 6,827 of 13,515 records (50.5%) hand a
 model the identical set of `(exchange, lower_bound, upper_bound)` triples as at least one
 other record — 1,623 groups, the largest holding 93 media. Adding each component's
 source-stated concentration, a stricter test than any solver applies, still leaves 6,328
 (46.8%). Most bounds here are presence placeholders rather than measured rates, so recipes
-differing in amount, pH, agar or preparation collapse onto one constraint set. Nothing was
-merged and nothing deleted: every record keeps its own provenance, each carries
+differing in amount, pH, agar or preparation collapse onto one constraint set. Records are
+not deduplicated by model input: each keeps its own provenance, each carries
 `n_media_with_identical_model_input` and `model_input_signature`, and the complete groups
 are published at `data/web/twins.json`.
 
@@ -210,16 +211,14 @@ per-source schedule.
 **On the 471 MediaDB (ISB) records, stated plainly.** The only statement on
 `mediadb.systemsbiology.net/defined_media/` (read 2026-09-06, first-party) is
 "(c) 2014, Institute for Systems Biology, All Rights Reserved". **No reuse grant of any
-kind is offered upstream, and redistribution permission has not been obtained.** This
-project has not been given permission and does not claim it. The operator's decision was
-to keep the records rather than delete them — deleting them would break every `mdb_*`
-deep link and remove the single largest seam of quantitative data in the library
-(8,397 of 14,055 non-null concentration values, 59.7%) — and instead to label them
-`all-rights-reserved`, set `commercial_use_ok: false`, exclude them from the commercially
-usable subset, and render them all-rights-reserved on the site. Permission is being
-sought (contact: mediadb@systemsbiology.org). If you need a subset you can redistribute,
-filter them out. This paragraph, `LICENSE`, `NOTICE` and `tools/licenses.tsv` say the
-same thing, and the machine-readable table is the authority.
+kind is offered upstream, and redistribution permission has not been obtained.** These
+records are published under `mdb_*` identifiers, labelled `all-rights-reserved`, marked
+`commercial_use_ok: false`, excluded from the commercially usable subset, and rendered
+all-rights-reserved on the site. They hold 8,397 of 14,055 non-null concentration values
+(59.7%), the largest single share in the library. Permission is being sought (contact:
+mediadb@systemsbiology.org). If you need a subset you can redistribute, filter them out.
+`tools/licenses.tsv` is the machine-readable schedule; `LICENSE` and `NOTICE` carry the
+verbatim terms.
 
 Categories: **laboratory** 5,373, **food** 8,125, **biospecimen** 17. (`growth_medium`,
 a second-generation label carried by 443 laboratory records, is merged into
@@ -228,17 +227,16 @@ a second-generation label carried by 443 laboratory records, is merged into
 Defined media map their compounds to BiGG exchanges (salts dissociated to their ion
 exchanges); complex media map their defined portion and render undefined hydrolysates
 (peptone, extracts) as a clearly-labelled in-silico approximation, with the real ingredients
-listed in `uncovered`. Where a compound reached no BiGG id the record says so per component
-(`n_nonbigg_fallback`, `n_no_exchange`) rather than leaving the headline to imply otherwise.
+listed in `uncovered`. Where a compound reached no BiGG id the record states it per
+component and counts it in `n_nonbigg_fallback` and `n_no_exchange`.
 
 ## How this is built
 
-The raw inputs this catalogue was built from are **gone**: nineteen generator scripts
-pointed at a session scratchpad that was deleted, and none of the upstream payloads was
-ever committed. `data/media/*.json` is the only surviving copy of the corpus, and 1,456
-literature-derived records (`lit_`, `growthlit_`, `complexlit_`) came from LLM extractions
-whose batch files no longer exist — re-running that miner would file *different*
-compositions under the *same* citations, so it must not be run.
+`data/media/*.json` is the only copy of the corpus: the upstream payloads it was built
+from were not retained. 1,456 literature-derived records (`lit_`, `growthlit_`,
+`complexlit_`) come from LLM extractions whose batch files no longer exist, and a fresh
+extraction would file *different* compositions under the *same* citations, so that miner
+is not re-run.
 
 That has two consequences, and they shape everything:
 
