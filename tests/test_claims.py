@@ -47,13 +47,19 @@ def summary():
 
 # --------------------------------------------------------------- (a) mapping
 def test_exchange_resolution_partitions_the_components(summary):
-    """BiGG + non-BiGG fallback + none must account for every component.
+    """The FOUR states must account for every component.
 
     A fourth, unnamed state is how "every component is mapped" survived: the
-    exceptions had nowhere to be counted.
+    exceptions had nowhere to be counted. This test used to assert a three-way
+    partition, and the fourth state it warned about was real and unnamed the whole
+    time — 11,380 components carrying an id of the EX_<met>_e shape that names no
+    BiGG reaction, counted as successes because the bucket was decided by the
+    string's shape. It is now counted; see tests/test_bigg_exchange_partition.py
+    for the claim itself, checked against BiGG's own namespace.
     """
     xr = summary["exchange_resolution"]
-    assert (xr["n_bigg_exchange"] + xr["n_nonbigg_fallback"] + xr["n_no_exchange"]
+    assert (xr["n_bigg_exchange"] + xr["n_bigg_shaped_no_such_exchange"]
+            + xr["n_nonbigg_fallback"] + xr["n_no_exchange"]
             == xr["of"] == summary["component_totals"]["n_components"])
 
 
@@ -62,6 +68,9 @@ def test_the_payload_admits_the_components_that_are_not_bigg_mapped(summary):
     assert xr["n_nonbigg_fallback"] > 0 and xr["n_no_exchange"] > 0, (
         "if these are ever genuinely zero, delete this test and the hedged "
         "wording with it — do not weaken the wording while they are not")
+    assert xr["n_bigg_shaped_no_such_exchange"] > 0, (
+        "the state that was counted as a success must stay visible while it is "
+        "non-empty")
     assert xr["n_bigg_exchange"] < xr["of"]
 
 

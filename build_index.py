@@ -36,6 +36,8 @@ from collections import Counter
 REPO = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(REPO, "tools"))
 
+from build_bigg_exchange_ids import exchange_state   # noqa: E402
+from web_payload import oxygen_recorded   # noqa: E402
 from model_input import Degeneracy   # noqa: E402
 from web_payload import FIELD_RENAMES   # noqa: E402
 from dataset_license import DATASET_LICENSE   # noqa: E402
@@ -281,7 +283,7 @@ def build(media_dir, out_dir):
         lit_meta.append((d["id"], sid, prov.get("source_type"), prov.get("doi"),
                          prov.get("primary_identifier"), sdb, prov.get("citation"),
                          prov.get("citation_type")))
-        n_bigg = n_fallback = n_none = 0
+        n_bigg = n_fallback = n_none = n_noreaction = 0
         n_components_seen += len(d.get("components") or [])
         for c in d.get("components") or []:
             # xref_id is the reference-table form of the same fact (stage 60);
@@ -291,20 +293,31 @@ def build(media_dir, out_dir):
                 xrefs["n_components_with_a_cross_reference"] += 1
             else:
                 xrefs["n_components_with_none"] += 1
-            if not c.get("exchange"):
+            state = exchange_state(c)
+            if state == "n_no_exchange":
                 n_none += 1
-            elif c.get("evidence_tier") == "non_bigg_fallback":
+            elif state == "n_nonbigg_fallback":
                 n_fallback += 1
+            elif state == "n_bigg_shaped_no_such_exchange":
+                n_noreaction += 1
             else:
                 n_bigg += 1
         exch["n_bigg_exchange"] += n_bigg
         exch["n_nonbigg_fallback"] += n_fallback
+        exch["n_bigg_shaped_no_such_exchange"] += n_noreaction
         exch["n_no_exchange"] += n_none
         degeneracy.add(d)
         rows.append(
             {k: d.get(k) for k in ("id", "name", "category", "organism_scope", "aerobic",
-                                   "oxygen", "n_components", "n_mapped", "n_in_biggr",
+                                   "n_components", "n_mapped", "n_in_biggr",
                                    "namespace")}
+            # The RECORDED regime, null where no source or curator stated one, and
+            # separately what the exported medium assumes for EX_o2_e. Publishing
+            # the pipeline's facultative default as if it were a curated finding
+            # put a confident label on 11,926 of 13,515 records (88%) in the field
+            # that decides whether the oxygen exchange is open.
+            | dict(zip(("oxygen", "oxygen_default_for_simulation"),
+                       oxygen_recorded(d)))
             | {"source_type": prov["source_type"],
                "source_db": sdb,
                "source_id": sid,
@@ -353,6 +366,11 @@ def build(media_dir, out_dir):
                # than left to be derived, because the claim it corrects ("every
                # component mapped to a BiGG exchange") was the site's headline.
                "n_no_exchange": n_none,
+               # the fourth state, which used to be counted as a success: an id of
+               # the EX_<met>_e shape naming a reaction BiGG does not have. 11,380
+               # components in 5,942 media, and 5,719 records reported zero
+               # unusable components while carrying one.
+               "n_bigg_shaped_no_such_exchange": n_noreaction,
                # which OTHER records hand a model the identical constraint set;
                # filled after the whole corpus is read (see below)
                "model_input_signature": None,
@@ -439,11 +457,15 @@ def build(media_dir, out_dir):
             exch, of=n_components_seen,
             definition=(
                 "Where each component's exchange id landed, over the whole "
-                "library. n_bigg_exchange is a real BiGG EX_<met>_e reaction; "
-                "n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG id in exchange "
-                "position that no BiGG model will accept (the component's own "
-                "mapping_note says so); n_no_exchange has none at all. The three "
-                "partition n_components.")),
+                "library, in four states. n_bigg_exchange is a reaction BiGG has: "
+                "the id is EX_<met>_e and <met> carries an extracellular form in "
+                "the BiGG namespace. n_bigg_shaped_no_such_exchange has that same "
+                "shape and names no BiGG reaction, so no model has it and the "
+                "documented adoption path drops it silently. n_nonbigg_fallback "
+                "is a ModelSEED/MetaNetX/KEGG id in exchange position that no "
+                "BiGG model will accept (the component's own mapping_note says "
+                "so); n_no_exchange has none at all. The four partition "
+                "n_components; the last three are all unusable to a model.")),
         "cross_references": dict(
             xrefs, of=n_components_seen,
             definition=(
@@ -496,6 +518,15 @@ def build(media_dir, out_dir):
                                   "will accept it. {n:,} of {of:,} library-wide."
                                   .format(n=exch["n_nonbigg_fallback"],
                                           of=n_components_seen),
+            "n_bigg_shaped_no_such_exchange":
+                "components whose exchange id has the EX_<met>_e shape but names no "
+                "reaction in BiGG, because the metabolite has no extracellular form "
+                "there. No model has the reaction, so the documented adoption path "
+                "drops it without a word. {n:,} of {of:,} library-wide; the largest "
+                "is EX_choles_e, where BiGG carries choles_c only and cholesterol's "
+                "exchange is EX_chsterol_e."
+                .format(n=exch["n_bigg_shaped_no_such_exchange"],
+                        of=n_components_seen),
             "n_media_with_identical_model_input":
                 "how many OTHER media hand a genome-scale model the identical set of "
                 "(exchange, lower bound, upper bound) triples. 0 means this record's "
@@ -556,9 +587,11 @@ def build(media_dir, out_dir):
           "heuristic: %d/%d" % (missing_coverage_source, len(rows),
                                 prefix_sourced, len(rows)))
     print("component totals:", dict(comp_totals))
-    print("exchange resolution: %d BiGG + %d non-BiGG fallback + %d no exchange "
-          "= %d components" % (exch["n_bigg_exchange"], exch["n_nonbigg_fallback"],
-                               exch["n_no_exchange"], comp_totals["n_components"]))
+    print("exchange resolution: %d real BiGG + %d BiGG-shaped with no such reaction "
+          "+ %d non-BiGG fallback + %d no exchange = %d components"
+          % (exch["n_bigg_exchange"], exch["n_bigg_shaped_no_such_exchange"],
+             exch["n_nonbigg_fallback"], exch["n_no_exchange"],
+             comp_totals["n_components"]))
     print("model-input degeneracy: %d of %d media share their model input with "
           "another record (%d groups, largest %d)"
           % (degen["n_media_sharing_a_model_input"], len(rows),

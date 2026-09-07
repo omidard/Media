@@ -60,9 +60,64 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from dataset_license import DATASET_LICENSE   # noqa: E402
 from model_input import Degeneracy           # noqa: E402
+import build_bigg_exchange_ids               # noqa: E402
 import refs as R                             # noqa: E402
 
 SCHEMA = "mediadb-web-payload/1"
+
+# Where an exchange id actually lands, in four states rather than three. The
+# partition used to be decided by the STRING SHAPE of the id, so 11,380 components
+# naming a reaction BiGG does not have were counted as reaching one and the page
+# warned about 1,364 unusable ids when the figure was 12,744. One definition,
+# shared with build_index.py and build_coverage_index.py, so the three cannot drift.
+exchange_state = build_bigg_exchange_ids.exchange_state
+
+# --------------------------------------------------------------------------
+# An oxygen regime nobody stated is not a regime.
+#
+# tools/curate_oxygen.py ends in two catch-all branches that return
+# "facultative" when the source says nothing at all about oxygen, and records
+# WHY in oxygen_note. 11,926 of the 12,136 facultative records carry one of these
+# two notes: 88% of the library was handed a curated-looking regime that no
+# source asserted, in the field the site itself calls the single most
+# consequential bound in an FBA medium.
+#
+# It was invisible, and worse than invisible. index.html offers "Facultative" and
+# "Unknown (not recorded)" as separate filter states and gates the second on
+# `oxygen !== null`, so a modeller filtering for the records where they must
+# decide EX_o2_e themselves got 439 and silently missed 11,926 that need the same
+# decision. methods.html rendered "The oxygen regime is not recorded for 439 of
+# 13,515 media", understating the unknown set by a factor of 28.
+#
+# The regime published here is now the RECORDED one: null where nothing was
+# recorded, which is exactly what this payload's own column note has always
+# claimed it means. What the exported medium does with EX_o2_e is a separate
+# fact and is published separately, so the curated regime and the simulation
+# convention can never again be the same number.
+#
+# NOT applied to the 71 records whose regime is `aerobic` while carrying one of
+# these notes: those were set by a curator and kept a note from a run that
+# predates the verification guard. The stale note is a separate defect and is in
+# the ledger; treating them here would erase a real curation.
+OXYGEN_NOT_STATED_NOTES = (
+    "food substrate; O2 availability is a simulation condition, not a property "
+    "of the food",
+    "no oxygen requirement specified; O2 available but not asserted",
+)
+
+
+def oxygen_recorded(rec):
+    """(regime actually recorded, regime the exported medium assumes).
+
+    The first is null when no source or curator stated one. The second is what
+    EX_o2_e was written from, which is a pipeline convention and is labelled as
+    one on every component that carries it.
+    """
+    regime = rec.get("oxygen")
+    note = (rec.get("oxygen_note") or "").strip()
+    if regime == "facultative" and note in OXYGEN_NOT_STATED_NOTES:
+        return None, regime
+    return regime, regime
 
 # --------------------------------------------------------------------------
 # The evidence spine.
@@ -119,14 +174,14 @@ EVIDENCE_CLASSES = [
     },
     {
         "id": "derived",
-        "label": "Pipeline-derived",
+        "label": "Derived",
         "tiers": ["derived_component"],
         "definition": (
-            "The cited source never states this component. It is supplied by "
+            "The cited source never states this component. It comes from "
             "decomposing a complex ingredient, approximating a hydrolysate, or "
-            "injecting a standard mineral or oxygen base. It is an in-silico "
-            "addition, marked on every record that carries it and excluded "
-            "from every source-coverage figure."),
+            "a standard mineral or oxygen base added by convention. It is an "
+            "in-silico addition, marked on every record that carries it and "
+            "excluded from every source-coverage figure."),
     },
     {
         "id": "unresolved",
@@ -147,24 +202,27 @@ CLASS_ORDER = [c["id"] for c in EVIDENCE_CLASSES]
 # objects can zip `columns` against a row.
 COLUMNS = [
     "id", "name", "category", "source_db",
-    "verification_status", "oxygen", "organism_scope",
+    "verification_status", "oxygen", "oxygen_default_for_simulation",
+    "organism_scope",
     "n_components", "n_sourced", "n_derived", "n_uncovered",
     "pct_covered_source", "pct_covered_source_is_upper_bound", "family",
     "n_with_concentration_mM", "food_group", "defined",
-    # The two ways a component can fail to reach a BiGG exchange, per record. The
-    # library-wide claim was "every component mapped to a BiGG exchange"; it is true
-    # of 664,000 of 665,582 components and the exceptions were invisible per record.
-    "n_nonbigg_fallback", "n_no_exchange",
+    # The three ways a component can fail to reach a usable BiGG exchange, per
+    # record. Two of them were published; the third was counted as a success, so
+    # 5,719 records reported zero unusable components while carrying one.
+    "n_nonbigg_fallback", "n_no_exchange", "n_bigg_shaped_no_such_exchange",
     # How many OTHER records hand a model the identical constraint set (0 = unique).
     "model_input_twins",
 ] + ["ev_" + c for c in CLASS_ORDER]
 
 ENUM_COLUMNS = ("category", "source_db", "verification_status",
-                "oxygen", "organism_scope", "family", "food_group")
+                "oxygen", "oxygen_default_for_simulation", "organism_scope",
+                "family", "food_group")
 
 COLUMN_NOTES = {
-    "n_components": "components in the record. Most carry a BiGG exchange; "
-                    "n_nonbigg_fallback and n_no_exchange say how many do not",
+    "n_components": "components in the record. Most carry a usable BiGG exchange; "
+                    "n_nonbigg_fallback, n_no_exchange and "
+                    "n_bigg_shaped_no_such_exchange say how many do not",
     "n_nonbigg_fallback": "of n_components, the number whose exchange id is a "
                            "ModelSEED/MetaNetX/KEGG fallback, not a BiGG id. No "
                            "BiGG model will accept it. 1,364 of 665,582 "
@@ -172,13 +230,19 @@ COLUMN_NOTES = {
     "n_no_exchange": "of n_components, the number with no exchange reaction at "
                      "all: identity was never established, or the ingredient is "
                      "an undefined mixture. 218 of 665,582 library-wide",
+    "n_bigg_shaped_no_such_exchange":
+        "of n_components, the number whose exchange id has the EX_<met>_e shape "
+        "but names no reaction in BiGG, so no model has it and the documented "
+        "adoption path drops it silently. 11,380 of 665,582 components "
+        "library-wide, in 5,942 media; the largest is EX_choles_e (4,438), where "
+        "BiGG carries choles_c only and cholesterol's exchange is EX_chsterol_e",
     "model_input_twins": "how many OTHER records hand a model the identical set "
                          "of (exchange, lower bound, upper bound) triples. 0 "
                          "means this record's model input is unique in the "
                          "library; see model_input_degeneracy",
     "n_sourced": "of those, the number the cited source actually states",
     "n_derived": "of those, the number the cited source does not state (the "
-                 "pipeline-derived evidence class)",
+                 "derived evidence class)",
     "n_uncovered": "ingredients the source states that got no exchange at all; "
                    "they are NOT in n_components",
     "pct_covered_source": "share of the source's own ingredient list that "
@@ -187,8 +251,16 @@ COLUMN_NOTES = {
     "pct_covered_source_is_upper_bound":
         "1 when the replaced-ingredient count behind the denominator is a "
         "floor, so the percentage is a ceiling",
-    "oxygen": "curated regime: aerobic | anaerobic | facultative | null. null "
-              "means unknown and is rendered as unknown, never as anaerobic",
+    "oxygen_default_for_simulation":
+        "what EX_o2_e in the exported medium was written from. A convention, not "
+        "a finding: it is present even where oxygen is null, and the O2 component "
+        "itself is marked derived on every record that carries it",
+    "oxygen": "RECORDED regime: aerobic | anaerobic | facultative | null. null "
+              "means no source or curator stated one, is rendered as unknown, and "
+              "is never anaerobic. It is null on the 11,926 records whose "
+              "oxygen_note says the source stated nothing; the per-record file "
+              "still carries the pipeline's facultative default there, and "
+              "oxygen_default_for_simulation carries it here",
     "defined": "true | false | null; null means no source asserted it",
 }
 
@@ -420,7 +492,13 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     # components themselves, not from the record's declared counters, and then
     # asserted against them: the site's opening sentence used to be "every one
     # mapped to a BiGG exchange", which was true of 664,000 of 665,582.
-    exch = {"n_bigg_exchange": 0, "n_nonbigg_fallback": 0, "n_no_exchange": 0}
+    exch = {"n_bigg_exchange": 0, "n_bigg_shaped_no_such_exchange": 0,
+            "n_nonbigg_fallback": 0, "n_no_exchange": 0}
+    # The distinct ids in the fourth state, so a record sheet can mark the rows a
+    # model will silently drop. 294 strings, published in the payload the record
+    # sheet already loads, rather than a second fetch of the 2,472-entry BiGG
+    # vocabulary. Rebuilt with the corpus, so it cannot fall out of step with it.
+    unusable_exchange_ids: dict[str, int] = {}
     # Components actually iterated. The exchange and cross-reference accountings are
     # asserted against THIS, not against the records' declared n_components: they
     # count what they walked, and a declared counter that disagrees is a separate
@@ -442,6 +520,8 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
     bands_source = {"high_ge_90": 0, "mid_60_90": 0, "review_lt_60": 0,
                     "not_computed": 0}
     n_upper_bound = 0
+    n_oxygen_defaulted = 0
+    n_oxygen_null = 0
     n_any_derived = 0
     n_all_derived = 0
 
@@ -461,7 +541,7 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         for cls, n in zip(CLASS_ORDER, ev):
             class_totals[cls] += n
 
-        rec_bigg = rec_fallback = rec_none = 0
+        rec_bigg = rec_fallback = rec_none = rec_noreaction = 0
         n_components_seen += len(rec["components"])
         for comp in rec["components"]:
             # `xref_id` is the reference-table form of the same fact: stage 60
@@ -473,14 +553,20 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
                 xrefs["n_components_with_a_cross_reference"] += 1
             else:
                 xrefs["n_components_with_none"] += 1
-            if not comp.get("exchange"):
+            state = exchange_state(comp)
+            if state == "n_no_exchange":
                 rec_none += 1
-            elif comp.get("evidence_tier") == "non_bigg_fallback":
+            elif state == "n_nonbigg_fallback":
                 rec_fallback += 1
+            elif state == "n_bigg_shaped_no_such_exchange":
+                rec_noreaction += 1
+                ex_id = comp["exchange"]
+                unusable_exchange_ids[ex_id] = unusable_exchange_ids.get(ex_id, 0) + 1
             else:
                 rec_bigg += 1
         exch["n_bigg_exchange"] += rec_bigg
         exch["n_nonbigg_fallback"] += rec_fallback
+        exch["n_bigg_shaped_no_such_exchange"] += rec_noreaction
         exch["n_no_exchange"] += rec_none
         row_of_id[rec["id"]] = i
         degeneracy.add(rec)
@@ -527,7 +613,12 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         bump("by_category", rec.get("category"))
         bump("by_source_db", prov.get("source_name"))
         bump("by_verification_status", prov.get("verification_status"))
-        bump("by_oxygen", rec.get("oxygen"))
+        oxygen, oxygen_default = oxygen_recorded(rec)
+        bump("by_oxygen", oxygen)
+        if oxygen is None:
+            n_oxygen_null += 1
+            if oxygen_default is not None:
+                n_oxygen_defaulted += 1
         if rec.get("food_group"):
             bump("by_food_group", rec.get("food_group"))
         if prov.get("collection"):
@@ -539,7 +630,8 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
             enc("category", rec.get("category")),
             enc("source_db", prov.get("source_name")),
             enc("verification_status", prov.get("verification_status")),
-            enc("oxygen", rec.get("oxygen")),
+            enc("oxygen", oxygen),
+            enc("oxygen_default_for_simulation", oxygen_default),
             enc("organism_scope", rec.get("organism_scope")),
             n_components, n_sourced, n_derived, n_uncovered,
             pcs, 1 if upper else 0,
@@ -547,7 +639,7 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
             quant.get("n_with_concentration_mM"),
             enc("food_group", rec.get("food_group")),
             rec.get("defined"),
-            rec_fallback, rec_none,
+            rec_fallback, rec_none, rec_noreaction,
             None,   # model_input_twins: patched below, once the whole corpus is read
         ] + ev)
 
@@ -590,7 +682,8 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
                 "strength": rec.get("strength"),
                 "preparation": rec.get("preparation"),
                 "ph_declared": rec.get("ph_declared"),
-                "oxygen": rec.get("oxygen"),
+                "oxygen": oxygen,
+                "oxygen_default_for_simulation": oxygen_default,
                 "n_components": n_components,
                 "n_sourced": n_sourced,
                 "n_derived": n_derived,
@@ -720,13 +813,36 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
         "component_totals": dict(totals, of=totals["n_components"]),
         "exchange_resolution": dict(
             exch, of=n_components_seen,
+            bigg_shaped_no_such_exchange_ids=sorted(unusable_exchange_ids),
             definition=(
-                "Where each component's exchange id landed. n_bigg_exchange is a "
-                "real BiGG EX_<met>_e reaction. n_nonbigg_fallback is a "
-                "ModelSEED/MetaNetX/KEGG id in exchange position: the component's "
-                "own mapping_note says no BiGG model will accept it. "
-                "n_no_exchange has none at all. The three partition "
-                "n_components.")),
+                "Where each component's exchange id landed, in four states. "
+                "n_bigg_exchange is a reaction BiGG has: the id is EX_<met>_e and "
+                "<met> carries an extracellular form in the BiGG namespace. "
+                "n_bigg_shaped_no_such_exchange is an id of that same shape that "
+                "names no BiGG reaction, so no model has it and the documented "
+                "adoption path drops it without a word (EX_choles_e is the "
+                "largest: BiGG has choles_c only, and cholesterol's exchange is "
+                "EX_chsterol_e). n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG "
+                "id in exchange position: the component's own mapping_note says "
+                "no BiGG model will accept it. n_no_exchange has none at all. The "
+                "four partition n_components; the last three are all unusable to "
+                "a model.")),
+        "oxygen_basis": {
+            "n_regime_recorded": n - n_oxygen_null,
+            "n_no_source_statement": n_oxygen_defaulted,
+            "n_absent_for_another_reason": n_oxygen_null - n_oxygen_defaulted,
+            "of": n,
+            "unstated_notes": list(OXYGEN_NOT_STATED_NOTES),
+            "definition": (
+                "How many records have an oxygen regime a source or a curator "
+                "actually stated. n_no_source_statement counts the records whose "
+                "own oxygen_note says nothing was stated: their regime is "
+                "published here as null, and oxygen_default_for_simulation "
+                "carries the facultative default the exported medium uses for "
+                "EX_o2_e. unstated_notes is the vocabulary that decides it, so "
+                "the browser applies the same rule to a per-record file as this "
+                "payload applies to the catalogue."),
+        },
         "cross_references": dict(
             xrefs, of=n_components_seen,
             definition=(

@@ -39,6 +39,10 @@ import collections
 import glob
 import json
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from build_bigg_exchange_ids import exchange_state   # noqa: E402
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -56,9 +60,12 @@ DEFINITIONS = {
         "pct_covered_observed resolves to this field; see field_renames in "
         "data/index.json.",
     "exchange_resolution":
-        "where each component's exchange id landed: a BiGG EX_<met>_e reaction, a "
+        "where each component's exchange id landed, in four states: a reaction BiGG "
+        "actually has, an id of the EX_<met>_e shape naming no BiGG reaction (no "
+        "model has it, so the documented adoption path drops it silently), a "
         "ModelSEED/MetaNetX/KEGG fallback no BiGG model will accept, or nothing at "
-        "all. The three partition n_components.",
+        "all. The four partition n_components; the last three are all unusable to a "
+        "model.",
     "null": "a null percentage means the denominator was zero. It does not mean 100.",
 }
 
@@ -90,20 +97,24 @@ def build(media_dir: str, out_path: str) -> dict:
         cs = d.get("coverage_source") or {}
         comps = d.get("components") or []
         by_source = collections.Counter()
-        n_bigg = n_fallback = n_none = 0
+        n_bigg = n_fallback = n_none = n_noreaction = 0
         for c in comps:
             src = c.get("exchange_source")
             if src:
                 by_source[src] += 1
                 ex_sources[src] += 1
-            if not c.get("exchange"):
+            state = exchange_state(c)
+            if state == "n_no_exchange":
                 n_none += 1
-            elif c.get("evidence_tier") == "non_bigg_fallback":
+            elif state == "n_nonbigg_fallback":
                 n_fallback += 1
+            elif state == "n_bigg_shaped_no_such_exchange":
+                n_noreaction += 1
             else:
                 n_bigg += 1
         exch["n_bigg_exchange"] += n_bigg
         exch["n_nonbigg_fallback"] += n_fallback
+        exch["n_bigg_shaped_no_such_exchange"] += n_noreaction
         exch["n_no_exchange"] += n_none
         n_unc = cov.get("n_uncovered")
         tot_unc += n_unc or 0
@@ -130,6 +141,7 @@ def build(media_dir: str, out_path: str) -> dict:
             "n_bigg_exchange": n_bigg,
             "n_nonbigg_fallback": n_fallback,
             "n_no_exchange": n_none,
+            "n_bigg_shaped_no_such_exchange": n_noreaction,
         }
 
     out = {

@@ -50,21 +50,54 @@ CONCENTRATION_DEFINITION = (
     "identical even to a reader who inspects the amounts, not only the bounds.")
 
 
+def _num(x):
+    """A numeric bound as one canonical value.
+
+    THE DEFECT THIS EXISTS FOR. The hash below serialises with json.dumps, which
+    renders the int -1000 as `-1000` and the float -1000.0 as `-1000.0`. Two
+    records whose triple sets compare EQUAL in Python therefore hashed
+    differently, and the corpus carries both spellings of the same bound because
+    different builders wrote different literals for the same mineral. That split
+    130 set-equal groups covering 632 media, and published 185 records as having
+    a unique model input beside the column note "0 means this record's model
+    input is unique in the library" while each had a set-equal twin.
+
+    -1000 and -1000.0 are the same constraint to any solver, and the documented
+    adoption path (`-c["lower_bound"]`) builds the identical medium dict from
+    either, so the definition this module publishes was right and the hash was
+    wrong. Coercing here rather than only in the builders means a corpus that
+    still carries an int bound cannot reopen the hole.
+
+    `bool` is excluded deliberately: it is a subclass of int, and turning True
+    into 1.0 would merge a flag with a bound. `concentration_mM` is frequently
+    null, which is why the isinstance guard is load-bearing rather than
+    decorative.
+    """
+    if isinstance(x, bool):
+        return x
+    return float(x) if isinstance(x, (int, float)) else x
+
+
 def _hash(rows) -> str:
+    # Sorted by repr, not by tuple comparison: sorting the raw tuples raises
+    # TypeError the first time a None meets a number in the same position, which
+    # is reachable the moment a nullable field enters a signature.
     return hashlib.sha256(
-        json.dumps(sorted(rows), default=str).encode("utf-8")).hexdigest()[:16]
+        json.dumps(sorted(rows, key=repr), default=str).encode("utf-8")
+    ).hexdigest()[:16]
 
 
 def signature(rec: dict) -> str:
     """Hash of the constraint set this record hands a model."""
-    return _hash({(c.get("exchange"), c.get("lower_bound"), c.get("upper_bound"))
+    return _hash({(c.get("exchange"), _num(c.get("lower_bound")),
+                   _num(c.get("upper_bound")))
                   for c in rec.get("components") or [] if c.get("exchange")})
 
 
 def signature_with_concentrations(rec: dict) -> str:
     """The stricter signature: bounds AND source-stated concentrations."""
-    return _hash({(c.get("exchange"), c.get("lower_bound"), c.get("upper_bound"),
-                   c.get("concentration_mM"))
+    return _hash({(c.get("exchange"), _num(c.get("lower_bound")),
+                   _num(c.get("upper_bound")), _num(c.get("concentration_mM")))
                   for c in rec.get("components") or [] if c.get("exchange")})
 
 
