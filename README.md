@@ -13,7 +13,7 @@ Component coverage, measured:
 
 | | |
 |---|---|
-| Components reaching a BiGG exchange | **664,000 of 665,582 (99.8%)**. 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id that **no BiGG model will accept** — their own `mapping_note` says so — and 218 carry no exchange at all. |
+| Components reaching a BiGG exchange that exists | **652,620 of 665,582 (98.1%)**. 11,380 carry an id of the same `EX_<met>_e` shape that names **no BiGG reaction** (largest: `EX_choles_e`, 4,438 — BiGG has `choles_c` only and cholesterol's exchange is `EX_chsterol_e`), 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id that **no BiGG model will accept**, and 218 carry no exchange at all. All three are dropped in silence by `model.medium = {...}`. |
 | Components carrying a cross-reference | **656,625 of 665,582 (98.7%)**. 8,957 (1.3%) carry none. |
 
 > **13,515 media** and counting — laboratory culture media, food-derived media, host
@@ -86,11 +86,11 @@ measured:
 
 A compound with no BiGG mapping is listed in the record's `uncovered` array.
 
-**Half this library is degenerate as a model input.** 6,827 of 13,515 records (50.5%) hand a
+**Half this library is degenerate as a model input.** 7,012 of 13,515 records (51.9%) hand a
 model the identical set of `(exchange, lower_bound, upper_bound)` triples as at least one
-other record — 1,623 groups, the largest holding 93 media. Adding each component's
-source-stated concentration, a stricter test than any solver applies, still leaves 6,328
-(46.8%). Most bounds here are presence placeholders rather than measured rates, so recipes
+other record — 1,663 groups, the largest holding 93 media. Adding each component's
+source-stated concentration, a stricter test than any solver applies, still leaves 6,508
+(48.2%). Most bounds here are presence placeholders rather than measured rates, so recipes
 differing in amount, pH, agar or preparation collapse onto one constraint set. Records are
 not deduplicated by model input: each keeps its own provenance, each carries
 `n_media_with_identical_model_input` and `model_input_signature`, and the complete groups

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: methods and limitations</title>
-<meta name="description" content="How a MediaDB record is built and what it cannot support: how each component's identity is decided, where the exchange ids land, what the three coverage fractions divide by, which components the pipeline supplies, and what the bounds encode.">
+<meta name="description" content="How a MediaDB record is built and what it cannot support: how each component's identity is decided, where the exchange ids land, what the three coverage fractions divide by, which components are derived, and what the bounds encode.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,13 +80,19 @@
   </p>
 
   <h2 id="exchange" style="margin-top:var(--s7)">Where the exchange ids land</h2>
-  <p style="margin-top:var(--s3)">A component reaches a BiGG exchange reaction, a
-    fallback id in exchange position, or nothing. The three states partition the
-    components.</p>
+  <p style="margin-top:var(--s3)">A component reaches a BiGG exchange reaction that
+    exists, an id shaped like one that names no BiGG reaction, a fallback id in
+    exchange position, or nothing. The four states partition the components, and
+    only the first is usable by a model.</p>
   <div class="barlist" id="exchange-bands" style="margin-top:var(--s3)"></div>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
-    A fallback id is not a near miss: <code>EX_cpd15137_e</code> names a real ModelSEED
-    compound that no BiGG model has a reaction for. The copy-to-COBRApy block skips it.
+    Neither of the two failing ids is a near miss. <code>EX_cpd15137_e</code> names a
+    real ModelSEED compound that no BiGG model has a reaction for.
+    <code>EX_choles_e</code> is shaped like a BiGG exchange and is not one: BiGG carries
+    cholesterol as <code>choles_c</code> only, with no extracellular form, and the
+    exchange that does exist is <code>EX_chsterol_e</code>. Both are skipped by the
+    copy-to-COBRApy block, and both are dropped in silence by
+    <code>model.medium = {…}</code>, because the reaction is in no model.
   </p>
 
   <h2 id="coverage" style="margin-top:var(--s7)">What each coverage fraction divides by</h2>
@@ -98,7 +104,7 @@
       <tbody>
         <tr>
           <td><code>pct_covered_source</code></td>
-          <td>The ingredients the cited source states. Pipeline-derived components are in
+          <td>The ingredients the cited source states. Derived components are in
             neither the numerator nor the denominator.</td>
           <td>Displayed here. <span id="upper-bound-count">Some</span> records show it as
             a ceiling, marked "at most".</td>
@@ -112,7 +118,7 @@
         </tr>
         <tr>
           <td><code>pct_covered</code></td>
-          <td>Every component the record ends up with, pipeline-derived ones included,
+          <td>Every component the record ends up with, derived ones included,
             so it is near 100% by construction.</td>
           <td><b>Deprecated.</b> Kept for compatibility; not displayed.</td>
         </tr>
@@ -156,14 +162,22 @@
     Records are not deduplicated by model input: which paper a composition came from is a
     real difference even when the constraint set is not. Adding each component's
     concentration leaves <span id="degeneracy-conc">most of them</span>
-    indistinguishable. The groups are at <code>data/web/twins.json</code>.
+    indistinguishable. Each record sheet names the other media in its group, and the
+    groups are <a href="API.md">published in full</a>.
   </p>
 
   <h2 id="oxygen" style="margin-top:var(--s7)">Oxygen regime</h2>
   <p style="margin-top:var(--s3)">The oxygen regime decides whether <code>EX_o2_e</code>
     is open or closed. It has four states, and unknown is one of them: unknown is a state
-    of the field, not a synonym for anaerobic.</p>
+    of the field, not a synonym for anaerobic. The regime is recorded only where a source
+    or a curator asserted one, so most of this library is unknown. A medium with no stated
+    regime still ships with <code>EX_o2_e</code> open, by the same convention that supplies
+    the mineral base; that oxygen row is marked derived on every record that carries it and
+    is excluded from every source-coverage figure. The convention is not a finding, and it
+    is published separately from the regime so the two can never be read as one number.</p>
   <div class="barlist" id="oxygen-bands" style="margin-top:var(--s3)"></div>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)"
+     id="oxygen-basis"></p>
 
   <h2 id="families-method" style="margin-top:var(--s7)">Base-medium families</h2>
   <p style="margin-top:var(--s3)">A family groups the variants of one base medium. It is
@@ -178,25 +192,25 @@
     <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener">CC BY-NC 4.0</a>;
     code in this repository is MIT. Attribute MediaDB and cite the primary publication in
     each record's <code>provenance.citation</code>. Upstream sources and the terms their
-    material was taken under are named in <a href="NOTICE">NOTICE</a>.</p>
+    material was taken under are named in <a href="NOTICE.txt">NOTICE</a>.</p>
 
   <h2 id="reproducibility" style="margin-top:var(--s7)">Reproducibility</h2>
-  <p style="margin-top:var(--s3)"><code>data/media/*.json</code> is the authoritative copy
-    of the library and cannot be regenerated from its original inputs: a fresh extraction
+  <p style="margin-top:var(--s3)">The per-record files are the authoritative copy
+    of the library and cannot be regenerated from their original inputs: a fresh extraction
     would file different compositions under the same citations. Corrections are applied
-    forward, as transform stages run in a recorded order;
-    <code>make reproduce</code> runs the chain from the committed baseline and compares
-    the result to the corpus that ships.</p>
+    forward, as transform stages run in a recorded order, and the chain is re-run from a
+    committed baseline and compared against the corpus that ships.</p>
 
   <h2 id="limits" style="margin-top:var(--s7)">The limits</h2>
   <ol style="margin-top:var(--s3)" class="stack">
     <li id="limit-name">Component identities mostly rest on a name string.</li>
-    <li id="limit-derived">A large minority of component records are supplied by this
-      pipeline and are not in the cited source.</li>
+    <li id="limit-derived">A large minority of component records are derived and are not
+      in the cited source.</li>
     <li id="limit-bounds">Bounds are presence placeholders, not measured uptake
       rates.</li>
     <li id="limit-degeneracy">Records are not deduplicated by their model input.</li>
-    <li id="limit-exchange">Not every component reaches a BiGG exchange.</li>
+    <li id="limit-exchange">Not every component reaches a BiGG exchange, and an id
+      shaped like one is not always one.</li>
     <li id="limit-xref">Not every component carries a cross-reference.</li>
     <li id="limit-oxygen">The oxygen regime is not recorded for every medium.</li>
     <li>Food records are a population-average nutrient analysis, not a laboratory
@@ -222,7 +236,7 @@
         <li>Data <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener">CC BY-NC 4.0</a>; code MIT.</li>
         <li>Sources: USDA FoodData Central, DSMZ MediaDive, FooDB, MediaDB (ISB), HMDB, BMDB, primary literature.</li>
         <li>Exchange namespace BiGG Models; cross-references MetaNetX.</li>
-        <li>Terms per source: <a href="NOTICE">NOTICE</a>.</li>
+        <li>Terms per source: <a href="NOTICE.txt">NOTICE</a>.</li>
       </ul>
     </div>
     <div>
@@ -231,7 +245,7 @@
         <li><a href="index.html">Explore the library</a></li>
         <li><a href="families.html">Base-medium families</a></li>
         <li><a href="API.md">Programmatic API</a></li>
-        <li><a href="LICENSE">Licence</a> · <a href="NOTICE">Notices</a></li>
+        <li><a href="LICENSE.txt">Licence</a> · <a href="NOTICE.txt">Notices</a></li>
       </ul>
     </div>
   </div>
@@ -278,7 +292,7 @@
           cat.exchange_resolution.of) + ' reach a BiGG exchange'),
       figure(fmt(totals.n_sourced), 'stated by the source',
         MDB.share(totals.n_sourced, totals.n_components) + ' of components'),
-      figure(fmt(totals.n_derived), 'supplied by the pipeline',
+      figure(fmt(totals.n_derived), 'derived',
         MDB.share(totals.n_derived, totals.n_components) + ' of components'));
     $('release-stamp').textContent = 'Release built ' + cat.built_utc.slice(0, 10) +
       (cat.git_head ? ' from commit ' + cat.git_head.slice(0, 10) : '') + '.';
@@ -302,7 +316,9 @@
     /* where the exchange ids land ---------------------------------------- */
     const xr = cat.exchange_resolution;
     bars($('exchange-bands'), [
-      ['A BiGG exchange reaction', xr.n_bigg_exchange],
+      ['A BiGG exchange reaction that exists', xr.n_bigg_exchange],
+      ['A BiGG-shaped id naming no BiGG reaction',
+        xr.n_bigg_shaped_no_such_exchange],
       ['A non-BiGG fallback id no BiGG model accepts', xr.n_nonbigg_fallback],
       ['No exchange reaction at all', xr.n_no_exchange]
     ], xr.of);
@@ -338,7 +354,7 @@
       "author's assertion.";
     $('limit-derived').textContent =
       MDB.withDenominator(totals.n_derived, totals.n_components, 'component records') +
-      ' were supplied by this pipeline and are not in the cited source; they appear in ' +
+      ' are derived and are not in the cited source; they appear in ' +
       MDB.withDenominator(media.n_media_with_any_derived_component, cat.count, 'media') +
       '.';
     $('limit-bounds').textContent =
@@ -364,9 +380,12 @@
       ' hand a solver the same constraint set as at least one other record.';
     $('limit-exchange').textContent =
       'Not every component reaches a BiGG exchange. ' +
-      MDB.withDenominator(xr.n_nonbigg_fallback, xr.of, 'components') +
-      ' carry a fallback id no BiGG model will accept, and ' +
-      MDB.withDenominator(xr.n_no_exchange, xr.of) + ' reach none at all.';
+      MDB.withDenominator(xr.n_bigg_shaped_no_such_exchange, xr.of, 'components') +
+      ' carry a BiGG-shaped id that names no BiGG reaction, ' +
+      MDB.withDenominator(xr.n_nonbigg_fallback, xr.of) +
+      ' a fallback id no BiGG model will accept, and ' +
+      MDB.withDenominator(xr.n_no_exchange, xr.of) + ' reach none at all. All three ' +
+      'are dropped without a word by the documented adoption path.';
     $('limit-xref').textContent =
       'Not every component carries a cross-reference. ' +
       MDB.withDenominator(cat.cross_references.n_components_with_none,
@@ -392,7 +411,7 @@
         'media are entirely derived',
         'no component in them is stated by the cited source'),
       figure(MDB.share(totals.n_derived, totals.n_components),
-        'of all component records were supplied by the pipeline',
+        'of all component records are derived',
         fmt(totals.n_derived) + ' of ' + fmt(totals.n_components)));
 
     $('quant-figures').replaceChildren(
@@ -410,11 +429,20 @@
     const ox = cat.by_oxygen;
     const oxN = (k) => (Object.prototype.hasOwnProperty.call(ox, k) ? ox[k] : null);
     bars($('oxygen-bands'), [
-      ['Facultative: used with or without oxygen', oxN('facultative')],
+      ['Facultative: a source or curator states it is used either way',
+        oxN('facultative')],
       ['Anaerobic', oxN('anaerobic')],
       ['Aerobic', oxN('aerobic')],
-      ['Unknown: the record does not say', oxN('None')]
+      ['Unknown: no source or curator states one', oxN('None')]
     ], cat.count);
+    const oxb = cat.oxygen_basis;
+    if (oxb && $('oxygen-basis')) {
+      $('oxygen-basis').textContent =
+        'Of the ' + MDB.withDenominator(oxb.of - oxb.n_regime_recorded, oxb.of,
+          'media') + ' with no recorded regime, ' + fmt(oxb.n_no_source_statement) +
+        ' carry a note saying the source stated nothing about oxygen. Those media ' +
+        'still export EX_o2_e open, as a convention rather than a finding.';
+    }
 
     $('family-coverage').textContent =
       MDB.withDenominator(media.n_media_in_a_family, cat.count, 'media') +
@@ -424,7 +452,7 @@
   }).catch((err) => {
     $('release-figures').replaceChildren(el('div', { class: 'state error' }, [
       el('h3', { text: 'The release figures could not be loaded' }),
-      el('p', { text: 'data/web/summary.json did not load (' +
+      el('p', { text: 'The release figures did not load (' +
         (err.message || err.kind) + '). The counts on this page are unavailable.' })
     ]));
   });

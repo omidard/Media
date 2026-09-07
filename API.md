@@ -8,13 +8,16 @@ Every file below is a plain HTTPS `GET`, returned with permissive CORS
 - **Base URL:** `https://omidard.github.io/Media`
 - **Format:** JSON (records/catalog), Parquet + gzipped SQLite/JSONL (bulk)
 - **Namespace:** components are keyed by BiGG exchange reactions (`EX_<met>_e`) —
-  664,000 of 665,582 component records (99.8%) reach one. 1,364 carry a
+  **652,620 of 665,582 component records (98.1%)** reach one that EXISTS. 11,380 carry
+  an id of the same shape naming **no BiGG reaction** (`EX_choles_e` is the largest: BiGG
+  has `choles_c` only, and cholesterol's exchange is `EX_chsterol_e`), 1,364 carry a
   ModelSEED/MetaNetX/KEGG **fallback id no BiGG model will accept**, and 218 carry no
-  exchange at all. Per record: `n_mapped`, `n_nonbigg_fallback`, `n_unmappable`.
+  exchange at all. `model.medium = {...}` drops all three without a word. Per record:
+  `n_mapped`, `n_nonbigg_fallback`, `n_bigg_shaped_no_such_exchange`, `n_unmappable`.
 - **Bounds convention:** `lower_bound < 0` means **uptake** (mmol · gDW⁻¹ · h⁻¹)
 - **Licence:** the data is **CC BY-NC 4.0**, one licence for the whole compilation; the
   code is MIT. Every payload carries it as `license`. Attribution owed upstream is in
-  [`NOTICE`](./NOTICE); see [`LICENSE`](./LICENSE).
+  [`NOTICE.txt`](./NOTICE.txt); see [`LICENSE.txt`](./LICENSE.txt).
 
 A machine-readable description lives in [`openapi.yaml`](./openapi.yaml).
 For a ready-made client see [`client/`](./client) (`pip install ".../#subdirectory=client"`).
@@ -38,7 +41,18 @@ The full catalog. Object with:
 | `by_source_db` | object | counts per source database |
 | `media` | array | one **summary** object per medium (see below) |
 
+`oxygen` is the regime a source or a curator actually **stated**, and it is `null` on
+12,365 of 13,515 records. Most of the library has no stated regime: the curation script
+ends in two catch-all branches that return `facultative` when the source says nothing,
+recording that in `oxygen_note`, and 11,926 records are in that state. Those records
+still export `EX_o2_e` open, which is a convention and not a finding;
+`oxygen_default_for_simulation` carries it, and the O2 component is marked derived on
+every record. `null` means unknown. It never means anaerobic. (The per-record files under
+`/data/media/` still carry the `facultative` default in `oxygen`; correcting the corpus
+is a transform stage, tracked in `tests/test_defects.py`.)
+
 Each `media[]` summary: `id`, `name`, `category`, `organism_scope`, `aerobic`, `oxygen`,
+`oxygen_default_for_simulation`,
 `n_components`, `n_mapped`, `n_in_biggr`, `n_nonbigg_fallback`, `n_no_exchange`,
 `namespace`, `source_type`, `source_db`, `verification_status`, `n_sourced`, `n_derived`, `n_unmappable`,
 `pct_covered_source`, `pct_sourced_components_with_bigg_id`,
@@ -52,10 +66,10 @@ definition inline: `exchange_resolution`, `cross_references`,
 #### Two media can be the same thing to a solver
 
 A model reads the set of `(exchange, lower_bound, upper_bound)` triples and nothing
-else — not the name, not the source, not the citation. By that measure **6,827 of
-13,515 media (50.5%)** are indistinguishable from at least one other record (1,623
+else — not the name, not the source, not the citation. By that measure **7,012 of
+13,515 media (51.9%)** are indistinguishable from at least one other record (1,663
 groups; the largest holds 93). Adding each component's source-stated concentration, a
-stricter test than any solver applies, still leaves 6,328 (46.8%).
+stricter test than any solver applies, still leaves 6,508 (48.2%).
 
 ```
 GET /data/web/twins.json          # the complete groups, by medium id
@@ -116,6 +130,29 @@ consumes it and writes `uncovered[]` instead.)
 GET /data/media_stats.json        # component-frequency statistics
 GET /data/presence_matrix.json    # medium × component presence matrix
 ```
+
+### The payloads the browser reads
+
+The five browser pages are served from these. They are documented here because the
+pages link to this file rather than printing repository paths in their prose, and
+two of them were previously named nowhere else.
+
+```
+GET /data/web/catalog.json        # the browse table: 13,515 rows, dictionary-encoded
+GET /data/web/summary.json        # the same library-wide blocks with no rows
+GET /data/web/families.json       # base-medium families and their members
+GET /data/web/compounds.json      # compound -> media postings, for the compound filter
+GET /data/web/tombstones.json     # withdrawn identifiers and their reason codes
+GET /data/cluster/clustergram.json    # precomputed Ward linkage over the library
+GET /data/cluster/cooccurrence.json   # pairwise compound co-occurrence
+```
+
+`catalog.json` and `index.json` are the same catalogue in two shapes.
+`catalog.json` encodes rows as arrays with a shared `columns` list and dictionary
+columns, to keep the page small; `index.json` is the readable one and is the
+documented endpoint for a consumer. Zip `columns` against a row to get objects.
+`summary.json` carries every library-wide block from `catalog.json` and none of the
+rows, for pages that render no per-medium table.
 
 ### Bulk / analytics
 

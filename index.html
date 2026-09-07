@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: in silico media for genome-scale metabolic models</title>
-<meta name="description" content="In silico media for genome-scale metabolic models: 13,515 laboratory, food and biospecimen compositions re-encoded as BiGG exchange reactions. 664,000 of 665,582 components reach a BiGG exchange; 1,364 carry a fallback id no BiGG model accepts and 218 reach none. Each component records the evidence tier its identity was decided by.">
+<meta name="description" content="In silico media for genome-scale metabolic models: 13,515 laboratory, food and biospecimen compositions re-encoded as BiGG exchange reactions. 652,620 of 665,582 components reach a BiGG exchange reaction that exists; 11,380 carry a BiGG-shaped id naming no BiGG reaction, 1,364 a fallback id no BiGG model accepts, and 218 reach none. Each component records the evidence tier its identity was decided by.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,7 +112,7 @@
         </select>
       </div>
       <div class="field">
-        <label for="f-derived">Pipeline-derived components</label>
+        <label for="f-derived">Derived components</label>
         <select id="f-derived" class="input">
           <option value="">Any amount</option>
           <option value="none">None: every component is from the source</option>
@@ -147,8 +147,8 @@
 
   <div class="tablebar">
     <p class="muted" style="font-size:var(--t-cap)">
-      The library is a frozen snapshot. The catalogue behind this table is served as
-      <code>data/web/catalog.json</code>.
+      The library is a frozen snapshot. The catalogue behind this table is also
+      <a href="API.md">published as data</a>.
       <a href="methods.html">Read the methods and the limits</a>.
     </p>
   </div>
@@ -167,7 +167,7 @@
       <h3>How much of each source recipe was captured</h3>
       <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)" id="cov-caption">
         The share of a medium's own stated ingredient list that reached a BiGG exchange.
-        Pipeline-derived components are excluded from both sides of this fraction, so it
+        Derived components are excluded from both sides of this fraction, so it
         is lower than a share computed over every component a record carries.
       </p>
       <div class="hist" id="chart-coverage" role="img" aria-label="Distribution of source coverage"></div>
@@ -185,7 +185,7 @@
       <h4>Attribution</h4>
       <p style="margin-top:var(--s2)">This resource redistributes data from other people's
         databases. The sources and the terms their material was taken under are named in
-        <a href="NOTICE">NOTICE</a>.</p>
+        <a href="NOTICE.txt">NOTICE</a>.</p>
       <ul>
         <li><b>USDA FoodData Central</b>: U.S. Department of Agriculture, Agricultural
           Research Service. Public domain (CC0 1.0).</li>
@@ -241,7 +241,7 @@
     const meta = el('div', { class: 'rowmeta' });
     const dom = MDB.dominantEvidence(r.evidence);
     meta.textContent = [
-      fmt(r.n_components) + ' components, ' + fmt(r.n_derived) + ' pipeline-derived',
+      fmt(r.n_components) + ' components, ' + fmt(r.n_derived) + ' derived',
       'mostly ' + dom.cls.label.toLowerCase(),
       r.oxygen || 'O₂ unknown',
       r.source_db
@@ -475,11 +475,14 @@
     const xr = cat.exchange_resolution;
     $('claim').textContent =
       fmt(cat.count) + ' media, ' + fmt(totals.n_components) + ' components. ' +
-      MDB.withDenominator(xr.n_bigg_exchange, xr.of) + ' reach a BiGG exchange; ' +
-      fmt(xr.n_nonbigg_fallback) + ' carry a fallback id no BiGG model will accept, ' +
+      MDB.withDenominator(xr.n_bigg_exchange, xr.of) +
+      ' reach a BiGG exchange reaction that exists; ' +
+      fmt(xr.n_bigg_shaped_no_such_exchange) +
+      ' carry a BiGG-shaped id naming no BiGG reaction, ' +
+      fmt(xr.n_nonbigg_fallback) + ' a fallback id no BiGG model will accept, ' +
       'and ' + fmt(xr.n_no_exchange) + ' reach none at all. Of all components, ' +
       MDB.withDenominator(derived.n, derived.of) +
-      ' were supplied by this pipeline rather than by the cited source, and ' +
+      ' are derived and appear in no cited source, and ' +
       MDB.withDenominator(nameCls.n, nameCls.of) +
       ' were identified by a name string rather than by chemistry.';
 
@@ -559,8 +562,9 @@
     box.replaceChildren(el('div', { class: 'state error' }, [
       el('h3', { text: 'The catalogue could not be loaded' }),
       el('p', {
-        text: 'data/web/catalog.json did not load (' + (err.message || err.kind) +
-          '). Reload, or read the records directly from data/media/.'
+        text: 'The catalogue for this release did not load (' +
+          (err.message || err.kind) + '). Nothing here is a statement about the ' +
+          'media themselves. Reload, or try again shortly.'
       })
     ]));
     $('claim').textContent = 'The catalogue could not be loaded.';

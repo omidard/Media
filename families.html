@@ -75,11 +75,11 @@
 </main>
 
 <footer class="foot"><div class="wrap">
-  <p>A base-medium family is a field on every record, and the whole index is published in
-    <code>data/web/families.json</code>. A record with no family is listed as ungrouped on
+  <p>A base-medium family is a field on every record, and the whole index is
+    <a href="API.md">published as data</a>. A record with no family is listed as ungrouped on
     the <a href="index.html">explore page</a>. The data is licensed
     <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener">CC BY-NC 4.0</a>;
-    upstream sources are named in <a href="NOTICE">NOTICE</a>.</p>
+    upstream sources are named in <a href="NOTICE.txt">NOTICE</a>.</p>
 </div></footer>
 
 <script src="assets/media.js"></script>
@@ -341,7 +341,7 @@
     document.getElementById('claim').textContent =
       'The family index could not be loaded.';
     $('fam-detail').replaceChildren(el('div', { class: 'state error' }, [
-      el('h3', { text: 'data/web/families.json did not load' }),
+      el('h3', { text: 'The family index did not load' }),
       el('p', { text: (err.message || err.kind) + '. Reload, or browse the library on ' +
         'the explore page.' })
     ]));

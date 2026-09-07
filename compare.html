@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: compare media, compound by compound</title>
-<meta name="description" content="Put two to eight media side by side: pairwise similarity, the compounds they share and the compounds that separate them, with every compound labelled as stated by the source or supplied by the pipeline.">
+<meta name="description" content="Put two to eight media side by side: pairwise similarity, the compounds they share and the compounds that separate them, with every compound labelled as stated by the source or derived.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,9 +33,9 @@
   <p class="kicker">Compare</p>
   <h1>Two to eight media, compound by compound.</h1>
   <p class="lead">See how similar two formulations really are, which compounds separate
-    them, and, for every compound, whether it was stated by the cited source or supplied
-    by this pipeline. A compound this pipeline supplied to both media is not evidence
-    that the two formulations are alike.</p>
+    them, and, for every compound, whether the cited source states it or it is derived.
+    A derived compound shared by two media is not evidence that the two formulations
+    are alike.</p>
 </div></header>
 
 <section class="section" id="picker"><div class="wrap">
@@ -81,7 +81,7 @@
         <h3>Pairwise similarity</h3>
         <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)">
           Jaccard index over exchange sets: compounds in both, divided by compounds in
-          either. Computed over every component, including the pipeline-derived ones.
+          either. Computed over every component, derived components included.
         </p>
         <div class="viz" id="sim-wrap"><svg id="sim-svg" role="img"
           aria-label="Pairwise Jaccard similarity matrix"></svg></div>
@@ -102,8 +102,8 @@
       <h3>Compounds that separate them</h3>
       <p class="muted" style="font-size:var(--t-sm);margin:var(--s2) 0 var(--s3)">
         Present in some of the selection and absent from the rest, ordered so the most
-        discriminating come first, then clustered by presence pattern. A hatched cell is a
-        compound the pipeline supplied for that medium; the cited source does not state it.
+        discriminating come first, then clustered by presence pattern. A hatched cell marks
+        a derived compound; the cited source for that medium does not state it.
       </p>
       <div class="viz" id="grid-wrap"><svg id="grid-svg" role="img"
         aria-label="Presence grid of the most differentiating compounds"></svg></div>
@@ -118,7 +118,7 @@
   <p>Every figure on this page is computed in your browser from the published records.
     The definitions are on the <a href="methods.html">methods page</a>. The data is
     licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener">CC BY-NC 4.0</a>;
-    upstream sources are named in <a href="NOTICE">NOTICE</a>.</p>
+    upstream sources are named in <a href="NOTICE.txt">NOTICE</a>.</p>
 </div></footer>
 
 <script src="assets/media.js"></script>
@@ -169,7 +169,7 @@
         class: 'btn btn-sm', type: 'button',
         disabled: SEL.indexOf(m.id) >= 0 ? true : null,
         title: m.source_db + ' · ' + fmt(m.n_components) + ' components (' +
-          fmt(m.n_derived) + ' pipeline-derived)',
+          fmt(m.n_derived) + ' derived)',
         text: m.name
       });
       b.addEventListener('click', () => add(m.id));
@@ -307,7 +307,7 @@
         text: MDB.withDenominator(covs.n_sourced, m.n_components, 'components') +
           ' are stated by its source; ' +
           MDB.withDenominator(m.n_derived, m.n_components) +
-          ' were supplied by the pipeline.'
+          ' are derived.'
       }));
       perMedium.appendChild(row);
     });
@@ -318,11 +318,11 @@
         ? 'No compound is present in every selection.'
         : (coreAllDerived.length === 0
             ? 'None of the ' + fmt(core.length) + ' compounds shared by all of them is ' +
-              'pipeline-derived, so the shared set is what the sources actually state.'
+              'derived, so the shared set is what the sources actually state.'
             : MDB.withDenominator(coreAllDerived.length, core.length) +
-              ' of the compounds shared by all of them are pipeline-derived in at least ' +
-              'one selection, so that much of the similarity is this pipeline rather ' +
-              'than the recipes.'));
+              ' of the compounds shared by all of them are derived in at least ' +
+              'one selection, so that much of the similarity comes from derived ' +
+              'components rather than from the recipes.'));
 
     drawUpset(labels, sets, union);
     drawGrid(labels, meds, sets, derivedIn, union, core, nameOf);
@@ -490,7 +490,7 @@
           fill: on ? (isDerived ? 'url(#derivedhatch)' : '#0b6a54') : '#eef3f0' });
         const title = svgEl('title');
         title.textContent = nm + ' (' + it.e + '): ' +
-          (on ? (isDerived ? 'present, supplied by the pipeline for ' : 'present, stated by the source of ')
+          (on ? (isDerived ? 'present, derived for ' : 'present, stated by the source of ')
               : 'absent from ') + labels[j];
         r.appendChild(title);
         svg.appendChild(r);
@@ -499,10 +499,10 @@
     $('grid-note').textContent = total > items.length
       ? 'Showing the ' + fmt(items.length) + ' most differentiating of ' + fmt(total) +
         ' compounds that are not shared by every selection. A solid cell is stated by ' +
-        'that medium’s source; a hatched cell was supplied by this pipeline.'
+        'that medium’s source; a hatched cell is derived.'
       : 'Showing all ' + fmt(total) + ' compounds that are not shared by every ' +
-        'selection. A solid cell is stated by that medium’s source; a hatched cell was ' +
-        'supplied by this pipeline.';
+        'selection. A solid cell is stated by that medium’s source; a hatched cell is ' +
+        'derived.';
   }
 
   MDB.loadCatalog().then((cat) => {

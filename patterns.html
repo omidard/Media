@@ -37,10 +37,10 @@
   <div class="note derived" style="margin-top:var(--s4);max-width:78ch">
     <b>Derived components shape these blocks.</b>
     <p style="margin-top:var(--s1)" id="derived-warning">A third of all component records in
-      this library were supplied by the pipeline rather than by a source, and the mineral
-      and oxygen base it injects is by construction present in almost every medium. Blocks
+      this library are derived rather than stated by a source, and the standard mineral
+      and oxygen base is by construction present in almost every medium. Blocks
       that look like a universal biochemical core are partly that convention.
-      <a href="methods.html#derived">Which components the pipeline supplies</a>.</p>
+      <a href="methods.html#derived">Which components are derived</a>.</p>
   </div>
 </div></header>
 
@@ -102,8 +102,8 @@
       <p style="margin-top:var(--s1)">Bright square blocks on the diagonal are sets of
         compounds that are added together: a mineral base, the amino acids, a vitamin panel,
         a lipid fraction. Some of that structure is real recipe design and some of it is the
-        standard base this pipeline injects, which is why the two cannot be separated by
-        eye here.</p>
+        standard base present in almost every record, which is why the two cannot be
+        separated by eye here.</p>
     </div>
   </div>
 </div></section>
@@ -111,10 +111,10 @@
 </main>
 
 <footer class="foot"><div class="wrap">
-  <p>Clustering: SciPy Ward linkage, published under <code>data/cluster/</code>.
+  <p>Clustering: SciPy Ward linkage, <a href="API.md">published as data</a>.
     Definitions and limits are on the <a href="methods.html">methods page</a>. The data is
     licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="noopener">CC BY-NC 4.0</a>;
-    upstream sources are named in <a href="NOTICE">NOTICE</a>.</p>
+    upstream sources are named in <a href="NOTICE.txt">NOTICE</a>.</p>
 </div></footer>
 
 <script src="assets/media.js"></script>
@@ -219,13 +219,13 @@
         ' distinct exchange reactions, published as precomputed data.';
       $('derived-warning').textContent =
         MDB.withDenominator(derived.n, derived.of, 'component records') +
-        ' in this library were supplied by the pipeline rather than by a source, and the ' +
-        'mineral and oxygen base it injects is by construction present in almost every ' +
+        ' in this library are derived rather than stated by a source, and the standard ' +
+        'mineral and oxygen base is by construction present in almost every ' +
         'medium. Blocks that look like a universal biochemical core are partly that ' +
         'convention.';
       $('derived-warning').appendChild(document.createTextNode(' '));
       $('derived-warning').appendChild(el('a', { href: 'methods.html#derived',
-        text: 'Which components the pipeline supplies' }));
+        text: 'Which components are derived' }));
 
       const sel = $('cg-group');
       cg.views.forEach((v, i) => sel.appendChild(
@@ -240,7 +240,7 @@
       $('cg-caption').textContent = '';
       $('cg-wrap').replaceChildren(el('div', { class: 'state error' }, [
         el('h3', { text: 'The clustering could not be loaded' }),
-        el('p', { text: 'data/cluster/clustergram.json did not load (' +
+        el('p', { text: 'The precomputed clustering did not load (' +
           (err.message || err.kind) + ').' })
       ]));
     });
@@ -268,7 +268,7 @@
     $('co-caption').textContent = '';
     $('co-wrap').replaceChildren(el('div', { class: 'state error' }, [
       el('h3', { text: 'The co-occurrence matrix could not be loaded' }),
-      el('p', { text: 'data/cluster/cooccurrence.json did not load (' +
+      el('p', { text: 'The precomputed co-occurrence matrix did not load (' +
         (err.message || err.kind) + ').' })
     ]));
   });

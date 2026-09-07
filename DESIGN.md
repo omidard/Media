@@ -2,8 +2,9 @@
 
 In silico **media** for genome-scale metabolic models: laboratory, food and biospecimen
 compositions whose components carry a standard **BiGG exchange reaction**, so a
-genome-scale metabolic model (GEM) can adopt a medium without re-deriving it. Measured over the shipped corpus: **664,000 of
-665,582 component records (99.8%) reach a BiGG exchange**; 1,364 carry a
+genome-scale metabolic model (GEM) can adopt a medium without re-deriving it. Measured over the shipped corpus: **652,620 of
+665,582 component records (98.1%) reach a BiGG exchange reaction that exists**; 11,380
+carry an id of the same shape that names no BiGG reaction, 1,364 carry a
 ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will accept, and 218 carry no
 exchange at all. This document defines the schema, the mapping and provenance rules, and
 the quality bar.
@@ -95,9 +96,12 @@ programmatic queries.
 ## Conventions
 
 **Namespace.** The canonical namespace is **BiGG** universal metabolite IDs and their
-extracellular exchanges `EX_<id>_e`. **664,000 of 665,582 components (99.8%)** reach a
-BiGG exchange; 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will
-accept and 218 reach none at all. **656,625 of 665,582 components (98.7%)** *also* carry
+extracellular exchanges `EX_<id>_e`. **652,620 of 665,582 components (98.1%)** reach a
+BiGG exchange that exists; 11,380 carry an id of that shape naming no BiGG reaction
+(`EX_choles_e` is the largest, 4,438: BiGG has `choles_c` only, and cholesterol's
+exchange is `EX_chsterol_e`), 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id that no
+BiGG model will accept and 218 reach none at all. The last three are all invisible to
+`model.medium = {...}`, which drops a reaction the model does not have without a word. **656,625 of 665,582 components (98.7%)** *also* carry
 cross-references (InChIKey, ChEBI, KEGG, HMDB, MetaNetX, SEED, BioCyc), so the medium is
 portable to any model — BiGGr, ModelSEED, KEGG-based, etc; **8,957 (1.3%) carry none**,
 and an absent `xref_id` means exactly that, never "look elsewhere". `in_biggr` flags
@@ -135,7 +139,7 @@ denominator was the components the record already carries) is the share of
 source-stated components that reached a BiGG id. Coverage of the source's own ingredient
 list is `coverage_source.pct_covered_source`, and only that.
 
-**A record is not unique as a model input.** 6,827 of 13,515 records (50.5%) hand a model
+**A record is not unique as a model input.** 7,012 of 13,515 records (51.9%) hand a model
 the identical set of `(exchange, lower_bound, upper_bound)` triples as at least one other
 record. The catalog carries `model_input_signature` and
 `n_media_with_identical_model_input` per record, and `data/web/twins.json` publishes the

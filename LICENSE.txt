@@ -1,0 +1,65 @@
+Media / MediaDB — licensing
+===========================
+
+  DATA  ->  CC BY-NC 4.0  (https://creativecommons.org/licenses/by-nc/4.0/)
+  CODE  ->  MIT (below)
+
+Attribution notices for every upstream source:  NOTICE
+
+
+--------------------------------------------------------------------------------------------
+DATA — CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL 4.0 INTERNATIONAL
+--------------------------------------------------------------------------------------------
+Everything under data/ — the 13,515 medium records, the catalogue, the browser payloads,
+the API exports and anything built from them — is licensed CC BY-NC 4.0.
+
+  Attribute: MediaDB (github.com/omidard/Media), and the primary publication recorded in
+  each record's `provenance.citation` for every medium you use.
+
+  Non-commercial: the licence does not permit commercial use. For commercial use, obtain
+  permission from the rights-holder of the upstream source named in that record's
+  `provenance.source_name`; see NOTICE for who that is.
+
+One licence covers the whole compilation because a compilation cannot grant more than its
+most restrictive input allows. The upstream mix includes CC BY-NC material (FooDB, HMDB,
+BMDB) and material that grants no reuse right at all: the 471 MediaDB records carry
+"(c) 2014, Institute for Systems Biology, All Rights Reserved", and redistribution
+permission has not been obtained. CC BY-NC 4.0 is therefore the strongest licence this
+corpus can carry as a whole, and it also satisfies the attribution the CC BY sources are
+owed.
+
+There is no per-record licence field and no commercial-use flag. Which source a record
+came from stays on the record as `provenance.source_id` and `provenance.source_name`, and
+NOTICE names every source and the terms its material was taken under.
+
+Nothing in this file is legal advice, and none of these labels is a warranty. NOTICE
+records where each upstream statement of terms was read from and on what date, so you can
+re-verify any of them yourself.
+
+
+--------------------------------------------------------------------------------------------
+CODE — MIT LICENSE
+--------------------------------------------------------------------------------------------
+Applies to everything under tools/, client/, build_index.py, and the site's HTML/CSS/JS.
+
+MIT License
+
+Copyright (c) 2026 omidard
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -4,14 +4,16 @@ pymediadb - a tiny client for the Media data API.
 The Media dataset (https://github.com/omidard/Media) holds in silico media for
 genome-scale metabolic models: laboratory, food and biospecimen compositions whose
 components carry a standard BiGG exchange reaction (``EX_<met>_e``) so a model can
-adopt a medium. 664,000 of
-665,582 component records (99.8%) reach one; 1,364 carry a ModelSEED/MetaNetX/KEGG
-fallback id that no BiGG model will accept, and 218 carry no exchange at all. Per
-record: ``n_mapped``, ``n_nonbigg_fallback``, ``n_unmappable``.
+adopt a medium. 652,620 of
+665,582 component records (98.1%) reach one that EXISTS; 11,380 carry an id of the same
+shape naming no BiGG reaction, 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id that no
+BiGG model will accept, and 218 carry no exchange at all. All three are dropped in
+silence when a model adopts the medium. Per record: ``n_mapped``,
+``n_nonbigg_fallback``, ``n_bigg_shaped_no_such_exchange``, ``n_unmappable``.
 
 Two further things a caller should know before trusting a result: the data is
-licensed CC BY-NC 4.0 and permits no commercial use, and 6,827 of 13,515 media
-(50.5%) hand a model a constraint set identical to at least one other record (see
+licensed CC BY-NC 4.0 and permits no commercial use, and 7,012 of 13,515 media
+(51.9%) hand a model a constraint set identical to at least one other record (see
 ``n_media_with_identical_model_input`` in the catalog).
 
 It is served as static JSON/Parquet over GitHub Pages with permissive CORS, so this

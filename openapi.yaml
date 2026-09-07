@@ -153,8 +153,10 @@ components:
           type: boolean
           nullable: true
           description: >-
-            true | false | null. 439 media have no stated oxygen requirement;
-            those must read as unknown, not as anaerobic (UX-01).
+            true | false | null. 12,365 of 13,515 media have no oxygen regime a
+            source or curator stated, and those must read as unknown, not as
+            anaerobic (UX-01). 11,926 of them still export EX_o2_e open by
+            convention; see oxygen and oxygen_default_for_simulation.
         n_components: { type: integer }
         n_mapped: { type: integer }
         n_in_biggr: { type: integer }
@@ -168,6 +170,22 @@ components:
           type: integer
           description: >-
             Components with no exchange reaction at all. 218 of 665,582 library-wide.
+        n_bigg_shaped_no_such_exchange:
+          type: integer
+          description: >-
+            Components whose exchange id has the EX_<met>_e shape but names no reaction
+            in BiGG, because the metabolite has no extracellular form there. No model
+            has the reaction, so `model.medium = {...}` drops it without a word.
+            11,380 of 665,582 library-wide, in 5,942 media; the largest is
+            EX_choles_e (4,438), where BiGG carries choles_c only and cholesterol's
+            exchange is EX_chsterol_e.
+        oxygen_default_for_simulation:
+          type: string
+          nullable: true
+          description: >-
+            What EX_o2_e in the exported medium was written from. A convention, not a
+            finding: present even where `oxygen` is null, and the O2 component itself
+            is marked derived on every record that carries it.
         pct_sourced_components_with_bigg_id:
           type: number
           nullable: true
@@ -214,8 +232,10 @@ components:
           type: boolean
           nullable: true
           description: >-
-            true | false | null. 439 media have no stated oxygen requirement;
-            those must read as unknown, not as anaerobic (UX-01).
+            true | false | null. 12,365 of 13,515 media have no oxygen regime a
+            source or curator stated, and those must read as unknown, not as
+            anaerobic (UX-01). 11,926 of them still export EX_o2_e open by
+            convention; see oxygen and oxygen_default_for_simulation.
         description: { type: string }
         namespace: { type: string }
         defined:
@@ -248,7 +268,9 @@ components:
             Components with no exchange reaction at all: identity was never established
             (evidence_tier unmapped) or the ingredient is an undefined mixture
             (unmappable_mixture). 218 of 665,582 library-wide. n_mapped +
-            n_nonbigg_fallback + n_unmappable = n_components.
+            n_nonbigg_fallback + n_unmappable = n_components. Note that n_mapped
+            counts BiGG-SHAPED ids, and 11,380 of those name no BiGG reaction; see
+            n_bigg_shaped_no_such_exchange on the catalog summary.
         pct_sourced_components_with_bigg_id:
           type: number
           nullable: true
