@@ -13,13 +13,12 @@ entry	explore		index.html		The library, its evidence composition, and the table.
 entry	families		families.html		Base media and their variants.
 entry	compare		compare.html		Two to eight media side by side.
 entry	patterns		patterns.html		Clustered composition patterns.
-entry	methods		methods.html		Methods, limits, licence schedule, withdrawn records.
+entry	methods		methods.html		Methods and limits.
 primary_control	search	#q	Free-text search over the library		Must be operable at 390px; the table below it is the result region.
 primary_control	compound	#f-compound	Find media containing a compound		Lazily loads the complete exchange index on first use.
 primary_control	evidence	#f-evidence	Filter by strongest evidence class		The six classes come from the payload, not from this page.
 primary_control	source	#f-source	Filter by source database		Options are built from the catalogue at load.
 primary_control	oxygen	#f-oxygen	Filter by oxygen regime		Four states including "unknown"; unknown is never folded into anaerobic.
-primary_control	licence	#f-licence	Filter to commercially usable records		1,189 of 13,515 records may not be used commercially.
 primary_control	derived	#f-derived	Filter by how much of a medium the pipeline supplied
 primary_control	clear	#clear	Clear every filter
 primary_control	results	#tbody	The result table		The result region for the search above it.

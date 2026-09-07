@@ -54,6 +54,7 @@ import sqlite3
 import pyarrow as pa
 import pyarrow.parquet as pq
 
+from dataset_license import DATASET_LICENSE
 import refs as REFS
 
 API_VERSION = "v1"
@@ -106,7 +107,6 @@ MEDIA_COLS = [
     # pct_covered alone was reading a number that counts invented components as
     # covered (COV-03 / PROV-07 / MEDIA-WEB-02).
     "source_id", "source_identity_evidence", "collection",
-    "license", "commercial_use_ok", "attribution_required",
     "verification_status",
     "n_sourced", "n_derived", "n_observed", "n_unmappable",
     "pct_covered_source", "pct_covered_source_is_upper_bound",
@@ -201,15 +201,13 @@ def medium_row(summary, rec):
         "doi": prov.get("doi"),
         "url": prov.get("url"),
         "food_group": summary.get("food_group"),
-        # verified source identity, licence and honest coverage — read from the
-        # record where the stage chain wrote it, from the catalog where the catalog
-        # is the authority. Absent stays null; nothing is defaulted.
+        # verified source identity and honest coverage — read from the record where
+        # the stage chain wrote it, from the catalog where the catalog is the
+        # authority. Absent stays null; nothing is defaulted. There is no per-record
+        # licence column: the dataset carries one licence (tools/dataset_license.py).
         "source_id": summary.get("source_id"),
         "source_identity_evidence": summary.get("source_identity_evidence"),
         "collection": prov.get("collection"),
-        "license": prov.get("license"),
-        "commercial_use_ok": prov.get("commercial_use_ok"),
-        "attribution_required": prov.get("attribution_required"),
         "verification_status": prov.get("verification_status"),
         "n_sourced": (rec.get("coverage_source") or {}).get("n_sourced"),
         "n_derived": rec.get("n_derived"),
@@ -410,9 +408,6 @@ def write_release_notes(bulk_dir, bulk, catalog, media_rows, comp_rows):
     refs_path = os.path.join(DATA, "refs.json")
     refs_sha = (hashlib.sha256(open(refs_path, "rb").read()).hexdigest()
                 if os.path.exists(refs_path) else None)
-    n_noncommercial = sum(1 for m in media_rows if m.get("commercial_use_ok") is False)
-    n_attribution = sum(1 for m in media_rows if m.get("attribution_required"))
-
     lines = [
         "# MediaDB bulk exports — `%s`" % RELEASE_TAG,
         "",
@@ -457,18 +452,12 @@ def write_release_notes(bulk_dir, bulk, catalog, media_rows, comp_rows):
         "",
         "## Licence",
         "",
-        "There is no single licence. Each record carries the terms of the source it "
-        "came from, and the per-source schedule is in `LICENSE` and `NOTICE` in the "
-        "repository — read them before redistributing any subset.",
+        "The data is licensed %s (%s). Code in this repository is %s."
+        % (DATASET_LICENSE["id"], DATASET_LICENSE["url"],
+           DATASET_LICENSE["code_license"]),
         "",
-        "* %s of %s records forbid commercial use (`commercial_use_ok` = false); "
-        "filter on that column." % ("{:,}".format(n_noncommercial),
-                                    "{:,}".format(len(media_rows))),
-        "* %s of %s records require attribution (`attribution_required` = true)."
-        % ("{:,}".format(n_attribution), "{:,}".format(len(media_rows))),
-        "* MediaDB's own curation layer (`mdb_*` records) is all-rights-reserved: no "
-        "reuse grant is stated upstream and redistribution permission has not been "
-        "obtained.",
+        "Attribution: %s. `NOTICE` names every upstream source and the terms its "
+        "material was taken under." % DATASET_LICENSE["attribution"],
         "",
         "Built by `tools/build_api_exports.py --bulk` (`make release-assets`).",
         "",
@@ -669,14 +658,7 @@ def main(argv=None):
             "n_with_concentration_mM": sum(
                 1 for r in comp_rows if r.get("concentration_mM") is not None),
         },
-        "licensing": {
-            "by_license": _tally(m.get("license") for m in media_rows),
-            "n_commercial_use_ok": sum(1 for m in media_rows if m.get("commercial_use_ok")),
-            "n_commercial_use_restricted": sum(
-                1 for m in media_rows if m.get("commercial_use_ok") is False),
-            "note": "records whose upstream licence forbids commercial use ship and are "
-                    "labelled; see LICENSE and NOTICE for the per-source schedule.",
-        },
+        "license": DATASET_LICENSE,
         "by_category": catalog.get("by_category", {}),
         "by_source_db": catalog.get("by_source_db", {}),
         "endpoints": {

@@ -1,124 +1,39 @@
 Media / MediaDB — licensing
 ===========================
 
-This repository contains two different things under two different regimes, and the data half
-is NOT under a single licence. Read the schedule.
+  DATA  ->  CC BY-NC 4.0  (https://creativecommons.org/licenses/by-nc/4.0/)
+  CODE  ->  MIT (below)
 
-  CODE   -> MIT (below)
-  DATA   -> per upstream source. There is no blanket data licence.
-
-Machine-readable schedule:  tools/licenses.tsv
-Attribution notices:        NOTICE
-Per-record licence:         each medium's provenance block carries `license`, `license_url`,
-                            `license_source`, `commercial_use` and `commercial_use_ok`.
+Attribution notices for every upstream source:  NOTICE
 
 
 --------------------------------------------------------------------------------------------
-WHY THIS FILE CHANGED
+DATA — CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL 4.0 INTERNATIONAL
 --------------------------------------------------------------------------------------------
-Until this revision, this file placed "everything under data/, and the media records" under
-CC-BY-4.0. That was wrong, and wrong in the direction that transfers risk to the reader:
-CC BY 4.0 s.2(a)(1) grants use "for any purpose, even commercially", and 1,189 of the 13,515
-media (8.8%) come from upstream sources that grant no such right. Measured by the
-quantitative content that gives the resource its value rather than by record count, the
-exposure is larger: 10,448 of 14,055 non-null concentration values (74.3%) come from sources
-that are non-commercial or carry no grant at all.
+Everything under data/ — the 13,515 medium records, the catalogue, the browser payloads,
+the API exports and anything built from them — is licensed CC BY-NC 4.0.
 
-Every count in this file is measured, not typed. They are generated into
-data/index.json (`concentration_provenance`, `by_license`, `by_commercial_use_ok`) by
-build_index.py from the corpus, and tools/verify_counts.py fails the build when a figure
-here disagrees with the corpus. An earlier revision of this paragraph read "10,737 of
-14,341 (74.9%)"; that denominator was correct until 296 concentrations which were an
-absence encoded as 0.0 were nulled and 10 were newly derived, and it then survived the
-correction in six documents because nothing checked it.
+  Attribute: MediaDB (github.com/omidard/Media), and the primary publication recorded in
+  each record's `provenance.citation` for every medium you use.
 
-Nothing has been removed to fix this. Every record stays; each is labelled with the terms it
-actually carries, and a reader who needs a commercially usable subset can select it.
+  Non-commercial: the licence does not permit commercial use. For commercial use, obtain
+  permission from the rights-holder of the upstream source named in that record's
+  `provenance.source_name`; see NOTICE for who that is.
 
+One licence covers the whole compilation because a compilation cannot grant more than its
+most restrictive input allows. The upstream mix includes CC BY-NC material (FooDB, HMDB,
+BMDB) and material that grants no reuse right at all: the 471 MediaDB records carry
+"(c) 2014, Institute for Systems Biology, All Rights Reserved", and redistribution
+permission has not been obtained. CC BY-NC 4.0 is therefore the strongest licence this
+corpus can carry as a whole, and it also satisfies the attribution the CC BY sources are
+owed.
 
---------------------------------------------------------------------------------------------
-DATA — LICENCE SCHEDULE BY SOURCE
---------------------------------------------------------------------------------------------
-Record counts are of 13,515 media, resolved from each record's own provenance evidence (URL
-host, DOI, citation text) by tools/stages/source_identity.py — never from its filename.
+There is no per-record licence field and no commercial-use flag. Which source a record
+came from stays on the record as `provenance.source_id` and `provenance.source_name`, and
+NOTICE names every source and the terms its material was taken under.
 
-COMMERCIALLY REDISTRIBUTABLE  (12,326 media, 91.2%)
-
-  USDA FoodData Central .................. 7,424 media
-      CC0 1.0 Universal (public domain dedication)
-      https://creativecommons.org/publicdomain/zero/1.0/
-      "USDA FoodData Central data are in the public domain and they are not copyrighted.
-       They are published under CC0 1.0 Universal (CC0 1.0)."  — fdc.nal.usda.gov/api-guide,
-      retrieved 2026-09-06. Attribution requested, not required.
-
-  DSMZ MediaDive ......................... 3,148 media
-      CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
-      "MediaDive (c) 2022 by DSMZ is licensed under CC BY 4.0" — mediadive.dsmz.de/imprint,
-      retrieved 2026-09-06. Attribution AND indication of the licence are required
-      (CC BY 4.0 s.3(a)(1)(C)); this repository did not indicate the licence before this
-      schedule existed. Of these, 1,143 are JCM (RIKEN) media and 105 are CCAP media that
-      MediaDive aggregates; see NOTICE.
-
-  Primary literature via GrowthDB ........ 1,369 media
-  Classic / standard formulations ........   297 media
-  Primary literature (GEM papers) ........    88 media
-      CC BY 4.0, asserted by this project over ITS OWN compilation, mapping and encoding.
-      The formulations themselves are facts stated in the cited publications; the
-      publications are not redistributed here. Users must still cite the primary work
-      recorded in each record's provenance.citation.
-
-NOT COMMERCIALLY REDISTRIBUTABLE  (1,189 media, 8.8%) — kept, labelled, and filterable
-
-  FooDB .................................... 701 media
-      CC BY-NC 4.0 — https://creativecommons.org/licenses/by-nc/4.0/
-      "Use and re-distribution of the data, in whole or in part, for commercial purposes
-       requires explicit permission of the authors and explicit acknowledgment of the source
-       material (FooDB)" — foodb.ca/about, retrieved 2026-09-06 (first-party).
-
-  MediaDB (Institute for Systems Biology) .. 471 media
-      NO LICENCE GRANTED. "(c) 2014, Institute for Systems Biology, All Rights Reserved"
-      — mediadb.systemsbiology.net/defined_media/, retrieved 2026-09-06 (first-party).
-      Redistribution permission has not been obtained. This is the single largest contributor
-      of quantitative data in the resource (8,397 of 14,055 concentration values, 59.7%).
-      Contact: mediadb@systemsbiology.org.
-
-  Human Metabolome Database (HMDB 5.0) ....... 9 media
-      CC BY-NC 4.0. "All data and metadata in the HMDB are released under the Creative
-      Commons (CC) Attribution-NonCommercial (NC) 4.0 International Licensing condition."
-      hmdb.ca is Cloudflare-gated and returns HTTP 403 to every retrieval method tried on
-      2026-09-06, so this quote is from the first-party page as captured by the Internet
-      Archive on 2026-01-02:
-      https://web.archive.org/web/20260102200014/https://hmdb.ca/about
-
-  Bovine Metabolome Database (BMDB) .......... 5 media
-      Custom terms, commercial use by explicit permission. The BMDB about page states no
-      Creative Commons licence at all — only the permission clause — so these records are
-      NOT labelled CC BY-NC. bovinedb.ca/about, retrieved 2026-09-06 (first-party).
-
-  HMDB tables republished in an open-access paper ... 3 media
-      Treated as CC BY-NC 4.0 (the upstream HMDB terms). Their immediate source is an
-      open-access CC BY paper, but republication in a CC BY paper does not relicense the
-      underlying HMDB values. Flagged license_review_required in the data pending resolution.
-
-UNRESOLVED — 8 media carry `license_review_required: true`
-      5 classic formulations (std_halobacterium, std_marine_broth_2216, std_methanobacterium,
-      std_nitrobacter, std_nitrosomonas) whose provenance URL points at MediaDive, so their
-      composition may have come from a CC BY source requiring attribution, plus the 3 records
-      above. They are flagged rather than silently claimed.
-
-
---------------------------------------------------------------------------------------------
-WHAT A USER MUST DO
---------------------------------------------------------------------------------------------
-1. Cite the ORIGINAL SOURCE of every medium you use. It is in that medium's `provenance`.
-2. For any commercial use, filter to `provenance.commercial_use_ok == true` (12,326 media),
-   or obtain permission from the rights-holder named in tools/licenses.tsv.
-3. When you redistribute MediaDive-derived records, indicate the CC BY 4.0 licence, not only
-   the attribution — CC BY 4.0 s.3(a)(1)(C) requires it.
-4. Read NOTICE. It carries the attributions this project owes upstream.
-
-Nothing in this file is legal advice, and none of these labels is a warranty. Each row of
-tools/licenses.tsv records where its terms were read from and on what date, so you can
+Nothing in this file is legal advice, and none of these labels is a warranty. NOTICE
+records where each upstream statement of terms was read from and on what date, so you can
 re-verify any of them yourself.
 
 

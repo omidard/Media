@@ -51,6 +51,8 @@ on:
       - "tools/build_media_stats.py"
       - "tools/build_presence_matrix.py"
       - "tools/build_web_payload.py"
+      - "tools/curation/tombstone_reason_codes.tsv"
+      - "tools/dataset_license.py"
       - "tools/mediapaths.py"
       - "tools/model_input.py"
       - "tools/refs.py"

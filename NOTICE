@@ -2,9 +2,13 @@ NOTICE — attributions this resource owes upstream
 =================================================
 
 Media / MediaDB redistributes and reformats data from the sources below. This file is the
-project-level attribution; every individual record additionally carries its own source,
-citation and licence in its `provenance` block, and the machine-readable schedule is
-tools/licenses.tsv.
+project-level attribution; every individual record additionally carries its own source and
+citation in its `provenance` block.
+
+The compilation is licensed CC BY-NC 4.0 as a whole (see LICENSE). That single licence does
+not replace the attributions owed to the sources named here, and it is set at the most
+restrictive of them: some of the material below permits no commercial use, and one source
+grants no reuse right at all.
 
 Record counts are of 13,515 media and are resolved from each record's own provenance
 evidence (URL host, DOI, citation text), not from its filename. Counts and terms were last
@@ -94,15 +98,10 @@ https://mediadb.systemsbiology.net/defined_media/
   Redistribution permission HAS NOT been obtained. This project has not been given
   permission and does not claim it; it is being sought at the address above.
 
-  MediaDB was previously absent from this project's documentation entirely — from the README
-  source table and from its headline list of sources — while supplying 8,397 of the 14,055
-  non-null concentration values in the library (59.7%), its single richest seam of
-  quantitative data, under the most restrictive terms of any source. That omission is
-  corrected here. The records are retained rather than deleted — deleting them would break
-  every mdb_* deep link and remove the largest seam of quantitative data in the resource —
-  and are labelled all-rights-reserved, marked commercial_use_ok: false and excluded from
-  the commercially usable subset. LICENSE, README.md and tools/licenses.tsv state the same
-  position in the same words; if you need a subset you can redistribute, filter them out.
+  These 471 records supply 8,397 of the 14,055 non-null concentration values in the library
+  (59.7%), the single largest seam of quantitative data here, under the most restrictive
+  terms of any source. They are published with `provenance.source_name`
+  "MediaDB (ISB defined media)" so they can be identified and, where necessary, excluded.
 
 
 --------------------------------------------------------------------------------------------
@@ -180,9 +179,9 @@ exchanges. Each record cites the canonical reference it was formulated from — 
 Bertani G, J Bacteriol 1951;62:293-300 for LB; Sambrook & Russell, Molecular Cloning, CSHL
 2001 for M9; Neidhardt FC, Bloch PL, Smith DF, J Bacteriol 1974;119:736-747 for MOPS.
 
-  5 of these records carry a MediaDive URL as their composition link, so their formulation may
-  have been taken from a CC BY source requiring attribution and licence indication. They are
-  flagged `license_review_required` rather than silently claimed as project-compiled.
+  5 of these records carry a MediaDive URL as their composition link, so their composition
+  may have been taken from a CC BY source requiring attribution and licence indication.
+  MediaDive is credited above on that account.
 
 
 --------------------------------------------------------------------------------------------

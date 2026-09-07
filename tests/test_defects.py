@@ -54,10 +54,6 @@ LEDGER = {
         "UX-01", "3x/5x stage",
         "media with no stated oxygen requirement carry aerobic=false, which the "
         "site renders as 'anaerobic'"),
-    "no_per_record_licence": (
-        "PROV-05", "2x licensing stage",
-        "no record states its upstream licence, so 1,189 non-commercial / "
-        "all-rights-reserved records are redistributed under a blanket CC-BY-4.0"),
     "empty_string_means_unknown": (
         "SCHEMA-02", "10_normalize_schema",
         "474 fields hold '' to mean 'not known' (organism_scope 471, food_group 2, "
@@ -187,16 +183,25 @@ def test_unknown_oxygen_is_null_not_false(stream):
                        "which renders as 'anaerobic'. e.g. %s" % (len(lying), lying[:5]))
 
 
-@_xfail("no_per_record_licence")
-def test_every_record_states_its_upstream_licence(stream):
-    missing = []
+def test_no_record_carries_a_licence_field_of_its_own(stream):
+    """PROV-05, closed by licensing the compilation rather than each record.
+
+    A blanket CC-BY-4.0 over CC BY-NC and all-rights-reserved material was the
+    defect. The fix is one licence for the dataset, set at its most restrictive
+    input (CC BY-NC 4.0), and no per-record licence field: the same string on
+    every record would still read as a distinction that does not exist.
+    """
+    keys = ("license", "licence", "commercial_use", "commercial_use_ok",
+            "attribution_required", "license_review_required")
+    offenders = []
     for mid, rec in stream():
         prov = rec.get("provenance") or {}
-        if not (prov.get("licence") or prov.get("license") or rec.get("licence")):
-            missing.append(mid)
-    assert not missing, ("%d records carry no upstream licence; 1,189 of them are "
-                         "non-commercial or all-rights-reserved. e.g. %s"
-                         % (len(missing), missing[:5]))
+        present = [k for k in keys if k in prov or k in rec]
+        if present:
+            offenders.append((mid, present))
+    assert not offenders, (
+        "%d records still carry per-record licence fields, e.g. %s"
+        % (len(offenders), offenders[:3]))
 
 
 @_xfail("empty_string_means_unknown")

@@ -1,9 +1,10 @@
-# tools/licenses.tsv — per-source licence schedule for the Media/MediaDB corpus.
+# tools/licenses.tsv — what each UPSTREAM SOURCE permits.
 #
-# This table is the SINGLE authority for the licence stamped onto every medium record.
-# tools/stages/stamp_provenance.py reads it and emits provenance.license / license_url /
-# license_source / commercial_use onto each record, keyed on the VERIFIED source identity
-# resolved by tools/stages/source_identity.py.
+# INTERNAL. Nothing here is stamped onto a record and nothing here is published: the
+# dataset carries ONE licence (tools/dataset_license.py, CC BY-NC 4.0), set at the most
+# restrictive row in this table, and NOTICE credits every source named here.
+# tools/stages/20_stamp_provenance.py reads this table to validate that the source
+# vocabulary in tools/source_identity.py is complete, and for no other purpose.
 #
 # It is NOT keyed on the record id prefix or the filename. build_index.py's source_db()
 # infers the source from `idv.startswith('mediadive_')` and friends, and that inference is

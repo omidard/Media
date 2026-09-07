@@ -2,16 +2,21 @@
 """Stage 20 — licence, verified source identity, and honest provenance labels.
 
 READS  a corpus directory, plus three checked-in tables:
-         tools/licenses.tsv                    per-source licence schedule (the authority
-                                               for every licence claim this stage makes)
+         tools/licenses.tsv                    what each upstream source permits; read to
+                                               validate the source vocabulary, never
+                                               stamped onto a record
          tools/component_evidence_classes.tsv  sourced/derived class of every mapping_method
          tools/verification_verdicts.tsv       the earlier verification pass's verdicts
-WRITES the same corpus with, per record, a resolved source identity, its upstream licence
-       and commercial-use flag, the true culture collection behind MediaDive, an explicit
-       citation type, an honest verification status, and, per component, whether it was read
-       from the source or supplied by the pipeline.
+WRITES the same corpus with, per record, a resolved source identity, the true culture
+       collection behind MediaDive, an explicit citation type, an honest verification
+       status, and, per component, whether it was read from the source or supplied by the
+       pipeline. It also REMOVES the per-record licence fields: the dataset carries one
+       licence (tools/dataset_license.py), so a per-record licence field would be the same
+       string 13,515 times and would still read as a distinction.
 
-CLOSES PROV-05 (blanket CC-BY-4.0 over CC BY-NC and All-Rights-Reserved content),
+CLOSES PROV-05 (blanket CC-BY-4.0 over CC BY-NC and All-Rights-Reserved content), by
+       licensing the whole compilation at its most restrictive input rather than by
+       per-record bookkeeping,
        PROV-01 / PROV-06 / PROV-11 / PROV-16 (what the citation actually identifies, and the
        1,248 media named and cited as DSMZ that belong to JCM or CCAP),
        PROV-03 (media the verification pass rejected still labelled "paper-verified"),
@@ -24,12 +29,10 @@ ASSERTS
   no record leaves this stage claiming "paper-verified" against a contradicting verdict
   or its own contradicting note;
   no emitted citation asserts DSMZ for a medium of another collection;
-  commercial_use_ok is true only where the schedule says commercial_use == "yes";
-  every stamped licence carries the URL its terms were read from and the date.
+  no record leaves this stage carrying a licence field of its own.
 
 DOES NOT delete a record, delete a component, rename a medium, or invent an identifier.
-       The operator's decision is segregate and label. The 1,189 non-commercial and
-       all-rights-reserved records stay; the 229,486 pipeline-derived components stay; the
+       The 229,486 pipeline-derived components stay; the
        9 mislabelled media are relabelled, not quarantined, because the recuration rounds
        that followed the verdicts did real source-chasing and the recipes are largely right.
        Display names still saying "DSMZ" are flagged in provenance.attribution_conflict with
@@ -58,6 +61,7 @@ sys.path.insert(0, TOOLS)
 
 from stagelib import REPO, Report, StageError, main_guard, stamp  # noqa: E402
 from source_identity import SOURCE_IDS, resolve                   # noqa: E402
+from dataset_license import DATASET_LICENSE                        # noqa: E402
 
 STAGE, VERSION = "20_stamp_provenance", "1.0.0"
 
@@ -253,6 +257,18 @@ def transform(rec, rep):
             prov[key] = value
             changed.append("provenance.%s" % key)
 
+    def drop(key):
+        """Remove a key the record must not carry.
+
+        The corpus is redistributed under ONE licence (see DATASET_LICENSE). A
+        per-record licence field would be the same string on all 13,515 records
+        and would still read as though a distinction existed, so the fields are
+        removed rather than flattened.
+        """
+        if key in prov:
+            del prov[key]
+            changed.append("provenance.%s:removed" % key)
+
     # Resolve against the ORIGINAL citation whenever this stage has already rewritten one, so
     # every derived value stays a pure function of the input the pipeline first saw. That is
     # what makes the stage idempotent instead of re-parsing its own prose (contract rule 6).
@@ -267,7 +283,9 @@ def transform(rec, rep):
             "source_type=%r). A stage never guesses a source into a bucket — add an "
             "evidence rule to tools/source_identity.py instead."
             % (mid, prov.get("url"), prov.get("doi"), prov.get("source_type")))
-    lic = LICENSES[ident.source_id]
+    # The upstream terms are still validated at import (load_licenses); the record
+    # no longer carries them.
+    LICENSES[ident.source_id]
 
     rep.count("source_resolved", 1, rep.n_in)
     rep.count("source_%s" % ident.source_id, 1)
@@ -277,29 +295,21 @@ def transform(rec, rep):
     put("source_identity_evidence", ident.evidence)
     put("source_identity_confidence", ident.confidence)
 
-    put("license", lic["license_id"])
-    put("license_name", lic["license_name"])
-    put("license_url", lic["license_url"] or None)
-    put("license_source", lic["source_name"])
-    put("license_terms_url", lic["terms_url"] or None)
-    put("license_terms_retrieved", lic["terms_retrieved"] or None)
-    put("license_terms_verification", lic["terms_verification"])
-    put("commercial_use", lic["commercial_use"])
-    put("commercial_use_ok", lic["commercial_use_ok"].strip().lower() == "true")
-    put("attribution_required", lic["attribution_required"].strip().lower() == "true")
-    put("license_indication_required", lic["license_indication_required"].strip().lower() == "true")
-    rep.count("license_%s" % lic["license_id"], 1)
-    rep.count("commercial_use_%s" % lic["commercial_use"], 1, rep.n_in)
-
-    review = [f for f in ident.flags if f.startswith("license_review_required")]
-    if ident.source_id == "hmdb_via_publication":
-        review.append("license_review_required:underlying_values_are_HMDB_CC-BY-NC_"
-                      "republished_in_a_CC-BY_paper")
-    put("license_review_required", bool(review))
-    put("license_review_reason", "; ".join(review) if review else None)
-    if review:
-        rep.count("license_review_required", 1, rep.n_in)
-        rep.example("license_review_required", {"id": mid, "why": review[0]})
+    # --- licensing: one licence for the whole dataset ------------------------------------
+    # The corpus is redistributed under a single non-commercial licence (CC BY-NC 4.0,
+    # stated once in LICENSE). A single licence cannot grant more than the most
+    # restrictive upstream terms allow, so the exposure a per-source schedule had to
+    # bookkeep away is closed by construction. tools/licenses.tsv stays as the record of
+    # what each upstream source permits, and NOTICE names every source and its terms;
+    # neither is a per-record field. The upstream is still on the record as source_id /
+    # source_name, which is provenance a reader needs, not a licence split.
+    rep.count("licensed_under_%s" % DATASET_LICENSE["id"], 1, rep.n_in)
+    for key in ("license", "license_name", "license_url", "license_source",
+                "license_terms_url", "license_terms_retrieved",
+                "license_terms_verification", "commercial_use", "commercial_use_ok",
+                "attribution_required", "license_indication_required",
+                "license_review_required", "license_review_reason"):
+        drop(key)
 
     # --- the true culture collection, and the citation that names it ----------------------
     if ident.source_id == "dsmz_mediadive":
@@ -452,13 +462,8 @@ def finalize(rep):
 
     rep.assert_eq("every_record_resolved_to_a_verified_source", got("source_resolved"), n)
     rep.assert_eq(
-        "licence_classes_partition_the_corpus",
-        sum(v["n"] for k, v in c.items() if k.startswith("license_")
-            and k != "license_review_required"),
-        n)
-    rep.assert_eq(
-        "commercial_use_flags_partition_the_corpus",
-        sum(v["n"] for k, v in c.items() if k.startswith("commercial_use_")), n)
+        "every_record_carries_the_one_dataset_licence",
+        got("licensed_under_%s" % DATASET_LICENSE["id"]), n)
     rep.assert_eq(
         "citation_types_partition_the_corpus",
         sum(v["n"] for k, v in c.items() if k.startswith("citation_type_")), n)

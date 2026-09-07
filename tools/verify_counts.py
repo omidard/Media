@@ -79,7 +79,7 @@ def _by_category_from_index(data_dir):
 STATED_DOCS = [
     "README.md", "LICENSE", "NOTICE", "PROVENANCE.md", "DESIGN.md", "API.md",
     "openapi.yaml", "index.html", "methods.html", "compare.html", "families.html",
-    "patterns.html", "tools/licenses.tsv", "client/README.md",
+    "patterns.html", "client/README.md",
     "client/pymediadb/__init__.py", "assets/media.js",
     # The deploy-surface manifest is read by /gate4 and states the denominators the
     # headline claims are checked against; it is a claim surface like any other.
@@ -161,10 +161,7 @@ def check_stated_statistics(repo, data_dir, add):
     n_components = (idx.get("exchange_resolution") or {}).get("of")
     # Every numerator a document may legitimately state beside that denominator.
     legitimate = {n_conc}
-    for table in ("by_source_db", "by_license", "by_commercial_use_ok"):
-        legitimate |= set((cp.get(table) or {}).values())
-    legitimate |= {cp.get("n_from_media_that_may_not_be_used_commercially"),
-                   cp.get("n_from_media_that_may")}
+    legitimate |= set((cp.get("by_source_db") or {}).values())
     legitimate.discard(None)
 
     bad_den, bad_num, bad_pct, bare = [], [], [], []

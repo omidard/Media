@@ -2,9 +2,8 @@
 
 Every record in `data/media/` answers four questions in its own fields: **where did this come
 from, may you reuse it, who said each component was in it, and how much of the recipe did we
-actually capture.** This page is how to read those answers. `LICENSE` carries the licence
-schedule, `NOTICE` carries the upstream attributions, and `tools/licenses.tsv` is the same
-schedule in machine-readable form.
+actually capture.** This page is how to read those answers. `LICENSE` carries the data licence and
+`NOTICE` carries the upstream attributions.
 
 ---
 
@@ -75,43 +74,17 @@ twice —
 
 ---
 
-## 2. Whether you may reuse it — `provenance.commercial_use`
+## 2. Whether you may reuse it — one licence, not a per-record field
 
-```json
-"license": "CC-BY-NC-4.0",
-"license_source": "FooDB",
-"license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
-"commercial_use": "permission_required",
-"commercial_use_ok": false,
-"license_terms_url": "https://foodb.ca/about",
-"license_terms_retrieved": "2026-09-06",
-"license_terms_verification": "first_party"
-```
+The data is licensed **CC BY-NC 4.0** as a whole. A record carries no licence field: a
+compilation cannot grant more than its most restrictive input allows, so the single licence
+is set there and stated once, in `LICENSE` and as `license` in every payload.
 
-`commercial_use` has four values, because "permission required" is a real third state and
-"unresolved" is a real fourth one:
-
-| value | media | meaning |
-|---|---:|---|
-| `yes` | 12,326 | redistributable commercially under the stated licence |
-| `permission_required` | 718 | the rights-holder will consider it; ask them |
-| `no` | 471 | no grant exists (MediaDB / ISB, all rights reserved) |
-| `unresolved` | 0 | terms could not be established |
-
-`commercial_use_ok` is the strict boolean to filter on: **true only where `commercial_use` is
-`yes`**. Every licence also carries `license_terms_url` and `license_terms_retrieved`, so any
-claim can be re-verified against the page and date it was read from. One source could only be
-retrieved through a web archive (hmdb.ca is Cloudflare-gated), and its
-`license_terms_verification` says `first_party_via_web_archive` rather than pretending
-otherwise.
-
-Eight records carry `license_review_required: true` with a reason — five classic formulations
-whose composition URL points at MediaDive, and three whose values are HMDB's but whose
-immediate source is an open-access paper. They are flagged rather than silently assigned.
-
-**Nothing was deleted to fix the licensing.** The 1,189 non-commercial and
-all-rights-reserved records stay. Dropping the 471 MediaDB records alone would remove 8,397
-of the resource's 14,055 concentration values and break every `mdb_*` link.
+What a record does carry is where it came from — `provenance.source_id` and
+`provenance.source_name` — which is what `NOTICE` credits and what you need in order to ask
+a rights-holder for terms beyond CC BY-NC. Of the sources, MediaDB (Institute for Systems
+Biology, 471 media) grants no reuse right upstream at all and holds 8,397 of the resource's
+14,055 concentration values; FooDB, HMDB and BMDB permit no commercial use.
 
 ---
 

@@ -108,7 +108,7 @@
   },
   {
    "id": "20_stamp_provenance",
-   "title": "Per-source licence, verified source identity, true culture collection, citation type, honest verification status, and the sourced/derived split on every component",
+   "title": "Verified source identity, true culture collection, citation type, honest verification status, the sourced/derived split on every component, and removal of the per-record licence fields",
    "owner": "licensing",
    "findings": [
     "COV-03",
@@ -128,7 +128,8 @@
     "corpus",
     "tools/licenses.tsv",
     "tools/component_evidence_classes.tsv",
-    "tools/verification_verdicts.tsv"
+    "tools/verification_verdicts.tsv",
+    "tools/dataset_license.py"
    ],
    "writes": [
     "corpus"
@@ -143,19 +144,6 @@
     "provenance.source_name",
     "provenance.source_identity_evidence",
     "provenance.source_identity_confidence",
-    "provenance.license",
-    "provenance.license_name",
-    "provenance.license_url",
-    "provenance.license_source",
-    "provenance.license_terms_url",
-    "provenance.license_terms_retrieved",
-    "provenance.license_terms_verification",
-    "provenance.commercial_use",
-    "provenance.commercial_use_ok",
-    "provenance.attribution_required",
-    "provenance.license_indication_required",
-    "provenance.license_review_required",
-    "provenance.license_review_reason",
     "provenance.collection",
     "provenance.collection_evidence",
     "provenance.collection_medium_id",
@@ -177,10 +165,24 @@
     "components[].evidence_class",
     "components[].derived_class"
    ],
-   "removes_keys": [],
+   "removes_keys": [
+    "provenance.license",
+    "provenance.license_name",
+    "provenance.license_url",
+    "provenance.license_source",
+    "provenance.license_terms_url",
+    "provenance.license_terms_retrieved",
+    "provenance.license_terms_verification",
+    "provenance.commercial_use",
+    "provenance.commercial_use_ok",
+    "provenance.attribution_required",
+    "provenance.license_indication_required",
+    "provenance.license_review_required",
+    "provenance.license_review_reason"
+   ],
    "enabled": true,
-   "confirmed_by": "licensing agent 2026-09-06: adds_keys and findings confirmed against the implementation",
-   "notes": "Rewrites provenance.citation for the 1,248 MediaDive media that belong to JCM or CCAP, preserving the original in provenance.citation_original. Does NOT rename records: the display-name conflict and a suggested name go to provenance.attribution_conflict for the naming stage (50-59). Deletes nothing — the 1,189 non-commercial/all-rights-reserved records and the 229,486 pipeline-derived components are labelled, per the operator's segregate-and-label decision."
+   "confirmed_by": "licensing agent 2026-09-07: one dataset licence; per-record licence fields removed",
+   "notes": "Rewrites provenance.citation for the 1,248 MediaDive media that belong to JCM or CCAP, preserving the original in provenance.citation_original. Does NOT rename records: the display-name conflict and a suggested name go to provenance.attribution_conflict for the naming stage (50-59). Deletes no record and no component. The licence fields it removes are replaced by one dataset licence in tools/dataset_license.py; tools/licenses.tsv stays as the record of what each upstream source permits and is read to validate the source vocabulary."
   },
   {
    "id": "39_recompute_coverage",

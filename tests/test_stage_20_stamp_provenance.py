@@ -108,6 +108,19 @@ def test_a_ccap_medium_id_that_cannot_be_verified_stays_null(rep):
 
 
 # ----------------------------------------------------------------- licensing
+#
+# The dataset carries ONE licence (tools/dataset_license.py, CC BY-NC 4.0), set at the
+# most restrictive upstream input. These tests assert the consequence: a record states
+# WHERE it came from, and states no licence of its own. A per-record licence field would
+# be the same string 13,515 times while still reading as a distinction.
+
+LICENCE_KEYS = ("license", "license_name", "license_url", "license_source",
+                "license_terms_url", "license_terms_retrieved",
+                "license_terms_verification", "commercial_use", "commercial_use_ok",
+                "attribution_required", "license_indication_required",
+                "license_review_required", "license_review_reason")
+
+
 def test_bovine_records_resolve_to_bmdb_not_hmdb(rep):
     """build_index.py:8 files every biospecimen_* under 'Published (HMDB-derived)', so bovine
     rumen and colostrum ship labelled human-metabolome-derived."""
@@ -119,54 +132,51 @@ def test_bovine_records_resolve_to_bmdb_not_hmdb(rep):
     S20.transform(r, rep)
     p = r["provenance"]
     assert p["source_id"] == "bmdb"
-    # bovinedb.ca states no Creative Commons licence at all, only a permission clause.
-    assert p["license"] == "custom-permission-required"
-    assert p["commercial_use"] == "permission_required" and p["commercial_use_ok"] is False
+    assert p["source_name"].startswith("Bovine Metabolome Database")
 
 
-@pytest.mark.parametrize("mid,prov,lic,ok", [
+@pytest.mark.parametrize("mid,prov,sid", [
     ("food_FOOD00044",
      {"source_type": "database", "citation": "FooDB v2020-04-07.", "doi": "",
-      "url": "https://foodb.ca/downloads"}, "CC-BY-NC-4.0", False),
+      "url": "https://foodb.ca/downloads"}, "foodb"),
     ("mdb_11",
      {"source_type": "MediaDB (ISB defined media)", "citation": "Rodriguez-moya et al, 2010",
       "doi": None, "url": "https://mediadb.systemsbiology.net/defined_media/media/11/"},
-     "all-rights-reserved", False),
+     "mediadb_isb"),
     ("usda_1", {"source_type": "database", "citation": "USDA FoodData Central (FDC ID 1).",
                 "doi": "", "url": "https://fdc.nal.usda.gov/food-details/1/nutrients"},
-     "CC0-1.0", True),
+     "usda_fdc"),
 ])
-def test_non_commercial_sources_are_never_relicensed_as_cc_by(rep, mid, prov, lic, ok):
+def test_a_record_names_its_source_and_carries_no_licence_of_its_own(rep, mid, prov, sid):
     r = rec(mid, prov, [comp("name")])
     S20.transform(r, rep)
-    assert r["provenance"]["license"] == lic
-    assert r["provenance"]["commercial_use_ok"] is ok
+    p = r["provenance"]
+    assert p["source_id"] == sid, "the source a rights-holder is asked through"
+    present = [k for k in LICENCE_KEYS if k in p]
+    assert not present, (
+        "%s still carries %s; the dataset has one licence and the record states "
+        "provenance, not terms" % (mid, present))
 
 
-def test_every_stamped_licence_carries_the_evidence_it_rests_on(rep):
+def test_a_licence_field_present_on_the_way_in_is_removed(rep):
+    """Idempotence over the shipped corpus: records written before the collapse carry
+    the old per-source fields, and this stage must take them off."""
     r = rec("food_FOOD00044",
             {"source_type": "database", "citation": "FooDB.", "doi": "",
-             "url": "https://foodb.ca/downloads"}, [comp("name")])
+             "url": "https://foodb.ca/downloads",
+             "license": "CC-BY-NC-4.0", "commercial_use_ok": False,
+             "license_review_required": True}, [comp("name")])
     S20.transform(r, rep)
     p = r["provenance"]
-    assert p["license_terms_url"] and p["license_terms_retrieved"]
-    assert p["license_terms_verification"] in (
-        "first_party", "first_party_via_web_archive", "project_assertion")
+    assert not [k for k in LICENCE_KEYS if k in p]
+    changes = p["transforms"][-1]["changes"]
+    assert "provenance.license:removed" in changes, (
+        "a removal must be recorded in the record's own transform log")
 
 
-def test_a_licence_that_cannot_be_settled_says_so_instead_of_choosing(rep):
-    """5 classic formulations carry a MediaDive URL, so their composition may come from a
-    CC BY source requiring attribution. Flagged, not silently claimed."""
-    r = rec("std_marine_broth_2216",
-            {"source_type": "standard", "citation": "Marine Broth 2216 — ZoBell CE 1941.",
-             "doi": "", "url": "https://mediadive.dsmz.de/medium/514"}, [comp("wellknown_curation")])
-    S20.transform(r, rep)
-    p = r["provenance"]
-    assert p["license_review_required"] is True
-    assert "mediadive.dsmz.de" in p["license_review_reason"]
-
-
-def test_the_licence_schedule_and_the_source_vocabulary_cannot_drift_apart():
+def test_the_upstream_terms_table_and_the_source_vocabulary_cannot_drift_apart():
+    """tools/licenses.tsv is no longer stamped onto records, but it is still the record
+    of what each upstream source permits and it still has to cover every source."""
     from source_identity import SOURCE_IDS
     assert set(S20.load_licenses()) == set(SOURCE_IDS)
 

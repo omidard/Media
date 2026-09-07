@@ -38,6 +38,7 @@ sys.path.insert(0, os.path.join(REPO, "tools"))
 
 from model_input import Degeneracy   # noqa: E402
 from web_payload import FIELD_RENAMES   # noqa: E402
+from dataset_license import DATASET_LICENSE   # noqa: E402
 
 
 def source_identity(d):
@@ -142,19 +143,20 @@ def literature_populations(rows_meta, n_media):
         "media_attributed_to_primary_literature": {
             "n": n_attributed, "of": n_media,
             "by_source_db": dict(by_source_db),
-            "definition": "provenance.source_id resolved to a primary publication "
-                          "(growthdb_literature or primary_literature). This is the "
-                          "count NOTICE and the README headline state.",
+            "definition": "provenance.source_id resolves to a primary publication "
+                          "(growthdb_literature or primary_literature).",
         },
         "media_from_the_lost_extraction_batches": {
             "n": n_batch, "of": n_media,
             "by_id_prefix": dict(sorted(by_prefix.items())),
-            "definition": "id prefix lit_/growthlit_/complexlit_: the media whose "
+            "definition": "id prefix lit_/growthlit_/complexlit_: media whose "
                           "composition came from LLM extraction batches that no longer "
-                          "exist, so they are permanently unreproducible (PIPE-01). One "
-                          "record (cdm_lactobacillaceae) is attributed to primary "
-                          "literature but was NOT extracted, which is why this is one "
-                          "less than the attribution count.",
+                          "exist. Their compositions cannot be regenerated from their "
+                          "sources, and a fresh extraction would file a different "
+                          "composition under the same citation. One record "
+                          "(cdm_lactobacillaceae) is attributed to primary literature "
+                          "and was not extracted, so this is one less than the "
+                          "attribution count.",
         },
         "media_whose_source_type_is_literature": {
             "n": n_type, "of": n_media,
@@ -166,9 +168,8 @@ def literature_populations(rows_meta, n_media):
         },
         "media_via_growthdb": {
             "n": by_source_db.get("Primary literature via GrowthDB", 0), "of": n_media,
-            "definition": "the GrowthDB half of the attribution count, stated on its own "
-                          "in the README source table, LICENSE, NOTICE, PROVENANCE.md "
-                          "and tools/licenses.tsv.",
+            "definition": "the GrowthDB half of the attribution count: "
+                          "provenance.source_db is 'Primary literature via GrowthDB'.",
         },
         "media_whose_citation_type_is_primary_paper": {
             "n": n_primary_paper, "of": n_media,
@@ -195,11 +196,11 @@ def literature_populations(rows_meta, n_media):
                           "n_distinct_works.",
         },
         "why_these_differ": (
-            "They are different questions, not disagreeing answers to one. Attribution "
-            "asks which source a medium came from; the extraction-batch count asks which "
-            "media cannot be rebuilt; source_type is a free-text field kept for "
-            "compatibility. Every document that states one of these numbers must state "
-            "which, and tools/verify_counts.py fails when one does not."),
+            "Each key above counts a different population. Attribution asks which "
+            "source a medium came from; the extraction-batch count asks which media "
+            "cannot be rebuilt; source_type is a free-text field kept for "
+            "compatibility. A literature count is only interpretable beside the key "
+            "it comes from."),
     }
 
 
@@ -232,12 +233,10 @@ def build(media_dir, out_dir):
     exch = Counter()
     xrefs = Counter()
     n_components_seen = 0
-    # Where the resource's quantitative content actually comes from. The licence
-    # documents state this as prose ("8,397 of N concentration values"); N is measured
-    # here so the prose has something to be checked against instead of being retyped.
-    conc_by_license = Counter()
+    # Where the library's quantitative content actually comes from. The documents
+    # state this as prose ("8,397 of N concentration values"); N is measured here so
+    # the prose has something to be checked against instead of being retyped.
     conc_by_source_db = Counter()
-    conc_by_commercial_use_ok = Counter()
     # How near-constant the renamed field is. It was asserted in prose and shipped as
     # `measured: null` in this file and in data/api/manifest.json, which tells a consumer
     # nothing while looking like an answer.
@@ -272,9 +271,7 @@ def build(media_dir, out_dir):
         comp_totals["n_with_concentration_mM"] += quant.get("n_with_concentration_mM") or 0
         n_conc = quant.get("n_with_concentration_mM") or 0
         if n_conc:
-            conc_by_license[str(prov.get("license"))] += n_conc
             conc_by_source_db[sdb] += n_conc
-            conc_by_commercial_use_ok[str(prov.get("commercial_use_ok"))] += n_conc
         pct_bigg = d.get("pct_sourced_components_with_bigg_id",
                          d.get("pct_covered_observed"))
         if pct_bigg is None:
@@ -312,9 +309,6 @@ def build(media_dir, out_dir):
                "source_db": sdb,
                "source_id": sid,
                "source_identity_evidence": sev,
-               # --- licence, per source (operator decision: segregate and label) ---
-               "license": prov.get("license"),
-               "commercial_use_ok": prov.get("commercial_use_ok"),
                "attribution_required": prov.get("attribution_required"),
                # --- how the record's composition was verified, honestly ----------
                "verification_status": prov.get("verification_status"),
@@ -388,8 +382,6 @@ def build(media_dir, out_dir):
     sdb = Counter(r["source_db"] for r in rows)
     cur = Counter(r["curation_tier"] for r in rows)
     ns = Counter(r["namespace"] for r in rows)
-    lic = Counter(r["license"] for r in rows)
-    com = Counter(r["commercial_use_ok"] for r in rows)
     ver = Counter(r["verification_status"] for r in rows)
     fam = Counter(r["family"] for r in rows if r["family"])
     col = Counter(r["collection"] for r in rows if r["collection"])
@@ -403,46 +395,40 @@ def build(media_dir, out_dir):
     bands_source = Counter(band(r["pct_covered_source"]) for r in rows)
 
     n_conc_total = comp_totals["n_with_concentration_mM"]
-    if sum(conc_by_license.values()) != n_conc_total:
+    if sum(conc_by_source_db.values()) != n_conc_total:
         raise SystemExit(
-            "FATAL: the licence tally covers %d of the %d components carrying a "
-            "concentration. A concentration value with no licence beside it is how "
-            "the resource stated a redistribution exposure it had not measured."
-            % (sum(conc_by_license.values()), n_conc_total))
-    n_conc_restricted = conc_by_commercial_use_ok.get("False", 0)
+            "FATAL: the source tally covers %d of the %d components carrying a "
+            "concentration. A concentration with no source beside it is a number "
+            "with no provenance."
+            % (sum(conc_by_source_db.values()), n_conc_total))
     concentration_provenance = {
         "n_with_concentration_mM": n_conc_total,
         "of": n_components_seen,
         "by_source_db": dict(conc_by_source_db.most_common()),
-        "by_license": dict(conc_by_license.most_common()),
-        "by_commercial_use_ok": dict(conc_by_commercial_use_ok),
-        "n_from_media_that_may_not_be_used_commercially": n_conc_restricted,
-        "n_from_media_that_may": n_conc_total - n_conc_restricted,
-        "pct_from_media_that_may_not_be_used_commercially":
-            round(100.0 * n_conc_restricted / n_conc_total, 1) if n_conc_total else None,
         "largest_contributor": _largest(conc_by_source_db, n_conc_total),
+        # Every document that states one of these numbers binds it from this
+        # block; tools/verify_counts.py fails the build when one disagrees. That
+        # is a build contract, not a fact about the data, so it stays here.
         "definition": (
-            "Where the resource's quantitative content comes from, and under whose "
-            "terms. A component counts when its concentration_mM is not null; the "
-            "licence is the one its medium's provenance carries. LICENSE, NOTICE, "
-            "README.md, PROVENANCE.md, tools/licenses.tsv and the methods page state "
-            "these numbers in prose and tools/verify_counts.py checks every one of "
-            "them against this block. The denominator moved from 14,341 to {:,} when "
-            "296 concentrations that were an absence encoded as 0.0 were nulled and "
-            "10 were newly derived; a hand-typed 14,341 outlived the correction in "
-            "six documents, which is why it is generated here.".format(n_conc_total)),
+            "Which source each quantitative value comes from. A component counts "
+            "when its concentration_mM is not null."),
     }
 
+    # `count` is ONE authoritative total, computed from the corpus on disk and
+    # carried by every artifact this pass writes (COV-02 / PROV-11 / NM-20);
+    # tools/verify_counts.py fails the build if any shipped artifact disagrees
+    # with it. Which script did the counting is a build fact, not a field
+    # definition, so it is not published beside the number.
     index = {
         "count": len(rows),
-        # ONE authoritative total, computed from the corpus on disk, carried by every
-        # artifact this pass writes (COV-02 / PROV-11 / NM-20). tools/verify_counts.py
-        # fails the build if any shipped artifact disagrees with it.
-        "count_authority": "data/media/*.json on disk, counted by build_index.py",
+        # One licence for the whole dataset, named once. There is no per-record
+        # licence field and no by-licence grouping: a compilation cannot grant more
+        # than its most restrictive input allows, so the whole corpus carries the
+        # same terms. NOTICE names every upstream source and what it was taken
+        # under; provenance.source_name stays on the record.
+        "license": DATASET_LICENSE,
         "by_category": dict(cat), "by_source_db": dict(sdb),
         "by_curation": dict(cur), "by_namespace": dict(ns),
-        "by_license": {str(k): v for k, v in lic.items()},
-        "by_commercial_use_ok": {str(k): v for k, v in com.items()},
         "by_verification_status": {str(k): v for k, v in ver.items()},
         "by_collection": dict(col),
         "by_family": dict(fam),
@@ -462,8 +448,7 @@ def build(media_dir, out_dir):
             xrefs, of=n_components_seen,
             definition=(
                 "A component counts as carrying a cross-reference when it has any of "
-                "xref, target_xref or source_xref. The README, DESIGN.md and the site "
-                "claimed every component carried one; {none:,} of {of:,} ({pct}) carry "
+                "xref, target_xref or source_xref. {none:,} of {of:,} ({pct}) carry "
                 "none.".format(
                     none=xrefs["n_components_with_none"], of=n_components_seen,
                     pct=("%.2f%%" % (100.0 * xrefs["n_components_with_none"]
@@ -487,8 +472,10 @@ def build(media_dir, out_dir):
         "n_source_db_from_id_prefix_heuristic": prefix_sourced,
         "definitions": {
             "pct_covered": "DEPRECATED legacy metric: components / (components + "
-                           "unresolved ingredients). Counts pipeline-derived components "
-                           "as covered. Kept because it is a published column.",
+                           "unresolved ingredients). It counts pipeline-derived "
+                           "components as covered, so it is not a measure of what the "
+                           "source states. Retained for compatibility; use "
+                           "pct_covered_source.",
             "pct_covered_source": "source-stated components / (those + unresolved "
                                   "ingredients + ingredients replaced by derived "
                                   "components). An upper bound where the flag says so. "
@@ -497,8 +484,8 @@ def build(media_dir, out_dir):
                 "of the components the cited source states, the share that reached a "
                 "BiGG metabolite id rather than a non-BiGG fallback or nothing. Its "
                 "denominator is components, not the source's ingredient list, so it is "
-                "100.0 on {n:,} of {of:,} records and is NOT a coverage measure. It "
-                "was named pct_covered_observed until 2026-09-06; see field_renames."
+                "100.0 on {n:,} of {of:,} records and is NOT a coverage measure. The "
+                "name pct_covered_observed resolves to this field; see field_renames."
                 .format(n=n_bigg_id_pct_is_100, of=len(rows)),
             "n_no_exchange": "components with no exchange reaction at all: identity was "
                              "never established, or the ingredient is an undefined "
@@ -513,18 +500,16 @@ def build(media_dir, out_dir):
                 "how many OTHER media hand a genome-scale model the identical set of "
                 "(exchange, lower bound, upper bound) triples. 0 means this record's "
                 "model input is unique in the library. See model_input_degeneracy.",
-            "n_derived": "components the pipeline supplied that the cited source does not "
-                         "state (hydrolysate approximations, complex decompositions, "
-                         "injected mineral/oxygen bases, expanded base media). Kept and "
-                         "labelled, never deleted.",
-            "commercial_use_ok": "false for records whose upstream licence forbids "
-                                 "commercial use (FooDB CC BY-NC, MediaDB-ISB all rights "
-                                 "reserved, HMDB-derived). They ship, labelled.",
-            "source_identity_evidence": "how source_db was decided: 20_stamp_provenance "
-                                        "(from record evidence) or id_prefix_heuristic.",
-            "component_evidence_tiers": "how each component's identity was actually "
-                                        "decided; see tools/evidence_tiers.py. A name "
-                                        "match is a fallback tier, not 'exact'.",
+            "n_derived": "components the cited source does not state (hydrolysate "
+                         "approximations, complex decompositions, injected mineral or "
+                         "oxygen bases, expanded base media). They are marked on the "
+                         "record and excluded from every source-coverage figure.",
+            "source_identity_evidence": "how source_db was decided: from the record's own "
+                                        "provenance evidence, or from its id prefix "
+                                        "(id_prefix_heuristic).",
+            "component_evidence_tiers": "how each component's identity was decided. A "
+                                        "name match is a fallback tier: it establishes "
+                                        "no structure and checks no identifier.",
         },
         "media": rows,
     }
@@ -537,13 +522,11 @@ def build(media_dir, out_dir):
     # (it previously had no generator in the repo and shipped 442 media stale).
     stats = {
         "count": len(rows),
-        "count_authority": index["count_authority"],
+        "license": DATASET_LICENSE,
         "by_category": dict(cat),
         "by_source_db": dict(sdb),
         "by_curation": dict(cur),
         "by_namespace": dict(ns),
-        "by_license": index["by_license"],
-        "by_commercial_use_ok": index["by_commercial_use_ok"],
         "by_verification_status": index["by_verification_status"],
         "coverage_bands_legacy": index["coverage_bands_legacy"],
         "coverage_bands_source": index["coverage_bands_source"],
@@ -556,8 +539,9 @@ def build(media_dir, out_dir):
         "definitions": index["definitions"],
         "api": {"catalog": "data/index.json", "medium": "data/media/{id}.json",
                 "stats": "data/stats.json"},
-        "note": ("Small enough to fetch for a count without pulling the full catalog. "
-                 "Written by build_index.py in the same pass as index.json."),
+        "note": ("The library-wide counts on their own, for a consumer that needs a "
+                 "total without transferring the full catalog. Same values as "
+                 "data/index.json."),
     }
     with open(os.path.join(out_dir, "stats.json"), "w", encoding="utf-8") as fh:
         json.dump(stats, fh, indent=1)
@@ -571,7 +555,6 @@ def build(media_dir, out_dir):
     print("records missing coverage_source: %d/%d | source_db from the id-prefix "
           "heuristic: %d/%d" % (missing_coverage_source, len(rows),
                                 prefix_sourced, len(rows)))
-    print("by licence:", dict(lic))
     print("component totals:", dict(comp_totals))
     print("exchange resolution: %d BiGG + %d non-BiGG fallback + %d no exchange "
           "= %d components" % (exch["n_bigg_exchange"], exch["n_nonbigg_fallback"],
