@@ -1,224 +1,330 @@
 /* ===========================================================================
-   Media / MediaDB: the design system.
+   MediaDB: the library surface.
 
-   One light publication-grade surface, one accent, one type ramp with a 13px
-   floor, one spacing rhythm, one radius scale, elevation declared once per
-   surface (border OR shadow, never both).
+   assets/instrument.css is loaded first and owns the tokens, the type files,
+   the focus ring, the selection colour, the scrollbars and the reduced-motion
+   block. Nothing in this file redeclares any of them.
 
-   The evidence palette below is a DATA encoding, not a second accent: it is the
-   six-class scale that says how each component's identity was decided, and it
-   is the spine of this resource. Every colour in it was measured against every
-   surface it is painted on and clears WCAG-AA 4.5:1 for normal text. Nothing
-   here is set below 13px, at the token or at the use site.
+   What this file owns is the shape of a reference library: a header of five
+   peer destinations, a compact library head, a search panel, and a long table
+   people scan. Density is high on purpose; the 13,515 records are the product.
+
+   The first block maps the names already written into the five pages and into
+   assets/media.js onto the shared tokens. It is a compatibility layer, not a
+   second palette: every value on the right is an --i- token.
    =========================================================================== */
 
 :root{
   /* --- surfaces ------------------------------------------------------- */
-  --page:#f4f7f5;
-  --card:#ffffff;
-  --soft:#eef3f0;          /* table head, inset rows */
-  --tint:#e8f1ed;          /* accent wash */
-  --line:#dfe6e3;
-  --line-strong:#c7d4cf;
+  --page:var(--i-page);
+  --card:var(--i-surface);
+  --soft:var(--i-surface-3);      /* table head, inset rows, unfilled chips */
+  --tint:var(--i-accent-wash);
+  --line:var(--i-line);
+  --line-strong:var(--i-line-2);
 
-  /* --- text: exactly two tiers, both AA on every surface above --------- */
-  --ink:#0f2420;           /* headings                     16.2:1 on card */
-  --body:#253430;          /* body copy                    13.0:1 on card */
-  --muted:#4d5f59;         /* secondary copy, labels        6.8:1 on card */
+  /* --- ink: three tiers, nothing lighter carries text ------------------ */
+  --ink:var(--i-ink);
+  --body:var(--i-ink-2);
+  --muted:var(--i-ink-3);
 
   /* --- the one accent -------------------------------------------------- */
-  --accent:#0b6a54;        /* 6.6:1 on card, 5.7:1 on tint */
-  --accent-ink:#06463a;    /* accent text that must sit on tint */
-  --accent-soft:#e2ede9;
+  --accent:var(--i-accent);
+  --accent-ink:var(--i-accent-strong);
+  --accent-soft:var(--i-accent-wash);
 
-  /* --- evidence scale (data encoding, trust order 1..6) ---------------- */
-  --ev-structure:#0a6b46;         --ev-structure-bg:#e2ede9;
-  --ev-identifier:#155e7d;        --ev-identifier-bg:#e3ecef;
-  --ev-name:#8a5a00;              --ev-name-bg:#f1ebe0;
-  --ev-class_or_assertion:#9a4a12;--ev-class_or_assertion-bg:#f3e9e3;
-  --ev-derived:#6b3fa0;           --ev-derived-bg:#ede8f4;
-  --ev-unresolved:#a3232b;        --ev-unresolved-bg:#f4e5e6;
+  /* --- evidence scale: ONE ordinal ramp, strongest first, plus derived --
+     Six unrelated hues made an ordinal scale read as six categories. The
+     first four classes and unresolved are one ramp read green to red;
+     derived is not weaker evidence but a different kind of thing, so it
+     keeps its own hue and its dashed rule.                              */
+  --ev-structure:var(--i-ev-1);          --ev-structure-bg:var(--i-ev-1-wash);
+  --ev-identifier:var(--i-ev-2);         --ev-identifier-bg:var(--i-ev-2-wash);
+  --ev-name:var(--i-ev-3);               --ev-name-bg:var(--i-ev-3-wash);
+  --ev-class_or_assertion:var(--i-ev-4); --ev-class_or_assertion-bg:var(--i-ev-4-wash);
+  --ev-unresolved:var(--i-ev-5);         --ev-unresolved-bg:var(--i-ev-5-wash);
+  --ev-derived:var(--i-ev-d);            --ev-derived-bg:var(--i-ev-d-wash);
 
-  /* --- type: 13px floor, at the token as well as the use site --------- */
-  --t-cap:13px;            /* the floor. Nothing is smaller than this.   */
-  --t-sm:14px;
-  --t-base:16px;
-  --t-lead:17px;
-  --t-lg:20px;
-  --t-xl:24px;
-  --t-2xl:30px;
-  --t-3xl:38px;
+  /* --- type: the floor is 12.5px at the token as well as the use site -- */
+  --t-cap:var(--i-t-xs);
+  --t-sm:var(--i-t-sm);
+  --t-base:var(--i-t-base);
+  --t-lead:var(--i-t-md);
+  --t-lg:var(--i-t-lg);
+  --t-xl:var(--i-t-xl);
+  --t-2xl:var(--i-t-2xl);
+  --t-3xl:var(--i-t-3xl);
 
   /* --- rhythm ---------------------------------------------------------- */
-  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px;
-  --s7:48px; --s8:64px;
+  --s1:var(--i-s1); --s2:var(--i-s2); --s3:var(--i-s3); --s4:var(--i-s4);
+  --s5:var(--i-s5); --s6:var(--i-s6); --s7:var(--i-s7); --s8:var(--i-s8);
 
-  /* --- radius ---------------------------------------------------------- */
-  --r-sm:6px; --r:10px; --r-lg:16px;
+  /* --- radius and elevation, one scale, declared once ------------------ */
+  --r-sm:var(--i-r1); --r:var(--i-r2); --r-lg:var(--i-r3);
+  --shadow:var(--i-shadow);
 
-  --shadow:0 10px 30px -12px rgba(15,36,32,.35), 0 2px 6px rgba(15,36,32,.08);
+  --mono:var(--i-font-data);
+  --sans:var(--i-font);
 
-  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
-
-  color-scheme:light;
-  accent-color:var(--accent);
+  accent-color:var(--i-accent);
 }
 
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--page);color:var(--body);
-  font-family:var(--sans);font-size:var(--t-base);line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-}
-::selection{background:var(--tint);color:var(--ink)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-sm)}
-h1,h2,h3,h4{color:var(--ink);margin:0;line-height:1.18;font-weight:700;letter-spacing:-.015em}
-h1{font-size:var(--t-3xl);letter-spacing:-.025em}
-h2{font-size:var(--t-xl)}
-h3{font-size:var(--t-lg)}
-h4{font-size:var(--t-base)}
+/* Switching theme is a control a reader fires all day. It gets no motion:
+   every transition is suppressed for the frame the swap lands on. */
+:root.no-transition *{transition:none!important;animation:none!important}
+h1,h2,h3,h4{margin:0}
 p{margin:0}
-a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;
-  text-decoration-thickness:1px;text-decoration-color:rgba(11,106,84,.4)}
+a{text-decoration:underline;text-decoration-thickness:1px;
+  text-decoration-color:color-mix(in srgb, currentColor 40%, transparent)}
 a:hover{text-decoration-color:currentColor}
-code,kbd,pre{font-family:var(--mono)}
 .mono{font-family:var(--mono);font-size:var(--t-cap)}
 .muted{color:var(--muted)}
 .nowrap{white-space:nowrap}
 .tnum{font-variant-numeric:tabular-nums}
 
-.wrap{max-width:1200px;margin:0 auto;padding:0 var(--s5)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--s5)}
 .stack>*+*{margin-top:var(--s3)}
 
-/* skip link --------------------------------------------------------------- */
-.skip{position:absolute;left:var(--s3);top:-60px;z-index:400;background:var(--card);
-  color:var(--accent-ink);border:1px solid var(--accent);border-radius:var(--r-sm);
-  padding:var(--s2) var(--s3);font-weight:600;font-size:var(--t-sm);transition:top .12s ease-out}
+/* skip link: instrument.css themes .i-skip; this page's markup uses .skip */
+.skip{position:fixed;left:var(--s3);top:-60px;z-index:400;background:var(--accent);
+  color:#fff;border-radius:var(--r-sm);padding:var(--s2) var(--s4);font-weight:600;
+  font-size:var(--t-sm);text-decoration:none;transition:top var(--i-d-press) var(--i-ease-out)}
 .skip:focus{top:var(--s3)}
-
-/* nav --------------------------------------------------------------------- */
-.nav{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:200}
-.nav .wrap{display:flex;align-items:center;gap:var(--s3);min-height:56px;flex-wrap:wrap;
-  padding-top:var(--s2);padding-bottom:var(--s2)}
-.brand{display:inline-flex;align-items:center;gap:var(--s2);font-weight:750;color:var(--ink);
-  font-size:var(--t-lead);letter-spacing:-.02em;text-decoration:none}
-.brand .mark{width:22px;height:22px;border-radius:var(--r-sm);background:var(--accent);
-  display:grid;place-items:center;color:#fff;font-size:var(--t-cap);font-weight:700}
-.navlinks{margin-left:auto;display:flex;gap:var(--s1);flex-wrap:wrap}
-.navlinks a{color:var(--body);font-weight:600;font-size:var(--t-sm);padding:var(--s2) var(--s3);
-  border-radius:var(--r-sm);text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
-.navlinks a:hover{background:var(--soft)}
-.navlinks a[aria-current="page"]{background:var(--tint);color:var(--accent-ink)}
-
-/* page head --------------------------------------------------------------- */
-.masthead{background:var(--card);border-bottom:1px solid var(--line);padding:var(--s6) 0 var(--s5)}
-.masthead h1{max-width:22ch}
-.masthead .lead{max-width:60ch}
-.masthead .cols{display:grid;gap:var(--s5);grid-template-columns:minmax(0,1fr)}
-@media(min-width:1080px){
-  .masthead .cols{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:start}
+/* In the dark theme the accent is a light blue, so white on it measures
+   2.25:1. The label takes the page ink there, as the primary button does. */
+:root[data-theme='dark'] .skip{color:#0D1117}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme='light']) .skip{color:#0D1117}
 }
-.kicker{font-size:var(--t-cap);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:var(--s2)}
-.lead{font-size:var(--t-lead);color:var(--body);max-width:72ch;margin-top:var(--s3)}
-.lead b{color:var(--ink);font-weight:650}
 
-/* cards ------------------------------------------------------------------- */
+/* header ------------------------------------------------------------------
+   One anatomy, shared with the two sibling tools: a 56px bar, wordmark left,
+   destinations in the middle, utilities right, a 1px bottom rule, and a
+   shadow only once the page has scrolled under it.                        */
+.topbar{background:var(--card);border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:200}
+.topbar.is-stuck{border-bottom-color:transparent;box-shadow:var(--shadow)}
+.topbar .wrap{display:flex;align-items:center;gap:var(--s4);min-height:56px}
+.brand{color:var(--ink);font-size:var(--t-lead);font-weight:700;
+  letter-spacing:var(--i-track-title);text-decoration:none;flex:0 0 auto;
+  padding:var(--s2) 0}
+/* The destinations scroll in their own box rather than wrapping to three
+   rows on a phone. The scrollbar is left visible, thin and themed, so the
+   reader can see there is more nav to the right. */
+.navlinks{display:flex;gap:2px;flex:1 1 auto;min-width:0;overflow-x:auto}
+.navlinks a{color:var(--body);font-weight:600;font-size:var(--t-sm);
+  padding:var(--s2) var(--s3);border-radius:var(--r-sm);text-decoration:none;
+  min-height:36px;display:inline-flex;align-items:center;white-space:nowrap}
+.navlinks a[aria-current="page"]{background:var(--tint);color:var(--accent)}
+.themeswap{flex:0 0 auto;font:inherit;font-size:var(--t-cap);font-weight:600;
+  min-height:32px;padding:var(--s1) var(--s3);border:1px solid var(--line-strong);
+  border-radius:var(--r-sm);background:var(--card);color:var(--body);cursor:pointer;
+  transition:background-color var(--i-d-hover) ease,transform var(--i-d-press) var(--i-ease-out)}
+.themeswap:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){
+  .navlinks a:hover{background:var(--soft)}
+  .themeswap:hover{background:var(--soft)}
+}
+
+/* the library head --------------------------------------------------------
+   Identity and the number the library delivers, on one band. No eyebrow, no
+   two-line display headline, and no lead paragraph between the reader and
+   the search control.                                                     */
+.libhead{background:var(--card);border-bottom:1px solid var(--line);
+  padding:var(--s5) 0}
+.libhead .wrap{display:grid;gap:var(--s4) var(--s6);align-items:start;
+  grid-template-columns:minmax(0,1fr)}
+@media(min-width:1080px){
+  .libhead .wrap{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}
+}
+.libhead h1{font-size:var(--t-2xl);font-weight:700;color:var(--ink);
+  letter-spacing:var(--i-track-display);line-height:var(--i-lh-title)}
+.libhead .sub{margin-top:var(--s2);color:var(--body);max-width:62ch}
+.libhead .evidence{min-width:0}
+.libhead .evidence h2{font-size:var(--t-cap);font-weight:600;color:var(--muted);
+  letter-spacing:var(--i-track-label);margin-bottom:var(--s2)}
+
+/* a count with its denominator, from instrument.css, sized for this band.
+   The count and the noun it counts sit on one line; the sentence that carries
+   the rest of the denominators sits under them. */
+#claim.i-figure{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 var(--s2);
+  margin-top:var(--s3)}
+#claim.i-figure .n{display:inline;font-size:var(--i-t-num-sm)}
+#claim.i-figure .unit{font-size:var(--t-lead);font-weight:600;color:var(--ink)}
+#claim.i-figure .of{flex:1 0 100%;font-size:var(--t-base);color:var(--body);
+  max-width:62ch;margin-top:var(--s2)}
+#claim.i-figure .of b{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-weight:500;color:var(--ink)}
+/* a count inside a chip is a numeral, so it takes the data face */
+.chip .n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:400}
+/* A standalone link is a target, not prose: it carries the WCAG 2.5.8
+   24px minimum. Links inside a running sentence keep the inline exception. */
+.exlink{display:inline-flex;align-items:center;gap:var(--s1);min-height:24px}
+.fieldnote a,.libhead .note a{padding-block:4px}
+
+/* cards, panels and sections ---------------------------------------------
+   In flow: a 1px rule, no shadow. Floating surfaces are the sheet and the
+   tooltip, and they carry the shadow instead.                            */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
 .card-p{padding:var(--s4) var(--s5)}
 .section{padding:var(--s6) 0}
-.section-head{margin-bottom:var(--s4);max-width:78ch}
-.section-head h2{margin-bottom:var(--s2)}
-.section-head p{color:var(--muted);font-size:var(--t-sm)}
+.section-head{margin-bottom:var(--s4);max-width:var(--i-measure)}
+.section-head h2{font-size:var(--t-xl);color:var(--ink);margin-bottom:var(--s2)}
+.section-head p{color:var(--body);font-size:var(--t-sm)}
+h2{font-size:var(--t-xl);color:var(--ink);line-height:var(--i-lh-title);
+  letter-spacing:var(--i-track-title)}
+h3{font-size:var(--t-lg);color:var(--ink);line-height:var(--i-lh-title)}
+h4{font-size:var(--t-lead);color:var(--ink);line-height:var(--i-lh-title)}
 
 /* buttons ----------------------------------------------------------------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);
-  font-family:var(--sans);font-size:var(--t-sm);font-weight:600;min-height:38px;
-  padding:var(--s2) var(--s4);border-radius:var(--r-sm);border:1px solid var(--line);
-  background:var(--card);color:var(--accent-ink);cursor:pointer;text-decoration:none}
-.btn:hover{background:var(--soft);border-color:var(--line-strong)}
+  font-family:var(--sans);font-size:var(--t-sm);font-weight:600;min-height:40px;
+  padding:var(--s2) var(--s4);border-radius:var(--r-sm);border:1px solid var(--line-strong);
+  background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;
+  transition:background-color var(--i-d-hover) ease,border-color var(--i-d-hover) ease,
+             transform var(--i-d-press) var(--i-ease-out)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn[disabled]:active{transform:none}
 .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn-primary:hover{background:var(--accent-ink);border-color:var(--accent-ink);color:#fff}
-.btn[aria-pressed="true"]{background:var(--tint);border-color:var(--accent);color:var(--accent-ink)}
+.btn[aria-pressed="true"]{background:var(--tint);border-color:var(--accent);color:var(--accent)}
 .btn-sm{min-height:32px;padding:var(--s1) var(--s3);font-size:var(--t-cap)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{background:var(--soft)}
+  .btn-primary:hover{background:var(--accent-ink);border-color:var(--accent-ink);color:#fff}
+}
+:root[data-theme='dark'] .btn-primary,
+:root[data-theme='dark'] .btn-primary:hover{color:#0D1117}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme='light']) .btn-primary,
+  :root:not([data-theme='light']) .btn-primary:hover{color:#0D1117}
+}
 
-/* form controls ----------------------------------------------------------- */
+/* form controls: the label is above the input, never the placeholder ------ */
 .field{display:flex;flex-direction:column;gap:var(--s1);min-width:0}
-.field>label{font-size:var(--t-cap);font-weight:650;color:var(--muted)}
-.input{font-family:var(--sans);font-size:var(--t-sm);color:var(--ink);background:var(--card);
-  border:1px solid var(--line-strong);border-radius:var(--r-sm);padding:var(--s2) var(--s3);
-  min-height:38px;width:100%;min-width:0}
+.field>label{font-size:var(--t-cap);font-weight:600;color:var(--body);
+  letter-spacing:var(--i-track-label)}
+.input{font-family:var(--sans);font-size:var(--t-base);color:var(--ink);
+  background:var(--card);border:1px solid var(--line-strong);border-radius:var(--r-sm);
+  padding:var(--s2) var(--s3);min-height:40px;width:100%;min-width:0}
 .input::placeholder{color:var(--muted);opacity:1}
 .input:focus-visible{border-color:var(--accent)}
+select.input{appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),
+                   linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 15px) 18px,calc(100% - 10px) 18px;
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:var(--s6)}
+.fieldnote{font-size:var(--t-cap);color:var(--muted);max-width:60ch}
+
+/* the search panel: the control the library exists for ------------------- */
+.searchpanel{background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);padding:var(--s4) var(--s5)}
+.searchgrid{display:grid;gap:var(--s3) var(--s4);
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.searchgrid .span-2{grid-column:span 2}
+.searchgrid .filters{grid-column:1/-1;display:grid;gap:var(--s3) var(--s4);
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));align-items:end}
+@media(max-width:640px){
+  .searchgrid .span-2{grid-column:1/-1}
+  .searchgrid{grid-template-columns:minmax(0,1fr)}
+  .searchgrid .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 
 /* chips ------------------------------------------------------------------- */
 .chip{display:inline-flex;align-items:center;gap:var(--s1);font-size:var(--t-cap);
-  font-weight:650;padding:2px var(--s2);border-radius:var(--r-sm);
+  font-weight:600;padding:3px var(--s2);border-radius:var(--r-sm);
   background:var(--soft);color:var(--body);border:1px solid transparent;
-  white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
-.chip-line{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s2);align-items:center}
+  white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;
+  letter-spacing:var(--i-track-label)}
+a.chip{text-decoration:none}
+.chip-line{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center}
 .chip.warn{background:var(--ev-name-bg);color:var(--ev-name)}
 .chip.stop{background:var(--ev-unresolved-bg);color:var(--ev-unresolved)}
 .chip.ok{background:var(--ev-structure-bg);color:var(--ev-structure)}
 .chip.derived{background:var(--ev-derived-bg);color:var(--ev-derived)}
-.chip.plain{background:transparent;border-color:var(--line);color:var(--muted)}
+.chip.plain{background:transparent;border-color:var(--line-strong);color:var(--body)}
 /* evidence chips, generated from the payload's own class ids */
 .chip.ev-structure{background:var(--ev-structure-bg);color:var(--ev-structure)}
 .chip.ev-identifier{background:var(--ev-identifier-bg);color:var(--ev-identifier)}
 .chip.ev-name{background:var(--ev-name-bg);color:var(--ev-name)}
-.chip.ev-class_or_assertion{background:var(--ev-class_or_assertion-bg);color:var(--ev-class_or_assertion)}
-.chip.ev-derived{background:var(--ev-derived-bg);color:var(--ev-derived);
-  border-color:var(--ev-derived);border-style:dashed}
+.chip.ev-class_or_assertion{background:var(--ev-class_or_assertion-bg);
+  color:var(--ev-class_or_assertion)}
 .chip.ev-unresolved{background:var(--ev-unresolved-bg);color:var(--ev-unresolved)}
+.chip.ev-derived{background:var(--ev-derived-bg);color:var(--ev-derived);
+  border-color:currentColor;border-style:dashed;padding:2px calc(var(--s2) - 1px)}
 
-/* the evidence bar -------------------------------------------------------- */
-.evbar{display:flex;height:12px;border-radius:var(--r-sm);overflow:hidden;
-  background:var(--soft);border:1px solid var(--line)}
+/* the evidence bar: a partition of one total, on the data canvas ----------
+   It does not invert in the dark theme. A reader who screenshots it into a
+   supplement must not ship a dark figure.                                 */
+.evbar{display:flex;height:14px;border-radius:var(--r-sm);overflow:hidden;
+  background:var(--i-canvas);border:1px solid var(--i-canvas-line)}
 .evbar span{display:block;height:100%}
-.evbar .s-structure{background:var(--ev-structure)}
-.evbar .s-identifier{background:var(--ev-identifier)}
-.evbar .s-name{background:#c08a2e}
-.evbar .s-class_or_assertion{background:#c4763c}
-.evbar .s-derived{background:repeating-linear-gradient(45deg,#7d51ae,#7d51ae 3px,#c9b6e0 3px,#c9b6e0 6px)}
-.evbar .s-unresolved{background:var(--ev-unresolved)}
-.evbar.mini{height:8px;border-radius:var(--r-sm);min-width:64px}
+.evbar .s-structure{background:#0B6B45}
+.evbar .s-identifier{background:#3E8F6B}
+.evbar .s-name{background:#C08A2E}
+.evbar .s-class_or_assertion{background:#C4763C}
+.evbar .s-unresolved{background:#B3261E}
+.evbar .s-derived{background:repeating-linear-gradient(45deg,#6B3FA0,#6B3FA0 3px,
+  #C9B6E0 3px,#C9B6E0 6px)}
+.evbar.mini{height:8px;min-width:64px}
+/* The one authored moment on this site: when a record sheet opens, the bar
+   draws once from left to right, so the reader sees it is a partition of a
+   single total rather than six unrelated quantities. The counts and the chips
+   are already on screen before it plays, so nothing waits on it. */
+.evbar.draw{animation:evdraw var(--i-d-authored) var(--i-ease-in-out) both}
+@keyframes evdraw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
+
 .evlegend{display:grid;gap:var(--s2);margin-top:var(--s3)}
 @media(min-width:760px){.evlegend{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:1200px){.evlegend{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .evrow{display:flex;gap:var(--s2);align-items:flex-start;font-size:var(--t-cap);min-width:0}
 .evrow .sw{flex:0 0 12px;height:12px;border-radius:3px;margin-top:3px}
-.evrow .sw.s-derived{background:repeating-linear-gradient(45deg,#7d51ae,#7d51ae 3px,#c9b6e0 3px,#c9b6e0 6px)}
-.evrow b{color:var(--ink);font-weight:650}
-.evrow .n{color:var(--muted);font-variant-numeric:tabular-nums}
+.evrow .sw.s-structure{background:#0B6B45}
+.evrow .sw.s-identifier{background:#3E8F6B}
+.evrow .sw.s-name{background:#C08A2E}
+.evrow .sw.s-class_or_assertion{background:#C4763C}
+.evrow .sw.s-unresolved{background:#B3261E}
+.evrow .sw.s-derived{background:repeating-linear-gradient(45deg,#6B3FA0,#6B3FA0 3px,
+  #C9B6E0 3px,#C9B6E0 6px)}
+.evrow b{color:var(--ink);font-weight:600}
+.evrow .n{color:var(--muted);font-family:var(--mono);font-variant-numeric:tabular-nums}
 
-/* compact evidence key: one line of chips, counts always with denominators */
+/* A chip here carries a count and its denominator, so it wraps rather than
+   truncating: an ellipsis that eats "(15.37%)" is a count without a
+   denominator, which is the one thing this key exists to prevent. */
 .evkey{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
-.evkey .chip{font-weight:600}
-.evkey .chip b{font-weight:700}
+.evkey .chip{white-space:normal;overflow:visible;text-overflow:clip;min-width:0}
+.evkey .chip b{font-weight:700;font-family:var(--mono);font-variant-numeric:tabular-nums}
 
-/* stat row ---------------------------------------------------------------- */
-.figures{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+/* figure tiles ------------------------------------------------------------ */
+.figures{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
 .figure{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   padding:var(--s3) var(--s4);min-width:0}
-.figure .v{font-size:var(--t-2xl);font-weight:750;color:var(--ink);letter-spacing:-.02em;
-  line-height:1.1;font-variant-numeric:tabular-nums}
-.figure .k{font-size:var(--t-cap);color:var(--muted);margin-top:var(--s1)}
+.figure .v{font-size:var(--i-t-num-sm);font-weight:700;color:var(--ink);
+  letter-spacing:var(--i-track-display);line-height:var(--i-lh-tight);
+  font-family:var(--mono);font-variant-numeric:tabular-nums}
+.figure .k{font-size:var(--t-sm);color:var(--ink);margin-top:var(--s1);font-weight:600}
 .figure .d{font-size:var(--t-cap);color:var(--muted);margin-top:var(--s1)}
 
 /* tables ------------------------------------------------------------------ */
-.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--card)}
 table.grid{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
 table.grid th,table.grid td{text-align:left;padding:var(--s2) var(--s3);
   border-bottom:1px solid var(--line);vertical-align:top}
-table.grid thead th{background:var(--soft);color:var(--accent-ink);font-size:var(--t-cap);
-  font-weight:700;white-space:nowrap}
+table.grid thead th{background:var(--soft);color:var(--body);font-size:var(--t-cap);
+  font-weight:600;white-space:nowrap;letter-spacing:var(--i-track-label)}
+table.grid td{color:var(--body)}
 /* sticky only where the wrapper is itself the vertical scroll container */
 .tablewrap.scroll-y{max-height:420px;overflow-y:auto}
 .tablewrap.scroll-y table.grid thead th{position:sticky;top:0;z-index:1}
-table.grid tbody tr:hover{background:var(--soft)}
 table.grid tbody tr:last-child td{border-bottom:0}
+/* Hover is colour only and never moves a row the reader is reading. */
+@media (hover:hover) and (pointer:fine){
+  table.grid tbody tr:hover{background:var(--i-surface-2);
+    transition:background-color var(--i-d-hover) ease}
+}
 /* `th.sortable{padding:0}` is specificity 0-1-1 and the padding it means to reset
    is set by `table.grid th,table.grid td` at 0-1-2, so the reset never applied at
    any source position. The cell kept its 8px/12px AND the button inside it added
@@ -236,98 +342,149 @@ th.sortable button{width:100%;text-align:left;background:none;border:0;cursor:po
 table.grid thead th.sortable button{height:100%}
 th.sortable button:hover{color:var(--accent)}
 th.sortable .arrow{color:var(--accent);font-size:var(--t-cap)}
-.medlink{font-weight:650;color:var(--accent-ink);text-decoration:none;
+.medlink{font-weight:600;color:var(--accent);text-decoration:none;
   display:inline-block;min-height:24px;padding:3px 0;line-height:1.4}
 .medlink:hover{text-decoration:underline}
 .rowmeta{display:none;color:var(--muted);font-size:var(--t-cap);margin-top:var(--s1)}
 .cellnote{color:var(--muted);font-size:var(--t-cap);display:block}
+/* A numeral in a table cell is set in the data face with tabular figures, so
+   a column of counts lines up and a changing value does not shift its
+   neighbours. The note under it is prose and stays in the reading face. */
+table.grid td.tnum{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  color:var(--ink)}
+table.grid td.tnum .cellnote,table.grid td.tnum .muted{font-family:var(--sans);
+  color:var(--muted)}
 
-/* pagination + result line ------------------------------------------------ */
+/* pagination and the result line ----------------------------------------- */
 .tablebar{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;
   justify-content:space-between;margin:var(--s3) 0}
 .resultline{font-size:var(--t-sm);color:var(--body);font-variant-numeric:tabular-nums}
-.resultline b{color:var(--ink)}
+.resultline b{color:var(--ink);font-family:var(--mono);font-weight:600}
 .pager{display:flex;gap:var(--s1);align-items:center;flex-wrap:wrap}
 
-/* states ------------------------------------------------------------------ */
+/* honest states ----------------------------------------------------------- */
 .state{border:1px dashed var(--line-strong);border-radius:var(--r);background:var(--card);
-  padding:var(--s6) var(--s5);text-align:center;color:var(--muted);font-size:var(--t-sm)}
-.state h3{margin-bottom:var(--s2)}
-.state.error{border-style:solid;border-color:var(--ev-unresolved);background:var(--ev-unresolved-bg);
-  color:var(--ev-unresolved);text-align:left}
+  padding:var(--s6) var(--s5);color:var(--body);font-size:var(--t-sm)}
+.state h3{margin-bottom:var(--s2);font-size:var(--t-lead)}
+.state.error{border-style:solid;border-color:var(--ev-unresolved);
+  background:var(--ev-unresolved-bg);color:var(--body)}
 .state.error h3{color:var(--ev-unresolved)}
-.skeleton{height:12px;border-radius:var(--r-sm);background:var(--soft);animation:pulse 1.4s ease-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+td.state{border-bottom:0;text-align:left}
+.skeleton{height:14px;border-radius:var(--r-sm);background:var(--soft)}
 
-/* notes / callouts -------------------------------------------------------- */
-.note{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 var(--r) var(--r) 0;
-  padding:var(--s3) var(--s4);font-size:var(--t-sm);color:var(--body)}
-.note b{color:var(--ink)}
-.note.caution{border-left-color:var(--ev-name);background:var(--ev-name-bg)}
-.note.derived{border-left-color:var(--ev-derived);background:var(--ev-derived-bg)}
-.note.stop{border-left-color:var(--ev-unresolved);background:var(--ev-unresolved-bg)}
+/* callouts: a full 1px rule, never a coloured side stripe ------------------ */
+.note{border:1px solid var(--line);background:var(--i-surface-2);border-radius:var(--r);
+  padding:var(--s3) var(--s4);font-size:var(--t-sm);color:var(--body);
+  max-width:var(--i-measure)}
+.note>b:first-child{display:block;color:var(--ink);font-weight:600;margin-bottom:var(--s1)}
+.note.caution{background:var(--ev-name-bg);border-color:var(--ev-name)}
+.note.caution>b:first-child{color:var(--ev-name)}
+.note.stop{background:var(--ev-unresolved-bg);border-color:var(--ev-unresolved)}
+.note.stop>b:first-child{color:var(--ev-unresolved)}
+.note.derived{background:var(--ev-derived-bg);border-color:var(--ev-derived)}
+.note.derived>b:first-child{color:var(--ev-derived)}
 .note+.note{margin-top:var(--s2)}
+.note ul{margin:var(--s2) 0 0;padding-left:var(--s4)}
 
-/* modal ------------------------------------------------------------------- */
-.overlay{position:fixed;inset:0;background:rgba(15,36,32,.5);z-index:300;overflow-y:auto;
-  padding:var(--s5) var(--s3)}
-.sheet{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);
-  max-width:1060px;margin:0 auto;overflow:hidden}
-.sheet-head{padding:var(--s4) var(--s5);border-bottom:1px solid var(--line);
+/* the record sheet, as a drawer -------------------------------------------
+   A record is read beside the catalogue, not on top of it: the drawer takes
+   the right edge at desk widths and the bottom edge on a phone. It is the one
+   place on this site where a surface floats, so it carries the shadow and no
+   border.                                                                  */
+.overlay{position:fixed;inset:0;z-index:300;background:rgba(16,26,36,.45);
+  display:flex;justify-content:flex-end;align-items:stretch;opacity:0;
+  transition:opacity var(--i-d-sheet) var(--i-ease-drawer)}
+.overlay.is-open{opacity:1}
+.sheet{background:var(--card);box-shadow:var(--shadow);border:0;
+  border-radius:var(--r-lg) 0 0 var(--r-lg);width:min(900px,100%);
+  display:flex;flex-direction:column;max-height:100%;
+  transform:translateX(100%);
+  transition:transform var(--i-d-sheet) var(--i-ease-drawer)}
+.overlay.is-open .sheet{transform:none}
+.sheet-head{flex:0 0 auto;padding:var(--s4) var(--s5);border-bottom:1px solid var(--line);
   display:flex;gap:var(--s4);justify-content:space-between;align-items:flex-start}
 .sheet-head>div:first-child{flex:1 1 auto;min-width:0}
 .sheet-head>.sheet-close{flex:0 0 auto}
-.sheet-body{padding:var(--s4) var(--s5) var(--s6)}
+.sheet-head h3{font-size:var(--t-xl);letter-spacing:var(--i-track-title)}
+.sheet-body{flex:1 1 auto;overflow-y:auto;padding:var(--s4) var(--s5) var(--s6);
+  overscroll-behavior:contain}
 .sheet-body>*+*{margin-top:var(--s4)}
-.cobra{display:block;white-space:pre;overflow:auto;max-height:260px;background:#0f2420;color:#dfeee8;
-  padding:var(--s3) var(--s4);border-radius:var(--r);font-size:var(--t-cap);line-height:1.6}
-.cobra .cmt{color:#a8c6bc}
+/* The label above a record's name. Not an eyebrow: it names the database the
+   formulation was taken from, and it is the record's own field. */
+.kicker{font-size:var(--t-cap);font-weight:600;color:var(--muted);
+  letter-spacing:var(--i-track-label);margin-bottom:var(--s1)}
+@media(max-width:900px){
+  .overlay{justify-content:stretch;align-items:flex-end}
+  .sheet{width:100%;max-height:92vh;border-radius:var(--r-lg) var(--r-lg) 0 0;
+    transform:translateY(100%)}
+  .sheet-head,.sheet-body{padding-left:var(--s4);padding-right:var(--s4)}
+}
+
+/* the copy-to-COBRApy block ----------------------------------------------- */
+.cobra{display:block;white-space:pre;overflow:auto;max-height:280px;
+  background:var(--soft);color:var(--ink);border:1px solid var(--line);
+  border-radius:var(--r);padding:var(--s3) var(--s4);font-family:var(--mono);
+  font-size:var(--i-t-code);line-height:1.6;font-variant-numeric:tabular-nums}
+.cobra .cmt{color:var(--muted)}
 
 /* footer ------------------------------------------------------------------ */
 .foot{border-top:1px solid var(--line);background:var(--card);margin-top:var(--s7);
-  padding:var(--s5) 0;font-size:var(--t-sm);color:var(--muted)}
+  padding:var(--s5) 0;font-size:var(--t-sm);color:var(--body)}
 .foot .wrap>*+*{margin-top:var(--s3)}
-.foot h4{font-size:var(--t-cap);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.foot h4{font-size:var(--t-cap);letter-spacing:var(--i-track-label);color:var(--muted);
+  font-weight:600}
 .foot ul{margin:var(--s2) 0 0;padding-left:var(--s4)}
 .foot li{margin-top:var(--s1)}
-.footgrid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.foot p{max-width:var(--i-measure)}
+.footgrid{display:grid;gap:var(--s5);grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 
 /* standalone links (footer lists, table captions) carry a 24px tap target;
    links inside running prose keep the inline exception of WCAG 2.5.8 */
 .foot a,.tablebar a,.state a{display:inline-block;padding:4px 0;min-height:24px}
 
-/* charts (DOM + SVG, no chart library) ------------------------------------ */
+/* charts: DOM and SVG, no chart library ----------------------------------- */
 .barlist{display:grid;gap:var(--s2);min-width:0}
-.barrow{display:grid;grid-template-columns:minmax(110px,30%) minmax(0,1fr) minmax(0,auto);gap:var(--s2);
-  align-items:center;font-size:var(--t-cap);min-width:0}
+.barrow{display:grid;grid-template-columns:minmax(110px,30%) minmax(0,1fr) minmax(0,auto);
+  gap:var(--s3);align-items:center;font-size:var(--t-cap);min-width:0}
 .barrow .lbl{color:var(--body);min-width:0;overflow-wrap:anywhere}
-.barrow .lbl .sub{display:block;color:var(--muted);font-size:var(--t-cap)}
-.barrow .track{background:var(--soft);border-radius:var(--r-sm);height:14px;min-width:0}
-.barrow .fill{background:var(--accent);height:14px;border-radius:var(--r-sm);display:block}
-.barrow .val{color:var(--muted);font-variant-numeric:tabular-nums;min-width:0;
-  overflow-wrap:anywhere}
-.hist{display:flex;align-items:flex-end;gap:2px;height:150px;min-width:0}
-.hist .b{flex:1 1 0;min-width:2px;background:var(--accent);border-radius:2px 2px 0 0}
+.barrow .lbl .sub{display:block;color:var(--muted)}
+.barrow .track{background:var(--i-canvas);border:1px solid var(--i-canvas-line);
+  border-radius:var(--r-sm);height:14px;min-width:0}
+.barrow .fill{background:var(--i-seq-2);height:12px;border-radius:3px;display:block}
+.barrow .val{color:var(--body);font-family:var(--mono);font-variant-numeric:tabular-nums;
+  min-width:0;overflow-wrap:anywhere}
+.hist{display:flex;align-items:flex-end;gap:2px;height:150px;min-width:0;
+  background:var(--i-canvas);border:1px solid var(--i-canvas-line);
+  border-radius:var(--r-sm);padding:var(--s2)}
+.hist .b{flex:1 1 0;min-width:2px;background:var(--i-seq-2);border-radius:2px 2px 0 0}
 .axis{display:flex;justify-content:space-between;font-size:var(--t-cap);color:var(--muted);
-  margin-top:var(--s1);font-variant-numeric:tabular-nums}
-.viz{overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+  margin-top:var(--s1);font-family:var(--mono);font-variant-numeric:tabular-nums}
+.viz{overflow:auto;border:1px solid var(--i-canvas-line);border-radius:var(--r);
+  background:var(--i-canvas)}
 .viz svg{display:block}
 
-.tip{position:fixed;pointer-events:none;opacity:0;background:var(--ink);color:#fff;
+.tip{position:fixed;pointer-events:none;opacity:0;background:var(--i-ink);color:#fff;
   font-size:var(--t-cap);padding:var(--s2) var(--s3);border-radius:var(--r-sm);z-index:500;
-  max-width:300px;line-height:1.4;transition:opacity .1s ease-out}
+  max-width:300px;line-height:1.4;box-shadow:var(--shadow);
+  transition:opacity var(--i-d-tooltip) var(--i-ease-out)}
+:root[data-theme='dark'] .tip{background:var(--i-surface-3);color:var(--i-ink)}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme='light']) .tip{background:var(--i-surface-3);color:var(--i-ink)}
+}
 
-/* details ----------------------------------------------------------------- */
+/* disclosures ------------------------------------------------------------- */
 details.disclosure{border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
-details.disclosure>summary{cursor:pointer;padding:var(--s3) var(--s4);font-weight:650;
-  font-size:var(--t-sm);color:var(--accent-ink);min-height:38px;display:flex;align-items:center;
+details.disclosure>summary{cursor:pointer;padding:var(--s3) var(--s4);font-weight:600;
+  font-size:var(--t-sm);color:var(--ink);min-height:40px;display:flex;align-items:center;
   gap:var(--s2);list-style:none}
 details.disclosure>summary::-webkit-details-marker{display:none}
 details.disclosure>summary::before{content:"";flex:0 0 auto;width:0;height:0;
-  border-left:6px solid currentColor;border-top:4px solid transparent;
-  border-bottom:4px solid transparent;transition:transform .15s ease-out}
+  border-left:6px solid var(--accent);border-top:4px solid transparent;
+  border-bottom:4px solid transparent}
 details.disclosure[open]>summary::before{transform:rotate(90deg)}
-details.disclosure>summary:hover{background:var(--soft)}
+@media (hover:hover) and (pointer:fine){
+  details.disclosure>summary:hover{background:var(--soft)}
+}
 details.disclosure>div{padding:0 var(--s4) var(--s4)}
 
 /* narrow viewports -------------------------------------------------------- */
@@ -335,24 +492,19 @@ details.disclosure>div{padding:0 var(--s4) var(--s4)}
   .barrow{grid-template-columns:minmax(0,1fr);gap:var(--s1)}
   .barrow .lbl{white-space:normal;overflow:visible}
   .barrow .val{white-space:normal}
-  .barrow .track{height:10px}
-  .barrow .fill{height:10px}
 }
 @media(max-width:760px){
   .wrap{padding:0 var(--s4)}
   .tablewrap.scroll-y{max-height:none}
-  h1{font-size:var(--t-2xl)}
   .rowmeta{display:block}
   table.grid thead th.opt,table.grid tbody td.opt{display:none}
   table.grid thead th{position:static}
-  .sheet-body,.sheet-head{padding-left:var(--s4);padding-right:var(--s4)}
-  .overlay{padding:var(--s3) var(--s2)}
-}
-@media(max-width:520px){
-  .figure .v{font-size:var(--t-xl)}
+  .card-p{padding:var(--s4)}
+  .searchpanel{padding:var(--s4)}
+  .libhead{padding:var(--s4) 0}
 }
 
-@media (prefers-reduced-motion:reduce){
-  *{animation-duration:.01ms!important;animation-iteration-count:1!important;
-    transition-duration:.01ms!important}
+@media print{
+  .topbar,.skip,.pager,.themeswap{display:none}
+  .card,.tablewrap,.searchpanel{border-color:#999}
 }

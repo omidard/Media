@@ -5,50 +5,60 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: methods and limitations</title>
 <meta name="description" content="How a MediaDB record is built and what it cannot support: how each component's identity is decided, where the exchange ids land, what the three coverage fractions divide by, which components are derived, and what the bounds encode.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310508F'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/instrument.css">
 <link rel="stylesheet" href="assets/media.css">
+<script>
+/* The reader's stored theme, applied before the first paint. A page that has
+   never been told reads the machine setting through the media query instead. */
+(function () {
+  try {
+    var t = localStorage.getItem('mediadb-theme');
+    if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+  } catch (e) { /* storage unavailable */ }
+})();
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the methods</a>
 
-<nav class="nav"><div class="wrap">
-  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
-  <div class="navlinks">
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">MediaDB</a>
+  <nav class="navlinks" aria-label="Library">
     <a href="index.html">Explore</a>
     <a href="families.html">Families</a>
     <a href="compare.html">Compare</a>
     <a href="patterns.html">Patterns</a>
-    <a href="methods.html" aria-current="page">Methods &amp; limits</a>
+    <a href="methods.html" aria-current="page">Methods</a>
     <a href="API.md">API</a>
-    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
-  </div>
-</div></nav>
+    <a href="https://github.com/omidard/Media" rel="noopener">Source</a>
+  </nav>
+  <button class="themeswap" type="button" id="theme">Dark</button>
+</div></header>
 
 <main id="main">
 
-<header class="masthead"><div class="wrap">
-  <p class="kicker">Methods and limitations</p>
-  <h1>What a record is, and what it cannot support.</h1>
-  <p class="lead">Each medium is somebody else's composition, re-encoded against a
-    standard set of exchange reactions so a genome-scale model can read it. Every
-    assumption in that encoding is below, with the field that records it.</p>
-  <p class="chip-line" style="margin-top:var(--s4)">
-    <a class="btn" href="#identity">Component identity</a>
-    <a class="btn" href="#exchange">Exchange ids</a>
-    <a class="btn" href="#coverage">Coverage</a>
-    <a class="btn" href="#derived">Derived components</a>
-    <a class="btn" href="#bounds">Bounds</a>
-    <a class="btn" href="#degeneracy">Duplicate model inputs</a>
-    <a class="btn" href="#oxygen">Oxygen</a>
-    <a class="btn" href="#families-method">Families</a>
-    <a class="btn" href="#licensing">Licence</a>
-    <a class="btn" href="#reproducibility">Reproducibility</a>
-    <a class="btn" href="#limits">The limits</a>
-  </p>
-</div></header>
+<section class="libhead"><div class="wrap">
+  <div>
+    <h1>What a record is, and what it cannot support</h1>
+    <p class="sub">Each medium is somebody else's composition, re-encoded against a
+      standard set of exchange reactions so a genome-scale model can read it. Every
+      assumption in that encoding is below, with the field that records it.</p>
+  </div>
+  <nav class="chip-line" aria-label="On this page">
+    <a class="btn btn-sm" href="#identity">Component identity</a>
+    <a class="btn btn-sm" href="#exchange">Exchange ids</a>
+    <a class="btn btn-sm" href="#coverage">Coverage</a>
+    <a class="btn btn-sm" href="#derived">Derived components</a>
+    <a class="btn btn-sm" href="#bounds">Bounds</a>
+    <a class="btn btn-sm" href="#degeneracy">Duplicate model inputs</a>
+    <a class="btn btn-sm" href="#oxygen">Oxygen</a>
+    <a class="btn btn-sm" href="#families-method">Families</a>
+    <a class="btn btn-sm" href="#licensing">Licence</a>
+    <a class="btn btn-sm" href="#reproducibility">Reproducibility</a>
+    <a class="btn btn-sm" href="#limits">The limits</a>
+  </nav>
+</div></section>
 
 <section class="section"><div class="wrap" style="max-width:900px">
 
@@ -56,6 +66,7 @@
     <h2>This release</h2>
     <div id="release-figures" class="figures" style="margin-top:var(--s3)"></div>
     <p class="muted" style="font-size:var(--t-cap);margin-top:var(--s3)" id="release-stamp"></p>
+    <p class="muted" style="font-size:var(--t-cap);margin-top:var(--s2)" id="release-recompute"></p>
   </div>
 
   <h2 id="identity" style="margin-top:var(--s7)">Component identity</h2>
@@ -307,15 +318,19 @@
     // payload publishes one: the earlier fallback sentence pointed the reader at
     // a repository path, which is not a route this site asks anyone to take and
     // which the rendered-text sweep rejects.
+    // Provenance gets one line. The command that checks the digest is a
+    // command, set as one, and not a sentence of prose.
     $('release-stamp').textContent = cat.corpus_sha256
       ? 'Release built ' + cat.built_utc.slice(0, 10) + ', corpus ' +
-        cat.corpus_sha256 + '.' +
-        (cat.corpus_sha256_recompute
-          ? ' Recompute it from a checkout: ' + cat.corpus_sha256_recompute + '.'
-          : '')
+        cat.corpus_sha256 + '.'
       : 'Release built ' + cat.built_utc.slice(0, 10) +
         '. This release publishes no corpus digest, so there is no identifier ' +
         'here that names these bytes. Cite the build date and the record count.';
+    if (cat.corpus_sha256 && cat.corpus_sha256_recompute) {
+      $('release-recompute').replaceChildren(
+        el('span', { text: 'Recompute the digest from a checkout: ' }),
+        el('code', { text: cat.corpus_sha256_recompute }));
+    }
 
     const counts = cat.evidence_classes.map((c) => c.n);
     $('ev-bar').appendChild(MDB.evidenceBar(counts));

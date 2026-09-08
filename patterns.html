@@ -5,44 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: composition patterns across the collection</title>
 <meta name="description" content="Hierarchically clustered views of the whole media library: which compounds recur across source databases, food groups and categories, and which compounds travel together.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310508F'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/instrument.css">
 <link rel="stylesheet" href="assets/media.css">
+<script>
+/* The reader's stored theme, applied before the first paint. A page that has
+   never been told reads the machine setting through the media query instead. */
+(function () {
+  try {
+    var t = localStorage.getItem('mediadb-theme');
+    if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+  } catch (e) { /* storage unavailable */ }
+})();
+</script>
 </head>
 <body>
 <a class="skip" href="#clustergram">Skip to the clustering</a>
 
-<nav class="nav"><div class="wrap">
-  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
-  <div class="navlinks">
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">MediaDB</a>
+  <nav class="navlinks" aria-label="Library">
     <a href="index.html">Explore</a>
     <a href="families.html">Families</a>
     <a href="compare.html">Compare</a>
     <a href="patterns.html" aria-current="page">Patterns</a>
-    <a href="methods.html">Methods &amp; limits</a>
+    <a href="methods.html">Methods</a>
     <a href="API.md">API</a>
-    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
-  </div>
-</div></nav>
+    <a href="https://github.com/omidard/Media" rel="noopener">Source</a>
+  </nav>
+  <button class="themeswap" type="button" id="theme">Dark</button>
+</div></header>
 
 <main id="main">
 
-<header class="masthead"><div class="wrap">
-  <p class="kicker">Patterns</p>
-  <h1>What recurs across the whole collection.</h1>
-  <p class="lead" id="claim">Ward-linkage hierarchical clustering over the library,
-    published as precomputed data.</p>
-  <div class="note derived" style="margin-top:var(--s4);max-width:78ch">
+<section class="libhead"><div class="wrap">
+  <div>
+    <h1>Composition patterns across the library</h1>
+    <p class="sub" id="claim">Ward-linkage hierarchical clustering over the library,
+      published as precomputed data.</p>
+  </div>
+  <div class="note derived">
     <b>Derived components shape these blocks.</b>
-    <p style="margin-top:var(--s1)" id="derived-warning">A third of all component records in
-      this library are derived rather than stated by a source, and the standard mineral
-      and oxygen base is by construction present in almost every medium. Blocks
-      that look like a universal biochemical core are partly that convention.
+    <p id="derived-warning">A third of all component records in this library are derived
+      rather than stated by a source, and the standard mineral and oxygen base is by
+      construction present in almost every medium. Blocks that look like a universal
+      biochemical core are partly that convention.
       <a href="methods.html#derived">Which components are derived</a>.</p>
   </div>
-</div></header>
+</div></section>
 
 <section class="section" id="clustergram"><div class="wrap">
   <div class="card card-p">

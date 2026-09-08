@@ -1,4 +1,4 @@
-NOTICE — attributions this resource owes upstream
+NOTICE: attributions this resource owes upstream
 =================================================
 
 Media / MediaDB redistributes and reformats data from the sources below. This file is the
@@ -16,17 +16,17 @@ verified on 2026-09-06.
 
 
 --------------------------------------------------------------------------------------------
-USDA FoodData Central — 7,424 media
+USDA FoodData Central: 7,424 media
 --------------------------------------------------------------------------------------------
 U.S. Department of Agriculture, Agricultural Research Service, FoodData Central.
 https://fdc.nal.usda.gov/
 
-  Licence: CC0 1.0 Universal — public domain, not copyrighted.
+  Licence: CC0 1.0 Universal, public domain, not copyrighted.
   Terms read from https://fdc.nal.usda.gov/api-guide on 2026-09-06 (first-party).
   Attribution is requested rather than required, and is given here.
 
   Note for automated link-checkers: the FDC food-detail URLs stored in these records return
-  HTTP 404 while rendering the correct food page client-side. Verified 2026-09-06 — curl
+  HTTP 404 while rendering the correct food page client-side. Verified 2026-09-06, curl
   returns 404 with an identical application shell for every id, while headless Chromium
   loads the same URL and renders the right food ("Flour, soy, defatted", FDC 1104705;
   "Candies, MARS SNACKFOOD US, M&M's Milk Chocolate Candies", FDC 169583). This is a USDA
@@ -35,7 +35,7 @@ https://fdc.nal.usda.gov/
 
 
 --------------------------------------------------------------------------------------------
-DSMZ MediaDive — 3,148 media
+DSMZ MediaDive: 3,148 media
 --------------------------------------------------------------------------------------------
 Koblitz J, Halama P, Spring S, Thiel V, Baschien C, Hahnke RL, Pester M, Overmann J,
 Reimer LC. MediaDive: the expert-curated cultivation media database. Nucleic Acids Research
@@ -67,7 +67,7 @@ https://mediadive.dsmz.de/
 
 
 --------------------------------------------------------------------------------------------
-FooDB — 701 media
+FooDB: 701 media
 --------------------------------------------------------------------------------------------
 FooDB Version 1.0, The Metabolomics Innovation Centre (TMIC), University of Alberta.
 https://foodb.ca/
@@ -84,7 +84,7 @@ https://foodb.ca/
 
 
 --------------------------------------------------------------------------------------------
-MediaDB — 471 media
+MediaDB: 471 media
 --------------------------------------------------------------------------------------------
 MediaDB: a database of microbial growth conditions in defined media.
 Price Lab, Institute for Systems Biology, Seattle WA, and the University of Illinois at
@@ -105,7 +105,7 @@ https://mediadb.systemsbiology.net/defined_media/
 
 
 --------------------------------------------------------------------------------------------
-Human Metabolome Database (HMDB 5.0) — 9 media, and 3 further media derived from HMDB tables
+Human Metabolome Database (HMDB 5.0): 9 media, and 3 further media derived from HMDB tables
 --------------------------------------------------------------------------------------------
 Wishart DS et al. HMDB 5.0: the Human Metabolome Database for 2022. Nucleic Acids Research
 2022;50(D1):D622-D631. doi:10.1093/nar/gkab1062
@@ -131,7 +131,7 @@ https://hmdb.ca/
 
 
 --------------------------------------------------------------------------------------------
-Bovine Metabolome Database (BMDB) — 5 media
+Bovine Metabolome Database (BMDB): 5 media
 --------------------------------------------------------------------------------------------
 Foroutan A et al. The Bovine Metabolome. Metabolites 2020;10(6):233.
 doi:10.3390/metabo10060233
@@ -145,13 +145,13 @@ https://bovinedb.ca/
   The page states no Creative Commons licence, so these records are labelled
   custom/permission-required rather than CC BY-NC. They cover bovine blood, colostrum, milk,
   rumen and urine, and were previously mis-filed in this project's index as
-  "Published (HMDB-derived)" — that is, bovine rumen and colostrum shipped labelled as
+  "Published (HMDB-derived)", that is, bovine rumen and colostrum shipped labelled as
   human-metabolome-derived. Source identity is now resolved from the record's own DOI and
   citation instead of its filename prefix.
 
 
 --------------------------------------------------------------------------------------------
-Primary literature — 1,457 media
+Primary literature: 1,457 media
 --------------------------------------------------------------------------------------------
 1,369 media curated through GrowthDB (https://github.com/omidard/GrowthDB) and 88 mined from
 genome-scale-model papers. Each carries the citation of the publication whose formulation it
@@ -172,10 +172,10 @@ encodes, and, where the publication is in PubMed Central, its PMC identifier in
 
 
 --------------------------------------------------------------------------------------------
-Classic and standard formulations — 297 media
+Classic and standard formulations: 297 media
 --------------------------------------------------------------------------------------------
 Canonical laboratory media (LB, M9, MOPS, M63, BHI, TSB, Davis, and others) encoded to BiGG
-exchanges. Each record cites the canonical reference it was formulated from — for example
+exchanges. Each record cites the canonical reference it was formulated from, for example
 Bertani G, J Bacteriol 1951;62:293-300 for LB; Sambrook & Russell, Molecular Cloning, CSHL
 2001 for M9; Neidhardt FC, Bloch PL, Smith DF, J Bacteriol 1974;119:736-747 for MOPS.
 
@@ -190,9 +190,9 @@ Composition that this project generated, not any source
 229,486 of 665,582 component records (34.5%) were produced by this project's pipeline and are
 not stated by the source the record cites. They are retained and labelled, never removed:
 `components[].evidence_class` is `sourced` or `derived`, and derived components carry a
-`derived_class` of `inferred_from_listed_ingredient` (127,303 — a complex ingredient the
-recipe does list, broken down by convention), `injected_convention` (101,796 — a mineral or
-gas panel nothing in the recipe corresponds to) or `canonical_base_expansion` (387 — a named
+`derived_class` of `inferred_from_listed_ingredient` (127,303, a complex ingredient the
+recipe does list, broken down by convention), `injected_convention` (101,796, a mineral or
+gas panel nothing in the recipe corresponds to) or `canonical_base_expansion` (387, a named
 base medium expanded to its published composition).
 
 Standard compositions used for those inferences are credited in each affected record's
@@ -202,3 +202,16 @@ Standard compositions used for those inferences are credited in each affected re
 
 These components are excluded from the source-coverage figure (`coverage_source`) so that no
 medium can report high coverage on composition this project invented.
+
+
+--------------------------------------------------------------------------------------------
+IBM Plex Sans and IBM Plex Mono, web font files
+--------------------------------------------------------------------------------------------
+
+Files: assets/fonts/ibm-plex-sans-var.woff2, assets/fonts/ibm-plex-mono-400.woff2,
+assets/fonts/ibm-plex-mono-500.woff2. Latin subset, retrieved 2026-09-08.
+
+Copyright 2017 IBM Corp., with the reserved font name "Plex". Licensed under the SIL Open
+Font License 1.1; the full licence text ships beside the files as assets/fonts/OFL.txt.
+The OFL permits redistribution of the font files with this notice and forbids their sale on
+their own. It places no condition on the pages that display them.

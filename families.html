@@ -5,42 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: base media and their variants</title>
 <meta name="description" content="Browse growth media by base medium. Pick LB, M9, MRS or BHI and see every variant of it in the library, with exactly what differs between them: carbon source, supplement, strength, pH, preparation, oxygen regime and composition.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310508F'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/instrument.css">
 <link rel="stylesheet" href="assets/media.css">
+<script>
+/* The reader's stored theme, applied before the first paint. A page that has
+   never been told reads the machine setting through the media query instead. */
+(function () {
+  try {
+    var t = localStorage.getItem('mediadb-theme');
+    if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+  } catch (e) { /* storage unavailable */ }
+})();
+</script>
 </head>
 <body>
 <a class="skip" href="#families">Skip to the base media</a>
 
-<nav class="nav"><div class="wrap">
-  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
-  <div class="navlinks">
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">MediaDB</a>
+  <nav class="navlinks" aria-label="Library">
     <a href="index.html">Explore</a>
     <a href="families.html" aria-current="page">Families</a>
     <a href="compare.html">Compare</a>
     <a href="patterns.html">Patterns</a>
-    <a href="methods.html">Methods &amp; limits</a>
+    <a href="methods.html">Methods</a>
     <a href="API.md">API</a>
-    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
-  </div>
-</div></nav>
+    <a href="https://github.com/omidard/Media" rel="noopener">Source</a>
+  </nav>
+  <button class="themeswap" type="button" id="theme">Dark</button>
+</div></header>
 
 <main id="main">
 
-<header class="masthead"><div class="wrap">
-  <p class="kicker">Base media and their variants</p>
-  <h1>One base medium, and everything done to it.</h1>
-  <p class="lead" id="claim">Loading the family index.</p>
-  <div class="note caution" style="margin-top:var(--s4);max-width:76ch">
+<section class="libhead"><div class="wrap">
+  <div>
+    <h1>Base media and their variants</h1>
+    <p class="sub" id="claim">Loading the family index.</p>
+  </div>
+  <div class="note caution">
     <b>A family is a naming grouping, not a claim of equivalence.</b>
-    <p style="margin-top:var(--s1)">Most assignments come from the medium's name. Two
-      records in one family can differ by a carbon source, by strength, by pH, or by being
-      broth rather than agar, and each variant is listed with its own differences.
+    <p>Most assignments come from the medium's name. Two records in one family can
+      differ by a carbon source, by strength, by pH, or by being broth rather than
+      agar, and each variant is listed with its own differences.
       <a href="methods.html#families-method">How a family is decided</a>.</p>
   </div>
-</div></header>
+</div></section>
 
 <section class="section" id="families"><div class="wrap">
   <div style="display:grid;gap:var(--s5);grid-template-columns:minmax(0,1fr)" id="layout">

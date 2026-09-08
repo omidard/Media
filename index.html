@@ -5,124 +5,115 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: in silico media for genome-scale metabolic models</title>
 <meta name="description" content="In silico media for genome-scale metabolic models: 13,515 laboratory, food and biospecimen compositions re-encoded as BiGG exchange reactions. 651,772 of 665,582 components reach a BiGG exchange reaction that exists; 12,228 carry a BiGG-shaped id naming no BiGG reaction, 1,364 a fallback id no BiGG model accepts, and 218 reach none. Each component records the evidence tier its identity was decided by.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310508F'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/instrument.css">
 <link rel="stylesheet" href="assets/media.css">
+<script>
+/* The reader's stored theme, applied before the first paint. A page that has
+   never been told reads the machine setting through the media query instead. */
+(function () {
+  try {
+    var t = localStorage.getItem('mediadb-theme');
+    if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+  } catch (e) { /* storage unavailable */ }
+})();
+</script>
 </head>
 <body>
 <a class="skip" href="#explore">Skip to the library</a>
 
-<nav class="nav"><div class="wrap">
-  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
-  <div class="navlinks">
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">MediaDB</a>
+  <nav class="navlinks" aria-label="Library">
     <a href="index.html" aria-current="page">Explore</a>
     <a href="families.html">Families</a>
     <a href="compare.html">Compare</a>
     <a href="patterns.html">Patterns</a>
-    <a href="methods.html">Methods &amp; limits</a>
+    <a href="methods.html">Methods</a>
     <a href="API.md">API</a>
-    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
-  </div>
-</div></nav>
+    <a href="https://github.com/omidard/Media" rel="noopener">Source</a>
+  </nav>
+  <button class="themeswap" type="button" id="theme">Dark</button>
+</div></header>
 
 <main id="main">
 
-<header class="masthead"><div class="wrap">
-  <div class="cols">
-    <div>
-      <p class="kicker">MediaDB</p>
-      <h1>In silico media for genome-scale metabolic models.</h1>
-      <p class="lead" id="claim">
-        <span class="skeleton" style="display:inline-block;width:34ch;vertical-align:middle"></span>
-      </p>
-      <p style="margin-top:var(--s4)" class="chip-line">
-        <a class="btn btn-primary" href="#explore">Browse the library</a>
-        <a class="btn" href="families.html">Base media</a>
-        <a class="btn" href="methods.html">Methods</a>
-      </p>
-    </div>
-    <div class="card card-p">
-      <h2 style="font-size:var(--t-lg)">How each component identity was decided</h2>
-      <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s1)" id="ev-caption">
-        Reading the corpus.
-      </p>
-      <div style="margin-top:var(--s3)" id="ev-bar"></div>
-      <div id="ev-key"></div>
-      <details class="disclosure" style="margin-top:var(--s3);border:0">
-        <summary style="padding-left:0;padding-right:0">
-          What each of these six classes means, in full
-        </summary>
-        <div style="padding:0"><div id="ev-legend"></div></div>
-      </details>
-    </div>
+<section class="libhead"><div class="wrap">
+  <div>
+    <h1>Growth media as model input</h1>
+    <p class="i-figure" id="claim">
+      <span class="skeleton" style="display:inline-block;width:30ch;vertical-align:middle"></span>
+    </p>
   </div>
-</div></header>
-
-<section class="section" id="explore"><div class="wrap">
-  <div class="section-head">
-    <h2>Browse the library</h2>
-    <p>Search by medium name, base-medium family, source database or organism scope, or
-      switch the search to a compound and find every medium that contains it. Every row
-      opens a record with its full component list and its provenance.</p>
+  <div class="evidence">
+    <h2>How each component identity was decided</h2>
+    <div id="ev-bar"></div>
+    <div id="ev-key"></div>
+    <p class="fieldnote" style="margin-top:var(--s2)" id="ev-caption">Reading the library.</p>
+    <p class="fieldnote"><a href="methods.html#identity">What each of these six classes
+      means, and the twelve recorded tiers behind them</a></p>
   </div>
+</div></section>
 
-  <div class="card card-p">
-    <div style="display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(190px,1fr))">
-      <div class="field" style="grid-column:1/-1">
-        <label for="q">Search</label>
+<section class="section" id="explore" style="padding-top:var(--s5)"><div class="wrap">
+
+  <div class="searchpanel">
+    <div class="searchgrid">
+      <div class="field span-2">
+        <label for="q">Search the library</label>
         <input id="q" class="input" type="search"
                placeholder="A medium name, family, source or organism">
-        <p class="muted" style="font-size:var(--t-cap)" id="q-scope">
-          Searches medium name, base-medium family, source database and organism scope,
+        <p class="fieldnote" id="q-scope">
+          Matches medium name, base-medium family, source database and organism scope,
           ignoring case and punctuation, so "BG-11" and "BG11" return the same 53 media.
-          It does not search inside citations; open a record for its full citation.
+          Citations are not searched; open a record for its full citation.
         </p>
       </div>
-      <div class="field">
+      <div class="field span-2">
         <label for="f-compound">Contains the compound</label>
         <input id="f-compound" class="input" type="search" list="compound-list"
                placeholder="glucose, EX_glc__D_e, C00031">
         <datalist id="compound-list"></datalist>
-        <p class="muted" style="font-size:var(--t-cap)" id="compound-note">
+        <p class="fieldnote" id="compound-note">
           A BiGG exchange, a metabolite name, a KEGG or ChEBI id, or an InChIKey.
         </p>
       </div>
-      <div class="field">
-        <label for="f-evidence">Strongest evidence at least</label>
-        <select id="f-evidence" class="input"><option value="">Any</option></select>
-      </div>
-      <div class="field">
-        <label for="f-source">Source database</label>
-        <select id="f-source" class="input"><option value="">All sources</option></select>
-      </div>
-      <div class="field">
-        <label for="f-category">Category</label>
-        <select id="f-category" class="input"><option value="">All categories</option></select>
-      </div>
-      <div class="field">
-        <label for="f-oxygen">Oxygen regime</label>
-        <select id="f-oxygen" class="input">
-          <option value="">Any regime</option>
-          <option value="aerobic">Aerobic</option>
-          <option value="anaerobic">Anaerobic</option>
-          <option value="facultative">Facultative</option>
-          <option value="__unknown">Unknown (not recorded)</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="f-derived">Derived components</label>
-        <select id="f-derived" class="input">
-          <option value="">Any amount</option>
-          <option value="none">None: every component is from the source</option>
-          <option value="some">Some</option>
-          <option value="half">More than half</option>
-          <option value="all">All of them</option>
-        </select>
-      </div>
-      <div class="field" style="justify-content:flex-end">
-        <button class="btn" type="button" id="clear">Clear every filter</button>
+      <div class="filters">
+        <div class="field">
+          <label for="f-evidence">Strongest evidence at least</label>
+          <select id="f-evidence" class="input"><option value="">Any</option></select>
+        </div>
+        <div class="field">
+          <label for="f-source">Source database</label>
+          <select id="f-source" class="input"><option value="">All sources</option></select>
+        </div>
+        <div class="field">
+          <label for="f-category">Category</label>
+          <select id="f-category" class="input"><option value="">All categories</option></select>
+        </div>
+        <div class="field">
+          <label for="f-oxygen">Oxygen regime</label>
+          <select id="f-oxygen" class="input">
+            <option value="">Any regime</option>
+            <option value="aerobic">Aerobic</option>
+            <option value="anaerobic">Anaerobic</option>
+            <option value="facultative">Facultative</option>
+            <option value="__unknown">Unknown (not recorded)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-derived">Derived components</label>
+          <select id="f-derived" class="input">
+            <option value="">Any amount</option>
+            <option value="none">None: every component is from the source</option>
+            <option value="some">Some</option>
+            <option value="half">More than half</option>
+            <option value="all">All of them</option>
+          </select>
+        </div>
+        <div class="field">
+          <button class="btn" type="button" id="clear">Clear every filter</button>
+        </div>
       </div>
     </div>
   </div>
@@ -478,35 +469,35 @@
     ALL = cat.media;
 
     const totals = cat.component_totals;
-    const derived = cat.evidence_classes.find((c) => c.id === 'derived');
-    const nameCls = cat.evidence_classes.find((c) => c.id === 'name');
     // The opening sentence used to read "every one mapped to a BiGG exchange",
     // which was false for 1,582 components and contradicted the Unresolved chip in
     // the same viewport. Every number below is read from the payload, so the hero
     // cannot drift from the evidence bar beside it.
     const xr = cat.exchange_resolution;
-    $('claim').textContent =
-      fmt(cat.count) + ' media, ' + fmt(totals.n_components) + ' components. ' +
-      MDB.withDenominator(xr.n_bigg_exchange, xr.of) +
-      ' reach a BiGG exchange reaction that exists; ' +
-      fmt(xr.n_bigg_shaped_no_such_exchange) +
-      ' carry a BiGG-shaped id naming no BiGG reaction, ' +
-      fmt(xr.n_nonbigg_fallback) + ' a fallback id no BiGG model will accept, ' +
-      'and ' + fmt(xr.n_no_exchange) + ' reach none at all. Of all components, ' +
-      MDB.withDenominator(derived.n, derived.of) +
-      ' are derived and appear in no cited source, and ' +
-      MDB.withDenominator(nameCls.n, nameCls.of) +
-      ' were identified by a name string rather than by chemistry.';
+    // The count and its denominator are one component, so a bare count cannot
+    // be written here by accident. The derived and name-matched shares are not
+    // repeated in this sentence: they are chips in the evidence key beside it,
+    // each with its own denominator, in the same band of the same screen.
+    $('claim').replaceChildren(
+      el('span', { class: 'n', text: fmt(cat.count) }),
+      el('span', { class: 'unit', text: 'media' }),
+      el('span', { class: 'of' }, [
+        el('b', { text: fmt(totals.n_components) }),
+        ' component records. ' + MDB.withDenominator(xr.n_bigg_exchange, xr.of) +
+        ' reach a BiGG exchange reaction that exists; ' +
+        fmt(xr.n_bigg_shaped_no_such_exchange) +
+        ' carry a BiGG-shaped id naming no BiGG reaction, ' +
+        fmt(xr.n_nonbigg_fallback) + ' a fallback id no BiGG model will accept, ' +
+        'and ' + fmt(xr.n_no_exchange) + ' reach none at all.'
+      ]));
 
     $('ev-caption').textContent =
       'Across ' + fmt(totals.n_components) + ' component records in ' + fmt(cat.count) +
-      ' media. The classes are ordered by strength of evidence, strongest first. ' +
-      'Widths are proportional, so the smallest class is a sliver: read the counts.';
+      ' media, strongest evidence first. Widths are proportional, so the smallest ' +
+      'class is a sliver: read the counts.';
     $('ev-bar').appendChild(MDB.evidenceBar(
       cat.evidence_classes.map((c) => c.n)));
     $('ev-key').appendChild(MDB.evidenceKey(
-      cat.evidence_classes.map((c) => c.n), totals.n_components));
-    $('ev-legend').appendChild(MDB.evidenceLegend(
       cat.evidence_classes.map((c) => c.n), totals.n_components));
 
     const stamp = $('build-stamp');
@@ -537,16 +528,15 @@
         'Widen one of them, or clear them all.'
     });
     table.setRows(ALL);
-    const initial = document.querySelector('[data-arrow="' + table.sortState.key + '"]');
-    if (initial) initial.textContent = table.sortState.dir === 1 ? '▲' : '▼';
+    const markSort = (state) => {
+      document.querySelectorAll('[data-arrow]').forEach((a) => a.replaceChildren());
+      const arrow = document.querySelector('[data-arrow="' + state.key + '"]');
+      if (arrow) arrow.appendChild(MDB.sortMark(state.dir));
+    };
+    markSort(table.sortState);
 
     document.querySelectorAll('th.sortable button').forEach((b) => {
-      b.addEventListener('click', () => {
-        const state = table.sortBy(b.dataset.sort);
-        document.querySelectorAll('[data-arrow]').forEach((a) => { a.textContent = ''; });
-        const arrow = document.querySelector('[data-arrow="' + state.key + '"]');
-        if (arrow) arrow.textContent = state.dir === 1 ? '▲' : '▼';
-      });
+      b.addEventListener('click', () => markSort(table.sortBy(b.dataset.sort)));
     });
 
     ['q', 'f-evidence', 'f-source', 'f-category', 'f-oxygen', 'f-derived']
@@ -573,6 +563,23 @@
   }).catch((err) => {
     MDB.noteLibraryUnavailable(err);
     $('resultline').textContent = '';
+    // Every surface on this page reads the same payload, so every one of them
+    // says what it is missing. A bar with no segments, an empty chart frame and
+    // a caption still reading "Reading the library" all read as findings about
+    // the media; none of them is.
+    $('ev-caption').textContent =
+      'The evidence composition is not shown for this release: the payload that ' +
+      'carries the six class counts did not load. The classes are defined on the ' +
+      'methods page.';
+    const notShown = (node, what) => node.replaceChildren(el('p', {
+      class: 'muted', style: 'font-size:var(--t-cap)',
+      text: what + ' is not shown: the payload it reads did not load. That is a ' +
+        'loading failure, not a finding about the library.'
+    }));
+    notShown($('chart-sources'), 'The share of the library each source database holds');
+    notShown($('chart-coverage-bands'), 'The distribution of source coverage');
+    $('chart-coverage').hidden = true;
+    $('chart-coverage').nextElementSibling.hidden = true;
     const box = $('table').closest('.tablewrap');
     box.replaceChildren(el('div', { class: 'state error' }, [
       el('h3', { text: 'The catalogue could not be loaded' }),
@@ -582,7 +589,12 @@
           'media themselves. Reload, or try again shortly.'
       })
     ]));
-    $('claim').textContent = 'The catalogue could not be loaded.';
+    // Absent, not zero: the library is not counted here rather than counted as
+    // nothing, and the figure primitive is given no numeral to render.
+    $('claim').replaceChildren(el('span', { class: 'of' }, [
+      el('span', { class: 'i-null' }), '. The catalogue for this release did not ' +
+      'load, so the size of the library is not stated on this page.'
+    ]));
   });
 })();
 </script>

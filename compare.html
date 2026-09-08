@@ -5,38 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: compare media, compound by compound</title>
 <meta name="description" content="Put two to eight media side by side: pairwise similarity, the compounds they share and the compounds that separate them, with every compound labelled as stated by the source or derived.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310508F'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/instrument.css">
 <link rel="stylesheet" href="assets/media.css">
+<script>
+/* The reader's stored theme, applied before the first paint. A page that has
+   never been told reads the machine setting through the media query instead. */
+(function () {
+  try {
+    var t = localStorage.getItem('mediadb-theme');
+    if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+  } catch (e) { /* storage unavailable */ }
+})();
+</script>
 </head>
 <body>
 <a class="skip" href="#picker">Skip to the medium picker</a>
 
-<nav class="nav"><div class="wrap">
-  <a class="brand" href="index.html"><span class="mark" aria-hidden="true">M</span> MediaDB</a>
-  <div class="navlinks">
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">MediaDB</a>
+  <nav class="navlinks" aria-label="Library">
     <a href="index.html">Explore</a>
     <a href="families.html">Families</a>
     <a href="compare.html" aria-current="page">Compare</a>
     <a href="patterns.html">Patterns</a>
-    <a href="methods.html">Methods &amp; limits</a>
+    <a href="methods.html">Methods</a>
     <a href="API.md">API</a>
-    <a href="https://github.com/omidard/Media" rel="noopener">GitHub</a>
-  </div>
-</div></nav>
+    <a href="https://github.com/omidard/Media" rel="noopener">Source</a>
+  </nav>
+  <button class="themeswap" type="button" id="theme">Dark</button>
+</div></header>
 
 <main id="main">
 
-<header class="masthead"><div class="wrap">
-  <p class="kicker">Compare</p>
-  <h1>Two to eight media, compound by compound.</h1>
-  <p class="lead">See how similar two formulations really are, which compounds separate
-    them, and, for every compound, whether the cited source states it or it is derived.
-    A derived compound shared by two media is not evidence that the two formulations
-    are alike.</p>
-</div></header>
+<section class="libhead"><div class="wrap">
+  <div>
+    <h1>Two to eight media, compound by compound</h1>
+    <p class="sub">See how similar two formulations really are, which compounds separate
+      them, and, for every compound, whether the cited source states it or it is derived.</p>
+  </div>
+  <div class="note">
+    <b>A shared derived compound is not shared evidence.</b>
+    <p>A compound the cited source never states counts towards similarity here the same
+      as one it does. Every figure marks which is which, and the mineral and oxygen base
+      is derived in almost every record.</p>
+  </div>
+</div></section>
 
 <section class="section" id="picker"><div class="wrap">
   <div class="card card-p">

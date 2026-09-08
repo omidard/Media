@@ -409,7 +409,8 @@ const MDB = (function () {
     const total = counts.reduce((a, b) => a + b, 0);
     const pct = sharesOfWhole(counts, total);
     const bar = el('div', {
-      class: 'evbar' + (opts && opts.mini ? ' mini' : ''),
+      class: 'evbar' + (opts && opts.mini ? ' mini' : '') +
+        (opts && opts.draw ? ' draw' : ''),
       role: 'img',
       'aria-label': 'Evidence for ' + fmt(total) + ' components: ' +
         classes.map((c, i) => fmt(counts[i]) + ' ' + c.label.toLowerCase() +
@@ -434,8 +435,12 @@ const MDB = (function () {
     evidenceClasses().forEach((c, i) => {
       const chip = el('span', { class: 'chip ev-' + c.id, title: c.definition });
       chip.appendChild(el('b', { text: c.label }));
-      chip.appendChild(document.createTextNode(' ' +
-        fmt(counts[i]) + ' of ' + fmt(total) + ' (' + pct[i] + ')'));
+      // The numerals go in the data face, so a column of counts lines up and a
+      // count can never be mistaken for part of the class name.
+      chip.appendChild(el('span', {
+        class: 'n',
+        text: fmt(counts[i]) + ' of ' + fmt(total) + ' (' + pct[i] + ')'
+      }));
       key.appendChild(chip);
     });
     return key;
@@ -445,8 +450,10 @@ const MDB = (function () {
     const wrap = el('div', { class: 'evlegend' });
     const pct = sharesOfWhole(counts, total);
     evidenceClasses().forEach((c, i) => {
+      // The swatch takes the bar segment's own fill, from the stylesheet, so a
+      // key and the bar beside it can never disagree about a class's colour.
       wrap.appendChild(el('div', { class: 'evrow' }, [
-        el('span', { class: 'sw s-' + c.id, style: 'background:var(--ev-' + c.id + ')' }),
+        el('span', { class: 'sw s-' + c.id }),
         el('div', {}, [
           el('b', { text: c.label }), document.createTextNode(' '),
           el('span', {
@@ -457,8 +464,6 @@ const MDB = (function () {
         ])
       ]));
     });
-    // the hatched fill cannot come from a single custom property
-    wrap.querySelectorAll('.sw.s-derived').forEach((s) => { s.style.background = ''; });
     return wrap;
   }
 
@@ -628,12 +633,12 @@ const MDB = (function () {
         'aria-current': current ? 'true' : null, text: label,
         'data-page': target
       });
-      pager.appendChild(mk('‹ Previous', page - 1, page === 0));
+      pager.appendChild(mk('Previous', page - 1, page === 0));
       pager.appendChild(el('span', {
         class: 'muted', style: 'font-size:var(--t-cap)',
         text: 'Page ' + fmt(page + 1) + ' of ' + fmt(pages)
       }));
-      pager.appendChild(mk('Next ›', page + 1, page >= pages - 1));
+      pager.appendChild(mk('Next', page + 1, page >= pages - 1));
       pager.querySelectorAll('button[data-page]').forEach((b) => {
         b.addEventListener('click', () => {
           page = Math.max(0, Math.min(pages - 1, Number(b.dataset.page)));
@@ -698,6 +703,10 @@ const MDB = (function () {
     });
     document.body.appendChild(overlay);
     document.body.style.overflow = 'hidden';
+    // The drawer travels in on its own frame, so the transition has a start
+    // state to run from. Everything in it is already laid out and readable
+    // before the frame lands; nothing here gates the record.
+    requestAnimationFrame(() => overlay.classList.add('is-open'));
     const focusTarget = overlay.querySelector('.sheet-close');
     if (focusTarget) focusTarget.focus();
     return overlay;
@@ -866,21 +875,21 @@ const MDB = (function () {
       wrap.appendChild(document.createTextNode(' '));
       wrap.appendChild(el('a', {
         href: 'https://doi.org/' + String(p.doi).replace(/^https?:\/\/doi\.org\//, ''),
-        target: '_blank', rel: 'noopener', text: 'doi ↗'
-      }));
+        target: '_blank', rel: 'noopener', class: 'exlink'
+      }, ['doi', externalMark()]));
     }
     if (p.url) {
       wrap.appendChild(document.createTextNode(' '));
       wrap.appendChild(el('a', {
-        href: p.url, target: '_blank', rel: 'noopener', text: 'source ↗'
-      }));
+        href: p.url, target: '_blank', rel: 'noopener', class: 'exlink'
+      }, ['source', externalMark()]));
     }
     if (p.pmid) {
       wrap.appendChild(document.createTextNode(' '));
       wrap.appendChild(el('a', {
         href: 'https://pubmed.ncbi.nlm.nih.gov/' + p.pmid + '/',
-        target: '_blank', rel: 'noopener', text: 'PubMed ↗'
-      }));
+        target: '_blank', rel: 'noopener', class: 'exlink'
+      }, ['PubMed', externalMark()]));
     }
     return wrap;
   }
@@ -1455,7 +1464,11 @@ const MDB = (function () {
           'ABSENT here rather than empty. Reloading the page may succeed.')
       ]));
     } else {
-      answer.appendChild(el('div', { style: 'margin-top:var(--s3)' }, [evidenceBar(counts)]));
+      // The one authored moment on this site. The bar draws once, left to
+      // right, as the record opens: the counts and the legend under it are
+      // already rendered, so nothing about the record waits on it.
+      answer.appendChild(el('div', { style: 'margin-top:var(--s3)' },
+        [evidenceBar(counts, { draw: true })]));
       answer.appendChild(evidenceLegend(counts, total));
     }
     body.appendChild(answer);
@@ -1664,7 +1677,7 @@ const MDB = (function () {
       document.createTextNode('the data is licensed ' + DATA_LICENCE.short +
         '; attribution required. '),
       el('a', { href: DATA_LICENCE.url, target: '_blank', rel: 'noopener',
-        text: 'terms ↗' })
+        class: 'exlink' }, ['terms', externalMark()])
     ]));
     body.appendChild(provCard);
 
@@ -1701,13 +1714,12 @@ const MDB = (function () {
     });
     actions.appendChild(linkBtn);
     actions.appendChild(el('a', {
-      class: 'btn',
       href: 'https://github.com/omidard/Media/issues/new?labels=curation&title=' +
         encodeURIComponent('[curation] ' + (med.name_display || med.name)) +
         '&body=' + encodeURIComponent('Medium: `' + med.id + '`\nLink: ' +
           location.origin + permalink(med.id) + '\n\nWhat is wrong:\n'),
-      target: '_blank', rel: 'noopener', text: 'Report a problem ↗'
-    }));
+      target: '_blank', rel: 'noopener', class: 'btn exlink'
+    }, ['Report a problem', externalMark()]));
     body.appendChild(actions);
 
     const pre = el('pre', { class: 'cobra' });
@@ -1783,6 +1795,37 @@ const MDB = (function () {
 
   /* ============================== small SVG + tooltip helpers ============== */
   const SVGNS = 'http://www.w3.org/2000/svg';
+
+  /** The two marks this library draws, both authored, both one stroke weight.
+   *  A typed arrow character is not an icon: it takes the reader's text font,
+   *  it is announced by a screen reader as a word, and it sits off the baseline
+   *  of the label beside it. */
+  function icon(path, opts) {
+    const svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 12 12');
+    svg.setAttribute('width', (opts && opts.size) || 10);
+    svg.setAttribute('height', (opts && opts.size) || 10);
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    svg.style.flex = '0 0 auto';
+    const node = document.createElementNS(SVGNS, 'path');
+    node.setAttribute('d', path);
+    node.setAttribute('fill', (opts && opts.fill) || 'currentColor');
+    if (opts && opts.stroke) {
+      node.setAttribute('fill', 'none');
+      node.setAttribute('stroke', 'currentColor');
+      node.setAttribute('stroke-width', '1.4');
+      node.setAttribute('stroke-linecap', 'round');
+      node.setAttribute('stroke-linejoin', 'round');
+    }
+    svg.appendChild(node);
+    return svg;
+  }
+  /** Which way a column is sorted. */
+  const sortMark = (dir) => icon(dir === 1 ? 'M6 3l4 6H2z' : 'M6 9L2 3h8z');
+  /** A link that leaves this site. */
+  const externalMark = () => icon('M4.5 2.5h5v5M9.5 2.5L3 9', { stroke: true });
+
   function svgEl(tag, attrs) {
     const node = document.createElementNS(SVGNS, tag);
     for (const k in (attrs || {})) {
@@ -1792,11 +1835,13 @@ const MDB = (function () {
     return node;
   }
 
-  /** Sequential scale in the single accent hue. Used for similarity heatmaps. */
+  /** Sequential scale in the single accent hue. Used for similarity heatmaps.
+   *  A share of a total is part of the answer, not a status, so it is never
+   *  drawn in a verdict colour: this ramp is the accent family only. */
   function accentRamp(t) {
     t = Math.max(0, Math.min(1, t));
-    const stops = [[246, 249, 247], [214, 233, 226], [151, 200, 183],
-                   [58, 148, 121], [11, 106, 84]];
+    const stops = [[255, 255, 255], [225, 234, 246], [168, 200, 228],
+                   [22, 103, 174], [11, 61, 107]];
     const x = t * (stops.length - 1), i = Math.floor(x), f = x - i;
     const a = stops[i], b = stops[Math.min(i + 1, stops.length - 1)];
     return 'rgb(' + Math.round(a[0] + (b[0] - a[0]) * f) + ',' +
@@ -1836,7 +1881,7 @@ const MDB = (function () {
         const Y = orient === 'left' ? leaf : depthPx - dep;
         d += (p === 0 ? 'M' : 'L') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';
       }
-      g.appendChild(svgEl('path', { d, fill: 'none', stroke: colour || '#c7d4cf',
+      g.appendChild(svgEl('path', { d, fill: 'none', stroke: colour || '#BCC7D3',
                                     'stroke-width': 1 }));
     }
   }
@@ -1876,6 +1921,50 @@ const MDB = (function () {
   }
 
   /* ------------------------------------------------------- page plumbing --- */
+
+  /** The theme control in the header, and the rule under the header.
+   *
+   *  Switching theme is a high-frequency control and gets no animation at all:
+   *  every transition on the page is suppressed for the frame the swap lands
+   *  on, so colours change without a fade. The stored choice is read before
+   *  first paint by a script in each page's head; this only writes it. */
+  const THEME_KEY = 'mediadb-theme';
+  function currentTheme() {
+    const set = document.documentElement.dataset.theme;
+    if (set === 'dark' || set === 'light') return set;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark' : 'light';
+  }
+  function wireTheme() {
+    const button = document.getElementById('theme');
+    if (!button) return;
+    const paint = () => {
+      const next = currentTheme() === 'dark' ? 'light' : 'dark';
+      button.textContent = next === 'dark' ? 'Dark' : 'Light';
+      button.setAttribute('aria-label',
+        next === 'dark' ? 'Switch to the dark theme' : 'Switch to the light theme');
+    };
+    paint();
+    button.addEventListener('click', () => {
+      const next = currentTheme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.classList.add('no-transition');
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* not stored */ }
+      paint();
+      requestAnimationFrame(() => requestAnimationFrame(
+        () => document.documentElement.classList.remove('no-transition')));
+    });
+  }
+  function wireStickyHeader() {
+    const bar = document.querySelector('.topbar');
+    if (!bar) return;
+    const mark = () => bar.classList.toggle('is-stuck', window.scrollY > 4);
+    mark();
+    window.addEventListener('scroll', mark, { passive: true });
+  }
+  wireTheme();
+  wireStickyHeader();
+
   window.addEventListener('popstate', () => {
     const id = new URLSearchParams(location.search).get('medium');
     if (id) openMedium(id, { replace: true });
@@ -1902,7 +1991,8 @@ const MDB = (function () {
     evidenceLegend,
     dominantEvidence, classOfTier, o2Chip, verificationChip, DATA_LICENCE,
     announce, makeTable, openMedium, closeSheet, delegateMediumLinks,
-    downloadText, xrefUrl, svgEl, accentRamp, tipShow, tipHide, drawDendro,
+    downloadText, xrefUrl, svgEl, sortMark, externalMark, accentRamp,
+    tipShow, tipHide, drawDendro,
     clusterOrder,
     get catalog() { return catalog; }
   };
