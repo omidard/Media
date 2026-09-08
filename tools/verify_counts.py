@@ -97,7 +97,90 @@ _CONCENTRATION_BARE = re.compile(
     r"(?:resource's|library's|corpus's)\s+([\d,]+)\s+(?:non-null\s+)?concentration", re.I)
 
 #: "<n> of <m> component(s)" — m is the component denominator.
-_OF_COMPONENTS = re.compile(r"([\d,]{5,})\s+of\s+([\d,]{5,})\s+components?\b", re.I)
+_OF_COMPONENTS = re.compile(
+    r"([\d,]{5,})\s+of\s+([\d,]{5,})\s+components?(?:\s+records?)?\b", re.I)
+
+#: Any "<n> of 665,582", with or without the noun. The rule above needs the word
+#: "components" and README.md's own coverage table does not use it
+#: ("**652,620 of 665,582 (98.1%)**" in a two-column row), so the headline number of
+#: the whole resource sat outside every check in this file. 665,582 IS the component
+#: denominator, so a numerator stated over it is a component statistic whatever the
+#: sentence calls it. Proved by seeding the pre-correction number back into README.md
+#: and watching the rule above stay green.
+_OVER_THE_COMPONENT_DENOMINATOR = re.compile(r"([\d,]{5,})\s+of\s+([\d,]{5,})\b")
+
+#: THE NUMERATOR WAS NEVER CHECKED, AND IT IS THE HEADLINE.
+#:
+#: The denominator check above catches a stale 665,582 and nothing else, so
+#: "652,620 of 665,582 components (98.1%) reach a BiGG exchange that exists" passed
+#: this gate in eight documents for as long as the denominator held, while the
+#: measurement moved to 651,772. It moved because the partition stopped asking
+#: whether the METABOLITE has an extracellular form (a proxy: BiGG carries f_e and
+#: no EX_f_e) and started asking whether BiGG's exchange-reaction list holds the
+#: reaction. A number in the hero sentence of the README, the API page, DESIGN.md,
+#: the client library and the site's own <meta description> is exactly the kind
+#: that goes stale in silence, because nothing recomputes it.
+#:
+#: Same cure as the concentration numerator, one field over: every numerator a
+#: document states over the component denominator must be a value some measurement
+#: in data/index.json actually produces.
+_COMPONENT_MEASUREMENT_BLOCKS = ("exchange_resolution", "component_totals",
+                                 "cross_references", "concentration_provenance",
+                                 "note_coverage", "component_evidence_classes")
+
+#: A number reported in order to CORRECT it is not a claim. assets/media.js explains
+#: the rounding defect by quoting the retracted 664,000, and a rule that cannot tell
+#: a correction from a claim teaches people to delete the rule. Same keyword list
+#: tests/test_claims.py uses for the same reason, and it is deliberately narrow:
+#: a document that simply left an old number in place matches none of these.
+_HISTORICAL = re.compile(
+    r"used to|no longer|was retracted|retracted|earlier release|before this|"
+    r"printed it as|the claim this page exists to correct|understat|overstat", re.I)
+_HISTORICAL_WINDOW = 260
+
+#: The four exchange states as the documents actually word them. These sentences
+#: state a count with no "of <denominator>" beside it, so the numerator rule above
+#: cannot see them at all.
+_EXCHANGE_STATE_SENTENCES = [
+    ("n_bigg_shaped_no_such_exchange",
+     re.compile(r"([\d,]{4,})\s+carry\s+an\s+id\s+of\s+(?:the|that)\s+same[^.]{0,40}?shape",
+                re.I)),
+    ("n_bigg_shaped_no_such_exchange",
+     re.compile(r"([\d,]{4,})\s+carry\s+a\s+BiGG-shaped\s+id", re.I)),
+    ("n_bigg_shaped_no_such_exchange",
+     re.compile(r"([\d,]{4,})\s+of\s+those\s+name\s+no\s+BiGG\s+reaction", re.I)),
+    ("n_nonbigg_fallback",
+     re.compile(r"([\d,]{3,})\s+(?:carry\s+)?a\s+ModelSEED/MetaNetX/KEGG", re.I)),
+    ("n_nonbigg_fallback",
+     re.compile(r"([\d,]{3,})\s+a\s+fallback\s+id", re.I)),
+    ("n_no_exchange",
+     re.compile(r"([\d,]{3,})\s+carry\s+no\s+exchange\s+at\s+all", re.I)),
+    ("n_no_exchange",
+     re.compile(r"([\d,]{3,})\s+reach\s+none(?:\s+at\s+all)?\b", re.I)),
+]
+
+#: The oxygen tallies, which four documents state in prose and the payload measures.
+#: Same class as the exchange states: a bare count with no denominator beside it, in
+#: the field the site itself calls the most consequential bound in an FBA medium, and
+#: it moved once already (439 to 12,365 when the pipeline's facultative default
+#: stopped being published as a curated regime).
+_OXYGEN_SENTENCES = [
+    ("n_media_with_no_recorded_regime",
+     re.compile(r"([\d,]{4,})\s+of\s+[\d,]{4,}\s+(?:media|records)\s+have\s+no\s+oxygen",
+                re.I)),
+    ("n_media_with_no_recorded_regime",
+     re.compile(r"null`?\s+on\s+([\d,]{4,})\s+of\s+[\d,]{4,}\s+records", re.I)),
+    ("n_media_with_no_recorded_regime",
+     re.compile(r"all\s+([\d,]{4,})\s+media\s+with\s+no\s+regime", re.I)),
+    ("n_no_source_statement",
+     re.compile(r"([\d,]{4,})\s+(?:of\s+them\s+)?(?:still\s+)?export\s+EX_o2_e", re.I)),
+    # {3,} not {4,}: the number this sentence used to hold is 439, and a rule that
+    # cannot express the value it is guarding against guards nothing.
+    ("n_no_source_statement",
+     re.compile(r"([\d,]{3,})\s+records\s+are\s+in\s+that\s+state", re.I)),
+    ("n_records_carrying_a_simulation_default",
+     re.compile(r"`?facultative`?\s+on\s+([\d,]{4,})\s+of\s+them", re.I)),
+]
 
 #: A count in the range the five literature populations live in.
 _LIT_NUMBER = re.compile(r"\b1,?[34]\d\d\b")
@@ -210,6 +293,125 @@ def check_stated_statistics(repo, data_dir, add):
         not bad_comp, n_components, "; ".join(bad_comp) or "all agree",
         "'N of M components' is how 'every component carries a cross-reference' "
         "survived: the exceptions had no denominator to be counted against")
+
+    # ---- component numerators, and the four exchange states -------------------------
+    component_measurements = {}
+    for block in _COMPONENT_MEASUREMENT_BLOCKS:
+        for key, value in (idx.get(block) or {}).items():
+            if isinstance(value, int):
+                component_measurements.setdefault(value, []).append(
+                    "%s.%s" % (block, key))
+    for value in ((idx.get("concentration_provenance") or {})
+                  .get("by_source_db") or {}).values():
+        if isinstance(value, int):
+            component_measurements.setdefault(value, []).append(
+                "concentration_provenance.by_source_db")
+    for value in (idx.get("component_evidence_tiers") or {}).values():
+        if isinstance(value, int):
+            component_measurements.setdefault(value, []).append(
+                "component_evidence_tiers")
+
+    bad_num_comp = []
+    for rel in STATED_DOCS:
+        text = _read(repo, rel)
+        if text is None:
+            continue
+        for m in _OVER_THE_COMPONENT_DENOMINATOR.finditer(text):
+            num = _n(m.group(1))
+            if _n(m.group(2)) != n_components:
+                continue                 # not a statistic over the components
+            lo = max(0, m.start() - _HISTORICAL_WINDOW)
+            if _HISTORICAL.search(text[lo:m.end() + _HISTORICAL_WINDOW]):
+                continue                 # quoted in order to be corrected
+            if num not in component_measurements:
+                bad_num_comp.append(
+                    "%s:%d states %s of %s components, which no measurement in "
+                    "data/index.json produces"
+                    % (rel, _line_of(text, m.start()), "{:,}".format(num),
+                       "{:,}".format(n_components)))
+    add("every stated component numerator is a measured one",
+        not bad_num_comp, "a value in %s" % ", ".join(_COMPONENT_MEASUREMENT_BLOCKS),
+        "; ".join(bad_num_comp) or "all measured",
+        "a stale 652,620 sat in the hero sentence of eight documents while the "
+        "measurement was 651,772; the denominator check cannot see a numerator")
+
+    xr = idx.get("exchange_resolution") or {}
+    bad_state = []
+    for rel in STATED_DOCS:
+        text = _read(repo, rel)
+        if text is None:
+            continue
+        for key, rx in _EXCHANGE_STATE_SENTENCES:
+            measured = xr.get(key)
+            if measured is None:
+                continue
+            for m in rx.finditer(text):
+                if _n(m.group(1)) != measured:
+                    bad_state.append(
+                        "%s:%d states %s where %s is %s"
+                        % (rel, _line_of(text, m.start()),
+                           "{:,}".format(_n(m.group(1))), key,
+                           "{:,}".format(measured)))
+    # ---- the oxygen tallies ---------------------------------------------------------
+    # From data/web/catalog.json, which is where oxygen_basis and by_oxygen are
+    # measured; data/index.json carries neither. Reading them off `idx` produced an
+    # empty measurement set and a check that PASSED by comparing nothing, which is
+    # the failure this whole file exists to prevent, so an absent payload is a
+    # failed check here rather than a quiet one.
+    cat = _load(os.path.join(data_dir, "web", "catalog.json"))
+    if cat is None:
+        add("data/web/catalog.json is present for the oxygen tallies", False,
+            "present", "missing",
+            "the documents state oxygen counts and there is nothing to check them "
+            "against; run `make derived`")
+        cat = {}
+    ox_basis = cat.get("oxygen_basis") or {}
+    by_ox = cat.get("by_oxygen") or {}
+    n_unknown = by_ox.get("None", by_ox.get("null"))
+    if not ox_basis or n_unknown is None:
+        add("the oxygen tallies are published for the documents to be checked against",
+            False, "oxygen_basis + by_oxygen in data/web/catalog.json",
+            "oxygen_basis=%r by_oxygen[None]=%r" % (bool(ox_basis), n_unknown),
+            "without them every oxygen sentence in the documents is unchecked and "
+            "this gate reports agreement over an empty set")
+    oxygen_measured = {
+        "n_media_with_no_recorded_regime": n_unknown,
+        "n_no_source_statement": ox_basis.get("n_no_source_statement"),
+        # Every record whose exported EX_o2_e was written from a facultative
+        # convention: the ones with no stated regime, plus the ones that state it.
+        "n_records_carrying_a_simulation_default": (
+            None if ox_basis.get("n_no_source_statement") is None
+            or by_ox.get("facultative") is None
+            else ox_basis["n_no_source_statement"] + by_ox["facultative"]),
+    }
+    bad_ox = []
+    for rel in STATED_DOCS:
+        text = _read(repo, rel)
+        if text is None:
+            continue
+        for key, rx in _OXYGEN_SENTENCES:
+            measured = oxygen_measured.get(key)
+            if measured is None:
+                continue
+            for m in rx.finditer(text):
+                if _n(m.group(1)) != measured:
+                    bad_ox.append("%s:%d states %s where %s is %s"
+                                  % (rel, _line_of(text, m.start()),
+                                     "{:,}".format(_n(m.group(1))), key,
+                                     "{:,}".format(measured)))
+    add("every stated oxygen tally equals its measurement",
+        not bad_ox, {k: v for k, v in oxygen_measured.items() if v is not None},
+        "; ".join(bad_ox) or "all agree",
+        "methods.html once read 'the oxygen regime is not recorded for 439 of "
+        "13,515 media' while 12,365 had none, understating it by a factor of 28")
+
+    add("every stated exchange-state count equals its measurement",
+        not bad_state, {k: xr.get(k) for k in
+                        ("n_bigg_exchange", "n_bigg_shaped_no_such_exchange",
+                         "n_nonbigg_fallback", "n_no_exchange")},
+        "; ".join(bad_state) or "all agree",
+        "the three states a model silently drops are stated as bare counts with "
+        "no denominator beside them, so no rule in this file could reach them")
 
     # ---- the five literature populations -------------------------------------------
     pops = idx.get("literature_populations") or {}

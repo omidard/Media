@@ -67,6 +67,18 @@ def test_the_authoritative_count_is_computed_from_the_corpus(results):
     "every stated concentration numerator is a measured one",
     "every stated concentration percentage is the measured one",
     "every stated component denominator is the measured one",
+    # The denominator rule cannot see a numerator, and the numerator is the headline.
+    # "652,620 of 665,582 components (98.1%) reach a BiGG exchange that exists" sat in
+    # README.md, API.md, DESIGN.md, openapi.yaml, index.html's <meta description>, the
+    # client library and the deploy-surface manifest while the measurement had moved
+    # to 651,772, and openapi.yaml still carried the retracted 664,000. The three
+    # states a model silently drops, and the oxygen tallies, are stated as bare counts
+    # with no denominator beside them, so no earlier rule in verify_counts could
+    # reach them at all.
+    "every stated component numerator is a measured one",
+    "every stated exchange-state count equals its measurement",
+    "every stated oxygen tally equals its measurement",
+    "the oxygen tallies are published for the documents to be checked against",
     "every stated literature count names the population it counts",
     "every stated literature count equals its population's measurement",
     "data/index.json field_renames[].measured is populated",

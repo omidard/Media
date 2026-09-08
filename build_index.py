@@ -37,7 +37,7 @@ REPO = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(REPO, "tools"))
 
 from build_bigg_exchange_ids import exchange_state   # noqa: E402
-from web_payload import oxygen_recorded   # noqa: E402
+from web_payload import TIER_TO_CLASS, oxygen_recorded   # noqa: E402
 from model_input import Degeneracy   # noqa: E402
 from web_payload import FIELD_RENAMES   # noqa: E402
 from dataset_license import DATASET_LICENSE   # noqa: E402
@@ -234,6 +234,15 @@ def build(media_dir, out_dir):
     # rather than trusted from the record's counters, then asserted against them.
     exch = Counter()
     xrefs = Counter()
+    # The prose notes a component points at, counted rather than typed.
+    # API.md and openapi.yaml both stated "113 distinct notes over 621,274
+    # components" and "present on 654,067 of 665,582 components" with no
+    # generator anywhere, which is the shape every stale number in this
+    # repository has had. Measuring them here puts them under
+    # tools/verify_counts.py like the rest.
+    notes = Counter()
+    evidence_classes = Counter()
+    mapping_note_ids = set()
     n_components_seen = 0
     # Where the library's quantitative content actually comes from. The documents
     # state this as prose ("8,397 of N concentration values"); N is measured here so
@@ -266,6 +275,7 @@ def build(media_dir, out_dir):
         quant = d.get("quantitation") or {}
         for t, n in (d.get("tier_counts") or {}).items():
             tier_totals[t] += n
+            evidence_classes[TIER_TO_CLASS[t]] += n
         comp_totals["n_components"] += d.get("n_components") or 0
         comp_totals["n_observed"] += d.get("n_observed") or 0
         comp_totals["n_derived"] += d.get("n_derived") or 0
@@ -293,6 +303,11 @@ def build(media_dir, out_dir):
                 xrefs["n_components_with_a_cross_reference"] += 1
             else:
                 xrefs["n_components_with_none"] += 1
+            if c.get("mapping_note_id"):
+                notes["n_components_with_a_mapping_note"] += 1
+                mapping_note_ids.add(c["mapping_note_id"])
+            if c.get("xref_note_id"):
+                notes["n_components_with_an_xref_note"] += 1
             state = exchange_state(c)
             if state == "n_no_exchange":
                 n_none += 1
@@ -458,9 +473,10 @@ def build(media_dir, out_dir):
             definition=(
                 "Where each component's exchange id landed, over the whole "
                 "library, in four states. n_bigg_exchange is a reaction BiGG has: "
-                "the id is EX_<met>_e and <met> carries an extracellular form in "
-                "the BiGG namespace. n_bigg_shaped_no_such_exchange has that same "
-                "shape and names no BiGG reaction, so no model has it and the "
+                "the id is in BiGG's own exchange-reaction list. That list is "
+                "the test, not the metabolite's compartments: f_e exists in "
+                "BiGG and EX_f_e does not. n_bigg_shaped_no_such_exchange has "
+                "the EX_<met>_e shape and names no BiGG reaction, so no model has it and the "
                 "documented adoption path drops it silently. n_nonbigg_fallback "
                 "is a ModelSEED/MetaNetX/KEGG id in exchange position that no "
                 "BiGG model will accept (the component's own mapping_note says "
@@ -476,6 +492,28 @@ def build(media_dir, out_dir):
                     pct=("%.2f%%" % (100.0 * xrefs["n_components_with_none"]
                                      / n_components_seen)) if n_components_seen
                         else "no components to divide by"))),
+        # The six evidence CLASSES, not only the twelve tiers. README.md's own
+        # evidence table states the class counts (3,610 identifier-verified,
+        # 327,218 name-matched, 102,294 class-or-assertion) and nothing measured
+        # them into a payload, so tools/verify_counts.py had no value to check them
+        # against. The mapping is web_payload.TIER_TO_CLASS, the single definition
+        # the browser, the legend and methods.html all read.
+        "component_evidence_classes": dict(
+            evidence_classes, of=n_components_seen,
+            definition=(
+                "The twelve evidence tiers grouped into the six classes the browser "
+                "renders, by tools/web_payload.TIER_TO_CLASS. The six partition "
+                "n_components; the ordering is the trust ordering, structure first.")),
+        "note_coverage": dict(
+            notes, n_distinct_mapping_notes=len(mapping_note_ids),
+            of=n_components_seen,
+            definition=(
+                "How many components point at a prose note in data/refs.json. "
+                "mapping_note_id says why a mapping needs a warning; xref_note_id "
+                "carries the sentence that the cross-references describe the BiGG "
+                "id that was chosen and were not used to choose it. Both are "
+                "written by 60_dedupe_references, so both are zero in a tree "
+                "whose corpus has not been through it.")),
         "concentration_provenance": concentration_provenance,
         "literature_populations": literature_populations(lit_meta, len(rows)),
         "model_input_degeneracy": degen,
@@ -519,9 +557,8 @@ def build(media_dir, out_dir):
                                   .format(n=exch["n_nonbigg_fallback"],
                                           of=n_components_seen),
             "n_bigg_shaped_no_such_exchange":
-                "components whose exchange id has the EX_<met>_e shape but names no "
-                "reaction in BiGG, because the metabolite has no extracellular form "
-                "there. No model has the reaction, so the documented adoption path "
+                "components whose exchange id has the EX_<met>_e shape but is not in "
+                "BiGG's exchange-reaction list. No model has the reaction, so the documented adoption path "
                 "drops it without a word. {n:,} of {of:,} library-wide; the largest "
                 "is EX_choles_e, where BiGG carries choles_c only and cholesterol's "
                 "exchange is EX_chsterol_e."
