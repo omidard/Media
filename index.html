@@ -493,8 +493,7 @@
 
     $('ev-caption').textContent =
       'Across ' + fmt(totals.n_components) + ' component records in ' + fmt(cat.count) +
-      ' media, strongest evidence first. Widths are proportional, so the smallest ' +
-      'class is a sliver: read the counts.';
+      ' media, strongest evidence first. Widths are proportional: read the counts.';
     $('ev-bar').appendChild(MDB.evidenceBar(
       cat.evidence_classes.map((c) => c.n)));
     $('ev-key').appendChild(MDB.evidenceKey(
@@ -568,13 +567,12 @@
     // a caption still reading "Reading the library" all read as findings about
     // the media; none of them is.
     $('ev-caption').textContent =
-      'The evidence composition is not shown for this release: the payload that ' +
-      'carries the six class counts did not load. The classes are defined on the ' +
-      'methods page.';
+      'The evidence composition is not shown for this release: the class counts did ' +
+      'not load. The six classes are defined on the methods page.';
     const notShown = (node, what) => node.replaceChildren(el('p', {
       class: 'muted', style: 'font-size:var(--t-cap)',
-      text: what + ' is not shown: the payload it reads did not load. That is a ' +
-        'loading failure, not a finding about the library.'
+      text: what + ' is not shown for this release: the figures did not load. ' +
+        'That is a loading condition, not a finding about the library.'
     }));
     notShown($('chart-sources'), 'The share of the library each source database holds');
     notShown($('chart-coverage-bands'), 'The distribution of source coverage');

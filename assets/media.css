@@ -132,10 +132,11 @@ a:hover{text-decoration-color:currentColor}
    two-line display headline, and no lead paragraph between the reader and
    the search control.                                                     */
 .libhead{background:var(--card);border-bottom:1px solid var(--line);
-  padding:var(--s5) 0}
+  padding:var(--s4) 0}
+@media(min-width:960px){.libhead{padding:var(--s5) 0}}
 .libhead .wrap{display:grid;gap:var(--s4) var(--s6);align-items:start;
   grid-template-columns:minmax(0,1fr)}
-@media(min-width:1080px){
+@media(min-width:960px){
   .libhead .wrap{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}
 }
 .libhead h1{font-size:var(--t-2xl);font-weight:700;color:var(--ink);
@@ -528,7 +529,6 @@ details.disclosure>div{padding:0 var(--s4) var(--s4)}
   table.grid thead th{position:static}
   .card-p{padding:var(--s4)}
   .searchpanel{padding:var(--s4)}
-  .libhead{padding:var(--s4) 0}
 }
 
 @media print{
