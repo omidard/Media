@@ -133,10 +133,10 @@
       });
       body.appendChild(el('tr', {}, [
         el('td', {}, [link, el('div', { class: 'rowmeta',
-          text: fmt(f.n_members) + ' variants, ' +
+          text: MDB.plural(f.n_members, 'variant') + ', ' +
             (f.n_distinct_compositions === null
               ? 'compositions not compared'
-              : fmt(f.n_distinct_compositions) + ' distinct compositions') })]),
+              : MDB.plural(f.n_distinct_compositions, 'distinct composition')) })]),
         el('td', { class: 'opt tnum', text: fmt(f.n_members) }),
         el('td', {
           class: 'opt tnum',
@@ -161,11 +161,12 @@
     head.appendChild(el('h2', { text: f.label || f.id }));
     head.appendChild(el('p', {
       style: 'margin-top:var(--s2)',
-      text: fmt(f.n_members) + ' variants of this base medium, out of ' +
+      text: MDB.plural(f.n_members, 'variant') + ' of this base medium, out of ' +
         fmt(f.n_members_of) + ' media in the library' +
         (f.n_distinct_compositions === null ? '.' :
-          ', holding ' + fmt(f.n_distinct_compositions) +
-          ' distinct component compositions between them.')
+          ', holding ' + MDB.plural(f.n_distinct_compositions,
+            'distinct component composition') +
+          (f.n_members === 1 ? '.' : ' between them.'))
     }));
     head.appendChild(el('p', {
       class: 'muted', style: 'font-size:var(--t-sm);margin-top:var(--s2)',
@@ -226,7 +227,8 @@
       }));
       groups.appendChild(el('p', {
         style: 'margin-top:var(--s1)',
-        text: shared.length + ' group(s) of variants in this family carry the same ' +
+        text: MDB.plural(shared.length, 'group') + ' of variants in this family ' +
+          (shared.length === 1 ? 'carries' : 'carry') + ' the same ' +
           'components, bounds and quantities as each other. The difference their names ' +
           'declare is not present in their compositions:'
       }));
@@ -282,7 +284,8 @@
     });
 
     box.appendChild(el('div', { style: 'margin-top:var(--s4)' }, [
-      el('h3', { text: 'The ' + fmt(f.n_members) + ' variants' }),
+      el('h3', { text: f.n_members === 1
+        ? 'The one variant' : 'The ' + fmt(f.n_members) + ' variants' }),
       el('p', {
         class: 'muted', style: 'font-size:var(--t-sm);margin:var(--s2) 0',
         text: 'Each row shows only what the record itself records as different. ' +
@@ -334,6 +337,13 @@
     $('fam-q').addEventListener('input', (e) => drawList(e.target.value));
     const wanted = new URLSearchParams(location.search).get('family');
     if (wanted) select(wanted, false);
+    // openMedium() writes ?medium=<id> into the address bar on every page. Only
+    // index.html read it back, so the URL this page itself had just written
+    // restored no record on reload, on a bookmark, or when copied out of the
+    // address bar. `replace: true` matches index.html: the restore must not push
+    // a second history entry over the one the reader arrived on.
+    const wantedMedium = new URLSearchParams(location.search).get('medium');
+    if (wantedMedium) MDB.openMedium(wantedMedium, { replace: true });
     if (window.matchMedia('(min-width:1080px)').matches) {
       $('layout').style.gridTemplateColumns = 'minmax(0,.8fr) minmax(0,1.2fr)';
     }

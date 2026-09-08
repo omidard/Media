@@ -188,7 +188,17 @@
     SEL.push(id);
     sync();
   }
-  function remove(id) { SEL = SEL.filter((x) => x !== id); sync(); }
+  // One chip, one entry. `filter(x !== id)` removed EVERY copy, so a chip whose
+  // own label said "Remove <name> from the comparison" took the selection from
+  // eight to six. Nothing can put a duplicate into SEL any more (add() refuses
+  // one and the ?ids= parse deduplicates), and removing by index keeps the
+  // control honest if that ever changes.
+  function remove(id) {
+    const at = SEL.indexOf(id);
+    if (at < 0) return;
+    SEL.splice(at, 1);
+    sync();
+  }
 
   function sync() {
     const chips = $('chips');
@@ -281,7 +291,7 @@
       figure(fmt(core.length), 'present in every one',
         MDB.share(core.length, union.size) + ' of the union'),
       figure(jn ? (jsum / jn).toFixed(2) : 'not computed', 'mean pairwise similarity',
-        'Jaccard, over ' + fmt(jn) + ' pairs'));
+        'Jaccard, over ' + MDB.plural(jn, 'pair')));
 
     $('status').textContent = 'Comparing ' + fmt(N) + ' media: ' + fmt(union.size) +
       ' distinct compounds, ' + fmt(core.length) + ' present in all of them.';
@@ -521,21 +531,53 @@
 
     const wanted = new URLSearchParams(location.search).get('ids');
     if (wanted) {
+      // Deduplicate BEFORE the cap. This list used to be filtered only for
+      // membership, so eight copies of one identifier rendered "Comparing 8
+      // media" with "1.00 mean pairwise similarity, over 28 pairs" — a statistic
+      // that cannot be anything but 1.00, presented as a measurement. A single
+      // repeat in a mixed list was worse, because every number stayed plausible:
+      // the core was an intersection over 7 media reported as 8, the 21 real
+      // pairs were reported as 28, and the repeat consumed one of the eight slots
+      // so a real medium was dropped in silence. add() has always refused a
+      // duplicate on the click path; this is the same rule for the link path.
       const asked = wanted.split(',').filter(Boolean);
-      const known = asked.filter((id) => rowOf(id));
-      SEL = known.slice(0, MAX_MEDIA);
-      if (known.length < asked.length) {
-        $('q-note').textContent = fmt(asked.length - known.length) + ' of the ' +
-          fmt(asked.length) + ' identifiers in this link are not served and were dropped: ' +
-          asked.filter((id) => !rowOf(id)).join(', ') + '.';
-      } else if (asked.length > MAX_MEDIA) {
-        $('q-note').textContent = 'This link asked for ' + fmt(asked.length) +
-          ' media; showing the first ' + MAX_MEDIA + '.';
+      const served = asked.filter((id) => rowOf(id));
+      const uniq = [];
+      served.forEach((id) => { if (uniq.indexOf(id) < 0) uniq.push(id); });
+      SEL = uniq.slice(0, MAX_MEDIA);
+      const unserved = asked.filter((id) => !rowOf(id));
+      const repeats = served.length - uniq.length;
+      const overCap = uniq.length - SEL.length;
+      // One sentence naming every reduction. This was an if / else-if chain, so
+      // an unserved id hid the over-cap message and both hid the repeats.
+      const parts = [];
+      if (unserved.length) {
+        parts.push(MDB.plural(unserved.length, 'identifier') + ' of the ' +
+          fmt(asked.length) + ' in this link ' +
+          (unserved.length === 1 ? 'is' : 'are') + ' not served and ' +
+          (unserved.length === 1 ? 'was' : 'were') + ' dropped: ' +
+          unserved.join(', '));
       }
+      if (repeats) {
+        parts.push(MDB.plural(repeats, 'identifier') + ' of the ' + fmt(asked.length) +
+          ' repeated one already in the list and ' +
+          (repeats === 1 ? 'was' : 'were') + ' counted once');
+      }
+      if (overCap) {
+        parts.push(MDB.plural(overCap, 'identifier') + ' of the ' + fmt(asked.length) +
+          ' fell beyond the ' + MAX_MEDIA + '-medium limit and ' +
+          (overCap === 1 ? 'is' : 'are') + ' not shown');
+      }
+      $('q-note').textContent = parts.length ? parts.join('. ') + '.' : '';
     } else {
       SEL = PRESETS[0].ids.filter((id) => rowOf(id));
     }
     sync();
+    // openMedium() writes ?medium=<id> into the address bar here too, and this
+    // page never read it back, so reloading the URL it had just written restored
+    // no record.
+    const wantedMedium = new URLSearchParams(location.search).get('medium');
+    if (wantedMedium) MDB.openMedium(wantedMedium, { replace: true });
   }).catch((err) => {
     $('status').textContent = 'The catalogue could not be loaded (' +
       (err.message || err.kind) + '). Reload the page.';

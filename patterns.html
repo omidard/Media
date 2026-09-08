@@ -134,17 +134,59 @@
     return s.length > n ? s.slice(0, n - 1) + '…' : s;
   }
 
+  /** A heatmap whose frame is sized to its labels, not the other way round.
+   *
+   *  The frame was `hx + C*cellW + 10` wide and the viewBox was set to match,
+   *  while every column label is anchored at the CENTRE of its column and, rotated
+   *  -45 degrees, projects len*cos(45) further right than its anchor. The last
+   *  anchor sits cellW/2 + 10 from the right edge, so the rightmost labels always
+   *  ran past the viewBox and were clipped by the SVG's own overflow: "DSMZ
+   *  MediaDive (n=3,148)" rendered as "DSMZ MediaDive (n=3,14" and "Classic and
+   *  standard fo... (n=297)" as "Classic an". Nothing about it depended on the
+   *  viewport — .viz svg has no width:100%, so the clip was identical at 390 and
+   *  at 1440 — and it happened in all three groupings, including one whose frame
+   *  was 510px wide inside an 1100px card. The half that got amputated is the
+   *  count, which is the half a reader needs.
+   *
+   *  The labels are therefore measured first and the frame sized to them. */
   function heatmap(svg, o) {
     const R = o.rows.length, C = o.cols.length;
-    const hx = o.rowDendroW + o.rowLabelW, hy = o.colLabelH + o.colDendroH;
-    const W = hx + C * o.cellW + 10, H = hy + R * o.cellH + 6;
-    svg.setAttribute('width', W); svg.setAttribute('height', H);
-    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    const hx = o.rowDendroW + o.rowLabelW;
+    const COS = Math.SQRT1_2, FONT = 13, BASE_Y = 8;
     svg.replaceChildren();
     const root = svgEl('g');
     svg.appendChild(root);
+
+    const colNodes = o.cols.map((c, j) => {
+      const t = svgEl('text', { 'font-size': FONT, fill: '#253430',
+        'text-anchor': 'start' });
+      t.textContent = o.colText(c, j);
+      root.appendChild(t);
+      return t;
+    });
+    // getComputedTextLength() returns 0 for a node that is not laid out (a hidden
+    // panel, a detached document), and sizing a frame to zero would reintroduce
+    // the clip silently. Fall back to a per-character estimate instead.
+    const lens = colNodes.map((t) => {
+      let n = 0;
+      try { n = t.getComputedTextLength(); } catch (e) { n = 0; }
+      return n > 0 ? n : t.textContent.length * 7.2;
+    });
+    const longest = lens.length ? Math.max.apply(null, lens) : 0;
+    const anchorX = (j) => hx + j * o.cellW + o.cellW / 2;
+    const reach = lens.reduce((m, len, j) => Math.max(m, anchorX(j) + len * COS), 0);
+    // The band above the grid holds the label's LENGTH and its glyph height, both
+    // projected through the same 45 degrees: a budget of length alone left the
+    // ascenders of the longest label 3px above the frame.
+    const colLabelH = Math.ceil(longest * COS + FONT * COS) + BASE_Y + 6;
+    const hy = colLabelH + o.colDendroH;
+    const W = Math.ceil(Math.max(hx + C * o.cellW + 10, reach + 10));
+    const H = hy + R * o.cellH + 6;
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
     if (o.colDendro) {
-      const g = svgEl('g', { transform: 'translate(0,' + o.colLabelH + ')' });
+      const g = svgEl('g', { transform: 'translate(0,' + colLabelH + ')' });
       root.appendChild(g);
       MDB.drawDendro(g, o.colDendro, 'top', o.cellW, hx, o.colDendroH, '#c7d4cf');
     }
@@ -153,13 +195,12 @@
       root.appendChild(g);
       MDB.drawDendro(g, o.rowDendro, 'left', o.cellH, hy, o.rowDendroW, '#c7d4cf');
     }
-    o.cols.forEach((c, j) => {
-      const x = hx + j * o.cellW + o.cellW / 2;
-      const t = svgEl('text', { x, y: o.colLabelH - 8,
-        transform: 'rotate(-45 ' + x + ' ' + (o.colLabelH - 8) + ')',
-        'font-size': 13, fill: '#253430', 'text-anchor': 'start' });
-      t.textContent = o.colText(c, j);
-      root.appendChild(t);
+    colNodes.forEach((t, j) => {
+      const x = anchorX(j), y = colLabelH - BASE_Y;
+      t.setAttribute('x', x);
+      t.setAttribute('y', y);
+      t.setAttribute('transform', 'rotate(-45 ' + x + ' ' + y + ')');
+      root.appendChild(t);      // move above the dendrogram in paint order
     });
     o.rows.forEach((r, i) => {
       const y = hy + i * o.cellH + o.cellH / 2;
@@ -190,7 +231,7 @@
     heatmap($('cg-svg'), {
       rows: v.rows, cols: v.cols, matrix: v.matrix,
       rowDendro: v.row_dendro, colDendro: v.col_dendro,
-      cellW, cellH: 17, rowLabelW: 220, colLabelH: 210, rowDendroW: 70, colDendroH: 56,
+      cellW, cellH: 17, rowLabelW: 220, rowDendroW: 70, colDendroH: 56,
       colText: (c) => shortLabel(c, 24) + ' (n=' + fmt(c.n) + ')',
       rowText: (r) => shortLabel(r, 26),
       tip: (i, j) => label(v.rows[i]) + ' [' + v.rows[i].exchange + '] is in ' +
@@ -250,7 +291,7 @@
     const cell = Math.max(13, Math.min(18, 760 / L.length));
     heatmap($('co-svg'), {
       rows: L, cols: L, matrix: d.matrix, rowDendro: null, colDendro: d.dendro,
-      cellW: cell, cellH: cell, rowLabelW: 210, colLabelH: 200,
+      cellW: cell, cellH: cell, rowLabelW: 210,
       rowDendroW: 10, colDendroH: 58,
       colText: (c) => shortLabel(c, 22),
       rowText: (r) => shortLabel(r, 24),

@@ -86,13 +86,21 @@
     only the first is usable by a model.</p>
   <div class="barlist" id="exchange-bands" style="margin-top:var(--s3)"></div>
   <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s3)">
-    Neither of the two failing ids is a near miss. <code>EX_cpd15137_e</code> names a
-    real ModelSEED compound that no BiGG model has a reaction for.
-    <code>EX_choles_e</code> is shaped like a BiGG exchange and is not one: BiGG carries
-    cholesterol as <code>choles_c</code> only, with no extracellular form, and the
-    exchange that does exist is <code>EX_chsterol_e</code>. Both are skipped by the
-    copy-to-COBRApy block, and both are dropped in silence by
-    <code>model.medium = {…}</code>, because the reaction is in no model.
+    Which state an id is in is decided by membership of BiGG's own exchange-reaction
+    list, current names and retired ones together. It is not decided by the
+    metabolite's compartments, and the difference is not academic: BiGG carries
+    <code>f_e</code> (fluoride) and carries no <code>EX_f_e</code> reaction, so asking
+    the metabolite published 848 components in 740 media as usable that no model will
+    accept, 589 of them fluoride.
+  </p>
+  <p class="muted" style="font-size:var(--t-sm);margin-top:var(--s2)">
+    The failing ids are not near misses. <code>EX_cpd15137_e</code> names a real
+    ModelSEED compound that no BiGG model has a reaction for. <code>EX_choles_e</code>,
+    the largest of them, is shaped like a BiGG exchange and is not one: BiGG carries
+    cholesterol as <code>choles_c</code> only, and the exchange that does exist is
+    <code>EX_chsterol_e</code>. All of them are skipped by the copy-to-COBRApy block,
+    and all of them are dropped in silence by <code>model.medium = {…}</code>, because
+    the reaction is in no model.
   </p>
 
   <h2 id="coverage" style="margin-top:var(--s7)">What each coverage fraction divides by</h2>
@@ -294,8 +302,20 @@
         MDB.share(totals.n_sourced, totals.n_components) + ' of components'),
       figure(fmt(totals.n_derived), 'derived',
         MDB.share(totals.n_derived, totals.n_components) + ' of components'));
-    $('release-stamp').textContent = 'Release built ' + cat.built_utc.slice(0, 10) +
-      (cat.git_head ? ' from commit ' + cat.git_head.slice(0, 10) : '') + '.';
+    // The digest identifies these bytes, so it is what a citation quotes. The
+    // recompute command comes from the payload and is offered only when the
+    // payload publishes one: the earlier fallback sentence pointed the reader at
+    // a repository path, which is not a route this site asks anyone to take and
+    // which the rendered-text sweep rejects.
+    $('release-stamp').textContent = cat.corpus_sha256
+      ? 'Release built ' + cat.built_utc.slice(0, 10) + ', corpus ' +
+        cat.corpus_sha256 + '.' +
+        (cat.corpus_sha256_recompute
+          ? ' Recompute it from a checkout: ' + cat.corpus_sha256_recompute + '.'
+          : '')
+      : 'Release built ' + cat.built_utc.slice(0, 10) +
+        '. This release publishes no corpus digest, so there is no identifier ' +
+        'here that names these bytes. Cite the build date and the record count.';
 
     const counts = cat.evidence_classes.map((c) => c.n);
     $('ev-bar').appendChild(MDB.evidenceBar(counts));

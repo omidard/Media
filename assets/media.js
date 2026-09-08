@@ -55,6 +55,36 @@ const MDB = (function () {
       ' (' + share(n, of) + ')';
   };
 
+  /** Percentages for parts of ONE whole, so that they sum to exactly 100%.
+   *
+   *  `share()` picks its precision per value (one decimal below 10%, none at or
+   *  above), which is right for a lone ratio and wrong for a partition printed one
+   *  part at a time: "4 of 41 components (9.8%) are stated by the cited source"
+   *  beside "37 of 41 components (90%) are derived" adds to 99.8% on 600 records,
+   *  and the six-class evidence legend summed to 100.5% on 3,883 of them. Largest
+   *  remainder at ONE precision, chosen as the coarsest at which no non-zero part
+   *  rounds away — a component that exists never prints as 0%. */
+  const sharesOfWhole = (counts, of) => {
+    if (!of || counts.some((n) => n === null || n === undefined)) {
+      return counts.map(() => 'not computed');
+    }
+    let d = 1;
+    while (d < 4 && counts.some((n) => n > 0 && (100 * n / of) < Math.pow(10, -d) / 2)) d++;
+    const unit = Math.pow(10, d);                 // whole units of 10^-d percent
+    const exact = counts.map((n) => 100 * n * unit / of);
+    const parts = exact.map(Math.floor);
+    let rest = Math.round(100 * unit) - parts.reduce((a, b) => a + b, 0);
+    exact.map((v, i) => [v - parts[i], i])
+      .sort((a, b) => b[0] - a[0])
+      .forEach(([, i]) => { if (rest > 0) { parts[i]++; rest--; } });
+    return parts.map((p) => (p / unit).toFixed(d) + '%');
+  };
+
+  /** A count with its noun in agreement. "1 ingredient(s)", "over 1 pairs" and
+   *  "The 1 variants" were three of seven sentences the pages left unfinished. */
+  const plural = (n, one, many) =>
+    fmt(n) + ' ' + (Math.abs(Number(n)) === 1 ? one : (many || one + 's'));
+
   /** A percentage that may legitimately be absent. Absent is never 100. */
   const pctOrAbsent = (p) => (p === null || p === undefined)
     ? 'not computed' : (Math.round(p * 10) / 10) + '%';
@@ -174,10 +204,61 @@ const MDB = (function () {
     }
     return catalog;
   }
-  /** The same numbers without the 13,515 rows, for pages that render none of them. */
+  /** The same numbers without the 13,515 rows, for pages that render none of them.
+   *
+   *  Degrades rather than rejects, as loadTwins/loadRefs/loadTombstones already
+   *  did and this one did not. openMedium() awaits it beside the record fetch, so
+   *  a 503 on this SHARED payload rejected the whole Promise.all and the reader
+   *  was told "The request for this record did not complete" about a record that
+   *  had returned HTTP 200; a 404 on it produced "the request for its record
+   *  returned HTTP 404. That is a serving fault." Every medium opened from
+   *  families.html failed that way at once.
+   *
+   *  Every reader of this payload already tolerates its absence, so the record
+   *  renders with those fields named ABSENT. `_error` is what renderMedium reads
+   *  to say so instead of drawing an empty evidence bar. */
   async function loadSummary() {
-    if (!catalog) catalog = await getJSON('data/web/summary.json');
+    if (!catalog) {
+      try {
+        catalog = await getJSON('data/web/summary.json');
+      } catch (e) {
+        catalog = {
+          _error: e.kind || 'load_failed',
+          _error_path: e.path,
+          _error_message: e.message,
+          evidence_classes: [],
+          exchange_resolution: null,
+          oxygen_basis: null
+        };
+      }
+    }
     return catalog;
+  }
+  /** True when the library-wide vocabulary is in hand only as a failure. */
+  function vocabularyFailed() { return !!(catalog && catalog._error); }
+
+  /** A page whose own catalogue fetch failed says so, on any sheet already open
+   *  and on any that opens later. index.html used to read `?medium=` inside the
+   *  loadCatalog().then() body, so a failed catalogue discarded the request for a
+   *  record that was still being served. */
+  let libraryUnavailable = null;
+  function libraryNote() {
+    return el('div', { class: 'note caution', 'data-library-unavailable': 'true' }, [
+      el('b', { text: 'This record loaded. The catalogue for this release did not.' }),
+      document.createTextNode(' The request for the catalogue reported: ' +
+        ((libraryUnavailable && (libraryUnavailable.message || libraryUnavailable.kind))
+          || 'no detail') + '. The rest of the library is unavailable on this ' +
+        'page, so no other record can be opened from here. Nothing here is a ' +
+        'statement about this medium.')
+    ]);
+  }
+  function noteLibraryUnavailable(err) {
+    libraryUnavailable = err || {};
+    document.querySelectorAll('.sheet .sheet-body').forEach((b) => {
+      if (!b.querySelector('[data-library-unavailable]')) {
+        b.insertBefore(libraryNote(), b.firstChild);
+      }
+    });
   }
   async function loadCompounds() {
     if (!compounds) {
@@ -326,12 +407,13 @@ const MDB = (function () {
   function evidenceBar(counts, opts) {
     const classes = evidenceClasses();
     const total = counts.reduce((a, b) => a + b, 0);
+    const pct = sharesOfWhole(counts, total);
     const bar = el('div', {
       class: 'evbar' + (opts && opts.mini ? ' mini' : ''),
       role: 'img',
       'aria-label': 'Evidence for ' + fmt(total) + ' components: ' +
         classes.map((c, i) => fmt(counts[i]) + ' ' + c.label.toLowerCase() +
-          ' (' + share(counts[i], total) + ')').join(', ')
+          ' (' + pct[i] + ')').join(', ')
     });
     classes.forEach((c, i) => {
       if (!counts[i]) return;
@@ -348,11 +430,12 @@ const MDB = (function () {
    *  The full definitions live next to it in an open disclosure, never hidden. */
   function evidenceKey(counts, total) {
     const key = el('div', { class: 'evkey' });
+    const pct = sharesOfWhole(counts, total);
     evidenceClasses().forEach((c, i) => {
       const chip = el('span', { class: 'chip ev-' + c.id, title: c.definition });
       chip.appendChild(el('b', { text: c.label }));
       chip.appendChild(document.createTextNode(' ' +
-        fmt(counts[i]) + ' of ' + fmt(total) + ' (' + share(counts[i], total) + ')'));
+        fmt(counts[i]) + ' of ' + fmt(total) + ' (' + pct[i] + ')'));
       key.appendChild(chip);
     });
     return key;
@@ -360,6 +443,7 @@ const MDB = (function () {
 
   function evidenceLegend(counts, total) {
     const wrap = el('div', { class: 'evlegend' });
+    const pct = sharesOfWhole(counts, total);
     evidenceClasses().forEach((c, i) => {
       wrap.appendChild(el('div', { class: 'evrow' }, [
         el('span', { class: 'sw s-' + c.id, style: 'background:var(--ev-' + c.id + ')' }),
@@ -367,7 +451,7 @@ const MDB = (function () {
           el('b', { text: c.label }), document.createTextNode(' '),
           el('span', {
             class: 'n',
-            text: withDenominator(counts[i], total, 'components')
+            text: fmt(counts[i]) + ' of ' + fmt(total) + ' components (' + pct[i] + ')'
           }),
           el('div', { class: 'muted', text: c.definition })
         ])
@@ -415,6 +499,10 @@ const MDB = (function () {
   function recordedOxygen(med) {
     const basis = catalog && catalog.oxygen_basis;
     const notes = basis && basis.unstated_notes;
+    // With the vocabulary absent, whether this record's 'facultative' is a source
+    // statement or the pipeline's default cannot be established here, so it is
+    // reported as unknown rather than affirmed.
+    if (vocabularyFailed() && med.oxygen === 'facultative') return null;
     if (!notes || med.oxygen !== 'facultative') return med.oxygen;
     const note = (med.oxygen_note || '').trim();
     return notes.indexOf(note) >= 0 ? null : med.oxygen;
@@ -775,50 +863,117 @@ const MDB = (function () {
     return wrap;
   }
 
-  /** The COBRApy snippet, sectioned by where each bound came from. */
+  /** The COBRApy snippet, sectioned by where each bound came from.
+   *
+   *  Every exchange id appears ONCE. 24 records carry 32 collisions where two
+   *  components resolve to one exchange; a dict literal written straight from the
+   *  component list emitted the key twice, Python kept the LAST value, and the
+   *  derived bound silently replaced the source-stated one (EX_glu__L_e: -1 became
+   *  a yeast-extract-derived -3.622). len(uptake) also disagreed with the count
+   *  the comments printed six lines above it.
+   *
+   *  A source-stated bound is never replaced by a derived one. Where two of the
+   *  same kind disagree the tighter is applied and the record is called ambiguous
+   *  rather than a winner being invented. */
   function cobraSnippet(med) {
-    const groups = { sourced: [], derived: [] };
+    const order = [];
+    const byId = {};
+    const rows = [];
     med.components.forEach((c) => {
       if (!(c.lower_bound < 0) || !c.exchange) return;
-      (c.derived_not_sourced ? groups.derived : groups.sourced).push(c);
+      const row = { kind: c.derived_not_sourced ? 'derived' : 'sourced', comp: c };
+      rows.push(row);
+      if (!byId[c.exchange]) {
+        order.push(c.exchange);
+        byId[c.exchange] = { ex: c.exchange, all: [] };
+      }
+      byId[c.exchange].all.push(row);
     });
+
+    const collided = [];
+    order.forEach((ex) => {
+      const e = byId[ex];
+      const sourced = e.all.filter((x) => x.kind === 'sourced');
+      const pool = sourced.length ? sourced : e.all;
+      // The tighter bound is the one closer to zero, so max() over negatives.
+      e.win = pool.slice().sort((a, b) => b.comp.lower_bound - a.comp.lower_bound)[0];
+      e.lost = e.all.filter((x) => x !== e.win);
+      if (!e.lost.length) return;
+      const first = e.all[0].comp.lower_bound;
+      e.why = e.all.every((x) => x.comp.lower_bound === first) ? 'same_value'
+        : (sourced.length && sourced.length < e.all.length ? 'sourced_wins' : 'ambiguous');
+      collided.push(e);
+    });
+
+    const nSourcedRows = rows.filter((r) => r.kind === 'sourced').length;
+    const nDerivedRows = rows.length - nSourcedRows;
     const stated = med.components.filter(
       (c) => c.concentration_status === 'source_stated').length;
     // Ids of the EX_<met>_e shape that name no BiGG reaction. The `continue`
     // below silently drops every one of them, and it used to do so without
     // saying how many, so a reader could copy a medium and lose components
-    // without a word. Marked inline and counted.
-    const noSuchReaction = med.components.filter(
-      (c) => c.lower_bound < 0 && c.exchange && isUnusableExchange(c.exchange)).length;
+    // without a word. Marked inline and counted, over EMITTED IDS so the number
+    // matches what the dict below actually holds.
+    const noSuchReaction = order.filter((ex) => isUnusableExchange(ex)).length;
+    const describe = (r) => (r.kind === 'sourced' ? 'stated by the source'
+      : 'derived' + (r.comp.derived_from ? ', from ' + r.comp.derived_from : ''));
     const lines = [];
     lines.push('# ' + med.id + ': ' + (med.name_display || med.name));
     lines.push('# WARNING: a bound below is NOT a measured uptake rate.');
-    lines.push('#   ' + groups.sourced.length + ' of ' + med.components.length +
+    lines.push('#   ' + nSourcedRows + ' of ' + med.components.length +
       ' components are stated by the cited source.');
-    lines.push('#   ' + groups.derived.length + ' of ' + med.components.length +
+    lines.push('#   ' + nDerivedRows + ' of ' + med.components.length +
       ' are derived and are NOT in the source. Edit or delete them.');
     lines.push('#   ' + stated + ' of ' + med.components.length +
       ' carry a source-stated concentration; the rest are presence placeholders.');
-    if (noSuchReaction) {
+    lines.push('#   ' + rows.length + ' of them carry a bound, resolving to ' +
+      order.length + ' unique exchange ids, so len(uptake) == ' + order.length + '.');
+    if (collided.length) {
+      lines.push('#   ' + collided.length + ' exchange id' +
+        (collided.length === 1 ? ' is' : 's are') + ' recorded more than once in ' +
+        'this medium; see the marked lines. Only one bound per id is applied.');
+    }
+    if (vocabularyFailed()) {
+      lines.push('#   The list of BiGG-shaped ids naming no BiGG reaction did not ' +
+        'load, so no line below is marked for it. That is unknown, not none.');
+    } else if (noSuchReaction) {
       lines.push('#   ' + noSuchReaction + ' name no BiGG reaction at all and are ' +
         'marked NO SUCH BiGG REACTION below.');
       lines.push('#   The loop skips them, so the medium you apply is that many ' +
         'components smaller.');
     }
     lines.push('uptake = {');
-    lines.push('    # --- stated by the cited source ---');
-    groups.sourced.forEach((c) => {
-      lines.push('    "' + c.exchange + '": ' + c.lower_bound + ',' +
-        (isUnusableExchange(c.exchange) ? '   # NO SUCH BiGG REACTION' : ''));
-    });
-    if (groups.derived.length) {
-      lines.push('    # --- derived, not stated by the source ---');
-      groups.derived.forEach((c) => {
-        lines.push('    "' + c.exchange + '": ' + c.lower_bound + ',   # ' +
-          (isUnusableExchange(c.exchange) ? 'NO SUCH BiGG REACTION; ' : '') +
-          (c.derived_from ? 'from ' + c.derived_from : 'in-silico addition'));
+    const emit = (kind, heading) => {
+      const mine = order.map((ex) => byId[ex]).filter((e) => e.win.kind === kind);
+      if (!mine.length) return;
+      lines.push('    ' + heading);
+      mine.forEach((e) => {
+        const marks = [];
+        if (isUnusableExchange(e.ex)) marks.push('NO SUCH BiGG REACTION');
+        if (kind === 'derived') {
+          marks.push(e.win.comp.derived_from
+            ? 'from ' + e.win.comp.derived_from : 'in-silico addition');
+        }
+        lines.push('    "' + e.ex + '": ' + e.win.comp.lower_bound + ',' +
+          (marks.length ? '   # ' + marks.join('; ') : ''));
+        e.lost.forEach((l) => {
+          if (e.why === 'same_value') {
+            lines.push('    #   also recorded as "' +
+              (l.comp.source_name || l.comp.name || 'a second component') +
+              '" with the same bound; one exchange, counted once.');
+          } else if (e.why === 'sourced_wins') {
+            lines.push('    #   also recorded: ' + l.comp.lower_bound + ' (' +
+              describe(l) + ') -- NOT applied; the source-stated bound wins.');
+          } else {
+            lines.push('    #   AMBIGUOUS: this record also states ' +
+              l.comp.lower_bound + ' (' + describe(l) + ') for the same id. ' +
+              'The tighter bound is applied; check the source.');
+          }
+        });
       });
-    }
+    };
+    emit('sourced', '# --- stated by the cited source ---');
+    emit('derived', '# --- derived, not stated by the source ---');
     lines.push('}');
     lines.push('skipped = [x for x in uptake if x not in model.reactions]');
     lines.push('if skipped:');
@@ -902,7 +1057,13 @@ const MDB = (function () {
         loadRefs()]);
     } catch (e) {
       if (mySeq !== openSeq) return;
-      if (e.kind === 'not_found') await renderMissing(id, mySeq);
+      // renderMissing states that the RECORD was not served, so it is reachable
+      // only when the record is what failed. Every other payload awaited above
+      // degrades rather than rejecting, and this guard is what keeps it that way
+      // if a future loader forgets: a 404 on a shared payload must never be
+      // reported as a 404 on the medium the reader asked for.
+      const isRecord = !e.path || /(^|\/)data\/media\//.test(String(e.path));
+      if (e.kind === 'not_found' && isRecord) await renderMissing(id, mySeq);
       else if (e.kind === 'unparseable') renderUnreadable(id, e);
       else renderUnreachable(id, e);
       return;
@@ -1000,7 +1161,8 @@ const MDB = (function () {
       body.appendChild(el('div', { class: 'note stop' }, [
         el('b', { text: 'No medium is served under this identifier.' }),
         document.createTextNode(' It is not in the library of ' +
-          (catalog ? fmt(catalog.count) : 'this release') + ' media' +
+          ((catalog && !catalog._error && catalog.count !== null &&
+            catalog.count !== undefined) ? fmt(catalog.count) : 'this release') + ' media' +
           (withdrawnKnown
             ? ' and it is not a withdrawn identifier.'
             : '. The list of withdrawn identifiers could not be loaded, so ' +
@@ -1045,13 +1207,38 @@ const MDB = (function () {
     wireSheet(mountSheet(card));
   }
 
-  /** The request for the record failed. A cause this code HAS established. */
+  /** What a reader should call the payload at `path`. The failure sheets used to
+   *  hard-code "this record" as the subject, so a shared payload's failure was
+   *  reported as the record's. The subject comes from `error.path` now, and the
+   *  repository layout stays out of visible copy. */
+  function resourceName(path) {
+    const p = String(path || '');
+    if (/(^|\/)data\/media\//.test(p)) return 'this record';
+    if (/(summary|catalog)\.json$/.test(p)) return 'the evidence vocabulary for this release';
+    if (/twins\.json$/.test(p)) return 'the model-input comparison table';
+    if (/refs\.json$/.test(p)) return 'the cross-reference table';
+    if (/tombstones\.json$/.test(p)) return 'the withdrawn-identifier table';
+    if (/families\.json$/.test(p)) return 'the family index';
+    if (/compounds\.json$/.test(p)) return 'the compound index';
+    return p ? 'a payload this page needs' : 'this record';
+  }
+
+  /** A request failed. Name the resource and the state, and nothing else. "The
+   *  request for this record did not complete (the server returned HTTP 503)" was
+   *  two false statements in one sentence: the wrong subject, and a request that
+   *  returned a status described as one that did not complete. */
   function renderUnreachable(id, error) {
-    failureSheet(id, 'The library could not be reached.',
-      ' The request for this record did not complete (' +
-      (error && error.message ? error.message : 'no response') +
-      '). It is a network or server fault, not a statement about the medium. ' +
-      'Reloading the page may succeed.');
+    const what = resourceName(error && error.path);
+    const transport = !error || error.kind === 'unreachable' || !error.message;
+    failureSheet(id,
+      transport ? 'The library could not be reached.' : 'The library answered with an error.',
+      transport
+        ? ' The request for ' + what + ' did not complete. It is a network or ' +
+          'server fault, not a statement about the medium. Reloading the page ' +
+          'may succeed.'
+        : ' The request for ' + what + ' completed and ' + error.message +
+          '. It is a server fault, not a statement about the medium. Reloading ' +
+          'the page may succeed.');
   }
 
   /** The response arrived and its bytes are not readable. Neither a transport
@@ -1060,10 +1247,10 @@ const MDB = (function () {
    *  browser failed while rendering (nothing was rendered) and then point the
    *  reader at the very bytes that could not be read. */
   function renderUnreadable(id, error) {
-    failureSheet(id, 'This record could not be read.',
-      ' The request completed and this record was returned, and its contents are ' +
-      'not valid JSON: ' +
-      (error && error.message ? error.message : 'no detail') +
+    const what = resourceName(error && error.path);
+    failureSheet(id, 'A payload for this record could not be read.',
+      ' The request for ' + what + ' completed and its contents are not valid ' +
+      'JSON: ' + (error && error.message ? error.message : 'no detail') +
       '. Reloading will not change that; the same bytes will come back. Nothing ' +
       'here is a statement about the medium itself.');
   }
@@ -1219,19 +1406,36 @@ const MDB = (function () {
     ]));
 
     const body = el('div', { class: 'sheet-body' });
+    if (libraryUnavailable) body.appendChild(libraryNote());
 
     /* the evidence answer, first ------------------------------------------ */
     const answer = el('div', { class: 'card card-p' });
     answer.appendChild(el('h4', { text: 'Where this formulation comes from' }));
+    // nSourced and nDerived are a partition of n_components in all 13,515 records,
+    // so they are apportioned together and add to exactly 100%.
+    const split = sharesOfWhole([nSourced, nDerived], total);
     answer.appendChild(el('p', {
       style: 'margin-top:var(--s2)',
-      text: withDenominator(nSourced, total, 'components') +
+      text: fmt(nSourced) + ' of ' + fmt(total) + ' components (' + split[0] + ')' +
         ' are stated by the cited source. ' +
-        withDenominator(nDerived, total, 'components') +
+        fmt(nDerived) + ' of ' + fmt(total) + ' components (' + split[1] + ')' +
         ' are derived and appear nowhere in the source.'
     }));
-    answer.appendChild(el('div', { style: 'margin-top:var(--s3)' }, [evidenceBar(counts)]));
-    answer.appendChild(evidenceLegend(counts, total));
+    // An evidence bar drawn from a vocabulary that never arrived is an empty bar
+    // with no legend, which reads as "no evidence". Absent is said, not drawn.
+    if (vocabularyFailed()) {
+      answer.appendChild(el('div', { class: 'note caution' }, [
+        el('b', { text: 'The evidence vocabulary for this release did not load.' }),
+        document.createTextNode(' This record was served in full and is shown ' +
+          'below. The library-wide payload that names the evidence classes, the ' +
+          'oxygen basis and the exchange ids naming no BiGG reaction did not (' +
+          (catalog._error_message || catalog._error) + '), so those fields are ' +
+          'ABSENT here rather than empty. Reloading the page may succeed.')
+      ]));
+    } else {
+      answer.appendChild(el('div', { style: 'margin-top:var(--s3)' }, [evidenceBar(counts)]));
+      answer.appendChild(evidenceLegend(counts, total));
+    }
     body.appendChild(answer);
 
     /* coverage, both numbers ---------------------------------------------- */
@@ -1240,11 +1444,15 @@ const MDB = (function () {
     const pcs = covs.pct_covered_source;
     covCard.appendChild(el('p', {
       style: 'margin-top:var(--s2)',
+      // One ratio, printed once. This sentence used to lead with
+      // pctOrAbsent(pcs) and then let withDenominator print its own recomputed
+      // percentage, so every one of the 13,515 record sheets stated the same
+      // measure twice, at two precisions on 7,339 of them: "66.7%. 4 of 6
+      // ingredients the source states (67%) reached a BiGG exchange."
       text: pcs === null || pcs === undefined
         ? 'Not computed: the source states no ingredient list to measure against. ' +
           'The value is absent, not 100%.'
-        : pctOrAbsent(pcs) + '. ' +
-          withDenominator(covs.n_sourced, covs.pct_covered_source_denominator,
+        : withDenominator(covs.n_sourced, covs.pct_covered_source_denominator,
             'ingredients the source states') + ' reached a BiGG exchange.'
     }));
     if (covs.pct_covered_source_is_upper_bound) {
@@ -1258,9 +1466,10 @@ const MDB = (function () {
     if (med.uncovered && med.uncovered.length) {
       covCard.appendChild(el('p', {
         class: 'muted', style: 'margin-top:var(--s2)',
-        text: fmt(med.uncovered.length) + ' ingredient(s) the source states got no ' +
-          'exchange at all and are listed below. They are not counted in the ' +
-          fmt(total) + ' components.'
+        text: plural(med.uncovered.length, 'ingredient') + ' the source states got no ' +
+          'exchange at all and ' + (med.uncovered.length === 1 ? 'is' : 'are') +
+          ' listed below. ' + (med.uncovered.length === 1 ? 'It is' : 'They are') +
+          ' not counted in the ' + fmt(total) + ' components.'
       }));
     }
     body.appendChild(covCard);
@@ -1275,10 +1484,16 @@ const MDB = (function () {
         'an injected mineral or oxygen base. They are excluded from every ' +
         'source-coverage number above and listed separately in the COBRApy block.']);
     }
-    if (counts[2] + counts[3] > 0) {
+    // The quantifier is graded on the share the sentence is about to print. A
+    // fixed "Most" fired on 13,343 of 13,515 records, because the gate is a single
+    // name-matched component; on 4,000 the number underneath said the opposite (as
+    // low as 1.8%) and on 60 it inverted the record's own evidence.
+    const nNameish = counts[2] + counts[3];
+    if (nNameish > 0) {
       limits.push(['caution',
-        'Most identities here were decided by a name string, not by chemistry.',
-        withDenominator(counts[2] + counts[3], total, 'components') +
+        (nNameish * 2 > total ? 'Most' : 'Some') +
+        ' identities here were decided by a name string, not by chemistry.',
+        withDenominator(nNameish, total, 'components') +
         ' were resolved by a name match or by collapsing a class onto one ' +
         'representative molecule. Check any component you intend to constrain.']);
     }
@@ -1291,7 +1506,11 @@ const MDB = (function () {
     if (o2 === null || o2 === undefined) {
       const defaulted = med.oxygen && med.oxygen !== o2;
       limits.push(['caution', 'The oxygen regime is unknown.',
-        'No source or curator states whether this medium is used aerobically. ' +
+        (vocabularyFailed()
+          ? 'This record records "' + med.oxygen + '", and whether that is a ' +
+            'source statement or the pipeline default is decided by a payload ' +
+            'that did not load here, so it is not established either way. '
+          : 'No source or curator states whether this medium is used aerobically. ') +
         'It is unknown, not anaerobic. Decide EX_o2_e yourself.' +
         (defaulted
           ? ' The medium exported below still opens EX_o2_e, by the same ' +
@@ -1645,7 +1864,8 @@ const MDB = (function () {
   }
 
   return {
-    esc, fmt, share, withDenominator, pctOrAbsent, el, getJSON, permalink, flatten,
+    esc, fmt, share, sharesOfWhole, plural, withDenominator, pctOrAbsent, el,
+    getJSON, permalink, flatten, noteLibraryUnavailable,
     loadCatalog, loadSummary, loadCompounds, loadFamilies, loadTombstones, loadTwins,
     loadRefs, xrefOf, noteOf,
     evidenceClasses, evidenceMeta, evidenceChip, evidenceBar, evidenceKey,

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MediaDB: in silico media for genome-scale metabolic models</title>
-<meta name="description" content="In silico media for genome-scale metabolic models: 13,515 laboratory, food and biospecimen compositions re-encoded as BiGG exchange reactions. 652,620 of 665,582 components reach a BiGG exchange reaction that exists; 11,380 carry a BiGG-shaped id naming no BiGG reaction, 1,364 a fallback id no BiGG model accepts, and 218 reach none. Each component records the evidence tier its identity was decided by.">
+<meta name="description" content="In silico media for genome-scale metabolic models: 13,515 laboratory, food and biospecimen compositions re-encoded as BiGG exchange reactions. 651,772 of 665,582 components reach a BiGG exchange reaction that exists; 12,228 carry a BiGG-shaped id naming no BiGG reaction, 1,364 a fallback id no BiGG model accepts, and 218 reach none. Each component records the evidence tier its identity was decided by.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6a54'/%3E%3Cpath d='M12 6h8v6l5 12a2 2 0 0 1-2 3H9a2 2 0 0 1-2-3l5-12z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -462,6 +462,18 @@
     };
   }
 
+  // The deep link is answered independently of the catalogue.
+  //
+  // These two lines used to sit at the END of the loadCatalog().then() body, so a
+  // catalogue that failed discarded the request outright: the reader saw "The
+  // catalogue could not be loaded" and no sign that the record they had asked for
+  // exists. data/media/<id>.json is a separate 55 KB file that was still being
+  // served — measured, by calling openMedium by hand in exactly that state — and
+  // the 2.1 MB catalogue is by far the likeliest object here to fail or truncate
+  // on its own. openMedium() loads the vocabulary it needs itself.
+  const wanted = new URLSearchParams(location.search).get('medium');
+  if (wanted) MDB.openMedium(wanted, { replace: true });
+
   MDB.loadCatalog().then((cat) => {
     ALL = cat.media;
 
@@ -498,9 +510,13 @@
       cat.evidence_classes.map((c) => c.n), totals.n_components));
 
     const stamp = $('build-stamp');
-    stamp.textContent = 'Release built ' + cat.built_utc +
-      (cat.git_head ? ' from commit ' + cat.git_head.slice(0, 10) : '') +
-      ' over ' + fmt(cat.count) + ' records.';
+    // The commit id used to stand here and did not resolve to these bytes: it
+    // is read at build time, so it names the tree the build ran FROM and the
+    // payload can only be committed after it. The corpus digest identifies the
+    // records themselves and a reader can recompute it from a checkout.
+    stamp.textContent = 'Release built ' + cat.built_utc + ' over ' +
+      fmt(cat.count) + ' records' +
+      (cat.corpus_sha256 ? ', corpus ' + cat.corpus_sha256 : '') + '.';
 
     fillSelect($('f-source'), ALL.map((r) => r.source_db));
     fillSelect($('f-category'), ALL.map((r) => r.category));
@@ -554,9 +570,8 @@
     drawSources(cat);
     drawCoverage(cat, ALL);
 
-    const wanted = new URLSearchParams(location.search).get('medium');
-    if (wanted) MDB.openMedium(wanted, { replace: true });
   }).catch((err) => {
+    MDB.noteLibraryUnavailable(err);
     $('resultline').textContent = '';
     const box = $('table').closest('.tablewrap');
     box.replaceChildren(el('div', { class: 'state error' }, [
