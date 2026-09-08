@@ -1,7 +1,7 @@
 {
  "schema": "mediadb-artifact-manifest/1",
- "built_utc": "2026-09-07T10:46:58Z",
- "git_head": "83766023459ae3011006b9a45aece515b4890423",
+ "built_utc": "2026-09-08T07:46:48Z",
+ "git_head": "86c0c9e26774e1e746fef5d1df55b0e68133bd63",
  "stamp_policy": "built_utc, git_head and each artifact's mtime_utc date the build that last CHANGED what is described here; a rebuild that reproduces the same bytes leaves this file untouched. `make derived` is therefore idempotent, and a git diff on a derived artifact means its CONTENT moved \u2014 which is what makes `--check-tree` a usable gate rather than one that is red on every clean tree.",
  "provenance": {
   "corpus_status": "frozen snapshot",
@@ -22,13 +22,13 @@
  },
  "artifacts": {
   "data/media/": {
-   "generator": "frozen snapshot \u2014 generators are dead (PIPE-01)",
+   "generator": "frozen snapshot: generators are dead (PIPE-01)",
    "inputs": [
     "(none surviving)"
    ],
    "present": true,
    "rows": 13515,
-   "bytes": 782827671
+   "bytes": 792084101
   },
   "data/index.json": {
    "generator": "build_index.py",
@@ -36,10 +36,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 18693272,
-   "sha256": "7b860bdf7d49455cfe135f7af48bfdc8c9ae12219a27a42fea271f76eadeb3d1",
+   "bytes": 18694647,
+   "sha256": "cd75291428848c0f348e607985f5363b5597a7435e0fbb1092dc150acb0e33c9",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T10:46:12Z"
+   "mtime_utc": "2026-09-08T07:45:56Z"
   },
   "data/refs.json": {
    "generator": "tools/stages/60_dedupe_references.py",
@@ -47,10 +47,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 623617,
-   "sha256": "1997e78f1e4efd0ecd8a71c0c10aa6b10d97f7f9921ad34371cbde034c97ba0c",
+   "bytes": 623614,
+   "sha256": "2b2c556ee44e974e2b9d1f5aa0009f0ef97b132c589e5b9345199cf54a3da23b",
    "rows": 2291,
-   "mtime_utc": "2026-09-07T08:50:00Z"
+   "mtime_utc": "2026-09-08T07:32:24Z"
   },
   "data/stats.json": {
    "generator": "build_index.py",
@@ -58,10 +58,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 7356,
-   "sha256": "f8d8f0d9878163a8ba043b7c23b88bc39bb0a0827a1e2c73cd83af3f6bb06934",
+   "bytes": 7381,
+   "sha256": "442ed1ad9213d5f63ddf25ab9e4070557d3def04dbbd6eaa1ccb50e022632063",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T10:46:12Z"
+   "mtime_utc": "2026-09-08T07:45:56Z"
   },
   "data/coverage.json": {
    "generator": "tools/build_coverage_index.py",
@@ -69,10 +69,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 5119797,
-   "sha256": "9227845146f87473ff06e3e69a413a15489b6ae95282a210038be48a4ab76fc7",
+   "bytes": 5119862,
+   "sha256": "2fdbcf3fc34470e7a09a9f52d2e7a28925df607e41ce7081e65573af5b4861c1",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T10:46:03Z"
+   "mtime_utc": "2026-09-08T07:45:44Z"
   },
   "data/media_stats.json": {
    "generator": "tools/build_media_stats.py",
@@ -81,10 +81,10 @@
     "tools/bigg_metabolite_dict.json"
    ],
    "present": true,
-   "bytes": 7837,
-   "sha256": "5819b2d2c71a6ba680437cb3ac5edef6528876742493a03ca9936205974b3a56",
+   "bytes": 7831,
+   "sha256": "3b645cf288ac5ace0a6639c7352afdd0ddc62371dabbe5e9d8d9d11443f7215b",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T10:46:41Z"
+   "mtime_utc": "2026-09-08T07:46:30Z"
   },
   "data/presence_matrix.json": {
    "generator": "tools/build_presence_matrix.py",
@@ -93,10 +93,10 @@
     "tools/bigg_metabolite_dict.json"
    ],
    "present": true,
-   "bytes": 2920464,
-   "sha256": "09fbf13dd3ff35b45e7eb526993635a654e7c16a201a337c264fd9dda014fd32",
+   "bytes": 2920418,
+   "sha256": "ffa8d0e441edc88759326a32c2144eab7a7b8a45b3204964a17642f9de795159",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T10:46:47Z"
+   "mtime_utc": "2026-09-08T07:46:37Z"
   },
   "data/api/manifest.json": {
    "generator": "tools/build_api_exports.py",
@@ -104,10 +104,10 @@
     "data/index.json"
    ],
    "present": true,
-   "bytes": 9326,
-   "sha256": "7c44824006707caf0b57a5597c5ade2cee04fc5958ed73cbe559d627173d3f8d",
+   "bytes": 9495,
+   "sha256": "6d6dce877487967c5b723d948fbda1466fd438616fc7383286586904ae0f4b2c",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T10:46:31Z"
+   "mtime_utc": "2026-09-08T07:46:21Z"
   },
   "data/api/media.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -116,10 +116,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 876347,
-   "sha256": "f162ef5a02a12d01f2bc1a0ba71dc559b40abf1b392c0ebc4589ab68577d5375",
+   "bytes": 876186,
+   "sha256": "f83e134a6fc910ca935d5ae10ebc2faf3d856884473f3569022058f12dd9fc1d",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T10:46:23Z"
+   "mtime_utc": "2026-09-08T07:46:08Z"
   },
   "data/api/components.parquet": {
    "generator": "tools/build_api_exports.py",
@@ -128,10 +128,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 4971879,
-   "sha256": "33bfe6139fe92fc85a438a6307dbad030683d05a4d3441fe93abcd3e6790092b",
+   "bytes": 5160944,
+   "sha256": "1a3d01f114ad594b9234dfe213f98e743667c7f73465186e58b42b25416b3a1e",
    "rows": 665582,
-   "mtime_utc": "2026-09-07T10:46:30Z"
+   "mtime_utc": "2026-09-08T07:46:20Z"
   },
   "data/cluster/clustergram.json": {
    "generator": "tools/build_cluster_data.py",
@@ -140,10 +140,10 @@
     "data/api/components.parquet"
    ],
    "present": true,
-   "bytes": 42026,
-   "sha256": "282638848a2288b6443a210909bc16aa518a4347f782e2da6695ab01406d9a17",
+   "bytes": 42062,
+   "sha256": "7576dce8a6b3ed29800c3c51d1bf0edd7315ce6ba00f89b82147ee307ec85d96",
    "rows": null,
-   "mtime_utc": "2026-09-07T10:46:34Z"
+   "mtime_utc": "2026-09-08T07:46:24Z"
   },
   "data/cluster/cooccurrence.json": {
    "generator": "tools/build_cluster_data.py",
@@ -153,9 +153,9 @@
    ],
    "present": true,
    "bytes": 50333,
-   "sha256": "79587cea181e3f51806cca8d083ed626feb622c18357ce9524404da07b4b31c2",
+   "sha256": "1deaee04a75fdb650d1028a703d5d9d1be4102fa698deffd9cd19d04b4e51380",
    "rows": null,
-   "mtime_utc": "2026-09-07T10:46:35Z"
+   "mtime_utc": "2026-09-08T07:46:24Z"
   },
   "data/_quarantine.json": {
    "generator": "tools/apply_verification.py",
@@ -175,10 +175,10 @@
     "data/_quarantine.json"
    ],
    "present": true,
-   "bytes": 2123647,
-   "sha256": "19b5b9243a4a204225a22c2e5d32a7951b15554947908a23d5336a27cb5cf405",
+   "bytes": 2124107,
+   "sha256": "d18ab80b7ef62dbea825230f9d997fe7bf051e541dccf418c9e7ab0a2b83930e",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T10:46:58Z"
+   "mtime_utc": "2026-09-08T07:33:52Z"
   },
   "data/web/summary.json": {
    "generator": "tools/build_web_payload.py",
@@ -186,10 +186,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 15802,
-   "sha256": "ae0efce44b91f2fb75596d168a88aed21f370f96dfc5645fa7f39255ba44547b",
+   "bytes": 16269,
+   "sha256": "ca4f6647c4cec88b7fcdca5d0ee340ad3d0bf68282172d036e1244688c4e4096",
    "rows": 13515,
-   "mtime_utc": "2026-09-07T10:46:58Z"
+   "mtime_utc": "2026-09-08T07:33:52Z"
   },
   "data/web/compounds.json": {
    "generator": "tools/build_web_payload.py",
@@ -197,10 +197,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 1683577,
-   "sha256": "ae158064b57ec77beae5e6c8f01a14d53d0763ada71b7a1a34b834e01cd6c3d5",
+   "bytes": 1683833,
+   "sha256": "dc2b9608638b6e05e85c0c9b1fde5f18fdeac0ab0c4a6b5e1e27b6fb34a9a548",
    "rows": 1793,
-   "mtime_utc": "2026-09-07T08:51:16Z"
+   "mtime_utc": "2026-09-08T07:33:53Z"
   },
   "data/web/families.json": {
    "generator": "tools/build_web_payload.py",
@@ -208,10 +208,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 1129486,
-   "sha256": "62f7c797538051924825f4b03fe4144c86dee08056e65ecec470912e68d5621b",
+   "bytes": 1130945,
+   "sha256": "44850bf4f2f2eb9667900d0d583dfba40eb96057cff7a41174835830ef9f23db",
    "rows": 253,
-   "mtime_utc": "2026-09-07T10:46:58Z"
+   "mtime_utc": "2026-09-08T07:33:53Z"
   },
   "data/web/tombstones.json": {
    "generator": "tools/build_web_payload.py",
@@ -220,10 +220,10 @@
     "tools/curation/tombstone_reason_codes.tsv"
    ],
    "present": true,
-   "bytes": 17579,
-   "sha256": "5f782b242100a29500cb47a425ed4413221dd4f565a2cc20e9b4dc4bdcb29546",
+   "bytes": 17835,
+   "sha256": "38c276167bcca0e88f10a2d3506380064cbcb2e79d15ad50deda51d1c891bc6a",
    "rows": 77,
-   "mtime_utc": "2026-09-07T08:51:17Z"
+   "mtime_utc": "2026-09-08T07:33:53Z"
   },
   "data/web/twins.json": {
    "generator": "tools/build_web_payload.py",
@@ -231,10 +231,10 @@
     "data/media/*.json"
    ],
    "present": true,
-   "bytes": 141836,
-   "sha256": "a257af010de5e5b6f7bc0b7b3405ed58d3ca9231bcc85a6497be5ced88f850bb",
+   "bytes": 142092,
+   "sha256": "4e010ae0b4de7289f7ab53a7caf8e1ac9b3befca32bc86f839a50f1e0fac05db",
    "rows": 1663,
-   "mtime_utc": "2026-09-07T10:37:44Z"
+   "mtime_utc": "2026-09-08T07:33:53Z"
   }
  },
  "catalog_count_identity": {

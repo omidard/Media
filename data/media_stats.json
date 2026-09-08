@@ -1,6 +1,6 @@
 {
 "schema": "mediadb-media-stats/2",
-"built_at": "2026-09-07",
+"built_at": "2026-09-08",
 "total": 13515,
 "n_components_without_exchange": 218,
 "by_category": {
@@ -279,7 +279,7 @@
 "n_media": 8854
 }
 ],
-"top_exchanges_filter": "none \u2014 every component row",
+"top_exchanges_filter": "none: every component row",
 "top_exchanges_excluding_mineral_base": [
 {
 "exchange": "EX_thm_e",

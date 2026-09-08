@@ -22,12 +22,12 @@
   "definition": "pct_covered is the legacy metric and counts pipeline-derived components as covered; pct_covered_source counts only composition the cited source states. Null means not measurable, never 100."
  },
  "exchange_resolution": {
-  "n_bigg_exchange": 652620,
+  "n_bigg_exchange": 651772,
   "n_nonbigg_fallback": 1364,
-  "n_bigg_shaped_no_such_exchange": 11380,
+  "n_bigg_shaped_no_such_exchange": 12228,
   "n_no_exchange": 218,
   "of": 665582,
-  "definition": "Where each component's exchange id landed, over the whole library, in four states. n_bigg_exchange is a reaction BiGG has: the id is EX_<met>_e and <met> carries an extracellular form in the BiGG namespace. n_bigg_shaped_no_such_exchange has that same shape and names no BiGG reaction, so no model has it and the documented adoption path drops it silently. n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG id in exchange position that no BiGG model will accept (the component's own mapping_note says so); n_no_exchange has none at all. The four partition n_components; the last three are all unusable to a model."
+  "definition": "Where each component's exchange id landed, over the whole library, in four states. n_bigg_exchange is a reaction BiGG has: the id is in BiGG's own exchange-reaction list. That list is the test, not the metabolite's compartments: f_e exists in BiGG and EX_f_e does not. n_bigg_shaped_no_such_exchange has the EX_<met>_e shape and names no BiGG reaction, so no model has it and the documented adoption path drops it silently. n_nonbigg_fallback is a ModelSEED/MetaNetX/KEGG id in exchange position that no BiGG model will accept (the component's own mapping_note says so); n_no_exchange has none at all. The four partition n_components; the last three are all unusable to a model."
  },
  "model_input_degeneracy": {
   "n_media": 13515,
@@ -155,7 +155,7 @@
     "model_input_signature",
     "n_media_with_identical_model_input"
    ],
-   "size": "855.8 KB"
+   "size": "855.7 KB"
   },
   "components.parquet": {
    "rows": 665582,
@@ -186,6 +186,10 @@
     "quantity_value_verbatim",
     "quantity_unit",
     "quantity_basis",
+    "quantity_chose_by",
+    "quantity_alternatives_json",
+    "mapping_note_id",
+    "xref_note_id",
     "derived_not_sourced",
     "xref_inchikey",
     "xref_kegg",
@@ -195,7 +199,7 @@
     "xref_seed",
     "xref_biocyc"
    ],
-   "size": "4.7 MB"
+   "size": "4.9 MB"
   }
  },
  "bulk_download": {
