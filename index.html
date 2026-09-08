@@ -468,7 +468,7 @@
   // catalogue that failed discarded the request outright: the reader saw "The
   // catalogue could not be loaded" and no sign that the record they had asked for
   // exists. data/media/<id>.json is a separate 55 KB file that was still being
-  // served — measured, by calling openMedium by hand in exactly that state — and
+  // served, measured by calling openMedium by hand in exactly that state, and
   // the 2.1 MB catalogue is by far the likeliest object here to fail or truncate
   // on its own. openMedium() loads the vocabulary it needs itself.
   const wanted = new URLSearchParams(location.search).get('medium');

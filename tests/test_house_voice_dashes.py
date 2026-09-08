@@ -126,3 +126,24 @@ def test_the_mint_sites_no_longer_emit_one():
         assert not emitted, (
             "%s still mints a dash into a published string: %s"
             % (rel, [ln.strip()[:100] for ln in emitted[:3]]))
+
+
+@pytest.mark.parametrize("rel", ["index.html", "families.html", "compare.html",
+                                 "patterns.html", "methods.html", "assets/media.js"])
+def test_no_page_source_carries_an_en_or_em_dash(rel):
+    """Including the comments, which is the only place they were left.
+
+    The rendered-text sweep in tests/test_browser_voice.py cannot see a comment, so
+    the ban held in every string the pages print and was waived in the prose around
+    them. That is not a defensible line: the next sentence lifted out of a comment
+    and into a template carries the dash with it, and tools/curate_name_formatting.py
+    is the standing proof that an exemption written down once outlives everyone who
+    remembers why.
+    """
+    path = os.path.join(REPO, rel)
+    with open(path, encoding="utf-8") as fh:
+        body = fh.read()
+    hits = [(i, ln.strip()[:100]) for i, ln in enumerate(body.splitlines(), 1)
+            if DASH.search(ln)]
+    assert not hits, "%s carries %d dash-bearing line(s): %s" % (rel, len(hits),
+                                                                 hits[:3])

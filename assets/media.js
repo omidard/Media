@@ -34,7 +34,7 @@ const MDB = (function () {
    *
    *  Rounding is not allowed to erase the exception. 664,000 of 665,582 is 99.76%,
    *  and the naive `toFixed(0)` printed it as "100%" directly beside the sentence
-   *  saying 1,364 components do NOT reach a BiGG exchange — the same defect, in the
+   *  saying 1,364 components do NOT reach a BiGG exchange: the same defect, in the
    *  formatter, as the claim this page exists to correct. A share below 100 never
    *  prints as 100, and a share above 0 never prints as 0. */
   const share = (n, of) => {
@@ -63,7 +63,7 @@ const MDB = (function () {
    *  beside "37 of 41 components (90%) are derived" adds to 99.8% on 600 records,
    *  and the six-class evidence legend summed to 100.5% on 3,883 of them. Largest
    *  remainder at ONE precision, chosen as the coarsest at which no non-zero part
-   *  rounds away — a component that exists never prints as 0%. */
+   *  rounds away: a component that exists never prints as 0%. */
   const sharesOfWhole = (counts, of) => {
     if (!of || counts.some((n) => n === null || n === undefined)) {
       return counts.map(() => 'not computed');
@@ -315,7 +315,7 @@ const MDB = (function () {
   /** The cross-reference and note tables.
    *
    *  2,291 distinct cross-reference blocks were written into the 656,625 of
-   *  665,582 components (98.7%) that carry one — 8,957 carry none — and 113
+   *  665,582 components (98.7%) that carry one, 8,957 carry none, and 113
    *  distinct sentences into 621,274 of them; that repetition was
    *  490 MiB of the published site, which GitHub Pages caps at 1 GiB. Each is
    *  now held once here and referenced by key from the record. One 0.6 MB fetch,
@@ -323,7 +323,7 @@ const MDB = (function () {
    *
    *  A failed load is recorded on the object and surfaced in the cross-reference
    *  cell as "cross-references did not load", never rendered as "no
-   *  cross-references" — a component whose identifiers failed to arrive must not
+   *  cross-references": a component whose identifiers failed to arrive must not
    *  look like a component that has none. */
   async function loadRefs() {
     if (!refs) {
@@ -1557,7 +1557,7 @@ const MDB = (function () {
     //
     // An absent counter is UNKNOWN, never 0. `|| 0` here would have this panel
     // report "no component carries a fallback id" for a record that never counted
-    // — a measurement invented from a missing key, which is the whole defect class
+    // a measurement invented from a missing key, which is the whole defect class
     // this panel exists to close.
     const nFallback = med.n_nonbigg_fallback;
     const nNoExchange = med.n_unmappable;
