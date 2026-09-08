@@ -1,0 +1,563 @@
+/* ============================================================================
+   INSTRUMENT - the institute's shared design system for scientific web tools
+   ----------------------------------------------------------------------------
+   Canonical source: _institute_core/design/instrument.css
+   Vendored, byte-identical, into: MediaDB, PanRoute, GEM Autocurator.
+   Drift is detected by _institute_core/design/verify_tokens.py, not by hope.
+
+   This file is TOKENS plus the small set of primitives that must look and
+   behave identically on all three sites. Layout stays in each site's own
+   stylesheet. Nothing here computes or presents a value; it decides how a
+   value looks once the site has one.
+
+   Type: IBM Plex Sans (variable, 400-700) and IBM Plex Mono 400/500,
+   SIL Open Font License 1.1, self-hosted. Latin subset only, 75 kB total.
+   Chosen over the reflex pick (Inter) because the sans and the mono share
+   one design and one set of vertical metrics, and every page here sets a
+   database identifier inline inside running prose.
+
+   Every contrast ratio in a comment below was measured with the WCAG 2.1
+   relative-luminance formula, not estimated.
+   ========================================================================= */
+
+/* --- 1. TYPE FILES -------------------------------------------------------- */
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url('fonts/ibm-plex-sans-var.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/ibm-plex-mono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/ibm-plex-mono-500.woff2') format('woff2');
+}
+
+/* --- 2. TOKENS ------------------------------------------------------------ */
+
+:root {
+  color-scheme: light;
+
+  /* 2.1 faces ------------------------------------------------------------- */
+  --i-font: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --i-font-data: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* 2.2 type scale --------------------------------------------------------
+     One ramp. The floor is 12.5px at the token, so no rule that reads a
+     token can land under the 12px gate. Display sizes clamp instead of
+     needing a breakpoint; body sizes never shrink.                        */
+  --i-t-xs: 12.5px;                        /* labels, chips, table heads    */
+  --i-t-sm: 13.5px;                        /* table cells, controls, notes  */
+  --i-t-base: 15px;                        /* body                          */
+  --i-t-md: 17px;                          /* lead paragraph                */
+  --i-t-lg: 19px;                          /* subsection title              */
+  --i-t-xl: 23px;                          /* section title                 */
+  --i-t-2xl: clamp(23px, 3.2vw, 30px);     /* page title                    */
+  --i-t-3xl: clamp(28px, 4.6vw, 40px);     /* display, at most once a page  */
+  --i-t-num: clamp(34px, 5.4vw, 44px);     /* THE number the page delivers  */
+  --i-t-num-sm: 24px;                      /* supporting figures            */
+  --i-t-code: 13px;                        /* identifiers, formulas         */
+
+  --i-lh-tight: 1.15;
+  --i-lh-title: 1.3;
+  --i-lh: 1.55;
+  --i-lh-data: 1.45;
+
+  --i-track-display: -0.02em;              /* floor is -0.04em, never reached */
+  --i-track-title: -0.012em;
+  --i-track-label: 0.02em;
+
+  --i-w-regular: 400;
+  --i-w-medium: 500;
+  --i-w-semi: 600;
+  --i-w-bold: 700;
+
+  --i-measure: 68ch;                       /* prose                          */
+  --i-measure-tight: 58ch;                 /* callouts, captions             */
+
+  /* 2.3 surfaces ---------------------------------------------------------- */
+  --i-page: #F4F6F8;
+  --i-surface: #FFFFFF;
+  --i-surface-2: #F7F9FB;                  /* inset rows, table stripes      */
+  --i-surface-3: #EDF1F6;                  /* wells, unfilled chips          */
+  --i-line: #DCE3EA;                       /* hairline, 1.29:1 on white      */
+  --i-line-2: #BCC7D3;                     /* emphasis rule, 1.71:1          */
+
+  /* 2.4 ink. Three tiers, nothing lighter is allowed to carry text ---------
+     ink      17.57:1 white   16.22:1 page
+     ink-2    11.65:1 white   10.75:1 page
+     ink-3     6.76:1 white    6.24:1 page   5.96:1 on surface-3           */
+  --i-ink: #101A24;
+  --i-ink-2: #2C3A47;
+  --i-ink-3: #4E5D6C;
+
+  /* 2.5 the one accent -----------------------------------------------------
+     #10508F  8.18:1 on white, 7.55:1 on page, 7.21:1 on surface-3, and
+     8.18:1 for white text laid on it. Deliberately darker and less
+     saturated than the stock link blue both sites reached for.
+     Blue wins the hue by separability, not by habit: green, amber, red and
+     violet are already spoken for by the evidence scale, and blue is the
+     furthest point on the wheel from all four.                            */
+  --i-accent: #10508F;
+  --i-accent-strong: #0B3D6B;              /* hover, active, 11.09:1        */
+  --i-accent-wash: #E1EAF6;                /* 1.21:1 on white               */
+  --i-accent-line: #B7CDE6;
+
+  /* 2.6 evidence scale. ORDINAL, strongest first, then one categorical -----
+     The same six classes mean the same thing on all three sites. Text on
+     its own wash measured at chip size:
+       structure   5.42:1     identifier  5.11:1     name      5.28:1
+       assertion   5.09:1     unresolved  5.13:1     derived   5.77:1     */
+  --i-ev-1: #0B6B45;  --i-ev-1-wash: #DEEDE5;   /* structure verified       */
+  --i-ev-2: #1F6E4C;  --i-ev-2-wash: #DEEDE5;   /* identifier verified      */
+  --i-ev-3: #8A5300;  --i-ev-3-wash: #F6E9D4;   /* name matched             */
+  --i-ev-4: #A34612;  --i-ev-4-wash: #F6E9D4;   /* class or assertion       */
+  --i-ev-5: #B3261E;  --i-ev-5-wash: #F8DEDC;   /* unresolved               */
+  --i-ev-d: #6B3FA0;  --i-ev-d-wash: #E8E0F4;   /* derived: not weaker
+                                                   evidence, a different
+                                                   kind of thing. Always
+                                                   drawn with a dashed rule. */
+
+  /* 2.7 verdict colours. Aliases of the evidence scale on purpose, so a
+     green chip means one thing across all three sites.                    */
+  --i-ok: var(--i-ev-1);      --i-ok-wash: var(--i-ev-1-wash);
+  --i-warn: var(--i-ev-3);    --i-warn-wash: var(--i-ev-3-wash);
+  --i-bad: var(--i-ev-5);     --i-bad-wash: var(--i-ev-5-wash);
+  --i-note: var(--i-ev-d);    --i-note-wash: var(--i-ev-d-wash);
+
+  /* 2.8 composition ramp, for a stacked bar that partitions ONE total.
+     Accent family on purpose: a share of the answer is part of the answer,
+     not a status. Never use a verdict colour to encode a share.           */
+  --i-seq-1: #0B3D6B;
+  --i-seq-2: #1667AE;
+  --i-seq-3: #4E93CE;
+  --i-seq-4: #A8C8E4;
+  --i-seq-0: #8D9AA8;                      /* unclassified / other, always last */
+
+  /* 2.9 rhythm. Tight within a group, generous between groups, and more
+     space above a heading than below it.                                  */
+  --i-s1: 4px;  --i-s2: 8px;  --i-s3: 12px; --i-s4: 16px;
+  --i-s5: 24px; --i-s6: 32px; --i-s7: 48px; --i-s8: 64px;
+
+  /* 2.10 radius. One scale. The pill is for badges only, never a block.   */
+  --i-r1: 6px;                             /* controls, chips, inputs       */
+  --i-r2: 10px;                            /* cards, tables, wells          */
+  --i-r3: 14px;                            /* sheets, dialogs               */
+  --i-rf: 999px;                           /* badge or dot under 28px only  */
+
+  /* 2.11 elevation, declared ONCE per surface.
+     In flow  -> 1px border, no shadow.
+     Floating -> shadow, no border.
+     The shadow carries an offset and a blur and is tinted to the ink hue.
+     In the dark theme a shadow alone reads as almost nothing, so the step
+     from --i-page to the lighter --i-surface carries the elevation and the
+     shadow deepens it. That is still one declaration, not two.            */
+  --i-shadow: 0 8px 24px -8px rgba(16, 26, 36, .18),
+              0 2px 6px -2px rgba(16, 26, 36, .10);
+
+  /* 2.12 focus and selection ---------------------------------------------- */
+  --i-focus: var(--i-accent);
+  --i-selection: #CBDDF2;                  /* ink on it 12.69:1, 1.38:1 on white */
+
+  /* 2.13 motion. Curves and budgets are tokens so no page invents one.
+     Which interactions may use them is decided by the frequency gate in
+     SPEC.md, not by this file.                                            */
+  --i-ease-out: cubic-bezier(.23, 1, .32, 1);
+  --i-ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  --i-ease-drawer: cubic-bezier(.32, .72, 0, 1);
+  --i-d-hover: 100ms;
+  --i-d-press: 120ms;
+  --i-d-tooltip: 140ms;
+  --i-d-menu: 180ms;
+  --i-d-sheet: 220ms;
+  --i-d-authored: 420ms;                   /* the one authored moment       */
+  --i-d-explain: 500ms;                    /* explanatory, not UI chrome    */
+
+  /* 2.14 data canvas. A chart, a map or an evidence bar stays on white in
+     BOTH themes, matching the institute figure rule. A reader who
+     screenshots a figure out of a dark page must not ship a dark figure.  */
+  --i-canvas: #FFFFFF;
+  --i-canvas-line: #DCE3EA;
+  --i-canvas-ink: #101A24;
+}
+
+/* --- 3. DARK THEME --------------------------------------------------------
+   Light is the authored theme. Dark is supported, carries the same
+   hierarchy, and must be looked at before it ships. The data canvas does
+   not invert.                                                             */
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --i-page: #0D1117;
+  --i-surface: #151C25;
+  --i-surface-2: #1B242F;
+  --i-surface-3: #212C39;
+  --i-line: #2A3543;
+  --i-line-2: #3D4A5A;
+
+  --i-ink: #E8EDF3;                        /* 16.08:1 on page               */
+  --i-ink-2: #C3CDD8;                      /* 11.76:1                       */
+  --i-ink-3: #9AA8B6;                      /*  7.80:1                       */
+
+  --i-accent: #7FB0EE;                     /*  8.42:1 on page               */
+  --i-accent-strong: #A8C9F6;
+  --i-accent-wash: #16263B;
+  --i-accent-line: #2E4767;
+
+  --i-ev-1: #58C08D;  --i-ev-1-wash: #10281D;
+  --i-ev-2: #6FC79C;  --i-ev-2-wash: #10281D;
+  --i-ev-3: #DDA855;  --i-ev-3-wash: #2A1F10;
+  --i-ev-4: #E8955F;  --i-ev-4-wash: #2A1B12;
+  --i-ev-5: #F58F86;  --i-ev-5-wash: #2C1614;
+  --i-ev-d: #B295F0;  --i-ev-d-wash: #201A36;
+
+  --i-seq-1: #A8C9F6;
+  --i-seq-2: #6FA3E4;
+  --i-seq-3: #3F72B4;
+  --i-seq-4: #2B4C79;
+  --i-seq-0: #6C7A89;
+
+  --i-shadow: 0 8px 24px -8px rgba(0, 0, 0, .55),
+              0 2px 6px -2px rgba(0, 0, 0, .40);
+  --i-selection: #26456C;
+}
+
+/* Reader has asked the machine for dark and the page has no stored choice. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --i-page: #0D1117;
+    --i-surface: #151C25;
+    --i-surface-2: #1B242F;
+    --i-surface-3: #212C39;
+    --i-line: #2A3543;
+    --i-line-2: #3D4A5A;
+    --i-ink: #E8EDF3;
+    --i-ink-2: #C3CDD8;
+    --i-ink-3: #9AA8B6;
+    --i-accent: #7FB0EE;
+    --i-accent-strong: #A8C9F6;
+    --i-accent-wash: #16263B;
+    --i-accent-line: #2E4767;
+    --i-ev-1: #58C08D;  --i-ev-1-wash: #10281D;
+    --i-ev-2: #6FC79C;  --i-ev-2-wash: #10281D;
+    --i-ev-3: #DDA855;  --i-ev-3-wash: #2A1F10;
+    --i-ev-4: #E8955F;  --i-ev-4-wash: #2A1B12;
+    --i-ev-5: #F58F86;  --i-ev-5-wash: #2C1614;
+    --i-ev-d: #B295F0;  --i-ev-d-wash: #201A36;
+    --i-seq-1: #A8C9F6;
+    --i-seq-2: #6FA3E4;
+    --i-seq-3: #3F72B4;
+    --i-seq-4: #2B4C79;
+    --i-seq-0: #6C7A89;
+    --i-shadow: 0 8px 24px -8px rgba(0, 0, 0, .55),
+                0 2px 6px -2px rgba(0, 0, 0, .40);
+    --i-selection: #26456C;
+  }
+}
+
+/* --- 4. BASE AND BROWSER SURFACES -----------------------------------------
+   The parts nobody draws still carry the design.                          */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--i-page);
+  color: var(--i-ink-2);
+  font-family: var(--i-font);
+  font-size: var(--i-t-base);
+  line-height: var(--i-lh);
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  color: var(--i-ink);
+  font-weight: var(--i-w-semi);
+  line-height: var(--i-lh-title);
+  letter-spacing: var(--i-track-title);
+  text-wrap: balance;
+  margin: var(--i-s6) 0 var(--i-s3);       /* more above than below         */
+}
+h1 { font-size: var(--i-t-2xl); font-weight: var(--i-w-bold); letter-spacing: var(--i-track-display); }
+h2 { font-size: var(--i-t-xl); }
+h3 { font-size: var(--i-t-lg); }
+h4 { font-size: var(--i-t-md); }
+
+p { margin: 0 0 var(--i-s4); max-width: var(--i-measure); }
+
+a { color: var(--i-accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--i-accent-strong); }
+
+code, kbd, samp, pre, .i-id {
+  font-family: var(--i-font-data);
+  font-size: var(--i-t-code);
+  font-variant-numeric: tabular-nums;
+}
+
+::selection { background: var(--i-selection); color: var(--i-ink); }
+
+:focus-visible {
+  outline: 2px solid var(--i-focus);
+  outline-offset: 2px;
+  border-radius: var(--i-r1);
+}
+:where(button, [role='button'], a, input, select, textarea):focus:not(:focus-visible) { outline: none; }
+
+* { scrollbar-color: var(--i-line-2) transparent; scrollbar-width: thin; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: var(--i-line-2);
+  border-radius: var(--i-rf);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-track { background: transparent; }
+
+input, textarea, select { caret-color: var(--i-accent); }
+
+.i-skip {
+  position: fixed; top: -60px; left: var(--i-s3); z-index: 60;
+  background: var(--i-accent); color: #fff;
+  padding: var(--i-s2) var(--i-s4); border-radius: var(--i-r1);
+  font-size: var(--i-t-sm); font-weight: var(--i-w-semi);
+  transition: top var(--i-d-press) var(--i-ease-out);
+}
+.i-skip:focus { top: var(--i-s3); }
+
+/* --- 5. SHARED PRIMITIVES -------------------------------------------------
+   These render the same on all three sites because they carry the same
+   meaning on all three. Layout is not here; meaning is.                   */
+
+/* 5.1 A number that carries its denominator. The count and the denominator
+   are one component so a bare count cannot be written by accident.        */
+.i-figure { display: block; }
+.i-figure .n {
+  display: block;
+  font-family: var(--i-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--i-t-num);
+  font-weight: var(--i-w-bold);
+  line-height: var(--i-lh-tight);
+  letter-spacing: var(--i-track-display);
+  color: var(--i-ink);
+}
+.i-figure .of {
+  display: block;
+  font-size: var(--i-t-md);
+  color: var(--i-ink-2);
+  margin-top: var(--i-s1);
+}
+.i-figure .of b { font-family: var(--i-font-data); font-variant-numeric: tabular-nums; font-weight: var(--i-w-medium); }
+.i-figure--sm .n { font-size: var(--i-t-num-sm); font-weight: var(--i-w-semi); }
+.i-figure--sm .of { font-size: var(--i-t-sm); }
+
+/* 5.2 Not computed. An absent value is never a zero and never inherits a
+   verdict colour. A measured zero uses .i-figure and stays in ink.        */
+.i-null {
+  color: var(--i-ink-3);
+  font-family: var(--i-font);
+  font-size: inherit;
+  font-weight: var(--i-w-regular);
+  font-style: normal;
+}
+.i-null::after { content: 'not computed'; }
+.i-null--short::after { content: 'not run'; }
+
+/* 5.3 Evidence chip. Tier colour, its own wash, no border, no side stripe. */
+.i-chip {
+  display: inline-flex; align-items: center; gap: var(--i-s2);
+  padding: 3px var(--i-s2);
+  border-radius: var(--i-r1);
+  font-size: var(--i-t-xs);
+  font-weight: var(--i-w-semi);
+  letter-spacing: var(--i-track-label);
+  background: var(--i-surface-3);
+  color: var(--i-ink-2);
+  white-space: nowrap;
+}
+.i-chip--ev1 { background: var(--i-ev-1-wash); color: var(--i-ev-1); }
+.i-chip--ev2 { background: var(--i-ev-2-wash); color: var(--i-ev-2); }
+.i-chip--ev3 { background: var(--i-ev-3-wash); color: var(--i-ev-3); }
+.i-chip--ev4 { background: var(--i-ev-4-wash); color: var(--i-ev-4); }
+.i-chip--ev5 { background: var(--i-ev-5-wash); color: var(--i-ev-5); }
+.i-chip--derived {
+  background: var(--i-ev-d-wash); color: var(--i-ev-d);
+  border: 1px dashed currentColor;         /* the one chip that carries a rule */
+  padding: 2px calc(var(--i-s2) - 1px);
+}
+
+/* 5.4 Callout. Wash plus a 1px full border. No coloured side stripe. */
+.i-callout {
+  border: 1px solid var(--i-line);
+  border-radius: var(--i-r2);
+  background: var(--i-surface-2);
+  color: var(--i-ink-2);
+  padding: var(--i-s4);
+  max-width: var(--i-measure);
+}
+.i-callout > :last-child { margin-bottom: 0; }
+.i-callout__head {
+  display: block;
+  font-size: var(--i-t-sm);
+  font-weight: var(--i-w-semi);
+  color: var(--i-ink);
+  margin-bottom: var(--i-s1);
+}
+.i-callout--warn { background: var(--i-warn-wash); border-color: var(--i-warn); }
+.i-callout--warn .i-callout__head { color: var(--i-warn); }
+.i-callout--bad { background: var(--i-bad-wash); border-color: var(--i-bad); }
+.i-callout--bad .i-callout__head { color: var(--i-bad); }
+.i-callout--note { background: var(--i-accent-wash); border-color: var(--i-accent-line); }
+
+/* 5.5 Surfaces. In flow: border, no shadow. Floating: shadow, no border. */
+.i-panel {
+  background: var(--i-surface);
+  border: 1px solid var(--i-line);
+  border-radius: var(--i-r2);
+}
+.i-float {
+  background: var(--i-surface);
+  border: 0;
+  border-radius: var(--i-r3);
+  box-shadow: var(--i-shadow);
+}
+
+/* 5.6 Controls. */
+.i-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--i-s2);
+  min-height: 40px;
+  padding: var(--i-s2) var(--i-s4);
+  border-radius: var(--i-r1);
+  border: 1px solid var(--i-line-2);
+  background: var(--i-surface);
+  color: var(--i-ink);
+  font: inherit;
+  font-size: var(--i-t-sm);
+  font-weight: var(--i-w-semi);
+  cursor: pointer;
+  transition: background-color var(--i-d-hover) ease,
+              border-color var(--i-d-hover) ease,
+              transform var(--i-d-press) var(--i-ease-out);
+}
+.i-btn--primary { background: var(--i-accent); border-color: var(--i-accent); color: #fff; }
+.i-btn:active { transform: scale(.97); }
+.i-btn[disabled] { opacity: .55; cursor: not-allowed; }
+.i-btn[disabled]:active { transform: none; }
+@media (hover: hover) and (pointer: fine) {
+  .i-btn:hover { background: var(--i-surface-3); }
+  .i-btn--primary:hover { background: var(--i-accent-strong); border-color: var(--i-accent-strong); }
+}
+:root[data-theme='dark'] .i-btn--primary { color: #0D1117; }
+
+.i-field { display: block; }
+.i-field > label {
+  display: block;
+  font-size: var(--i-t-xs);
+  font-weight: var(--i-w-semi);
+  letter-spacing: var(--i-track-label);
+  color: var(--i-ink-2);
+  margin-bottom: var(--i-s1);
+}
+.i-field input, .i-field select, .i-field textarea {
+  width: 100%; box-sizing: border-box;
+  min-height: 40px;
+  padding: var(--i-s2) var(--i-s3);
+  border: 1px solid var(--i-line-2);
+  border-radius: var(--i-r1);
+  background: var(--i-surface);
+  color: var(--i-ink);
+  font: inherit;
+  font-size: var(--i-t-base);
+}
+.i-field input::placeholder, .i-field textarea::placeholder { color: var(--i-ink-3); }
+.i-field__note { display: block; font-size: var(--i-t-sm); color: var(--i-ink-3); margin-top: var(--i-s1); }
+.i-field__error { display: block; font-size: var(--i-t-sm); color: var(--i-bad); margin-top: var(--i-s1); }
+
+/* 5.7 Data table. */
+.i-table { width: 100%; border-collapse: collapse; font-size: var(--i-t-sm); }
+.i-table th {
+  text-align: left;
+  font-size: var(--i-t-xs);
+  font-weight: var(--i-w-semi);
+  letter-spacing: var(--i-track-label);
+  color: var(--i-ink-2);
+  background: var(--i-surface-3);
+  padding: var(--i-s2) var(--i-s3);
+  border-bottom: 1px solid var(--i-line);
+  position: sticky; top: 0; z-index: 1;
+}
+.i-table td { padding: var(--i-s2) var(--i-s3); border-bottom: 1px solid var(--i-line); color: var(--i-ink-2); vertical-align: top; }
+.i-table td.num { font-family: var(--i-font-data); font-variant-numeric: tabular-nums; text-align: right; }
+.i-table th.num { text-align: right; }
+.i-table tbody tr:last-child td { border-bottom: 0; }
+.i-tablewrap { overflow-x: auto; border: 1px solid var(--i-line); border-radius: var(--i-r2); background: var(--i-surface); }
+
+/* 5.8 Honest states. Each is composed, none is a spinner alone. */
+.i-state {
+  border: 1px dashed var(--i-line-2);
+  border-radius: var(--i-r2);
+  background: var(--i-surface);
+  padding: var(--i-s6) var(--i-s5);
+  color: var(--i-ink-2);
+  max-width: var(--i-measure);
+}
+.i-state__head { display: block; font-size: var(--i-t-md); font-weight: var(--i-w-semi); color: var(--i-ink); margin-bottom: var(--i-s2); }
+.i-state--error { border-style: solid; border-color: var(--i-bad); background: var(--i-bad-wash); }
+.i-state--error .i-state__head { color: var(--i-bad); }
+.i-skeleton {
+  height: 12px; border-radius: var(--i-r1);
+  background: var(--i-surface-3);
+}
+
+/* 5.9 Composition bar. A stacked partition of one total, on the data canvas. */
+.i-bar {
+  display: flex; height: 12px; overflow: hidden;
+  border: 1px solid var(--i-canvas-line);
+  border-radius: var(--i-r1);
+  background: var(--i-canvas);
+}
+.i-bar > span { display: block; height: 100%; }
+
+/* 5.10 The count of a windowed list. Both numbers, always. */
+.i-window { font-size: var(--i-t-sm); color: var(--i-ink-3); }
+.i-window b { color: var(--i-ink-2); font-weight: var(--i-w-semi); font-variant-numeric: tabular-nums; }
+
+/* --- 6. MOTION ------------------------------------------------------------
+   Reduced motion means gentler, not absent: colour and opacity stay,
+   movement goes, and every authored moment lands on its end state.        */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .i-btn:active { transform: none; }
+}
+
+/* --- 7. PRINT -------------------------------------------------------------
+   These pages get printed into lab notebooks and supplements.             */
+
+@media print {
+  body { background: #fff; color: #000; }
+  .i-panel, .i-float, .i-tablewrap { box-shadow: none; border-color: #999; }
+  a { color: #000; }
+}

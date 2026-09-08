@@ -202,3 +202,16 @@ Standard compositions used for those inferences are credited in each affected re
 
 These components are excluded from the source-coverage figure (`coverage_source`) so that no
 medium can report high coverage on composition this project invented.
+
+
+--------------------------------------------------------------------------------------------
+IBM Plex Sans and IBM Plex Mono, web font files
+--------------------------------------------------------------------------------------------
+
+Files: assets/fonts/ibm-plex-sans-var.woff2, assets/fonts/ibm-plex-mono-400.woff2,
+assets/fonts/ibm-plex-mono-500.woff2. Latin subset, retrieved 2026-09-08.
+
+Copyright 2017 IBM Corp., with the reserved font name "Plex". Licensed under the SIL Open
+Font License 1.1; the full licence text ships beside the files as assets/fonts/OFL.txt.
+The OFL permits redistribution of the font files with this notice and forbids their sale on
+their own. It places no condition on the pages that display them.
