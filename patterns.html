@@ -168,7 +168,7 @@
     svg.appendChild(root);
 
     const colNodes = o.cols.map((c, j) => {
-      const t = svgEl('text', { 'font-size': FONT, fill: '#253430',
+      const t = svgEl('text', { 'font-size': FONT, fill: '#2C3A47',
         'text-anchor': 'start' });
       t.textContent = o.colText(c, j);
       root.appendChild(t);
@@ -198,12 +198,12 @@
     if (o.colDendro) {
       const g = svgEl('g', { transform: 'translate(0,' + colLabelH + ')' });
       root.appendChild(g);
-      MDB.drawDendro(g, o.colDendro, 'top', o.cellW, hx, o.colDendroH, '#c7d4cf');
+      MDB.drawDendro(g, o.colDendro, 'top', o.cellW, hx, o.colDendroH, '#BCC7D3');
     }
     if (o.rowDendro) {
       const g = svgEl('g');
       root.appendChild(g);
-      MDB.drawDendro(g, o.rowDendro, 'left', o.cellH, hy, o.rowDendroW, '#c7d4cf');
+      MDB.drawDendro(g, o.rowDendro, 'left', o.cellH, hy, o.rowDendroW, '#BCC7D3');
     }
     colNodes.forEach((t, j) => {
       const x = anchorX(j), y = colLabelH - BASE_Y;
@@ -214,7 +214,7 @@
     });
     o.rows.forEach((r, i) => {
       const y = hy + i * o.cellH + o.cellH / 2;
-      const t = svgEl('text', { x: hx - 8, y, 'font-size': 13, fill: '#253430',
+      const t = svgEl('text', { x: hx - 8, y, 'font-size': 13, fill: '#2C3A47',
         'text-anchor': 'end', 'dominant-baseline': 'middle' });
       t.textContent = o.rowText(r, i);
       root.appendChild(t);

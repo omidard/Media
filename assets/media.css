@@ -161,7 +161,9 @@ a:hover{text-decoration-color:currentColor}
 /* A standalone link is a target, not prose: it carries the WCAG 2.5.8
    24px minimum. Links inside a running sentence keep the inline exception. */
 .exlink{display:inline-flex;align-items:center;gap:var(--s1);min-height:24px}
-.fieldnote a,.libhead .note a{padding-block:4px}
+/* Vertical padding on an inline link grows the hit area to the WCAG 2.5.8
+   24px minimum without changing the line it sits on. */
+p a,li a,td a,.fieldnote a,.note a{padding-block:4px}
 
 /* cards, panels and sections ---------------------------------------------
    In flow: a 1px rule, no shadow. Floating surfaces are the sheet and the
@@ -386,6 +388,16 @@ td.state{border-bottom:0;text-align:left}
 .note+.note{margin-top:var(--s2)}
 .note ul{margin:var(--s2) 0 0;padding-left:var(--s4)}
 
+/* The second level of a ranked caveat: still on screen, still carrying its
+   own count, set at reading weight under the two that change how the record's
+   numbers must be read. */
+.limitlist{margin-top:var(--s5);border-top:1px solid var(--line);padding-top:var(--s3)}
+.limitlist__head{font-size:var(--t-cap);font-weight:600;color:var(--muted);
+  letter-spacing:var(--i-track-label)}
+.limitrow{font-size:var(--t-sm);color:var(--body);margin-top:var(--s3);
+  max-width:var(--i-measure)}
+.limitrow b{display:block;color:var(--ink);font-weight:600}
+
 /* the record sheet, as a drawer -------------------------------------------
    A record is read beside the catalogue, not on top of it: the drawer takes
    the right edge at desk widths and the bottom edge on a phone. It is the one
@@ -396,7 +408,7 @@ td.state{border-bottom:0;text-align:left}
   transition:opacity var(--i-d-sheet) var(--i-ease-drawer)}
 .overlay.is-open{opacity:1}
 .sheet{background:var(--card);box-shadow:var(--shadow);border:0;
-  border-radius:var(--r-lg) 0 0 var(--r-lg);width:min(900px,100%);
+  border-radius:var(--r-lg) 0 0 var(--r-lg);width:min(1120px,100%);
   display:flex;flex-direction:column;max-height:100%;
   transform:translateX(100%);
   transition:transform var(--i-d-sheet) var(--i-ease-drawer)}
@@ -419,6 +431,21 @@ td.state{border-bottom:0;text-align:left}
     transform:translateY(100%)}
   .sheet-head,.sheet-body{padding-left:var(--s4);padding-right:var(--s4)}
 }
+
+/* The component table is the surface a modeller actually works on: one row
+   per compound, with the tier its identity rests on beside the value. Seven
+   columns crushed into the drawer width turned a one-line reason into six
+   lines and a 51-row table into nine screens, so the table keeps a working
+   width and scrolls sideways in its own box instead. */
+table.grid.components{min-width:1020px}
+table.grid.components th:nth-child(1),table.grid.components td:nth-child(1){width:18%}
+table.grid.components th:nth-child(2),table.grid.components td:nth-child(2){width:12%}
+table.grid.components th:nth-child(3),table.grid.components td:nth-child(3){width:9%}
+table.grid.components th:nth-child(4),table.grid.components td:nth-child(4){width:18%}
+table.grid.components th:nth-child(5),table.grid.components td:nth-child(5){width:8%}
+table.grid.components th:nth-child(6),table.grid.components td:nth-child(6){width:15%}
+table.grid.components td:nth-child(2) code{white-space:nowrap}
+.sheet .tablewrap.scroll-y{max-height:min(520px,58vh)}
 
 /* the copy-to-COBRApy block ----------------------------------------------- */
 .cobra{display:block;white-space:pre;overflow:auto;max-height:280px;
@@ -461,7 +488,7 @@ td.state{border-bottom:0;text-align:left}
   margin-top:var(--s1);font-family:var(--mono);font-variant-numeric:tabular-nums}
 .viz{overflow:auto;border:1px solid var(--i-canvas-line);border-radius:var(--r);
   background:var(--i-canvas)}
-.viz svg{display:block}
+.viz svg{display:block;margin-inline:auto}
 
 .tip{position:fixed;pointer-events:none;opacity:0;background:var(--i-ink);color:#fff;
   font-size:var(--t-cap);padding:var(--s2) var(--s3);border-radius:var(--r-sm);z-index:500;

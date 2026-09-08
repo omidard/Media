@@ -225,9 +225,8 @@
       const m = rowOf(id);
       const b = el('button', {
         class: 'btn btn-sm', type: 'button',
-        'aria-label': 'Remove ' + (m ? m.name : id) + ' from the comparison',
-        text: (m ? m.name : id) + '  ✕'
-      });
+        'aria-label': 'Remove ' + (m ? m.name : id) + ' from the comparison'
+      }, [(m ? m.name : id), MDB.removeMark()]);
       b.addEventListener('click', () => remove(id));
       chips.appendChild(b);
     });
@@ -372,23 +371,29 @@
     labels.forEach((l, j) => {
       const x = lab + j * cell + cell / 2;
       const t = svgEl('text', { x, y: top - 8, transform: 'rotate(-45 ' + x + ' ' + (top - 8) + ')',
-        'font-size': 13, fill: '#253430', 'text-anchor': 'start' });
+        'font-size': 13, fill: '#2C3A47', 'text-anchor': 'start' });
       t.textContent = l; svg.appendChild(t);
     });
     labels.forEach((l, i) => {
       const y = top + i * cell + cell / 2;
-      const t = svgEl('text', { x: lab - 8, y, 'font-size': 13, fill: '#253430',
+      const t = svgEl('text', { x: lab - 8, y, 'font-size': 13, fill: '#2C3A47',
         'text-anchor': 'end', 'dominant-baseline': 'middle' });
       t.textContent = l; svg.appendChild(t);
     });
     for (let i = 0; i < N; i++) {
       for (let j = 0; j < N; j++) {
         const v = J[i][j];
+        // Every cell carries its own value, so the ramp is compressed into the
+        // range where 13px ink still measures at least 5:1 on the fill. The
+        // full ramp switched the label to white above 0.55, which leaves a band
+        // of mid-blues where neither white nor ink clears AA. Ordering is what
+        // the fill has to carry here; the number is printed anyway.
         svg.appendChild(svgEl('rect', { x: lab + j * cell, y: top + i * cell,
-          width: cell - 2, height: cell - 2, rx: 3, fill: MDB.accentRamp(v) }));
+          width: cell - 2, height: cell - 2, rx: 3,
+          fill: MDB.accentRamp(0.08 + v * 0.57) }));
         const t = svgEl('text', { x: lab + j * cell + cell / 2, y: top + i * cell + cell / 2,
           'font-size': 13, 'text-anchor': 'middle', 'dominant-baseline': 'middle',
-          fill: v > 0.55 ? '#ffffff' : '#0f2420', 'font-weight': 600 });
+          fill: '#101A24', 'font-weight': 600 });
         t.textContent = v.toFixed(2);
         svg.appendChild(t);
       }
@@ -418,7 +423,7 @@
     svg.replaceChildren();
     labels.forEach((l, i) => {
       const y = barH + gap + i * rowH + rowH / 2;
-      const t = svgEl('text', { x: leftM - 10, y, 'font-size': 13, fill: '#253430',
+      const t = svgEl('text', { x: leftM - 10, y, 'font-size': 13, fill: '#2C3A47',
         'text-anchor': 'end', 'dominant-baseline': 'middle' });
       t.textContent = l; svg.appendChild(t);
     });
@@ -426,9 +431,9 @@
       const x = leftM + j * cw + cw / 2;
       const h = (c.n / tallest) * (barH - 26);
       svg.appendChild(svgEl('rect', { x: x - cw * 0.3, y: barH - h, width: cw * 0.6,
-        height: h, rx: 3, fill: '#0b6a54' }));
+        height: h, rx: 3, fill: '#10508F' }));
       const t = svgEl('text', { x, y: barH - h - 6, 'font-size': 13, 'text-anchor': 'middle',
-        fill: '#253430', 'font-weight': 600 });
+        fill: '#2C3A47', 'font-weight': 600 });
       t.textContent = fmt(c.n); svg.appendChild(t);
       const members = [];
       for (let i = 0; i < N; i++) if (c.mask & (1 << i)) members.push(i);
@@ -436,11 +441,11 @@
         svg.appendChild(svgEl('line', {
           x1: x, y1: barH + gap + members[0] * rowH + rowH / 2,
           x2: x, y2: barH + gap + members[members.length - 1] * rowH + rowH / 2,
-          stroke: '#0b6a54', 'stroke-width': 2 }));
+          stroke: '#10508F', 'stroke-width': 2 }));
       }
       for (let i = 0; i < N; i++) {
         svg.appendChild(svgEl('circle', { cx: x, cy: barH + gap + i * rowH + rowH / 2,
-          r: 5, fill: (c.mask & (1 << i)) ? '#0b6a54' : '#dfe6e3' }));
+          r: 5, fill: (c.mask & (1 << i)) ? '#10508F' : '#DCE3EA' }));
       }
     });
     $('upset-note').textContent = hidden > 0
@@ -485,8 +490,8 @@
     const defs = svgEl('defs');
     const pat = svgEl('pattern', { id: 'derivedhatch', width: 6, height: 6,
       patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' });
-    pat.appendChild(svgEl('rect', { width: 6, height: 6, fill: '#ede8f4' }));
-    pat.appendChild(svgEl('rect', { width: 3, height: 6, fill: '#7d51ae' }));
+    pat.appendChild(svgEl('rect', { width: 6, height: 6, fill: '#C9B6E0' }));
+    pat.appendChild(svgEl('rect', { width: 3, height: 6, fill: '#6B3FA0' }));
     defs.appendChild(pat);
     svg.appendChild(defs);
 
@@ -494,16 +499,16 @@
       const x = labW + j * cw + cw / 2;
       const t = svgEl('text', { x, y: top - 10,
         transform: 'rotate(-38 ' + x + ' ' + (top - 10) + ')',
-        'font-size': 13, fill: '#253430', 'text-anchor': 'start', 'font-weight': 600 });
+        'font-size': 13, fill: '#2C3A47', 'text-anchor': 'start', 'font-weight': 600 });
       t.textContent = l; svg.appendChild(t);
     });
     items.forEach((it, i) => {
       const y = top + i * cellH;
       if (i % 2) svg.appendChild(svgEl('rect', { x: labW, y, width: N * cw,
-        height: cellH, fill: '#f4f7f5' }));
+        height: cellH, fill: '#F7F9FB' }));
       const nm = nameOf[it.e] || it.e;
       const t = svgEl('text', { x: labW - 12, y: y + cellH / 2, 'font-size': 13,
-        fill: '#253430', 'text-anchor': 'end', 'dominant-baseline': 'middle' });
+        fill: '#2C3A47', 'text-anchor': 'end', 'dominant-baseline': 'middle' });
       t.textContent = nm.length > 34 ? nm.slice(0, 33) + '…' : nm;
       svg.appendChild(t);
       for (let j = 0; j < N; j++) {
@@ -511,7 +516,7 @@
         const isDerived = on && derivedIn[j].has(it.e);
         const r = svgEl('rect', { x: labW + j * cw + 3, y: y + 3, width: cw - 6,
           height: cellH - 6, rx: 4,
-          fill: on ? (isDerived ? 'url(#derivedhatch)' : '#0b6a54') : '#eef3f0' });
+          fill: on ? (isDerived ? 'url(#derivedhatch)' : '#10508F') : '#EDF1F6' });
         const title = svgEl('title');
         title.textContent = nm + ' (' + it.e + '): ' +
           (on ? (isDerived ? 'present, derived for ' : 'present, stated by the source of ')

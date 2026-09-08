@@ -1510,9 +1510,14 @@ const MDB = (function () {
     body.appendChild(covCard);
 
     /* limitations ---------------------------------------------------------- */
+    // A caveat is ranked, not stacked. Four blocks of identical weight leave a
+    // reader unable to tell which one changes how the record's own numbers must
+    // be read, so each limit carries a rank: 1 and 2 are the ones that change a
+    // count or a bound and are drawn as callouts, and the rest are listed under
+    // them at reading weight. Nothing is collapsed and nothing is dropped.
     const limits = [];
     if (nDerived) {
-      limits.push(['derived',
+      limits.push([1, 'derived',
         'This record contains components the source never stated.',
         fmt(nDerived) + ' of ' + fmt(total) + ' components are in-silico: a ' +
         'decomposition of a complex ingredient, a hydrolysate approximation, or ' +
@@ -1525,7 +1530,7 @@ const MDB = (function () {
     // low as 1.8%) and on 60 it inverted the record's own evidence.
     const nNameish = counts[2] + counts[3];
     if (nNameish > 0) {
-      limits.push(['caution',
+      limits.push([4, 'caution',
         (nNameish * 2 > total ? 'Most' : 'Some') +
         ' identities here were decided by a name string, not by chemistry.',
         withDenominator(nNameish, total, 'components') +
@@ -1533,7 +1538,7 @@ const MDB = (function () {
         'representative molecule. Check any component you intend to constrain.']);
     }
     if (!quant.n_with_concentration_mM) {
-      limits.push(['caution', 'No concentration in this record is source-stated.',
+      limits.push([3, 'caution', 'No concentration in this record is source-stated.',
         'Every lower bound below is a presence placeholder, not a measured ' +
         'uptake rate. Set your own bounds before you interpret a flux.']);
     }
@@ -1548,7 +1553,7 @@ const MDB = (function () {
       // second false statement about the same field.
       const undecidable = vocabularyFailed()
         && med.oxygen_default_for_simulation === undefined;
-      limits.push(['caution', 'The oxygen regime is unknown.',
+      limits.push([6, 'caution', 'The oxygen regime is unknown.',
         (undecidable
           ? 'This record records "' + med.oxygen + '", and whether that is a ' +
             'source statement or a default of the build is decided by a payload ' +
@@ -1562,7 +1567,7 @@ const MDB = (function () {
           : '')]);
     }
     if (med.composition_limitation) {
-      limits.push(['caution', 'Composition is not unique to this record.',
+      limits.push([7, 'caution', 'Composition is not unique to this record.',
         med.composition_limitation]);
     }
     // The exceptions to "mapped to a BiGG exchange", stated on the record that has
@@ -1615,26 +1620,41 @@ const MDB = (function () {
       }
     }
     if (parts.length) {
-      limits.push(['caution', anyExceptions
+      limits.push([2, 'caution', anyExceptions
         ? 'Not every component here reaches a BiGG exchange.'
         : 'Whether every component here reaches a BiGG exchange is not recorded.',
         parts.join(' ')]);
     }
     if (med.category === 'food') {
-      limits.push(['caution', 'A food is not a laboratory medium.',
+      limits.push([5, 'caution', 'A food is not a laboratory medium.',
         'This record is built from a population-average nutrient analysis of a ' +
         'food, with a standard mineral base added by convention. Component ' +
         'presence is real; the amounts are per 100 g of food, not per litre of medium.']);
     }
     if (limits.length) {
+      limits.sort((a, b) => a[0] - b[0]);
       const box = el('div', { class: 'card card-p' });
       box.appendChild(el('h4', { text: 'What this record cannot tell you' }));
-      limits.forEach(([kind, title, text]) => {
+      limits.slice(0, 2).forEach(([, kind, title, text]) => {
         box.appendChild(el('div', { class: 'note ' + kind, style: 'margin-top:var(--s3)' }, [
           el('b', { text: title }),
           el('p', { style: 'margin-top:var(--s1)', text: text })
         ]));
       });
+      const rest = limits.slice(2);
+      if (rest.length) {
+        const list = el('div', { class: 'limitlist' });
+        list.appendChild(el('p', {
+          class: 'limitlist__head',
+          text: plural(rest.length, 'further limit') + ' on this record'
+        }));
+        rest.forEach(([, , title, text]) => {
+          list.appendChild(el('div', { class: 'limitrow' }, [
+            el('b', { text: title }), el('span', { text: text })
+          ]));
+        });
+        box.appendChild(list);
+      }
       body.appendChild(box);
     }
 
@@ -1745,7 +1765,7 @@ const MDB = (function () {
           'and carry a dashed chip. Every row states how its identity was decided.'
       }),
       el('div', { class: 'tablewrap scroll-y' }, [
-        el('table', { class: 'grid' }, [
+        el('table', { class: 'grid components' }, [
           el('thead', {}, [el('tr', {}, [
             el('th', { text: 'Component' }), el('th', { text: 'Exchange' }),
             el('th', { text: 'Amount' }), el('th', { text: 'Concentration' }),
@@ -1825,6 +1845,8 @@ const MDB = (function () {
   const sortMark = (dir) => icon(dir === 1 ? 'M6 3l4 6H2z' : 'M6 9L2 3h8z');
   /** A link that leaves this site. */
   const externalMark = () => icon('M4.5 2.5h5v5M9.5 2.5L3 9', { stroke: true });
+  /** Take a thing out of a selection. */
+  const removeMark = () => icon('M3 3l6 6M9 3l-6 6', { stroke: true });
 
   function svgEl(tag, attrs) {
     const node = document.createElementNS(SVGNS, tag);
@@ -1991,7 +2013,7 @@ const MDB = (function () {
     evidenceLegend,
     dominantEvidence, classOfTier, o2Chip, verificationChip, DATA_LICENCE,
     announce, makeTable, openMedium, closeSheet, delegateMediumLinks,
-    downloadText, xrefUrl, svgEl, sortMark, externalMark, accentRamp,
+    downloadText, xrefUrl, svgEl, sortMark, externalMark, removeMark, accentRamp,
     tipShow, tipHide, drawDendro,
     clusterOrder,
     get catalog() { return catalog; }
