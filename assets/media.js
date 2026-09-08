@@ -497,15 +497,37 @@ const MDB = (function () {
    *  was stated. With no payload in hand the record's own value is returned
    *  unchanged: this must not invent an absence any more than it invents a value. */
   function recordedOxygen(med) {
+    // 54_oxygen_regime_absent_when_unstated separated the two facts in the record
+    // itself, so a record that carries the pair is read rather than re-derived.
+    // The note rule below is kept for a record served by an older release, and the
+    // two agree on every record in this one.
+    if (med.oxygen_default_for_simulation !== undefined) return med.oxygen;
     const basis = catalog && catalog.oxygen_basis;
     const notes = basis && basis.unstated_notes;
     // With the vocabulary absent, whether this record's 'facultative' is a source
-    // statement or the pipeline's default cannot be established here, so it is
+    // statement or the build's default cannot be established here, so it is
     // reported as unknown rather than affirmed.
     if (vocabularyFailed() && med.oxygen === 'facultative') return null;
     if (!notes || med.oxygen !== 'facultative') return med.oxygen;
     const note = (med.oxygen_note || '').trim();
     return notes.indexOf(note) >= 0 ? null : med.oxygen;
+  }
+
+  /** What EX_o2_e in the exported medium was written from, which is a convention
+   *  of the build and never a finding about the medium.
+   *
+   *  Read off the record where the record carries it. Before the corpus separated
+   *  the two, this was inferred as "the regime the record states, when that is not
+   *  the regime we publish", and that inference silently became FALSE the moment
+   *  the corpus was corrected: `med.oxygen` went null, so the sheet stopped telling
+   *  a reader that the medium they were about to copy still opens the oxygen
+   *  exchange. The caution that says the regime is unknown is worth less than
+   *  nothing without it. */
+  function simulationOxygen(med) {
+    if (med.oxygen_default_for_simulation !== undefined) {
+      return med.oxygen_default_for_simulation;
+    }
+    return med.oxygen;
   }
 
   function o2Chip(oxygen) {
@@ -1504,11 +1526,19 @@ const MDB = (function () {
     }
     const o2 = recordedOxygen(med);
     if (o2 === null || o2 === undefined) {
-      const defaulted = med.oxygen && med.oxygen !== o2;
+      const assumed = simulationOxygen(med);
+      const defaulted = assumed && assumed !== o2;
+      // The "not established either way" wording belongs only to a record that
+      // does NOT carry the two fields, because only then does the answer depend
+      // on a payload that may not have loaded. A record that carries them has
+      // said which is which itself, and telling the reader otherwise would be a
+      // second false statement about the same field.
+      const undecidable = vocabularyFailed()
+        && med.oxygen_default_for_simulation === undefined;
       limits.push(['caution', 'The oxygen regime is unknown.',
-        (vocabularyFailed()
+        (undecidable
           ? 'This record records "' + med.oxygen + '", and whether that is a ' +
-            'source statement or the pipeline default is decided by a payload ' +
+            'source statement or a default of the build is decided by a payload ' +
             'that did not load here, so it is not established either way. '
           : 'No source or curator states whether this medium is used aerobically. ') +
         'It is unknown, not anaerobic. Decide EX_o2_e yourself.' +

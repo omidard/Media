@@ -54,7 +54,19 @@ def browser():
 
 
 def _a_defaulted_record():
-    """A record whose facultative regime came from the no-statement default."""
+    """A record whose facultative regime came from the no-statement default.
+
+    Selected through web_payload.oxygen_recorded(), NOT by matching
+    oxygen == "facultative" on the record. That spelling was the defect, and when
+    54_oxygen_regime_absent_when_unstated corrected it this fixture stopped finding
+    any record at all and skipped: 11,926 records still needed exactly this test and
+    the suite reported nothing. `make test-browser-strict` refuses a skip, which is
+    the only reason it was noticed, and a guard that disappears when its defect is
+    fixed is a guard that cannot catch the defect coming back.
+
+    The condition is "no source stated this record's regime", which is true of the
+    same 11,926 records before and after the correction.
+    """
     import web_payload
     path = os.path.join(REPO, "data", "media")
     if not os.path.isdir(path):
@@ -64,11 +76,13 @@ def _a_defaulted_record():
             continue
         with open(os.path.join(path, name), encoding="utf-8") as fh:
             rec = json.load(fh)
-        if (rec.get("oxygen") == "facultative"
-                and (rec.get("oxygen_note") or "").strip()
-                in web_payload.OXYGEN_NOT_STATED_NOTES):
+        regime, assumed = web_payload.oxygen_recorded(rec)
+        if regime is None and assumed == "facultative":
             return rec["id"]
-    pytest.skip("no defaulted-regime record found")
+    pytest.fail("no record in the first 4,000 has a regime no source stated, and "
+                "11,926 of the 13,515 do. Either the corpus changed shape or this "
+                "fixture stopped describing the condition it selects for; a skip "
+                "here silently retires the test.")
 
 
 @pytest.mark.parametrize("page_name", ["index.html", "families.html"])
@@ -118,3 +132,34 @@ def test_the_unknown_filter_returns_the_whole_unknown_set(server, browser):
     assert "{:,}".format(want) in line, (
         "the 'Unknown (not recorded)' filter reports %r; the library holds %s media "
         "with no recorded regime" % (line, "{:,}".format(want)))
+
+
+def test_the_sheet_says_what_the_exported_medium_does_with_ex_o2_e(server, browser):
+    """Unknown is only half the answer; the reader is about to copy a medium.
+
+    The sheet used to add "The medium exported below still opens EX_o2_e, by the
+    same convention that supplies the mineral base" whenever the record STATED a
+    regime we do not publish. That test was `med.oxygen && med.oxygen !== o2`, an
+    inference from the defect, and it went silently false the moment
+    54_oxygen_regime_absent_when_unstated nulled `oxygen`: every one of the 11,926
+    sheets kept the "the regime is unknown" caution and lost the sentence saying
+    which way the exported medium was written. A reader would have been told to
+    decide EX_o2_e themselves with no indication that the block below already had.
+
+    The sheet reads oxygen_default_for_simulation off the record now, so the
+    convention is stated because it is recorded, not inferred from a defect.
+    """
+    mid = _a_defaulted_record()
+    page = browser.new_page(viewport={"width": 1280, "height": 900})
+    try:
+        page.goto("%s/index.html?medium=%s" % (server, mid), wait_until="load")
+        page.wait_for_selector(".sheet", timeout=20000)
+        sheet = page.inner_text(".sheet")
+    finally:
+        page.close()
+    assert "still opens EX_o2_e" in sheet, (
+        "%s has no stated regime and its exported medium opens EX_o2_e by "
+        "convention; the sheet must say so beside the caution telling the reader "
+        "to decide it themselves: %r" % (mid, sheet[:800]))
+    assert "not a finding about this medium" in sheet, (
+        "the convention must be labelled as a convention: %r" % sheet[:800])
