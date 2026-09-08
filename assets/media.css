@@ -86,16 +86,19 @@ a:hover{text-decoration-color:currentColor}
 .wrap{max-width:1240px;margin:0 auto;padding:0 var(--s5)}
 .stack>*+*{margin-top:var(--s3)}
 
-/* skip link: instrument.css themes .i-skip; this page's markup uses .skip */
+/* skip link: instrument.css themes .i-skip; this page's markup uses .skip.
+   #fff is literal on purpose, matching the shared file's own text-on-accent
+   convention (instrument.css .i-btn--primary): 8.18:1 on the accent, and no
+   surface token means "white in both themes". */
 .skip{position:fixed;left:var(--s3);top:-60px;z-index:400;background:var(--accent);
   color:#fff;border-radius:var(--r-sm);padding:var(--s2) var(--s4);font-weight:600;
   font-size:var(--t-sm);text-decoration:none;transition:top var(--i-d-press) var(--i-ease-out)}
 .skip:focus{top:var(--s3)}
 /* In the dark theme the accent is a light blue, so white on it measures
    2.25:1. The label takes the page ink there, as the primary button does. */
-:root[data-theme='dark'] .skip{color:#0D1117}
+:root[data-theme='dark'] .skip{color:var(--i-page)}
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme='light']) .skip{color:#0D1117}
+  :root:not([data-theme='light']) .skip{color:var(--i-page)}
 }
 
 /* header ------------------------------------------------------------------
@@ -146,6 +149,28 @@ a:hover{text-decoration-color:currentColor}
 .libhead .evidence h2{font-size:var(--t-cap);font-weight:600;color:var(--muted);
   letter-spacing:var(--i-track-label);margin-bottom:var(--s2)}
 
+/* Explore page head: identity, then the search control, then the library
+   wide evidence composition, as one grid with named areas. At phone widths
+   the search control precedes the composition, so the control the page
+   exists for is in the first viewport; at desk widths the composition sits
+   beside the title, where the column under the claim used to hold about
+   130px of nothing, and the search row spans both columns. Tighter padding
+   than the sibling pages buys the first two record rows back above the fold
+   at 1280x720. */
+.libhead-explore{padding:var(--s4) 0 var(--s3)}
+.libhead-explore .wrap{grid-template-areas:"id" "search" "evidence"}
+.libhead-explore .libid{grid-area:id}
+.libhead-explore .searchpanel{grid-area:search}
+.libhead-explore .evidence{grid-area:evidence}
+@media(min-width:960px){
+  .libhead-explore{padding:var(--s4) 0 var(--s3)}
+  .libhead-explore .wrap{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);
+    grid-template-areas:"id evidence" "search search";gap:var(--s3) var(--s6)}
+  /* four columns, so each search field takes half the row and its scope
+     note wraps twice, not three times */
+  .libhead-explore .searchgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
 /* a count with its denominator, from instrument.css, sized for this band.
    The count and the noun it counts sit on one line; the sentence that carries
    the rest of the denominators sits under them. */
@@ -190,6 +215,8 @@ h4{font-size:var(--t-lead);color:var(--ink);line-height:var(--i-lh-title)}
 .btn:active{transform:scale(.97)}
 .btn[disabled]{opacity:.55;cursor:not-allowed}
 .btn[disabled]:active{transform:none}
+/* #fff literal on purpose: text on the accent fill, 8.18:1, the shared
+   file's own convention (instrument.css .i-btn--primary). */
 .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn[aria-pressed="true"]{background:var(--tint);border-color:var(--accent);color:var(--accent)}
 .btn-sm{min-height:32px;padding:var(--s1) var(--s3);font-size:var(--t-cap)}
@@ -198,10 +225,10 @@ h4{font-size:var(--t-lead);color:var(--ink);line-height:var(--i-lh-title)}
   .btn-primary:hover{background:var(--accent-ink);border-color:var(--accent-ink);color:#fff}
 }
 :root[data-theme='dark'] .btn-primary,
-:root[data-theme='dark'] .btn-primary:hover{color:#0D1117}
+:root[data-theme='dark'] .btn-primary:hover{color:var(--i-page)}
 @media (prefers-color-scheme:dark){
   :root:not([data-theme='light']) .btn-primary,
-  :root:not([data-theme='light']) .btn-primary:hover{color:#0D1117}
+  :root:not([data-theme='light']) .btn-primary:hover{color:var(--i-page)}
 }
 
 /* form controls: the label is above the input, never the placeholder ------ */
@@ -222,8 +249,8 @@ select.input{appearance:none;
 
 /* the search panel: the control the library exists for ------------------- */
 .searchpanel{background:var(--card);border:1px solid var(--line);
-  border-radius:var(--r);padding:var(--s4) var(--s5)}
-.searchgrid{display:grid;gap:var(--s3) var(--s4);
+  border-radius:var(--r);padding:var(--s3) var(--s4)}
+.searchgrid{display:grid;gap:var(--s2) var(--s4);
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
 .searchgrid .span-2{grid-column:span 2}
 .searchgrid .filters{grid-column:1/-1;display:grid;gap:var(--s3) var(--s4);
@@ -263,19 +290,25 @@ a.chip{text-decoration:none}
 .evbar{display:flex;height:14px;border-radius:var(--r-sm);overflow:hidden;
   background:var(--i-canvas);border:1px solid var(--i-canvas-line)}
 .evbar span{display:block;height:100%}
-.evbar .s-structure{background:#0B6B45}
-.evbar .s-identifier{background:#3E8F6B}
-.evbar .s-name{background:#C08A2E}
-.evbar .s-class_or_assertion{background:#C4763C}
-.evbar .s-unresolved{background:#B3261E}
-.evbar .s-derived{background:repeating-linear-gradient(45deg,#6B3FA0,#6B3FA0 3px,
-  #C9B6E0 3px,#C9B6E0 6px)}
+/* Every area fill and every swatch that keys one take the SAME shared mark
+   token, declared once here, so the key and the chart cannot disagree and the
+   same class is the same fill on all three sibling sites. Marks are theme
+   invariant: the bar sits on the white data canvas in both themes. */
+.evbar .s-structure,.evrow .sw.s-structure{background:var(--i-ev-1-mark)}
+.evbar .s-identifier,.evrow .sw.s-identifier{background:var(--i-ev-2-mark)}
+.evbar .s-name,.evrow .sw.s-name{background:var(--i-ev-3-mark)}
+.evbar .s-class_or_assertion,.evrow .sw.s-class_or_assertion{background:var(--i-ev-4-mark)}
+.evbar .s-unresolved,.evrow .sw.s-unresolved{background:var(--i-ev-5-mark)}
+.evbar .s-derived,.evrow .sw.s-derived{background:repeating-linear-gradient(45deg,
+  var(--i-ev-d-mark),var(--i-ev-d-mark) 3px,var(--i-ev-d-hatch) 3px,var(--i-ev-d-hatch) 6px)}
 .evbar.mini{height:8px;min-width:64px}
-/* The one authored moment on this site: when a record sheet opens, the bar
-   draws once from left to right, so the reader sees it is a partition of a
-   single total rather than six unrelated quantities. The counts and the chips
-   are already on screen before it plays, so nothing waits on it. */
-.evbar.draw{animation:evdraw var(--i-d-authored) var(--i-ease-in-out) both}
+/* The one authored moment on this site: the library bar draws once, left to
+   right, on the FIRST paint of the library page, so the reader sees it is a
+   partition of a single total rather than six unrelated quantities. It does
+   NOT play when a record opens: opening records is the core repeated act
+   here and the frequency gate forbids animating it. Entrance curve is the
+   exponential ease-out, per the craft floor. */
+.evbar.draw{animation:evdraw var(--i-d-authored) var(--i-ease-out) both}
 @keyframes evdraw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
 
 .evlegend{display:grid;gap:var(--s2);margin-top:var(--s3)}
@@ -283,22 +316,22 @@ a.chip{text-decoration:none}
 @media(min-width:1200px){.evlegend{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .evrow{display:flex;gap:var(--s2);align-items:flex-start;font-size:var(--t-cap);min-width:0}
 .evrow .sw{flex:0 0 12px;height:12px;border-radius:3px;margin-top:3px}
-.evrow .sw.s-structure{background:#0B6B45}
-.evrow .sw.s-identifier{background:#3E8F6B}
-.evrow .sw.s-name{background:#C08A2E}
-.evrow .sw.s-class_or_assertion{background:#C4763C}
-.evrow .sw.s-unresolved{background:#B3261E}
-.evrow .sw.s-derived{background:repeating-linear-gradient(45deg,#6B3FA0,#6B3FA0 3px,
-  #C9B6E0 3px,#C9B6E0 6px)}
+/* swatch fills are declared once, with the bar segments, above */
 .evrow b{color:var(--ink);font-weight:600}
 .evrow .n{color:var(--muted);font-family:var(--mono);font-variant-numeric:tabular-nums}
+/* a class with nothing in it states its zero and its denominator on one
+   line; the five line definition is reserved for classes that occur */
+.evrow.zero .n{color:var(--muted)}
+.evzeros{margin-top:var(--s2);display:grid;gap:var(--s1)}
 
-/* A chip here carries a count and its denominator, so it wraps rather than
-   truncating: an ellipsis that eats "(15.37%)" is a count without a
-   denominator, which is the one thing this key exists to prevent. */
-.evkey{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
-.evkey .chip{white-space:normal;overflow:visible;text-overflow:clip;min-width:0}
-.evkey .chip b{font-weight:700;font-family:var(--mono);font-variant-numeric:tabular-nums}
+/* The key under the bar: one swatch, the label and the count with its
+   denominator per line. The swatch takes the bar segment's own fill from the
+   shared rule above, so this key cannot disagree with the chart it keys.
+   The count never truncates: an ellipsis that eats "(15.37%)" is a count
+   without a denominator, which is the one thing this key exists to prevent. */
+.evkey{display:grid;gap:var(--s1) var(--s4);margin-top:var(--s2)}
+@media(min-width:760px){.evkey{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.evkey .evrow .sw{margin-top:4px}
 
 /* figure tiles ------------------------------------------------------------ */
 .figures{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
@@ -346,8 +379,19 @@ table.grid thead th.sortable button{height:100%}
 th.sortable button:hover{color:var(--accent)}
 th.sortable .arrow{color:var(--accent);font-size:var(--t-cap)}
 .medlink{font-weight:600;color:var(--accent);text-decoration:none;
-  display:inline-block;min-height:24px;padding:3px 0;line-height:1.4}
+  display:inline-block;min-height:24px;padding:0;line-height:1.4}
 .medlink:hover{text-decoration:underline}
+/* A chip inside a table row is compact: the row is the unit of reading here
+   and a 27px chip beside a 24px link put every wrapped name on a 61px cell.
+   min-height 24px holds the WCAG 2.5.8 target floor. */
+table.grid .chip{padding:1px var(--s2);min-height:24px}
+/* The name column takes a stated share instead of hogging the free space,
+   so "14 from source, 37 derived" two columns over keeps one line and the
+   row keeps one reading height. Only while the other columns are shown. */
+@media(min-width:641px){
+  #table thead th:first-child{width:34%}
+  #table thead th:nth-child(2){width:190px}
+}
 .rowmeta{display:none;color:var(--muted);font-size:var(--t-cap);margin-top:var(--s1)}
 .cellnote{color:var(--muted);font-size:var(--t-cap);display:block}
 /* A numeral in a table cell is set in the data face with tabular figures, so
@@ -360,7 +404,7 @@ table.grid td.tnum .cellnote,table.grid td.tnum .muted{font-family:var(--sans);
 
 /* pagination and the result line ----------------------------------------- */
 .tablebar{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;
-  justify-content:space-between;margin:var(--s3) 0}
+  justify-content:space-between;margin:var(--s2) 0}
 .resultline{font-size:var(--t-sm);color:var(--body);font-variant-numeric:tabular-nums}
 .resultline b{color:var(--ink);font-family:var(--mono);font-weight:600}
 .pager{display:flex;gap:var(--s1);align-items:center;flex-wrap:wrap}
@@ -388,6 +432,16 @@ td.state{border-bottom:0;text-align:left}
 .note.derived>b:first-child{color:var(--ev-derived)}
 .note+.note{margin-top:var(--s2)}
 .note ul{margin:var(--s2) 0 0;padding-left:var(--s4)}
+
+/* the disclosure holding the rest of a capped twin list: both numbers are
+   printed in the summary, and the summary itself clears the 24px target */
+.twinmore{margin-top:var(--s2)}
+.twinmore summary{cursor:pointer;color:var(--accent);font-size:var(--t-sm);
+  font-weight:600;min-height:24px;display:inline-flex;align-items:center}
+
+/* A list item does not inherit the paragraph measure, so a li left alone
+   runs the full column. Same reading floor as p. */
+li{max-width:var(--i-measure)}
 
 /* The second level of a ranked caveat: still on screen, still carrying its
    own count, set at reading weight under the two that change how the record's
@@ -491,6 +545,8 @@ table.grid.components td:nth-child(2) code{white-space:nowrap}
   background:var(--i-canvas)}
 .viz svg{display:block;margin-inline:auto}
 
+/* #fff literal on purpose: label on the light theme's near-black ink fill,
+   17.57:1; the dark theme rule below re-inks it from tokens. */
 .tip{position:fixed;pointer-events:none;opacity:0;background:var(--i-ink);color:#fff;
   font-size:var(--t-cap);padding:var(--s2) var(--s3);border-radius:var(--r-sm);z-index:500;
   max-width:300px;line-height:1.4;box-shadow:var(--shadow);
@@ -533,5 +589,7 @@ details.disclosure>div{padding:0 var(--s4) var(--s4)}
 
 @media print{
   .topbar,.skip,.pager,.themeswap{display:none}
+  /* #999 literal on purpose: a mid grey chosen for greyscale printers,
+     where the blue-tinted line tokens dither. Print only. */
   .card,.tablewrap,.searchpanel{border-color:#999}
 }

@@ -427,44 +427,61 @@ const MDB = (function () {
     return bar;
   }
 
-  /** A one-line key: every class, its count and its denominator, as chips.
-   *  The full definitions live next to it in an open disclosure, never hidden. */
+  /** The bar's key: one line per class, swatch first, then the label and the
+   *  count with its denominator. The swatch takes the bar segment's own fill
+   *  from the shared stylesheet rule, so this key cannot disagree with the
+   *  bar it keys. */
   function evidenceKey(counts, total) {
     const key = el('div', { class: 'evkey' });
     const pct = sharesOfWhole(counts, total);
     evidenceClasses().forEach((c, i) => {
-      const chip = el('span', { class: 'chip ev-' + c.id, title: c.definition });
-      chip.appendChild(el('b', { text: c.label }));
-      // The numerals go in the data face, so a column of counts lines up and a
-      // count can never be mistaken for part of the class name.
-      chip.appendChild(el('span', {
-        class: 'n',
-        text: fmt(counts[i]) + ' of ' + fmt(total) + ' (' + pct[i] + ')'
-      }));
-      key.appendChild(chip);
+      key.appendChild(el('div', { class: 'evrow', title: c.definition }, [
+        el('span', { class: 'sw s-' + c.id }),
+        el('div', {}, [
+          el('b', { text: c.label }), document.createTextNode(' '),
+          // The numerals go in the data face, so a column of counts lines up
+          // and a count can never be mistaken for part of the class name.
+          el('span', {
+            class: 'n',
+            text: fmt(counts[i]) + ' of ' + fmt(total) + ' (' + pct[i] + ')'
+          })
+        ])
+      ]));
     });
     return key;
   }
 
   function evidenceLegend(counts, total) {
-    const wrap = el('div', { class: 'evlegend' });
+    // The swatch takes the bar segment's own fill, from the stylesheet, so a
+    // key and the bar beside it can never disagree about a class's colour.
+    // A class with nothing in it keeps its measured zero and its denominator
+    // but drops to one line in its own block under the grid: its multi line
+    // definition describes evidence this record does not carry, and the bar
+    // above draws no segment for it. The definition stays one hover (and the
+    // methods page) away.
+    const grid = el('div', { class: 'evlegend' });
+    const zeros = el('div', { class: 'evzeros' });
     const pct = sharesOfWhole(counts, total);
     evidenceClasses().forEach((c, i) => {
-      // The swatch takes the bar segment's own fill, from the stylesheet, so a
-      // key and the bar beside it can never disagree about a class's colour.
-      wrap.appendChild(el('div', { class: 'evrow' }, [
+      const zero = !counts[i];
+      const row = [
+        el('b', { text: c.label }), document.createTextNode(' '),
+        el('span', {
+          class: 'n',
+          text: fmt(counts[i]) + ' of ' + fmt(total) + ' components (' + pct[i] + ')'
+        })
+      ];
+      if (!zero) row.push(el('div', { class: 'muted', text: c.definition }));
+      (zero ? zeros : grid).appendChild(el('div', {
+        class: 'evrow' + (zero ? ' zero' : ''),
+        title: zero ? c.definition : null
+      }, [
         el('span', { class: 'sw s-' + c.id }),
-        el('div', {}, [
-          el('b', { text: c.label }), document.createTextNode(' '),
-          el('span', {
-            class: 'n',
-            text: fmt(counts[i]) + ' of ' + fmt(total) + ' components (' + pct[i] + ')'
-          }),
-          el('div', { class: 'muted', text: c.definition })
-        ])
+        el('div', {}, row)
       ]));
     });
-    return wrap;
+    if (!zeros.childElementCount) return grid;
+    return el('div', {}, [grid, zeros]);
   }
 
   /** The dominant evidence class of a record, named rather than colour-coded. */
@@ -1350,8 +1367,9 @@ const MDB = (function () {
     if (!twins || twins._error) {
       card.appendChild(el('p', {
         class: 'muted', style: 'margin-top:var(--s2)',
-        text: 'This check could not be run: data/web/twins.json could not be loaded. ' +
-          'That is a loading failure, not a finding that this record is unique.'
+        text: 'This check could not be run: the model-input comparison table for ' +
+          'this release did not load. That is a loading failure, not a finding ' +
+          'that this record is unique.'
       }));
       return card;
     }
@@ -1378,14 +1396,22 @@ const MDB = (function () {
     shown.forEach((m) => list.appendChild(el('a', {
       class: 'chip', href: permalink(m), 'data-medium': m, text: m
     })));
-    if (others.length > shown.length) {
-      list.appendChild(el('span', {
-        class: 'muted',
-        text: 'and ' + fmt(others.length - shown.length) + ' more, listed in ' +
-          'data/web/twins.json'
-      }));
-    }
     card.appendChild(list);
+    // The rest stay on the page, behind a disclosure, with both numbers
+    // printed. A reader is never sent to a payload file for the remainder.
+    if (others.length > shown.length) {
+      const rest = others.slice(shown.length);
+      const det = el('details', { class: 'twinmore' });
+      det.appendChild(el('summary', {
+        text: 'Show the other ' + fmt(rest.length) + ' of ' + fmt(others.length)
+      }));
+      const more = el('p', { class: 'chip-line', style: 'margin-top:var(--s2)' });
+      rest.forEach((m) => more.appendChild(el('a', {
+        class: 'chip', href: permalink(m), 'data-medium': m, text: m
+      })));
+      det.appendChild(more);
+      card.appendChild(det);
+    }
     card.appendChild(el('p', {
       class: 'muted', style: 'font-size:var(--t-sm);margin-top:var(--s2)',
       text: 'Library-wide, ' + withDenominator(twins.n_media_sharing_a_model_input,
@@ -1464,11 +1490,11 @@ const MDB = (function () {
           'ABSENT here rather than empty. Reloading the page may succeed.')
       ]));
     } else {
-      // The one authored moment on this site. The bar draws once, left to
-      // right, as the record opens: the counts and the legend under it are
-      // already rendered, so nothing about the record waits on it.
+      // No entrance animation here. Opening a record is the core repeated act
+      // of a reference library, so the frequency gate forbids animating it;
+      // the one authored moment plays once, on the library page's first paint.
       answer.appendChild(el('div', { style: 'margin-top:var(--s3)' },
-        [evidenceBar(counts, { draw: true })]));
+        [evidenceBar(counts)]));
       answer.appendChild(evidenceLegend(counts, total));
     }
     body.appendChild(answer);

@@ -38,24 +38,18 @@
 
 <main id="main">
 
-<section class="libhead"><div class="wrap">
-  <div>
+<!-- The search control is part of the head band and sits BEFORE the
+     library-wide evidence composition in the DOM, so at phone widths the
+     reader meets the control the page exists for, not 400px of composition.
+     At desk widths the grid puts the composition beside the title, where the
+     left column used to hold about 130px of dead space. -->
+<section class="libhead libhead-explore"><div class="wrap">
+  <div class="libid">
     <h1>Growth media as model input</h1>
     <p class="i-figure" id="claim">
       <span class="skeleton" style="display:inline-block;width:30ch;vertical-align:middle"></span>
     </p>
   </div>
-  <div class="evidence">
-    <h2>How each component identity was decided</h2>
-    <div id="ev-bar"></div>
-    <div id="ev-key"></div>
-    <p class="fieldnote" style="margin-top:var(--s2)" id="ev-caption">Reading the library.</p>
-    <p class="fieldnote"><a href="methods.html#identity">What each of these six classes
-      means, and the twelve recorded tiers behind them</a></p>
-  </div>
-</div></section>
-
-<section class="section" id="explore" style="padding-top:var(--s5)"><div class="wrap">
 
   <div class="searchpanel">
     <div class="searchgrid">
@@ -117,6 +111,18 @@
       </div>
     </div>
   </div>
+
+  <div class="evidence">
+    <h2>How each component identity was decided</h2>
+    <div id="ev-bar"></div>
+    <div id="ev-key"></div>
+    <p class="fieldnote" style="margin-top:var(--s2)" id="ev-caption">Reading the library.</p>
+    <p class="fieldnote"><a href="methods.html#identity">What each of these six classes
+      means, and the twelve recorded tiers behind them</a></p>
+  </div>
+</div></section>
+
+<section class="section" id="explore" style="padding-top:var(--s2)"><div class="wrap">
 
   <div class="tablebar">
     <p class="resultline" id="resultline" role="status" aria-live="polite">Loading the catalogue.</p>
@@ -239,10 +245,13 @@
     ].join(' · ');
     name.appendChild(meta);
     if (r.family) {
-      name.appendChild(el('div', {}, [el('a', {
+      // Inline, on the name's own line: a block line of its own put every row
+      // at three text lines and left zero records above the fold at 1280x720.
+      name.appendChild(document.createTextNode(' '));
+      name.appendChild(el('a', {
         class: 'chip', href: 'families.html?family=' + encodeURIComponent(r.family),
         text: 'family: ' + r.family
-      })]));
+      }));
     }
 
     const comps = el('td', { class: 'opt tnum' }, [
@@ -494,8 +503,10 @@
     $('ev-caption').textContent =
       'Across ' + fmt(totals.n_components) + ' component records in ' + fmt(cat.count) +
       ' media, strongest evidence first. Widths are proportional: read the counts.';
+    // The one authored moment on this site: the library bar draws once, left
+    // to right, on this first paint. It does not play again on any interaction.
     $('ev-bar').appendChild(MDB.evidenceBar(
-      cat.evidence_classes.map((c) => c.n)));
+      cat.evidence_classes.map((c) => c.n), { draw: true }));
     $('ev-key').appendChild(MDB.evidenceKey(
       cat.evidence_classes.map((c) => c.n), totals.n_components));
 

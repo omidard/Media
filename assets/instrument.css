@@ -130,6 +130,27 @@
                                                    kind of thing. Always
                                                    drawn with a dashed rule. */
 
+  /* 2.6b evidence AREA FILLS (marks). Fills need their own values for two
+     measured reasons. (1) They live on the data canvas, which stays white in
+     both themes, so a mark must NOT follow the theme: these six are declared
+     once and never remapped in dark. (2) When the scale paints regions, two
+     adjacent pairs stop separating: ev-1 vs ev-2 measures dE2000 2.0 and
+     ev-3 vs ev-4 measures 11.8, fine for text beside a label, unreadable as
+     donut slices or bar segments. ev-2-mark shifts teal (dE vs ev-1-mark
+     10.8) and ev-3-mark shifts gold (dE vs ev-4-mark 22.2). Rules of use:
+     a region takes the mark; the swatch that keys a region takes the SAME
+     mark; text, chips and rules always take the base tokens above. White
+     label text inside a mark fill measures 4.97:1 or better; every mark
+     measures at least 4.9:1 against the white canvas.                     */
+  --i-ev-1-mark: #0B6B45;
+  --i-ev-2-mark: #0C7E6E;
+  --i-ev-3-mark: #7A6000;
+  --i-ev-4-mark: #A34612;
+  --i-ev-5-mark: #B3261E;
+  --i-ev-d-mark: #6B3FA0;
+  --i-ev-d-hatch: #C9B6E0;                  /* light stripe of the derived
+                                               hatch, on the mark above     */
+
   /* 2.7 verdict colours. Aliases of the evidence scale on purpose, so a
      green chip means one thing across all three sites.                    */
   --i-ok: var(--i-ev-1);      --i-ok-wash: var(--i-ev-1-wash);
