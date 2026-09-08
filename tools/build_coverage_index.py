@@ -61,7 +61,8 @@ DEFINITIONS = {
         "data/index.json.",
     "exchange_resolution":
         "where each component's exchange id landed, in four states: a reaction BiGG "
-        "actually has, an id of the EX_<met>_e shape naming no BiGG reaction (no "
+        "actually has (its id is in BiGG's own exchange-reaction list), an id of "
+        "the EX_<met>_e shape that is not in that list (no "
         "model has it, so the documented adoption path drops it silently), a "
         "ModelSEED/MetaNetX/KEGG fallback no BiGG model will accept, or nothing at "
         "all. The four partition n_components; the last three are all unusable to a "

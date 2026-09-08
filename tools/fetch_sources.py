@@ -40,11 +40,15 @@ MANIFEST = os.path.join(SOURCES, "MANIFEST.json")
 
 SOURCES_SPEC = {
     "bigg": {
-        "licence": "BiGG Models — free for academic use; see http://bigg.ucsd.edu/license",
+        "licence": "BiGG Models: free for academic use; see http://bigg.ucsd.edu/license",
         "why": "bigg_models_metabolites.txt is the input to build_bigg_dict.py, which "
-               "generates the mapping backbone tools/bigg_metabolite_dict.json",
+               "generates the mapping backbone tools/bigg_metabolite_dict.json; "
+               "bigg_models_reactions.txt is the input to build_bigg_exchange_ids.py, "
+               "which decides whether an EX_ id names a reaction BiGG actually has",
         "files": [("bigg_models_metabolites.txt",
-                   "http://bigg.ucsd.edu/static/namespace/bigg_models_metabolites.txt")],
+                   "http://bigg.ucsd.edu/static/namespace/bigg_models_metabolites.txt"),
+                  ("bigg_models_reactions.txt",
+                   "http://bigg.ucsd.edu/static/namespace/bigg_models_reactions.txt")],
     },
     "metanetx": {
         "licence": "CC BY 4.0 (MetaNetX)",
@@ -54,7 +58,7 @@ SOURCES_SPEC = {
                   ("chem_prop.tsv", "https://www.metanetx.org/cgi-bin/mnxget/mnxref/chem_prop.tsv")],
     },
     "usda": {
-        "licence": "US Government public domain (17 U.S.C. §105) — USDA FoodData Central",
+        "licence": "US Government public domain (17 U.S.C. 105), USDA FoodData Central",
         "why": "7,424 usda_ media (54.9% of the corpus) are built from these zips",
         "files": [("ff.zip",
                    "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2024-04-18.zip"),
@@ -62,20 +66,20 @@ SOURCES_SPEC = {
                    "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_json_2018-04.zip")],
     },
     "mediadive": {
-        "licence": "CC BY 4.0 (DSMZ MediaDive) — attribution and licence notice required "
+        "licence": "CC BY 4.0 (DSMZ MediaDive): attribution and licence notice required "
                    "by CC BY 3(a)(1)(C); currently under-attributed in the shipped records",
         "why": "3,148 mediadive_ media (23.3%); the REST API is public and the repo's own "
                "tools/mediadive/fetch_media.py already targets it",
         "rest": "https://mediadive.dsmz.de/rest",
     },
     "mediadb": {
-        "licence": "All Rights Reserved (MediaDB, Institute for Systems Biology) — "
+        "licence": "All Rights Reserved (MediaDB, Institute for Systems Biology): "
                    "redistribution is segregated and labelled, not relicensed",
         "why": "471 mdb_ media; tools/mediadb/fetch_mediadb.py scrapes the public pages",
         "scrape": "https://mediadb.systemsbiology.net/defined_media",
     },
     "foodb": {
-        "licence": "CC BY-NC 4.0 (FooDB) — non-commercial",
+        "licence": "CC BY-NC 4.0 (FooDB): non-commercial",
         "why": "701 food_ media are built from the FooDB CSV dump",
         # NB the release slug is 2020_4_7, not 2020_04_07 (the unpacked directory the
         # builders read is foodb_2020_04_07_csv); the padded form 404s.
@@ -86,7 +90,7 @@ SOURCES_SPEC = {
                   "$MEDIA_SOURCES/foodb/foodb_2020_04_07_csv/.",
     },
     "hmdb": {
-        "licence": "CC BY-NC 4.0 (HMDB) — non-commercial; terms must be accepted",
+        "licence": "CC BY-NC 4.0 (HMDB): non-commercial; terms must be accepted",
         "why": "the 7 biospecimen_hmdb_ media",
         "manual": "HMDB requires accepting its terms before download. Fetch "
                   "hmdb_metabolites.zip by hand from https://hmdb.ca/downloads and put "

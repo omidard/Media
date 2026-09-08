@@ -2,8 +2,8 @@
 
 In silico **media** for genome-scale metabolic models: laboratory, food and biospecimen
 compositions whose components carry a standard **BiGG exchange reaction**, so a
-genome-scale metabolic model (GEM) can adopt a medium without re-deriving it. Measured over the shipped corpus: **652,620 of
-665,582 component records (98.1%) reach a BiGG exchange reaction that exists**; 11,380
+genome-scale metabolic model (GEM) can adopt a medium without re-deriving it. Measured over the shipped corpus: **651,772 of
+665,582 component records (97.9%) reach a BiGG exchange reaction that exists**; 12,228
 carry an id of the same shape that names no BiGG reaction, 1,364 carry a
 ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will accept, and 218 carry no
 exchange at all. This document defines the schema, the mapping and provenance rules, and
@@ -96,10 +96,11 @@ programmatic queries.
 ## Conventions
 
 **Namespace.** The canonical namespace is **BiGG** universal metabolite IDs and their
-extracellular exchanges `EX_<id>_e`. **652,620 of 665,582 components (98.1%)** reach a
-BiGG exchange that exists; 11,380 carry an id of that shape naming no BiGG reaction
-(`EX_choles_e` is the largest, 4,438: BiGG has `choles_c` only, and cholesterol's
-exchange is `EX_chsterol_e`), 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id that no
+extracellular exchanges `EX_<id>_e`. **651,772 of 665,582 components (97.9%)** reach a
+BiGG exchange that exists, decided by membership of BiGG's own exchange-reaction list
+rather than by the metabolite's compartments; 12,228 carry an id of that shape naming no
+BiGG reaction (`EX_choles_e` is the largest, 4,438: BiGG has `choles_c` only, and
+cholesterol's exchange is `EX_chsterol_e`), 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id that no
 BiGG model will accept and 218 reach none at all. The last three are all invisible to
 `model.medium = {...}`, which drops a reaction the model does not have without a word. **656,625 of 665,582 components (98.7%)** *also* carry
 cross-references (InChIKey, ChEBI, KEGG, HMDB, MetaNetX, SEED, BioCyc), so the medium is

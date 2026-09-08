@@ -7,8 +7,7 @@ counted every component not tagged `non_bigg_fallback` as reaching a real BiGG
 exchange, and the payload's own definition said so in as many words:
 "n_bigg_exchange is a real BiGG EX_<met>_e reaction". It was not.
 
-11,380 components name an EX_<met>_e reaction that does not exist in BiGG, because
-the metabolite has no extracellular form there:
+12,228 components name an EX_<met>_e reaction that does not exist in BiGG:
 
     EX_choles_e       4,438   BiGG has choles_c only; cholesterol's exchange is EX_chsterol_e
     EX_behen_e        1,669   behen_c and behen_x only
@@ -28,18 +27,34 @@ Worse per record: 5,719 records (42%) carry one of these ids while reporting
 `n_nonbigg_fallback = 0`, so their record sheet told the reader every component
 reached a BiGG exchange. food_FOOD00094 ships EX_choles_e with a zero count.
 
-THE PREMISE, CHECKED RATHER THAN ASSUMED
-----------------------------------------
-"No <met>_e metabolite in BiGG implies no EX_<met>_e reaction" was verified against
-the live BiGG API: 25 of 25 sampled bad ids return 404, 30 of 30 sampled good ids
-return 200, and EX_choles_e is 404 while EX_chsterol_e is 200. The test is exact,
-not a heuristic.
+AND THE DEFECT IN THE FIRST FIX
+-------------------------------
+The first correction did not test the reaction. It tested whether the METABOLITE has
+an `_e` form and let that stand in for whether the exchange reaction exists, which is
+a proxy presented as the observation. Its own docstring defended the premise on a
+sample -- 25 negatives, 30 positives -- and called the result "exact, not a
+heuristic". It is neither. BiGG metabolite `f` is Fluoride, with compartments c, e
+and p, and the only reaction touching `f_e` is the transport Ftex, so `f_e` exists
+and `EX_f_e` does not.
+
+Screening all 838 ids the proxy called existing against BiGG's reaction dump, then
+confirming each candidate against the live API, found 11 that are not BiGG reactions:
+EX_f_e (589 components), EX_gtocophe_e (187), EX_pb_e (39), EX_glc__aD_e (10),
+EX_psuri_e (7), EX_2hydog_e (5), EX_M02035_e (3), EX_meglyxyl_e (3), EX_26dmani_e (2),
+EX_selmeth_e (2), EX_C03958_e (1) = 848 components across 740 media, published as
+usable. 168 of those records showed no caution at all.
+
+The vocabulary is now BiGG's exchange-reaction list itself, so the membership test IS
+the question and there is no premise left to be wrong about. Current and retired names
+are unioned: EX_2ameph_e is absent from the current-id column, resolves HTTP 200, and
+is EX_AEP_e under its old name, so a current-ids-only screen would have condemned it.
 
 WHY NOT `in_biggr`
 ------------------
 The obvious alternative, partitioning on the `in_biggr` flag the records already
-carry, is wrong and was measured: it catches 10,277 of the 11,380 but misses 1,103,
-and would falsely condemn 2,826 components whose exchange does exist in BiGG.
+carry, is wrong and was re-measured against the reaction-list vocabulary: it catches
+10,503 of the 12,228 but misses 1,725, and would falsely condemn 2,600 components
+whose exchange does exist in BiGG.
 `in_biggr` is membership of the local BiGGr prokaryote reactome, a different
 question. Only the BiGG namespace answers this one.
 """
@@ -51,49 +66,88 @@ import pytest
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # The measured split, frozen. These are the four states, and they partition the
-# components: 652,620 + 11,380 + 1,364 + 218 == 665,582.
+# components: 651,772 + 12,228 + 1,364 + 218 == 665,582.
 EXPECTED = {
-    "n_bigg_exchange": 652620,
-    "n_bigg_shaped_no_such_exchange": 11380,
+    "n_bigg_exchange": 651772,
+    "n_bigg_shaped_no_such_exchange": 12228,
     "n_nonbigg_fallback": 1364,
     "n_no_exchange": 218,
 }
 
+# The 11 ids the metabolite proxy called existing and BiGG's reaction list does not
+# hold, with the component counts they carry. Every one returns HTTP 404 from
+# http://bigg.ucsd.edu/api/v2/universal/reactions/<id>.
+FALSIFY_THE_PROXY = {
+    "EX_f_e": 589, "EX_gtocophe_e": 187, "EX_pb_e": 39, "EX_glc__aD_e": 10,
+    "EX_psuri_e": 7, "EX_2hydog_e": 5, "EX_M02035_e": 3, "EX_meglyxyl_e": 3,
+    "EX_26dmani_e": 2, "EX_selmeth_e": 2, "EX_C03958_e": 1,
+}
+# Reachable only through old_bigg_ids. A current-ids-only screen condemns it.
+RENAMED_BUT_REAL = "EX_2ameph_e"
+
 
 @pytest.fixture(scope="module")
-def extracellular():
+def exchanges():
     import build_bigg_exchange_ids
     path = os.path.join(REPO, "tools", "bigg_exchange_ids.json")
     if not os.path.exists(path):
         pytest.fail("tools/bigg_exchange_ids.json is missing; the partition cannot "
                     "be checked and would silently pass on a string shape again")
     ids = build_bigg_exchange_ids.load()
-    assert len(ids) > 2000, (
-        "the extracellular vocabulary looks truncated (%d ids). A short one would "
+    assert len(ids) > 5000, (
+        "the exchange vocabulary looks truncated (%d ids). A short one would "
         "condemn real exchanges." % len(ids))
     return ids
 
 
-def _bucket(comp, extracellular):
+def _bucket(comp, exchanges):
     ex = comp.get("exchange")
     if not ex:
         return "n_no_exchange"
     if comp.get("evidence_tier") == "non_bigg_fallback":
         return "n_nonbigg_fallback"
-    met = ex[3:-2] if ex.startswith("EX_") and ex.endswith("_e") else None
-    if met is not None and met in extracellular:
-        return "n_bigg_exchange"
-    return "n_bigg_shaped_no_such_exchange"
+    return "n_bigg_exchange" if ex in exchanges else "n_bigg_shaped_no_such_exchange"
+
+
+def test_the_vocabulary_is_the_reaction_list_not_the_metabolite_list(exchanges):
+    """The falsifying case, named. EX_f_e is the reproduction that failed.
+
+    f_e exists in BiGG, so the metabolite proxy classified EX_f_e as a reaction
+    that exists and 589 components were published as usable. It is not a BiGG
+    reaction. The renamed control is asserted in the same test so a fix that
+    over-corrects by screening current ids only is caught here too.
+    """
+    import build_bigg_exchange_ids
+    for ex in FALSIFY_THE_PROXY:
+        assert ex not in exchanges, (
+            "%s is not a BiGG reaction (HTTP 404) and the vocabulary holds it" % ex)
+        assert build_bigg_exchange_ids.exchange_state({"exchange": ex}) == \
+            "n_bigg_shaped_no_such_exchange", (
+            "%s must be counted in the fourth state, not as a reaction that exists"
+            % ex)
+    assert RENAMED_BUT_REAL in exchanges, (
+        "%s resolves HTTP 200 as a retired name for EX_AEP_e; screening current "
+        "ids only would falsely condemn it" % RENAMED_BUT_REAL)
+    assert build_bigg_exchange_ids.load_renamed().get(RENAMED_BUT_REAL) == "EX_AEP_e"
+
+
+def test_the_published_exists_set_is_a_subset_of_the_vocabulary(exchanges, stream,
+                                                                is_full_corpus):
+    """Nothing is counted as existing that the committed vocabulary does not hold."""
+    for _mid, rec in stream():
+        for comp in rec.get("components") or []:
+            if _bucket(comp, exchanges) == "n_bigg_exchange":
+                assert comp["exchange"] in exchanges
 
 
 def test_every_component_counted_as_a_bigg_exchange_names_a_real_one(
-        stream, extracellular, is_full_corpus):
+        stream, exchanges, is_full_corpus):
     """The claim itself, over the corpus, against BiGG's own namespace."""
     counts = dict.fromkeys(EXPECTED, 0)
     offenders = {}
     for _mid, rec in stream():
         for comp in rec.get("components") or []:
-            b = _bucket(comp, extracellular)
+            b = _bucket(comp, exchanges)
             counts[b] += 1
             if b == "n_bigg_shaped_no_such_exchange":
                 offenders[comp["exchange"]] = offenders.get(comp["exchange"], 0) + 1
@@ -144,7 +198,7 @@ def test_the_payload_definition_describes_four_states(is_full_corpus):
 
 
 def test_a_record_carrying_an_unusable_id_does_not_report_zero(is_full_corpus,
-                                                               extracellular):
+                                                               exchanges):
     """The per-record claim.
 
     food_FOOD00094 ships EX_choles_e and `n_nonbigg_fallback = 0`, so its record
@@ -171,7 +225,7 @@ def test_a_record_carrying_an_unusable_id_does_not_report_zero(is_full_corpus,
     with open(rec_path, encoding="utf-8") as fh:
         rec = json.load(fh)
     truth = sum(1 for c in rec["components"]
-                if _bucket(c, extracellular) == "n_bigg_shaped_no_such_exchange")
+                if _bucket(c, exchanges) == "n_bigg_shaped_no_such_exchange")
     assert truth > 0, "precondition: food_FOOD00094 should carry EX_choles_e"
     assert row[i_bad] == truth, (
         "food_FOOD00094 carries %d exchange id(s) BiGG does not have and the "

@@ -5,10 +5,12 @@ info:
   description: >
     Read-only static API for the Media dataset: in silico media for genome-scale
     metabolic models. Laboratory, food and biospecimen compositions whose components
-    carry BiGG exchange reactions (EX_<met>_e) so a model can adopt a medium. 664,000 of 665,582
-    component records (99.8%) reach a BiGG exchange; 1,364 carry a
-    ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will accept, and 218 carry
-    no exchange at all. 656,625 of 665,582 (98.7%) carry a cross-reference.
+    carry BiGG exchange reactions (EX_<met>_e) so a model can adopt a medium. 651,772 of
+    665,582 component records (97.9%) reach a BiGG exchange that exists, decided by
+    membership of BiGG's own exchange-reaction list; 12,228 carry an id of the same
+    shape naming no BiGG reaction, 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id
+    that no BiGG model will accept, and 218 carry no exchange at all.
+    656,625 of 665,582 (98.7%) carry a cross-reference.
     6,827 of 13,515 media (50.5%) hand a model a constraint set identical to at least
     one other record; see model_input_signature. Served over GitHub Pages with
     permissive CORS; no authentication and no rate limiting.
@@ -173,12 +175,13 @@ components:
         n_bigg_shaped_no_such_exchange:
           type: integer
           description: >-
-            Components whose exchange id has the EX_<met>_e shape but names no reaction
-            in BiGG, because the metabolite has no extracellular form there. No model
-            has the reaction, so `model.medium = {...}` drops it without a word.
-            11,380 of 665,582 library-wide, in 5,942 media; the largest is
-            EX_choles_e (4,438), where BiGG carries choles_c only and cholesterol's
-            exchange is EX_chsterol_e.
+            Components whose exchange id has the EX_<met>_e shape but is not in BiGG's
+            own exchange-reaction list. No model has the reaction, so
+            `model.medium = {...}` drops it without a word. 12,228 of 665,582
+            library-wide; the largest is EX_choles_e (4,438), where BiGG carries
+            choles_c only and cholesterol's exchange is EX_chsterol_e. The reaction
+            list is the test, not the metabolite's compartments: BiGG carries f_e
+            (fluoride) and carries no EX_f_e reaction.
         oxygen_default_for_simulation:
           type: string
           nullable: true
@@ -269,7 +272,7 @@ components:
             (evidence_tier unmapped) or the ingredient is an undefined mixture
             (unmappable_mixture). 218 of 665,582 library-wide. n_mapped +
             n_nonbigg_fallback + n_unmappable = n_components. Note that n_mapped
-            counts BiGG-SHAPED ids, and 11,380 of those name no BiGG reaction; see
+            counts BiGG-SHAPED ids, and 12,228 of those name no BiGG reaction; see
             n_bigg_shaped_no_such_exchange on the catalog summary.
         pct_sourced_components_with_bigg_id:
           type: number

@@ -7,13 +7,17 @@ Every file below is a plain HTTPS `GET`, returned with permissive CORS
 
 - **Base URL:** `https://omidard.github.io/Media`
 - **Format:** JSON (records/catalog), Parquet + gzipped SQLite/JSONL (bulk)
-- **Namespace:** components are keyed by BiGG exchange reactions (`EX_<met>_e`) —
-  **652,620 of 665,582 component records (98.1%)** reach one that EXISTS. 11,380 carry
-  an id of the same shape naming **no BiGG reaction** (`EX_choles_e` is the largest: BiGG
-  has `choles_c` only, and cholesterol's exchange is `EX_chsterol_e`), 1,364 carry a
-  ModelSEED/MetaNetX/KEGG **fallback id no BiGG model will accept**, and 218 carry no
-  exchange at all. `model.medium = {...}` drops all three without a word. Per record:
-  `n_mapped`, `n_nonbigg_fallback`, `n_bigg_shaped_no_such_exchange`, `n_unmappable`.
+- **Namespace:** components are keyed by BiGG exchange reactions (`EX_<met>_e`).
+  **651,772 of 665,582 component records (97.9%)** reach one that EXISTS, decided by
+  membership of BiGG's own exchange-reaction list. 12,228 carry an id of the same shape
+  naming **no BiGG reaction** (`EX_choles_e` is the largest: BiGG has `choles_c` only,
+  and cholesterol's exchange is `EX_chsterol_e`), 1,364 carry a ModelSEED/MetaNetX/KEGG
+  **fallback id no BiGG model will accept**, and 218 carry no exchange at all.
+  `model.medium = {...}` drops all three without a word. Per record: `n_mapped`,
+  `n_nonbigg_fallback`, `n_bigg_shaped_no_such_exchange`, `n_unmappable`.
+  The test is the reaction list and not the metabolite's compartments: BiGG carries
+  `f_e` (fluoride) and no `EX_f_e` reaction, and asking the metabolite published 848
+  components in 740 media as usable that no model will accept.
 - **Bounds convention:** `lower_bound < 0` means **uptake** (mmol · gDW⁻¹ · h⁻¹)
 - **Licence:** the data is **CC BY-NC 4.0**, one licence for the whole compilation; the
   code is MIT. Every payload carries it as `license`. Attribution owed upstream is in
@@ -47,9 +51,10 @@ ends in two catch-all branches that return `facultative` when the source says no
 recording that in `oxygen_note`, and 11,926 records are in that state. Those records
 still export `EX_o2_e` open, which is a convention and not a finding;
 `oxygen_default_for_simulation` carries it, and the O2 component is marked derived on
-every record. `null` means unknown. It never means anaerobic. (The per-record files under
-`/data/media/` still carry the `facultative` default in `oxygen`; correcting the corpus
-is a transform stage, tracked in `tests/test_defects.py`.)
+every record. `null` means unknown. It never means anaerobic. The per-record files under
+`/data/media/` carry the same pair: they read `facultative` in `oxygen` until
+`54_oxygen_regime_absent_when_unstated` landed, and a consumer joining on that field
+against a release built before 2026-09-08 is reading a regime nobody asserted.
 
 Each `media[]` summary: `id`, `name`, `category`, `organism_scope`, `aerobic`, `oxygen`,
 `oxygen_default_for_simulation`,
@@ -102,11 +107,19 @@ GET /data/media/{id}.json
 ```
 
 Full record for one medium: metadata, `provenance` (`source_type`, `citation`, `doi`,
-`url`, `notes`), and a `components[]` array. Each component:
+`url`, `notes`), and a `components[]` array.
+
+Record-level oxygen is two fields, never one. `oxygen` is the regime a source or a
+curator stated, and is `null` on 12,365 of 13,515 records. `oxygen_default_for_simulation`
+is what `EX_o2_e` in the exported medium was written from, present on every record and
+`facultative` on 12,136 of them. The second is a convention of the build, not a finding
+about the medium, and the first never means anaerobic when it is null.
+
+Each component:
 
 | field | meaning |
 |---|---|
-| `name` | human-readable component name |
+| `name` | the component's own label, the source's own string where the source stated one. It is a display label and **not** the identity: read `bigg_metabolite`, `exchange` and `xref_inchikey` for that. 4,320 rows carried a `name` naming a different molecule from their exchange (Cob(I)alamin against `EX_adocbl_e`) before `41_component_identity_names` |
 | `bigg_metabolite` | BiGG metabolite id (e.g. `glc__D`) — `null` if unmapped |
 | `exchange` | BiGG exchange reaction (e.g. `EX_glc__D_e`) |
 | `lower_bound` / `upper_bound` | flux bounds; `lower_bound < 0` = uptake |
@@ -118,6 +131,7 @@ Full record for one medium: metadata, `provenance` (`source_type`, `citation`, `
 | `mapping_note_id` | key into `/data/refs.json` → `notes`: why, in prose, where the mapping needs a warning — e.g. "this exchange id is NOT a BiGG identifier and no BiGG model will accept it". 113 distinct notes over 621,274 components |
 | `xref_note_id` | key into `/data/refs.json` → `notes`. On 654,067 of 665,582 components, carrying "these cross-references describe the BiGG id that was chosen; they were not used to choose it and cannot contradict it" |
 | `source_observed` | `false` when the cited source does not state this component at all |
+| `quantity` | the source's own amount, with `value`, `unit`, `basis` and `verbatim`. Where two source measurements collapsed onto one exchange it also carries `chose_by` (the named rule), `why`, and `alternatives[]` — every measurement that was **not** applied, with its own source label. 1,930 components are in that state; before `42_usda_nutrient_amounts` whichever measurement came last in the source array won silently, by up to a factor of 17.8, and the other existed nowhere in the data. In the parquet these are `quantity_chose_by` and `quantity_alternatives_json` |
 
 Records also carry an `uncovered[]` list — components that could not be given an
 exchange are **never silently dropped**. (The field was documented as `unmapped[]`

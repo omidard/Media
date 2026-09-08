@@ -3,10 +3,10 @@
 A tiny Python client for the [**Media** data API](https://github.com/omidard/Media) —
 in silico media for genome-scale metabolic models: laboratory, food and biospecimen
 compositions whose components carry a standard BiGG exchange reaction (`EX_<met>_e`), so
-a model can adopt a medium. 652,620 of 665,582 component records (98.1%) reach one that
-exists; 11,380 carry an id of the same shape naming no BiGG reaction, 1,364 carry a
-ModelSEED/MetaNetX/KEGG fallback id that no BiGG model will accept, and 218 carry no
-exchange at all. All three are dropped in silence when a model adopts the medium.
+a model can adopt a medium. 651,772 of 665,582 component records (97.9%) reach one that
+exists, decided by membership of BiGG's own exchange-reaction list; 12,228 carry an id of
+the same shape naming no BiGG reaction, 1,364 carry a ModelSEED/MetaNetX/KEGG fallback id
+that no BiGG model will accept, and 218 carry no exchange at all. All three are dropped in silence when a model adopts the medium.
 
 Two things the client cannot filter away for you: the data is licensed CC BY-NC 4.0, so
 it permits no commercial use, and 7,012 of 13,515 media (51.9%) hand a model a constraint
