@@ -16,7 +16,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -26,7 +26,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -48,7 +48,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -56,7 +56,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -67,9 +67,25 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
+    "stage": "42_usda_nutrient_amounts",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].usda_amount_alternatives"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -80,7 +96,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -96,9 +112,26 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -164,12 +197,32 @@
    "target_name": "Arachidonic acid",
    "evidence_tier": "class_proxy",
    "source_observed": true,
+   "usda_amount_chose_by": "most_specific_nutrient_names_the_bigg_target",
+   "usda_amount_why": "arachd is arachidonate, all-cis; the cis figure names it",
+   "usda_amount_alternatives": [
+    {
+     "source_name": "PUFA 20:4",
+     "value": 0.045,
+     "unit": "g",
+     "applied": false
+    }
+   ],
    "derived_not_sourced": false,
    "quantity": {
     "value": 0.045,
     "unit": "g",
     "basis": "per_100g_food",
     "source_field": "usda_amount",
+    "chose_by": "most_specific_nutrient_names_the_bigg_target",
+    "why": "arachd is arachidonate, all-cis; the cis figure names it",
+    "alternatives": [
+     {
+      "source_name": "PUFA 20:4",
+      "value": 0.045,
+      "unit": "g",
+      "applied": false
+     }
+    ],
     "verbatim": 0.045
    },
    "concentration_status": "not_derivable",
@@ -266,7 +319,7 @@
    "mapping_note_id": "n4cd170"
   },
   {
-   "name": "Cob(I)alamin",
+   "name": "Vitamin B-12",
    "bigg_metabolite": "adocbl",
    "exchange": "EX_adocbl_e",
    "lower_bound": -1.0,
@@ -911,18 +964,38 @@
    "target_name": "Linoleic acid (all cis C18:2) n-6",
    "evidence_tier": "class_proxy",
    "source_observed": true,
+   "usda_amount_chose_by": "most_specific_nutrient_names_the_bigg_target",
+   "usda_amount_why": "lnlc is linoleate, 18:2 n-6 cis,cis; the n-6 c,c figure names it and 'PUFA 18:2 c' is the broader cis total",
+   "usda_amount_alternatives": [
+    {
+     "source_name": "PUFA 18:2 c",
+     "value": 0.827,
+     "unit": "g",
+     "applied": false
+    }
+   ],
    "derived_not_sourced": false,
    "quantity": {
-    "value": 0.827,
+    "value": 0.808,
     "unit": "g",
     "basis": "per_100g_food",
     "source_field": "usda_amount",
-    "verbatim": 0.827
+    "chose_by": "most_specific_nutrient_names_the_bigg_target",
+    "why": "lnlc is linoleate, 18:2 n-6 cis,cis; the n-6 c,c figure names it and 'PUFA 18:2 c' is the broader cis total",
+    "alternatives": [
+     {
+      "source_name": "PUFA 18:2 c",
+      "value": 0.827,
+      "unit": "g",
+      "applied": false
+     }
+    ],
+    "verbatim": 0.808
    },
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "food_amount_no_volume_basis",
-   "amount_mmol_per_100g": 2.959,
+   "amount_mmol_per_100g": 2.891,
    "amount_basis": "per_100g_food",
    "amount_source": "usda_amount+component_xref_formula",
    "xref_id": "lnlc~9b46",
@@ -960,18 +1033,38 @@
    "target_name": "Alpha-Linolenic acid, C18:3, n-3",
    "evidence_tier": "class_proxy",
    "source_observed": true,
+   "usda_amount_chose_by": "most_specific_nutrient_names_the_bigg_target",
+   "usda_amount_why": "lnlnca is alpha-linolenate, 18:3 n-3; the ALA figure names it and 'PUFA 18:3 c' is the broader cis total",
+   "usda_amount_alternatives": [
+    {
+     "source_name": "PUFA 18:3 c",
+     "value": 0.14,
+     "unit": "g",
+     "applied": false
+    }
+   ],
    "derived_not_sourced": false,
    "quantity": {
-    "value": 0.14,
+    "value": 0.138,
     "unit": "g",
     "basis": "per_100g_food",
     "source_field": "usda_amount",
-    "verbatim": 0.14
+    "chose_by": "most_specific_nutrient_names_the_bigg_target",
+    "why": "lnlnca is alpha-linolenate, 18:3 n-3; the ALA figure names it and 'PUFA 18:3 c' is the broader cis total",
+    "alternatives": [
+     {
+      "source_name": "PUFA 18:3 c",
+      "value": 0.14,
+      "unit": "g",
+      "applied": false
+     }
+    ],
+    "verbatim": 0.138
    },
    "concentration_status": "not_derivable",
    "concentration_source": null,
    "concentration_block_reason": "food_amount_no_volume_basis",
-   "amount_mmol_per_100g": 0.5046,
+   "amount_mmol_per_100g": 0.4974,
    "amount_basis": "per_100g_food",
    "amount_source": "usda_amount+component_xref_formula",
    "xref_id": "lnlnca~796b",
@@ -2633,7 +2726,8 @@
  "n_food_components": 22,
  "food_group": "Dairy and Egg Products",
  "version": "2.0",
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "coverage": {
   "n_compounds": 87,
@@ -2665,7 +2759,7 @@
   "pct_covered_source_denominator": 78,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 86.2,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 56,
  "n_derived": 9,
@@ -2685,7 +2779,7 @@
   "n_with_source_amount": 32,
   "n_with_concentration_mM": 0,
   "pct_with_concentration_mM": 0.0,
-  "quantitative_signature": "cfc2f467c6c53eb0",
+  "quantitative_signature": "8acd9aa8b44e209a",
   "stage": "50_load_concentrations",
   "stage_version": "1.0.0"
  },
@@ -2710,7 +2804,7 @@
  "strength": null,
  "ph_declared": null,
  "modifier_parse": "not_applicable_food_facets",
- "composition_signature": "cfc2f467c6c53eb0",
+ "composition_signature": "8acd9aa8b44e209a",
  "composition_identical_to": null,
  "composition_distinguishes_modifiers": true,
  "composition_limitation": null

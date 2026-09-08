@@ -90,7 +90,7 @@ def build(media_dir, out_path, dict_path):
         # Two tallies, each labelled with the filter that produced it. The browser
         # must state which one it is drawing (STALE-01).
         "top_exchanges": top(exch_all),
-        "top_exchanges_filter": "none — every component row",
+        "top_exchanges_filter": "none: every component row",
         "top_exchanges_excluding_mineral_base": top(exch_nomineral),
         "top_exchanges_excluding_mineral_base_filter":
             "components with mapping_method == 'mineral_base' excluded "

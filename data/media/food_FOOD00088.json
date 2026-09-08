@@ -17,23 +17,23 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 170283 (Barley, hulled, SR Legacy) — macronutrients, sugars, amino acids, fatty acids, minerals, vitamins",
-   "FooDB FOOD00088 (barley) — phytochemical/alkaloid coverage",
-   "MacLeod 1954 J Inst Brew doi:10.1002/j.2050-0416.1954.tb02747.x; MacLeod 1953 doi:10.1002/j.2050-0416.1953.tb06210.x — free sugars & fructosans",
-   "LaBerge 1973 J Inst Brew doi:10.1002/j.2050-0416.1973.tb03568.x — free-sugar changes during maturation",
-   "Henry 1988 J Inst Brew doi:10.1002/j.2050-0416.1988.tb04560.x — barley carbohydrate review",
-   "Kim/Peukert et al. GC-MS metabolomic profiling of wheat/barley/oat/rye PMC5302243 — organic acids (malate, alpha-ketoglutarate highest in barley)",
-   "MDPI Crops 2024 4(4):38 doi:10.3390/crops4040038 — pre/post-milling barley organic & amino acid profiling",
-   "Bhatt 2021 (Indian barley phytic acid) ResearchGate 357614244; Dai 2007 doi:10.1016/j.foodchem.2007.03.063 — phytic acid",
-   "Frontiers Sustain Food Syst 2023 doi:10.3389/fsufs.2023.1326716; PMC6963557 — beta-glucan",
-   "PMC8908996 — GABA in barley",
-   "PMC7346127; Foodchem 2018 doi:10.1016/j.foodchem.2018.05.100 — ferulic/phenolic acids"
+   "USDA FoodData Central FDC 170283 (Barley, hulled, SR Legacy), macronutrients, sugars, amino acids, fatty acids, minerals, vitamins",
+   "FooDB FOOD00088 (barley), phytochemical/alkaloid coverage",
+   "MacLeod 1954 J Inst Brew doi:10.1002/j.2050-0416.1954.tb02747.x; MacLeod 1953 doi:10.1002/j.2050-0416.1953.tb06210.x, free sugars & fructosans",
+   "LaBerge 1973 J Inst Brew doi:10.1002/j.2050-0416.1973.tb03568.x, free-sugar changes during maturation",
+   "Henry 1988 J Inst Brew doi:10.1002/j.2050-0416.1988.tb04560.x, barley carbohydrate review",
+   "Kim/Peukert et al. GC-MS metabolomic profiling of wheat/barley/oat/rye PMC5302243, organic acids (malate, alpha-ketoglutarate highest in barley)",
+   "MDPI Crops 2024 4(4):38 doi:10.3390/crops4040038, pre/post-milling barley organic & amino acid profiling",
+   "Bhatt 2021 (Indian barley phytic acid) ResearchGate 357614244; Dai 2007 doi:10.1016/j.foodchem.2007.03.063, phytic acid",
+   "Frontiers Sustain Food Syst 2023 doi:10.3389/fsufs.2023.1326716; PMC6963557, beta-glucan",
+   "PMC8908996, GABA in barley",
+   "PMC7346127; Foodchem 2018 doi:10.1016/j.foodchem.2018.05.100, ferulic/phenolic acids"
   ],
   "curation_notes": "Dominant carbon/energy source is STARCH (~55 g/100g), with beta-glucan (~4.5 g) and total fiber (17.3 g) as major fermentable polysaccharides; free sugars are minor and led by sucrose (~0.6 g). The organic-acid class (malic dominant, then citric/succinic/fumaric/alpha-ketoglutarate) was entirely missing from the FooDB profile and is the key addition, though authoritative absolute mg/100g values are not published for raw grain (added with null amounts + rank notes). Nitrogen is chiefly protein-bo",
   "curation_added": [
    "malic acid (dominant organic acid) + citric, succinic, fumaric, alpha-ketoglutaric acids (organic-acid class entirely absent before)",
    "starch (~55 g/100g) and total dietary fiber (17.3 g) as the true dominant carbon sources",
-   "(1,3)(1,4)-beta-D-glucan (~4.5 g/100g) — signature barley fermentable polysaccharide",
+   "(1,3)(1,4)-beta-D-glucan (~4.5 g/100g), signature barley fermentable polysaccharide",
    "specific free sugars with amounts: sucrose (principal), glucose, fructose, raffinose, fructans",
    "L-valine and L-serine (missing amino acids) + quantitative amounts for the full protein-derived amino-acid profile",
    "GABA, phytic acid, ferulic acid",
@@ -122,7 +122,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -132,7 +132,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -152,7 +152,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -160,7 +160,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -171,9 +171,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -184,7 +192,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -200,9 +208,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance",
+     "uncovered"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -858,7 +885,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -2553,7 +2580,7 @@
    "note": "no exchange auto-assigned; propose uptake -1.0 pending manual curation"
   },
   {
-   "name": "5-heptadecyl / 5-nonadecyl / 5-heneicosyl / 5-tricosyl / 5-pentacosyl-1,3-benzenediol (alkylresorcinols — genuine barley bran markers)",
+   "name": "5-heptadecyl / 5-nonadecyl / 5-heneicosyl / 5-tricosyl / 5-pentacosyl-1,3-benzenediol (alkylresorcinols, genuine barley bran markers)",
    "reason": "unmatched",
    "curation": "needs_manual_curation",
    "xref": {},
@@ -2617,7 +2644,8 @@
    "bigg": 4
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g whole grain (hulled/dehulled barley kernel, ~10% moisture as-is)",
  "n_nonbigg_fallback": 0,
@@ -2640,7 +2668,7 @@
   "pct_covered_source_denominator": 74,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 61,
  "n_derived": 0,

@@ -25,7 +25,7 @@
    "Frontiers in Nutrition 2023, Chemical/biochemical characterization of Ipomoea aquatica, doi:10.3389/fnut.2023.1304903",
    "FooDB FOOD00091 (Swamp cabbage / Ipomoea aquatica)"
   ],
-  "curation_notes": "Water spinach is a low-sugar leafy green: with net non-fiber carbohydrate ~1 g/100 g, the dominant assimilable carbon/energy for a microbe is NOT free sugars but the free/protein amino acids (Asp, Glu, Ala, Leu, Lys, Thr, Val most abundant) and organic acids — chiefly oxalic acid (125-250 mg/100 g), with malic and citric acid also present (both absent from the original FooDB profile). Mineral/vitamin panel is USDA fresh-weight (FDC 169301); high in vitamin C (55 mg), provitamin-A carotenoids, K,",
+  "curation_notes": "Water spinach is a low-sugar leafy green: with net non-fiber carbohydrate ~1 g/100 g, the dominant assimilable carbon/energy for a microbe is NOT free sugars but the free/protein amino acids (Asp, Glu, Ala, Leu, Lys, Thr, Val most abundant) and organic acids, chiefly oxalic acid (125-250 mg/100 g), with malic and citric acid also present (both absent from the original FooDB profile). Mineral/vitamin panel is USDA fresh-weight (FDC 169301); high in vitamin C (55 mg), provitamin-A carotenoids, K,",
   "curation_added": [
    "oxalic acid (dominant organic acid, quantified 125-250 mg/100 g)",
    "malic acid (present, key organic-acid omission)",
@@ -47,7 +47,7 @@
    },
    {
     "name": "Co2+",
-    "reason": "Cobalt ion — non-nutritive trace element for this food; FooDB/model noise, water spinach is not a cobalt source."
+    "reason": "Cobalt ion, non-nutritive trace element for this food; FooDB/model noise, water spinach is not a cobalt source."
    },
    {
     "name": "Nickel",
@@ -59,7 +59,7 @@
    },
    {
     "name": "D-Serine",
-    "reason": "Wrong stereochemistry — plant/protein serine is L-serine; D-serine is a FooDB prediction artifact. Replaced with L-serine."
+    "reason": "Wrong stereochemistry, plant/protein serine is L-serine; D-serine is a FooDB prediction artifact. Replaced with L-serine."
    },
    {
     "name": "CO2 CO2",
@@ -79,7 +79,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -89,7 +89,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -109,7 +109,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -117,7 +117,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -128,9 +128,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -141,7 +149,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -157,9 +165,27 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -661,7 +687,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -2045,7 +2071,8 @@
    "bigg": 2
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh (raw) leaves and stems",
  "n_nonbigg_fallback": 0,
@@ -2068,7 +2095,7 @@
   "pct_covered_source_denominator": 58,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 47,
  "n_derived": 0,

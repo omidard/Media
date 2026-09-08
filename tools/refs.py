@@ -179,7 +179,7 @@ def build_tables(records) -> dict:
             "A cross-reference block describes the BiGG id that was CHOSEN for the "
             "component. Whether it was also the evidence for that choice is stated "
             "per component by match_field / match_key / source_xref, and by the note "
-            "referenced from xref_note_id — not by this table."),
+            "referenced from xref_note_id, not by this table."),
         "n_xrefs": len(xrefs),
         "n_notes": len(notes),
         "xrefs": xrefs,

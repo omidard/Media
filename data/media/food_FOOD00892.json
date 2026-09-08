@@ -17,18 +17,18 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 746782 — Milk, whole, 3.25% milkfat, with added vitamin D (SR Legacy)",
+   "USDA FoodData Central FDC 746782, Milk, whole, 3.25% milkfat, with added vitamin D (SR Legacy)",
    "FooDB FOOD00892 (Cow milk, whole)",
-   "PMID 1958838 — Variability of orotic acid concentration in cow's milk (mean 0.618 mmol/L)",
-   "Agrarforschung Schweiz 2008 — Orotic acid content in cow's, ewe's and goat's milk (6.3-7.6 mg/100g)",
-   "PMID 12237966 — Relationship between citrate and ketone bodies in cow's milk",
+   "PMID 1958838, Variability of orotic acid concentration in cow's milk (mean 0.618 mmol/L)",
+   "Agrarforschung Schweiz 2008, Orotic acid content in cow's, ewe's and goat's milk (6.3-7.6 mg/100g)",
+   "PMID 12237966, Relationship between citrate and ketone bodies in cow's milk",
    "Fox, Uniacke-Lowe, McSweeney & O'Mahony, Dairy Chemistry and Biochemistry (citrate 8-11 mmol/L; free sugars; chloride; myo-inositol; carnitine)"
   ],
   "curation_notes": "Dominant carbon/energy source is LACTOSE (~4.8 g/100g, ~140 mM); the key growth-relevant organic acid CITRATE (~8.9 mM, ~1.7 g/L) and milk-specific OROTIC acid were absent from the FooDB profile and were added. Fresh pasteurized milk has only trace lactate (rises on souring). Cholesterol is retained (genuine animal-food lipid, unlike the plant-food rule). Removed heavy-metal/contaminant elements (arsenate, cadmium, aluminium, rubidium, boron, nickel) and implausible/mislabeled FooDB entries (D-g",
   "curation_added": [
-   "citric acid (0.17 g/100g — principal milk organic acid, was absent)",
-   "orotic acid (7 mg/100g — milk-specific pyrimidine acid)",
-   "riboflavin/B2 (0.169 mg — major milk vitamin, was absent)",
+   "citric acid (0.17 g/100g, principal milk organic acid, was absent)",
+   "orotic acid (7 mg/100g, milk-specific pyrimidine acid)",
+   "riboflavin/B2 (0.169 mg, major milk vitamin, was absent)",
    "pantothenic acid/B5 (0.373 mg)",
    "thiamin/B1 (0.046 mg)",
    "vitamin K (1.3 mcg)",
@@ -74,7 +74,7 @@
    },
    {
     "name": "D-Serine",
-    "reason": "mislabeled enantiomer — milk protein serine is L-serine (added correctly above)"
+    "reason": "mislabeled enantiomer, milk protein serine is L-serine (added correctly above)"
    },
    {
     "name": "N-acetyl-L-cysteine",
@@ -98,7 +98,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -108,7 +108,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -128,7 +128,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -136,7 +136,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -147,9 +147,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -160,7 +168,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -176,9 +184,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance",
+     "uncovered"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -1258,7 +1285,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -3218,7 +3245,7 @@
    "note": "no exchange auto-assigned; propose uptake -1.0 pending manual curation"
   },
   {
-   "name": "2-oxoglutarate (2-oxopentanedioic acid) — real trace TCA intermediate",
+   "name": "2-oxoglutarate (2-oxopentanedioic acid), real trace TCA intermediate",
    "reason": "unmatched",
    "curation": "needs_manual_curation",
    "xref": {},
@@ -3226,7 +3253,7 @@
    "note": "no exchange auto-assigned; propose uptake -1.0 pending manual curation"
   },
   {
-   "name": "malonic acid (propanedioic acid) — real trace",
+   "name": "malonic acid (propanedioic acid), real trace",
    "reason": "unmatched",
    "curation": "needs_manual_curation",
    "xref": {},
@@ -3250,7 +3277,8 @@
    "bigg": 4
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh whole milk (~97 mL; density ~1.03 g/mL)",
  "n_nonbigg_fallback": 0,
@@ -3273,7 +3301,7 @@
   "pct_covered_source_denominator": 86,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 79,
  "n_derived": 0,

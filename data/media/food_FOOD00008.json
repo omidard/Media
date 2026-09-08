@@ -17,20 +17,20 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 169230 (Garlic, raw) — full macro/mineral/vitamin/amino-acid panel",
-   "FooDB FOOD00008 (Garlic) — baseline compound list",
+   "USDA FoodData Central FDC 169230 (Garlic, raw), full macro/mineral/vitamin/amino-acid panel",
+   "FooDB FOOD00008 (Garlic), baseline compound list",
    "Baumgartner et al. 2000 J Agric Food Chem doi:10.1021/jf970433u (garlic fructan/FOS molecular size)",
    "Judprasong et al. 2011 J Food Comp Anal (fructan content of foods)",
-   "IISTE Food Science & Quality Management — free glucose/fructose/sucrose/total fructan in Allium",
+   "IISTE Food Science & Quality Management, free glucose/fructose/sucrose/total fructan in Allium",
    "Springer 2025 doi:10.1007/s44345-025-00036-6 (fresh-to-black garlic physicochemical review; organic acids)",
    "Allium organic-acid survey (citric/malic/pyruvic/oxalic in fresh garlic)",
-   "Linus Pauling Institute, Oregon State University — garlic organosulfur (alliin, gamma-glutamylcysteines)",
+   "Linus Pauling Institute, Oregon State University, garlic organosulfur (alliin, gamma-glutamylcysteines)",
    "Aprifel garlic nutritional sheet (sugar cross-check)"
   ],
-  "curation_notes": "Dominant carbon/energy source is FRUCTAN (inulin-type FOS, ~17 g/100g) — an order of magnitude larger than the free sugars (total ~1 g/100g, fructose > sucrose >> glucose); a fructan-capable microbe grows on garlic chiefly via fructan/fructose. Organic acids (citric ~1 g, malic ~0.3 g, plus pyruvate) were entirely absent from the FooDB profile and are added here. Nitrogen/sulfur is unusual: beyond 6.4 g protein (arginine- and glutamate-rich), garlic holds large non-protein organosulfur pools (al",
+  "curation_notes": "Dominant carbon/energy source is FRUCTAN (inulin-type FOS, ~17 g/100g), an order of magnitude larger than the free sugars (total ~1 g/100g, fructose > sucrose >> glucose); a fructan-capable microbe grows on garlic chiefly via fructan/fructose. Organic acids (citric ~1 g, malic ~0.3 g, plus pyruvate) were entirely absent from the FooDB profile and are added here. Nitrogen/sulfur is unusual: beyond 6.4 g protein (arginine- and glutamate-rich), garlic holds large non-protein organosulfur pools (al",
   "curation_added": [
-   "fructan (inulin-type FOS) — the dominant fermentable carbon source, previously absent",
-   "citric acid, malic acid, pyruvic acid, oxalic acid, fumaric acid (organic acids — all previously missing)",
+   "fructan (inulin-type FOS), the dominant fermentable carbon source, previously absent",
+   "citric acid, malic acid, pyruvic acid, oxalic acid, fumaric acid (organic acids, all previously missing)",
    "sucrose, D-fructose, D-glucose with individual amounts (only sucrose name was present, unquantified)",
    "alliin and gamma-glutamyl-S-allyl-L-cysteine (defining organosulfur N/S pools)",
    "quantitative amino-acid profile, full mineral panel, and vitamin panel from USDA",
@@ -175,7 +175,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -185,7 +185,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -205,7 +205,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -213,7 +213,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -224,9 +224,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -237,7 +245,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -253,9 +261,27 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -1252,7 +1278,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -2691,7 +2717,8 @@
    "bigg": 2
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh weight (raw garlic clove, Allium sativum)",
  "n_nonbigg_fallback": 0,
@@ -2714,7 +2741,7 @@
   "pct_covered_source_denominator": 78,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 61,
  "n_derived": 0,

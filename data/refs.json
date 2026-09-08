@@ -7,7 +7,7 @@
   "components[].xref_note_id": "notes",
   "components[].mapping_note_id": "notes"
  },
- "xref_semantics": "A cross-reference block describes the BiGG id that was CHOSEN for the component. Whether it was also the evidence for that choice is stated per component by match_field / match_key / source_xref, and by the note referenced from xref_note_id — not by this table.",
+ "xref_semantics": "A cross-reference block describes the BiGG id that was CHOSEN for the component. Whether it was also the evidence for that choice is stated per component by match_field / match_key / source_xref, and by the note referenced from xref_note_id, not by this table.",
  "n_xrefs": 2291,
  "n_notes": 114,
  "xrefs": {

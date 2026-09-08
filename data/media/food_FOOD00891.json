@@ -24,10 +24,10 @@
    "Fox & McSweeney, Dairy Chemistry and Biochemistry (free sugars, chloride, inositol, urea, carnitine)",
    "McCance & Widdowson / UK dairy iodine reference"
   ],
-  "curation_notes": "Dominant carbon/energy source is LACTOSE (~4.8 g/100g, 144.7 mM); milk protein (~3.3 g, casein+whey) is the main N source. The key correction versus the FooDB profile is adding the milk organic acids — citrate (~9.4 mM, matches textbook 8-10 mM) and orotic acid — and replacing non-milk sugars (sucrose/maltose/fructose noise) with quantified lactose plus trace free glucose/galactose. Cholesterol is genuine (animal food) and kept; toxic/ultratrace metals removed.",
+  "curation_notes": "Dominant carbon/energy source is LACTOSE (~4.8 g/100g, 144.7 mM); milk protein (~3.3 g, casein+whey) is the main N source. The key correction versus the FooDB profile is adding the milk organic acids, citrate (~9.4 mM, matches textbook 8-10 mM) and orotic acid, and replacing non-milk sugars (sucrose/maltose/fructose noise) with quantified lactose plus trace free glucose/galactose. Cholesterol is genuine (animal food) and kept; toxic/ultratrace metals removed.",
   "curation_added": [
-   "citric acid (~9.4 mM, the principal milk organic acid — was absent)",
-   "orotic acid (~70 mg/L characteristic bovine pyrimidine — was absent)",
+   "citric acid (~9.4 mM, the principal milk organic acid, was absent)",
+   "orotic acid (~70 mg/L characteristic bovine pyrimidine, was absent)",
    "quantitative lactose as the dominant sugar (~4.8 g/100g, 144.7 mM)",
    "free glucose and free galactose amounts",
    "full amino-acid profile with g/100g amounts",
@@ -71,7 +71,7 @@
    },
    {
     "name": "Sucrose C12H22O11",
-    "reason": "not a milk sugar; milk carbohydrate is lactose — FooDB noise"
+    "reason": "not a milk sugar; milk carbohydrate is lactose, FooDB noise"
    },
    {
     "name": "Maltose C12H22O11",
@@ -83,7 +83,7 @@
    },
    {
     "name": "D-Galactarate",
-    "reason": "mucic acid — biologically implausible in fresh milk; FooDB predicted"
+    "reason": "mucic acid, biologically implausible in fresh milk; FooDB predicted"
    },
    {
     "name": "Acetone",
@@ -111,7 +111,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -121,7 +121,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -141,7 +141,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -149,7 +149,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -160,9 +160,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -173,7 +181,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -189,9 +197,27 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -810,7 +836,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -3247,7 +3273,8 @@
    "bigg": 10
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh weight (fluid milk; 100 g ≈ 96.9 mL at density 1.032 g/mL)",
  "n_nonbigg_fallback": 0,
@@ -3270,7 +3297,7 @@
   "pct_covered_source_denominator": 83,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 76,
  "n_derived": 0,

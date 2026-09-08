@@ -26,7 +26,7 @@
   ],
   "curation_notes": "Dominant carbon/energy sources are D-fructose (40.9 g/100g) and D-glucose (35.7 g/100g); the defining and previously-missing organic acid is gluconic acid (~0.74 g/100g, from bee glucose oxidase acting on glucose), the principal acid of honey. Free amino acids are dominated by proline. Very low water activity (~17% moisture) means honey is an extreme high-osmolarity sugar medium.",
   "curation_added": [
-   "gluconic acid (0.74 g/100g — the DOMINANT organic acid of honey, previously absent)",
+   "gluconic acid (0.74 g/100g, the DOMINANT organic acid of honey, previously absent)",
    "specific sugar amounts (fructose 40.9, glucose 35.7, galactose 3.1, maltose 1.4, sucrose 0.9 g/100g)",
    "minor organic acids with amounts (formic, lactic, quinic, malic, oxalic, citric, succinic, fumaric)",
    "quantified L-proline (dominant free amino acid) + total protein",
@@ -35,7 +35,7 @@
   "curation_removed": [
    {
     "name": "Lactose C12H22O11",
-    "reason": "Milk disaccharide; biologically implausible in honey (no lactose in nectar/honey). FooDB artifact — remove."
+    "reason": "Milk disaccharide; biologically implausible in honey (no lactose in nectar/honey). FooDB artifact, remove."
    },
    {
     "name": "Fe2+ mitochondria",
@@ -55,7 +55,7 @@
    },
    {
     "name": "Phytomenadione",
-    "reason": "Vitamin K1 is a plant-leaf phylloquinone; not reported in USDA honey panel and implausible at nutritive level in honey — likely FooDB predicted, drop."
+    "reason": "Vitamin K1 is a plant-leaf phylloquinone; not reported in USDA honey panel and implausible at nutritive level in honey, likely FooDB predicted, drop."
    },
    {
     "name": "L-cystine",
@@ -63,7 +63,7 @@
    },
    {
     "name": "Glycine betaine",
-    "reason": "Not an established quantified honey nutrient; FooDB predicted phytochemical — drop from the growth-relevant profile."
+    "reason": "Not an established quantified honey nutrient; FooDB predicted phytochemical, drop from the growth-relevant profile."
    }
   ],
   "curation_confidence": "high",
@@ -71,7 +71,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -81,7 +81,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -101,7 +101,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -109,7 +109,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -122,7 +122,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -133,7 +133,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -149,9 +149,27 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -2211,7 +2229,8 @@
    "bigg": 1
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g honey (as-consumed, ~17% moisture)",
  "n_nonbigg_fallback": 0,
@@ -2234,7 +2253,7 @@
   "pct_covered_source_denominator": 62,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 54,
  "n_derived": 0,

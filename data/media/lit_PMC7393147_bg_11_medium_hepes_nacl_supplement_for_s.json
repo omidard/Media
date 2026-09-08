@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "Synechococcus elongatus PCC7942 cscB+",
  "aerobic": true,
- "description": "BG-11 medium (+ HEPES/NaCl supplement) for S. elongatus cscB+ — a defined medium extracted from Zuñiga et al. (2020). Mapped to BiGG from the paper's stated composition.",
+ "description": "BG-11 medium (+ HEPES/NaCl supplement) for S. elongatus cscB+, a defined medium extracted from Zuñiga et al. (2020). Mapped to BiGG from the paper's stated composition.",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -13,13 +13,13 @@
   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7393147/",
   "notes": "Extracted from the primary paper (snippet: BG-11 medium is composed of (in 1 L): 1.5 g NaNO3, 0.04 g K2HPO4, 0.075 g MgSO4.7H2O, 0.036 g CaCl2.2H2O, 0.006 g Citric Acid.H2O, 0.006 g Ferric Ammonium Citrate, 0.001 g Na2EDTA.2H2O, 0.02 g Na2CO3,). Component names mapped to BiGG (see mapping_confidence); presence-based bounds unless the paper gave exchange bounds; concentration_mM where units allowed. Extraction confidence: high.",
   "verification": "paper-verified (corrected via workflow)",
-  "verification_evidence": "Inoculum culture of sucrose-secreting cyanobacterium was prepared using BG-11 (Sigma–Aldrich) medium supplemented with 1 g L−1 HEPES (pH 8.9) and 100 mM NaCl at 35 °C. ... The BG-11 trace metals solution (in 1 L) consists of: 2.86 g H3BO3, 1.81 g MnCl2·4H2O, 0.22 g ZnSO4·7H2O, 0.39 g Na2MoO4·2H2O, 0.079 g CuSO4·5H2O, 49.4 mg Co(NO3)2·6H2O.",
+  "verification_evidence": "Inoculum culture of sucrose-secreting cyanobacterium was prepared using BG-11 (Sigma-Aldrich) medium supplemented with 1 g L−1 HEPES (pH 8.9) and 100 mM NaCl at 35 °C. ... The BG-11 trace metals solution (in 1 L) consists of: 2.86 g H3BO3, 1.81 g MnCl2·4H2O, 0.22 g ZnSO4·7H2O, 0.39 g Na2MoO4·2H2O, 0.079 g CuSO4·5H2O, 49.4 mg Co(NO3)2·6H2O.",
   "verification_confidence": "high",
   "transforms": [
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -29,7 +29,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -49,7 +49,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -57,7 +57,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -70,7 +70,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -81,7 +81,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -97,9 +97,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -756,7 +775,8 @@
    "biggr": 20
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "no oxygen requirement specified; O2 available but not asserted",
  "n_nonbigg_fallback": 0,
  "defined": null,
@@ -778,7 +798,7 @@
   "pct_covered_source_denominator": 9,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 30.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 6,
  "n_derived": 14,

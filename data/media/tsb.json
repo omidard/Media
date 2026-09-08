@@ -1,10 +1,10 @@
 {
  "id": "tsb",
- "name": "Tryptic Soy Broth (TSB) — in-silico approximation (aerobic)",
+ "name": "Tryptic Soy Broth (TSB), in-silico approximation (aerobic)",
  "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": true,
- "description": "Tryptic Soy Broth (TSB) — in-silico approximation (aerobic).",
+ "description": "Tryptic Soy Broth (TSB), in-silico approximation (aerobic).",
  "namespace": "bigg",
  "provenance": {
   "source_type": "standard",
@@ -13,10 +13,10 @@
   "url": "",
   "notes": "APPROXIMATION of a complex commercial medium; includes glucose (dextrose). Presence-based bounds.",
   "verification": "expert-curated (canonical formulation)",
-  "wellknown_reference": "Tryptic Soy Broth (Soybean-Casein Digest Medium) — BD Bionutrient Technical Manual; USP <62>. Casein peptone 17, soy peptone 3, NaCl 5, K2HPO4 2.5, dextrose 2.5 g/L.",
+  "wellknown_reference": "Tryptic Soy Broth (Soybean-Casein Digest Medium). Source: BD Bionutrient Technical Manual; USP <62>. Casein peptone 17, soy peptone 3, NaCl 5, K2HPO4 2.5, dextrose 2.5 g/L.",
   "decomposition_refs": {
    "soytone": {
-    "citation": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+    "citation": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
     "url": "https://archive.org/details/difcomanualdehyd0000unse"
    }
   },
@@ -24,7 +24,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -34,7 +34,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -54,7 +54,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -62,7 +62,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -75,7 +75,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -86,7 +86,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -102,9 +102,33 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components",
+     "coverage_source.definition",
+     "description",
+     "name",
+     "name_core",
+     "name_display",
+     "name_verbatim",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -180,7 +204,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 31.8,
    "mmol_per_g_source": 0.35693,
    "evidence_class": "derived",
@@ -219,7 +243,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 30.5,
    "mmol_per_g_source": 0.17407,
    "evidence_class": "derived",
@@ -258,7 +282,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -289,7 +313,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 90.0,
    "mmol_per_g_source": 0.68133,
    "evidence_class": "derived",
@@ -418,7 +442,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 7.9,
    "mmol_per_g_source": 0.06521,
    "evidence_class": "derived",
@@ -487,7 +511,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -518,7 +542,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 118.3,
    "mmol_per_g_source": 0.8096,
    "evidence_class": "derived",
@@ -557,7 +581,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 24.7,
    "mmol_per_g_source": 0.32904,
    "evidence_class": "derived",
@@ -654,7 +678,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 12.3,
    "mmol_per_g_source": 0.07927,
    "evidence_class": "derived",
@@ -693,7 +717,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 25.5,
    "mmol_per_g_source": 0.1944,
    "evidence_class": "derived",
@@ -762,7 +786,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 39.0,
    "mmol_per_g_source": 0.29731,
    "evidence_class": "derived",
@@ -801,7 +825,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 38.5,
    "mmol_per_g_source": 0.26155,
    "evidence_class": "derived",
@@ -840,7 +864,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 8.6,
    "mmol_per_g_source": 0.05764,
    "evidence_class": "derived",
@@ -939,7 +963,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -1000,7 +1024,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 24.0,
    "mmol_per_g_source": 0.14529,
    "evidence_class": "derived",
@@ -1069,7 +1093,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 25.4,
    "mmol_per_g_source": 0.22062,
    "evidence_class": "derived",
@@ -1108,7 +1132,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -1139,7 +1163,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 26.9,
    "mmol_per_g_source": 0.25596,
    "evidence_class": "derived",
@@ -1208,7 +1232,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -1239,7 +1263,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 26.1,
    "mmol_per_g_source": 0.21911,
    "evidence_class": "derived",
@@ -1278,7 +1302,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 6.8,
    "mmol_per_g_source": 0.0333,
    "evidence_class": "derived",
@@ -1317,7 +1341,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 13.8,
    "mmol_per_g_source": 0.07616,
    "evidence_class": "derived",
@@ -1356,7 +1380,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "soytone",
-   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate) — BD Bionutrient Technical Manual.",
+   "decomposition_ref": "Soytone = papaic digest of soybean meal (amino acids + carbohydrate). Source: BD Bionutrient Technical Manual.",
    "mg_per_g_source": 29.4,
    "mmol_per_g_source": 0.25096,
    "evidence_class": "derived",
@@ -1399,6 +1423,7 @@
   }
  },
  "oxygen": "facultative",
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "General-purpose medium; casein + soy peptone + dextrose.",
  "base_medium": "TSB",
  "n_nonbigg_fallback": 0,
@@ -1421,7 +1446,7 @@
   "pct_covered_source_denominator": 14,
   "pct_covered_source_is_upper_bound": true,
   "pct_sourced_of_components": 36.1,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 13,
  "n_derived": 23,
@@ -1443,10 +1468,10 @@
   "stage": "50_load_concentrations",
   "stage_version": "1.0.0"
  },
- "name_display": "Tryptic Soy Broth (TSB) — in-silico approximation (aerobic)",
- "name_core": "Tryptic Soy Broth (TSB) — in-silico approximation (aerobic)",
+ "name_display": "Tryptic Soy Broth (TSB), in-silico approximation (aerobic)",
+ "name_core": "Tryptic Soy Broth (TSB), in-silico approximation (aerobic)",
  "name_provenance_tail": null,
- "name_verbatim": "Tryptic Soy Broth (TSB) — in-silico approximation (aerobic)",
+ "name_verbatim": "Tryptic Soy Broth (TSB), in-silico approximation (aerobic)",
  "family": {
   "id": "tsb",
   "label": "Tryptic Soy Broth (standard)",

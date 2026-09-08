@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": true,
- "description": "Minimal medium + corn steep liquor (glucose) — medium reported in PMC11551391 (complex/undefined base — extracts not BiGG-mappable).",
+ "description": "Minimal medium + corn steep liquor (glucose), medium reported in PMC11551391 (complex/undefined base, extracts not BiGG-mappable).",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -23,7 +23,7 @@
    "confidence": "high",
    "sources_chased": [
     {
-     "what": "SI Appendix Materials and Methods, 'Flask cultivations' — full CGXII-P recipe",
+     "what": "SI Appendix Materials and Methods, 'Flask cultivations', full CGXII-P recipe",
      "obtained": true,
      "how": "EuropePMC supplementaryFiles zip -> pnas.2415213121.sapp.pdf; pdftotext",
      "added": [
@@ -74,13 +74,13 @@
     "corn steep liquor amount (40 g/L)"
    ],
    "corrections": [],
-   "notes": "Flask-cultivation PDC medium = full CGXII-P (42 g/L MOPS retained) + 40 g/L CSL. This differs from the fed-batch record only by the presence of MOPS buffer (fed-batch drops MOPS). CAUTION: prior current_components listed Co2+ (cobalt) and Fe3+; the defined recipe has NO cobalt salt and only Fe2+ (FeSO4·7H2O) — those ion exchanges are model artifacts, not declared ingredients."
+   "notes": "Flask-cultivation PDC medium = full CGXII-P (42 g/L MOPS retained) + 40 g/L CSL. This differs from the fed-batch record only by the presence of MOPS buffer (fed-batch drops MOPS). CAUTION: prior current_components listed Co2+ (cobalt) and Fe3+; the defined recipe has NO cobalt salt and only Fe2+ (FeSO4·7H2O), those ion exchanges are model artifacts, not declared ingredients."
   },
   "transforms": [
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "n_nonbigg_fallback:added",
      "schema_version:mediadb-record/2"
@@ -89,7 +89,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -109,7 +109,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -117,7 +117,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -130,7 +130,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -141,7 +141,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -157,9 +157,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -794,6 +813,7 @@
   }
  },
  "oxygen": "aerobic",
+ "oxygen_default_for_simulation": "aerobic",
  "oxygen_note": "no oxygen requirement specified; O2 available but not asserted",
  "defined": false,
  "n_nonbigg_fallback": 0,
@@ -815,7 +835,7 @@
   "pct_covered_source_denominator": 20,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 94.7,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 18,
  "n_derived": 1,

@@ -108,13 +108,23 @@ def violations(stream):
 
 
 # Schema defects the audit measured in the frozen snapshot, pinned at their measured
-# size so they can GROW into a failure but a fix does not break the suite. Whether
-# each is fixed is owned by tests/test_defects.py, which XPASSes when a stage closes
-# it. Anything not listed here is a hard failure.
-KNOWN = {
-    "wrong_type:version(expected str)": (443, "SCHEMA-06", "10_normalize_schema"),
-    "missing_component_key:in_biggr": (136, "MAP-09 / SCHEMA-08", "4x chemistry stage"),
-}
+# size so they can GROW into a failure but a fix does not break the suite.
+#
+# THIS DICT IS EMPTY AND MUST STAY THAT WAY UNTIL A NEW DEFECT IS MEASURED. It held
+# two entries capped at their PRE-FIX sizes -- version(expected str) at 443 and
+# missing_component_key:in_biggr at 136 -- which 10_normalize_schema and the 4x
+# chemistry stage had long since driven to zero. A ratchet left at the original
+# defect's size is not a ratchet: those two defects could return at up to their full
+# original size with this file green, and they would have, because the comment
+# delegated the "is it fixed yet" signal to tests/test_defects.py, whose markers
+# were non-strict and whose exit code was 0 either way. Demonstrated by planting 40
+# int versions and 120 components with no in_biggr flag in a corpus copy: `pytest
+# tests/test_schema.py` reported "5 passed, 1 skipped", exit 0.
+#
+# Both are now at zero in the corpus, so zero is the honest cap, and a regression is
+# a hard failure here rather than a silent XFAIL somewhere else. Anything not listed
+# is a hard failure.
+KNOWN = {}
 
 
 def _split_known(hard):
@@ -165,9 +175,11 @@ def test_exchange_identity_holds_for_every_mapped_component(violations):
     assert not bad, "exchange/metabolite mismatch in %d components, e.g. %s" % (len(bad), bad[:5])
 
 
-# Empty-string-for-unknown, measured in the frozen snapshot (SCHEMA-02). Fixed by
-# 10_normalize_schema; tests/test_defects.py owns the "is it fixed yet" signal.
-KNOWN_EMPTY_STRINGS = {"organism_scope": 471, "food_group": 2, "oxygen_note": 1}
+# Empty-string-for-unknown, measured in the frozen snapshot (SCHEMA-02), and closed
+# by 10_normalize_schema. The caps were left at the pre-fix sizes (organism_scope
+# 471, food_group 2, oxygen_note 1), so the defect could return at its full original
+# size with this test green. It is at zero now, so zero is the cap.
+KNOWN_EMPTY_STRINGS = {}
 
 
 def test_no_new_empty_string_stands_for_unknown(stream):

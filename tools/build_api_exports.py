@@ -129,7 +129,19 @@ COMP_COLS = [
     "source_name", "target_name", "match_field", "match_key",
     "concentration_status", "concentration_source",
     "quantity_value", "quantity_value_verbatim",
-    "quantity_unit", "quantity_basis", "derived_not_sourced",
+    "quantity_unit", "quantity_basis",
+    # A published amount that was chosen between two source measurements says so
+    # HERE, not only in the per-record JSON. 1,930 USDA components credit two
+    # nutrient names and carry one amount (finding USDA-01); this file is the route
+    # API.md documents for DuckDB, it had 33 columns and not one of them was a
+    # note, an alternatives list or even a note id to join data/refs.json on, so a
+    # programmatic consumer got the number with no warning reachable at all.
+    "quantity_chose_by", "quantity_alternatives_json",
+    # The same gap, generally: every prose note a record carries is keyed into
+    # data/refs.json and the keys were not exported, so the join was impossible
+    # from here.
+    "mapping_note_id", "xref_note_id",
+    "derived_not_sourced",
 ] + ["xref_" + k for k in XREF_KEYS]
 
 
@@ -287,6 +299,17 @@ def component_rows(mid, rec, refs=None):
                 (c.get("quantity") or {}).get("value")),
             "quantity_unit": (c.get("quantity") or {}).get("unit"),
             "quantity_basis": (c.get("quantity") or {}).get("basis"),
+            "quantity_chose_by": (c.get("quantity") or {}).get("chose_by"),
+            # JSON rather than a list column: the alternatives are a small
+            # heterogeneous record (name, value, unit) and parquet list-of-struct
+            # is awkward to read from DuckDB and pandas alike. Absent stays null,
+            # never an empty string and never "[]".
+            "quantity_alternatives_json": (
+                json.dumps((c.get("quantity") or {}).get("alternatives"),
+                           ensure_ascii=False)
+                if (c.get("quantity") or {}).get("alternatives") else None),
+            "mapping_note_id": c.get("mapping_note_id"),
+            "xref_note_id": c.get("xref_note_id"),
             "derived_not_sourced": c.get("derived_not_sourced"),
         }
         for k in XREF_KEYS:
@@ -409,7 +432,7 @@ def write_release_notes(bulk_dir, bulk, catalog, media_rows, comp_rows):
     refs_sha = (hashlib.sha256(open(refs_path, "rb").read()).hexdigest()
                 if os.path.exists(refs_path) else None)
     lines = [
-        "# MediaDB bulk exports — `%s`" % RELEASE_TAG,
+        "# MediaDB bulk exports, `%s`" % RELEASE_TAG,
         "",
         "Two re-encodings of the MediaDB corpus: %s media, %s components."
         % ("{:,}".format(catalog["count"]), "{:,}".format(len(comp_rows))),
@@ -426,10 +449,10 @@ def write_release_notes(bulk_dir, bulk, catalog, media_rows, comp_rows):
         "",
         "## What they are",
         "",
-        "* `media.sqlite.gz` — gzipped SQLite with tables `media` and `components`, "
+        "* `media.sqlite.gz`: gzipped SQLite with tables `media` and `components`, "
         "indexed on category / source_db / medium_id / exchange / bigg_metabolite. "
         "`gunzip` before opening.",
-        "* `media.jsonl.part*.gz` — one full medium record per line, byte-for-byte "
+        "* `media.jsonl.part*.gz`: one full medium record per line, byte-for-byte "
         "the schema of `data/media/<id>.json`. Cross-references and prose notes are "
         "keyed (`xref_id` / `mapping_note_id` / `xref_note_id`) and join on "
         "`data/refs.json`, which stays in the repository. Concatenate the parts in "
@@ -680,7 +703,7 @@ def main(argv=None):
             # release exists, because for now it does not.
             "status": RELEASE_STATUS,
             "where": ("GitHub Release %s" % RELEASE_TAG if RELEASE_STATUS == "published"
-                      else "GitHub Release %s — PLANNED, NOT YET CREATED. Nothing is "
+                      else "GitHub Release %s: PLANNED, NOT YET CREATED. Nothing is "
                            "served from the URL below yet; build the files locally "
                            "instead (see how_to_get_them_now)." % RELEASE_TAG),
             "url_prefix": RELEASE_URL,

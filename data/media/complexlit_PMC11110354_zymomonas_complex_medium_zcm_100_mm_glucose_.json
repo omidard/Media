@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": false,
- "description": "Zymomonas complex medium (ZCM), ~100 mM glucose, 0 µM IPTG — medium reported in PMC11110354 (complex/undefined base — extracts not BiGG-mappable).",
+ "description": "Zymomonas complex medium (ZCM), ~100 mM glucose, 0 µM IPTG, medium reported in PMC11110354 (complex/undefined base, extracts not BiGG-mappable).",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -13,13 +13,13 @@
   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11110354/",
   "notes": "Complex medium: chemically-defined portion mapped to BiGG; biological extracts listed in `unmapped`. Added via GrowthDB curation.",
   "verification": "paper-verified (corrected via workflow)",
-  "verification_evidence": "ZCM composition per paper: \"bacto peptone 10 g/L, yeast extract 10 g/L, glucose 20 g/L\". Growth conditions: anaerobic — \"cultivated in closed flasks at 30°C\". IPTG main cultures tested 0, 10, 20, 50, 100 µM (this record = 0 µM). Glucose 20 g/L = ~111 mM, consistent with the record's \"~100 mM glucose\" label.",
+  "verification_evidence": "ZCM composition per paper: \"bacto peptone 10 g/L, yeast extract 10 g/L, glucose 20 g/L\". Growth conditions: anaerobic, \"cultivated in closed flasks at 30°C\". IPTG main cultures tested 0, 10, 20, 50, 100 µM (this record = 0 µM). Glucose 20 g/L = ~111 mM, consistent with the record's \"~100 mM glucose\" label.",
   "verification_confidence": "high",
   "transforms": [
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -29,7 +29,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -49,7 +49,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -57,7 +57,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -70,7 +70,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -81,7 +81,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -97,9 +97,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -1706,6 +1725,7 @@
   }
  },
  "oxygen": "anaerobic",
+ "oxygen_default_for_simulation": "anaerobic",
  "oxygen_note": "retained anaerobic designation",
  "n_nonbigg_fallback": 0,
  "defined": null,
@@ -1727,7 +1747,7 @@
   "pct_covered_source_denominator": 46,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 88.5,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 46,
  "n_derived": 6,

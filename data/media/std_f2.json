@@ -5,20 +5,20 @@
  "organism_scope": "general laboratory",
  "aerobic": true,
  "namespace": "bigg",
- "description": "f/2 medium (standard, marine algae) — canonical reference formulation.",
+ "description": "f/2 medium (standard, marine algae), canonical reference formulation.",
  "provenance": {
   "source_type": "standard",
-  "citation": "f/2 medium — Guillard RRL, Ryther JH. Can J Microbiol 1962;8:229. Marine diatoms/algae.",
+  "citation": "f/2 medium. Source: Guillard RRL, Ryther JH. Can J Microbiol 1962;8:229. Marine diatoms/algae.",
   "doi": "10.1139/m62-029",
   "url": "https://doi.org/10.1139/m62-029",
   "verification": "expert-curated (canonical formulation)",
-  "wellknown_reference": "f/2 medium — Guillard RRL, Ryther JH. Can J Microbiol 1962;8:229. Marine diatoms/algae.",
+  "wellknown_reference": "f/2 medium. Source: Guillard RRL, Ryther JH. Can J Microbiol 1962;8:229. Marine diatoms/algae.",
   "doi_source": "crossref-resolved",
   "transforms": [
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -28,7 +28,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -48,7 +48,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -56,7 +56,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -69,7 +69,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -80,7 +80,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -96,9 +96,29 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components",
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -446,7 +466,7 @@
    "exchange_source": "bigg",
    "mapping_method": "wellknown_curation",
    "mapping_confidence": "inferred",
-   "role": "bicarbonate/CO2 (SOLE carbon — photoautotroph)",
+   "role": "bicarbonate/CO2 (SOLE carbon, photoautotroph)",
    "evidence_class": "sourced",
    "derived_class": null,
    "source_xref": null,
@@ -827,6 +847,7 @@
   }
  ],
  "oxygen": "aerobic",
+ "oxygen_default_for_simulation": "aerobic",
  "oxygen_note": "Marine photoautotroph medium (seawater base); C from CO2, N from nitrate, energy from light (not modelled).",
  "base_medium": "F2",
  "n_components": 23,
@@ -863,7 +884,7 @@
   "pct_covered_source_denominator": 23,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 23,
  "n_derived": 0,

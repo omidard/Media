@@ -17,12 +17,12 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 171697 (SR Legacy, 'Apricots, raw') — macros, amino acids, fatty acids, minerals, vitamins, carotenoids",
-   "Fratianni et al. 2021, 'Nutritional and Phytochemical Traits of Apricots (Prunus armeniaca L.)', PMC8230439 — sugar (sucrose/glucose/fructose) and organic acid (citric/malic/succinic) quantification",
-   "Fratianni et al. 'Apricots: biochemistry and functional properties', ScienceDirect S2214799317301789 — quinic/fumaric/shikimic acid presence and ranges",
+   "USDA FoodData Central FDC 171697 (SR Legacy, 'Apricots, raw'), macros, amino acids, fatty acids, minerals, vitamins, carotenoids",
+   "Fratianni et al. 2021, 'Nutritional and Phytochemical Traits of Apricots (Prunus armeniaca L.)', PMC8230439, sugar (sucrose/glucose/fructose) and organic acid (citric/malic/succinic) quantification",
+   "Fratianni et al. 'Apricots: biochemistry and functional properties', ScienceDirect S2214799317301789, quinic/fumaric/shikimic acid presence and ranges",
    "FooDB FOOD00144 (source of prior component list; noise flagged)"
   ],
-  "curation_notes": "Dominant carbon/energy sources for microbial growth are sucrose (~5.8 g/100g) plus its hexoses glucose (~2.0) and fructose (~1.4), and the organic acids — citric (~0.86) and malic (~0.90 g/100g) are co-dominant with succinic (~0.44); citric and succinic were entirely absent from the prior FooDB profile. Apricot is a high-potassium (259 mg/100g), beta-carotene-rich (1094 mcg/100g), low-protein/low-fat fruit.",
+  "curation_notes": "Dominant carbon/energy sources for microbial growth are sucrose (~5.8 g/100g) plus its hexoses glucose (~2.0) and fructose (~1.4), and the organic acids, citric (~0.86) and malic (~0.90 g/100g) are co-dominant with succinic (~0.44); citric and succinic were entirely absent from the prior FooDB profile. Apricot is a high-potassium (259 mg/100g), beta-carotene-rich (1094 mcg/100g), low-protein/low-fat fruit.",
   "curation_added": [
    "citric acid (dominant organic acid, absent from prior profile)",
    "succinic acid (absent from prior profile)",
@@ -79,7 +79,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -89,7 +89,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -109,7 +109,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -117,7 +117,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -128,9 +128,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -141,7 +149,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -157,9 +165,27 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -893,7 +919,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -2633,7 +2659,8 @@
    "bigg": 4
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh weight",
  "n_nonbigg_fallback": 0,
@@ -2656,7 +2683,7 @@
   "pct_covered_source_denominator": 72,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 63,
  "n_derived": 0,

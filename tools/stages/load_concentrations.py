@@ -328,6 +328,17 @@ class Stage:
         elif c.get("usda_amount") is not None:
             q = {"value": c["usda_amount"], "unit": c.get("usda_unit"),
                  "basis": "per_100g_food", "source_field": "usda_amount"}
+            # Two USDA nutrients can map onto one exchange (finding USDA-01), and
+            # the builder's `comps[ex] = {...}` kept whichever came last in the
+            # source array. 42_usda_nutrient_amounts resolves the amount by
+            # chemistry and records what it did NOT apply; those three fields ride
+            # into `quantity` so the reader and data/api/components.parquet see the
+            # discarded measurement beside the value it qualifies, instead of one
+            # confident number with no warning available anywhere.
+            if c.get("usda_amount_alternatives"):
+                q["chose_by"] = c.get("usda_amount_chose_by")
+                q["why"] = c.get("usda_amount_why")
+                q["alternatives"] = c["usda_amount_alternatives"]
         elif c.get("foodb_content") is not None:
             q = {"value": c["foodb_content"], "unit": c.get("foodb_unit"),
                  "basis": "per_100g_food", "source_field": "foodb_content"}

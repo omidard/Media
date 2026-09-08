@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": false,
- "description": "mineral salts (minimal) medium with NaHCO3 as sole carbon source — medium reported in PMC10589654 (complex/undefined base — extracts not BiGG-mappable).",
+ "description": "mineral salts (minimal) medium with NaHCO3 as sole carbon source, medium reported in PMC10589654 (complex/undefined base, extracts not BiGG-mappable).",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -64,9 +64,9 @@
     "H2 electron donor and CO2 gas phase"
    ],
    "corrections": [
-    "Mg source is MgCl2·6H2O, NOT MgSO4 — the current record's 'MgSO4' (EX_mg2_e/EX_so4_e) is wrong; there is no sulfate salt in the medium. Sulfur is supplied only by Na2S and cysteine.",
+    "Mg source is MgCl2·6H2O, NOT MgSO4, the current record's 'MgSO4' (EX_mg2_e/EX_so4_e) is wrong; there is no sulfate salt in the medium. Sulfur is supplied only by Na2S and cysteine.",
     "Iron is added as FeCl2·4H2O (Fe2+) only; the current 'Iron (Fe3+)' (EX_fe3_e) entry has no source in the recipe.",
-    "The current 'CO2' entry mapped to EX_cobalt2_e conflates CO2 gas with cobalt; cobalt is a real component (CoCl2) and CO2 is a real gas-phase component — both are now listed correctly."
+    "The current 'CO2' entry mapped to EX_cobalt2_e conflates CO2 gas with cobalt; cobalt is a real component (CoCl2) and CO2 is a real gas-phase component, both are now listed correctly."
    ],
    "notes": "Sporomusa ovata acetogen medium, strictly anaerobic (H2:CO2 or N2:CO2 headspace, resazurin-monitored, Na2S+cysteine reduced). Recipe fully recovered from SI Appendix Supplementary Note 1: component A + 10X phosphate stock (added 1:9 after separate autoclaving, giving ~50 mM phosphate) + 1 mL/L each of trace-element, Se/W, and Wolin's vitamins stocks. Component-A concentrations are stated per-liter and are diluted ~10% when the phosphate stock is added; reported values are as stated in the recipe. Trace/vitamin concentrations shown as final after 1000x dilution of the 1 mL/L stocks."
   },
@@ -74,7 +74,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "n_nonbigg_fallback:added",
      "schema_version:mediadb-record/2"
@@ -83,7 +83,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -103,7 +103,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -111,7 +111,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -122,9 +122,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -135,7 +143,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -151,9 +159,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -970,7 +997,7 @@
    "xref_note_id": "n6d132e"
   },
   {
-   "name": "Vitamin B12",
+   "name": "Adenosylcobalamin",
    "bigg_metabolite": "adocbl",
    "exchange": "EX_adocbl_e",
    "lower_bound": -10.0,
@@ -1200,6 +1227,7 @@
   }
  },
  "oxygen": "anaerobic",
+ "oxygen_default_for_simulation": "anaerobic",
  "oxygen_note": "retained anaerobic designation",
  "name_original": "mineral salts (minimal) medium with NaHCO3 as sole carbon source (PMC10589654)",
  "defined": false,
@@ -1222,7 +1250,7 @@
   "pct_covered_source_denominator": 34,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 31,
  "n_derived": 0,

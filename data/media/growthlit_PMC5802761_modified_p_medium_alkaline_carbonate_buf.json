@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": true,
- "description": "Modified P medium (alkaline, carbonate-buffered) — medium reported in PMC5802761, extracted for GrowthDB and mapped to BiGG.",
+ "description": "Modified P medium (alkaline, carbonate-buffered), medium reported in PMC5802761, extracted for GrowthDB and mapped to BiGG.",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -24,7 +24,7 @@
    "confidence": "medium",
    "sources_chased": [
     {
-     "what": "Target paper main text (PMC5802761) — base salts, phosphate solution, carbonate buffer, copper requirement, tungsten, gas phase",
+     "what": "Target paper main text (PMC5802761), base salts, phosphate solution, carbonate buffer, copper requirement, tungsten, gas phase",
      "obtained": true,
      "how": "WebFetch pmc.ncbi.nlm.nih.gov/articles/PMC5802761/",
      "added": [
@@ -43,7 +43,7 @@
     {
      "what": "Ref 9 trace solution (Demidenko 2016, PMC5222806)",
      "obtained": false,
-     "how": "WebFetch PMC5222806 — main text points trace solution to Table S1 (DataSheet2.docx); table body not machine-readable in fetch",
+     "how": "WebFetch PMC5222806, main text points trace solution to Table S1 (DataSheet2.docx); table body not machine-readable in fetch",
      "added": []
     },
     {
@@ -72,16 +72,16 @@
     "Tungstate (W / Na2WO4)",
     "Carbonate/bicarbonate buffer (was in current_uncovered)",
     "EDTA chelator (Na2-EDTA / Fe-EDTA / Cu-EDTA)",
-    "Explicit copper concentration (5–10 µM optimal)"
+    "Explicit copper concentration (5-10 µM optimal)"
    ],
    "corrections": [],
-   "notes": "Base salts, phosphate, carbonate buffer, essential copper (5–10 µM) and tungsten (Na2WO4, 0.07 mg/L) come verbatim from the target paper; the 1 ml/L 'trace solution' is cited (ref 9, Demidenko 2016) and its full metal composition was recovered from the same 20Z lineage medium (PMC6570963), adding the previously-missing Ni, Mo, B and W plus EDTA. The nitrogen source is nitrate (KNO3); the 'Ammonium (EX_nh4_e)' entry in current_components is NOT an actual ingredient of this medium. Organism is an aerobic methanotroph grown under O2 limitation (5% O2), so classified aerobic/microaerobic rather th"
+   "notes": "Base salts, phosphate, carbonate buffer, essential copper (5-10 µM) and tungsten (Na2WO4, 0.07 mg/L) come verbatim from the target paper; the 1 ml/L 'trace solution' is cited (ref 9, Demidenko 2016) and its full metal composition was recovered from the same 20Z lineage medium (PMC6570963), adding the previously-missing Ni, Mo, B and W plus EDTA. The nitrogen source is nitrate (KNO3); the 'Ammonium (EX_nh4_e)' entry in current_components is NOT an actual ingredient of this medium. Organism is an aerobic methanotroph grown under O2 limitation (5% O2), so classified aerobic/microaerobic rather th"
   },
   "transforms": [
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "n_nonbigg_fallback:added",
      "schema_version:mediadb-record/2"
@@ -90,7 +90,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -110,7 +110,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -118,7 +118,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -131,7 +131,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -142,7 +142,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -158,9 +158,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -780,6 +799,7 @@
   }
  },
  "oxygen": "aerobic",
+ "oxygen_default_for_simulation": "aerobic",
  "oxygen_note": "no oxygen requirement specified; O2 available but not asserted",
  "defined": false,
  "n_nonbigg_fallback": 0,
@@ -801,7 +821,7 @@
   "pct_covered_source_denominator": 22,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 17,
  "n_derived": 0,

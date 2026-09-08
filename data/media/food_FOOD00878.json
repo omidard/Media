@@ -18,13 +18,13 @@
   "curation_date": "2026-07-17",
   "curation_sources": [
    "USDA FoodData Central FDC 169383 (Peppers, sweet, yellow, raw)",
-   "USDA FoodData Central FDC 170427 (Peppers, sweet, green, raw) – analog for Se, choline, vitamin K",
+   "USDA FoodData Central FDC 170427 (Peppers, sweet, green, raw), analog for Se, choline, vitamin K",
    "Ciqual / Aprifel yellow pepper nutritional sheet",
-   "nutritionvalue.org (USDA-derived) – yellow sweet pepper amino-acid profile",
+   "nutritionvalue.org (USDA-derived), yellow sweet pepper amino-acid profile",
    "Wahyuni et al., comprehensive Capsicum annuum fruit-quality / organic-acid study (PMC9871545)",
    "Antonio et al. 2009, Variability for free sugars and organic acids in Capsicum chinense (PMID 19235156)"
   ],
-  "curation_notes": "Dominant carbon/energy sources: free hexoses fructose (~2.3 g) + glucose (~2.0 g), with essentially no sucrose in this ripe (yellow) fruit; the leading organic-acid carbon source is citric acid (~0.4 g/100g, rises with ripening) followed by malic (~0.12 g, falls with ripening), fumaric, alpha-ketoglutarate and oxalic. Yellow bell pepper is exceptionally vitamin-C-rich (~120–184 mg/100g). Removed 24 FooDB noise entries (heavy metals, non-nutritive trace elements, and implausible animal/synthetic ",
+  "curation_notes": "Dominant carbon/energy sources: free hexoses fructose (~2.3 g) + glucose (~2.0 g), with essentially no sucrose in this ripe (yellow) fruit; the leading organic-acid carbon source is citric acid (~0.4 g/100g, rises with ripening) followed by malic (~0.12 g, falls with ripening), fumaric, alpha-ketoglutarate and oxalic. Yellow bell pepper is exceptionally vitamin-C-rich (~120-184 mg/100g). Removed 24 FooDB noise entries (heavy metals, non-nutritive trace elements, and implausible animal/synthetic ",
   "curation_added": [
    "citric acid (dominant organic acid, was absent)",
    "malic acid",
@@ -96,7 +96,7 @@
    },
    {
     "name": "Solanidine",
-    "reason": "Solanum (potato/tomato) steroidal alkaloid aglycone; mis-assigned to Capsicum – pepper glycoalkaloid is different"
+    "reason": "Solanum (potato/tomato) steroidal alkaloid aglycone; mis-assigned to Capsicum, pepper glycoalkaloid is different"
    },
    {
     "name": "Racemethionine",
@@ -144,7 +144,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -154,7 +154,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -174,7 +174,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -182,7 +182,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -193,9 +193,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -206,7 +214,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -222,9 +230,29 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components",
+     "coverage_source.definition",
+     "provenance",
+     "uncovered"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -385,7 +413,7 @@
    "mapping_method": "name_deformula_remap",
    "mapping_confidence": "inferred",
    "role": "sugar",
-   "evidence_source": "Antonio et al. 2009 PMID 19235156 (Capsicum, sucrose 0–150 mg/100g); Ciqual total sugars 4.30 = glucose+fructose",
+   "evidence_source": "Antonio et al. 2009 PMID 19235156 (Capsicum, sucrose 0-150 mg/100g); Ciqual total sugars 4.30 = glucose+fructose",
    "amount": "0.0 g/100g",
    "evidence_class": "sourced",
    "derived_class": null,
@@ -424,7 +452,7 @@
    "mapping_method": "name_alias_remap",
    "mapping_confidence": "inferred",
    "role": "organic_acid",
-   "evidence_source": "Wahyuni et al. PMC9871545 (Capsicum annuum, citric 1.82–5.60 mg/g FW = 182–560 mg/100g); Antonio 2009 PMID 19235156 (0–818 mg/100g)",
+   "evidence_source": "Wahyuni et al. PMC9871545 (Capsicum annuum, citric 1.82-5.60 mg/g FW = 182-560 mg/100g); Antonio 2009 PMID 19235156 (0-818 mg/100g)",
    "amount": "0.4 g/100g",
    "evidence_class": "sourced",
    "derived_class": null,
@@ -462,7 +490,7 @@
    "mapping_method": "name_alias_remap",
    "mapping_confidence": "inferred",
    "role": "organic_acid",
-   "evidence_source": "Wahyuni et al. PMC9871545 (malic 0.99–1.88 mg/g FW = 99–188 mg/100g)",
+   "evidence_source": "Wahyuni et al. PMC9871545 (malic 0.99-1.88 mg/g FW = 99-188 mg/100g)",
    "amount": "0.12 g/100g",
    "evidence_class": "sourced",
    "derived_class": null,
@@ -500,7 +528,7 @@
    "mapping_method": "name_alias_remap",
    "mapping_confidence": "inferred",
    "role": "organic_acid",
-   "evidence_source": "Wahyuni et al. PMC9871545 (fumaric 1.48–3.71 mg/g FW = 148–371 mg/100g)",
+   "evidence_source": "Wahyuni et al. PMC9871545 (fumaric 1.48-3.71 mg/g FW = 148-371 mg/100g)",
    "amount": "0.23 g/100g",
    "evidence_class": "sourced",
    "derived_class": null,
@@ -538,7 +566,7 @@
    "mapping_method": "name_alias_remap",
    "mapping_confidence": "inferred",
    "role": "organic_acid",
-   "evidence_source": "Wahyuni et al. PMC9871545 (α-ketoglutarate 0.70–1.43 mg/g FW = 70–143 mg/100g)",
+   "evidence_source": "Wahyuni et al. PMC9871545 (α-ketoglutarate 0.70-1.43 mg/g FW = 70-143 mg/100g)",
    "amount": "0.1 g/100g",
    "evidence_class": "sourced",
    "derived_class": null,
@@ -1297,7 +1325,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -2385,7 +2413,7 @@
    "xref_note_id": "n6d132e"
   },
   {
-   "name": "Lutein, (3R,3'R,all-E)-Zeaxanthin, Beta-cryptoxanthin, Beta-carotene (carotenoids – yellow pepper is lutein/zeaxanthin/violaxanthin rich)",
+   "name": "Lutein, (3R,3'R,all-E)-Zeaxanthin, Beta-cryptoxanthin, Beta-carotene (carotenoids, yellow pepper is lutein/zeaxanthin/violaxanthin rich)",
    "bigg_metabolite": "lut",
    "exchange": "EX_lut_e",
    "lower_bound": -1.0,
@@ -2400,7 +2428,7 @@
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "source_name": "Lutein, (3R,3'R,all-E)-Zeaxanthin, Beta-cryptoxanthin, Beta-carotene (carotenoids – yellow pepper is lutein/zeaxanthin/violaxanthin rich)",
+   "source_name": "Lutein, (3R,3'R,all-E)-Zeaxanthin, Beta-cryptoxanthin, Beta-carotene (carotenoids, yellow pepper is lutein/zeaxanthin/violaxanthin rich)",
    "target_name": "Lutein",
    "evidence_tier": "fuzzy_name",
    "source_observed": true,
@@ -2523,7 +2551,7 @@
    "note": "no exchange auto-assigned; propose uptake -1.0 pending manual curation"
   },
   {
-   "name": "Capsaicin, Dihydrocapsaicin, Nordihydrocapsaicin, Homocapsaicin, Homodihydrocapsaicin, Nonivamide (capsaicinoids – genuine to Capsicum, near-zero in non-pungent bell pepper but real)",
+   "name": "Capsaicin, Dihydrocapsaicin, Nordihydrocapsaicin, Homocapsaicin, Homodihydrocapsaicin, Nonivamide (capsaicinoids, genuine to Capsicum, near-zero in non-pungent bell pepper but real)",
    "reason": "unmatched",
    "curation": "needs_manual_curation",
    "xref": {},
@@ -2539,7 +2567,7 @@
    "note": "no exchange auto-assigned; propose uptake -1.0 pending manual curation"
   },
   {
-   "name": "Capsianoside I–IV, A, C, D, E, F, II, III (genuine Capsicum acyclic diterpene glycosides)",
+   "name": "Capsianoside I-IV, A, C, D, E, F, II, III (genuine Capsicum acyclic diterpene glycosides)",
    "reason": "unmatched",
    "curation": "needs_manual_curation",
    "xref": {},
@@ -2579,7 +2607,8 @@
    "bigg": 3
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh weight (concentration_mM assumes 100 g ≈ 100 mL, density ≈1)",
  "n_nonbigg_fallback": 0,
@@ -2602,7 +2631,7 @@
   "pct_covered_source_denominator": 68,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 60,
  "n_derived": 0,

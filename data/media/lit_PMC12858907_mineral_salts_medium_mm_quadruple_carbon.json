@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "Six keystone bacterial strains from TC/OTC-acclimated aquatic microbial consortia (SuperCC community FBA models)",
  "aerobic": true,
- "description": "Mineral salts medium (MM) + quadruple carbon sources, C=4 (SuperCC GSMM simulation) — a minimal medium extracted from Ruan et al. (2025). Mapped to BiGG from the paper's stated composition.",
+ "description": "Mineral salts medium (MM) + quadruple carbon sources, C=4 (SuperCC GSMM simulation), a minimal medium extracted from Ruan et al. (2025). Mapped to BiGG from the paper's stated composition.",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -40,16 +40,16 @@
     }
    ],
    "missing_before": [
-    "monopotassium phosphate (KH2PO4, the second/acidic phosphate buffer salt — only dipotassium phosphate was represented before)"
+    "monopotassium phosphate (KH2PO4, the second/acidic phosphate buffer salt, only dipotassium phosphate was represented before)"
    ],
    "corrections": [],
-   "notes": "Complete recipe recovered from the paper's own Supplementary Method 1 (Media). The physical MM is a bare mineral-salts medium (NaCl, NH4Cl, K2HPO4, KH2PO4, MgSO4·7H2O) with NO trace-element mix, NO vitamins, NO added carbon in the base — distinct from the EM/DM media in the same paper, which DO carry a 1 mL/L trace-elements solution (FeSO4, MgSO4, CoCl2, ZnSO4, MnCl2, CuSO4, EDTA). The current exchange set was already chemically complete at the ion level (Na, Cl, K, pi, Mg, SO4, NH4, O2 + 4 carbons); this curation adds the actual salt identities/concentrations, splits phosphate into K2HPO4+KH2"
+   "notes": "Complete recipe recovered from the paper's own Supplementary Method 1 (Media). The physical MM is a bare mineral-salts medium (NaCl, NH4Cl, K2HPO4, KH2PO4, MgSO4·7H2O) with NO trace-element mix, NO vitamins, NO added carbon in the base, distinct from the EM/DM media in the same paper, which DO carry a 1 mL/L trace-elements solution (FeSO4, MgSO4, CoCl2, ZnSO4, MnCl2, CuSO4, EDTA). The current exchange set was already chemically complete at the ion level (Na, Cl, K, pi, Mg, SO4, NH4, O2 + 4 carbons); this curation adds the actual salt identities/concentrations, splits phosphate into K2HPO4+KH2"
   },
   "transforms": [
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "n_nonbigg_fallback:added",
      "schema_version:mediadb-record/2"
@@ -58,7 +58,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -78,7 +78,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -86,7 +86,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -99,7 +99,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -110,7 +110,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -126,9 +126,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -544,6 +563,7 @@
   }
  },
  "oxygen": "aerobic",
+ "oxygen_default_for_simulation": "aerobic",
  "oxygen_note": "no oxygen requirement specified; O2 available but not asserted",
  "defined": false,
  "n_nonbigg_fallback": 0,
@@ -565,7 +585,7 @@
   "pct_covered_source_denominator": 12,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 12,
  "n_derived": 0,

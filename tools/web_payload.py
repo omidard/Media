@@ -50,6 +50,7 @@ from __future__ import annotations
 import datetime as dt
 import glob
 import gzip
+import hashlib
 import json
 import os
 import subprocess
@@ -110,9 +111,19 @@ def oxygen_recorded(rec):
     """(regime actually recorded, regime the exported medium assumes).
 
     The first is null when no source or curator stated one. The second is what
-    EX_o2_e was written from, which is a pipeline convention and is labelled as
-    one on every component that carries it.
+    EX_o2_e was written from, which is a convention of the build and is labelled
+    as one on every component that carries it.
+
+    A record that already carries `oxygen_default_for_simulation` has been through
+    43_oxygen_regime_absent_when_unstated and separates the two facts itself, so
+    it is read rather than re-derived: re-applying the note rule to a corrected
+    record would find `oxygen` null instead of "facultative", return (None, None),
+    and silently drop n_no_source_statement from 11,926 to 0. The two branches
+    agree on every record either way, which is what lets the correction land in
+    the corpus without moving a published number.
     """
+    if "oxygen_default_for_simulation" in rec:
+        return rec.get("oxygen"), rec.get("oxygen_default_for_simulation")
     regime = rec.get("oxygen")
     note = (rec.get("oxygen_note") or "").strip()
     if regime == "facultative" and note in OXYGEN_NOT_STATED_NOTES:
@@ -232,9 +243,9 @@ COLUMN_NOTES = {
                      "an undefined mixture. 218 of 665,582 library-wide",
     "n_bigg_shaped_no_such_exchange":
         "of n_components, the number whose exchange id has the EX_<met>_e shape "
-        "but names no reaction in BiGG, so no model has it and the documented "
-        "adoption path drops it silently. 11,380 of 665,582 components "
-        "library-wide, in 5,942 media; the largest is EX_choles_e (4,438), where "
+        "but is not in BiGG's exchange-reaction list, so no model has it and the "
+        "documented adoption path drops it silently. 12,228 of 665,582 components "
+        "library-wide; the largest is EX_choles_e (4,438), where "
         "BiGG carries choles_c only and cholesterol's exchange is EX_chsterol_e",
     "model_input_twins": "how many OTHER records hand a model the identical set "
                          "of (exchange, lower bound, upper bound) triples. 0 "
@@ -395,6 +406,35 @@ def git_head(repo: str) -> str | None:
     except (OSError, subprocess.SubprocessError):
         return None
     return out.stdout.strip() or None if out.returncode == 0 else None
+
+
+def corpus_digest(media_dir: str) -> str:
+    """sha256 over every record's bytes, in sorted id order. 12 hex published.
+
+    THE STAMP USED TO NAME A COMMIT THAT COULD NOT CONTAIN THESE BYTES. It was
+    `git rev-parse HEAD` read at build time, so it named the tree the builder was
+    STANDING ON, and the payload it stamped could only be committed afterwards.
+    That is structural, not a slip: checking out the stamped commit and rebuilding
+    can never reproduce the stamped payload. Measured on the shipped release, the
+    stamp named a commit five behind, whose own catalog.json publishes
+    n_bigg_exchange 664,000 against the shipped 652,620 and does not even contain
+    tools/build_bigg_exchange_ids.py, the module that computes the four-state
+    partition. methods.html asks a scientist to cite the release stamp, so the one
+    identifier the page tells you to quote did not resolve to these numbers.
+
+    A digest of the corpus is recomputable from any checkout, by the reader, with
+    no repository history at all, and it identifies the bytes rather than a tree
+    that might contain them:
+
+        find data/media -name '*.json' | sort | xargs cat | sha256sum
+    """
+    h = hashlib.sha256()
+    for name in sorted(os.listdir(media_dir)):
+        if not name.endswith(".json"):
+            continue
+        with open(os.path.join(media_dir, name), "rb") as fh:
+            h.update(fh.read())
+    return h.hexdigest()[:12]
 
 
 class _Enc:
@@ -780,14 +820,31 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
 
     built = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     head = git_head(repo)
-    # built_utc and git_head date the release these bytes belong to. The policy
-    # that keeps them stable across a no-op rebuild is documented at
-    # write_payload_file(), where it is enforced; it is not user documentation
-    # and does not ship in the payload.
+    digest = corpus_digest(media_dir)
+    # WHAT IDENTIFIES THIS RELEASE IS `corpus_sha256`, NOT `git_head`.
+    #
+    # git_head is read at build time, so it names the commit the builder was
+    # standing on and the payload it stamps can only be committed afterwards: the
+    # stamped commit can never contain the stamped bytes. On the shipped release
+    # it named a commit five behind whose own catalog.json publishes a different
+    # headline number and which does not contain the module that computes it. It
+    # is kept, clearly labelled as the tree the build ran FROM, because it is
+    # useful to whoever is debugging a build; it is no longer what the page tells
+    # a reader to quote. corpus_sha256 identifies the bytes and any reader can
+    # recompute it from a checkout with no history at all.
+    #
+    # The policy that keeps built_utc stable across a no-op rebuild is documented
+    # at write_payload_file(), where it is enforced.
     stamp = {
         "schema": SCHEMA,
         "built_utc": built,
+        "corpus_sha256": digest,
+        "corpus_sha256_recompute":
+            "find data/media -name '*.json' | sort | xargs cat | sha256sum",
         "git_head": head,
+        "git_head_meaning":
+            "the commit the BUILD RAN FROM, which cannot be the commit that "
+            "contains this payload. Cite corpus_sha256 instead.",
         "corpus": os.path.relpath(media_dir, repo),
         "count": n,
         # One licence for the whole dataset. There is no per-record licence field
@@ -816,8 +873,9 @@ def build_payload(media_dir: str, out_dir: str, repo: str = REPO,
             bigg_shaped_no_such_exchange_ids=sorted(unusable_exchange_ids),
             definition=(
                 "Where each component's exchange id landed, in four states. "
-                "n_bigg_exchange is a reaction BiGG has: the id is EX_<met>_e and "
-                "<met> carries an extracellular form in the BiGG namespace. "
+                "n_bigg_exchange is a reaction BiGG has: the id is in BiGG's own "
+                "exchange-reaction list. That list is the test, not the "
+                "metabolite's compartments: f_e exists in BiGG and EX_f_e does not. "
                 "n_bigg_shaped_no_such_exchange is an id of that same shape that "
                 "names no BiGG reaction, so no model has it and the documented "
                 "adoption path drops it without a word (EX_choles_e is the "

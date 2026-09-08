@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": true,
- "description": "Tibbles-Rawlings (T-R) minimal medium + D-glucosamine hydrochloride — medium reported in PMC10942773 (complex/undefined base — extracts not BiGG-mappable).",
+ "description": "Tibbles-Rawlings (T-R) minimal medium + D-glucosamine hydrochloride, medium reported in PMC10942773 (complex/undefined base, extracts not BiGG-mappable).",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -13,7 +13,7 @@
   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10942773/",
   "notes": "Full recipe recovered from the primary literature: base medium 'Modified Tibbles-Rawlings (T-R) minimal medium' (Tibbles BJ, Rawlings DE. Characterization of nitrogen-fixing bacteria from a temperate saltmarsh lagoon, including isolates that produce ethane from acetylene. Microbial Ecology 1994;27(1):65-80. DOI 10.1007/BF00170115. Exact modified recipe used is given verbatim in Table S3 of the study's Supporting Information (Mahmoudi et al., ISME J 2024;18(1):wrae018, DOI 10.1093/ismejo/wrae018)",
   "verification": "paper-verified (recipe recovered from primary literature)",
-  "verification_evidence": "cells were transferred (1% inoculation) into 50 ml of Tibbles–Rawlings (T-R) minimal medium (see Table S3 for a detailed recipe, [33]) that was supplemented with 0.5% (w/v) D-(+)-glucosamine hydrochloride (TCI America, #G0044) as a carbon source",
+  "verification_evidence": "cells were transferred (1% inoculation) into 50 ml of Tibbles-Rawlings (T-R) minimal medium (see Table S3 for a detailed recipe, [33]) that was supplemented with 0.5% (w/v) D-(+)-glucosamine hydrochloride (TCI America, #G0044) as a carbon source",
   "verification_confidence": "low",
   "recipe_evidence": "Table S3 (Supporting Information): 'Components added to make 2 L of modified Tibbles-Rawling minimal media' -- Part 1: NaCl 51.9 g, MgSO4.7H2O 6 g, MgCl2.6H2O 4 g, CaCl2.2H2O 0.24 g, Tris (1M; pH 8.0) 50 mL, Na2EDTA (0.5M) 5.4 mL, NH4Cl (1M) 20 mL, MilliQ water 850 mL; Part 2: K2HPO4 1.6 g, KH2PO4 0.4 g, MilliQ water 850 mL; Additives: FeSO4 solution 2 mL, Na2MoO4 solution 2 mL, Trace metals (1000X) 2 mL, Vitamins (1000X) 2 mL, MilliQ water fill to 2,000 mL. 1000X Trace Metal Solution (g/L): H3BO3 2.86, MnCl2.4H2O 1.81, ZnSO4.7H2O 0.079, CuSO4.5H2O 0.079, Co(NO3)2.6H2O 0.0494, NiCl2.6H2O 0.005",
   "recipe_confidence": "high",
@@ -23,7 +23,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -33,7 +33,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -53,7 +53,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -61,7 +61,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -74,7 +74,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -85,7 +85,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -101,9 +101,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -966,6 +985,7 @@
   }
  },
  "oxygen": "aerobic",
+ "oxygen_default_for_simulation": "aerobic",
  "oxygen_note": "no oxygen requirement specified; O2 available but not asserted",
  "n_nonbigg_fallback": 0,
  "defined": null,
@@ -987,7 +1007,7 @@
   "pct_covered_source_denominator": 29,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 96.3,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 26,
  "n_derived": 1,

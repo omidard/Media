@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": true,
- "description": "M9 minimal medium + glucose + casamino acids — medium reported in PMC466948 (complex/undefined base — extracts not BiGG-mappable).",
+ "description": "M9 minimal medium + glucose + casamino acids, medium reported in PMC466948 (complex/undefined base, extracts not BiGG-mappable).",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -18,7 +18,7 @@
   "verification_confidence": "high",
   "decomposition_refs": {
    "casamino acids": {
-    "citation": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+    "citation": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
     "url": "https://doi.org/10.5713/ajas.15.0452"
    }
   },
@@ -26,7 +26,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -36,7 +36,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -56,7 +56,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -64,7 +64,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -77,7 +77,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -88,7 +88,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -104,9 +104,29 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components",
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -221,7 +241,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 32.0,
    "mmol_per_g_source": 0.35917,
    "evidence_class": "derived",
@@ -260,7 +280,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 29.0,
    "mmol_per_g_source": 0.16551,
    "evidence_class": "derived",
@@ -299,7 +319,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -330,7 +350,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 70.0,
    "mmol_per_g_source": 0.52992,
    "evidence_class": "derived",
@@ -369,7 +389,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 3.0,
    "mmol_per_g_source": 0.02476,
    "evidence_class": "derived",
@@ -408,7 +428,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -439,7 +459,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 221.0,
    "mmol_per_g_source": 1.51243,
    "evidence_class": "derived",
@@ -478,7 +498,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 19.0,
    "mmol_per_g_source": 0.25311,
    "evidence_class": "derived",
@@ -517,7 +537,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 25.0,
    "mmol_per_g_source": 0.16113,
    "evidence_class": "derived",
@@ -556,7 +576,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 46.0,
    "mmol_per_g_source": 0.35068,
    "evidence_class": "derived",
@@ -595,7 +615,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 93.0,
    "mmol_per_g_source": 0.70898,
    "evidence_class": "derived",
@@ -634,7 +654,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 72.0,
    "mmol_per_g_source": 0.48914,
    "evidence_class": "derived",
@@ -673,7 +693,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 16.0,
    "mmol_per_g_source": 0.10723,
    "evidence_class": "derived",
@@ -712,7 +732,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 49.0,
    "mmol_per_g_source": 0.29662,
    "evidence_class": "derived",
@@ -751,7 +771,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 108.0,
    "mmol_per_g_source": 0.93805,
    "evidence_class": "derived",
@@ -790,7 +810,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 56.0,
    "mmol_per_g_source": 0.53286,
    "evidence_class": "derived",
@@ -829,7 +849,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 37.0,
    "mmol_per_g_source": 0.31061,
    "evidence_class": "derived",
@@ -868,7 +888,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 50.0,
    "mmol_per_g_source": 0.27595,
    "evidence_class": "derived",
@@ -907,7 +927,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "casamino acids",
-   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein — tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
+   "decomposition_ref": "Casamino acids = ACID hydrolysate of casein. Source: tryptophan destroyed by acid hydrolysis, cysteine low (Nolan & Smith 1962, J Biol Chem; BD Bionutrient Technical Manual).",
    "mg_per_g_source": 62.0,
    "mmol_per_g_source": 0.52925,
    "evidence_class": "derived",
@@ -1490,7 +1510,8 @@
    "biggr": 39
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "no oxygen requirement specified; O2 available but not asserted",
  "base_medium": "M9",
  "n_nonbigg_fallback": 0,
@@ -1513,7 +1534,7 @@
   "pct_covered_source_denominator": 2,
   "pct_covered_source_is_upper_bound": true,
   "pct_sourced_of_components": 2.6,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 1,
  "n_derived": 38,

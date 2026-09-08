@@ -5,17 +5,17 @@
  "organism_scope": "general laboratory",
  "aerobic": true,
  "namespace": "bigg",
- "description": "MacConkey Broth (standard) — canonical reference formulation.",
+ "description": "MacConkey Broth (standard), canonical reference formulation.",
  "provenance": {
   "source_type": "standard",
-  "citation": "MacConkey Broth — standard. Presumptive coliform (lactose + gas).",
+  "citation": "MacConkey Broth. Source: standard. Presumptive coliform (lactose + gas).",
   "doi": "",
   "url": "",
   "verification": "expert-curated (canonical formulation)",
-  "wellknown_reference": "MacConkey Broth — standard. Presumptive coliform (lactose + gas).",
+  "wellknown_reference": "MacConkey Broth. Source: standard. Presumptive coliform (lactose + gas).",
   "decomposition_refs": {
    "peptone": {
-    "citation": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+    "citation": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
     "url": "https://archive.org/details/difcomanualdehyd0000unse"
    }
   },
@@ -23,7 +23,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -33,7 +33,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -53,7 +53,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -61,7 +61,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -74,7 +74,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -85,7 +85,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -101,9 +101,29 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components",
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -149,7 +169,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 79.5,
    "mmol_per_g_source": 0.89232,
    "evidence_class": "derived",
@@ -188,7 +208,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 72.1,
    "mmol_per_g_source": 0.4115,
    "evidence_class": "derived",
@@ -227,7 +247,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -258,7 +278,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 64.2,
    "mmol_per_g_source": 0.48601,
    "evidence_class": "derived",
@@ -357,7 +377,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 1.4,
    "mmol_per_g_source": 0.01156,
    "evidence_class": "derived",
@@ -396,7 +416,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -427,7 +447,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 99.3,
    "mmol_per_g_source": 0.67957,
    "evidence_class": "derived",
@@ -466,7 +486,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 207.1,
    "mmol_per_g_source": 2.75887,
    "evidence_class": "derived",
@@ -563,7 +583,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 9.3,
    "mmol_per_g_source": 0.05994,
    "evidence_class": "derived",
@@ -602,7 +622,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 14.1,
    "mmol_per_g_source": 0.10749,
    "evidence_class": "derived",
@@ -701,7 +721,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 30.2,
    "mmol_per_g_source": 0.23023,
    "evidence_class": "derived",
@@ -740,7 +760,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 36.9,
    "mmol_per_g_source": 0.25068,
    "evidence_class": "derived",
@@ -779,7 +799,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 9.2,
    "mmol_per_g_source": 0.06166,
    "evidence_class": "derived",
@@ -878,7 +898,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -969,7 +989,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 19.4,
    "mmol_per_g_source": 0.11744,
    "evidence_class": "derived",
@@ -1038,7 +1058,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 117.1,
    "mmol_per_g_source": 1.01709,
    "evidence_class": "derived",
@@ -1077,7 +1097,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "evidence_class": "derived",
    "derived_class": "inferred_from_listed_ingredient",
    "source_xref": null,
@@ -1108,7 +1128,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 35.1,
    "mmol_per_g_source": 0.33399,
    "evidence_class": "derived",
@@ -1177,7 +1197,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 19.0,
    "mmol_per_g_source": 0.1595,
    "evidence_class": "derived",
@@ -1216,7 +1236,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 0.9,
    "mmol_per_g_source": 0.00441,
    "evidence_class": "derived",
@@ -1255,7 +1275,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 7.5,
    "mmol_per_g_source": 0.04139,
    "evidence_class": "derived",
@@ -1294,7 +1314,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "peptone",
-   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids — Atlas RM, Handbook of Microbiological Media (CRC Press).",
+   "decomposition_ref": "Peptone = proteolytic digest of animal/plant protein; peptides + free amino acids. Source: Atlas RM, Handbook of Microbiological Media (CRC Press).",
    "mg_per_g_source": 24.0,
    "mmol_per_g_source": 0.20487,
    "evidence_class": "derived",
@@ -1323,6 +1343,7 @@
   }
  ],
  "oxygen": "facultative",
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "Selective/differential coliform broth.",
  "base_medium": "MacConkeyBroth",
  "n_components": 34,
@@ -1375,7 +1396,7 @@
   "pct_covered_source_denominator": 15,
   "pct_covered_source_is_upper_bound": true,
   "pct_sourced_of_components": 35.3,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 12,
  "n_derived": 22,

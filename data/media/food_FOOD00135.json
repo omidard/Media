@@ -17,14 +17,14 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 171726 (Dates, Deglet Noor) — full nutrient panel incl. individual sugars, amino acids, vitamins, minerals, fatty acids",
-   "USDA FoodData Central FDC 171707 (Dates, Medjool) — cultivar contrast for sugar profile",
+   "USDA FoodData Central FDC 171726 (Dates, Deglet Noor), full nutrient panel incl. individual sugars, amino acids, vitamins, minerals, fatty acids",
+   "USDA FoodData Central FDC 171707 (Dates, Medjool), cultivar contrast for sugar profile",
    "FooDB FOOD00135 (Date)",
    "Moroccan date-syrup organic-acid & mineral study, J. Food Compos. Anal. doi:10.1016/j.jfca.2020.103576 (S0889157520302374)",
    "Analysis of Sugars and Organic Acids of Date Palm 'Barhee' during fruit development (ResearchGate 260390876)",
    "An Overview of Date Fruits as a Global Food Resource, PMC11011438 (moisture, macronutrient ranges)"
   ],
-  "curation_notes": "Dates are a high-sugar, low-acid fruit: the dominant carbon/energy source is invert sugar — near-equal glucose (~19.9) and fructose (~19.6 g/100g) plus abundant sucrose (~23.8 g/100g in Deglet Noor; note Medjool is sucrose-free with glucose/fructose ~33/32 g/100g). Organic acids are minor and malic-dominant (acetic rises at the fully ripe tamr stage); total organic acids ~0.1-1 g/100g. Values are for ripe Deglet Noor (~20% water); Medjool differs mainly in the sugar split.",
+  "curation_notes": "Dates are a high-sugar, low-acid fruit: the dominant carbon/energy source is invert sugar, near-equal glucose (~19.9) and fructose (~19.6 g/100g) plus abundant sucrose (~23.8 g/100g in Deglet Noor; note Medjool is sucrose-free with glucose/fructose ~33/32 g/100g). Organic acids are minor and malic-dominant (acetic rises at the fully ripe tamr stage); total organic acids ~0.1-1 g/100g. Values are for ripe Deglet Noor (~20% water); Medjool differs mainly in the sugar split.",
   "curation_added": [
    "malic acid (dominant organic acid, previously absent)",
    "acetic acid, succinic acid, citric acid, oxalic acid (organic acids, previously absent)",
@@ -106,7 +106,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -116,7 +116,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -136,7 +136,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -144,7 +144,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -155,9 +155,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -168,7 +176,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -184,9 +192,27 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -948,7 +974,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -1996,7 +2022,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "vitamin B12",
+   "name": "Adenosylcobalamin",
    "bigg_metabolite": "adocbl",
    "exchange": "EX_adocbl_e",
    "lower_bound": -10.0,
@@ -2528,7 +2554,8 @@
    "bigg": 3
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh (as-eaten) weight; ripe/tamr stage, Deglet Noor reference (USDA FDC 171726); water ~20.5 g/100 g",
  "n_nonbigg_fallback": 0,
@@ -2551,7 +2578,7 @@
   "pct_covered_source_denominator": 68,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 58,
  "n_derived": 0,

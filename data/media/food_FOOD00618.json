@@ -17,7 +17,7 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 172217 (SR Legacy: Milk, whole, 3.25% milkfat, without added vit A/D) — full vitamin/mineral/amino-acid/fatty-acid panel",
+   "USDA FoodData Central FDC 172217 (SR Legacy: Milk, whole, 3.25% milkfat, without added vit A/D), full vitamin/mineral/amino-acid/fatty-acid panel",
    "USDA FoodData Central FDC 746782 (Foundation Foods: Milk, whole, 3.25% milkfat, with added vitamin D; 24 samples, 2018)",
    "Variability of citric acid in cow milk composition (ResearchGate 304771887): mean citric acid 133 mg/100 mL",
    "Orotic acid in cow milk: PubMed 1958838 / Agrarforschung Schweiz 2008 (~66 mg/L)",
@@ -27,8 +27,8 @@
   ],
   "curation_notes": "Dominant carbon/energy source is LACTOSE (~4.8 g/100 g, ~140 mM); the key correction is adding CITRIC ACID/citrate (~0.16 g/100g, ~8 mM), the dominant milk organic acid that was entirely missing, plus free glucose/galactose, hippuric acid, iodine and biotin. Lactic acid is LOW in fresh milk (rises on fermentation). Removed heavy-metal contaminants (arsenate, cadmium, nickel), an antibiotic residue (tetracycline), ng/L steroid hormones, plant-only compounds (pectin, gallic acid), and a volatile c",
   "curation_added": [
-   "citric acid (citrate) — dominant organic acid of milk, was entirely absent from current_components",
-   "hippuric acid — bovine-metabolite organic acid, absent",
+   "citric acid (citrate), dominant organic acid of milk, was entirely absent from current_components",
+   "hippuric acid, bovine-metabolite organic acid, absent",
    "free D-glucose and D-galactose with amounts (USDA panel lists lactose only)",
    "iodine and biotin with amounts",
    "quantitative amounts for lactose, all amino acids, vitamins, minerals, and fatty acids"
@@ -96,7 +96,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -106,7 +106,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -126,7 +126,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -134,7 +134,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -145,9 +145,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -158,7 +166,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -174,9 +182,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance",
+     "uncovered"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -1280,7 +1307,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -2055,7 +2082,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "vitamin B12",
+   "name": "Adenosylcobalamin",
    "bigg_metabolite": "adocbl",
    "exchange": "EX_adocbl_e",
    "lower_bound": -10.0,
@@ -2720,7 +2747,7 @@
    "note": "no exchange auto-assigned; propose uptake -1.0 pending manual curation"
   },
   {
-   "name": "milk triacylglycerols TG(...) and odd/branched-chain fatty acids (pentadecanoic, heptadecanoic, vaccenic) — genuine ruminant milkfat lipids",
+   "name": "milk triacylglycerols TG(...) and odd/branched-chain fatty acids (pentadecanoic, heptadecanoic, vaccenic), genuine ruminant milkfat lipids",
    "reason": "unmatched",
    "curation": "needs_manual_curation",
    "xref": {},
@@ -2744,7 +2771,8 @@
    "bigg": 5
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh whole cow milk (3.25% milkfat)",
  "n_nonbigg_fallback": 0,
@@ -2767,7 +2795,7 @@
   "pct_covered_source_denominator": 74,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 65,
  "n_derived": 0,

@@ -15,7 +15,7 @@
   "notes": "Presence-based uptake bounds; recipe_g_l + concentration_mM retained. Undefined hydrolysates approximated as amino acids + nucleosides + vitamins (labeled).",
   "decomposition_refs": {
    "Yeast extract": {
-    "citation": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals — BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
+    "citation": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals. Source: BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
     "url": "https://doi.org/10.4014/jmb.2207.07057"
    }
   },
@@ -23,7 +23,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "n_nonbigg_fallback:added",
      "schema_version:mediadb-record/2"
@@ -32,7 +32,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -58,7 +58,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -66,7 +66,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -79,7 +79,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -90,7 +90,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -106,9 +106,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components",
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -1574,7 +1593,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "Yeast extract",
-   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals — BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
+   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals. Source: BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
    "mg_per_g_source": 16.8,
    "mmol_per_g_source": 0.54239,
    "evidence_class": "derived",
@@ -1613,7 +1632,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "Yeast extract",
-   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals — BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
+   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals. Source: BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
    "mg_per_g_source": 0.1,
    "mmol_per_g_source": 0.00179,
    "evidence_class": "derived",
@@ -1652,7 +1671,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "Yeast extract",
-   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals — BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
+   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals. Source: BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
    "mg_per_g_source": 0.14,
    "mmol_per_g_source": 0.00214,
    "evidence_class": "derived",
@@ -1691,7 +1710,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "Yeast extract",
-   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals — BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
+   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals. Source: BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
    "mg_per_g_source": 0.083,
    "mmol_per_g_source": 0.00151,
    "evidence_class": "derived",
@@ -1730,7 +1749,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "Yeast extract",
-   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals — BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
+   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals. Source: BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
    "mg_per_g_source": 0.003,
    "mmol_per_g_source": 5e-05,
    "evidence_class": "derived",
@@ -1769,7 +1788,7 @@
    "mapping_method": "complex_decomposition",
    "mapping_confidence": "convention",
    "derived_from": "Yeast extract",
-   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals — BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
+   "decomposition_ref": "Yeast extract supplies free amino acids, B-vitamins (thiamine, riboflavin, niacin, pantothenate, pyridoxine, folate, biotin, B12), nucleotides and minerals. Source: BD Bionutrient Technical Manual (3rd ed.); Atlas RM, Handbook of Microbiological Media (CRC Press, 4th ed. 2010).",
    "mg_per_g_source": 0.002,
    "mmol_per_g_source": 3e-05,
    "evidence_class": "derived",
@@ -1823,7 +1842,8 @@
   }
  },
  "name_original": "SP2 MEDIUM (DSMZ 405)",
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "no oxygen requirement specified; O2 available but not asserted",
  "n_nonbigg_fallback": 0,
  "schema_version": "mediadb-record/2",
@@ -1844,7 +1864,7 @@
   "pct_covered_source_denominator": 11,
   "pct_covered_source_is_upper_bound": true,
   "pct_sourced_of_components": 15.1,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 8,
  "n_derived": 45,

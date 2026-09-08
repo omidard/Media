@@ -260,6 +260,59 @@
    "cross_workstream_check": "components[].evidence_tier == 'derived_component' (tools/evidence_tiers.METHOD_TIERS) and components[].evidence_class == 'derived' (tools/component_evidence_classes.tsv) are two workstreams' definitions of the same fact. Verified identical: both name exactly base, base_medium_expansion, complex_decomposition, hydrolysate_approximation, mineral_base, oxygen_regime, regime. So record-level n_derived (this stage) and coverage_source.n_derived (stage 39) cannot disagree."
   },
   {
+   "id": "41_component_identity_names",
+   "title": "A component's `name` names the molecule its exchange carries",
+   "owner": "chemistry",
+   "findings": [
+    "CHEM-B12-03"
+   ],
+   "reads": [
+    "corpus"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "40_remap_components"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "provenance.transforms"
+   ],
+   "removes_keys": [],
+   "enabled": true
+  },
+  {
+   "id": "42_usda_nutrient_amounts",
+   "title": "Both USDA measurements are published, and the applied one is chosen by chemistry",
+   "owner": "chemistry",
+   "findings": [
+    "USDA-01"
+   ],
+   "reads": [
+    "corpus",
+    "tools/usda_nutrient_collisions.json"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "40_remap_components",
+    "41_component_identity_names"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "components[].usda_amount_chose_by",
+    "components[].usda_amount_why",
+    "components[].usda_amount_alternatives",
+    "provenance.transforms"
+   ],
+   "removes_keys": [],
+   "enabled": true
+  },
+  {
    "id": "50_load_concentrations",
    "title": "Project the quantitative layer already on disk: verbatim amounts, honest units, derived-only-where-valid concentrations",
    "owner": "naming-web",
@@ -286,6 +339,9 @@
    "may_change_record_count": false,
    "may_change_id_set": false,
    "adds_keys": [
+    "components[].quantity.alternatives",
+    "components[].quantity.chose_by",
+    "components[].quantity.why",
     "provenance.transforms",
     "quantitation"
    ],
@@ -377,6 +433,59 @@
    "removes_keys": [],
    "enabled": true,
    "note": "Copy-through: it edits no record and stamps none. It exists so the browser's honesty numbers are asserted inside the chain, against the corrected corpus, before promotion. The shipping path is `make derived` -> tools/build_web_payload.py."
+  },
+  {
+   "id": "53_house_voice_dashes",
+   "title": "No en-dash or em-dash survives in a published string",
+   "owner": "naming-web",
+   "findings": [
+    "VOICE-01"
+   ],
+   "reads": [
+    "corpus"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "51_normalize_names",
+    "52_web_payload"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "provenance.transforms"
+   ],
+   "removes_keys": [],
+   "enabled": true
+  },
+  {
+   "id": "54_oxygen_regime_absent_when_unstated",
+   "title": "The record publishes the regime a source stated, and the simulation convention separately",
+   "owner": "naming-web",
+   "findings": [
+    "OXY-01"
+   ],
+   "reads": [
+    "corpus"
+   ],
+   "writes": [
+    "corpus"
+   ],
+   "after": [
+    "51_normalize_names",
+    "52_web_payload",
+    "53_house_voice_dashes"
+   ],
+   "may_change_record_count": false,
+   "may_change_id_set": false,
+   "adds_keys": [
+    "oxygen_default_for_simulation",
+    "provenance.transforms"
+   ],
+   "removes_keys": [],
+   "enabled": true,
+   "note": "No published tally moves. The pair this writes onto the record is exactly what tools/web_payload.oxygen_recorded() already computed from it for the catalogue and the index, so by_oxygen stays {null 12365, anaerobic 749, facultative 210, aerobic 191} and oxygen_basis stays {n_regime_recorded 1150, n_no_source_statement 11926, n_absent_for_another_reason 439}. What changes is the record file, which is a documented public route and was still publishing a confident label where the answer is unknown. It runs after 52_web_payload for the same reason 53_house_voice_dashes does: the payload 52 projects inside the chain is a check, the shipping payload is built by `make derived` over the promoted corpus, and oxygen_recorded() returns the same pair whether it reads the corrected record or derives it from the note vocabulary."
   },
   {
    "id": "60_dedupe_references",

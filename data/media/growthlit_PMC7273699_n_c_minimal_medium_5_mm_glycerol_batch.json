@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": true,
- "description": "N-C- minimal medium + 5 mM glycerol (batch) — medium reported in PMC7273699, extracted for GrowthDB and mapped to BiGG.",
+ "description": "N-C- minimal medium + 5 mM glycerol (batch), medium reported in PMC7273699, extracted for GrowthDB and mapped to BiGG.",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -15,7 +15,7 @@
   "verification": "paper-verified (complete recipe; cited + supplementary sources chased)",
   "verification_evidence": "N−C− minimal medium (Csonka et al, 1994), containing K2SO4 (1 g), K2HPO4·3H2O (17.7 g), KH2PO4 (4.7 g), MgSO4·7H2O (0.1 g), and NaCl (2.5 g) per liter.",
   "verification_confidence": "high",
-  "base_medium": "N−C− minimal medium (Csonka LN, Ikeda TP, Fletcher SA, Kustu S, 1994, J Bacteriol 176:6324–6333)",
+  "base_medium": "N−C− minimal medium (Csonka LN, Ikeda TP, Fletcher SA, Kustu S, 1994, J Bacteriol 176:6324-6333)",
   "recuration": {
    "date": "2026-07-16",
    "round": "complete-recipe (cited+supplementary chased)",
@@ -23,13 +23,13 @@
    "confidence": "high",
    "sources_chased": [
     {
-     "what": "base recipe cited as Csonka et al 1994 (N−C− minimal medium, J Bacteriol 176:6324–6333, PMC196974)",
+     "what": "base recipe cited as Csonka et al 1994 (N−C− minimal medium, J Bacteriol 176:6324-6333, PMC196974)",
      "obtained": true,
      "how": "WebFetch PMC196974 (full text only as scanned page images, not OCR'd); cross-confirmed the identical salt recipe in two independent same-lab papers that reproduce N−C− verbatim (WebFetch PMC10477958 and this paper's Culture-medium section)",
      "added": []
     },
     {
-     "what": "growth protocol reference Schink et al 2019 (Cell Systems 9:64–73) for batch-culture conditions / oxygenation",
+     "what": "growth protocol reference Schink et al 2019 (Cell Systems 9:64-73) for batch-culture conditions / oxygenation",
      "obtained": true,
      "how": "WebSearch confirmed same aerobic batch-culture N−C− protocol",
      "added": []
@@ -37,13 +37,13 @@
    ],
    "missing_before": [],
    "corrections": [],
-   "notes": "The medium is fully defined in the paper's 'Culture medium' section and is already complete at the ionic level: the current exchange list (Cl, glycerol, K, Mg, Na, NH4, O2, Pi, SO4) captures every species contributed by the five salts plus the N and C sources. N−C− minimal medium (Csonka/Kustu) is a phosphate-buffered defined salts medium that intentionally contains NO added trace-metal/micronutrient mix, NO CaCl2, and NO vitamins/thiamine — verified by convergent reproduction of the identical recipe in independent papers; growth relies on trace-metal contaminants. 1 mM IPTG was added 'when ne"
+   "notes": "The medium is fully defined in the paper's 'Culture medium' section and is already complete at the ionic level: the current exchange list (Cl, glycerol, K, Mg, Na, NH4, O2, Pi, SO4) captures every species contributed by the five salts plus the N and C sources. N−C− minimal medium (Csonka/Kustu) is a phosphate-buffered defined salts medium that intentionally contains NO added trace-metal/micronutrient mix, NO CaCl2, and NO vitamins/thiamine, verified by convergent reproduction of the identical recipe in independent papers; growth relies on trace-metal contaminants. 1 mM IPTG was added 'when ne"
   },
   "transforms": [
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "n_nonbigg_fallback:added",
      "schema_version:mediadb-record/2"
@@ -52,7 +52,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -72,7 +72,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -80,7 +80,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -93,7 +93,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -104,7 +104,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -120,9 +120,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -441,6 +460,7 @@
   }
  },
  "oxygen": "aerobic",
+ "oxygen_default_for_simulation": "aerobic",
  "oxygen_note": "no oxygen requirement specified; O2 available but not asserted",
  "defined": false,
  "n_nonbigg_fallback": 0,
@@ -462,7 +482,7 @@
   "pct_covered_source_denominator": 9,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 9,
  "n_derived": 0,

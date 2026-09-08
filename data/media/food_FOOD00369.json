@@ -17,13 +17,13 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 174683 (Grapes, red or green, European type / Thompson seedless, raw) — full panel incl. sugars, amino acids, fatty acids, vitamins, minerals",
+   "USDA FoodData Central FDC 174683 (Grapes, red or green, European type / Thompson seedless, raw), full panel incl. sugars, amino acids, fatty acids, vitamins, minerals",
    "FooDB FOOD00369 (Grape)",
-   "Sabir et al. 2013/2015, Sugars, organic acids and phenolics of ancient grape cultivars, PMC4362841 — glucose, fructose, tartaric, malic, citric, succinic, fumaric quantification",
+   "Sabir et al. 2013/2015, Sugars, organic acids and phenolics of ancient grape cultivars, PMC4362841, glucose, fructose, tartaric, malic, citric, succinic, fumaric quantification",
    "Kliewer, Sugars and Organic Acids of Vitis vinifera, PMC1086453 / PubMed 16656357",
-   "Frontiers Plant Sci 2024, PMC11499634 — varietal acidity (tartrate:malate ratio)"
+   "Frontiers Plant Sci 2024, PMC11499634, varietal acidity (tartrate:malate ratio)"
   ],
-  "curation_notes": "Dominant carbon/energy source is the glucose+fructose pair (nearly equimolar, ~15.3 g/100g combined), followed by tartaric acid (the Vitaceae-signature organic acid) and malic acid — the organic acids were entirely absent from the prior FooDB profile and are the key correction here. Arginine and proline dominate the assimilable-nitrogen pool. Fat, fiber and most vitamins/minerals are minor. Values are typical ripe European table-grape (V. vinifera); sugar:acid ratio and vitamin C vary widely by ",
+  "curation_notes": "Dominant carbon/energy source is the glucose+fructose pair (nearly equimolar, ~15.3 g/100g combined), followed by tartaric acid (the Vitaceae-signature organic acid) and malic acid, the organic acids were entirely absent from the prior FooDB profile and are the key correction here. Arginine and proline dominate the assimilable-nitrogen pool. Fat, fiber and most vitamins/minerals are minor. Values are typical ripe European table-grape (V. vinifera); sugar:acid ratio and vitamin C vary widely by ",
   "curation_added": [
    "tartaric acid (dominant grape organic acid)",
    "malic acid",
@@ -36,7 +36,7 @@
   "curation_removed": [
    {
     "name": "Retinol",
-    "reason": "Animal-form vitamin A; grapes contain 0 mcg retinol (USDA). Provitamin A is beta-carotene only — retained separately."
+    "reason": "Animal-form vitamin A; grapes contain 0 mcg retinol (USDA). Provitamin A is beta-carotene only, retained separately."
    },
    {
     "name": "Pentadecanoic acid",
@@ -100,7 +100,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -110,7 +110,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -130,7 +130,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -138,7 +138,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -149,9 +149,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -162,7 +170,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -178,9 +186,27 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -1030,7 +1056,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -2510,7 +2536,8 @@
    "bigg": 2
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh weight (edible berry, Vitis vinifera, European table grape)",
  "n_nonbigg_fallback": 0,
@@ -2533,7 +2560,7 @@
   "pct_covered_source_denominator": 74,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 56,
  "n_derived": 0,

@@ -16,9 +16,18 @@ WITHOUT touching legitimate scientific spelling:
       * surname particle "de" (de Bont medium)
       * single-character first tokens (m TGE ...)
 
-Legitimate non-ASCII (German Ö, chemical middot FeSO4·7H2O, µM, em dash) is left
-alone. Short all-caps acronyms (S/W, BG11, MDA) and DSMZ's "Medium (ABBR Medium)"
+Legitimate non-ASCII (German Ö, chemical middot FeSO4·7H2O, µM) is left alone.
+Short all-caps acronyms (S/W, BG11, MDA) and DSMZ's "Medium (ABBR Medium)"
 double-Medium style are left alone (handled/accepted elsewhere).
+
+THE EM DASH IS NOT LEGITIMATE HERE, and this line used to say it was. Listing it
+beside the German Ö and the chemical middot is the reason the house rule against
+en-dashes and em-dashes in visible copy was never enforced anywhere in this
+repository: it was an explicit exemption, not a fix that regressed. Normalisation
+is owned by tools/stages/53_house_voice_dashes.py, which distinguishes the spaced
+prose dash (a separator) from the unspaced compound joiner (a hyphen), because a
+blanket replacement turns "sucrose-molasses medium" and "Sigma-Aldrich" into
+comma splices.
 
 The pre-curation name is preserved in `name_original` (only set if not already
 present, so the earliest original survives repeated curation). Idempotent.

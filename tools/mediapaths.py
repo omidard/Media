@@ -71,13 +71,13 @@ SOURCE_INFO = {
     "usda": {"status": "public", "how": "python3 tools/fetch_sources.py usda",
              "note": "USDA FoodData Central bulk zips; US-government public domain."},
     "foodb": {"status": "public", "how": "python3 tools/fetch_sources.py foodb",
-              "note": "FooDB CSV dump, CC BY-NC 4.0 — non-commercial; keep the licence "
+              "note": "FooDB CSV dump, CC BY-NC 4.0: non-commercial; keep the licence "
                       "with the records it produces."},
     "mediadb": {"status": "public", "how": "python3 tools/fetch_sources.py mediadb",
                 "note": "MediaDB (ISB) scrape via tools/mediadb/fetch_mediadb.py; "
                         "All Rights Reserved upstream."},
     "bigg": {"status": "public", "how": "python3 tools/fetch_sources.py bigg",
-             "note": "bigg_models_metabolites.txt — the mapping backbone's input."},
+             "note": "bigg_models_metabolites.txt: the mapping backbone's input."},
     "metanetx": {"status": "public", "how": "python3 tools/fetch_sources.py metanetx",
                  "note": "MetaNetX chem_xref.tsv (CC BY 4.0)."},
     "hmdb": {"status": "public", "how": "python3 tools/fetch_sources.py hmdb",

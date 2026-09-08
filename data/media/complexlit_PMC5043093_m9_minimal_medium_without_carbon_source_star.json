@@ -4,7 +4,7 @@
  "category": "laboratory",
  "organism_scope": "prokaryote-generic",
  "aerobic": true,
- "description": "M9 minimal medium without carbon source (starvation), post glucose-to-none shift — medium reported in PMC5043093 (complex/undefined base — extracts not BiGG-mappable).",
+ "description": "M9 minimal medium without carbon source (starvation), post glucose-to-none shift, medium reported in PMC5043093 (complex/undefined base, extracts not BiGG-mappable).",
  "namespace": "bigg",
  "provenance": {
   "source_type": "literature",
@@ -16,7 +16,7 @@
   "base_expansion": "Base 'M9' expanded to standard composition: M9 minimal medium (Sambrook & Russell 2001): Na2HPO4, KH2PO4, NaCl, NH4Cl, MgSO4, CaCl2 + carbon source.",
   "verification_evidence": "'cells switched to M9 medium without carbon source' (main_text); same M9-salts base 'prepared as previously described (Kotte et al, 2014)'.",
   "verification_confidence": "medium",
-  "base_medium": "M9 minimal medium (standard Sambrook/CSH M9 salts) with (NH4)2SO4 as N source and thiamine-HCl as sole vitamin, per Kotte et al 2014 — carbon source omitted (starvation)",
+  "base_medium": "M9 minimal medium (standard Sambrook/CSH M9 salts) with (NH4)2SO4 as N source and thiamine-HCl as sole vitamin, per Kotte et al 2014, carbon source omitted (starvation)",
   "recuration": {
    "date": "2026-07-16",
    "round": "complete-recipe (cited+supplementary chased)",
@@ -50,13 +50,13 @@
     "defined M9 salts (Na2HPO4, KH2PO4, NaCl, MgSO4, CaCl2)"
    ],
    "corrections": [],
-   "notes": "Same M9 base as the fumarate medium but WITHOUT any carbon source (glucose-to-none shift, starvation) — 'cells switched to M9 medium without carbon source'. Correctly carbon-free; N/P/salts and thiamine retained. As above, the Fe/Mn/Zn/Cu/Co/Mo/Ni exchanges are model defaults, not defined medium trace elements (standard M9 has no trace-element mix)."
+   "notes": "Same M9 base as the fumarate medium but WITHOUT any carbon source (glucose-to-none shift, starvation), 'cells switched to M9 medium without carbon source'. Correctly carbon-free; N/P/salts and thiamine retained. As above, the Fe/Mn/Zn/Cu/Co/Mo/Ni exchanges are model defaults, not defined medium trace elements (standard M9 has no trace-element mix)."
   },
   "transforms": [
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "n_nonbigg_fallback:added",
      "schema_version:mediadb-record/2"
@@ -65,7 +65,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -85,7 +85,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -93,7 +93,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -106,7 +106,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -117,7 +117,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -133,9 +133,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "description",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -512,6 +531,7 @@
   }
  },
  "oxygen": "aerobic",
+ "oxygen_default_for_simulation": "aerobic",
  "oxygen_note": "no oxygen requirement specified; O2 available but not asserted",
  "base_medium": "M9",
  "defined": false,
@@ -534,7 +554,7 @@
   "pct_covered_source_denominator": 10,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 90.9,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 10,
  "n_derived": 1,

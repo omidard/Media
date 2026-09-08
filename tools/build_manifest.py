@@ -66,7 +66,7 @@ def _rows_json(path: str, key: str | None) -> int | None:
 
 # artifact -> (generator, inputs, how to count its rows)
 ARTIFACTS = [
-    ("data/media/", "frozen snapshot — generators are dead (PIPE-01)",
+    ("data/media/", "frozen snapshot: generators are dead (PIPE-01)",
      ["(none surviving)"], "dir"),
     ("data/index.json", "build_index.py", ["data/media/*.json"], "json:media"),
     # Part of the CORPUS, not a derived artifact: it holds the 2,291 distinct

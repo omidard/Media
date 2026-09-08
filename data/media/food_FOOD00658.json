@@ -17,15 +17,15 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 171282 (Whey, sweet, fluid; SR Legacy) — macronutrients, sugars, amino acids, fatty acids, minerals, vitamins, cholesterol",
-   "21 CFR 184.1979 (Whey standard) — sweet-whey lactose 46-52 g/L, protein 6-9 g/L, titratable acidity <=0.16% as lactic",
-   "J Dairy Sci invited review, Acid whey trends and health benefits, S0022-0302(20)31055-9 — sweet vs acid whey lactic acid",
-   "J Dairy Sci, role of sodium in salty taste of permeate, S0022-0302(14)00494-9 — whey/permeate organic acids (lactic, citric, orotic)",
-   "Milk citrate partition (~1.75-2.0 g/L, ~90% soluble) into whey — cheesescientist.com; PMC9457946"
+   "USDA FoodData Central FDC 171282 (Whey, sweet, fluid; SR Legacy), macronutrients, sugars, amino acids, fatty acids, minerals, vitamins, cholesterol",
+   "21 CFR 184.1979 (Whey standard), sweet-whey lactose 46-52 g/L, protein 6-9 g/L, titratable acidity <=0.16% as lactic",
+   "J Dairy Sci invited review, Acid whey trends and health benefits, S0022-0302(20)31055-9, sweet vs acid whey lactic acid",
+   "J Dairy Sci, role of sodium in salty taste of permeate, S0022-0302(14)00494-9, whey/permeate organic acids (lactic, citric, orotic)",
+   "Milk citrate partition (~1.75-2.0 g/L, ~90% soluble) into whey, cheesescientist.com; PMC9457946"
   ],
-  "curation_notes": "Sweet (rennet/cheese) fluid whey. Dominant carbon/energy source is lactose (~5.1 g/100g, ~150 mM); the growth-critical additions over the FooDB profile are the organic acids — citric acid (~0.16 g/100g, ~8 mM, inherited from milk citrate) and lactic acid (low in sweet whey but the defining acid of acid/yogurt whey, up to ~16x higher). Secondary N sources are soluble whey proteins (beta-lactoglobulin, alpha-lactalbumin) and their amino acids; minerals dominated by K > Na > Ca > P; riboflavin-rich",
+  "curation_notes": "Sweet (rennet/cheese) fluid whey. Dominant carbon/energy source is lactose (~5.1 g/100g, ~150 mM); the growth-critical additions over the FooDB profile are the organic acids, citric acid (~0.16 g/100g, ~8 mM, inherited from milk citrate) and lactic acid (low in sweet whey but the defining acid of acid/yogurt whey, up to ~16x higher). Secondary N sources are soluble whey proteins (beta-lactoglobulin, alpha-lactalbumin) and their amino acids; minerals dominated by K > Na > Ca > P; riboflavin-rich",
   "curation_added": [
-   "citric acid (~0.16 g/100g) — dominant native whey organic acid, absent from FooDB",
+   "citric acid (~0.16 g/100g), dominant native whey organic acid, absent from FooDB",
    "lactic acid (~0.05 g/100g sweet whey; up to ~1.6 g/L, far higher in acid whey)",
    "orotic acid and acetic acid (characteristic dairy organic acids)",
    "chloride (~110 mg/100g)",
@@ -76,7 +76,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -86,7 +86,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -106,7 +106,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -114,7 +114,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -125,9 +125,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -138,7 +146,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -154,9 +162,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance",
+     "uncovered"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -642,7 +669,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -1801,7 +1828,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "vitamin B12",
+   "name": "Adenosylcobalamin",
    "bigg_metabolite": "adocbl",
    "exchange": "EX_adocbl_e",
    "lower_bound": -10.0,
@@ -2147,7 +2174,7 @@
    "note": "no exchange auto-assigned; propose uptake -1.0 pending manual curation"
   },
   {
-   "name": "Myristoleic acid (C14:1) — genuine trace milk fatty acid, no dedicated BiGG met",
+   "name": "Myristoleic acid (C14:1), genuine trace milk fatty acid, no dedicated BiGG met",
    "reason": "unmatched",
    "curation": "needs_manual_curation",
    "xref": {},
@@ -2171,7 +2198,8 @@
    "bigg": 4
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fluid sweet whey (cheese/rennet whey)",
  "n_nonbigg_fallback": 0,
@@ -2194,7 +2222,7 @@
   "pct_covered_source_denominator": 57,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 50,
  "n_derived": 0,

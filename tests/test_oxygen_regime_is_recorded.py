@@ -38,12 +38,21 @@ column note has always said the field means. What the exported medium does with
 EX_o2_e is a separate published fact, so the curated regime and the simulation
 convention can never again be the same number.
 
-The per-record files in data/media still carry the pipeline's `facultative`
-there. Correcting the corpus needs a transform stage and a promotion, which is
-tracked in tests/test_defects.py; until it lands, the browser applies the rule to
-a per-record file using the vocabulary the payload publishes, and
-`test_the_record_sheet_and_the_browse_table_agree` is the test that keeps those
-two surfaces from disagreeing.
+The per-record files in data/media carried the `facultative` default in `oxygen`
+long after the payloads stopped publishing it, because correcting the corpus needs
+a transform stage and a promotion. 43_oxygen_regime_absent_when_unstated is that
+stage, and `test_a_record_does_not_state_a_regime_no_source_asserted` in
+tests/test_defects.py is the assertion that it stays corrected. The browser applies
+the same rule to a per-record file using the vocabulary the payload publishes, so a
+tree that has not run the stage still renders the truth, and
+`test_the_record_sheet_and_the_browse_table_agree` keeps those two surfaces from
+disagreeing.
+
+The count below is therefore taken through `web_payload.oxygen_recorded()` rather
+than by matching `oxygen == "facultative"` directly. That predicate answered the
+question only while the corpus was still wrong: against a corrected record it finds
+`oxygen` already null, counts zero, and would report the defect as absent for the
+one reason that must never make a test go quiet.
 
 The 71 records whose regime is `aerobic` while carrying one of these notes are
 deliberately untouched: those were set by a curator and kept a note from a run
@@ -92,7 +101,14 @@ def test_the_unstated_vocabulary_matches_the_curation_script(payload):
 
 
 def test_a_defaulted_regime_is_published_as_unknown(payload, stream, is_full_corpus):
-    """The corpus rule, and the published tally that must match it."""
+    """The corpus rule, and the published tally that must match it.
+
+    Counted through oxygen_recorded() so it keeps answering the question after
+    54_oxygen_regime_absent_when_unstated lands. Matching `oxygen == "facultative"`
+    on the record was the right predicate only while the record was still wrong:
+    against a corrected corpus it finds null, counts zero, and reports the defect
+    as absent for the one reason a test must never go quiet.
+    """
     import web_payload
 
     defaulted = 0
@@ -101,9 +117,10 @@ def test_a_defaulted_regime_is_published_as_unknown(payload, stream, is_full_cor
         note = (rec.get("oxygen_note") or "").strip()
         if note not in web_payload.OXYGEN_NOT_STATED_NOTES:
             continue
-        if rec.get("oxygen") == "facultative":
+        regime, default = web_payload.oxygen_recorded(rec)
+        if regime is None and default == "facultative":
             defaulted += 1
-        elif rec.get("oxygen") == "aerobic":
+        elif regime == "aerobic":
             stale_aerobic += 1
     if is_full_corpus:
         assert defaulted == N_DEFAULTED
@@ -111,6 +128,40 @@ def test_a_defaulted_regime_is_published_as_unknown(payload, stream, is_full_cor
             "the stale-note records moved; they are curator-set and must not be "
             "swept into the unknown bucket")
     assert payload["oxygen_basis"]["n_no_source_statement"] == defaulted
+
+
+def test_the_two_branches_of_oxygen_recorded_agree_on_every_record(stream):
+    """The correction may not move a published number, and this is the proof.
+
+    oxygen_recorded() has two branches: it reads the pair off a record that has
+    been through 54_oxygen_regime_absent_when_unstated, and derives it from the
+    note vocabulary on one that has not. Every payload tally about oxygen is
+    computed through it, so the two branches disagreeing by even one record would
+    change by_oxygen or oxygen_basis the moment a corrected corpus is promoted,
+    silently and in the direction nobody was watching.
+
+    The derived branch is re-run here against each record's own note, whichever
+    state the corpus is in.
+    """
+    import web_payload
+
+    disagree = []
+    for mid, rec in stream():
+        got = web_payload.oxygen_recorded(rec)
+        stripped = {k: v for k, v in rec.items()
+                    if k != "oxygen_default_for_simulation"}
+        if "oxygen_default_for_simulation" in rec:
+            # A corrected record: the derived branch must be re-run against the
+            # regime the record carried BEFORE the stage, which is the default.
+            stripped["oxygen"] = (rec["oxygen"]
+                                  if rec["oxygen"] is not None
+                                  else rec["oxygen_default_for_simulation"])
+        derived = web_payload.oxygen_recorded(stripped)
+        if got != derived:
+            disagree.append((mid, got, derived))
+    assert not disagree, (
+        "%d records where the pair read off the record and the pair derived from "
+        "its own oxygen_note differ. e.g. %s" % (len(disagree), disagree[:3]))
 
 
 def test_the_published_unknown_count_is_the_whole_unknown_set(payload, is_full_corpus):

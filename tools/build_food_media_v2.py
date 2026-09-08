@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FooDB food media, v2 — completeness fix.
+"""FooDB food media, v2: completeness fix.
 
 The v1 builder silently dropped every measured FooDB compound that did not map to
 BiGG (`if not mp: continue`) and hard-coded `unmapped:[]`. This version:

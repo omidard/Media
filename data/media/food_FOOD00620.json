@@ -17,15 +17,15 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 171284 (Yogurt, plain, whole milk) — macros, minerals, vitamins, full amino-acid and fatty-acid panel, cholesterol",
-   "Marshall/Cheng et al., Determination of Sugars in Yogurt by HPLC, J Dairy Sci 1987 70, doi:10.3168/jds.S0022-0302(87)80124-8 — residual lactose/galactose/glucose",
-   "Fernandez-Garcia E & McGregor JU 1994, Determination of organic acids during fermentation and cold storage of yogurt, J Dairy Sci 77:2934-2939, PMID 7836580 — lactic/citric/acetic/orotic acids",
+   "USDA FoodData Central FDC 171284 (Yogurt, plain, whole milk), macros, minerals, vitamins, full amino-acid and fatty-acid panel, cholesterol",
+   "Marshall/Cheng et al., Determination of Sugars in Yogurt by HPLC, J Dairy Sci 1987 70, doi:10.3168/jds.S0022-0302(87)80124-8, residual lactose/galactose/glucose",
+   "Fernandez-Garcia E & McGregor JU 1994, Determination of organic acids during fermentation and cold storage of yogurt, J Dairy Sci 77:2934-2939, PMID 7836580, lactic/citric/acetic/orotic acids",
    "Fermented-milk galactose review, Int Dairy J / Food Chem, doi:10.1016/j.idairyj.2017.06.001 (total galactose 2.3-2.4 g/100g)",
-   "FooDB FOOD00620 (Yogurt) — base record; noise flagged for removal"
+   "FooDB FOOD00620 (Yogurt), base record; noise flagged for removal"
   ],
   "curation_notes": "Dominant carbon/energy sources for microbial growth on plain yogurt are lactic acid (~0.9 g/100g), lactose (~3.7 g/100g) and free galactose (~1.0 g/100g); glucose stays at trace because starter bacteria consume it while galactose accumulates. Organic acids (lactic + citric) were completely missing from the FooDB profile and are the key correction. Removed a large block of soy isoflavones/plant lignans plus methylxanthines that are FooDB matrix contamination for plain dairy yogurt; cholesterol an",
   "curation_added": [
-   "L-lactic acid (0.9 g/100g, dominant organic acid — was entirely absent)",
+   "L-lactic acid (0.9 g/100g, dominant organic acid, was entirely absent)",
    "citric acid (0.23 g/100g)",
    "acetic acid (minor fermentation acid)",
    "orotic acid (dairy pyrimidine acid)",
@@ -148,7 +148,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -158,7 +158,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -178,7 +178,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -186,7 +186,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -197,9 +197,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -210,7 +218,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -226,9 +234,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components",
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -797,7 +824,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -2667,7 +2694,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "Nonanoate / gadoleic acid (C9:0, C20:1 — genuine trace odd/long-chain milk fatty acids)",
+   "name": "Nonanoate / gadoleic acid (C9:0, C20:1, genuine trace odd/long-chain milk fatty acids)",
    "bigg_metabolite": "C01601",
    "exchange": "EX_C01601_e",
    "lower_bound": -1.0,
@@ -2682,7 +2709,7 @@
    "source_xref": null,
    "match_key": null,
    "match_field": null,
-   "source_name": "Nonanoate / gadoleic acid (C9:0, C20:1 — genuine trace odd/long-chain milk fatty acids)",
+   "source_name": "Nonanoate / gadoleic acid (C9:0, C20:1, genuine trace odd/long-chain milk fatty acids)",
    "target_name": "Nonanoate",
    "evidence_tier": "fuzzy_name",
    "source_observed": true,
@@ -2866,7 +2893,8 @@
    "bigg": 7
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh weight (plain, whole-milk cow yogurt; ~100 g ≈ 100 mL, density ~1.03 g/mL)",
  "n_nonbigg_fallback": 0,
@@ -2889,7 +2917,7 @@
   "pct_covered_source_denominator": 70,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 69,
  "n_derived": 0,

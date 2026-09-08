@@ -17,14 +17,14 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA SR Legacy NDB 22904 'Chili con carne with beans, canned entree' (247 kcal per 242 g cup) — full proximate/mineral/vitamin/fatty-acid/sugar panel, rescaled to per 100 g",
+   "USDA SR Legacy NDB 22904 'Chili con carne with beans, canned entree' (247 kcal per 242 g cup), full proximate/mineral/vitamin/fatty-acid/sugar panel, rescaled to per 100 g",
    "FooDB FOOD00707 (identity: prepared dish 'Chili' = chili con carne, food group Dishes/Tex-Mex)",
    "USDA FoodData Central (fdc.nal.usda.gov) mirror of NDB 22904"
   ],
   "curation_notes": "Dominant carbon/energy sources are STARCH (6.9 g/100g, from beans) plus free sugars (sucrose>fructose>glucose, ~1.9 g/100g total from tomato/onion); substantial mixed beef+bean protein (5.8 g/100g) supplies amino-acid N. This is a MEAT-containing dish, so cholesterol, B12, and animal-type saturated/trans fatty acids are genuine, not FooDB plant-food noise. Two gaps remain unquantified for this specific composite: individual amino acids (USDA SR 22904 does not resolve them) and organic acids (cit",
   "curation_added": [
    "Individual free sugars with amounts: sucrose 1.03, D-fructose 0.49, D-glucose 0.34 g/100g",
-   "Starch quantified (6.90 g/100g) — the dominant fermentable carbohydrate",
+   "Starch quantified (6.90 g/100g), the dominant fermentable carbohydrate",
    "citric acid + malic acid (organic acids from tomato, growth-relevant carbon; present, flagged for quantification)",
    "Full mineral amounts (Na, K, P, Ca, Mg, Fe, Zn, Mn, Cu, Se)",
    "Full B-vitamin amounts + choline, vitamin K, vitamin E, folate, B12",
@@ -59,7 +59,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -69,7 +69,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -89,7 +89,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -97,7 +97,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -110,7 +110,7 @@
    {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -121,7 +121,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -137,9 +137,27 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -3084,7 +3102,8 @@
    "bigg": 15
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g as-consumed (ready-to-eat canned entree)",
  "n_nonbigg_fallback": 0,
@@ -3107,7 +3126,7 @@
   "pct_covered_source_denominator": 90,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 77,
  "n_derived": 0,

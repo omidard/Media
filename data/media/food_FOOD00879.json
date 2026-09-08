@@ -17,18 +17,18 @@
   "verification": "expert-curated (multi-source food composition; growth-relevant profile completed, FooDB noise removed)",
   "curation_date": "2026-07-17",
   "curation_sources": [
-   "USDA FoodData Central FDC 170108 (Peppers, sweet, red, raw) — full nutrient/amino-acid/fatty-acid panel; used as proxy for fully-ripe orange bell pepper",
-   "USDA FoodData Central FDC 170432 (Peppers, sweet, yellow, raw) — cross-check for ripe non-red cultivar",
-   "Zhang et al. 2023, 'Comprehensive fruit quality assessment ... green pepper (Capsicum annuum L.)', PMC9871545 — organic acid HPLC quantification",
-   "Nature Sci Rep 2026 s41598-026-37078-w — comparative nutrient & organic-acid profiles of pepper genotypes (corroborating organic-acid ranges)",
-   "Matsufuji et al. 2007, Int J Food Sci Technol, doi:10.1111/j.1365-2621.2006.01368.x — carotenoid/antioxidant content of orange vs other coloured sweet peppers",
+   "USDA FoodData Central FDC 170108 (Peppers, sweet, red, raw), full nutrient/amino-acid/fatty-acid panel; used as proxy for fully-ripe orange bell pepper",
+   "USDA FoodData Central FDC 170432 (Peppers, sweet, yellow, raw), cross-check for ripe non-red cultivar",
+   "Zhang et al. 2023, 'Comprehensive fruit quality assessment ... green pepper (Capsicum annuum L.)', PMC9871545, organic acid HPLC quantification",
+   "Nature Sci Rep 2026 s41598-026-37078-w, comparative nutrient & organic-acid profiles of pepper genotypes (corroborating organic-acid ranges)",
+   "Matsufuji et al. 2007, Int J Food Sci Technol, doi:10.1111/j.1365-2621.2006.01368.x, carotenoid/antioxidant content of orange vs other coloured sweet peppers",
    "FooDB FOOD00879 (Orange bell pepper)"
   ],
   "curation_notes": "Dominant carbon/energy sources are the free hexoses D-fructose (~2.3 g) and D-glucose (~1.9 g) plus citric acid (~0.37 g), with L-malic and ascorbate secondary; sucrose is negligible. Orange bell pepper is a fully-ripe Capsicum annuum, compositionally near red sweet pepper (used as the quantitative proxy), distinguished mainly by a zeaxanthin/beta-carotene-dominated carotenoid profile. Fumaric-acid value flagged medium-confidence (source reports it unusually high). Removed 28 items: heavy-metal/",
   "curation_added": [
    "D-glucose and D-fructose with individual amounts (were absent; hexoses are the dominant carbon source)",
-   "citric acid (dominant organic acid, ~370 mg/100g) — was entirely missing",
-   "L-malic acid, fumaric acid, alpha-ketoglutaric acid, oxalic acid — organic acids missing",
+   "citric acid (dominant organic acid, ~370 mg/100g), was entirely missing",
+   "L-malic acid, fumaric acid, alpha-ketoglutaric acid, oxalic acid, organic acids missing",
    "full mineral panel with amounts (K, P, Mg, Ca, Na, Fe, Zn, Mn, Cu, Se)",
    "full vitamin panel with amounts (B1/B2/B3/B5/B6/B9, C, A, E, K)",
    "amino-acid amounts (were name-only) and total protein",
@@ -153,7 +153,7 @@
    {
     "stage": "10_normalize_schema",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "defined:absent->null",
      "n_nonbigg_fallback:added",
@@ -163,7 +163,7 @@
    {
     "stage": "20_stamp_provenance",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].derived_class",
      "components[].evidence_class",
@@ -183,7 +183,7 @@
    {
     "stage": "39_recompute_coverage",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "coverage_source"
     ]
@@ -191,7 +191,7 @@
    {
     "stage": "40_remap_components",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "mapping_schema_version",
      "n_derived",
@@ -202,9 +202,17 @@
     ]
    },
    {
+    "stage": "41_component_identity_names",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "components[].name"
+    ]
+   },
+   {
     "stage": "50_load_concentrations",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components.concentration_status",
      "components.derived_not_sourced",
@@ -215,7 +223,7 @@
    {
     "stage": "51_normalize_names",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "collection",
      "composition_identical_to",
@@ -231,9 +239,28 @@
     ]
    },
    {
+    "stage": "53_house_voice_dashes",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "coverage_source.definition",
+     "provenance",
+     "uncovered"
+    ]
+   },
+   {
+    "stage": "54_oxygen_regime_absent_when_unstated",
+    "version": "1.0.0",
+    "date": "2026-09-08",
+    "changes": [
+     "oxygen",
+     "oxygen_default_for_simulation"
+    ]
+   },
+   {
     "stage": "60_dedupe_references",
     "version": "1.0.0",
-    "date": "2026-09-07",
+    "date": "2026-09-08",
     "changes": [
      "components[].mapping_note -> mapping_note_id",
      "components[].quantity_basis -> quantity.basis",
@@ -1158,7 +1185,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "L-cystine",
+   "name": "L Cystine C6H12N2O4S2",
    "bigg_metabolite": "cysi__L",
    "exchange": "EX_cysi__L_e",
    "lower_bound": -10.0,
@@ -2071,7 +2098,7 @@
    "mapping_note_id": "n5a246b"
   },
   {
-   "name": "vitamin B12",
+   "name": "Adenosylcobalamin",
    "bigg_metabolite": "adocbl",
    "exchange": "EX_adocbl_e",
    "lower_bound": -10.0,
@@ -2656,7 +2683,7 @@
    "note": "no exchange auto-assigned; propose uptake -1.0 pending manual curation"
   },
   {
-   "name": "Capsaicin, Dihydrocapsaicin, Nordihydrocapsaicin, Homocapsaicin, Homodihydrocapsaicin, Nonivamide, Capsiamide (capsaicinoids/amides — genuine but very low in sweet non-pungent bell pepper; no BiGG met)",
+   "name": "Capsaicin, Dihydrocapsaicin, Nordihydrocapsaicin, Homocapsaicin, Homodihydrocapsaicin, Nonivamide, Capsiamide (capsaicinoids/amides, genuine but very low in sweet non-pungent bell pepper; no BiGG met)",
    "reason": "unmatched",
    "curation": "needs_manual_curation",
    "xref": {},
@@ -2704,7 +2731,8 @@
    "bigg": 6
   }
  },
- "oxygen": "facultative",
+ "oxygen": null,
+ "oxygen_default_for_simulation": "facultative",
  "oxygen_note": "food substrate; O2 availability is a simulation condition, not a property of the food",
  "basis": "per 100 g fresh weight",
  "n_nonbigg_fallback": 0,
@@ -2727,7 +2755,7 @@
   "pct_covered_source_denominator": 70,
   "pct_covered_source_is_upper_bound": false,
   "pct_sourced_of_components": 100.0,
-  "definition": "pct_covered_all = components / (components + unresolved ingredients) — the legacy metric, which counts pipeline-derived components as covered. pct_covered_source = source-stated components / (those + unresolved ingredients + ingredients replaced by derived components). Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
+  "definition": "pct_covered_all divides components by (components + unresolved ingredients). It counts pipeline-derived components as covered, so it is not a measure of how much of the source's own ingredient list was captured. pct_covered_source divides source-stated components by (those + unresolved ingredients + ingredients replaced by derived components), which is that measure. Component classes come from tools/component_evidence_classes.tsv. A null value means the denominator was zero; it does not mean 100."
  },
  "n_observed": 62,
  "n_derived": 0,
